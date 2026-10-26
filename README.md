@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1114 skills · 11 volumes · 6787 relation edges · 2795 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1114 skills · 11 volumes · 6787 relation edges · 2845 indexed entries" width="1200" /></picture>
 </p>
 <!-- END GENERATED:brand -->
 
@@ -117,7 +117,7 @@ npm run skill -- eval
 <!-- BEGIN GENERATED:skill-repos -->
 ## 技能仓库目录
 
-目前有 **2795** 条 GitHub 技能库/市场/精选列表目录记录。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+目前有 **2845** 条 GitHub 技能库/市场/精选列表目录记录。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
 
 完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
 
@@ -1067,7 +1067,7 @@ npm run skill -- eval
 </details>
 
 <details>
-<summary>3. 垂直领域技能包（vertical）（1357）</summary>
+<summary>3. 垂直领域技能包（vertical）（1363）</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — 方法论技能包：TDD、头脑风暴、子代理驱动开发等可组合工程纪律。 (上游可访问)
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — Everything Claude Code 后继：技能/代理/命令/钩子插件市场。原名 everything-claude-code。 (上游可访问)
@@ -1809,6 +1809,7 @@ npm run skill -- eval
 - [`scdenney/open-science-skills`](https://github.com/scdenney/open-science-skills) — 社会科学开放科学方法 Agent Skills。 (上游可访问)
 - [`ScottDuncanAI/claude-manufacturing-skills`](https://github.com/ScottDuncanAI/claude-manufacturing-skills) — 化工与制造工程实践技能；插件市场安装。 (上游可访问)
 - [`ShaishavMaisuria/research-paper-lifecycle-skills`](https://github.com/ShaishavMaisuria/research-paper-lifecycle-skills) — 42 个 Agent Skills 覆盖论文全生命周期，从文献发现、写作、核验到投稿、答辩、发表和报告。 (上游可访问)
+- [`ajhcs/healthcare-agents`](https://github.com/ajhcs/healthcare-agents) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`finna/project-manager-skill`](https://github.com/finna/project-manager-skill) — 面向 ChatGPT/Codex 的项目管理 Agent Skill：规划、跟踪与交付，含 SKILL.md。 (上游可访问)
 - [`modem-dev/skills`](https://github.com/modem-dev/skills) — Modem Agent Skills（含可发现内容写作等）。 (上游可访问)
 - [`suntay44/buildable-plugin-skills`](https://github.com/suntay44/buildable-plugin-skills) — 本地优先 AI 应用构建脑（Claude 插件 Skills）。 (上游可访问)
@@ -2228,6 +2229,7 @@ npm run skill -- eval
 - [`DajunG-77/research-opportunity-graph-skill`](https://github.com/DajunG-77/research-opportunity-graph-skill) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
 - [`DedInc/chef-agentic-skills`](https://github.com/DedInc/chef-agentic-skills) — 烹饪技能集合，涵盖技法、食品科学、各国菜系、菜单规划与饮食限制。 (上游可访问)
 - [`ensommeille/research-vault-maintainer`](https://github.com/ensommeille/research-vault-maintainer) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
+- [`gagangulyani/job-search-skill`](https://github.com/gagangulyani/job-search-skill) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`hyt24/nds-game-localization-skill`](https://github.com/hyt24/nds-game-localization-skill) — 通过来源清单、术语审批、可复现补丁和运行验证记录审计及本地化 Nintendo DS 游戏资源。 (上游可访问)
 - [`navveenb/lean-agentic-ai-skills`](https://github.com/navveenb/lean-agentic-ai-skills) — 通过共享问题记录契约组合 Web、云、数据与 AI 工作负载的细分效率审计和设计。 (上游可访问)
 - [`SavrinaYu/target-market-localizer`](https://github.com/SavrinaYu/target-market-localizer) — 面向目标市场改编中英文内容，覆盖本地化、创译、术语和主张评审。 (上游可访问)
@@ -2311,7 +2313,9 @@ npm run skill -- eval
 - [`locize/locize-agents`](https://github.com/locize/locize-agents) — 使用项目术语表、风格指南、翻译记忆与截图上下文评审 Locize 翻译。 复审：i18next-localization翻译后补npx i18next-cli lint检查{{name}}/$t()/<0>占位差异，status提示仍与原语言相同的值。 (上游可访问)
 - [`msg2ai/nonprofit-team-skills`](https://github.com/msg2ai/nonprofit-team-skills) — 按角色划分的非营利技能，涵盖领导、筹款、资助、项目、传播、财务、志愿者和网站工作。 (上游可访问)
 - [`Nagi-Inaba/information-accessibility-skill`](https://github.com/Nagi-Inaba/information-accessibility-skill) — 面向网站、文档、媒体、会议、活动和参与流程的信息无障碍审阅与证据记录。 (上游可访问)
+- [`peditx/openwrt-luci-complete-developer-guide`](https://github.com/peditx/openwrt-luci-complete-developer-guide) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`RajaMDM/agents-for-good-gcc`](https://github.com/RajaMDM/agents-for-good-gcc) — 面向海湾地区非营利组织的阿英双语捐赠致谢、影响报告与资助发现工作流。 (上游可访问)
+- [`rdmbtc/puls-sdk`](https://github.com/rdmbtc/puls-sdk) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`salikkhann/openmedskills`](https://github.com/salikkhann/openmedskills) — 带风险元数据、引用、示例、评测与跨代理导出的医学研究及教育技能注册表。 (上游可访问)
 - [`scaliaven/chemist`](https://github.com/scaliaven/chemist) — 两项计算化学技能，分别提供 ASE 模拟和 Amber 分子动力学流程。 (上游可访问)
 - [`SeagullTwo/uk-planning-skills`](https://github.com/SeagullTwo/uk-planning-skills) — 英国规划文件技能，涵盖申请分诊、生态、交通、遗产、洪水、政策评估、报告与委员会准备。 (上游可访问)
@@ -2398,6 +2402,7 @@ npm run skill -- eval
 - [`QWarranto/leafengines-hermes-skill`](https://github.com/QWarranto/leafengines-hermes-skill) — 美国农业情报技能，覆盖土壤、水质、作物建议和环境指标。 (上游可访问)
 - [`realnaka/claim-verification`](https://github.com/realnaka/claim-verification) — 准入候选：README、代表 SKILL、LICENSE 已实读，科研/教育方向与固定对象证据充分。 (上游可访问)
 - [`rhiza-research/chc-skills`](https://github.com/rhiza-research/chc-skills) — rhiza-research/chc-skills：当前复审口径为 15，具体公开分发范围见固定版本证据。 复审：新增ICON-EPS公开DWD40成员forecast fetch，triangular→lat/lon regrid，实际只保留约24h runs，00/12与06/18 lead不同；tp转interval-start rate、末lead无interval时丢弃，linear不严格守恒可nearest。Python3.12/uv/eccodes依赖、无凭证，Zarr后续聚合单位要按contract，未实际下载气象数据。 (上游可访问)
+- [`rian010194/floorcheck`](https://github.com/rian010194/floorcheck) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`Rigjite/Ecosystem-Digital-Twin`](https://github.com/Rigjite/Ecosystem-Digital-Twin) — 设计与审查生态系统数字孪生，覆盖数据质量、校准、预测与监测计划。 (上游可访问)
 - [`robertriedel/POD2_Config_Skill`](https://github.com/robertriedel/POD2_Config_Skill) — 使用标准插件与动作生成、验证 SAP Digital Manufacturing POD 2.0 配置。 (上游可访问)
 - [`RoodsBurger/eagle-pcb-studio`](https://github.com/RoodsBurger/eagle-pcb-studio) — 生成与审查 EAGLE/Fusion Electronics 板卡、库、Gerber 和制造检查结果。 (上游可访问)
@@ -2423,6 +2428,7 @@ npm run skill -- eval
 - [`WenyuChiou/research-talk-coach`](https://github.com/WenyuChiou/research-talk-coach) — 准入候选：README与固定代表 SKILL 已实读；技能面向科研/教育/实验室/HPC/医学研究，许可证字节已绑定（仅索引元数据） (上游可访问)
 - [`WholeWhale/verified-giving-protocol`](https://github.com/WholeWhale/verified-giving-protocol) — 发现非营利捐赠入口，生成附证据且保留人工授权边界的 Verified Giving Protocol 声明草稿。 (上游可访问)
 - [`yinum/analytical-skills`](https://github.com/yinum/analytical-skills) — 分析化学论文工作流，覆盖文献、绘图、统计、写作与投稿。 (上游可访问)
+- [`Zenfox-690/skillpulse`](https://github.com/Zenfox-690/skillpulse) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`Zhimanaiyou/museum-archaeology-notebook`](https://github.com/Zhimanaiyou/museum-archaeology-notebook) — 在保留原物形状、铭文和视觉细节的前提下，将博物馆文物照片制作为考古手记图像。 (上游可访问)
 - [`Zwl20085/femm-agent-suite`](https://github.com/Zwl20085/femm-agent-suite) — 面向磁场、静电、热流和电流场的 FEMM 建模及物理验证流程。 (上游可访问)
 - [`Zwl20085/jmag-agent-suite`](https://github.com/Zwl20085/jmag-agent-suite) — JMAG-Designer 技能，覆盖电机设计、虚拟试验、电磁仿真和结果验证。 (上游可访问)
@@ -2430,7 +2436,7 @@ npm run skill -- eval
 </details>
 
 <details>
-<summary>4. 安装器 / 注册表 / 基础设施（infra）（283）</summary>
+<summary>4. 安装器 / 注册表 / 基础设施（infra）（327）</summary>
 
 - [`morluto/rea`](https://github.com/morluto/rea) — morluto/rea：当前复审口径为 1，具体公开分发范围见固定版本证据。 复审：REA v42→45补PyInstaller CArchive、Apple资源、APK签名自一致性、GPU code objects、GGUF/safetensors header/full hash、IL2CPP元数据、PE证书/ELF notes/CPython pyc/BEAM等静态接口及retained evidence分页；签名存在/摘要匹配不等于信任或运行。超时/连接故障重试需先判实际效果。新增analysis optimization以完成真实调查的等价事实/证据作oracle，区分缓存生命周期与cold/warm。 (上游可访问)
 - [`paperclipai/paperclip`](https://github.com/paperclipai/paperclip) — paperclipai/paperclip：当前复审口径为 多技能（9 root public skills; additional catalogs/plugins），具体公开分发范围见固定版本证据。 复审：新增create-case、native Runner adapter集成与fix-failed-paperclip-run；旧diagnose入口转完整red→repair→real workflow→green PR且保留diagnosis-only边界。Runner新Claude以acpx/native支持明确平台，unsupported/SSH仍Legacy；Honeycomb改真实parent context/foldable phase；test-audit收据放task/PR不自动加repo docs；协调技能避免不必要阻塞。 (上游可访问)
@@ -2647,6 +2653,7 @@ npm run skill -- eval
 - [`fraylabs/possible`](https://github.com/fraylabs/possible) — Possible 成果与配方注册表，附公开 Agent Skill，用于发现、检查与复用 AI 工作流配方。 (上游可访问)
 - [`Sivan757/dsh-agent-plugins-market`](https://github.com/Sivan757/dsh-agent-plugins-market) — DeepSeek Harness 插件市场：经 Web GUI 安装 Claude/Codex/Cursor 技能套件、MCP 与 hooks。 (上游可访问)
 - [`Agent-Card/ai-catalog-cli`](https://github.com/Agent-Card/ai-catalog-cli) — 从 AI Catalog 发现、校验、查看和安装 MCP 服务器、A2A Agent 与技能，支持 OCI 目录。 复审：删除Trust inspection整节和trust errors退出码表述 (上游可访问)
+- [`buidangminh23/spacing-skill`](https://github.com/buidangminh23/spacing-skill) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`Drix10/agent-flow`](https://github.com/Drix10/agent-flow) — 感知上下文漂移的 Implement→Review→QA Agent Skill 流程（MIT）。 (上游可访问)
 - [`ianustec/openwebui-skill-creator`](https://github.com/ianustec/openwebui-skill-creator) — Open WebUI Tool：访谈→起草→校验→持久化 Workspace Skill（SKILL.md），默认私有。 (上游可访问)
 - [`Jignesh-Ponamwar/skills-mcp`](https://github.com/Jignesh-Ponamwar/skills-mcp) — 通过 MCP 以渐进加载方式提供可自托管、可搜索的 Agent Skills 注册表。 (上游可访问)
@@ -2674,6 +2681,7 @@ npm run skill -- eval
 - [`sentenz/skills`](https://github.com/sentenz/skills) — sentenz/skills：当前复审口径为 26，具体公开分发范围见固定版本证据。 复审：新增C++/Go/Python三份Google style摘要：C++20/RAII/header、Go gofmt/错误/接口、Python types/docstrings/imports等并指references全文。它们位于sentenz第三方仓库，内部称official guide不使本仓成为Google官方发行；保留来源与各原文授权，未直接导入正式正文。 (上游可访问)
 - [`sigistry/marketplace`](https://github.com/sigistry/marketplace) — 带开放安全检查、机器可读核验和同意式外部引用的插件/技能注册表。 (上游可访问)
 - [`alivirgo/Major-AI-Skills`](https://github.com/alivirgo/Major-AI-Skills) — 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Arstanley/Prompt2Skill`](https://github.com/Arstanley/Prompt2Skill) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`artemasmith/skillsentinel`](https://github.com/artemasmith/skillsentinel) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
 - [`CaseYwY/skills`](https://github.com/CaseYwY/skills) — 公开产品、插件或工作流 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`craftbag/craftbag`](https://github.com/craftbag/craftbag) — 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
@@ -2692,29 +2700,71 @@ npm run skill -- eval
 - [`aideploytutor/skill-deploy-share`](https://github.com/aideploytutor/skill-deploy-share) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
 - [`antshkvr/skillward`](https://github.com/antshkvr/skillward) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
 - [`Arcturus91/claude-flutter-skill`](https://github.com/Arcturus91/claude-flutter-skill) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
+- [`clay-run/clay-skill-creator`](https://github.com/clay-run/clay-skill-creator) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`contextosai/skills`](https://github.com/contextosai/skills) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
 - [`cskwork/skill-curator`](https://github.com/cskwork/skill-curator) — 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Fizzl13/fizzl-skills`](https://github.com/Fizzl13/fizzl-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`GhostPawJS/grimoire`](https://github.com/GhostPawJS/grimoire) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
 - [`justhandledlabs/skills`](https://github.com/justhandledlabs/skills) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
 - [`kesslernity/awesome-copilot-office-skills`](https://github.com/kesslernity/awesome-copilot-office-skills) — 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Lessie-wang/agent-todo`](https://github.com/Lessie-wang/agent-todo) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`linsir2/project-incarnation-skill`](https://github.com/linsir2/project-incarnation-skill) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`longwave-ai-lab/anti-slop-ai-harness`](https://github.com/longwave-ai-lab/anti-slop-ai-harness) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
+- [`lurnake/agent-socials-skill`](https://github.com/lurnake/agent-socials-skill) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`mehulpatel23b-pixel/skill-doctor`](https://github.com/mehulpatel23b-pixel/skill-doctor) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
 - [`pchuri/agent-skills`](https://github.com/pchuri/agent-skills) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
 - [`rhiza-research/weather-skills-core`](https://github.com/rhiza-research/weather-skills-core) — 可组合天气技能开发基础设施：共享 Zarr 契约、来源记录、检查工具与技能编写指南。 复审：authoring指南从严格name.py转一个scripts入口，@weather_skill统一CLI/Zarr/pint/provenance，kwargs必需、parsed canonical flags不二次解析、metadata.version与代码CI同步；inputs/outputs说明精简指向SSOT。另一fixture改描述、一fixture移除，均非公开技能增减。 (上游可访问)
+- [`Ruanzhou9/shared-agent-memory`](https://github.com/Ruanzhou9/shared-agent-memory) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`skillmds/skillmd`](https://github.com/skillmds/skillmd) — MIT 许可的 SKILL.md 注册表工具链：CLI、MCP 服务、Lint、安全扫描、质量评分与 GitHub Action。 (上游可访问)
 - [`SkillsCatalog/registry`](https://github.com/SkillsCatalog/registry) — 社区 Agent Skills 注册表，覆盖创建、安装、搜索、校验、发布和安全扫描。 (上游可访问)
 - [`stanleys12/skilljail`](https://github.com/stanleys12/skilljail) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
+- [`TraX22/HydraOps-Skills`](https://github.com/TraX22/HydraOps-Skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`wanderlima/agent-skills`](https://github.com/wanderlima/agent-skills) — 公开科研/教育 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`xu-jin-cs/dsh-skills`](https://github.com/xu-jin-cs/dsh-skills) — 公开技能基础设施或工作流技能集合；已固定 README、代表 SKILL 和许可证 Blob/SHA-256。 (上游可访问)
+- [`agi-bar/agi-bar-skill`](https://github.com/agi-bar/agi-bar-skill) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`ammadeo/skills`](https://github.com/ammadeo/skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`aqora-io/skills`](https://github.com/aqora-io/skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`arm-pz/caffeinity-skills`](https://github.com/arm-pz/caffeinity-skills) — 准入：Claude Code plugin marketplace and index for arm-pz skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
 - [`arm-pz/prompts-to-skill`](https://github.com/arm-pz/prompts-to-skill) — 通过意图访谈、重叠检查、起草、测试用例和调优门槛，将用户提示词集合转换为复用技能。 (上游可访问)
+- [`arnaud-zg/configs`](https://github.com/arnaud-zg/configs) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`brawblan/ai-workflow`](https://github.com/brawblan/ai-workflow) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Catalyst-Forge-LLC/detangler`](https://github.com/Catalyst-Forge-LLC/detangler) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Ces107/agent-forge`](https://github.com/Ces107/agent-forge) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`chloe4ai/ai-trackers`](https://github.com/chloe4ai/ai-trackers) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`diagrammo/skills`](https://github.com/diagrammo/skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`Findskills/skillpi`](https://github.com/Findskills/skillpi) — 准入：SkillPi discovery/vetting registry for Claude Code, Cursor and Codex. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`getbrevo/brevo-skills`](https://github.com/getbrevo/brevo-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`Hook12aaa/skill-cheat`](https://github.com/Hook12aaa/skill-cheat) — 分阶段技能创作流程，覆盖范围设计、不可变约定、起草、独立审阅、插件搭建与压力测试。 (上游可访问)
+- [`iamthenop/infurnet-skills`](https://github.com/iamthenop/infurnet-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`injey/agent-skills`](https://github.com/injey/agent-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Jeinn-co/agent-skills`](https://github.com/Jeinn-co/agent-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`julianosirtori/skills`](https://github.com/julianosirtori/skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Levango7/design-md-skill`](https://github.com/Levango7/design-md-skill) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`LikaloLLC/docsie-skills`](https://github.com/LikaloLLC/docsie-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`m5rc238/glyph-skill`](https://github.com/m5rc238/glyph-skill) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`majiayu000/skill-checkup`](https://github.com/majiayu000/skill-checkup) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`maximusmaximus/poa-agent-kit`](https://github.com/maximusmaximus/poa-agent-kit) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Merlin-Bedford/merlin-slides-mcp`](https://github.com/Merlin-Bedford/merlin-slides-mcp) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`milad-ahmd/skill-creator-pro`](https://github.com/milad-ahmd/skill-creator-pro) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`MWest2020/skill-forge`](https://github.com/MWest2020/skill-forge) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`niklauslu/crabcloud-skills`](https://github.com/niklauslu/crabcloud-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`OfficialSpicrawl/docs2skill`](https://github.com/OfficialSpicrawl/docs2skill) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Optale-no/console-skills`](https://github.com/Optale-no/console-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`PakhomLeo/plan-gate`](https://github.com/PakhomLeo/plan-gate) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`puniserv/skillcask`](https://github.com/puniserv/skillcask) — 通过 Composer/GitHub 源、锁文件与内容哈希管理可移植 Agent Skill 包及多客户端安装。 (上游可访问)
 - [`sananthanarayan/skilldrop`](https://github.com/sananthanarayan/skilldrop) — 准入：Portable role-pack skills with review gates and cross-client installer support. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`Seolyticize/skills`](https://github.com/Seolyticize/skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`skill-one/agents-skills`](https://github.com/skill-one/agents-skills) — MIT OR Apache-2.0 双许可的 Rust 库与 CLI：为 70+ 编码 Agent 安装和管理 SKILL.md。 (上游可访问)
 - [`srini047/skills-i8n`](https://github.com/srini047/skills-i8n) — 技能国际化 CLI，保留代码块与伴随文件；三个示例用于演示，不是生产技能包。 (上游可访问)
+- [`Synorb/skills`](https://github.com/Synorb/skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`tandiu-ai/agent-skills`](https://github.com/tandiu-ai/agent-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 - [`The-Utopia-Studio/skills`](https://github.com/The-Utopia-Studio/skills) — 准入：Operator-grade Utopia Studio marketplace with curated GTM, product, investment and founder skills. 已读取 README、许可证和代表 SKILL/清单，固定对象证据完整；仅建议索引元数据。 (上游可访问)
+- [`under71/skill-advisor`](https://github.com/under71/skill-advisor) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`Valerii-Synenko/enko-skills`](https://github.com/Valerii-Synenko/enko-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`vdsmon/skills`](https://github.com/vdsmon/skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`watchfor-io/agent-toolkit`](https://github.com/watchfor-io/agent-toolkit) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`XAIHT/Tlamatini-Spanish`](https://github.com/XAIHT/Tlamatini-Spanish) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
+- [`yaakov-koby-israeli/ai-agent-skills`](https://github.com/yaakov-koby-israeli/ai-agent-skills) — 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 (上游可访问)
 
 </details>
 
