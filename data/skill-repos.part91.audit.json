@@ -1,0 +1,972 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-26 (Asia/Shanghai)",
+  "baseline_count": 2795,
+  "checked_candidate_count": 100,
+  "added_count": 50,
+  "final_count": 2845,
+  "scope": "repository index only",
+  "collection_notes": [
+    "Agent-Reach CLI unavailable; GitHub official API fallback via authenticated gh API with fixed commit/tree/blob SHA-256 evidence.",
+    "README, license and representative SKILL.md frontmatter reviewed; test/example/fixture/vendor/dist paths excluded.",
+    "Five thin/test/demo candidates manually excluded."
+  ],
+  "accepted": [
+    {
+      "full_name": "Synorb/skills",
+      "repository_id": 1433459706,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 7,
+      "commit": "fc2d2709bf8b17e18d8a755a9d1ae485a25bac6d",
+      "tree": "1eb340530f2eaa9cf91671c8b0edd1dc2d61297a",
+      "readme_url": "https://github.com/Synorb/skills/blob/fc2d2709bf8b17e18d8a755a9d1ae485a25bac6d/README.md",
+      "license_url": "https://github.com/Synorb/skills/blob/fc2d2709bf8b17e18d8a755a9d1ae485a25bac6d/LICENSE",
+      "representative_skill_url": "https://github.com/Synorb/skills/blob/fc2d2709bf8b17e18d8a755a9d1ae485a25bac6d/skills/launch-radar/SKILL.md",
+      "readme_sha256": "97c301c3113fb9698a1ca6a1551ff076b67398e7597670128978212850507195",
+      "license_sha256": "e706e23fd17ab1f05db1b7806ccfabcd2d532453b332087234c6b73ab0bbe381",
+      "representative_skill_sha256": "7ebc7a04d037eb2f881f03b738d1fd8c775dfe3c73c6a946c7500669c1e572e7"
+    },
+    {
+      "full_name": "tandiu-ai/agent-skills",
+      "repository_id": 1433837286,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 3,
+      "commit": "edd09d2e02ff464b5476419e884ac554422bf40d",
+      "tree": "62540e5926b78105419b29c1f2beb2b7190577ac",
+      "readme_url": "https://github.com/tandiu-ai/agent-skills/blob/edd09d2e02ff464b5476419e884ac554422bf40d/README.md",
+      "license_url": "https://github.com/tandiu-ai/agent-skills/blob/edd09d2e02ff464b5476419e884ac554422bf40d/LICENSE",
+      "representative_skill_url": "https://github.com/tandiu-ai/agent-skills/blob/edd09d2e02ff464b5476419e884ac554422bf40d/skills/tandiu-ai-funding/SKILL.md",
+      "readme_sha256": "2f2bbb211327c9c4bf54adaf4ce7417c4df62bcab0a3d6d416be5f0974d2b137",
+      "license_sha256": "185e05261e39cbcf9041bd1787a08fe84eb4f7f04f794cb8775b2e68d1c5489d",
+      "representative_skill_sha256": "4e5f687abb50e0ae31f09682402db04ef91c66b5b4866341fc25ee32537e5c19"
+    },
+    {
+      "full_name": "Optale-no/console-skills",
+      "repository_id": 1414927425,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 6,
+      "commit": "9b711540d57e9e3b20fb6ee087568f00f79a4887",
+      "tree": "306fb2caeca22c39c19cad0a8057131f42a4265a",
+      "readme_url": "https://github.com/Optale-no/console-skills/blob/9b711540d57e9e3b20fb6ee087568f00f79a4887/README.md",
+      "license_url": "https://github.com/Optale-no/console-skills/blob/9b711540d57e9e3b20fb6ee087568f00f79a4887/LICENSE",
+      "representative_skill_url": "https://github.com/Optale-no/console-skills/blob/9b711540d57e9e3b20fb6ee087568f00f79a4887/skills/optale-console/SKILL.md",
+      "readme_sha256": "74619b877aff7a28e34d98efac85360bc0b2e41c472522e0cdd446c6ecba40a0",
+      "license_sha256": "1c46b5fd6e1fa0dc54eb32924a802de2d48ccf789695f30f1c61b08ab76065db",
+      "representative_skill_sha256": "c2df678ae34d0ed0772ef06bc2dcc3384387d980f57c1d997bac2d02cc5d2ec7"
+    },
+    {
+      "full_name": "lurnake/agent-socials-skill",
+      "repository_id": 1429713448,
+      "stars": 1,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "2b148ac1284ad2fb4e6409924e9c1a9472fa4f0a",
+      "tree": "01b41a9f19403eef86f87fa7c776577352733b07",
+      "readme_url": "https://github.com/lurnake/agent-socials-skill/blob/2b148ac1284ad2fb4e6409924e9c1a9472fa4f0a/README.md",
+      "license_url": "https://github.com/lurnake/agent-socials-skill/blob/2b148ac1284ad2fb4e6409924e9c1a9472fa4f0a/LICENSE",
+      "representative_skill_url": "https://github.com/lurnake/agent-socials-skill/blob/2b148ac1284ad2fb4e6409924e9c1a9472fa4f0a/skills/agent-socials/SKILL.md",
+      "readme_sha256": "988e68d281b490bf1532a485d6d9add855c9a718f8d75904828217b0b8358c02",
+      "license_sha256": "f2da4ffe33d2f5fb7bd4e2d6e6fcc394fa7e565da2f5a69d4fc4fb443f6b0f6d",
+      "representative_skill_sha256": "38c0869b612f03ac22cc5e0d07bb6193ed7e73c38e211074f665755675253f64"
+    },
+    {
+      "full_name": "agi-bar/agi-bar-skill",
+      "repository_id": 1423277382,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "a6d49fe189c5acdd0a695fb35c3518ca3f95a301",
+      "tree": "7049f3221b791dcddea4a829bba332727996e735",
+      "readme_url": "https://github.com/agi-bar/agi-bar-skill/blob/a6d49fe189c5acdd0a695fb35c3518ca3f95a301/README.md",
+      "license_url": "https://github.com/agi-bar/agi-bar-skill/blob/a6d49fe189c5acdd0a695fb35c3518ca3f95a301/LICENSE",
+      "representative_skill_url": "https://github.com/agi-bar/agi-bar-skill/blob/a6d49fe189c5acdd0a695fb35c3518ca3f95a301/SKILL.md",
+      "readme_sha256": "b6683a5f4a05c8d1c93d50d5b2b6d07c6508a6cb55236accbb451b53205ee6a8",
+      "license_sha256": "e52bf8c75c7244ba5eecffdfe736fb8b227e30b0a145baf4439cd9cb1b746679",
+      "representative_skill_sha256": "596a396a1f27ddd55430ef5801a6609d5d2eb795fd9094e7acc5b25e4fe8fd81"
+    },
+    {
+      "full_name": "XAIHT/Tlamatini-Spanish",
+      "repository_id": 1319617359,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 43,
+      "commit": "74a53b94c651244ec4835682bc8bbbd55779b27a",
+      "tree": "0162aad971968748c7054998694bb1a9a3d34f12",
+      "readme_url": "https://github.com/XAIHT/Tlamatini-Spanish/blob/74a53b94c651244ec4835682bc8bbbd55779b27a/README.md",
+      "license_url": "https://github.com/XAIHT/Tlamatini-Spanish/blob/74a53b94c651244ec4835682bc8bbbd55779b27a/LICENSE",
+      "representative_skill_url": "https://github.com/XAIHT/Tlamatini-Spanish/blob/74a53b94c651244ec4835682bc8bbbd55779b27a/.claude/memory/project_daily_chat_test_skill.md",
+      "readme_sha256": "fa865f70b17a19d246f3b7a4515590a1f894dd7c3eb1407d16bdcdbc0574656e",
+      "license_sha256": "8a1b3d73996d99d938ee3f8405fb84230195443d838cd7d72f99f9563c37a230",
+      "representative_skill_sha256": "ba0e7efe1c10a47a5adad154a02074ccf9dde3171cc52bc244bd31a9ff273a28"
+    },
+    {
+      "full_name": "Merlin-Bedford/merlin-slides-mcp",
+      "repository_id": 1418830535,
+      "stars": 0,
+      "license": "Apache-2.0",
+      "skill_count": 1,
+      "commit": "6c80369c4383088fbd6d0a6ddab9b1accb6c06f9",
+      "tree": "4e8ce20f36c840698e071464a1c2d9f45c4708e8",
+      "readme_url": "https://github.com/Merlin-Bedford/merlin-slides-mcp/blob/6c80369c4383088fbd6d0a6ddab9b1accb6c06f9/README.md",
+      "license_url": "https://github.com/Merlin-Bedford/merlin-slides-mcp/blob/6c80369c4383088fbd6d0a6ddab9b1accb6c06f9/LICENSE",
+      "representative_skill_url": "https://github.com/Merlin-Bedford/merlin-slides-mcp/blob/6c80369c4383088fbd6d0a6ddab9b1accb6c06f9/SKILL.md",
+      "readme_sha256": "63fb8998f50f89e6e6d2b6a51e957b15321e4bada67259d3080d4de77f339522",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "representative_skill_sha256": "de254e6fbcdafab11cdf768d78b0343cae2160f3d286c070af7c888a150a7782"
+    },
+    {
+      "full_name": "aqora-io/skills",
+      "repository_id": 1218867306,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "66904db2a1db92a449417b67400c54369ebcdef0",
+      "tree": "58aed947da57ed342ab12613bbda2898eae9cea3",
+      "readme_url": "https://github.com/aqora-io/skills/blob/66904db2a1db92a449417b67400c54369ebcdef0/README.md",
+      "license_url": "https://github.com/aqora-io/skills/blob/66904db2a1db92a449417b67400c54369ebcdef0/LICENSE",
+      "representative_skill_url": "https://github.com/aqora-io/skills/blob/66904db2a1db92a449417b67400c54369ebcdef0/skills/aqora-workspace/SKILL.md",
+      "readme_sha256": "83d0d8a0c4a0f61c62429ba2af1f122a0879ddd09792ac966245f9eff202aa2a",
+      "license_sha256": "603dfebd67464e9d99b569e984536d171179ab7b5dbd75f57ca9efb746b05edc",
+      "representative_skill_sha256": "53351a0c8d10e656cc4fd46cecc71fc3a6fd9ee46cd0b34ee5f4c475f8743645"
+    },
+    {
+      "full_name": "Seolyticize/skills",
+      "repository_id": 1432667864,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 18,
+      "commit": "fde4a79f4ad694d74d54ff791fc683cbe5aee941",
+      "tree": "7d8e4925a849d6d9c19ca1e97c0a6a394935fda2",
+      "readme_url": "https://github.com/Seolyticize/skills/blob/fde4a79f4ad694d74d54ff791fc683cbe5aee941/README.md",
+      "license_url": "https://github.com/Seolyticize/skills/blob/fde4a79f4ad694d74d54ff791fc683cbe5aee941/LICENSE",
+      "representative_skill_url": "https://github.com/Seolyticize/skills/blob/fde4a79f4ad694d74d54ff791fc683cbe5aee941/skills/ai-visibility-audit/SKILL.md",
+      "readme_sha256": "3669fa836c5e509fb8f605e1d19af74f7d69014560415175d81b1ce91c7472fc",
+      "license_sha256": "5ada5221e6870265ea7e4d064006943967a5e1207cd102d5f9bbf7bffedc0317",
+      "representative_skill_sha256": "60b9221a372979e3ef32356c5e4ca95f7dd78ef3cd1212ba8cac70c0c400f459"
+    },
+    {
+      "full_name": "getbrevo/brevo-skills",
+      "repository_id": 1421907404,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 7,
+      "commit": "0a61d40a46bfd844e53eef39c8d2f5061e869003",
+      "tree": "8ffacbb8c63e41c7d6f734e21cce132a5d86106e",
+      "readme_url": "https://github.com/getbrevo/brevo-skills/blob/0a61d40a46bfd844e53eef39c8d2f5061e869003/README.md",
+      "license_url": "https://github.com/getbrevo/brevo-skills/blob/0a61d40a46bfd844e53eef39c8d2f5061e869003/LICENSE",
+      "representative_skill_url": "https://github.com/getbrevo/brevo-skills/blob/0a61d40a46bfd844e53eef39c8d2f5061e869003/.claude/skills/add-brevo-skill/SKILL.md",
+      "readme_sha256": "c7b35007bf13de78df5c0bf9974369d82a9819c5930ad0d3459692db1332b427",
+      "license_sha256": "46cab0d1dbbf8d205528bd1150668c74732df74858713f17c705baa0a656dfa9",
+      "representative_skill_sha256": "fe1e65af9bcceeedb1ff4f5babc31304674ef2aad3064392745e54025acbfb34"
+    },
+    {
+      "full_name": "Zenfox-690/skillpulse",
+      "repository_id": 1427443373,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 18,
+      "commit": "5beba55d333e0d12203ce9976340d7906ed51271",
+      "tree": "0545d393444c752285827fd552f894afb61f98f4",
+      "readme_url": "https://github.com/Zenfox-690/skillpulse/blob/5beba55d333e0d12203ce9976340d7906ed51271/README.md",
+      "license_url": "https://github.com/Zenfox-690/skillpulse/blob/5beba55d333e0d12203ce9976340d7906ed51271/LICENSE",
+      "representative_skill_url": "https://github.com/Zenfox-690/skillpulse/blob/5beba55d333e0d12203ce9976340d7906ed51271/.agents/skills/1-start/SKILL.md",
+      "readme_sha256": "e3a68850a05d0cb3570d8532545e8c69576e6283e2d6215b0f7f5c1cc557ed56",
+      "license_sha256": "9cb830333b37cc920de5ef554397a93b02d7297e3153d4f53687c87e94ce4cd3",
+      "representative_skill_sha256": "24825d3b49d2b36d72c03ad211a531a42a45512bdb83d43572f3ac0071f2c2a8"
+    },
+    {
+      "full_name": "yaakov-koby-israeli/ai-agent-skills",
+      "repository_id": 1432978273,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "7e437cdf42829ad3c7d8ddb1a338ff1763ac32e7",
+      "tree": "7027b1bf47f7bca3c51346d57db8ab32442bd53c",
+      "readme_url": "https://github.com/yaakov-koby-israeli/ai-agent-skills/blob/7e437cdf42829ad3c7d8ddb1a338ff1763ac32e7/README.md",
+      "license_url": "https://github.com/yaakov-koby-israeli/ai-agent-skills/blob/7e437cdf42829ad3c7d8ddb1a338ff1763ac32e7/LICENSE",
+      "representative_skill_url": "https://github.com/yaakov-koby-israeli/ai-agent-skills/blob/7e437cdf42829ad3c7d8ddb1a338ff1763ac32e7/skiils/israeli-tech-resume-fixer/skill.md",
+      "readme_sha256": "bed4b70e3013ce3ef1fba17061a227b867e26f3216af1195a6719d3dde34a4df",
+      "license_sha256": "ef8fb488043cc89dfeb56fb2516f9f2c15bcc07a79c28bdfa445879144100372",
+      "representative_skill_sha256": "88397d3a36eb97a005427d3ad7615a31cc278da6dce567e55ac6c6f8799ad4d4"
+    },
+    {
+      "full_name": "milad-ahmd/skill-creator-pro",
+      "repository_id": 1433261840,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "06d52b33d2ba7987d8449ab83c6e768bf0fe8d34",
+      "tree": "18b492a7371850b38acc111e1462aff5d160a87e",
+      "readme_url": "https://github.com/milad-ahmd/skill-creator-pro/blob/06d52b33d2ba7987d8449ab83c6e768bf0fe8d34/README.md",
+      "license_url": "https://github.com/milad-ahmd/skill-creator-pro/blob/06d52b33d2ba7987d8449ab83c6e768bf0fe8d34/LICENSE",
+      "representative_skill_url": "https://github.com/milad-ahmd/skill-creator-pro/blob/06d52b33d2ba7987d8449ab83c6e768bf0fe8d34/skills/skill-creator-pro/SKILL.md",
+      "readme_sha256": "d5450cfd3dfbe6537e2e0847ebdbbb780ebca934b5811a3ed2ad9c22aa814510",
+      "license_sha256": "48b256b0aeaf94a38c2ae8144d2550c21fadc5c44f3701bc1c1edb30f1d910ed",
+      "representative_skill_sha256": "2ad19298466412deee37aa6ecbe7137ce42247f895a6f6223ba5e947600e1b7b"
+    },
+    {
+      "full_name": "brawblan/ai-workflow",
+      "repository_id": 1418019679,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 4,
+      "commit": "6e858831152b3841f3bcd5808559cd794c79fd30",
+      "tree": "896d8d9c2a2c9cf6f69b2c482107a5ed567db697",
+      "readme_url": "https://github.com/brawblan/ai-workflow/blob/6e858831152b3841f3bcd5808559cd794c79fd30/README.md",
+      "license_url": "https://github.com/brawblan/ai-workflow/blob/6e858831152b3841f3bcd5808559cd794c79fd30/LICENSE",
+      "representative_skill_url": "https://github.com/brawblan/ai-workflow/blob/6e858831152b3841f3bcd5808559cd794c79fd30/plugins/cornerstone/skills/project-setup/SKILL.md",
+      "readme_sha256": "763e914413fd9b3d12546e5196c45d3b4391d5e386c0b371175798f1876385dd",
+      "license_sha256": "3bcee9f8575b5c1655df1bb829f8593710060de805150e2154e0437303a1217a",
+      "representative_skill_sha256": "f68aebcfa38bd003cbfe691c6d880be5825194680d44bb9005c29e74bed10997"
+    },
+    {
+      "full_name": "ajhcs/healthcare-agents",
+      "repository_id": 1185818410,
+      "stars": 53,
+      "license": "Apache-2.0",
+      "skill_count": 8,
+      "commit": "2ba456be6771211bd0abbdb4dfb4a412e3bba757",
+      "tree": "d0c82993ee73693dfef529e23fa4396302121240",
+      "readme_url": "https://github.com/ajhcs/healthcare-agents/blob/2ba456be6771211bd0abbdb4dfb4a412e3bba757/README.md",
+      "license_url": "https://github.com/ajhcs/healthcare-agents/blob/2ba456be6771211bd0abbdb4dfb4a412e3bba757/LICENSE",
+      "representative_skill_url": "https://github.com/ajhcs/healthcare-agents/blob/2ba456be6771211bd0abbdb4dfb4a412e3bba757/skills/healthcare-agents/SKILL.md",
+      "readme_sha256": "28df0b24ed2e1ba29be377710926217d0aeb43f57618a52b2610c315b9ad2523",
+      "license_sha256": "416a46a1940cf5ee3b7d6d05f76d870523a012b0350788d9dfaf1b39a65f5efb",
+      "representative_skill_sha256": "5e15829d70d62ddd0f8d7023c3670de75ba6e3e449d4c105a9cf57b9b8bacf81"
+    },
+    {
+      "full_name": "clay-run/clay-skill-creator",
+      "repository_id": 1334708097,
+      "stars": 1,
+      "license": "MIT",
+      "skill_count": 83,
+      "commit": "e6586a301ec6204099e812494e168e2c0dc5e0a7",
+      "tree": "f20e8b55cfcc0f05f966b82f9e15d8a0fb802b3b",
+      "readme_url": "https://github.com/clay-run/clay-skill-creator/blob/e6586a301ec6204099e812494e168e2c0dc5e0a7/README.md",
+      "license_url": "https://github.com/clay-run/clay-skill-creator/blob/e6586a301ec6204099e812494e168e2c0dc5e0a7/LICENSE",
+      "representative_skill_url": "https://github.com/clay-run/clay-skill-creator/blob/e6586a301ec6204099e812494e168e2c0dc5e0a7/plugin/skills/clay-skill-author/SKILL.md",
+      "readme_sha256": "c694cdffcfd263510a4dab4deed9b38a32bd04b148625664ca32d81fe93400d8",
+      "license_sha256": "bf98452006290ec09e67ab9f13a604af25b4bcb0a1ffde848d09be21c5340890",
+      "representative_skill_sha256": "52fc0797d77bbc937bd5ae65b9b2750bf5cfc72223891e79b9905155c18ce0da"
+    },
+    {
+      "full_name": "iamthenop/infurnet-skills",
+      "repository_id": 1320235934,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 30,
+      "commit": "902c9bc21f944cb603eb4a6a521d6314fee900cd",
+      "tree": "20a0edc0bffb520c07f756aa5ce449ff0ecd9dd5",
+      "readme_url": "https://github.com/iamthenop/infurnet-skills/blob/902c9bc21f944cb603eb4a6a521d6314fee900cd/README.md",
+      "license_url": "https://github.com/iamthenop/infurnet-skills/blob/902c9bc21f944cb603eb4a6a521d6314fee900cd/LICENSE",
+      "representative_skill_url": "https://github.com/iamthenop/infurnet-skills/blob/902c9bc21f944cb603eb4a6a521d6314fee900cd/skills/.purrification/SKILL.md",
+      "readme_sha256": "0b620bcbbb045cab5de6947288569b343f6c915cbafc5121ec489a26700f8a3e",
+      "license_sha256": "d5d9e06fd6328f58df6fbe7abaf245ecfa2c0707d9532203e06a5dfc1c69df65",
+      "representative_skill_sha256": "24295183bfd42694a444b7f6e6a9b19ea88026a3aeaafd5c461071741b841be4"
+    },
+    {
+      "full_name": "PakhomLeo/plan-gate",
+      "repository_id": 1428216839,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "059568cd4ebdcfe9b8ffa71d6d9407bf0b735716",
+      "tree": "048096dabf4a2d734976d10c0c5ce8ec322fef47",
+      "readme_url": "https://github.com/PakhomLeo/plan-gate/blob/059568cd4ebdcfe9b8ffa71d6d9407bf0b735716/README.md",
+      "license_url": "https://github.com/PakhomLeo/plan-gate/blob/059568cd4ebdcfe9b8ffa71d6d9407bf0b735716/LICENSE",
+      "representative_skill_url": "https://github.com/PakhomLeo/plan-gate/blob/059568cd4ebdcfe9b8ffa71d6d9407bf0b735716/SKILL.md",
+      "readme_sha256": "2688ce94ea4a77cbdfd8959e07ba30ab8e420e57521e9ade73f648e1293a2d46",
+      "license_sha256": "1b7fbb2484e453db81f3ec6b4e693b998e4d1a98c34dc42f642584dab81be67d",
+      "representative_skill_sha256": "3a56cf9a59a2a307c5e6ce58b38c5d036d11a3c7ccb06a72bb26d377f1a1fc4d"
+    },
+    {
+      "full_name": "ammadeo/skills",
+      "repository_id": 1428270219,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 3,
+      "commit": "aa4f7131c5ff875553c9f17e21cbe806712ac51a",
+      "tree": "42c0cc62b294c172b3ad9ef55cdf42c3e114c60d",
+      "readme_url": "https://github.com/ammadeo/skills/blob/aa4f7131c5ff875553c9f17e21cbe806712ac51a/README.md",
+      "license_url": "https://github.com/ammadeo/skills/blob/aa4f7131c5ff875553c9f17e21cbe806712ac51a/LICENSE",
+      "representative_skill_url": "https://github.com/ammadeo/skills/blob/aa4f7131c5ff875553c9f17e21cbe806712ac51a/skills/orchestrate/SKILL.md",
+      "readme_sha256": "4599ca398ddd600f326ff898b65fc9d85a51c9e19b5910d5078336e152066fbf",
+      "license_sha256": "099901dfdb96900b4c6c063203de3b98e1531defd36d0414e2f592e6a38edc52",
+      "representative_skill_sha256": "77b697990303e08a93e6ff88c0b580f39b635aa0a505a9ea52518e99df6a6960"
+    },
+    {
+      "full_name": "Ruanzhou9/shared-agent-memory",
+      "repository_id": 1336105185,
+      "stars": 1,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "b0c4ea872afcc5d25cdc9754c8c2fa1e6d9551e3",
+      "tree": "d4ad42c7cad7f704400bf18ec7cae0e75e39dd9e",
+      "readme_url": "https://github.com/Ruanzhou9/shared-agent-memory/blob/b0c4ea872afcc5d25cdc9754c8c2fa1e6d9551e3/README.md",
+      "license_url": "https://github.com/Ruanzhou9/shared-agent-memory/blob/b0c4ea872afcc5d25cdc9754c8c2fa1e6d9551e3/LICENSE",
+      "representative_skill_url": "https://github.com/Ruanzhou9/shared-agent-memory/blob/b0c4ea872afcc5d25cdc9754c8c2fa1e6d9551e3/shared-agent-memory/SKILL.md",
+      "readme_sha256": "99291590dcbe6dc4de76e5d2b2a5be72945268a6616e670141353facb07d5e51",
+      "license_sha256": "dc02cc540b06fc7ca8f314e1ee3351e5d07f534edbbf2e0e9f073ea1c6831d76",
+      "representative_skill_sha256": "08102006ab2b8761e712737f4be67dcc507684332daf868678f46ec3728a7560"
+    },
+    {
+      "full_name": "LikaloLLC/docsie-skills",
+      "repository_id": 1422473914,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 6,
+      "commit": "a950a04aac1fd92a1e9932b45a31410f43ab5d1b",
+      "tree": "1878d2480a4ff007342ad50e3ad70da2c7afed7f",
+      "readme_url": "https://github.com/LikaloLLC/docsie-skills/blob/a950a04aac1fd92a1e9932b45a31410f43ab5d1b/README.md",
+      "license_url": "https://github.com/LikaloLLC/docsie-skills/blob/a950a04aac1fd92a1e9932b45a31410f43ab5d1b/LICENSE",
+      "representative_skill_url": "https://github.com/LikaloLLC/docsie-skills/blob/a950a04aac1fd92a1e9932b45a31410f43ab5d1b/apps/data-explorer/SKILL.md",
+      "readme_sha256": "76720f6d7d1987fee5fcedd02e7fb09aa0797ab46d41ab8ab32c28501edc2ff0",
+      "license_sha256": "da0ea9710a68f3a3608bc1b8810de39a3b89a51564fa41a94370cf2478df57ea",
+      "representative_skill_sha256": "d07b7812db7275565d101d9b75be263478360f5df8747a7b2a98680b2ef3f5f7"
+    },
+    {
+      "full_name": "Levango7/design-md-skill",
+      "repository_id": 1425448473,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "651491ec4803bac705b11c39d091c5c729e72744",
+      "tree": "93a9b18b3e58e278e8ad4de1471666acd742ed0d",
+      "readme_url": "https://github.com/Levango7/design-md-skill/blob/651491ec4803bac705b11c39d091c5c729e72744/README.md",
+      "license_url": "https://github.com/Levango7/design-md-skill/blob/651491ec4803bac705b11c39d091c5c729e72744/LICENSE",
+      "representative_skill_url": "https://github.com/Levango7/design-md-skill/blob/651491ec4803bac705b11c39d091c5c729e72744/SKILL.md",
+      "readme_sha256": "d6963c211975f6e8b16397fcc9a31f3b12d8687d34017e19b99ce403a50c9d51",
+      "license_sha256": "982ce758c6bfb827076a3864d883009243ae9c268829bf11a994befcd3e3a3a9",
+      "representative_skill_sha256": "c9116eb30d1de922597b3b0c680d5cc6af69aa8fcbf9a318b18eaf6c8e346f9c"
+    },
+    {
+      "full_name": "julianosirtori/skills",
+      "repository_id": 1402642409,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 8,
+      "commit": "c6bf0ab24b4123cf6402316e172b7651055a9318",
+      "tree": "1d40253586d4d23512f77602ff67afcc3ebfb049",
+      "readme_url": "https://github.com/julianosirtori/skills/blob/c6bf0ab24b4123cf6402316e172b7651055a9318/README.md",
+      "license_url": "https://github.com/julianosirtori/skills/blob/c6bf0ab24b4123cf6402316e172b7651055a9318/LICENSE",
+      "representative_skill_url": "https://github.com/julianosirtori/skills/blob/c6bf0ab24b4123cf6402316e172b7651055a9318/skills/crew/SKILL.md",
+      "readme_sha256": "af2bd266975d4cf2ec1ccc943b7a973fcd009e32bcc33aa9d470eed49dd8cab9",
+      "license_sha256": "bd98a14eadc2169439d979fb199e89594b15e9750bbd4d18bebaddf54fbe2ee0",
+      "representative_skill_sha256": "39a99425333bcd5b11e81d96a9be4765777cde2ef85eb8e75773407b5fa737b8"
+    },
+    {
+      "full_name": "buidangminh23/spacing-skill",
+      "repository_id": 1275638437,
+      "stars": 10,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "37f10959c6bdde6ff428ea7f15e304ab5900d73a",
+      "tree": "e0088f4bf38a1acb83d6817d6a0d0af833805267",
+      "readme_url": "https://github.com/buidangminh23/spacing-skill/blob/37f10959c6bdde6ff428ea7f15e304ab5900d73a/README.md",
+      "license_url": "https://github.com/buidangminh23/spacing-skill/blob/37f10959c6bdde6ff428ea7f15e304ab5900d73a/LICENSE",
+      "representative_skill_url": "https://github.com/buidangminh23/spacing-skill/blob/37f10959c6bdde6ff428ea7f15e304ab5900d73a/skills/spacing-skill/SKILL.md",
+      "readme_sha256": "2d259837486fcf71dcd0a1d0600ab1c76c51631a28a7a4c502a933ff5d805430",
+      "license_sha256": "58bfa50102bc6b1dba6988ce71c0503fa7890b1c4d7a180da0052daff8518ba2",
+      "representative_skill_sha256": "897ead474f7783db6b95f6b4ce8e00e51a2c8a1d279cc9b2c15da56f62156ade"
+    },
+    {
+      "full_name": "arnaud-zg/configs",
+      "repository_id": 1331371076,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 2,
+      "commit": "6ab3acf4d02af170212049b08ccb33e21d3e30ea",
+      "tree": "b8c1fa446a788b9517a74c7254fc57e3de1ae6e4",
+      "readme_url": "https://github.com/arnaud-zg/configs/blob/6ab3acf4d02af170212049b08ccb33e21d3e30ea/README.md",
+      "license_url": "https://github.com/arnaud-zg/configs/blob/6ab3acf4d02af170212049b08ccb33e21d3e30ea/LICENSE",
+      "representative_skill_url": "https://github.com/arnaud-zg/configs/blob/6ab3acf4d02af170212049b08ccb33e21d3e30ea/plugins/arnaud-zg/skills/hexagonal-skill-builder/SKILL.md",
+      "readme_sha256": "427b8eb7d02fb043b438b1d94f3deeb3637f59b941662a32d138c49181603b7e",
+      "license_sha256": "08a4027f5a11a506c27eb427dc7ef7b574cfaac5cc7d059fd55709e5b44360bd",
+      "representative_skill_sha256": "cb33b2660b09d7bb96143450c763cab506c0ea5814e3fb25a34c47014013436d"
+    },
+    {
+      "full_name": "Fizzl13/fizzl-skills",
+      "repository_id": 1423780499,
+      "stars": 1,
+      "license": "MIT",
+      "skill_count": 3,
+      "commit": "5e594e65ff111a00c0fb140a64b6f144b9741244",
+      "tree": "0c8e5ad891a60467782d5ad0528f338302f511d4",
+      "readme_url": "https://github.com/Fizzl13/fizzl-skills/blob/5e594e65ff111a00c0fb140a64b6f144b9741244/README.md",
+      "license_url": "https://github.com/Fizzl13/fizzl-skills/blob/5e594e65ff111a00c0fb140a64b6f144b9741244/LICENSE",
+      "representative_skill_url": "https://github.com/Fizzl13/fizzl-skills/blob/5e594e65ff111a00c0fb140a64b6f144b9741244/skills/agent-wallet-limits/SKILL.md",
+      "readme_sha256": "fe0f151aa4a56bcb37fa64b2a4b227c840209f89e1719550cf05bba76d1805b5",
+      "license_sha256": "4ff12abc3acdb1d0d45fd6ab0701c319de2eb2b42279c196271530f8946fa282",
+      "representative_skill_sha256": "9bade3367df0d7d58d24d6af1167477d246c121e1a591c0f61b90f0bef46aa4f"
+    },
+    {
+      "full_name": "diagrammo/skills",
+      "repository_id": 1410922466,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 3,
+      "commit": "55a774bc1d920616076b367aa66726f3c750175c",
+      "tree": "37eb8ee1fbe80863de84ec1b6047a866395ce3a0",
+      "readme_url": "https://github.com/diagrammo/skills/blob/55a774bc1d920616076b367aa66726f3c750175c/README.md",
+      "license_url": "https://github.com/diagrammo/skills/blob/55a774bc1d920616076b367aa66726f3c750175c/LICENSE",
+      "representative_skill_url": "https://github.com/diagrammo/skills/blob/55a774bc1d920616076b367aa66726f3c750175c/skills/dgmo-codebase-report/SKILL.md",
+      "readme_sha256": "fc470b5a3e538e74a96afebab568a6b8c1c8d7489829d8407655114a2453e60e",
+      "license_sha256": "4cf7795a3ee10a39458b4cc236d330718b18509c82dd7ddac32c745d4464ea8f",
+      "representative_skill_sha256": "bb7e62f66f37f5adeaed893db4804be5e7695a30e74c09511b8577d48a2ab43d"
+    },
+    {
+      "full_name": "Ces107/agent-forge",
+      "repository_id": 1256170939,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 14,
+      "commit": "20bf7ef688c37257e8ed4ed22ad6331f738c4516",
+      "tree": "f8942f96b9633012f4e4320d0df0ce8678a831d8",
+      "readme_url": "https://github.com/Ces107/agent-forge/blob/20bf7ef688c37257e8ed4ed22ad6331f738c4516/README.md",
+      "license_url": "https://github.com/Ces107/agent-forge/blob/20bf7ef688c37257e8ed4ed22ad6331f738c4516/LICENSE",
+      "representative_skill_url": "https://github.com/Ces107/agent-forge/blob/20bf7ef688c37257e8ed4ed22ad6331f738c4516/plugins/agent-forge/skills/adversarial-review-gate/SKILL.md",
+      "readme_sha256": "16e1c380b241ada9d4cb69cbfe11dbb2eee2eacebe9b089520a1779c8260846f",
+      "license_sha256": "15df2bae043f10481e30990e587ee035f58206ac114b43f87d8ec6bd3165a7ed",
+      "representative_skill_sha256": "9435761fac53250508616773d94b11fa5907692098c9f4d9078d75e2aef01e85"
+    },
+    {
+      "full_name": "Valerii-Synenko/enko-skills",
+      "repository_id": 1428766723,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "7812f7e860d463fe7e61b5e0d004884efcf42b89",
+      "tree": "c083d5b33960ca295806ba931e2cc9343816db56",
+      "readme_url": "https://github.com/Valerii-Synenko/enko-skills/blob/7812f7e860d463fe7e61b5e0d004884efcf42b89/README.md",
+      "license_url": "https://github.com/Valerii-Synenko/enko-skills/blob/7812f7e860d463fe7e61b5e0d004884efcf42b89/LICENSE",
+      "representative_skill_url": "https://github.com/Valerii-Synenko/enko-skills/blob/7812f7e860d463fe7e61b5e0d004884efcf42b89/skills/test-smells/SKILL.md",
+      "readme_sha256": "ff45a322da2c14984ace0cd6e34524a955f6c4b7d6a456cb3bd86516814e9163",
+      "license_sha256": "27b6241180be55183c2889eb437121b48a13010afa6e3f95ee2b60ce097afc9e",
+      "representative_skill_sha256": "fad2a95bbfd5643a531302ecaa7a15d93821c16f1c658cebcdb78c7b440f89a0"
+    },
+    {
+      "full_name": "watchfor-io/agent-toolkit",
+      "repository_id": 1371959287,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 3,
+      "commit": "d6e37e22738ac30267752d8f30a2c82b5e186a35",
+      "tree": "e5fa7cdc9498dabbaa1180f78f70b54c803fa1e0",
+      "readme_url": "https://github.com/watchfor-io/agent-toolkit/blob/d6e37e22738ac30267752d8f30a2c82b5e186a35/README.md",
+      "license_url": "https://github.com/watchfor-io/agent-toolkit/blob/d6e37e22738ac30267752d8f30a2c82b5e186a35/LICENSE",
+      "representative_skill_url": "https://github.com/watchfor-io/agent-toolkit/blob/d6e37e22738ac30267752d8f30a2c82b5e186a35/skills/watchfor-incident-response/SKILL.md",
+      "readme_sha256": "52a2ab845568527176517a0416baf18d800ed7237f8ce1ba78ebb646e43f305e",
+      "license_sha256": "c19f30acb464f7ca395071cd527bb4470345fb02defc7732d9300332f1a73082",
+      "representative_skill_sha256": "f1366c9f4b3566ad5fa31c3fd5727af02cca7caee196b807b6a32e28e184ea37"
+    },
+    {
+      "full_name": "gagangulyani/job-search-skill",
+      "repository_id": 1428675206,
+      "stars": 4,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "e2e78d47831c899e7f6524c40a74a0e05438aa36",
+      "tree": "85be25d94c124639af3f45e8e30af07d30bd3404",
+      "readme_url": "https://github.com/gagangulyani/job-search-skill/blob/e2e78d47831c899e7f6524c40a74a0e05438aa36/README.md",
+      "license_url": "https://github.com/gagangulyani/job-search-skill/blob/e2e78d47831c899e7f6524c40a74a0e05438aa36/LICENSE",
+      "representative_skill_url": "https://github.com/gagangulyani/job-search-skill/blob/e2e78d47831c899e7f6524c40a74a0e05438aa36/skills/job-search/SKILL.md",
+      "readme_sha256": "c95d1cda9d6a5445daa7d83ce64e898c3effc2dda7a7ee69f147f960aba561a7",
+      "license_sha256": "893259caf350ab45cb61e34d5405abf63bce5caa3ec84e7a426fcb90c1c6bd22",
+      "representative_skill_sha256": "d869e84c24c93e9e07db14e293f8a8487e83b03794e2185713855c986be5475a"
+    },
+    {
+      "full_name": "vdsmon/skills",
+      "repository_id": 1281412821,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 18,
+      "commit": "0e0fad2e585df0ec9358e079dd6803ddd408a078",
+      "tree": "210048f1f1512d3b78d6edede89ffab304c8594e",
+      "readme_url": "https://github.com/vdsmon/skills/blob/0e0fad2e585df0ec9358e079dd6803ddd408a078/README.md",
+      "license_url": "https://github.com/vdsmon/skills/blob/0e0fad2e585df0ec9358e079dd6803ddd408a078/LICENSE",
+      "representative_skill_url": "https://github.com/vdsmon/skills/blob/0e0fad2e585df0ec9358e079dd6803ddd408a078/plugins/brainstorming/skills/brainstorming/SKILL.md",
+      "readme_sha256": "d1f7d1a055fa55b057f2855f3ecdda0eef6651220d3c891ac5c948501571e4ec",
+      "license_sha256": "41a7cf4712c3bfd24becf9b2f3039da9dadbffc4d409ffffce13640f252f50fa",
+      "representative_skill_sha256": "e2d30a7d5a893590dd49625266c56af33b668ddb037fc2ae3e9d3e327d6864fb"
+    },
+    {
+      "full_name": "injey/agent-skills",
+      "repository_id": 1428417621,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 4,
+      "commit": "77bcf434686fd6568c680aec02e85fa1b754c70c",
+      "tree": "0f4bb305db34afed0f3f31a3e2fcd5031d53f227",
+      "readme_url": "https://github.com/injey/agent-skills/blob/77bcf434686fd6568c680aec02e85fa1b754c70c/README.md",
+      "license_url": "https://github.com/injey/agent-skills/blob/77bcf434686fd6568c680aec02e85fa1b754c70c/LICENSE",
+      "representative_skill_url": "https://github.com/injey/agent-skills/blob/77bcf434686fd6568c680aec02e85fa1b754c70c/plugins/doc-tools/skills/csv-to-html/SKILL.md",
+      "readme_sha256": "9689179d22e8962859cd7dc2568c079997f579aac8f18383b1bf366d3490cbf6",
+      "license_sha256": "76b354fdbcdf96c7926bd0827e972e34f36817b32635732ca94960feb16d61e0",
+      "representative_skill_sha256": "866b484b515238639c8789cd47bbe2a252fae804caa407bf48c96bbeea409f48"
+    },
+    {
+      "full_name": "Lessie-wang/agent-todo",
+      "repository_id": 1416933686,
+      "stars": 1,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "8a19e1d6aad37894c0fa1a93bf9a121637a08174",
+      "tree": "13bd8075e3d552722102b46b60f50f6a11feae01",
+      "readme_url": "https://github.com/Lessie-wang/agent-todo/blob/8a19e1d6aad37894c0fa1a93bf9a121637a08174/README.md",
+      "license_url": "https://github.com/Lessie-wang/agent-todo/blob/8a19e1d6aad37894c0fa1a93bf9a121637a08174/LICENSE",
+      "representative_skill_url": "https://github.com/Lessie-wang/agent-todo/blob/8a19e1d6aad37894c0fa1a93bf9a121637a08174/skill/SKILL.md",
+      "readme_sha256": "8c3bc1650c2aaac31ac5da30eb4b76aed277cd1bcc7c00cf00b9e7dbca266ef7",
+      "license_sha256": "e9ed9276f02d2d9362d0c453284ce64e1d33b7d329592cee573d991d82eaa65c",
+      "representative_skill_sha256": "8892bd51b60ede322567e448a01c6a24682e4a6303bdfe259e132ef959cb595b"
+    },
+    {
+      "full_name": "Arstanley/Prompt2Skill",
+      "repository_id": 1388095768,
+      "stars": 2,
+      "license": "Apache-2.0",
+      "skill_count": 10,
+      "commit": "9818d431e565c6a816a5b1b6c2c0a71c99876730",
+      "tree": "3486fdea2e7731c8e95b5e7f1ea2aa65ebf12a3d",
+      "readme_url": "https://github.com/Arstanley/Prompt2Skill/blob/9818d431e565c6a816a5b1b6c2c0a71c99876730/README.md",
+      "license_url": "https://github.com/Arstanley/Prompt2Skill/blob/9818d431e565c6a816a5b1b6c2c0a71c99876730/LICENSE",
+      "representative_skill_url": "https://github.com/Arstanley/Prompt2Skill/blob/9818d431e565c6a816a5b1b6c2c0a71c99876730/configs/minimal_seed/SKILL.md",
+      "readme_sha256": "d4749fac6b2a8f44d5561f29447e2e763216cc2bf31acb6e3817bf686b0bdd25",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "representative_skill_sha256": "e1cc8b25f495855f077e1064a7b7b44d2d3de65aec589572ce0ed07fac4d0ffe"
+    },
+    {
+      "full_name": "m5rc238/glyph-skill",
+      "repository_id": 1398338567,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "ec85a003433e0f784a4f2258b590125ef0c42c7b",
+      "tree": "c509dc99b035637a029a776b36543faad53aeaa9",
+      "readme_url": "https://github.com/m5rc238/glyph-skill/blob/ec85a003433e0f784a4f2258b590125ef0c42c7b/README.md",
+      "license_url": "https://github.com/m5rc238/glyph-skill/blob/ec85a003433e0f784a4f2258b590125ef0c42c7b/LICENSE",
+      "representative_skill_url": "https://github.com/m5rc238/glyph-skill/blob/ec85a003433e0f784a4f2258b590125ef0c42c7b/SKILL.md",
+      "readme_sha256": "ef583c2b7e24db12627904cb18d020d05bb9ba4d24e8fbe390d3ac3f91f67c89",
+      "license_sha256": "78352a871be455847a8b5ced02165019bcc439460dd4bffc49e504ca12abc82e",
+      "representative_skill_sha256": "6fae7c7c88f0ee2f982e49274bc6d7fa6979aba67bb140261b3b0a93f133976a"
+    },
+    {
+      "full_name": "chloe4ai/ai-trackers",
+      "repository_id": 1282512765,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 3,
+      "commit": "a8661b107b5cfd774cd6a3fa2869fda7c08d8125",
+      "tree": "4262e9cb3d113b15b9a1847e5873df699c114532",
+      "readme_url": "https://github.com/chloe4ai/ai-trackers/blob/a8661b107b5cfd774cd6a3fa2869fda7c08d8125/README.md",
+      "license_url": "https://github.com/chloe4ai/ai-trackers/blob/a8661b107b5cfd774cd6a3fa2869fda7c08d8125/LICENSE",
+      "representative_skill_url": "https://github.com/chloe4ai/ai-trackers/blob/a8661b107b5cfd774cd6a3fa2869fda7c08d8125/trackers/feature-tracker/SKILL.md",
+      "readme_sha256": "f079337769f467bc44bded661c4a01d6672634b4580240f782cd5ee6b6eb9aae",
+      "license_sha256": "c3cf7e701a1f6531f5c56b5005d5736085625f55dd9a7976a5e498a1c8a21345",
+      "representative_skill_sha256": "ccfe1e2065ea18269fbcc168f25686c68f012d5055b5a791599156a93ac8db1e"
+    },
+    {
+      "full_name": "TraX22/HydraOps-Skills",
+      "repository_id": 1385895704,
+      "stars": 1,
+      "license": "Apache-2.0",
+      "skill_count": 17,
+      "commit": "fcf3b20da8d8b614b51c3d832da87feef02a0f0f",
+      "tree": "023504c69046b1d096362d8be877a5efb5326086",
+      "readme_url": "https://github.com/TraX22/HydraOps-Skills/blob/fcf3b20da8d8b614b51c3d832da87feef02a0f0f/README.md",
+      "license_url": "https://github.com/TraX22/HydraOps-Skills/blob/fcf3b20da8d8b614b51c3d832da87feef02a0f0f/LICENSE",
+      "representative_skill_url": "https://github.com/TraX22/HydraOps-Skills/blob/fcf3b20da8d8b614b51c3d832da87feef02a0f0f/blender-game-export/SKILL.md",
+      "readme_sha256": "b050e97ac172e02cc0d0782fa573eb0a60b0277b23e26573b0e32020cfccb8bb",
+      "license_sha256": "81b1129ebf2ddace5b549663e3b7fe9d1069a73695c552d062f3fd1fb751f03f",
+      "representative_skill_sha256": "4f34a661253792f0175d0393e1268a81e725585fed1db692d05ffcbfefe15a8d"
+    },
+    {
+      "full_name": "peditx/openwrt-luci-complete-developer-guide",
+      "repository_id": 1305976051,
+      "stars": 1,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "b23bd4f5a0a6945f1b76124e4b9c485dacd95494",
+      "tree": "61162b9c63a3828f07035001adaa4813773e0597",
+      "readme_url": "https://github.com/peditx/openwrt-luci-complete-developer-guide/blob/b23bd4f5a0a6945f1b76124e4b9c485dacd95494/README.md",
+      "license_url": "https://github.com/peditx/openwrt-luci-complete-developer-guide/blob/b23bd4f5a0a6945f1b76124e4b9c485dacd95494/LICENSE",
+      "representative_skill_url": "https://github.com/peditx/openwrt-luci-complete-developer-guide/blob/b23bd4f5a0a6945f1b76124e4b9c485dacd95494/SKILL.md",
+      "readme_sha256": "76e976eeaec22c052c40a1c9f09d74c90e070a0452795c93ba60d875e14070e8",
+      "license_sha256": "5c9393bbb7db59c8fd490167d4dbd4dbe4b7ec8e573a2b2620d8346efc23317d",
+      "representative_skill_sha256": "5752c2ef0f5935940c7be8894764fdf8e6abd024962aaa818375cffc13a3c064"
+    },
+    {
+      "full_name": "rdmbtc/puls-sdk",
+      "repository_id": 1275982050,
+      "stars": 1,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "1ac8bee80deecc724153ae5c6855fb7384193d5d",
+      "tree": "6ab7e68f29585a9c39e5902910cff982be346e45",
+      "readme_url": "https://github.com/rdmbtc/puls-sdk/blob/1ac8bee80deecc724153ae5c6855fb7384193d5d/README.md",
+      "license_url": "https://github.com/rdmbtc/puls-sdk/blob/1ac8bee80deecc724153ae5c6855fb7384193d5d/LICENSE",
+      "representative_skill_url": "https://github.com/rdmbtc/puls-sdk/blob/1ac8bee80deecc724153ae5c6855fb7384193d5d/SKILL.md",
+      "readme_sha256": "031ad2ec1c9c13e93b0719d41db83ec73aee61d22586d4f7893b143a35a3f27e",
+      "license_sha256": "d6af152968372bed8d7d58ea773692faff8a0455aee5f78cd756f8b578829c52",
+      "representative_skill_sha256": "d0bf36bcd9b99d28082d4c119d2e2ae7c5c61fb91d730f08d3d0237f556479df"
+    },
+    {
+      "full_name": "linsir2/project-incarnation-skill",
+      "repository_id": 1205533414,
+      "stars": 1,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "5f9a9bcd830de2cd4d6268dc70fca8cfcd5c90b4",
+      "tree": "400a5af380c71d517db68a8fad8ea3dd79842ca6",
+      "readme_url": "https://github.com/linsir2/project-incarnation-skill/blob/5f9a9bcd830de2cd4d6268dc70fca8cfcd5c90b4/README.md",
+      "license_url": "https://github.com/linsir2/project-incarnation-skill/blob/5f9a9bcd830de2cd4d6268dc70fca8cfcd5c90b4/LICENSE",
+      "representative_skill_url": "https://github.com/linsir2/project-incarnation-skill/blob/5f9a9bcd830de2cd4d6268dc70fca8cfcd5c90b4/SKILL.md",
+      "readme_sha256": "3c57a825b90b4951f107fd11cd5aa65a23375eccc3fc9a3b3b5fd5e754414789",
+      "license_sha256": "5db51be74f26b07c2e585d27d83bd072899f21ff7b17257b0a117ced52fbf1ef",
+      "representative_skill_sha256": "3bf3be853494742690757cd4ec0c603547ab196780d5c656f41228afe8d1951c"
+    },
+    {
+      "full_name": "maximusmaximus/poa-agent-kit",
+      "repository_id": 1424927485,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 5,
+      "commit": "0aa568c7e4ff8bb2ecabee43132c43d28cbd15f5",
+      "tree": "ba87db41123a291906d4a289c184a859d6825052",
+      "readme_url": "https://github.com/maximusmaximus/poa-agent-kit/blob/0aa568c7e4ff8bb2ecabee43132c43d28cbd15f5/README.md",
+      "license_url": "https://github.com/maximusmaximus/poa-agent-kit/blob/0aa568c7e4ff8bb2ecabee43132c43d28cbd15f5/LICENSE",
+      "representative_skill_url": "https://github.com/maximusmaximus/poa-agent-kit/blob/0aa568c7e4ff8bb2ecabee43132c43d28cbd15f5/skills/poa-floor/SKILL.md",
+      "readme_sha256": "c84c68d483842fc1241b129dc619c83ab70bbe22d213de9ab1f91029698525aa",
+      "license_sha256": "cb852f970bcba88f5563349fe9a663c3c591ff3d611683ceb3a15b56410e1083",
+      "representative_skill_sha256": "c4112c15515823740f8576197c620ce37a8cc080a89fb61e7a2dcf63ab392652"
+    },
+    {
+      "full_name": "under71/skill-advisor",
+      "repository_id": 1432254448,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "2f2478e4897e3d8d1639aa7fedb7c45d483a1890",
+      "tree": "f4ce21593fe84da2fca590f15dc2d6d39c7decaf",
+      "readme_url": "https://github.com/under71/skill-advisor/blob/2f2478e4897e3d8d1639aa7fedb7c45d483a1890/README.md",
+      "license_url": "https://github.com/under71/skill-advisor/blob/2f2478e4897e3d8d1639aa7fedb7c45d483a1890/LICENSE",
+      "representative_skill_url": "https://github.com/under71/skill-advisor/blob/2f2478e4897e3d8d1639aa7fedb7c45d483a1890/skills/skill-advisor/SKILL.md",
+      "readme_sha256": "05f92edd9c66774ce650e666a5adc0e8ee839b1508e9b365b6e2164c37883120",
+      "license_sha256": "2d182b054a432f95f38417e1290b9a8c8a8d64f713d44a19aaf32482eea9df52",
+      "representative_skill_sha256": "d26210c055cafc9149e21a3c5b319c318e4d037ab85a3e07e59ff8f7f02e13b1"
+    },
+    {
+      "full_name": "MWest2020/skill-forge",
+      "repository_id": 1248332083,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 47,
+      "commit": "a5b2d452e16803f2872014a9ff9543d33718fa31",
+      "tree": "5e0493fb19eb55a6f5c0030e0a5cc9f224971962",
+      "readme_url": "https://github.com/MWest2020/skill-forge/blob/a5b2d452e16803f2872014a9ff9543d33718fa31/README.md",
+      "license_url": "https://github.com/MWest2020/skill-forge/blob/a5b2d452e16803f2872014a9ff9543d33718fa31/LICENSE",
+      "representative_skill_url": "https://github.com/MWest2020/skill-forge/blob/a5b2d452e16803f2872014a9ff9543d33718fa31/skills/accessibility/SKILL.md",
+      "readme_sha256": "dcd98297910fd8544db85cf52570735cf284bcf3b52e9d09c443c4cd6e05522d",
+      "license_sha256": "604a927ddebc2351502f03db36d3047a526718196dda725013530ce0c29a58fc",
+      "representative_skill_sha256": "4dd45f3427056fd90e5c22f5bc0eb6975f99bcdec66d3997fb90ae3852333dfd"
+    },
+    {
+      "full_name": "niklauslu/crabcloud-skills",
+      "repository_id": 1390435919,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 10,
+      "commit": "ea8f55f5aeca9688bc3a96a6d86e9927260b85eb",
+      "tree": "8f654393338cf79692cc4d0600fcdd06332c7b10",
+      "readme_url": "https://github.com/niklauslu/crabcloud-skills/blob/ea8f55f5aeca9688bc3a96a6d86e9927260b85eb/README.md",
+      "license_url": "https://github.com/niklauslu/crabcloud-skills/blob/ea8f55f5aeca9688bc3a96a6d86e9927260b85eb/LICENSE",
+      "representative_skill_url": "https://github.com/niklauslu/crabcloud-skills/blob/ea8f55f5aeca9688bc3a96a6d86e9927260b85eb/skills/crabcloud-agent/SKILL.md",
+      "readme_sha256": "c8aa000eb0c29c24c21c1920f3f4f928a5095fa508c686c02d2fd19898f6bdf5",
+      "license_sha256": "7c5ec62f947d411e3b2071daa53fda83b67971c80f3479629654b05b1f48246c",
+      "representative_skill_sha256": "207e1f11024fae685a9370b5eb74497081a3f6ca88403c3d137a50b59864780c"
+    },
+    {
+      "full_name": "Catalyst-Forge-LLC/detangler",
+      "repository_id": 1346865209,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 9,
+      "commit": "d9ac63558ae7af3262598bb70b2ff8e4acd479e8",
+      "tree": "946a21b2e72a75a290567efaf6a2c8862fe62660",
+      "readme_url": "https://github.com/Catalyst-Forge-LLC/detangler/blob/d9ac63558ae7af3262598bb70b2ff8e4acd479e8/README.md",
+      "license_url": "https://github.com/Catalyst-Forge-LLC/detangler/blob/d9ac63558ae7af3262598bb70b2ff8e4acd479e8/LICENSE",
+      "representative_skill_url": "https://github.com/Catalyst-Forge-LLC/detangler/blob/d9ac63558ae7af3262598bb70b2ff8e4acd479e8/.cursor/skills/detangler-app-apply/SKILL.md",
+      "readme_sha256": "1182c5599e6ac79198c4424199fc77b5fe2f330ee0221bf68b290cbdbefb8326",
+      "license_sha256": "5cf897b44f8449540bdf28a791fcf6876d97d885705703c0d28a074f8dc17433",
+      "representative_skill_sha256": "b0a7cec6b74096cae574765c4b580b664121debf9101e2a949520b49f3dc27f0"
+    },
+    {
+      "full_name": "OfficialSpicrawl/docs2skill",
+      "repository_id": 1430981158,
+      "stars": 0,
+      "license": "Apache-2.0",
+      "skill_count": 1,
+      "commit": "0d55adc7e36af74cc3dd6d81810f455eb6f1be5a",
+      "tree": "b7936a439cc9563faa5a87278b22d73b0a1190ed",
+      "readme_url": "https://github.com/OfficialSpicrawl/docs2skill/blob/0d55adc7e36af74cc3dd6d81810f455eb6f1be5a/README.md",
+      "license_url": "https://github.com/OfficialSpicrawl/docs2skill/blob/0d55adc7e36af74cc3dd6d81810f455eb6f1be5a/LICENSE",
+      "representative_skill_url": "https://github.com/OfficialSpicrawl/docs2skill/blob/0d55adc7e36af74cc3dd6d81810f455eb6f1be5a/SKILL.md",
+      "readme_sha256": "bb5becffc1a07a4ba46658fe01e43ccb45f93ed197623095d7bcffc034ecc8e7",
+      "license_sha256": "94b068966ca0dcb11449aa17b7c171c151036d394fe6e7be9cde644b45f3bbb6",
+      "representative_skill_sha256": "0928f91bc176df3055bb0253f7e3a09b3865ffd1a995f9f1869d9d9c96f7a60f"
+    },
+    {
+      "full_name": "rian010194/floorcheck",
+      "repository_id": 1430790914,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "084162f7887df4938fc6fd8af9911fde9ae51b34",
+      "tree": "b223590b16fb40b0766b7053dd190265fee6b670",
+      "readme_url": "https://github.com/rian010194/floorcheck/blob/084162f7887df4938fc6fd8af9911fde9ae51b34/README.md",
+      "license_url": "https://github.com/rian010194/floorcheck/blob/084162f7887df4938fc6fd8af9911fde9ae51b34/LICENSE",
+      "representative_skill_url": "https://github.com/rian010194/floorcheck/blob/084162f7887df4938fc6fd8af9911fde9ae51b34/skills/floorcheck/SKILL.md",
+      "readme_sha256": "5a706eacc940c22d9184eef988f52a369cd9f45930e12c49065cf8d73bee90a5",
+      "license_sha256": "09912d2ab660c8551a4f78bf1ce5996cf255c33815a125d31621903f708613da",
+      "representative_skill_sha256": "b0b846fc7df0ee32f7178178bde47fc3b45998aefd9c35f39dd0fd5db993365c"
+    },
+    {
+      "full_name": "Jeinn-co/agent-skills",
+      "repository_id": 1366498445,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 2,
+      "commit": "7874e26d6fb001d7d6943b61b65528f28197ad38",
+      "tree": "ed7355ed795b68b514e0468a9f529aaa71d4a252",
+      "readme_url": "https://github.com/Jeinn-co/agent-skills/blob/7874e26d6fb001d7d6943b61b65528f28197ad38/README.md",
+      "license_url": "https://github.com/Jeinn-co/agent-skills/blob/7874e26d6fb001d7d6943b61b65528f28197ad38/LICENSE",
+      "representative_skill_url": "https://github.com/Jeinn-co/agent-skills/blob/7874e26d6fb001d7d6943b61b65528f28197ad38/skills/ai-cli-version/SKILL.md",
+      "readme_sha256": "94d1a72fe9b0c5397973ee51061a7dc2eca33869a61ba6df4fb2a0cda58d83cc",
+      "license_sha256": "81e9c850fc583e35b6d360c031d413a585d17469e262a678a1607baf639cf658",
+      "representative_skill_sha256": "b8321742e0363a03d05441652c1d09afb4d4f84b49ff10b2b3df978a768afa88"
+    },
+    {
+      "full_name": "majiayu000/skill-checkup",
+      "repository_id": 1428482008,
+      "stars": 0,
+      "license": "MIT",
+      "skill_count": 1,
+      "commit": "dffce24b21f769d8f49328fcbd6ac24c08085104",
+      "tree": "56d9ac9851acfc0c5544cfbb75e59221a0650ee5",
+      "readme_url": "https://github.com/majiayu000/skill-checkup/blob/dffce24b21f769d8f49328fcbd6ac24c08085104/README.md",
+      "license_url": "https://github.com/majiayu000/skill-checkup/blob/dffce24b21f769d8f49328fcbd6ac24c08085104/LICENSE",
+      "representative_skill_url": "https://github.com/majiayu000/skill-checkup/blob/dffce24b21f769d8f49328fcbd6ac24c08085104/skill/SKILL.md",
+      "readme_sha256": "54f842a30e545e346c7e4dbe783657f6334c3b3f4623b205c823ab5fc843a6b9",
+      "license_sha256": "059666fa4986f6f7c53e31ac88316642b3007b857d6071397eecf7ce0a46c10b",
+      "representative_skill_sha256": "1138897a3f2c81ada9cfd059fb3ca4bc101e3b6af81f409ac85d22d643d61540"
+    }
+  ],
+  "excluded": [
+    {
+      "full_name": "atakanatamert/stillindexed-skill",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "RaveenDi/Skilloadout",
+      "reason": "generated/duplicate-heavy skill tree 6914"
+    },
+    {
+      "full_name": "lavine888/Lavine-Skill-Runtime",
+      "reason": "representative SKILL frontmatter absent"
+    },
+    {
+      "full_name": "AppSecHQ/skill-scanner-test",
+      "reason": "representative SKILL frontmatter absent"
+    },
+    {
+      "full_name": "maximilian-moore/itero-skills",
+      "reason": "representative SKILL frontmatter absent"
+    },
+    {
+      "full_name": "hyuga611/skills-lint",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "okjpg/skill-audit",
+      "reason": "license None"
+    },
+    {
+      "full_name": "geckse/n8n-dev-skills",
+      "reason": "license None"
+    },
+    {
+      "full_name": "doomsday-network/web3-agent-skills",
+      "reason": "gh: Not Found (HTTP 404)\n"
+    },
+    {
+      "full_name": "CutePigdaddy/pdf2skill",
+      "reason": "license None"
+    },
+    {
+      "full_name": "summit4you/aih",
+      "reason": "license None"
+    },
+    {
+      "full_name": "xiaxi626/dsh-skills-nexus",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "MaxLogic/AgentSkillSearch",
+      "reason": "license None"
+    },
+    {
+      "full_name": "loonghao/skill-native-sdk",
+      "reason": "license None"
+    },
+    {
+      "full_name": "jonnyeclectic/boost",
+      "reason": "representative SKILL frontmatter absent"
+    },
+    {
+      "full_name": "devanasolver/awesome-agent-skills",
+      "reason": "license NOASSERTION"
+    },
+    {
+      "full_name": "thedammyking/que-claude-marketplace",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "YuukiAS/AI_Skills_Collection",
+      "reason": "license None"
+    },
+    {
+      "full_name": "wklin2018/ccminiweb",
+      "reason": "license None"
+    },
+    {
+      "full_name": "Hazem-Samak/skill-lens",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "sebastienrousseau/agtmls",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "piyush2707/skillforge",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "firstbitelabsllc/skillbox",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "Vortexeddev/skillcheck",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "galeoindus/Amigo",
+      "reason": "license None"
+    },
+    {
+      "full_name": "Gooder24/Karchi-skills.md",
+      "reason": "license None"
+    },
+    {
+      "full_name": "jmagly/aiwg-training",
+      "reason": "license None"
+    },
+    {
+      "full_name": "TalibIbrahim/linkedin-account-manager",
+      "reason": "license None"
+    },
+    {
+      "full_name": "hzh5021/dsh-research-commands",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "framerslab/agentos-skills-registry",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "keith-leung/mcp-capability-plane",
+      "reason": "license None"
+    },
+    {
+      "full_name": "Redfloor/skillsmith",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "Calq-dev/laravel-ai-skills",
+      "reason": "license None"
+    },
+    {
+      "full_name": "googs1025/kube-agent-helper",
+      "reason": "license NOASSERTION"
+    },
+    {
+      "full_name": "0xjitsu/jitsu-skills",
+      "reason": "license AGPL-3.0"
+    },
+    {
+      "full_name": "ykzeng-yale/skill-md",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "thewoolleyman/livespec-driver-pi",
+      "reason": "license None"
+    },
+    {
+      "full_name": "NenadZivotic/lite-agent-skills",
+      "reason": "license None"
+    },
+    {
+      "full_name": "thewoolleyman/livespec-driver-claude",
+      "reason": "license None"
+    },
+    {
+      "full_name": "raulkivi/unicode-smuggling-guard",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "waseemnasir2k26/claude-skill-lint",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "Ephasme/agent-skills",
+      "reason": "license None"
+    },
+    {
+      "full_name": "MartinCastroAlvarez/django-admin-skills",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "dmoreq/gemini-skills",
+      "reason": "license None"
+    },
+    {
+      "full_name": "dycshow/skilllint",
+      "reason": "missing README/license/SKILL"
+    },
+    {
+      "full_name": "SYasJ/skillmd-tutorials",
+      "reason": "manual exclusion: test/tutorial/demo or thin personal repository"
+    },
+    {
+      "full_name": "ethanratnofsky/skills",
+      "reason": "manual exclusion: test/tutorial/demo or thin personal repository"
+    },
+    {
+      "full_name": "learnermaker/project-demo-video-skill",
+      "reason": "manual exclusion: test/tutorial/demo or thin personal repository"
+    },
+    {
+      "full_name": "mikesmullin/skills",
+      "reason": "manual exclusion: test/tutorial/demo or thin personal repository"
+    },
+    {
+      "full_name": "valter0ff/genesis_test_task",
+      "reason": "manual exclusion: test/tutorial/demo or thin personal repository"
+    }
+  ],
+  "validation": {
+    "fixed_object_evidence_verified": true,
+    "accepted_rows": 50
+  }
+}
