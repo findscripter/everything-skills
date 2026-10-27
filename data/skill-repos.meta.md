@@ -48,4 +48,6 @@ part85 扩展：农业食品与绿色软件、细分语言和认知/信息无障
 - `current_review`：已完成的固定版本内容/分发/许可复审，记录独立 commit、真实 Tree、明确复审字段和证据台账。生成目录与 CLI 使用其当前视图，原批次字段仍保留在 JSONL；CLI 的 `recorded_snapshot` 返回旧值，Stars 与仓库身份不随内容复审改写。不可访问项没有当前 commit/tree，停止当前推荐并保留历史，不推断删除、私有或迁移。
 - 2026-10-23 身份纠正后共 2,673 条记录：2,654 个可解析不同 ID，19 条当前不可访问；不可访问不等同已删除。12 条重复行的原值、分片位置和证据更正保存在 [纠正回执](../data/catalog-corrections-2026-10-23.audit.json)，旧审计回执保留原样。
 - README：`node scripts/refresh-readme-skill-repos-directory.mjs --lang=en|zh`
-\n\npart91（2026-10-26）扩展产品内嵌技能、医疗、求职、OpenWrt、幻灯片、工作流和技能基础设施；使用固定 commit/tree/blob 证据，排除测试/教程/演示薄仓库。\n
+
+part91（2026-10-26）扩展产品内嵌技能、医疗、求职、OpenWrt、幻灯片、工作流和技能基础设施；使用固定 commit/tree/blob 证据，排除测试/教程/演示薄仓库。
+part92（2026-10-27）扩展实时新增的产品、基础设施、医疗、开发工具、加密和技能集合；使用固定 commit/tree/blob 证据，排除测试/教程/演示薄仓库。
