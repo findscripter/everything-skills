@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-29",
+  "timezone": "Asia/Shanghai",
+  "backend": "agent-reach GitHub fallback via official API",
+  "candidate_pool": 84,
+  "accepted": 55,
+  "excluded": 29
+}
