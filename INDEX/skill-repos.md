@@ -8,7 +8,7 @@
 
 - 编制日期：2026-10-25（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part90
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：3005 条目录记录（按已核实的仓库 ID 去重；不可访问条目保留历史）
+- 收录条数：3059 条目录记录（按已核实的仓库 ID 去重；不可访问条目保留历史）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
 范围扩展与本轮候选核验见 [2026-10-25 审核记录](../data/discovery/2026-10-25/audit.md)、[逐项审核台账](../data/discovery/2026-10-25/audit.json)、[今日新增清单](../data/discovery/2026-10-25/additions.json)、[当日回执](../data/discovery/2026-10-25/publication.json)、[part90 审核记录](../data/skill-repos.part90.audit.md)、[part90 检索来源](../data/skill-repos.part90.search-provenance.json)、[2026-10-24 审核记录](../data/discovery/2026-10-24/audit.md)、[逐项审核台账](../data/discovery/2026-10-24/audit.json)、[今日新增清单](../data/discovery/2026-10-24/additions.json)、[当日回执](../data/discovery/2026-10-24/publication.json)、[part89 审核记录](../data/skill-repos.part89.audit.md)、[part89 检索来源](../data/skill-repos.part89.search-provenance.json)、[part88 审核记录](../data/skill-repos.part88.audit.md)、[2026-10-23 当日回执](../data/discovery/2026-10-23/publication.json)、[part87 审核记录](../data/skill-repos.part87.audit.md)、[2026-10-22 当日回执](../data/discovery/2026-10-22/publication.json)、[part86 审核记录](../data/skill-repos.part86.audit.md)、[2026-10-21 当日回执](../data/discovery/2026-10-21/publication.json)、[part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
@@ -55,6 +55,7 @@ part91（2026-10-26）扩展产品内嵌技能、医疗、求职、OpenWrt、幻
 part92（2026-10-27）扩展实时新增的产品、基础设施、医疗、开发工具、加密和技能集合；使用固定 commit/tree/blob 证据，排除测试/教程/演示薄仓库。
 part93（2026-10-28）扩展实时新增的技能基础设施、开发工具、加密、设计、内容、商业和领域工作流；使用固定 commit/tree/blob 证据，排除测试/教程/演示薄仓库。
 part94（2026-10-29）扩展实时新增的开发、设计、内容、商业、科研和技能基础设施工作流；使用固定 commit/tree/blob 证据，排除测试/教程/演示薄仓库。
+part95（2026-10-30）扩展实时新增的技能创建、研究、媒体、开发工具、职业、设计和领域工作流；使用固定 commit/tree/blob 证据，排除测试/教程/演示薄仓库。
 
 ## 1. 官方与权威
 
@@ -2858,6 +2859,60 @@ part94（2026-10-29）扩展实时新增的开发、设计、内容、商业、�
 | [SpartanLabsXyz/simmer-sdk](https://github.com/SpartanLabsXyz/simmer-sdk) | 52 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 36 | 仅索引 · 上游可访问 |
 | [uzairansaruzi/ustack](https://github.com/uzairansaruzi/ustack) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [zeebyx/operator-skills](https://github.com/zeebyx/operator-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 12 | 仅索引 · 上游可访问 |
+| [zrosenbauer/skills](https://github.com/zrosenbauer/skills) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 17 | 仅索引 · 上游可访问 |
+| [Franky100-pig/agent-skills-lab](https://github.com/Franky100-pig/agent-skills-lab) | 5 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 12 | 仅索引 · 上游可访问 |
+| [hhdhh/laomian-mantou-skill](https://github.com/hhdhh/laomian-mantou-skill) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [undercutsh/firstpass](https://github.com/undercutsh/firstpass) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [chanelle/agent-skills](https://github.com/chanelle/agent-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 4 | 仅索引 · 上游可访问 |
+| [hoerlerchristopher/upskill-ai-skills](https://github.com/hoerlerchristopher/upskill-ai-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 50 | 仅索引 · 上游可访问 |
+| [fralapo/awesome-agent-skills](https://github.com/fralapo/awesome-agent-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 14 | 仅索引 · 上游可访问 |
+| [kajisho5/stepcap](https://github.com/kajisho5/stepcap) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [juzorei/skilldoctor](https://github.com/juzorei/skilldoctor) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [dennisyu/local-service-spotlight-skills](https://github.com/dennisyu/local-service-spotlight-skills) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 38 | 仅索引 · 上游可访问 |
+| [thomiOmi/agent-skills](https://github.com/thomiOmi/agent-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 35 | 仅索引 · 上游可访问 |
+| [OrinocoStudios/scrum-table-clear](https://github.com/OrinocoStudios/scrum-table-clear) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [spboyer/sensei](https://github.com/spboyer/sensei) | 60 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 4 | 仅索引 · 上游可访问 |
+| [fpavia111-creator/hephaestus](https://github.com/fpavia111-creator/hephaestus) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [codekyha/simple-skills](https://github.com/codekyha/simple-skills) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 4 | 仅索引 · 上游可访问 |
+| [StartupBros-com/skill-tuner](https://github.com/StartupBros-com/skill-tuner) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 125 | 仅索引 · 上游可访问 |
+| [evrentan/skill-generator](https://github.com/evrentan/skill-generator) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [webtyp/devskills](https://github.com/webtyp/devskills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 33 | 仅索引 · 上游可访问 |
+| [artemrudenko/skill-governance-toolkit](https://github.com/artemrudenko/skill-governance-toolkit) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 6 | 仅索引 · 上游可访问 |
+| [aaitor/skill-publish-to-linkedin](https://github.com/aaitor/skill-publish-to-linkedin) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [damsleth/SKILLS](https://github.com/damsleth/SKILLS) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 19 | 仅索引 · 上游可访问 |
+| [Amazing-soil/santu61ai-amazing-skill](https://github.com/Amazing-soil/santu61ai-amazing-skill) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [strongly-ai/strongly-ai-skill](https://github.com/strongly-ai/strongly-ai-skill) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [crankyjediii/apple-ui-skills](https://github.com/crankyjediii/apple-ui-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 12 | 仅索引 · 上游可访问 |
+| [vulinh1704/mantis](https://github.com/vulinh1704/mantis) | 2 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 3 | 仅索引 · 上游可访问 |
+| [HorusSoftwareUY/agent-skills](https://github.com/HorusSoftwareUY/agent-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [jinjin20220405/guitar-playalong-simulator](https://github.com/jinjin20220405/guitar-playalong-simulator) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [clawxiaobai/career-application-kit](https://github.com/clawxiaobai/career-application-kit) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [anandkaranubc/git-into-gsoc](https://github.com/anandkaranubc/git-into-gsoc) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [aldo01/scar-tissue](https://github.com/aldo01/scar-tissue) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [kinglez/mkl-solid-code-development](https://github.com/kinglez/mkl-solid-code-development) | 2 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [noahwhite/agent-skills](https://github.com/noahwhite/agent-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | Apache-2.0 | 18 | 仅索引 · 上游可访问 |
+| [KakkoiDev/icm-runtime](https://github.com/KakkoiDev/icm-runtime) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 8 | 仅索引 · 上游可访问 |
+| [Rodert/silicogrove-image-skill](https://github.com/Rodert/silicogrove-image-skill) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [awesome-proof-of-effect/proof-of-effect](https://github.com/awesome-proof-of-effect/proof-of-effect) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [tatara-app/tatara-skills](https://github.com/tatara-app/tatara-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 8 | 仅索引 · 上游可访问 |
+| [ji-hun-git/ethical-research](https://github.com/ji-hun-git/ethical-research) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 13 | 仅索引 · 上游可访问 |
+| [trevhud/rote](https://github.com/trevhud/rote) | 8 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | Apache-2.0 | 5 | 仅索引 · 上游可访问 |
+| [lxsmnsyc/agent-skills](https://github.com/lxsmnsyc/agent-skills) | 3 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 10 | 仅索引 · 上游可访问 |
+| [chunyangqiao/joe-skills](https://github.com/chunyangqiao/joe-skills) | 4 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [octopode/skillz](https://github.com/octopode/skillz) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [belivetech/aihub-skills](https://github.com/belivetech/aihub-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [ql-link/drawoffer-skills](https://github.com/ql-link/drawoffer-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 11 | 仅索引 · 上游可访问 |
+| [SolutionsAsService/dada-lite](https://github.com/SolutionsAsService/dada-lite) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [tubeagentkit/youtube-transcript-skills](https://github.com/tubeagentkit/youtube-transcript-skills) | 80 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [arcatva/groundwork](https://github.com/arcatva/groundwork) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [weikion/wechat-article-beautify](https://github.com/weikion/wechat-article-beautify) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [lenixeduardo/Image-to-code](https://github.com/lenixeduardo/Image-to-code) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [EnsoDynamics/enso-method](https://github.com/EnsoDynamics/enso-method) | 5 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 26 | 仅索引 · 上游可访问 |
+| [dqcuong93/agent-skills](https://github.com/dqcuong93/agent-skills) | 0 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 4 | 仅索引 · 上游可访问 |
+| [ayase0307/ai-comic-drama](https://github.com/ayase0307/ai-comic-drama) | 1 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 7 | 仅索引 · 上游可访问 |
+| [bellisji233/live2d-halfbody-skill](https://github.com/bellisji233/live2d-halfbody-skill) | 26 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [liyupi/memecub](https://github.com/liyupi/memecub) | 24 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [brilliantrough/agent-skills](https://github.com/brilliantrough/agent-skills) | 10 | 公开 Agent Skill 集合；已固定 README、代表技能和许可证证据。 | MIT | 33 | 仅索引 · 上游可访问 |
 
 ## 5. 其他值得索引的技能库
 
