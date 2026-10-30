@@ -1,6 +1,13 @@
 {
   "date": "2026-10-30",
-  "accepted_count": 55,
-  "part": "part95",
-  "status": "in_progress"
+  "timezone": "Asia/Shanghai",
+  "zh_collection_commit": "6440b25",
+  "main_collection_commit": "5948b1b",
+  "ci": {
+    "zh": "pending",
+    "main": "pending"
+  },
+  "status": "published",
+  "accepted_count": 54,
+  "part": "part95"
 }
