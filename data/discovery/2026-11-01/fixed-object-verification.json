@@ -1428,5 +1428,12 @@
       "passed": true
     }
   ],
-  "limitations": "Object/identity verification does not execute third-party instructions or certify every skill body."
+  "limitations": "Object/identity verification does not execute third-party instructions or certify every skill body.",
+  "baseline_git_object_verification": {
+    "source_head": "060d87e68bd0c1f8e50747d7c7782bb41d165058",
+    "data_commit": "392a64abe2354f438b7a2fe1f85197e9941e4fd7",
+    "unchanged_blob_count": 92,
+    "hash_map": "baseline.json#git_data_files_sha256",
+    "legacy_worktree_crlf_count": 1
+  }
 }

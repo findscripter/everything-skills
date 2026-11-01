@@ -178,3 +178,5 @@
 - 158 个新增身份、497 份固定文件引用通过官方 API 与原始字节复核；基线 92 份目录数据文件保持原 SHA-256。
 - [覆盖对账](discovery/2026-11-01/coverage.json)记录 193 个广搜读取对象、154 个语义复核对象及领域检索流；声明范围内缺失为零，未承诺穷尽全部搜索结果。
 - [固定对象验证](discovery/2026-11-01/fixed-object-verification.json)保存每个新增仓库的 commit、真实 tree 与引用验证数。
+
+基线哈希口径：`baseline.json` 保留采集开始时的工作区原始字节 hash，并另存 `git_data_files_sha256`。旧 `part96.jsonl` 工作区为 CRLF、Git 对象为 LF，规范化后严格相同；92 份基线文件在来源提交与本批数据提交中的 Git blob 均未变化。本批新增文件按 LF 写入并校验暂存区对象。
