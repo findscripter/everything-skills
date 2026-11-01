@@ -80,7 +80,8 @@
     },
     "staged_shard_sha256_utf8_lf": "passed",
     "coverage_missing_inputs": 0,
-    "source_and_code_equality": "Only five allowed language interface paths differ."
+    "source_and_code_equality": "Only five allowed language interface paths differ.",
+    "baseline_git_objects": "All 92 before/after Git blob IDs are identical; baseline.json separates observed-worktree and Git-byte SHA-256 values for the one legacy CRLF file."
   },
   "ci_scope": "These successful runs prove the exact data heads and their post-merge commits. This later documentation receipt does not claim to certify its own commit.",
   "policy": "No numeric cap; 50 is a minimum daily goal and never an acceptance-count stopping condition.",
