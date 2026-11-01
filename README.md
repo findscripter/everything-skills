@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1114 skills · 11 volumes · 6787 relation edges · 3272 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1114 skills · 11 volumes · 6787 relation edges · 3273 indexed entries" width="1200" /></picture>
 </p>
 <!-- END GENERATED:brand -->
 
@@ -117,7 +117,7 @@ npm run skill -- eval
 <!-- BEGIN GENERATED:skill-repos -->
 ## 技能仓库目录
 
-目前有 **3272** 条 GitHub 技能库/市场/精选列表目录记录。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
+目前有 **3273** 条 GitHub 技能库/市场/精选列表目录记录。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。
 
 完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。
 
@@ -1108,7 +1108,7 @@ npm run skill -- eval
 </details>
 
 <details>
-<summary>3. 垂直领域技能包（vertical）（1420）</summary>
+<summary>3. 垂直领域技能包（vertical）（1421）</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — 方法论技能包：TDD、头脑风暴、子代理驱动开发等可组合工程纪律。 (上游可访问)
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — Everything Claude Code 后继：技能/代理/命令/钩子插件市场。原名 everything-claude-code。 (上游可访问)
@@ -1299,6 +1299,7 @@ npm run skill -- eval
 - [`LeonChaoX/qinyan-academic-skills`](https://github.com/LeonChaoX/qinyan-academic-skills) — 多语言学术研究技能库：187 个技能、18 个领域，覆盖文献、写作、基金、生物信息、临床、机器学习与数据分析。 (上游可访问)
 - [`simonw/claude-skills`](https://github.com/simonw/claude-skills) — Claude 代码解释器 /mnt/skills 内容镜像。 (上游可访问)
 - [`boyang-hu/website-rebuild-skill`](https://github.com/boyang-hu/website-rebuild-skill) — 只读镜像抓取+压缩代码还原网站复刻Agent Skill。 (上游可访问)
+- [`vostride/agent-qa`](https://github.com/vostride/agent-qa) — [agent-qa](https://vostride.com) 官方技能包：编写网页和移动端测试、基于证据排障、检查 memidex 记忆；QA 运行器保留经验证的经验并淘汰过时知识。 (上游可访问)
 - [`alchaincyf/huashu-md-html`](https://github.com/alchaincyf/huashu-md-html) — 花叔 md↔html/docx 四向流水线 Agent Skill（4 主题反 AI-slop）；`npx skills add alchaincyf/huashu-md-html`。 (上游可访问)
 - [`Bhanunamikaze/Agentic-SEO-Skill`](https://github.com/Bhanunamikaze/Agentic-SEO-Skill) — 面向 Antigravity/Codex/Claude 的 LLM 优先 SEO 分析 Skill。 (上游可访问)
 - [`sunbigfly/ppt-agent-skills`](https://github.com/sunbigfly/ppt-agent-skills) — 代码驱动演示文稿生成框架与 Agent Skills。 (上游可访问)
