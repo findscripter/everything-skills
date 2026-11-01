@@ -1,0 +1,136 @@
+{
+  "date": "2026-11-01",
+  "backend": "GitHub CLI official API; agent-reach GitHub route",
+  "queries": [
+    {
+      "q": "\"SKILL.md\" geospatial in:readme",
+      "total_count": 868,
+      "returned": 50,
+      "new_count": 45,
+      "incomplete_results": false
+    },
+    {
+      "q": "\"SKILL.md\" climate in:readme",
+      "total_count": 1393,
+      "returned": 50,
+      "new_count": 48,
+      "incomplete_results": false
+    },
+    {
+      "q": "\"SKILL.md\" ROS2 in:readme",
+      "total_count": 457,
+      "returned": 50,
+      "new_count": 46,
+      "incomplete_results": false
+    },
+    {
+      "q": "\"SKILL.md\" FreeCAD in:readme",
+      "total_count": 297,
+      "returned": 50,
+      "new_count": 47,
+      "incomplete_results": false
+    },
+    {
+      "q": "\"SKILL.md\" agriculture in:readme",
+      "total_count": 519,
+      "returned": 50,
+      "new_count": 48,
+      "incomplete_results": false
+    },
+    {
+      "q": "\"SKILL.md\" laboratory in:readme",
+      "total_count": 817,
+      "returned": 50,
+      "new_count": 48,
+      "incomplete_results": false
+    },
+    {
+      "q": "\"SKILL.md\" accessibility in:readme",
+      "total_count": 26809,
+      "returned": 50,
+      "new_count": 48,
+      "incomplete_results": false
+    },
+    {
+      "q": "\"SKILL.md\" scientific in:readme",
+      "total_count": 7036,
+      "returned": 50,
+      "new_count": 46,
+      "incomplete_results": false
+    },
+    {
+      "q": "\"agent skills\" \"official\" in:readme stars:>5 fork:false",
+      "returned": 100,
+      "total_count": 6860,
+      "incomplete_results": false,
+      "sort": "updated",
+      "per_page": 100,
+      "page": 1
+    },
+    {
+      "q": "\"SKILL.md\" \"SDK\" in:readme stars:>10 fork:false",
+      "returned": 100,
+      "total_count": 3245,
+      "incomplete_results": false,
+      "sort": "updated",
+      "per_page": 100,
+      "page": 1
+    },
+    {
+      "q": "\"for-agents\" in:readme stars:>5 fork:false",
+      "returned": 100,
+      "total_count": 19159,
+      "incomplete_results": false,
+      "sort": "updated",
+      "per_page": 100,
+      "page": 1
+    },
+    {
+      "q": "\"npx skills add\" \"CLI\" in:readme stars:>10 fork:false",
+      "returned": 100,
+      "total_count": 4710,
+      "incomplete_results": false,
+      "sort": "updated",
+      "per_page": 100,
+      "page": 1
+    },
+    {
+      "q": "\"SKILL.md\" \"official\" in:readme created:>2026-09-01 fork:false",
+      "returned": 100,
+      "total_count": 16505,
+      "incomplete_results": false,
+      "sort": "updated",
+      "per_page": 100,
+      "page": 1
+    },
+    {
+      "query": "\"SKILL.md\" in:readme pushed:>=2026-10-30 fork:false",
+      "total": 25302,
+      "retrieved": 100,
+      "page": 1,
+      "incomplete_results": false
+    },
+    {
+      "query": "\"agent skills\" in:readme pushed:>=2026-10-30 fork:false",
+      "total": 42935,
+      "retrieved": 100,
+      "page": 1,
+      "incomplete_results": false
+    },
+    {
+      "query": "\"skill\" \"install\" in:readme pushed:>=2026-10-30 fork:false",
+      "total": 104247,
+      "retrieved": 100,
+      "page": 1,
+      "incomplete_results": false
+    },
+    {
+      "query": "topic:agent-skills pushed:>=2026-10-30 fork:false",
+      "total": 3823,
+      "retrieved": 100,
+      "page": 1,
+      "incomplete_results": false
+    }
+  ],
+  "representative_fetches": "Git blob bytes verified against SHA-1 and SHA-256; immutable commit and true tree stored."
+}
