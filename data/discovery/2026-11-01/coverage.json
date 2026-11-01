@@ -1,0 +1,3677 @@
+{
+  "date": "2026-11-01",
+  "collection_policy": "No numeric cap; finish the finite declared review pool without stopping after 50/55 accepted identities.",
+  "root_inspections": 193,
+  "root_semantic_reviews": 154,
+  "root_preliminary_holds": 39,
+  "semantic_partition_sizes": [
+    60,
+    30,
+    64
+  ],
+  "root_missing": [],
+  "final_added_new_ids": 158,
+  "final_catalog_rows": 3272,
+  "final_rejected_or_held": 59,
+  "final_deferred": 19,
+  "root_final_dispositions": {
+    "rejected_or_held": 54,
+    "accepted": 132,
+    "deferred": 7
+  },
+  "root_inputs": [
+    {
+      "full_name": "cedric-v/studio-clarte",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "cedric-v/studio-clarte"
+    },
+    {
+      "full_name": "jokerlin/skill-manager",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "jokerlin/skill-manager"
+    },
+    {
+      "full_name": "D0NO1/skill-eval",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "D0NO1/skill-eval"
+    },
+    {
+      "full_name": "trappsquid/tinycmdr-dev",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "trappsquid/tinycmdr-dev"
+    },
+    {
+      "full_name": "babylon2k2002/yak-goal",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "babylon2k2002/yak-goal"
+    },
+    {
+      "full_name": "ContinuaAI/continua-literature-review",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "ContinuaAI/continua-literature-review"
+    },
+    {
+      "full_name": "agent-stacks/agent-pkgs",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "agent-stacks/agent-pkgs"
+    },
+    {
+      "full_name": "blogminhquy/javis-os",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "blogminhquy/javis-os"
+    },
+    {
+      "full_name": "SamSamskies/coldcard-hack-tracker",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "SamSamskies/coldcard-hack-tracker"
+    },
+    {
+      "full_name": "dopejs/kura",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "dopejs/kura"
+    },
+    {
+      "full_name": "dperhar/orcestrationmaxxing",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "dperhar/orcestrationmaxxing"
+    },
+    {
+      "full_name": "filecoin-project/pgf-monitor",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "filecoin-project/pgf-monitor"
+    },
+    {
+      "full_name": "hexinzxq/skillforge",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "hexinzxq/skillforge"
+    },
+    {
+      "full_name": "gavin-hu/my-pi-agent",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "gavin-hu/my-pi-agent"
+    },
+    {
+      "full_name": "paraqualis/paraqualis-gxp",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "paraqualis/paraqualis-gxp"
+    },
+    {
+      "full_name": "karoc/dsh-kanban",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "karoc/dsh-kanban"
+    },
+    {
+      "full_name": "cjy5507/zerocode",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "cjy5507/zerocode"
+    },
+    {
+      "full_name": "maiquelleonel/matryoshka-harness",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "maiquelleonel/matryoshka-harness"
+    },
+    {
+      "full_name": "Yeachan-Heo/oh-my-claudecode",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Yeachan-Heo/oh-my-claudecode"
+    },
+    {
+      "full_name": "kathanp/fullshield",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "kathanp/fullshield"
+    },
+    {
+      "full_name": "curtisgalloway/panio",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "curtisgalloway/panio"
+    },
+    {
+      "full_name": "NathanielInman/credential-broker",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "NathanielInman/credential-broker"
+    },
+    {
+      "full_name": "JKHeadley/instar",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "JKHeadley/instar"
+    },
+    {
+      "full_name": "rjwalters/squad",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "rjwalters/squad"
+    },
+    {
+      "full_name": "codeabraham16/musubi",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "codeabraham16/musubi"
+    },
+    {
+      "full_name": "Sidiora-Labs/hyperfide",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Sidiora-Labs/hyperfide"
+    },
+    {
+      "full_name": "getan/kitty-browse",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "getan/kitty-browse"
+    },
+    {
+      "full_name": "liuzheng6621/frontend-fidelity",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "liuzheng6621/frontend-fidelity"
+    },
+    {
+      "full_name": "mr-apm/antigravity-upgrade-kit",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "mr-apm/antigravity-upgrade-kit"
+    },
+    {
+      "full_name": "GoYonderTogether/yonder",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "GoYonderTogether/yonder"
+    },
+    {
+      "full_name": "project-hh-org/dsmith",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "project-hh-org/dsmith"
+    },
+    {
+      "full_name": "Hambaobao/hambaobao-skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Hambaobao/hambaobao-skills"
+    },
+    {
+      "full_name": "0Sakura721/Kaze-SLauncher",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "0Sakura721/Kaze-SLauncher"
+    },
+    {
+      "full_name": "a14a-org/claude-temper",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "a14a-org/claude-temper"
+    },
+    {
+      "full_name": "nitsuah/ats-fill",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "nitsuah/ats-fill"
+    },
+    {
+      "full_name": "gurusaiss/ardham",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "gurusaiss/ardham"
+    },
+    {
+      "full_name": "KazuCocoa/renma",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "KazuCocoa/renma"
+    },
+    {
+      "full_name": "cendysaputra/agentic-weave",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "cendysaputra/agentic-weave"
+    },
+    {
+      "full_name": "rogerbucks/skillknot",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "rogerbucks/skillknot"
+    },
+    {
+      "full_name": "rrnewton/agent-utils",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "rrnewton/agent-utils"
+    },
+    {
+      "full_name": "c-wenlong/quiver",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "c-wenlong/quiver"
+    },
+    {
+      "full_name": "trustless-ai/tawg-daily-contribution",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "trustless-ai/tawg-daily-contribution"
+    },
+    {
+      "full_name": "ca-x/cognate",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "ca-x/cognate"
+    },
+    {
+      "full_name": "Producdevity/sbc-handheld-development-skill",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Producdevity/sbc-handheld-development-skill"
+    },
+    {
+      "full_name": "medTech-group/pairnexus-workflow",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "medTech-group/pairnexus-workflow"
+    },
+    {
+      "full_name": "DraconDev/pi-plugins",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "DraconDev/pi-plugins"
+    },
+    {
+      "full_name": "jbaruch/skill-issue-brickbox-start",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "jbaruch/skill-issue-brickbox-start"
+    },
+    {
+      "full_name": "Amaanuddin-Ahmed/CSE-III-sem",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "Amaanuddin-Ahmed/CSE-III-sem"
+    },
+    {
+      "full_name": "takecchi/alteroid",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "takecchi/alteroid"
+    },
+    {
+      "full_name": "Ancienttwo/repo-harness",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Ancienttwo/repo-harness"
+    },
+    {
+      "full_name": "andrsnn/slop-to-english",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "andrsnn/slop-to-english"
+    },
+    {
+      "full_name": "drjzlyan/dhi",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "drjzlyan/dhi"
+    },
+    {
+      "full_name": "edotau/claude-code",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "edotau/claude-code"
+    },
+    {
+      "full_name": "zhanglunet/livepowers",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "zhanglunet/livepowers"
+    },
+    {
+      "full_name": "multiplex-ai/muggle-ai-works",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "multiplex-ai/muggle-ai-works"
+    },
+    {
+      "full_name": "makwanaalpesh811-a11y/hermes-agent-skill",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "makwanaalpesh811-a11y/hermes-agent-skill"
+    },
+    {
+      "full_name": "rjwalters/safehouse",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "rjwalters/safehouse"
+    },
+    {
+      "full_name": "cyanheads/mailchimp-mcp-server",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "cyanheads/mailchimp-mcp-server"
+    },
+    {
+      "full_name": "LAO235Sodo/taskflow",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "LAO235Sodo/taskflow"
+    },
+    {
+      "full_name": "OpenAgentsInc/openagents",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "OpenAgentsInc/openagents"
+    },
+    {
+      "full_name": "EvanZhang008/open-walnut",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "EvanZhang008/open-walnut"
+    },
+    {
+      "full_name": "stawan15/teveus",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "stawan15/teveus"
+    },
+    {
+      "full_name": "nextlyhq/nextly",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "nextlyhq/nextly"
+    },
+    {
+      "full_name": "koala73/worldmonitor",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "koala73/worldmonitor"
+    },
+    {
+      "full_name": "jshute96/SourceMonkey",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "jshute96/SourceMonkey"
+    },
+    {
+      "full_name": "horangelmillan/harness-btp",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "horangelmillan/harness-btp"
+    },
+    {
+      "full_name": "cendysaputra/deflow",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "cendysaputra/deflow"
+    },
+    {
+      "full_name": "constellation-works/orbit",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "constellation-works/orbit"
+    },
+    {
+      "full_name": "Zafnok/shuyi-engine",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "Zafnok/shuyi-engine"
+    },
+    {
+      "full_name": "hansololz/autowright",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "hansololz/autowright"
+    },
+    {
+      "full_name": "az0319h/Idam-web",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "az0319h/Idam-web"
+    },
+    {
+      "full_name": "goravel/agents",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "goravel/agents"
+    },
+    {
+      "full_name": "the-omega-institute/trureturing",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "the-omega-institute/trureturing"
+    },
+    {
+      "full_name": "compound-technologies/summer-mcp",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "compound-technologies/summer-mcp"
+    },
+    {
+      "full_name": "ShiftLead/agent-cadence",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "ShiftLead/agent-cadence"
+    },
+    {
+      "full_name": "numtide/llm-agents.nix",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "numtide/llm-agents.nix"
+    },
+    {
+      "full_name": "ShivaeDev/platform",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "ShivaeDev/platform"
+    },
+    {
+      "full_name": "ALi365-SDN-BHD/Bukit",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "ALi365-SDN-BHD/Bukit"
+    },
+    {
+      "full_name": "imjlk/slicewright",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "imjlk/slicewright"
+    },
+    {
+      "full_name": "cavi-ai/bobby-browser",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "cavi-ai/bobby-browser"
+    },
+    {
+      "full_name": "5throck/ai-workspace-standards",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "deferred",
+      "canonical_name": "5throck/ai-workspace-standards"
+    },
+    {
+      "full_name": "CalQuity/rung",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "CalQuity/rung"
+    },
+    {
+      "full_name": "WeftCut/WeftCut",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "WeftCut/WeftCut"
+    },
+    {
+      "full_name": "garywei944/acad.garywei.dev",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "garywei944/acad.garywei.dev"
+    },
+    {
+      "full_name": "Joshua-Booth/creact",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "Joshua-Booth/creact"
+    },
+    {
+      "full_name": "open-mercato/open-mercato",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "open-mercato/open-mercato"
+    },
+    {
+      "full_name": "ArthurC02/SkillHub",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "deferred",
+      "canonical_name": "ArthurC02/SkillHub"
+    },
+    {
+      "full_name": "AnaHill/MEA_review_llm_wiki",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "AnaHill/MEA_review_llm_wiki"
+    },
+    {
+      "full_name": "hisea/radian",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "hisea/radian"
+    },
+    {
+      "full_name": "JevonsCode/fuli",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "JevonsCode/fuli"
+    },
+    {
+      "full_name": "egbujor-emmanuel/nocturne",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "egbujor-emmanuel/nocturne"
+    },
+    {
+      "full_name": "Famanias/openlanding.page",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "Famanias/openlanding.page"
+    },
+    {
+      "full_name": "Digidai/website2markdown",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "Digidai/website2markdown"
+    },
+    {
+      "full_name": "0xDanielLopez/TweetFeed",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "0xDanielLopez/TweetFeed"
+    },
+    {
+      "full_name": "zeroflaw/rsmpl-git",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "zeroflaw/rsmpl-git"
+    },
+    {
+      "full_name": "Valpatel/cad-agent",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Valpatel/cad-agent"
+    },
+    {
+      "full_name": "OrchestraAssistant/voice",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "OrchestraAssistant/voice"
+    },
+    {
+      "full_name": "prbe-ai/research-os-agent",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "prbe-ai/research-os-agent"
+    },
+    {
+      "full_name": "yetone/magpie",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "yetone/magpie"
+    },
+    {
+      "full_name": "kai-matsuda/claude-dev-plugin",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "kai-matsuda/claude-dev-plugin"
+    },
+    {
+      "full_name": "Sma1lboy/rove",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "deferred",
+      "canonical_name": "Sma1lboy/rove"
+    },
+    {
+      "full_name": "JoshRob297/halo-ce-server",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "JoshRob297/halo-ce-server"
+    },
+    {
+      "full_name": "kirbah/mcp-youtube",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "kirbah/mcp-youtube"
+    },
+    {
+      "full_name": "kirodotdev/KiroCrew",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "deferred",
+      "canonical_name": "kirodotdev/KiroCrew"
+    },
+    {
+      "full_name": "notnotjim/Closedhand",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "deferred",
+      "canonical_name": "notnotjim/Closedhand"
+    },
+    {
+      "full_name": "ashfordeOU/SetuHQ",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "ashfordeOU/SetuHQ"
+    },
+    {
+      "full_name": "Yheng/Epikloop",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Yheng/Epikloop"
+    },
+    {
+      "full_name": "LineChef/BittleX",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "LineChef/BittleX"
+    },
+    {
+      "full_name": "zauberzeug/clacc",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "zauberzeug/clacc"
+    },
+    {
+      "full_name": "mucio-miranda/office",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "mucio-miranda/office"
+    },
+    {
+      "full_name": "sean-sunagaku/chalkfile",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "sean-sunagaku/chalkfile"
+    },
+    {
+      "full_name": "zhanglunet/open-free-router",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "zhanglunet/open-free-router"
+    },
+    {
+      "full_name": "ndwang/ndwang.github.io",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "ndwang/ndwang.github.io"
+    },
+    {
+      "full_name": "SpaceshiptoMoon/NovaMind",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "SpaceshiptoMoon/NovaMind"
+    },
+    {
+      "full_name": "tandemise/tandemise",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "tandemise/tandemise"
+    },
+    {
+      "full_name": "bitbaum/evig",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "bitbaum/evig"
+    },
+    {
+      "full_name": "senoldogann/Dot",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "deferred",
+      "canonical_name": "senoldogann/Dot"
+    },
+    {
+      "full_name": "theHamdiz/mandara",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "theHamdiz/mandara"
+    },
+    {
+      "full_name": "rimio-ai/rimz",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "rimio-ai/rimz"
+    },
+    {
+      "full_name": "karnull/tnotify",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "karnull/tnotify"
+    },
+    {
+      "full_name": "lushly-dev/afd",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "lushly-dev/afd"
+    },
+    {
+      "full_name": "Cotal-AI/Cotal",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Cotal-AI/Cotal"
+    },
+    {
+      "full_name": "x0c/agentsync",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "x0c/agentsync"
+    },
+    {
+      "full_name": "rjwalters/loom",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "rjwalters/loom"
+    },
+    {
+      "full_name": "hfadhlullah/kaizen",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "hfadhlullah/kaizen"
+    },
+    {
+      "full_name": "blueprint-conformance/bce",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "blueprint-conformance/bce"
+    },
+    {
+      "full_name": "dcc-mcp/dcc-mcp-core",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "dcc-mcp/dcc-mcp-core"
+    },
+    {
+      "full_name": "trina-app/trina-ax",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "trina-app/trina-ax"
+    },
+    {
+      "full_name": "iamvenuti/garrick",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "iamvenuti/garrick"
+    },
+    {
+      "full_name": "Miyamura80/MCP-Template",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Miyamura80/MCP-Template"
+    },
+    {
+      "full_name": "meharajM/context.md",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "meharajM/context.md"
+    },
+    {
+      "full_name": "kinqsradio/orbyn-fullstack-skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "kinqsradio/orbyn-fullstack-skills"
+    },
+    {
+      "full_name": "slyf0xx97/cutify-ui",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "slyf0xx97/cutify-ui"
+    },
+    {
+      "full_name": "lgtm-hq/ai-skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "lgtm-hq/ai-skills"
+    },
+    {
+      "full_name": "eunomia-bpf/bpf-benchmark",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "eunomia-bpf/bpf-benchmark"
+    },
+    {
+      "full_name": "samihalawa/licita-espana",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "samihalawa/licita-espana"
+    },
+    {
+      "full_name": "melonjs/melonJS",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "melonjs/melonJS"
+    },
+    {
+      "full_name": "samihalawa/spain-open-data",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "samihalawa/spain-open-data"
+    },
+    {
+      "full_name": "poferraz/make-prompt-better",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "poferraz/make-prompt-better"
+    },
+    {
+      "full_name": "ScienJus/japan-restaurant-skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "ScienJus/japan-restaurant-skills"
+    },
+    {
+      "full_name": "jonsoku-dev/frameforge",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "jonsoku-dev/frameforge"
+    },
+    {
+      "full_name": "samihalawa/ine-evidence",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "samihalawa/ine-evidence"
+    },
+    {
+      "full_name": "samihalawa/catastro-pro",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "samihalawa/catastro-pro"
+    },
+    {
+      "full_name": "samihalawa/boe-impact",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "samihalawa/boe-impact"
+    },
+    {
+      "full_name": "Jiyeong-kor/natural-korean-writing",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Jiyeong-kor/natural-korean-writing"
+    },
+    {
+      "full_name": "samihalawa/borme-intelligence",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "samihalawa/borme-intelligence"
+    },
+    {
+      "full_name": "MrBinnacle/skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "MrBinnacle/skills"
+    },
+    {
+      "full_name": "superlucky84/docatlas",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "superlucky84/docatlas"
+    },
+    {
+      "full_name": "samihalawa/ayudas-espana",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "samihalawa/ayudas-espana"
+    },
+    {
+      "full_name": "dhruvjainin/pristine",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "dhruvjainin/pristine"
+    },
+    {
+      "full_name": "ThanhNguyxnOrg/blendops",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "ThanhNguyxnOrg/blendops"
+    },
+    {
+      "full_name": "gosuda/portal-tunnel",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "gosuda/portal-tunnel"
+    },
+    {
+      "full_name": "EvannZhongg/Nosis",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "EvannZhongg/Nosis"
+    },
+    {
+      "full_name": "dodokim-lab/docs-suit",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "dodokim-lab/docs-suit"
+    },
+    {
+      "full_name": "FernandoGomes83/seo-geo-audit",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "FernandoGomes83/seo-geo-audit"
+    },
+    {
+      "full_name": "akiiwa-games/AgentCompass",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "akiiwa-games/AgentCompass"
+    },
+    {
+      "full_name": "roy-tong/Askovo",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "roy-tong/Askovo"
+    },
+    {
+      "full_name": "algibbawi-m/trust-but-verify",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "algibbawi-m/trust-but-verify"
+    },
+    {
+      "full_name": "SamyakJhaveri/loam",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "SamyakJhaveri/loam"
+    },
+    {
+      "full_name": "dpalfery/kyber-weave",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "dpalfery/kyber-weave"
+    },
+    {
+      "full_name": "aunysillyme/lean-computer-use",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "aunysillyme/lean-computer-use"
+    },
+    {
+      "full_name": "longligooo/agent-collaboration-skill",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "longligooo/agent-collaboration-skill"
+    },
+    {
+      "full_name": "Nachovn114/specspire",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Nachovn114/specspire"
+    },
+    {
+      "full_name": "derio-net/super-fr",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "derio-net/super-fr"
+    },
+    {
+      "full_name": "cerredz/vidbyte-cli",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "cerredz/vidbyte-cli"
+    },
+    {
+      "full_name": "timmo001/skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "timmo001/skills"
+    },
+    {
+      "full_name": "CompleteTech-Skills/github-showcase-skill",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "CompleteTech-Skills/github-showcase-skill"
+    },
+    {
+      "full_name": "chinkan/RustFox",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "chinkan/RustFox"
+    },
+    {
+      "full_name": "pdugan20/skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "pdugan20/skills"
+    },
+    {
+      "full_name": "Esmail-sarhadi/esp32-agent-skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Esmail-sarhadi/esp32-agent-skills"
+    },
+    {
+      "full_name": "alexliyu7352/for-you-skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "alexliyu7352/for-you-skills"
+    },
+    {
+      "full_name": "DarkWorldCoder/arguseye",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "DarkWorldCoder/arguseye"
+    },
+    {
+      "full_name": "CherryHQ/cherry-studio",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "CherryHQ/cherry-studio"
+    },
+    {
+      "full_name": "knowledgeislands/ki-agentic-harness",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "knowledgeislands/ki-agentic-harness"
+    },
+    {
+      "full_name": "WaveSpeedAI/agent-skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "WaveSpeedAI/agent-skills"
+    },
+    {
+      "full_name": "jacebenson/jsn",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "jacebenson/jsn"
+    },
+    {
+      "full_name": "Chumaniac/skillsync",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "Chumaniac/skillsync"
+    },
+    {
+      "full_name": "LydiaTools/gapcue",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "LydiaTools/gapcue"
+    },
+    {
+      "full_name": "protocol/perun",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "protocol/perun"
+    },
+    {
+      "full_name": "nuttakulsv/chesterton",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "nuttakulsv/chesterton"
+    },
+    {
+      "full_name": "JackVitick/socialync-mcp",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "JackVitick/socialync-mcp"
+    },
+    {
+      "full_name": "denggui-ai/threadtruth-studio",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "denggui-ai/threadtruth-studio"
+    },
+    {
+      "full_name": "Quinnod345/ponder",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "Quinnod345/ponder"
+    },
+    {
+      "full_name": "mediumroast/manifold",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "mediumroast/manifold"
+    },
+    {
+      "full_name": "br3eze-code/br3eze-code",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "deferred",
+      "canonical_name": "br3eze-code/br3eze-code"
+    },
+    {
+      "full_name": "a7garden/anti-slop",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "a7garden/anti-slop"
+    },
+    {
+      "full_name": "morehao/dsh-skills-console",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "morehao/dsh-skills-console"
+    },
+    {
+      "full_name": "edgible-org/cards",
+      "initial_disposition": "hold",
+      "final_disposition": "rejected_or_held",
+      "canonical_name": "edgible-org/cards"
+    },
+    {
+      "full_name": "emdashsmoker/art-agent-skills",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "emdashsmoker/art-agent-skills"
+    },
+    {
+      "full_name": "crowgent/forma",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "crowgent/forma"
+    },
+    {
+      "full_name": "nuttakulsv/phantom-deps",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "nuttakulsv/phantom-deps"
+    },
+    {
+      "full_name": "markksantos/caption-checker",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "markksantos/caption-checker"
+    },
+    {
+      "full_name": "KeWang0622/MRFoundry",
+      "initial_disposition": "needs_human_review",
+      "final_disposition": "accepted",
+      "canonical_name": "KeWang0622/MRFoundry"
+    }
+  ],
+  "streams": {
+    "science-results.json": {
+      "input_count": 21,
+      "disposition_count": 21,
+      "accepted_recommendations": 16,
+      "rejected_or_held": 2,
+      "pending": 3,
+      "input_names": [
+        "baratilab/me-design-skills",
+        "dongwei6688/policy-search-china-skill",
+        "engineerabdullahbinzafar/antigravity-robotics-plugin",
+        "fabiogiglietto/meta-content-library-skill",
+        "h0ffmann/skills",
+        "hasnizihar/sketch-to-cad",
+        "hua695/mathmodeling-skills-arsenal",
+        "iplayfast/freecad-ai-assistant",
+        "joshgoncsu/family-meal-planner-skill",
+        "luligu/matterbridge-eve-weather",
+        "mlund/claude-skills",
+        "naiyixi/purescience",
+        "natuleadan/skills",
+        "neverbiasu/awesome-research-skills",
+        "nicholaslimck/freecad-3dprint",
+        "physpace/simplecadapi",
+        "rjwalters/kicad-tools",
+        "skills-repo/accessibility-engineer",
+        "skowrons94/luna-skills",
+        "srobroek/cad-agent",
+        "zhangsxphd/academic-writing-dna"
+      ],
+      "missing": []
+    },
+    "product-results.json": {
+      "input_count": 29,
+      "disposition_count": 29,
+      "accepted_recommendations": 13,
+      "rejected_or_held": 4,
+      "pending": 12,
+      "input_names": [
+        "aichance/business-ai-recipes",
+        "anaydhawan/openvidstudio",
+        "aztech-1729/telegram-skills",
+        "benedatllc/k8srca",
+        "bitrouter/bitrouter",
+        "dcc-mcp/dcc-mcp-core",
+        "debugmcp/mcp-debugger",
+        "edgeplat/edgepedia-mcp",
+        "esmail-sarhadi/esp32-agent-skills",
+        "gke-labs/kube-agents",
+        "jevonscode/fuli",
+        "john-rocky/coreai-model-zoo",
+        "jokerlin/skill-manager",
+        "kikiyop1101/boim-mcp",
+        "krishrvh/speakeasy",
+        "maomaochong-ai/astravia-official-marketplace",
+        "melonjs/melonjs",
+        "misaka0x26fe/auto-epublizer",
+        "nilove2018/solidworks-api-skill",
+        "noisemaker111/jgengine",
+        "nuttakulsv/phantom-deps",
+        "nvidia-ai-blueprints/multi-agent-intelligent-warehouse",
+        "open-mbee/opensysml",
+        "open-mercato/open-mercato",
+        "patroltech/ai-integrations",
+        "popnow-ai/popnow-cli",
+        "sealbridge/sealbridge",
+        "wavespeedai/wavespeed-cli",
+        "weerocksllc/agent-skills"
+      ],
+      "missing": []
+    },
+    "breadth-results.json": {
+      "input_count": 60,
+      "disposition_count": 60,
+      "accepted_recommendations": 50,
+      "rejected_or_held": 10,
+      "pending": 0,
+      "input_names": [
+        "a14a-org/claude-temper",
+        "agent-stacks/agent-pkgs",
+        "amaanuddin-ahmed/cse-iii-sem",
+        "ancienttwo/repo-harness",
+        "andrsnn/slop-to-english",
+        "az0319h/idam-web",
+        "blogminhquy/javis-os",
+        "cendysaputra/agentic-weave",
+        "cendysaputra/deflow",
+        "cjy5507/zerocode",
+        "codeabraham16/musubi",
+        "constellation-works/orbit",
+        "continuaai/continua-literature-review",
+        "curtisgalloway/panio",
+        "cyanheads/mailchimp-mcp-server",
+        "dopejs/kura",
+        "dperhar/orcestrationmaxxing",
+        "dracondev/pi-plugins",
+        "drjzlyan/dhi",
+        "edotau/claude-code",
+        "evanzhang008/open-walnut",
+        "filecoin-project/pgf-monitor",
+        "gavin-hu/my-pi-agent",
+        "getan/kitty-browse",
+        "goravel/agents",
+        "goyondertogether/yonder",
+        "gurusaiss/ardham",
+        "hambaobao/hambaobao-skills",
+        "hansololz/autowright",
+        "hexinzxq/skillforge",
+        "horangelmillan/harness-btp",
+        "jbaruch/skill-issue-brickbox-start",
+        "jkheadley/instar",
+        "jshute96/sourcemonkey",
+        "karoc/dsh-kanban",
+        "kazucocoa/renma",
+        "koala73/worldmonitor",
+        "lao235sodo/taskflow",
+        "liuzheng6621/frontend-fidelity",
+        "maiquelleonel/matryoshka-harness",
+        "makwanaalpesh811-a11y/hermes-agent-skill",
+        "medtech-group/pairnexus-workflow",
+        "mr-apm/antigravity-upgrade-kit",
+        "multiplex-ai/muggle-ai-works",
+        "nathanielinman/credential-broker",
+        "nextlyhq/nextly",
+        "nitsuah/ats-fill",
+        "openagentsinc/openagents",
+        "paraqualis/paraqualis-gxp",
+        "producdevity/sbc-handheld-development-skill",
+        "rjwalters/safehouse",
+        "rjwalters/squad",
+        "rogerbucks/skillknot",
+        "rrnewton/agent-utils",
+        "samsamskies/coldcard-hack-tracker",
+        "sidiora-labs/hyperfide",
+        "takecchi/alteroid",
+        "trustless-ai/tawg-daily-contribution",
+        "yeachan-heo/oh-my-claudecode",
+        "zhanglunet/livepowers"
+      ],
+      "missing": []
+    },
+    "product-extra-results.json": {
+      "input_count": 30,
+      "disposition_count": 30,
+      "accepted_recommendations": 20,
+      "rejected_or_held": 4,
+      "pending": 6,
+      "input_names": [
+        "5throck/ai-workspace-standards",
+        "ali365-sdn-bhd/bukit",
+        "anahill/mea_review_llm_wiki",
+        "arthurc02/skillhub",
+        "ashfordeou/setuhq",
+        "cavi-ai/bobby-browser",
+        "egbujor-emmanuel/nocturne",
+        "famanias/openlanding.page",
+        "garywei944/acad.garywei.dev",
+        "imjlk/slicewright",
+        "jevonscode/fuli",
+        "kai-matsuda/claude-dev-plugin",
+        "karnull/tnotify",
+        "kirodotdev/kirocrew",
+        "lushly-dev/afd",
+        "notnotjim/closedhand",
+        "open-mercato/open-mercato",
+        "orchestraassistant/voice",
+        "prbe-ai/research-os-agent",
+        "sean-sunagaku/chalkfile",
+        "senoldogann/dot",
+        "shiftlead/agent-cadence",
+        "shivaedev/platform",
+        "sma1lboy/rove",
+        "spaceshiptomoon/novamind",
+        "valpatel/cad-agent",
+        "weftcut/weftcut",
+        "yetone/magpie",
+        "yheng/epikloop",
+        "zeroflaw/rsmpl-git"
+      ],
+      "missing": []
+    },
+    "science-extra-results.json": {
+      "input_count": 64,
+      "disposition_count": 64,
+      "accepted_recommendations": 63,
+      "rejected_or_held": 0,
+      "pending": 1,
+      "input_names": [
+        "a7garden/anti-slop",
+        "akiiwa-games/agentcompass",
+        "alexliyu7352/for-you-skills",
+        "algibbawi-m/trust-but-verify",
+        "aunysillyme/lean-computer-use",
+        "blueprint-conformance/bce",
+        "br3eze-code/br3eze-code",
+        "cerredz/vidbyte-cli",
+        "cherryhq/cherry-studio",
+        "chinkan/rustfox",
+        "completetech-skills/github-showcase-skill",
+        "cotal-ai/cotal",
+        "crowgent/forma",
+        "darkworldcoder/arguseye",
+        "dcc-mcp/dcc-mcp-core",
+        "denggui-ai/threadtruth-studio",
+        "derio-net/super-fr",
+        "dhruvjainin/pristine",
+        "dpalfery/kyber-weave",
+        "emdashsmoker/art-agent-skills",
+        "esmail-sarhadi/esp32-agent-skills",
+        "evannzhongg/nosis",
+        "fernandogomes83/seo-geo-audit",
+        "gosuda/portal-tunnel",
+        "hfadhlullah/kaizen",
+        "iamvenuti/garrick",
+        "jacebenson/jsn",
+        "jackvitick/socialync-mcp",
+        "jiyeong-kor/natural-korean-writing",
+        "jonsoku-dev/frameforge",
+        "kewang0622/mrfoundry",
+        "kinqsradio/orbyn-fullstack-skills",
+        "knowledgeislands/ki-agentic-harness",
+        "lgtm-hq/ai-skills",
+        "longligooo/agent-collaboration-skill",
+        "lydiatools/gapcue",
+        "markksantos/caption-checker",
+        "meharajm/context.md",
+        "melonjs/melonjs",
+        "miyamura80/mcp-template",
+        "mrbinnacle/skills",
+        "nachovn114/specspire",
+        "nuttakulsv/chesterton",
+        "nuttakulsv/phantom-deps",
+        "pdugan20/skills",
+        "poferraz/make-prompt-better",
+        "quinnod345/ponder",
+        "rjwalters/loom",
+        "roy-tong/askovo",
+        "samihalawa/ayudas-espana",
+        "samihalawa/boe-impact",
+        "samihalawa/borme-intelligence",
+        "samihalawa/catastro-pro",
+        "samihalawa/ine-evidence",
+        "samihalawa/licita-espana",
+        "samihalawa/spain-open-data",
+        "samyakjhaveri/loam",
+        "scienjus/japan-restaurant-skills",
+        "slyf0xx97/cutify-ui",
+        "superlucky84/docatlas",
+        "thanhnguyxnorg/blendops",
+        "timmo001/skills",
+        "trina-app/trina-ax",
+        "wavespeedai/agent-skills"
+      ],
+      "missing": []
+    }
+  },
+  "quality_review": {
+    "schema_version": 1,
+    "date": "2026-11-01",
+    "reviewed_names": [
+      "Cotal-AI/Cotal",
+      "rjwalters/loom",
+      "hfadhlullah/kaizen",
+      "blueprint-conformance/bce",
+      "dcc-mcp/dcc-mcp-core",
+      "trina-app/trina-ax",
+      "iamvenuti/garrick",
+      "Miyamura80/MCP-Template",
+      "meharajM/context.md",
+      "kinqsradio/orbyn-fullstack-skills",
+      "slyf0xx97/cutify-ui",
+      "lgtm-hq/ai-skills",
+      "samihalawa/licita-espana",
+      "melonjs/melonJS",
+      "samihalawa/spain-open-data",
+      "poferraz/make-prompt-better",
+      "ScienJus/japan-restaurant-skills",
+      "jonsoku-dev/frameforge",
+      "samihalawa/ine-evidence",
+      "samihalawa/catastro-pro",
+      "samihalawa/boe-impact",
+      "Jiyeong-kor/natural-korean-writing",
+      "samihalawa/borme-intelligence",
+      "MrBinnacle/skills",
+      "superlucky84/docatlas",
+      "samihalawa/ayudas-espana",
+      "dhruvjainin/pristine",
+      "ThanhNguyxnOrg/blendops",
+      "gosuda/portal-tunnel",
+      "EvannZhongg/Nosis",
+      "FernandoGomes83/seo-geo-audit",
+      "akiiwa-games/AgentCompass",
+      "roy-tong/Askovo",
+      "algibbawi-m/trust-but-verify",
+      "SamyakJhaveri/loam",
+      "dpalfery/kyber-weave",
+      "aunysillyme/lean-computer-use",
+      "longligooo/agent-collaboration-skill",
+      "Nachovn114/specspire",
+      "derio-net/super-fr",
+      "cerredz/vidbyte-cli",
+      "timmo001/skills",
+      "CompleteTech-Skills/github-showcase-skill",
+      "chinkan/RustFox",
+      "pdugan20/skills",
+      "Esmail-sarhadi/esp32-agent-skills",
+      "alexliyu7352/for-you-skills",
+      "DarkWorldCoder/arguseye",
+      "CherryHQ/cherry-studio",
+      "knowledgeislands/ki-agentic-harness",
+      "WaveSpeedAI/agent-skills",
+      "jacebenson/jsn",
+      "LydiaTools/gapcue",
+      "nuttakulsv/chesterton",
+      "JackVitick/socialync-mcp",
+      "denggui-ai/threadtruth-studio",
+      "Quinnod345/ponder",
+      "a7garden/anti-slop",
+      "emdashsmoker/art-agent-skills",
+      "crowgent/forma",
+      "nuttakulsv/phantom-deps",
+      "markksantos/caption-checker",
+      "KeWang0622/MRFoundry"
+    ],
+    "reviewed_count": 63,
+    "review_scope": "Second-pass admission screening of the 63 science-extra accepted candidates. All 63 records, README distribution excerpts, representative format/licence flags, canonical path counts and exceptions were screened; targeted full README/content/packaging evidence resolves application and generated-entry doubts. Previous primary representative reviews remain distinct. No third-party install, runtime, model, or API workflow executed.",
+    "rejected": [],
+    "pending": [],
+    "corrections": [
+      {
+        "full_name": "trina-app/trina-ax",
+        "skill_count": "基础设施（6个示例）",
+        "count_basis": "Skill infrastructure, not six production-certified leaf skills. The README explicitly offers six copyable fictional starter workflows in examples/skills; the internal ui-polish skill and documentation mirror are excluded.",
+        "reason": "Replace an imprecise many-skills display with explicit infrastructure and starter-example typing.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "229547f30eb308dd3261a23019d5d0ab7a2e6c64",
+            "sha256": "4e9d2fc49638ceeb44002ede03cfee2bf44a81d0655fe7d857b95f937fae9754",
+            "url": "https://github.com/trina-app/trina-ax/blob/64d50f76d22b2bfb93a42c1af16e83bf3f0bf7f3/README.md"
+          },
+          {
+            "path": "examples/skills/weekly-team-report/SKILL.md",
+            "blob_sha": "324617c988217276dbfffab3bd8eb223b5f839e3",
+            "sha256": "d5c6014580534655c9c7dffe090efe5a3a02d242f7be74ba5c7db05a92106686",
+            "url": "https://github.com/trina-app/trina-ax/blob/64d50f76d22b2bfb93a42c1af16e83bf3f0bf7f3/examples/skills/weekly-team-report/SKILL.md"
+          }
+        ]
+      },
+      {
+        "full_name": "rjwalters/loom",
+        "skill_count": "11 roles/routes + 13 support",
+        "count_basis": "24 generated cross-vendor SKILL.md discovery entries in defaults/.agents/skills: 11 role/operator entries and 13 supporting protocols/reference entries. They share sources with the Claude slash commands and are not 24 additional independent leaf workflows. All 24 fixed headers were inspected; README installer and generated frontmatter establish intended public distribution. No installation or execution.",
+        "reason": "Public cross-vendor defaults are valid distribution, but supporting reference entries must be distinguished from primary workflows.",
+        "distribution_refs": [
+          {
+            "path": "defaults/.agents/skills/loom-hermit-patterns/SKILL.md",
+            "blob_sha": "3ec8627e3d915aff724b35312881f2e9bb521021",
+            "sha256": "d0f919ad8aee9c9061034b28193bf03ce8448a2961f714e389c0027bc808fd04",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/defaults/.agents/skills/loom-hermit-patterns/SKILL.md"
+          },
+          {
+            "path": "defaults/.agents/skills/loom-judge-reference/SKILL.md",
+            "blob_sha": "a8110d1b21ce2d3728fe2736269940e8bf44b420",
+            "sha256": "45a0a69b67af33e603fda7ced4ad8aa4682c1e5264c49b349e0449d1f8212b27",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/defaults/.agents/skills/loom-judge-reference/SKILL.md"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6c629f586d23d744dab94a4669e98beb650685f9",
+            "sha256": "54df49dc4fa0d61643ddaafd904528ed9f099cabfe579fe3144316a11d21046e",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/README.md"
+          },
+          {
+            "path": "defaults/.agents/skills/loom-architect/SKILL.md",
+            "blob_sha": "cf4d922dff0ccc9b6fb839884bc5020a623dd26f",
+            "sha256": "a00ce0b6a857e4df77f5325232db44d430cf2182fac5feff3a771f6d4fec0f51",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/defaults/.agents/skills/loom-architect/SKILL.md"
+          }
+        ]
+      },
+      {
+        "full_name": "CherryHQ/cherry-studio",
+        "license_spdx": "AGPL-3.0 AND Apache-2.0",
+        "distribution_evidence": "README presents a publicly downloadable skills-capable desktop application. At the pinned commit electron-builder.yml explicitly includes resources/**/* and unpacks resources/**; builtinSkills.ts installs bundled resource skills into the global skills catalog and enables them for agents; SkillService.ts manages skill installation and SDK discovery mirrors. This establishes public product distribution of runtime skills, separately from developer-maintenance instructions.",
+        "count_basis": "27 runtime resource entry points: 6 resources/skills entries, 14 code-cli adapters, and 7 cherry-assistant builtin entries. Exclude 13 .agents development-only entries. This is a mixed product bundle including imported/adapted skills and CLI adapters, not 27 newly authored independent workflows. Packaging and installation logic inspected statically; no app build or execution.",
+        "license_scope": "Root community application and sampled code-mate instructions are AGPL-3.0. The bundled claude-automation-recommender carries its own Apache-2.0 LICENSE and NOTICE documenting Anthropic authorship and local modifications; resources/skills/skill-creator carries its own Apache-2.0 LICENSE.txt. Preserve these directory terms rather than overriding them with root AGPL. Commercial exemptions, coding CLIs, model providers, and hosted services retain separate terms. Metadata index only; no third-party instruction text copied.",
+        "distribution_refs": [
+          {
+            "path": "electron-builder.yml",
+            "blob_sha": "c4c6104309bed54cdf7f046bdbc12096f086bf30",
+            "sha256": "b91d77e5774d873df59de7a09d93ba582b20b9261345e630355ee1d2193661b3",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/electron-builder.yml"
+          },
+          {
+            "path": "src/main/utils/builtinSkills.ts",
+            "blob_sha": "ef24b2bad71753dfdf97cf4a9a432a499b860560",
+            "sha256": "e487174b253e446120dc7685783e050694df47b9bde92f6941b872a78a81860d",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/src/main/utils/builtinSkills.ts"
+          },
+          {
+            "path": "src/main/ai/skills/SkillService.ts",
+            "blob_sha": "09e97b15b3f20fb8256960ea28b532758db8eed0",
+            "sha256": "256b7c640ffe7de39072e0507255eb09222aa065256b17777a9117797302906b",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/src/main/ai/skills/SkillService.ts"
+          }
+        ],
+        "near_licenses": [
+          {
+            "evidence": {
+              "path": "resources/builtin-agents/cherry-assistant/.claude/skills/claude-automation-recommender/LICENSE",
+              "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+              "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+              "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/resources/builtin-agents/cherry-assistant/.claude/skills/claude-automation-recommender/LICENSE"
+            }
+          },
+          {
+            "evidence": {
+              "path": "resources/builtin-agents/cherry-assistant/.claude/skills/claude-automation-recommender/NOTICE.md",
+              "blob_sha": "f670edaf9fe9024ab571c1eea067bd56137e8823",
+              "sha256": "71f0a1a9389541a9bdca683f9474b8d4b6c55d729562ff758953dfdedb3ee273",
+              "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/resources/builtin-agents/cherry-assistant/.claude/skills/claude-automation-recommender/NOTICE.md"
+            }
+          },
+          {
+            "evidence": {
+              "path": "resources/skills/skill-creator/LICENSE.txt",
+              "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+              "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+              "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/resources/skills/skill-creator/LICENSE.txt"
+            }
+          }
+        ],
+        "reason": "Resolve README-only uncertainty using pinned package/runtime code; retain important per-directory Apache exceptions.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "750c3ecc11126d316837a28ad3fbfc24d0639a98",
+            "sha256": "cbdd7003c8a2ac2d5b387ebb8f359d0f90c31df389f6a5593e32754a52adf170",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/README.md"
+          },
+          {
+            "path": "resources/code-cli-skills/code-mate-antigravity/SKILL.md",
+            "blob_sha": "d8521b2bfccb3b3dffb9dafe2ec847d1ae6bae57",
+            "sha256": "012e3dfad0dfd10ba8fef621fab7b41abcc7734261c5e19ff53209d4e979fda6",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/resources/code-cli-skills/code-mate-antigravity/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+            "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/LICENSE"
+          },
+          {
+            "path": "resources/builtin-agents/cherry-assistant/.claude/skills/claude-automation-recommender/LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/resources/builtin-agents/cherry-assistant/.claude/skills/claude-automation-recommender/LICENSE"
+          },
+          {
+            "path": "resources/builtin-agents/cherry-assistant/.claude/skills/claude-automation-recommender/NOTICE.md",
+            "blob_sha": "f670edaf9fe9024ab571c1eea067bd56137e8823",
+            "sha256": "71f0a1a9389541a9bdca683f9474b8d4b6c55d729562ff758953dfdedb3ee273",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/resources/builtin-agents/cherry-assistant/.claude/skills/claude-automation-recommender/NOTICE.md"
+          },
+          {
+            "path": "resources/skills/skill-creator/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/resources/skills/skill-creator/LICENSE.txt"
+          }
+        ]
+      }
+    ],
+    "approved_sample": [
+      {
+        "full_name": "Cotal-AI/Cotal",
+        "disposition": "no_admission_objection",
+        "public_scope": "Agent coordination mesh with public setup and team-topology skills across coding-agent connectors.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "b2c9fc49a6f40f5da15e416ebcd1d759918e325e",
+            "sha256": "85485ba36e03d3baf7272f6f0ec8c41ce68bf623f2fab0b5526c8a670e376531",
+            "url": "https://github.com/Cotal-AI/Cotal/blob/6c5a82c8e19ff689b146886f4503485bbba845dd/README.md"
+          },
+          {
+            "path": "skills/cotal-mesh/SKILL.md",
+            "blob_sha": "d790a3aca777eca5be9c13c776bfd98a821da741",
+            "sha256": "15b5b719604f29f947873da75449faed2fac7050cd4d5f6f45ef48a5d0409b65",
+            "url": "https://github.com/Cotal-AI/Cotal/blob/6c5a82c8e19ff689b146886f4503485bbba845dd/skills/cotal-mesh/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/Cotal-AI/Cotal/blob/6c5a82c8e19ff689b146886f4503485bbba845dd/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "rjwalters/loom",
+        "disposition": "approved_with_correction",
+        "public_scope": "Loom distributes reusable orchestration skills for issue claiming, implementation, review and guarded forge workflows.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6c629f586d23d744dab94a4669e98beb650685f9",
+            "sha256": "54df49dc4fa0d61643ddaafd904528ed9f099cabfe579fe3144316a11d21046e",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/README.md"
+          },
+          {
+            "path": "defaults/.agents/skills/loom-architect/SKILL.md",
+            "blob_sha": "cf4d922dff0ccc9b6fb839884bc5020a623dd26f",
+            "sha256": "a00ce0b6a857e4df77f5325232db44d430cf2182fac5feff3a771f6d4fec0f51",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/defaults/.agents/skills/loom-architect/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "cc62bf30a63f3ee4c7f6aa76a5d40c8f640c204a",
+            "sha256": "026e47a52afe12a79f1cae5cd67525ef85aba02309f4145a1e3f448f7f4c8e14",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "dcc-mcp/dcc-mcp-core",
+        "disposition": "no_admission_objection",
+        "public_scope": "DCC-MCP control plane distributes cross-application creative-tool skills, discovery contracts and reusable modeling recipes.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "83493f770723922f5f6dff5493cce88b6c6f2eb0",
+            "sha256": "f66c3d6b86d278d092b4e0cc47dd498cc0011fd3881aee2e0ca5b2b0c671bc45",
+            "url": "https://github.com/dcc-mcp/dcc-mcp-core/blob/ab2eb9300a754edeae71caa76e81cac8528ac232/README.md"
+          },
+          {
+            "path": "skills/mesh-ops/SKILL.md",
+            "blob_sha": "afc28b74f5710eff52de4a744f16989cf587639b",
+            "sha256": "704a14dcc6cfe0c8694759c7719e9b8f3238940086b828fb01d69bf256a5d2d0",
+            "url": "https://github.com/dcc-mcp/dcc-mcp-core/blob/ab2eb9300a754edeae71caa76e81cac8528ac232/skills/mesh-ops/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "8f0f47b8b88a4810ea722046b7297e0be940c032",
+            "sha256": "b497f43f3f2affae408c4926dfcef62b5725e231a2976f2f24ee4aa3f2e152a7",
+            "url": "https://github.com/dcc-mcp/dcc-mcp-core/blob/ab2eb9300a754edeae71caa76e81cac8528ac232/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "trina-app/trina-ax",
+        "disposition": "approved_with_correction",
+        "public_scope": "Self-hosted team-agent workspace governs shared skills and per-person file permissions, with six explicitly copyable starter workflows.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "229547f30eb308dd3261a23019d5d0ab7a2e6c64",
+            "sha256": "4e9d2fc49638ceeb44002ede03cfee2bf44a81d0655fe7d857b95f937fae9754",
+            "url": "https://github.com/trina-app/trina-ax/blob/64d50f76d22b2bfb93a42c1af16e83bf3f0bf7f3/README.md"
+          },
+          {
+            "path": "examples/skills/weekly-team-report/SKILL.md",
+            "blob_sha": "324617c988217276dbfffab3bd8eb223b5f839e3",
+            "sha256": "d5c6014580534655c9c7dffe090efe5a3a02d242f7be74ba5c7db05a92106686",
+            "url": "https://github.com/trina-app/trina-ax/blob/64d50f76d22b2bfb93a42c1af16e83bf3f0bf7f3/examples/skills/weekly-team-report/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+            "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+            "url": "https://github.com/trina-app/trina-ax/blob/64d50f76d22b2bfb93a42c1af16e83bf3f0bf7f3/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "Miyamura80/MCP-Template",
+        "disposition": "no_admission_objection",
+        "public_scope": "MCP/CLI/API project ships one canonical GmailMCP skill for typed inbox triage and drafting.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "f7c7da06acf3d93dc3b1fd76e8ad3b4902bbc8e3",
+            "sha256": "ff51f3bd73642e5aee33585ae57f2b82da68d3a0a01ab7baaa7f0b38845776c5",
+            "url": "https://github.com/Miyamura80/MCP-Template/blob/caca640b333100d44f0d78e9ed0ebe6116067b1b/README.md"
+          },
+          {
+            "path": "skills/gmail-mcp/SKILL.md",
+            "blob_sha": "44b6f3860daed6d893ab41b68f1d77c0596f0a3b",
+            "sha256": "1edcaa012e617768c7ae2a407074030bd1cc58dce517d93ac46c138f56730c82",
+            "url": "https://github.com/Miyamura80/MCP-Template/blob/caca640b333100d44f0d78e9ed0ebe6116067b1b/skills/gmail-mcp/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "951ddd2d047adb20cd05f47c636d0ee0ee02a7f9",
+            "sha256": "672abab937a36cce14a29599f047f17f2e62959b91ebf5a668e1091ef95c95a4",
+            "url": "https://github.com/Miyamura80/MCP-Template/blob/caca640b333100d44f0d78e9ed0ebe6116067b1b/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "meharajM/context.md",
+        "disposition": "no_admission_objection",
+        "public_scope": "Portable real-device QA skill uses WebDriverAgent evidence to assess physical iOS behavior, with explicit hardware prerequisites.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "aaa65c07302c0cd1c6e689371d94a61208792eb3",
+            "sha256": "eb30bcd1f7774fe70731caf3e5bab79d26aa437ac2cd651a0d515d4b0e571893",
+            "url": "https://github.com/meharajM/context.md/blob/f66de312316632f65d54bd2e8496afa6e0f2a612/README.md"
+          },
+          {
+            "path": "skills/real-device-qa/SKILL.md",
+            "blob_sha": "ad790d9e86a6caa0254b7de2525bfd301434f3bc",
+            "sha256": "f8b2cf353d991fd228291d64bb85d5bf438385138df29d1f920c27edde450305",
+            "url": "https://github.com/meharajM/context.md/blob/f66de312316632f65d54bd2e8496afa6e0f2a612/skills/real-device-qa/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "6c82a9ed9973215acdd07d8f060cb1a918ef269f",
+            "sha256": "8fabd453f0a275f6dd120bf7a5bd182ea36556034c54242e30591e9a4238bea8",
+            "url": "https://github.com/meharajM/context.md/blob/f66de312316632f65d54bd2e8496afa6e0f2a612/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "kinqsradio/orbyn-fullstack-skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Portable full-stack engineering library connects architecture, APIs, migration, UI, review and delivery workflows.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "7892869c2e9fd2e378b9cd3ae4b2d1667bf76b18",
+            "sha256": "92eff64ae40fdd9d534e8ec3228e9dfb1bf018328ae3d0ade0ffa6f19a54fc6b",
+            "url": "https://github.com/kinqsradio/orbyn-fullstack-skills/blob/7d9824af1802148f85f3cd9c0a5846aae57fa5f2/README.md"
+          },
+          {
+            "path": "skills/architect/SKILL.md",
+            "blob_sha": "d76a5eed9dba2c4a3ca3e83541a2c70cab74c3a9",
+            "sha256": "d33f8988dc1caa7bf4f408aa9b64fda7613de29b4d50f44b4d12354e234868bc",
+            "url": "https://github.com/kinqsradio/orbyn-fullstack-skills/blob/7d9824af1802148f85f3cd9c0a5846aae57fa5f2/skills/architect/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "db48f96413d38f5ac187d51624cf121afc1cc991",
+            "sha256": "b960a8c01d83aa48ed709780a5c9940f8e2861f2fdcdc8f931fbe3ece90a5e04",
+            "url": "https://github.com/kinqsradio/orbyn-fullstack-skills/blob/7d9824af1802148f85f3cd9c0a5846aae57fa5f2/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "EvannZhongg/Nosis",
+        "disposition": "no_admission_objection",
+        "public_scope": "Nosis runtime bundles skill-creator and plugin-creator workflows with package scaffolding and manifest validation.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "200250e0efa73e0dafc02fef679252a5d8805a58",
+            "sha256": "259131836c812cdbe115917f6d2e87adc56b3228ba9a666e2ceb10baec54b113",
+            "url": "https://github.com/EvannZhongg/Nosis/blob/2fcf20da7450fc8e72542a633c3f31bf390e4424/README.md"
+          },
+          {
+            "path": "agent_runtime/defaults/skills/plugin-creator/SKILL.md",
+            "blob_sha": "d9db0e730e230d9673171c94b52bad2059159b34",
+            "sha256": "2409981b48d2fc266da288097873d105ed96eba8e311713880d19068f2e965f8",
+            "url": "https://github.com/EvannZhongg/Nosis/blob/2fcf20da7450fc8e72542a633c3f31bf390e4424/agent_runtime/defaults/skills/plugin-creator/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "3ab9352403cf12966fbad6445698f757a3f42e5c",
+            "sha256": "c4c29f69364189f0d556c010dc7adfca66262fd35530ff770ce91afc917d4248",
+            "url": "https://github.com/EvannZhongg/Nosis/blob/2fcf20da7450fc8e72542a633c3f31bf390e4424/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "SamyakJhaveri/loam",
+        "disposition": "no_admission_objection",
+        "public_scope": "Loam renders tested Claude/Codex project harnesses with shared session skills and optional active marketplace bundles.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "4e9f4be326236611654f929d8b4d5abfd20d62c4",
+            "sha256": "5258a4e2e8929f735571be84aede2a8bfc7b7cce61c45fdd66835e789d599d85",
+            "url": "https://github.com/SamyakJhaveri/loam/blob/cf992ad4bb480d9df65cd6001c5e19cbd829f5bb/README.md"
+          },
+          {
+            "path": "seed/.agents/skills/catchup/SKILL.md",
+            "blob_sha": "70707d061a197c4790fdec6d580f179bce4a7984",
+            "sha256": "06dd5d2f3921e8961118c244f0817e83a94d5a9fc93593bea839bb96e86633cf",
+            "url": "https://github.com/SamyakJhaveri/loam/blob/cf992ad4bb480d9df65cd6001c5e19cbd829f5bb/seed/.agents/skills/catchup/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "8bfa18b3d3e139142d33c769909c2f1b8c3fd200",
+            "sha256": "5241547f0ca1613eeef5d0c71094e4a027b6fba1b50ef56785615a5426648843",
+            "url": "https://github.com/SamyakJhaveri/loam/blob/cf992ad4bb480d9df65cd6001c5e19cbd829f5bb/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "timmo001/skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Portable coding-agent skill library covers workflow authoring, investigation, delivery and tool-specific operations.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "e1ca904f75553516ef5c3c854de1330d806afbd6",
+            "sha256": "76b11e8024a7fefa2048d3a5e082d75b20178311811135e12cddbaafed9f217b",
+            "url": "https://github.com/timmo001/skills/blob/db973c27c94d5185495082aa1ea34279c0012772/README.md"
+          },
+          {
+            "path": "agentic-workflows/SKILL.md",
+            "blob_sha": "0aa3f90d4bcfe21f4493f6d762c93115940af7cd",
+            "sha256": "8ac36dd69cd2a58bfc2df5fc83e1acf97ad755763b793cbc31ccf08c36cbca0b",
+            "url": "https://github.com/timmo001/skills/blob/db973c27c94d5185495082aa1ea34279c0012772/agentic-workflows/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+            "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "url": "https://github.com/timmo001/skills/blob/db973c27c94d5185495082aa1ea34279c0012772/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "chinkan/RustFox",
+        "disposition": "no_admission_objection",
+        "public_scope": "RustFox agent runtime bundles public skills for coding, memory, research, operations and creating new capabilities.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "cd1ca0abe222f90387c831609eddbeffac81969c",
+            "sha256": "da6b431eb46f1277941f93038785b254ed6a422a622ba96513d4a3643230fe32",
+            "url": "https://github.com/chinkan/RustFox/blob/17ad66493a1c5f60f8653319f63ce0953f2fbb0b/README.md"
+          },
+          {
+            "path": "skills/code-interpreter/SKILL.md",
+            "blob_sha": "e6fab9a70607d5cb75069173a0ae73e72f734385",
+            "sha256": "ee249dc94094438f20a847056dc4b21f579d4c343677349f07c56b3f0e1df192",
+            "url": "https://github.com/chinkan/RustFox/blob/17ad66493a1c5f60f8653319f63ce0953f2fbb0b/skills/code-interpreter/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "77eb1b33547091cae4fd7e6a0b4ef304e0ed5d83",
+            "sha256": "295860f5a5f027ef6ff093ab30ac48f174d456ec692bd74ac6cab3167f35145f",
+            "url": "https://github.com/chinkan/RustFox/blob/17ad66493a1c5f60f8653319f63ce0953f2fbb0b/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "CherryHQ/cherry-studio",
+        "disposition": "approved_with_correction",
+        "public_scope": "Cherry Studio ships runtime agent skills and coding-CLI adapters alongside its extensible AI workspace.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "750c3ecc11126d316837a28ad3fbfc24d0639a98",
+            "sha256": "cbdd7003c8a2ac2d5b387ebb8f359d0f90c31df389f6a5593e32754a52adf170",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/README.md"
+          },
+          {
+            "path": "resources/code-cli-skills/code-mate-antigravity/SKILL.md",
+            "blob_sha": "d8521b2bfccb3b3dffb9dafe2ec847d1ae6bae57",
+            "sha256": "012e3dfad0dfd10ba8fef621fab7b41abcc7734261c5e19ff53209d4e979fda6",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/resources/code-cli-skills/code-mate-antigravity/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+            "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "Quinnod345/ponder",
+        "disposition": "no_admission_objection",
+        "public_scope": "Ponder deliberation skill uses repeated grading passes and an append-only coverage ledger to review and plan bounded work.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6116dfa236dea91efdf8072310907b369beeb806",
+            "sha256": "24dc3d62c669cf9bfa51b7982b8980b28c184551f42483376f34bd3e71ca77cc",
+            "url": "https://github.com/Quinnod345/ponder/blob/b8010d8f6cb866e091451d6768d6e25c751b8698/README.md"
+          },
+          {
+            "path": "skill/ponder/SKILL.md",
+            "blob_sha": "573bfd97de9fef6093eb780c7b451194484abb56",
+            "sha256": "90cfcc5b12910908b3954574dbce4a43037c5bce10c10a1c7e05709ba9551d10",
+            "url": "https://github.com/Quinnod345/ponder/blob/b8010d8f6cb866e091451d6768d6e25c751b8698/skill/ponder/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "61dffbc7b1a16c5dfd7985ccc54b269ca43f02f2",
+            "sha256": "48f7c7dd1a558a38c53e689e2d959113f9d0fb903a53a8a8b253e891be86c6a2",
+            "url": "https://github.com/Quinnod345/ponder/blob/b8010d8f6cb866e091451d6768d6e25c751b8698/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "crowgent/forma",
+        "disposition": "no_admission_objection",
+        "public_scope": "Forma modular design skill moves from product needs and evidence through UI implementation, state checks and handoff.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "208f830b0a0d1294659e4dec15598988465c87b6",
+            "sha256": "4bb80d3ac3030ec6545af5421942eb8ac56d3014fbf07804be9583fa34ea25ab",
+            "url": "https://github.com/crowgent/forma/blob/c622c8ae30b6ee5c800c575be0a669de8f0d0b8e/README.md"
+          },
+          {
+            "path": "skills/forma/SKILL.md",
+            "blob_sha": "d500da5bd5dce89051b9a7c64da5e41230e87e40",
+            "sha256": "1fb5399f5a05b447173f11b2c4d9a7db0b3d1f830cfe8e804802a1786d69c145",
+            "url": "https://github.com/crowgent/forma/blob/c622c8ae30b6ee5c800c575be0a669de8f0d0b8e/skills/forma/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d11cbd0ad81770d4358e83a73c9c3871a837df3d",
+            "sha256": "0911afca5fb783204db82791ea26579ef4d8db6d43e4500a709fb38014e4c489",
+            "url": "https://github.com/crowgent/forma/blob/c622c8ae30b6ee5c800c575be0a669de8f0d0b8e/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      }
+    ],
+    "review_results": [
+      {
+        "full_name": "Cotal-AI/Cotal",
+        "disposition": "no_admission_objection",
+        "public_scope": "Agent coordination mesh with public setup and team-topology skills across coding-agent connectors.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "b2c9fc49a6f40f5da15e416ebcd1d759918e325e",
+            "sha256": "85485ba36e03d3baf7272f6f0ec8c41ce68bf623f2fab0b5526c8a670e376531",
+            "url": "https://github.com/Cotal-AI/Cotal/blob/6c5a82c8e19ff689b146886f4503485bbba845dd/README.md"
+          },
+          {
+            "path": "skills/cotal-mesh/SKILL.md",
+            "blob_sha": "d790a3aca777eca5be9c13c776bfd98a821da741",
+            "sha256": "15b5b719604f29f947873da75449faed2fac7050cd4d5f6f45ef48a5d0409b65",
+            "url": "https://github.com/Cotal-AI/Cotal/blob/6c5a82c8e19ff689b146886f4503485bbba845dd/skills/cotal-mesh/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/Cotal-AI/Cotal/blob/6c5a82c8e19ff689b146886f4503485bbba845dd/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "rjwalters/loom",
+        "disposition": "approved_with_correction",
+        "public_scope": "Loom distributes reusable orchestration skills for issue claiming, implementation, review and guarded forge workflows.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6c629f586d23d744dab94a4669e98beb650685f9",
+            "sha256": "54df49dc4fa0d61643ddaafd904528ed9f099cabfe579fe3144316a11d21046e",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/README.md"
+          },
+          {
+            "path": "defaults/.agents/skills/loom-architect/SKILL.md",
+            "blob_sha": "cf4d922dff0ccc9b6fb839884bc5020a623dd26f",
+            "sha256": "a00ce0b6a857e4df77f5325232db44d430cf2182fac5feff3a771f6d4fec0f51",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/defaults/.agents/skills/loom-architect/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "cc62bf30a63f3ee4c7f6aa76a5d40c8f640c204a",
+            "sha256": "026e47a52afe12a79f1cae5cd67525ef85aba02309f4145a1e3f448f7f4c8e14",
+            "url": "https://github.com/rjwalters/loom/blob/047e59308d72bbeb17499dd2c986ac8ceb372e4d/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "hfadhlullah/kaizen",
+        "disposition": "no_admission_objection",
+        "public_scope": "Kaizen installs planning, approved execution, independent review and media-production skills into coding agents.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "eb4ada10cc38fb669259bce316fa1d49756f36ae",
+            "sha256": "de86030dd36b3bcb35be15747d17bdd280a14e82ba5573d21b73952ac84aaf27",
+            "url": "https://github.com/hfadhlullah/kaizen/blob/f1ed6d3e0cd79f00bc0b48f7e9dbde5f907b9b59/README.md"
+          },
+          {
+            "path": "skills/kaizen-help/SKILL.md",
+            "blob_sha": "91c7be0b0d0598f61f323e8d84fe3618158a1283",
+            "sha256": "589e2bdbaaa199c5453e8e8e4f3f27c755f8beec272f778976b917174f4a897f",
+            "url": "https://github.com/hfadhlullah/kaizen/blob/f1ed6d3e0cd79f00bc0b48f7e9dbde5f907b9b59/skills/kaizen-help/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "b109a892bf2899724ff7845fd3b214fa4d7c8aa8",
+            "sha256": "07a7961765c19bb009e3e8c99546e7598b336efa6f28bded725a0f000e87a3a2",
+            "url": "https://github.com/hfadhlullah/kaizen/blob/f1ed6d3e0cd79f00bc0b48f7e9dbde5f907b9b59/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "blueprint-conformance/bce",
+        "disposition": "no_admission_objection",
+        "public_scope": "Blueprint Conformance Engine skills diagnose architectural gate violations and tune skills without weakening human-owned policies.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "126fe49ddaee3786086e2a4f05394517f09c3f5d",
+            "sha256": "1a4566f9811d00c126f3579ae9d6a85c5efe5fb3c44658e628f6c322ca6962e8",
+            "url": "https://github.com/blueprint-conformance/bce/blob/cb359c30b0453800216a71d6e9c4ef8b78d49d3e/README.md"
+          },
+          {
+            "path": "skills/bce/SKILL.md",
+            "blob_sha": "4a70e01d20536be0caa697ed249888041f4ccd61",
+            "sha256": "bbc83984cd6d70aac28cc54e95a6e0b09fb5e296ffd89392ddaf22dce6065a05",
+            "url": "https://github.com/blueprint-conformance/bce/blob/cb359c30b0453800216a71d6e9c4ef8b78d49d3e/skills/bce/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+            "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "url": "https://github.com/blueprint-conformance/bce/blob/cb359c30b0453800216a71d6e9c4ef8b78d49d3e/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "dcc-mcp/dcc-mcp-core",
+        "disposition": "no_admission_objection",
+        "public_scope": "DCC-MCP control plane distributes cross-application creative-tool skills, discovery contracts and reusable modeling recipes.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "83493f770723922f5f6dff5493cce88b6c6f2eb0",
+            "sha256": "f66c3d6b86d278d092b4e0cc47dd498cc0011fd3881aee2e0ca5b2b0c671bc45",
+            "url": "https://github.com/dcc-mcp/dcc-mcp-core/blob/ab2eb9300a754edeae71caa76e81cac8528ac232/README.md"
+          },
+          {
+            "path": "skills/mesh-ops/SKILL.md",
+            "blob_sha": "afc28b74f5710eff52de4a744f16989cf587639b",
+            "sha256": "704a14dcc6cfe0c8694759c7719e9b8f3238940086b828fb01d69bf256a5d2d0",
+            "url": "https://github.com/dcc-mcp/dcc-mcp-core/blob/ab2eb9300a754edeae71caa76e81cac8528ac232/skills/mesh-ops/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "8f0f47b8b88a4810ea722046b7297e0be940c032",
+            "sha256": "b497f43f3f2affae408c4926dfcef62b5725e231a2976f2f24ee4aa3f2e152a7",
+            "url": "https://github.com/dcc-mcp/dcc-mcp-core/blob/ab2eb9300a754edeae71caa76e81cac8528ac232/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "trina-app/trina-ax",
+        "disposition": "approved_with_correction",
+        "public_scope": "Self-hosted team-agent workspace governs shared skills and per-person file permissions, with six explicitly copyable starter workflows.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "229547f30eb308dd3261a23019d5d0ab7a2e6c64",
+            "sha256": "4e9d2fc49638ceeb44002ede03cfee2bf44a81d0655fe7d857b95f937fae9754",
+            "url": "https://github.com/trina-app/trina-ax/blob/64d50f76d22b2bfb93a42c1af16e83bf3f0bf7f3/README.md"
+          },
+          {
+            "path": "examples/skills/weekly-team-report/SKILL.md",
+            "blob_sha": "324617c988217276dbfffab3bd8eb223b5f839e3",
+            "sha256": "d5c6014580534655c9c7dffe090efe5a3a02d242f7be74ba5c7db05a92106686",
+            "url": "https://github.com/trina-app/trina-ax/blob/64d50f76d22b2bfb93a42c1af16e83bf3f0bf7f3/examples/skills/weekly-team-report/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+            "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+            "url": "https://github.com/trina-app/trina-ax/blob/64d50f76d22b2bfb93a42c1af16e83bf3f0bf7f3/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "iamvenuti/garrick",
+        "disposition": "no_admission_objection",
+        "public_scope": "Garrick installs local-first work, meeting, knowledge and task-resumption skills, plus an optional cmux desk controller.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "9abd6a3722da3fb7d9cc93a52d7e453d138de91f",
+            "sha256": "7fb03573171390be07037592d8ac00ca06d567b46bcd243e1a45ab36d6766ddf",
+            "url": "https://github.com/iamvenuti/garrick/blob/5c2459926184d7cfb7e64a04792e0b279406a9d9/README.md"
+          },
+          {
+            "path": "extras/cmux/desk/SKILL.md",
+            "blob_sha": "6e622a1e56b00785923c09f5692307a1abd5b928",
+            "sha256": "7bdbcc92ae60cb2e21469008c7daefeaf6014ffd74d5b567fd7da6e964446af3",
+            "url": "https://github.com/iamvenuti/garrick/blob/5c2459926184d7cfb7e64a04792e0b279406a9d9/extras/cmux/desk/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "9d5df495192ae3f378c85bef8e9a828814856da6",
+            "sha256": "7f57d809bb6092ed3cdbdf149b7d0a6a2e21b9b9527d6bb7c527fcea8d170971",
+            "url": "https://github.com/iamvenuti/garrick/blob/5c2459926184d7cfb7e64a04792e0b279406a9d9/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "Miyamura80/MCP-Template",
+        "disposition": "no_admission_objection",
+        "public_scope": "MCP/CLI/API project ships one canonical GmailMCP skill for typed inbox triage and drafting.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "f7c7da06acf3d93dc3b1fd76e8ad3b4902bbc8e3",
+            "sha256": "ff51f3bd73642e5aee33585ae57f2b82da68d3a0a01ab7baaa7f0b38845776c5",
+            "url": "https://github.com/Miyamura80/MCP-Template/blob/caca640b333100d44f0d78e9ed0ebe6116067b1b/README.md"
+          },
+          {
+            "path": "skills/gmail-mcp/SKILL.md",
+            "blob_sha": "44b6f3860daed6d893ab41b68f1d77c0596f0a3b",
+            "sha256": "1edcaa012e617768c7ae2a407074030bd1cc58dce517d93ac46c138f56730c82",
+            "url": "https://github.com/Miyamura80/MCP-Template/blob/caca640b333100d44f0d78e9ed0ebe6116067b1b/skills/gmail-mcp/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "951ddd2d047adb20cd05f47c636d0ee0ee02a7f9",
+            "sha256": "672abab937a36cce14a29599f047f17f2e62959b91ebf5a668e1091ef95c95a4",
+            "url": "https://github.com/Miyamura80/MCP-Template/blob/caca640b333100d44f0d78e9ed0ebe6116067b1b/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "meharajM/context.md",
+        "disposition": "no_admission_objection",
+        "public_scope": "Portable real-device QA skill uses WebDriverAgent evidence to assess physical iOS behavior, with explicit hardware prerequisites.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "aaa65c07302c0cd1c6e689371d94a61208792eb3",
+            "sha256": "eb30bcd1f7774fe70731caf3e5bab79d26aa437ac2cd651a0d515d4b0e571893",
+            "url": "https://github.com/meharajM/context.md/blob/f66de312316632f65d54bd2e8496afa6e0f2a612/README.md"
+          },
+          {
+            "path": "skills/real-device-qa/SKILL.md",
+            "blob_sha": "ad790d9e86a6caa0254b7de2525bfd301434f3bc",
+            "sha256": "f8b2cf353d991fd228291d64bb85d5bf438385138df29d1f920c27edde450305",
+            "url": "https://github.com/meharajM/context.md/blob/f66de312316632f65d54bd2e8496afa6e0f2a612/skills/real-device-qa/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "6c82a9ed9973215acdd07d8f060cb1a918ef269f",
+            "sha256": "8fabd453f0a275f6dd120bf7a5bd182ea36556034c54242e30591e9a4238bea8",
+            "url": "https://github.com/meharajM/context.md/blob/f66de312316632f65d54bd2e8496afa6e0f2a612/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "kinqsradio/orbyn-fullstack-skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Portable full-stack engineering library connects architecture, APIs, migration, UI, review and delivery workflows.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "7892869c2e9fd2e378b9cd3ae4b2d1667bf76b18",
+            "sha256": "92eff64ae40fdd9d534e8ec3228e9dfb1bf018328ae3d0ade0ffa6f19a54fc6b",
+            "url": "https://github.com/kinqsradio/orbyn-fullstack-skills/blob/7d9824af1802148f85f3cd9c0a5846aae57fa5f2/README.md"
+          },
+          {
+            "path": "skills/architect/SKILL.md",
+            "blob_sha": "d76a5eed9dba2c4a3ca3e83541a2c70cab74c3a9",
+            "sha256": "d33f8988dc1caa7bf4f408aa9b64fda7613de29b4d50f44b4d12354e234868bc",
+            "url": "https://github.com/kinqsradio/orbyn-fullstack-skills/blob/7d9824af1802148f85f3cd9c0a5846aae57fa5f2/skills/architect/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "db48f96413d38f5ac187d51624cf121afc1cc991",
+            "sha256": "b960a8c01d83aa48ed709780a5c9940f8e2861f2fdcdc8f931fbe3ece90a5e04",
+            "url": "https://github.com/kinqsradio/orbyn-fullstack-skills/blob/7d9824af1802148f85f3cd9c0a5846aae57fa5f2/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "slyf0xx97/cutify-ui",
+        "disposition": "no_admission_objection",
+        "public_scope": "Cute game-like UI skill builds staged product narratives, pixel characters and purposeful motion across six visual themes.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "2c82a3a6b577650bc0e6966eb5ae053b2d0771be",
+            "sha256": "05b3ac2ec098c382199bb82ca95c8bf54f7954294efd44cd41eb2a07348bb0e4",
+            "url": "https://github.com/slyf0xx97/cutify-ui/blob/49b3d20111dfb23d2c1be5bcd364b8c50f5dad32/README.md"
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "fd23a0e5648e36be3e5950f67f922f7837b19dff",
+            "sha256": "3e1ef78757f9dc3eeea62251f284bfd07f73c15657fd04fe505bd87c7f1ddbd1",
+            "url": "https://github.com/slyf0xx97/cutify-ui/blob/49b3d20111dfb23d2c1be5bcd364b8c50f5dad32/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "5945eaa9afbf5fcd1523865fcd6e17d6b7a300df",
+            "sha256": "40877ec2732e2d70c963843398c304ab340652ef34d9af755fbe77ad3f7aeb50",
+            "url": "https://github.com/slyf0xx97/cutify-ui/blob/49b3d20111dfb23d2c1be5bcd364b8c50f5dad32/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "lgtm-hq/ai-skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Canonical engineering-skill library ships native plugins and a gateway for review, Git/PR workflows, testing and delivery.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "62b3f5198084a0338a2da4560ab825bfcf7b06e3",
+            "sha256": "e159b8ee96dc08c473d8ccf781d7b53eb463d95e1cad024cb3055f5323a306a8",
+            "url": "https://github.com/lgtm-hq/ai-skills/blob/032ee309817813a9ef81bb2450cbed646a625222/README.md"
+          },
+          {
+            "path": "skills/analyze-code/SKILL.md",
+            "blob_sha": "117284b5d1e2f96737a15cc95cbd4263ee7f17a3",
+            "sha256": "9bfc8cc83e5d5e81f5fd52c4dd0b0c1990f00a2378842d4fa8727866e3eeeb82",
+            "url": "https://github.com/lgtm-hq/ai-skills/blob/032ee309817813a9ef81bb2450cbed646a625222/skills/analyze-code/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "1b93f579b23ff9f07bcdbca6a399a76045c9578c",
+            "sha256": "065f022108d0935d0a163221e31549359d95a88c5ffe8165065c10891a432b4f",
+            "url": "https://github.com/lgtm-hq/ai-skills/blob/032ee309817813a9ef81bb2450cbed646a625222/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "samihalawa/licita-espana",
+        "disposition": "no_admission_objection",
+        "public_scope": "Spanish procurement research skill compares official tender notices, scope, deadlines and evidence boundaries.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "02d296f3d402d64a14a36c6499a4390f92692129",
+            "sha256": "3bc2443e08b21281129a63ea7be8ec6a313ee30b4b59efe3e6c876c14e8323d8",
+            "url": "https://github.com/samihalawa/licita-espana/blob/135ae8cfee2674af329e277340b3bd4380fe143a/README.md"
+          },
+          {
+            "path": "skills/licita-espana/SKILL.md",
+            "blob_sha": "6b7bbc82dd79547e75138233f74543d74eeb220c",
+            "sha256": "2fc558c108e4969c783294bca1519e7aef66225cff976656ef5a87a1a60891e7",
+            "url": "https://github.com/samihalawa/licita-espana/blob/135ae8cfee2674af329e277340b3bd4380fe143a/skills/licita-espana/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4bcc056a4a7f1427846e01ab8d8f2c2a1852832a",
+            "sha256": "de89f5cde95f0696857a1716340453cde92f1bc17528b240647c038fd92bef36",
+            "url": "https://github.com/samihalawa/licita-espana/blob/135ae8cfee2674af329e277340b3bd4380fe143a/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "melonjs/melonJS",
+        "disposition": "no_admission_objection",
+        "public_scope": "melonJS game engine bundles agent skills for modern APIs, migration, rendering, assets, audio and game workflows.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "ff1981bbbb2bbdae803c594c68036a7f9ab29fb9",
+            "sha256": "4f3b8b25b261e28afddf5cb817c43114a3f958e863cf83e64486e59bcd19652c",
+            "url": "https://github.com/melonjs/melonJS/blob/3423cfc7f93a15550177c442f7ce8b266cb0793d/README.md"
+          },
+          {
+            "path": "packages/melonjs/skills/melonjs-20-migration/SKILL.md",
+            "blob_sha": "01d99ab389cc8b3cb52fc88d804dc5ac3ab5f6cc",
+            "sha256": "963531aa705190a762dd439f1710c2f52892bb6a6e41f695bcc2cba12b305c04",
+            "url": "https://github.com/melonjs/melonJS/blob/3423cfc7f93a15550177c442f7ce8b266cb0793d/packages/melonjs/skills/melonjs-20-migration/SKILL.md"
+          },
+          {
+            "path": "LICENSE.md",
+            "blob_sha": "d3803662347669ba91a762dee8bca380d3765265",
+            "sha256": "10b433517ac1ae14b2d22076a10490f1525468cfa88627eaaad0496b72076b10",
+            "url": "https://github.com/melonjs/melonJS/blob/3423cfc7f93a15550177c442f7ce8b266cb0793d/LICENSE.md"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "samihalawa/spain-open-data",
+        "disposition": "no_admission_objection",
+        "public_scope": "Spanish open-data discovery skill compares official dataset publishers, coverage, formats, licensing and freshness.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "25631c2cf04e81adbab8a74caac94ebc8f353624",
+            "sha256": "cea70f28c064d79089a0364fdb75872e936cefa97b1527e1a6b05b4d1d05c01d",
+            "url": "https://github.com/samihalawa/spain-open-data/blob/85acb198b5080b5e8174e32e98e9ec3f8066652d/README.md"
+          },
+          {
+            "path": "skills/spain-open-data/SKILL.md",
+            "blob_sha": "bae6d11029a7cb58efa46df8b88dca22c1a46614",
+            "sha256": "0172447a58cd172d5b4eb57aebd182eb76ccb58a94a5626306e8a975dd7cae7f",
+            "url": "https://github.com/samihalawa/spain-open-data/blob/85acb198b5080b5e8174e32e98e9ec3f8066652d/skills/spain-open-data/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4bcc056a4a7f1427846e01ab8d8f2c2a1852832a",
+            "sha256": "de89f5cde95f0696857a1716340453cde92f1bc17528b240647c038fd92bef36",
+            "url": "https://github.com/samihalawa/spain-open-data/blob/85acb198b5080b5e8174e32e98e9ec3f8066652d/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "poferraz/make-prompt-better",
+        "disposition": "no_admission_objection",
+        "public_scope": "Prompt-rewriting skill preserves requirements and selects task-proportional verification and context structures.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "d5dd734a3cc602ebe8174f46a2c905c3db120eef",
+            "sha256": "a1d6fbbe2aa5c0c73a6225064caa630634a075f8af4d0b2d3a2c9d3c040f0131",
+            "url": "https://github.com/poferraz/make-prompt-better/blob/50015b57e26e3369c763e53840ded7634d9efcb0/README.md"
+          },
+          {
+            "path": "make-prompt-better/SKILL.md",
+            "blob_sha": "d6bc6564a9aca16438e4181c3eb5f66b8da2314e",
+            "sha256": "a65a5d9bf8a2c5fb753a36e16d64e2ac6c9f5eb855df9747179e6d53712f6bcc",
+            "url": "https://github.com/poferraz/make-prompt-better/blob/50015b57e26e3369c763e53840ded7634d9efcb0/make-prompt-better/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "c4e14184148f026f332e66b0fab40f85ca23186c",
+            "sha256": "54128c720c60a81163212273e08519a451c1708fd974bd5700fa3c5139465843",
+            "url": "https://github.com/poferraz/make-prompt-better/blob/50015b57e26e3369c763e53840ded7634d9efcb0/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "ScienJus/japan-restaurant-skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Japanese restaurant skills and Python CLIs perform read-only search, reviews, course and reservation-availability checks.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "2235527266777e29d2ebe231834850080cfcf8f5",
+            "sha256": "b87b423097195524db288b96f03624ffb7c880a0b466fce05bd4b43e9a309d8a",
+            "url": "https://github.com/ScienJus/japan-restaurant-skills/blob/dfee36d8db0d4a48a00e2d1749ba599ed374d255/README.md"
+          },
+          {
+            "path": "skills/pocket-concierge/SKILL.md",
+            "blob_sha": "0bf06a5c9f58ce3af3fae32241254f36231f62f7",
+            "sha256": "bae4bc13ee38ccda813c76886507e4cd903f8333e5de4028f0a037e81509441b",
+            "url": "https://github.com/ScienJus/japan-restaurant-skills/blob/dfee36d8db0d4a48a00e2d1749ba599ed374d255/skills/pocket-concierge/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "945ce4e6d3edf2d6b0c2361d54d598237eb84d18",
+            "sha256": "e13f8db847b1826fad942bbac49be7e9b04444e49338941ce98a3569349fb62f",
+            "url": "https://github.com/ScienJus/japan-restaurant-skills/blob/dfee36d8db0d4a48a00e2d1749ba599ed374d255/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "jonsoku-dev/frameforge",
+        "disposition": "no_admission_objection",
+        "public_scope": "Frameforge React video engine bundles agent skills for deterministic frames, 3D shots, assets, audio and review.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "0945f553d5cdb778eb6ea9c83fb598e20d3ee24a",
+            "sha256": "52cce4d6fbf4d1aced754f8ccf47ee6fa75ea29a54af1738e4f74ed671418eff",
+            "url": "https://github.com/jonsoku-dev/frameforge/blob/250b97b870d6d687136519ef13eab620e0051aef/README.md"
+          },
+          {
+            "path": "skills/frameforge-3d-animation/SKILL.md",
+            "blob_sha": "24b5647c364d22f44b75d5d170b64d1449c420ab",
+            "sha256": "835b279c4c2d039ea71c1b4eab0567c069ffb7f3c02234739e8d1ebdfe119be7",
+            "url": "https://github.com/jonsoku-dev/frameforge/blob/250b97b870d6d687136519ef13eab620e0051aef/skills/frameforge-3d-animation/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "73b32bb7145e276590c7f44cd917d1e91861e261",
+            "sha256": "9c1d17c62fa66bfbcb369756f211c8895347dc995445acea2b10ccb81f2971cf",
+            "url": "https://github.com/jonsoku-dev/frameforge/blob/250b97b870d6d687136519ef13eab620e0051aef/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "samihalawa/ine-evidence",
+        "disposition": "no_admission_objection",
+        "public_scope": "Spanish INE research skill reports statistical series with observation periods, units, bases and comparison limits.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "de96a443656b73b1ef7b4839843360ca6dbafeb5",
+            "sha256": "191d8f05f1b0a6e6b9349443062bb6866fda01395df35eba449914f9ebc2494f",
+            "url": "https://github.com/samihalawa/ine-evidence/blob/ea0547212336205400f73a1aed17892d7a7c35b8/README.md"
+          },
+          {
+            "path": "skills/ine-evidence/SKILL.md",
+            "blob_sha": "92ee7eac3d946c4064c600d3806e33caf8ec1fe4",
+            "sha256": "9b2c7b1455488c0b4bd7a05bc7d58ee689f255a679c689eec360e87c076290a2",
+            "url": "https://github.com/samihalawa/ine-evidence/blob/ea0547212336205400f73a1aed17892d7a7c35b8/skills/ine-evidence/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4bcc056a4a7f1427846e01ab8d8f2c2a1852832a",
+            "sha256": "de89f5cde95f0696857a1716340453cde92f1bc17528b240647c038fd92bef36",
+            "url": "https://github.com/samihalawa/ine-evidence/blob/ea0547212336205400f73a1aed17892d7a7c35b8/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "samihalawa/catastro-pro",
+        "disposition": "no_admission_objection",
+        "public_scope": "Spanish cadastral research skill produces sourced property summaries while distinguishing parcels, units and protected data.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "a32fdab6f1fd1af82406f8a37c94969f7bdd996d",
+            "sha256": "41945c000b2db43cd72bd3073bad92c0ff4921144757c1ba3fe19b2b18add0ab",
+            "url": "https://github.com/samihalawa/catastro-pro/blob/22619db11a66abfc1388d6f4516a727420cc944e/README.md"
+          },
+          {
+            "path": "skills/catastro-pro/SKILL.md",
+            "blob_sha": "240795ae376a38e4e765ca4f53a6927e5bd2dd74",
+            "sha256": "62e0103ccf17fb6636668a491cc2c64a141c9c0c9b108ced190fcbe46830829e",
+            "url": "https://github.com/samihalawa/catastro-pro/blob/22619db11a66abfc1388d6f4516a727420cc944e/skills/catastro-pro/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4bcc056a4a7f1427846e01ab8d8f2c2a1852832a",
+            "sha256": "de89f5cde95f0696857a1716340453cde92f1bc17528b240647c038fd92bef36",
+            "url": "https://github.com/samihalawa/catastro-pro/blob/22619db11a66abfc1388d6f4516a727420cc944e/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "samihalawa/boe-impact",
+        "disposition": "no_admission_objection",
+        "public_scope": "BOE research skill compares official legal text at two dates and separates literal changes from practical interpretation.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "432a3b7a3b01013ea0659ecb0f44424b53031b5e",
+            "sha256": "67e8148b9bf3e7bcee144c3e4aa6818744e32abd8816876eb817f76604f1ba0c",
+            "url": "https://github.com/samihalawa/boe-impact/blob/4a65deccae4fb5d91607f92e98f099e6b7cd0242/README.md"
+          },
+          {
+            "path": "skills/boe-impact/SKILL.md",
+            "blob_sha": "b47aea184bd732e7e350b5b30a8a27840240b2a4",
+            "sha256": "1b9ede77f8b8e8f81941a6d200a7109f9eeb93816fa45b6343f248a94ce00e54",
+            "url": "https://github.com/samihalawa/boe-impact/blob/4a65deccae4fb5d91607f92e98f099e6b7cd0242/skills/boe-impact/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4bcc056a4a7f1427846e01ab8d8f2c2a1852832a",
+            "sha256": "de89f5cde95f0696857a1716340453cde92f1bc17528b240647c038fd92bef36",
+            "url": "https://github.com/samihalawa/boe-impact/blob/4a65deccae4fb5d91607f92e98f099e6b7cd0242/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "Jiyeong-kor/natural-korean-writing",
+        "disposition": "no_admission_objection",
+        "public_scope": "Korean writing skill removes translationese and awkward wording while preserving meaning, audience and context.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "aaa849543f99e83f45c615cca12c3ffe7fdb6a55",
+            "sha256": "427a02b6abf04ea3e31c92831b3213be4c2a76805acdc086a64d97e4aa3b808d",
+            "url": "https://github.com/Jiyeong-kor/natural-korean-writing/blob/558d13504bf66730ae3a131858fc7f60870fb43a/README.md"
+          },
+          {
+            "path": "skills/natural-korean-writing/SKILL.md",
+            "blob_sha": "53c99beb5730f5e4792bd833a7da38524f1ca6a8",
+            "sha256": "88e031a1791dd493d7a8286ea73c3f5bce46d08522086f3b8c230c9367b2152b",
+            "url": "https://github.com/Jiyeong-kor/natural-korean-writing/blob/558d13504bf66730ae3a131858fc7f60870fb43a/skills/natural-korean-writing/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d40903bada0856573bd50c06ce921268fa781eec",
+            "sha256": "a68c7b97b049cb5b0f5ce2b5c43fda391904baf410538a3bcfab63c8dfd398e9",
+            "url": "https://github.com/Jiyeong-kor/natural-korean-writing/blob/558d13504bf66730ae3a131858fc7f60870fb43a/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "samihalawa/borme-intelligence",
+        "disposition": "no_admission_objection",
+        "public_scope": "BORME company-notice research skill preserves entity identity, date/province coverage and official-source evidence.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "2f70074675597341f0d0984155a749f6d84b86df",
+            "sha256": "2f9df4e308f95a397221af65b1f2668536e2d74f85b4e2209e8212892dede47e",
+            "url": "https://github.com/samihalawa/borme-intelligence/blob/9b56e2cd30531f30afb2b0bce4618bf84db52df3/README.md"
+          },
+          {
+            "path": "skills/borme-intelligence/SKILL.md",
+            "blob_sha": "0bf7fa0d8783a7364cb7eca9e6c629eea73f5618",
+            "sha256": "d91755510ba7feba428627a3f1d9f28a94c1cb597e7e3e5c9ce42a3a260493fc",
+            "url": "https://github.com/samihalawa/borme-intelligence/blob/9b56e2cd30531f30afb2b0bce4618bf84db52df3/skills/borme-intelligence/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4bcc056a4a7f1427846e01ab8d8f2c2a1852832a",
+            "sha256": "de89f5cde95f0696857a1716340453cde92f1bc17528b240647c038fd92bef36",
+            "url": "https://github.com/samihalawa/borme-intelligence/blob/9b56e2cd30531f30afb2b0bce4618bf84db52df3/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "MrBinnacle/skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Evidence-linked engineering skill cards encode concrete agent failure modes, with measured-benefit limits stated.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "112234b4e828b724145cae518e2239ecd3ec2261",
+            "sha256": "d3b682e2c8dda5a9031e3111d53e0223456e34851673dd93e3e64a0aac669adf",
+            "url": "https://github.com/MrBinnacle/skills/blob/f96619a2bb3ad3d5005c01627c89f2d7097ec413/README.md"
+          },
+          {
+            "path": "skills/engineering/clirunner-env/SKILL.md",
+            "blob_sha": "088c1e0b28fa110e838b502626ba9bca1a0361f2",
+            "sha256": "7dd001c3c5aa7183394004b53b70393ba4cc9e4c73eeb9c8a1d3dd3ee2761c09",
+            "url": "https://github.com/MrBinnacle/skills/blob/f96619a2bb3ad3d5005c01627c89f2d7097ec413/skills/engineering/clirunner-env/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d11dfdb8379953035516dbf6d624f2488ce34ba4",
+            "sha256": "d1dd52f9096932abddfd8a87fab2b5642fefb2c8d4476a898d16b64af0ccff42",
+            "url": "https://github.com/MrBinnacle/skills/blob/f96619a2bb3ad3d5005c01627c89f2d7097ec413/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "superlucky84/docatlas",
+        "disposition": "no_admission_objection",
+        "public_scope": "Docatlas distributes designer, implementer and reviewer skills for documentation-first software delivery.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6351c034dffa1bb11080cfbdec6f9e501656153f",
+            "sha256": "afb65fb184b1e784d1f61b00b5be1baa13e97f61f2998c443a3d1bfd230823df",
+            "url": "https://github.com/superlucky84/docatlas/blob/a3404ef61a30c90e40c543ec4e6a94e507d35949/README.md"
+          },
+          {
+            "path": "agent-kit/skills/doc-driven-designer-v1/SKILL.md",
+            "blob_sha": "946b1021f6597e788644696649949ead9244a4c5",
+            "sha256": "c22d7f737ad7c6bc41096048236c01651a1be8b99063312bb885e1961477c9d4",
+            "url": "https://github.com/superlucky84/docatlas/blob/a3404ef61a30c90e40c543ec4e6a94e507d35949/agent-kit/skills/doc-driven-designer-v1/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "0f67e596200512f252914cffd22c1246b00bd882",
+            "sha256": "00f8414537d3e5b91e15daa5eae4bab6fd7223203c46e8da0c1ed680b4d748f1",
+            "url": "https://github.com/superlucky84/docatlas/blob/a3404ef61a30c90e40c543ec4e6a94e507d35949/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "samihalawa/ayudas-espana",
+        "disposition": "no_admission_objection",
+        "public_scope": "Spanish public-grant research skill checks BDNS eligibility, dates, official bases and next-step evidence.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "d9c32c25a27b8d044a2c8ec04345d8f4cf610f92",
+            "sha256": "45237c0cdcee60af52f2a220c04966eb2e5e564a8f93009f43b0af85a5d3e4cd",
+            "url": "https://github.com/samihalawa/ayudas-espana/blob/c4e5c114d29e6f3b2140c3c9f9362066703e4aa0/README.md"
+          },
+          {
+            "path": "skills/ayudas-espana/SKILL.md",
+            "blob_sha": "5a7c4d0a08dc60885691a6cd6227ca5bdf21ceea",
+            "sha256": "8ab179c8aea834df8586594b104a5c4518ae04c9c5bb3cb9fc74544ec4a83aef",
+            "url": "https://github.com/samihalawa/ayudas-espana/blob/c4e5c114d29e6f3b2140c3c9f9362066703e4aa0/skills/ayudas-espana/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4bcc056a4a7f1427846e01ab8d8f2c2a1852832a",
+            "sha256": "de89f5cde95f0696857a1716340453cde92f1bc17528b240647c038fd92bef36",
+            "url": "https://github.com/samihalawa/ayudas-espana/blob/c4e5c114d29e6f3b2140c3c9f9362066703e4aa0/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "dhruvjainin/pristine",
+        "disposition": "no_admission_objection",
+        "public_scope": "Pristine critiques, designs and polishes real web UI through product personas, screenshots and state checks.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "8889bab9e211cadbf407c1e730f6f12d1b2065c3",
+            "sha256": "461f775238a0bce442e36808243615933d39692eb0865da7107e18e009e1ec78",
+            "url": "https://github.com/dhruvjainin/pristine/blob/611e92e2a1d38b46708b1e0c00340ecb58257a03/README.md"
+          },
+          {
+            "path": "skills/pristine/SKILL.md",
+            "blob_sha": "0843767e77b6d299efa8c21a6990e5a76e97c379",
+            "sha256": "e220d6fa3c6540b0de8781d4d11231fc19f98c682a9b1074656986ca46b33324",
+            "url": "https://github.com/dhruvjainin/pristine/blob/611e92e2a1d38b46708b1e0c00340ecb58257a03/skills/pristine/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/dhruvjainin/pristine/blob/611e92e2a1d38b46708b1e0c00340ecb58257a03/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "ThanhNguyxnOrg/blendops",
+        "disposition": "no_admission_objection",
+        "public_scope": "BlendOps supplies Blender planning, runtime-readiness, visual-evidence and handoff skills for non-expert users.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "270504fff3ac9504bd2f375eb1d604a9433f3cbf",
+            "sha256": "323f88f8acfabf5560acfaf8ff058a492205d2e022d4afebaddb41ec61035936",
+            "url": "https://github.com/ThanhNguyxnOrg/blendops/blob/f0804fd64a9fa4f263a9ec59c5de84ed21733747/README.md"
+          },
+          {
+            "path": "bundles/claude-desktop-manual/SKILL.md",
+            "blob_sha": "78f3935177c9cba06f4387b964de772996262ea5",
+            "sha256": "ddc0cf3ae7a2e4ea613bb4d8ee9a9d30561ae24d99f95abbc9702de35320bb4e",
+            "url": "https://github.com/ThanhNguyxnOrg/blendops/blob/f0804fd64a9fa4f263a9ec59c5de84ed21733747/bundles/claude-desktop-manual/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "a287912e9e18563c95a32f334003663a579041a0",
+            "sha256": "25df86f7dc591d8781190a1fa662ebb5ed4cd6312078f6c33fe65247fcf1ee0b",
+            "url": "https://github.com/ThanhNguyxnOrg/blendops/blob/f0804fd64a9fa4f263a9ec59c5de84ed21733747/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "gosuda/portal-tunnel",
+        "disposition": "no_admission_objection",
+        "public_scope": "Portal tunnel distributes three skills for connecting, exposing services and running relays with explicit network boundaries.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "65fedcf6dbf5c5c4b7a3cbaecbd79008677286e7",
+            "sha256": "05c80aaec72727173c92acf65221b47a862411265ebf8f4d9460ce585a4be139",
+            "url": "https://github.com/gosuda/portal-tunnel/blob/c3466d9c3e0571b8b21035c962b55e3b3d5d9bb3/README.md"
+          },
+          {
+            "path": "plugins/portal-deploy/skills/portal-connect/SKILL.md",
+            "blob_sha": "8028291a36861b8aee064717acd3a6f728b9ac08",
+            "sha256": "eb77f7774c05d1ba7bc12e3c987a8839c787abce8e79ec1bfaab52e0494c9003",
+            "url": "https://github.com/gosuda/portal-tunnel/blob/c3466d9c3e0571b8b21035c962b55e3b3d5d9bb3/plugins/portal-deploy/skills/portal-connect/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "82b5d278435e4d521ef57a21d6f5072fa3aac1bc",
+            "sha256": "d97a806b1907fadd59a1c5a0bd82b57b7abe1311a059b957e3c3c578b890d8d3",
+            "url": "https://github.com/gosuda/portal-tunnel/blob/c3466d9c3e0571b8b21035c962b55e3b3d5d9bb3/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "EvannZhongg/Nosis",
+        "disposition": "no_admission_objection",
+        "public_scope": "Nosis runtime bundles skill-creator and plugin-creator workflows with package scaffolding and manifest validation.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "200250e0efa73e0dafc02fef679252a5d8805a58",
+            "sha256": "259131836c812cdbe115917f6d2e87adc56b3228ba9a666e2ceb10baec54b113",
+            "url": "https://github.com/EvannZhongg/Nosis/blob/2fcf20da7450fc8e72542a633c3f31bf390e4424/README.md"
+          },
+          {
+            "path": "agent_runtime/defaults/skills/plugin-creator/SKILL.md",
+            "blob_sha": "d9db0e730e230d9673171c94b52bad2059159b34",
+            "sha256": "2409981b48d2fc266da288097873d105ed96eba8e311713880d19068f2e965f8",
+            "url": "https://github.com/EvannZhongg/Nosis/blob/2fcf20da7450fc8e72542a633c3f31bf390e4424/agent_runtime/defaults/skills/plugin-creator/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "3ab9352403cf12966fbad6445698f757a3f42e5c",
+            "sha256": "c4c29f69364189f0d556c010dc7adfca66262fd35530ff770ce91afc917d4248",
+            "url": "https://github.com/EvannZhongg/Nosis/blob/2fcf20da7450fc8e72542a633c3f31bf390e4424/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "FernandoGomes83/seo-geo-audit",
+        "disposition": "no_admission_objection",
+        "public_scope": "Technical SEO/GEO audit skill computes checklist scores and concrete fixes from live pages or source evidence.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "a126e85985892490e1d883aafcd87bc31ec753d0",
+            "sha256": "e48b1fdcbcd8d3d7219107c3a5bc220f61e9450f919ead27961299fbddee5b04",
+            "url": "https://github.com/FernandoGomes83/seo-geo-audit/blob/d9f49538f09e4041c8f92c1c77a6b227128e32b2/README.md"
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "80684a2875df939f9a35a2fb7747643f6ab6c6ab",
+            "sha256": "59d3febd362edf2d04fbddf115eddd59851ac017312846bfa752c004e70e1224",
+            "url": "https://github.com/FernandoGomes83/seo-geo-audit/blob/d9f49538f09e4041c8f92c1c77a6b227128e32b2/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "3dc5ab7239b730386313135512bad4e2ff9514ca",
+            "sha256": "6f4ab36142463d564e3a8244ba91542a5e1fb857f66b99e7aa199a3ecf373ae1",
+            "url": "https://github.com/FernandoGomes83/seo-geo-audit/blob/d9f49538f09e4041c8f92c1c77a6b227128e32b2/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "akiiwa-games/AgentCompass",
+        "disposition": "no_admission_objection",
+        "public_scope": "AgentCompass skills route delegated tasks using configured model capabilities, permissions and observed subscription quotas.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "00d54663649f7e3c42819d8838d33fc11451f8c8",
+            "sha256": "a481eaeb00e8f93b3d52f777ce92310e4844cf2a9100704d3bf8e6aa7273de20",
+            "url": "https://github.com/akiiwa-games/AgentCompass/blob/bfdd7a51b15e123ab4fe14f2e603a455b4834ce3/README.md"
+          },
+          {
+            "path": "skills/agent-compass/SKILL.md",
+            "blob_sha": "e19528504ff78eb646d98637505e7252b08083d2",
+            "sha256": "75e28ec3f7f5cc460cd1535874169afe3cdd0f9836448ae679155f2bf2f1e489",
+            "url": "https://github.com/akiiwa-games/AgentCompass/blob/bfdd7a51b15e123ab4fe14f2e603a455b4834ce3/skills/agent-compass/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d1e225d95008f0145c2bd32df2b945f42028faf8",
+            "sha256": "d3c50eecb2fdbd431a61c8006155182634d1cda96541d419e93a569359390088",
+            "url": "https://github.com/akiiwa-games/AgentCompass/blob/bfdd7a51b15e123ab4fe14f2e603a455b4834ce3/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "roy-tong/Askovo",
+        "disposition": "no_admission_objection",
+        "public_scope": "Askovo builds product and business reasoning chains backed by authorized research, explicit assumptions and evidence registers.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "3da89cfe5d4605b9cd17bb3940d477916612ce98",
+            "sha256": "97f4341eebe0cd5681a86cba25f434567df9ebc80ba6858b20b203e828dfb97a",
+            "url": "https://github.com/roy-tong/Askovo/blob/ec3416a781e6cc05452546aacbff22f59347c106/README.md"
+          },
+          {
+            "path": "skills/askovo/SKILL.md",
+            "blob_sha": "c22e65f43f926411efea6ac5aa3e044062b0c258",
+            "sha256": "596e3e5145e84fce19306b1030bad48571d19569ffa37695f387fefc9efed245",
+            "url": "https://github.com/roy-tong/Askovo/blob/ec3416a781e6cc05452546aacbff22f59347c106/skills/askovo/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "6d322f1888b7eaaaa7408ec7d15d7499f61f0325",
+            "sha256": "2919e8a7187e9dd0bfc1cff2032f1a1aa6a4cb8e0d7366399f3b675fbac5ac62",
+            "url": "https://github.com/roy-tong/Askovo/blob/ec3416a781e6cc05452546aacbff22f59347c106/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "algibbawi-m/trust-but-verify",
+        "disposition": "no_admission_objection",
+        "public_scope": "Four portable skills help non-programmer owners scope changes, request fresh reviews, audit apps and review design.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "f124a43112fea8daa851bf66866f1d8b2dadc3ed",
+            "sha256": "61030771b6d2d98f1b334fdccd21bf14a8696a11fd53c405b2a65250e0a53334",
+            "url": "https://github.com/algibbawi-m/trust-but-verify/blob/5c0a05b2236beb13d9d1464193853a98a1721867/README.md"
+          },
+          {
+            "path": "skills/audit/SKILL.md",
+            "blob_sha": "1ede1ff463f06b67b6bfd8a88d24b1ff06ba0bb4",
+            "sha256": "09cd066bb9fe12d4d4a8fe9b3b1225e5bb0751e25ca614d11321a65fa12b2450",
+            "url": "https://github.com/algibbawi-m/trust-but-verify/blob/5c0a05b2236beb13d9d1464193853a98a1721867/skills/audit/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4ab9215746e6398940cb6ab17ce475baa5940039",
+            "sha256": "fc7e2b2bf375663a3321bf9a36b1d2fa2756491133a87b83093842c65cfb5010",
+            "url": "https://github.com/algibbawi-m/trust-but-verify/blob/5c0a05b2236beb13d9d1464193853a98a1721867/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "SamyakJhaveri/loam",
+        "disposition": "no_admission_objection",
+        "public_scope": "Loam renders tested Claude/Codex project harnesses with shared session skills and optional active marketplace bundles.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "4e9f4be326236611654f929d8b4d5abfd20d62c4",
+            "sha256": "5258a4e2e8929f735571be84aede2a8bfc7b7cce61c45fdd66835e789d599d85",
+            "url": "https://github.com/SamyakJhaveri/loam/blob/cf992ad4bb480d9df65cd6001c5e19cbd829f5bb/README.md"
+          },
+          {
+            "path": "seed/.agents/skills/catchup/SKILL.md",
+            "blob_sha": "70707d061a197c4790fdec6d580f179bce4a7984",
+            "sha256": "06dd5d2f3921e8961118c244f0817e83a94d5a9fc93593bea839bb96e86633cf",
+            "url": "https://github.com/SamyakJhaveri/loam/blob/cf992ad4bb480d9df65cd6001c5e19cbd829f5bb/seed/.agents/skills/catchup/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "8bfa18b3d3e139142d33c769909c2f1b8c3fd200",
+            "sha256": "5241547f0ca1613eeef5d0c71094e4a027b6fba1b50ef56785615a5426648843",
+            "url": "https://github.com/SamyakJhaveri/loam/blob/cf992ad4bb480d9df65cd6001c5e19cbd829f5bb/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "dpalfery/kyber-weave",
+        "disposition": "no_admission_objection",
+        "public_scope": "Kyber-Weave distributes portable engineering squad skills, governed project knowledge and evidence-driven delivery gates.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "1aaf31e4b6282aa363a45ff622457e3900b81d52",
+            "sha256": "1125b467f1ea60cc4bf14703b694b2532a29791f08cbae74d13dd6f2a04f2279",
+            "url": "https://github.com/dpalfery/kyber-weave/blob/bab5c64a775cb66d67789a1546b3b4f546310491/README.md"
+          },
+          {
+            "path": "products/kyber-squad/skills/app-docs-standard/SKILL.md",
+            "blob_sha": "9fe4eddfee77e6ffb38b82930e47707c3de26873",
+            "sha256": "46644b015da550584f8388c4c450d7a7d8df9ea64a3508abb1d389ab8d44316c",
+            "url": "https://github.com/dpalfery/kyber-weave/blob/bab5c64a775cb66d67789a1546b3b4f546310491/products/kyber-squad/skills/app-docs-standard/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "60ae30cf46a4278a83bbf5fa9b2a7d33b7069b72",
+            "sha256": "960bf67e724425e592e5b386bf9839bb3fda259db5cec635d98672e47052339e",
+            "url": "https://github.com/dpalfery/kyber-weave/blob/bab5c64a775cb66d67789a1546b3b4f546310491/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "aunysillyme/lean-computer-use",
+        "disposition": "no_admission_objection",
+        "public_scope": "Mac computer-use skill coordinates bounded background app actions, filtered observations and verified cleanup.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6024565e7605135add71a802325720b258b3b9ab",
+            "sha256": "025791199eb6867bc9d5b5a440b094e26c7fbf9586afb5bce0856168a6763914",
+            "url": "https://github.com/aunysillyme/lean-computer-use/blob/57c0586cc781955bc053788ceb2c10d8c5571197/README.md"
+          },
+          {
+            "path": "skills/lean-computer-use/SKILL.md",
+            "blob_sha": "be2a3c2136cccd623794a3806691454c0f3f5436",
+            "sha256": "bcda888b191dab5bcc75d887cbd418e4ed89e4104c1ac26349b17dfe0436ab54",
+            "url": "https://github.com/aunysillyme/lean-computer-use/blob/57c0586cc781955bc053788ceb2c10d8c5571197/skills/lean-computer-use/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "35b46f1f4e13e43c26d49f79300db6f88ad4edcf",
+            "sha256": "07a69eb2b964f93ac9e07fb8652758762c9a79b5ac90d854d4e81ad6ec43af06",
+            "url": "https://github.com/aunysillyme/lean-computer-use/blob/57c0586cc781955bc053788ceb2c10d8c5571197/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "longligooo/agent-collaboration-skill",
+        "disposition": "no_admission_objection",
+        "public_scope": "Vendor-neutral collaboration skill uses durable specs, tickets, Markdown turns and JSON signals across coding agents.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "952821ce8eeaf52005e62bf7e49879aa67dce27a",
+            "sha256": "b94477bf9b5c03f4bf734070f3b62db0798465bcd79fe5f5c73803c1ca02514b",
+            "url": "https://github.com/longligooo/agent-collaboration-skill/blob/cf5560930cc7de19b0e74174867610fef32038ff/README.md"
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "17ce4359df8087e2c676665ea515f4d6d48a9026",
+            "sha256": "540e1bb0283713e18eec8cac54fd4da6a5718d7820538c1329d7bbd618633f46",
+            "url": "https://github.com/longligooo/agent-collaboration-skill/blob/cf5560930cc7de19b0e74174867610fef32038ff/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "eee6674ede3e6a360552ae611544830df8d85ad0",
+            "sha256": "cfb69c3fb9ff9f23e314ab36451fc1c81cacece78009667cc60cc42a3f20e67f",
+            "url": "https://github.com/longligooo/agent-collaboration-skill/blob/cf5560930cc7de19b0e74174867610fef32038ff/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "Nachovn114/specspire",
+        "disposition": "no_admission_objection",
+        "public_scope": "Bilingual Specspire skill guides specification-driven, test-first software design, review and verifiable delivery.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "cf65b10e7eb957defb680d04c1581c9ff2fd5996",
+            "sha256": "bf7f7c8aa441bcb626b3758dda6d184d3791bcaa8fb274a55668fcc559450e80",
+            "url": "https://github.com/Nachovn114/specspire/blob/58b6297f1e3c941f449df43a2d216ec8e58cceb3/README.md"
+          },
+          {
+            "path": "skills/specspire/SKILL.md",
+            "blob_sha": "646435ad83c4c7e2e4287a867bf29ddb442ed9eb",
+            "sha256": "e0c8d3f4f108f49c252b85ebce79145b50a72792a2e29d1ee7a45ff8b95b5a69",
+            "url": "https://github.com/Nachovn114/specspire/blob/58b6297f1e3c941f449df43a2d216ec8e58cceb3/skills/specspire/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "875032e3b3ffc1f76d5381726633da8d0c9ad623",
+            "sha256": "dfcf2c7b6833fb14123cff3cfa966ed3fe340af35056df62512a3c016a99a33d",
+            "url": "https://github.com/Nachovn114/specspire/blob/58b6297f1e3c941f449df43a2d216ec8e58cceb3/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "derio-net/super-fr",
+        "disposition": "no_admission_objection",
+        "public_scope": "super-fr plugin suite combines planning, isolated execution, audits and runner dispatch with cross-harness adapters.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "70843a37afbe3c9f4ffc3dae4e81622907fe152d",
+            "sha256": "1dc1a8a88ce1b4fd000fcda6027703ed7d0d912c6cda92827600a126e173a592",
+            "url": "https://github.com/derio-net/super-fr/blob/e0b4f099fe939806828f412f1003513fc683b1a8/README.md"
+          },
+          {
+            "path": "plugins/super-fr-dispatch/skills/fr-dispatch/SKILL.md",
+            "blob_sha": "9ede9c88bce9483dd37b567d556b6fd8b6e83496",
+            "sha256": "3152b75100002ecce2ff6e58030ae955c4749693a2e7af6dfbf10c48f75871ca",
+            "url": "https://github.com/derio-net/super-fr/blob/e0b4f099fe939806828f412f1003513fc683b1a8/plugins/super-fr-dispatch/skills/fr-dispatch/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "711b5a83c9ffd19bd890560eca8e4f31c831dcae",
+            "sha256": "c767e9a51bcb55b5d14392ab81a022184645c4976626ce823ee78f7be922a67f",
+            "url": "https://github.com/derio-net/super-fr/blob/e0b4f099fe939806828f412f1003513fc683b1a8/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "cerredz/vidbyte-cli",
+        "disposition": "no_admission_objection",
+        "public_scope": "Vidbyte skills guide hosted research, local coding teams and ranked next actions through its CLI and paid-service workflows.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "93a83f176ea7c20531a5327feb8e8c9df27ce569",
+            "sha256": "8889773839904df8760e2a37a7c9f19bd4e8cf04d8ac60bea472c437a82721e0",
+            "url": "https://github.com/cerredz/vidbyte-cli/blob/94af32a49d70aad86298a582b1c009f3ae387a73/README.md"
+          },
+          {
+            "path": "skills/app-conversion-tactics/SKILL.md",
+            "blob_sha": "9ba0da5cf5a864805b2a6fef4b1bb6bef80883ed",
+            "sha256": "6b3768f23e202e26e7f72369eeb93a1be49ac422dd53345032e57172321b4a60",
+            "url": "https://github.com/cerredz/vidbyte-cli/blob/94af32a49d70aad86298a582b1c009f3ae387a73/skills/app-conversion-tactics/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "531b06754a65c0b2ea9461a0ac0ffbb90b41ca44",
+            "sha256": "68f431cbcd6f81eebce821ba298af0320c686668b2353b9faa99643770428f4b",
+            "url": "https://github.com/cerredz/vidbyte-cli/blob/94af32a49d70aad86298a582b1c009f3ae387a73/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "timmo001/skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Portable coding-agent skill library covers workflow authoring, investigation, delivery and tool-specific operations.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "e1ca904f75553516ef5c3c854de1330d806afbd6",
+            "sha256": "76b11e8024a7fefa2048d3a5e082d75b20178311811135e12cddbaafed9f217b",
+            "url": "https://github.com/timmo001/skills/blob/db973c27c94d5185495082aa1ea34279c0012772/README.md"
+          },
+          {
+            "path": "agentic-workflows/SKILL.md",
+            "blob_sha": "0aa3f90d4bcfe21f4493f6d762c93115940af7cd",
+            "sha256": "8ac36dd69cd2a58bfc2df5fc83e1acf97ad755763b793cbc31ccf08c36cbca0b",
+            "url": "https://github.com/timmo001/skills/blob/db973c27c94d5185495082aa1ea34279c0012772/agentic-workflows/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+            "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "url": "https://github.com/timmo001/skills/blob/db973c27c94d5185495082aa1ea34279c0012772/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "CompleteTech-Skills/github-showcase-skill",
+        "disposition": "no_admission_objection",
+        "public_scope": "CompleteTech showcase skill creates repository banners and cards and emits read-only metadata audit plans.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6dc65e63a9795e9445d3870bd4f095f211eac8c4",
+            "sha256": "abb7d955640fe293b36bd3f75d69b0c13a53c8754dd61374c3bd293e525f02ad",
+            "url": "https://github.com/CompleteTech-Skills/github-showcase-skill/blob/3cb83c22ea9622e3b437d9a33d71e809d5cd99eb/README.md"
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "dd6a7770a62f7bc8ff60fc9ebf78e4a5ff07d719",
+            "sha256": "23b1ed9003accbbbd3b5301eac843b712426233f2fdfd63a445ca6af4e12448a",
+            "url": "https://github.com/CompleteTech-Skills/github-showcase-skill/blob/3cb83c22ea9622e3b437d9a33d71e809d5cd99eb/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "87cec3f22b0eaaf88d7fd6f1f44772bc142ffe4f",
+            "sha256": "ff996ba2db6f01c1eefbd9579ed04430fe933d4c27da434c891fff21e92dd98c",
+            "url": "https://github.com/CompleteTech-Skills/github-showcase-skill/blob/3cb83c22ea9622e3b437d9a33d71e809d5cd99eb/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "chinkan/RustFox",
+        "disposition": "no_admission_objection",
+        "public_scope": "RustFox agent runtime bundles public skills for coding, memory, research, operations and creating new capabilities.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "cd1ca0abe222f90387c831609eddbeffac81969c",
+            "sha256": "da6b431eb46f1277941f93038785b254ed6a422a622ba96513d4a3643230fe32",
+            "url": "https://github.com/chinkan/RustFox/blob/17ad66493a1c5f60f8653319f63ce0953f2fbb0b/README.md"
+          },
+          {
+            "path": "skills/code-interpreter/SKILL.md",
+            "blob_sha": "e6fab9a70607d5cb75069173a0ae73e72f734385",
+            "sha256": "ee249dc94094438f20a847056dc4b21f579d4c343677349f07c56b3f0e1df192",
+            "url": "https://github.com/chinkan/RustFox/blob/17ad66493a1c5f60f8653319f63ce0953f2fbb0b/skills/code-interpreter/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "77eb1b33547091cae4fd7e6a0b4ef304e0ed5d83",
+            "sha256": "295860f5a5f027ef6ff093ab30ac48f174d456ec692bd74ac6cab3167f35145f",
+            "url": "https://github.com/chinkan/RustFox/blob/17ad66493a1c5f60f8653319f63ce0953f2fbb0b/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "pdugan20/skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Code-native design and engineering skills cover UI ideation, system alignment, video analysis, delivery and technical docs.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "ed898a9be9b91f82f042d8c92d5ee906e2112126",
+            "sha256": "7c97908df79c15e06c54bcafa462be1c961eb238dd216ff7012e9b1b2470c631",
+            "url": "https://github.com/pdugan20/skills/blob/1080788b1fdbb4701c13d1130338be8842667dc7/README.md"
+          },
+          {
+            "path": "skills/align-ui-to-design-system/SKILL.md",
+            "blob_sha": "5749d93691116b4a43f27d3269a319fd9a1ee478",
+            "sha256": "a718e309d2b17b9973085e3f178df58e6eb3706364831f20cdabde7114c7b280",
+            "url": "https://github.com/pdugan20/skills/blob/1080788b1fdbb4701c13d1130338be8842667dc7/skills/align-ui-to-design-system/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "700dc9646cf74a9eff1ae5815620083b98f30c25",
+            "sha256": "59180c6936a2cfeb5a1f852d0b24f825cfd97668b36d47a420a1b53500f67614",
+            "url": "https://github.com/pdugan20/skills/blob/1080788b1fdbb4701c13d1130338be8842667dc7/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "Esmail-sarhadi/esp32-agent-skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "ESP32 firmware skills and deterministic checkers address pin safety, power, sensors, buses, RTOS and OTA pitfalls.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "c784f8ae74387ea5a60b5698e44d7e1b55c2a221",
+            "sha256": "46bba96e2b26e35c73b4a6c637c2fbb2d94fd52fe782ff56963b9e0eb2251098",
+            "url": "https://github.com/Esmail-sarhadi/esp32-agent-skills/blob/e4998f7f4f7944b0ec11a9b2501b22271e9e2274/README.md"
+          },
+          {
+            "path": "skills/esp32-adc-and-sensors/SKILL.md",
+            "blob_sha": "9c625c151a35510842889feaa1ec2511eb322308",
+            "sha256": "8596ec5beb1c03f278fce45818b0a63da9db19223446a76fb570956e7c9e0d47",
+            "url": "https://github.com/Esmail-sarhadi/esp32-agent-skills/blob/e4998f7f4f7944b0ec11a9b2501b22271e9e2274/skills/esp32-adc-and-sensors/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "06493f49cb1b512a79e0ecebf3c91e315d4c9b0d",
+            "sha256": "b4c12daa73566315f0d310cbaed0140306a03352bbd3fb5fb1d10368938d8e95",
+            "url": "https://github.com/Esmail-sarhadi/esp32-agent-skills/blob/e4998f7f4f7944b0ec11a9b2501b22271e9e2274/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "alexliyu7352/for-you-skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Source-linked X/Twitter skills review drafts, explain ranking claims and select formats while preserving unresolved questions.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "aa57d166865265d82fc831a943f156b4e5443845",
+            "sha256": "52bc33ecb660a3e334ff5c77375c8e6378493126b1a78d6d22217d90747901ab",
+            "url": "https://github.com/alexliyu7352/for-you-skills/blob/09b5bc831152a8b496e956d5abb115b94a01561d/README.md"
+          },
+          {
+            "path": "skills/x-assistant/SKILL.md",
+            "blob_sha": "ec3cc54acece802692696db7081bf111ce25f1c6",
+            "sha256": "094be8b2884fa508655f995cb19bcc54a46754b2cc406554fef517b5905bfc37",
+            "url": "https://github.com/alexliyu7352/for-you-skills/blob/09b5bc831152a8b496e956d5abb115b94a01561d/skills/x-assistant/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "c90b0f5576dd579c78345d3e387db5dca60ee997",
+            "sha256": "4c7ee806797102411fcad78c28026fbf67326b96c5ed34bb4d6a0e56ae32b3bd",
+            "url": "https://github.com/alexliyu7352/for-you-skills/blob/09b5bc831152a8b496e956d5abb115b94a01561d/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "DarkWorldCoder/arguseye",
+        "disposition": "no_admission_objection",
+        "public_scope": "Arguseye distributes one skill for source-based component previews, screenshots and structured UI evidence without starting the app.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "0197bc09b5f068d763d85d3d3ff5302e87d80f36",
+            "sha256": "88705cc27ed4d632148a2d49cb034c952d16f5f32987a2cbecf9d4f06f302935",
+            "url": "https://github.com/DarkWorldCoder/arguseye/blob/c3c49f0d3c5c78aecb36e910fad73f55d2c683bc/README.md"
+          },
+          {
+            "path": "skills/arguseye/SKILL.md",
+            "blob_sha": "8ebec43f3fd48c85fb83f0d38df528f9d96c5c18",
+            "sha256": "4c5a83b2148527dd4cab6f25dcb44e3f6d431a8d2a34e6efa4e6d1ea7fca1fa2",
+            "url": "https://github.com/DarkWorldCoder/arguseye/blob/c3c49f0d3c5c78aecb36e910fad73f55d2c683bc/skills/arguseye/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "89e31f98ff5910cb63f1cd3e4d05671d695f6581",
+            "sha256": "3756b4dc9a3aa314e72fdc2ed3f5d0c00f2142e504ad01a1d9af6e19fbfe592a",
+            "url": "https://github.com/DarkWorldCoder/arguseye/blob/c3c49f0d3c5c78aecb36e910fad73f55d2c683bc/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "CherryHQ/cherry-studio",
+        "disposition": "approved_with_correction",
+        "public_scope": "Cherry Studio ships runtime agent skills and coding-CLI adapters alongside its extensible AI workspace.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "750c3ecc11126d316837a28ad3fbfc24d0639a98",
+            "sha256": "cbdd7003c8a2ac2d5b387ebb8f359d0f90c31df389f6a5593e32754a52adf170",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/README.md"
+          },
+          {
+            "path": "resources/code-cli-skills/code-mate-antigravity/SKILL.md",
+            "blob_sha": "d8521b2bfccb3b3dffb9dafe2ec847d1ae6bae57",
+            "sha256": "012e3dfad0dfd10ba8fef621fab7b41abcc7734261c5e19ff53209d4e979fda6",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/resources/code-cli-skills/code-mate-antigravity/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+            "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+            "url": "https://github.com/CherryHQ/cherry-studio/blob/bc8df8ffbc3386930df90250cc73964038ed202d/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "knowledgeislands/ki-agentic-harness",
+        "disposition": "no_admission_objection",
+        "public_scope": "Knowledge Islands harness distributes governance and process skills with runtime bindings, references and evidence rules.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "36e9781c199f8844f608538e8a7b39b9432f7b0f",
+            "sha256": "46579012954c6b95d0b1a71991963bf4edb5bf4387a43eaa581f13fd8df03850",
+            "url": "https://github.com/knowledgeislands/ki-agentic-harness/blob/321742fe63abf5b7cc0e25be9e9da19460a05312/README.md"
+          },
+          {
+            "path": "skills/acquire/ki-acquire-chatgpt/SKILL.md",
+            "blob_sha": "9f53701603b2d6c3f4381df3fe3d6af0f2bcfc6a",
+            "sha256": "4c4439c6f6f3783d2a3ebeb64a2cd19da58320f218b81b1c1628f27f906fa8ac",
+            "url": "https://github.com/knowledgeislands/ki-agentic-harness/blob/321742fe63abf5b7cc0e25be9e9da19460a05312/skills/acquire/ki-acquire-chatgpt/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4b8772b37bf8468a7b93990aa4bf2f39dca05baa",
+            "sha256": "faabf15a540868e4ffc1f9a63412b7f85a9c7f03a23fb0aa9206656e057d3a4c",
+            "url": "https://github.com/knowledgeislands/ki-agentic-harness/blob/321742fe63abf5b7cc0e25be9e9da19460a05312/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "WaveSpeedAI/agent-skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "WaveSpeed plugin distributes general media-generation and per-model skills through a shared CLI and MCP interface.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "759a6fd61a6b7aaf2a38d6cb0bdd7f1f1f044092",
+            "sha256": "c5c22c78f8dfef1a0896cc07975776359ae0df862d6093ef9047453fa71fe229",
+            "url": "https://github.com/WaveSpeedAI/agent-skills/blob/1409fa97c638b00a3776821d7f8d62c604c538d8/README.md"
+          },
+          {
+            "path": "skills/wavespeed-face-swapper/SKILL.md",
+            "blob_sha": "cab64079fed3b6f9124117822b8dc26eb298d224",
+            "sha256": "140bf6d285e98e672403eb3c7a5f4870996bbcd0ef49ab80368af196b6f8f144",
+            "url": "https://github.com/WaveSpeedAI/agent-skills/blob/1409fa97c638b00a3776821d7f8d62c604c538d8/skills/wavespeed-face-swapper/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "ca57189d254984d0a2e046cebe1ef09ecdd0ad1c",
+            "sha256": "bbac333facfb907ae2f1c36dd3980687c60a31ed12a533aabc9170891dfbc654",
+            "url": "https://github.com/WaveSpeedAI/agent-skills/blob/1409fa97c638b00a3776821d7f8d62c604c538d8/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "jacebenson/jsn",
+        "disposition": "no_admission_objection",
+        "public_scope": "JSN CLI bundles a ServiceNow skill for scoped development, administration, records and update-set verification.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "aadc60d0b5c499b73688dc6b179e0d94588b020b",
+            "sha256": "e87ad09633d1c6617c6967fc5c2a3fc509f304c3a4b716ed4b182aa5f5b784d2",
+            "url": "https://github.com/jacebenson/jsn/blob/24a33c0baf1eb780385ab726c47b3c9dce309f70/README.md"
+          },
+          {
+            "path": "cli/skills/servicenow/SKILL.md",
+            "blob_sha": "d06c98b7fb8a5c00e248f172492217d4857afc9a",
+            "sha256": "afd070025c9b7f9e16fab39a087005898e2bfeac2cd20c6091031cd70340b4d8",
+            "url": "https://github.com/jacebenson/jsn/blob/24a33c0baf1eb780385ab726c47b3c9dce309f70/cli/skills/servicenow/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f7fe4d19f5331c43e429460a79587b767a390250",
+            "sha256": "9cf6517ca0844690f4345b0fcc8fc78b5c88a3fdadcd1ca00b68003af0ae22f7",
+            "url": "https://github.com/jacebenson/jsn/blob/24a33c0baf1eb780385ab726c47b3c9dce309f70/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "LydiaTools/gapcue",
+        "disposition": "no_admission_objection",
+        "public_scope": "GapCue research skill collects bounded GitHub/Hacker News evidence to support inspectable software-build decisions.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "96136d007b970402d7dbda93d003deb093f6d7e2",
+            "sha256": "240abfe8eee1b11ed3b5c437c3446463c5de4ce200719571ca4ae4349a14d3d0",
+            "url": "https://github.com/LydiaTools/gapcue/blob/76cc1cb6fe976e31e06da8c2686926bb1527e942/README.md"
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "aa762f9c248e0cf30e195b1967e160504ba5baed",
+            "sha256": "0001e31856991cdfd917b3250665d7b23dcaaf4bfc07b3df5753f77691f78e5a",
+            "url": "https://github.com/LydiaTools/gapcue/blob/76cc1cb6fe976e31e06da8c2686926bb1527e942/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "385302a614851cb9f63ede613bd6be49dd6a87ab",
+            "sha256": "5343fdbaad9d22bd9ad2ee274a9312176c54624e287b167b26768681cc248a47",
+            "url": "https://github.com/LydiaTools/gapcue/blob/76cc1cb6fe976e31e06da8c2686926bb1527e942/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "nuttakulsv/chesterton",
+        "disposition": "no_admission_objection",
+        "public_scope": "Chesterton skill checks Git history, PRs and issues before removing apparently unnecessary code.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "a9bc4b7548c6b0e7f4873cb4c6feea5f96e93717",
+            "sha256": "6456e95d2bc72cf8b6e1671a57cd1af17ddf62899a2a4684b2fa9a19fca9e86b",
+            "url": "https://github.com/nuttakulsv/chesterton/blob/df485aeca5e767a69a1e928f03ca7fab5437df46/README.md"
+          },
+          {
+            "path": "skills/chesterton/SKILL.md",
+            "blob_sha": "8a9270938859ca9cb7e6ab948ff41d114121e7cf",
+            "sha256": "31383916199f9adc31a95136c90ddf511cc7c1ee8a6f65b84eb8150c5402e732",
+            "url": "https://github.com/nuttakulsv/chesterton/blob/df485aeca5e767a69a1e928f03ca7fab5437df46/skills/chesterton/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f2cf622276879cef45032c3b2f99fb6ee92bbd4a",
+            "sha256": "8a7a09df7941a447222a180a07e5ee4691210dec1b1cc4ed0c14b21cdae5f1f0",
+            "url": "https://github.com/nuttakulsv/chesterton/blob/df485aeca5e767a69a1e928f03ca7fab5437df46/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "JackVitick/socialync-mcp",
+        "disposition": "no_admission_objection",
+        "public_scope": "Socialync distributes six approval-aware repurposing, scheduling and analytics skills for its hosted social-media MCP service.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "263d95af9ba697e131970cb4fbb2e12aaf48c8b2",
+            "sha256": "38c8a8e7b4487cca424f6552d762b38c274c96ae9ef5a98cd1c7db1e6dcb2f7b",
+            "url": "https://github.com/JackVitick/socialync-mcp/blob/5931296eca4d5800d11d617461d7c1dda459e1a0/README.md"
+          },
+          {
+            "path": "skills/blog-to-a-week-of-posts/SKILL.md",
+            "blob_sha": "f247be1015026b1d07c62e1c85ea8ddd430fb742",
+            "sha256": "f4cf49d98a4e07487b9ee942ea1462574dd4c8104ecddd152747190748d9b3c8",
+            "url": "https://github.com/JackVitick/socialync-mcp/blob/5931296eca4d5800d11d617461d7c1dda459e1a0/skills/blog-to-a-week-of-posts/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "fd9545ba29ffa64745c317446aab561365f98f57",
+            "sha256": "b69401d92f09cf182673f9b89d2f9a00f3fe21769eed186fd5f4529f95b3df5a",
+            "url": "https://github.com/JackVitick/socialync-mcp/blob/5931296eca4d5800d11d617461d7c1dda459e1a0/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "denggui-ai/threadtruth-studio",
+        "disposition": "no_admission_objection",
+        "public_scope": "Caiguang fashion-visual skill routes authorized garment photographs through style selection, image generation and evidence checks.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "7f76e47ed94a8c3bafefa24bf3c0fa86da4e81d6",
+            "sha256": "ebdfece9355d038fdc9f878999568776dd19c1fad6c3a3cf5a08718d4ca44b1a",
+            "url": "https://github.com/denggui-ai/threadtruth-studio/blob/688179de83ef062f6335c7111cff187f405116ac/README.md"
+          },
+          {
+            "path": "skills/threadtruth-studio/SKILL.md",
+            "blob_sha": "19baa7d0e15844f7b75b1f0e29d86f1270e0f021",
+            "sha256": "8a1c722defc8eca3941ad45735c877c80f2230893db1f3c994e648d9bf13cec7",
+            "url": "https://github.com/denggui-ai/threadtruth-studio/blob/688179de83ef062f6335c7111cff187f405116ac/skills/threadtruth-studio/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+            "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "url": "https://github.com/denggui-ai/threadtruth-studio/blob/688179de83ef062f6335c7111cff187f405116ac/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "Quinnod345/ponder",
+        "disposition": "no_admission_objection",
+        "public_scope": "Ponder deliberation skill uses repeated grading passes and an append-only coverage ledger to review and plan bounded work.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6116dfa236dea91efdf8072310907b369beeb806",
+            "sha256": "24dc3d62c669cf9bfa51b7982b8980b28c184551f42483376f34bd3e71ca77cc",
+            "url": "https://github.com/Quinnod345/ponder/blob/b8010d8f6cb866e091451d6768d6e25c751b8698/README.md"
+          },
+          {
+            "path": "skill/ponder/SKILL.md",
+            "blob_sha": "573bfd97de9fef6093eb780c7b451194484abb56",
+            "sha256": "90cfcc5b12910908b3954574dbce4a43037c5bce10c10a1c7e05709ba9551d10",
+            "url": "https://github.com/Quinnod345/ponder/blob/b8010d8f6cb866e091451d6768d6e25c751b8698/skill/ponder/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "61dffbc7b1a16c5dfd7985ccc54b269ca43f02f2",
+            "sha256": "48f7c7dd1a558a38c53e689e2d959113f9d0fb903a53a8a8b253e891be86c6a2",
+            "url": "https://github.com/Quinnod345/ponder/blob/b8010d8f6cb866e091451d6768d6e25c751b8698/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "a7garden/anti-slop",
+        "disposition": "no_admission_objection",
+        "public_scope": "Anti-slop skill drafts and revises prose and interfaces using evidence-based clarity cues, preserving meaning and visual identity.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "032d060caaa8eebd55132ae811f537a31472f50c",
+            "sha256": "ae90acbad7d6fa3c45a40522c093555fa8538e549b4073f7c47daa31b7c4e122",
+            "url": "https://github.com/a7garden/anti-slop/blob/9af26ccee12c90e143cb1746351501f47d5bbe9b/README.md"
+          },
+          {
+            "path": ".agents/skills/anti-slop/SKILL.md",
+            "blob_sha": "04ddf217199d43ed3c4da146b274ad2b25c593c5",
+            "sha256": "9a3bc08999559859ffd9308b898379e3cac75f8883a62a6e27c66f87c84eb342",
+            "url": "https://github.com/a7garden/anti-slop/blob/9af26ccee12c90e143cb1746351501f47d5bbe9b/.agents/skills/anti-slop/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "140fa3cd449b7adbc27478b4f74259c7eff3a150",
+            "sha256": "01a8e410d18adc362ceaed84e7935fb8db58d83c5ab6893b90385eb3f433c7d4",
+            "url": "https://github.com/a7garden/anti-slop/blob/9af26ccee12c90e143cb1746351501f47d5bbe9b/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "emdashsmoker/art-agent-skills",
+        "disposition": "no_admission_objection",
+        "public_scope": "Bilingual art skills combine code-based illustration methods and local diffusion workflows, with distinct model and output terms.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "756d2a227ef4baf5a1abd8b0e69d2003d59a6583",
+            "sha256": "5001e44807171164b7bb9e460ea57735a7677f8e62ead14aae8ee71f31655ad8",
+            "url": "https://github.com/emdashsmoker/art-agent-skills/blob/d49a3141b8c3a74f5b6eaf20277e713131c787e0/README.md"
+          },
+          {
+            "path": "skills/cel-glow-atelier/en/cel-glow-atelier/SKILL.md",
+            "blob_sha": "ebe22652db5a05e6aaab5158f7bec89a24c0e062",
+            "sha256": "df9f25bb06200725dce37da5cb8bc1362c18c67b2ed4d47c6570c2424bd2075b",
+            "url": "https://github.com/emdashsmoker/art-agent-skills/blob/d49a3141b8c3a74f5b6eaf20277e713131c787e0/skills/cel-glow-atelier/en/cel-glow-atelier/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+            "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+            "url": "https://github.com/emdashsmoker/art-agent-skills/blob/d49a3141b8c3a74f5b6eaf20277e713131c787e0/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "crowgent/forma",
+        "disposition": "no_admission_objection",
+        "public_scope": "Forma modular design skill moves from product needs and evidence through UI implementation, state checks and handoff.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "208f830b0a0d1294659e4dec15598988465c87b6",
+            "sha256": "4bb80d3ac3030ec6545af5421942eb8ac56d3014fbf07804be9583fa34ea25ab",
+            "url": "https://github.com/crowgent/forma/blob/c622c8ae30b6ee5c800c575be0a669de8f0d0b8e/README.md"
+          },
+          {
+            "path": "skills/forma/SKILL.md",
+            "blob_sha": "d500da5bd5dce89051b9a7c64da5e41230e87e40",
+            "sha256": "1fb5399f5a05b447173f11b2c4d9a7db0b3d1f830cfe8e804802a1786d69c145",
+            "url": "https://github.com/crowgent/forma/blob/c622c8ae30b6ee5c800c575be0a669de8f0d0b8e/skills/forma/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d11cbd0ad81770d4358e83a73c9c3871a837df3d",
+            "sha256": "0911afca5fb783204db82791ea26579ef4d8db6d43e4500a709fb38014e4c489",
+            "url": "https://github.com/crowgent/forma/blob/c622c8ae30b6ee5c800c575be0a669de8f0d0b8e/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "nuttakulsv/phantom-deps",
+        "disposition": "no_admission_objection",
+        "public_scope": "Phantom-deps skill checks exact package identities and registry evidence before dependency installation.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "1e85cdd3efebee6f4bff4c2ade8ae910e149cefc",
+            "sha256": "87435a5a297e27279887637b61d7ae45c34cfa5bf91b66167c54e8f33a696bfe",
+            "url": "https://github.com/nuttakulsv/phantom-deps/blob/5a90d73f98ca77aa25450f5d06579deaf419cb16/README.md"
+          },
+          {
+            "path": "skills/phantom-deps/SKILL.md",
+            "blob_sha": "70a63091dad06882cb26b94d0dfb96894f0e2048",
+            "sha256": "d8730ec4a0fa0f46f9b7b93dce92948eeec7d7f7ca8b780a395531584950fbbf",
+            "url": "https://github.com/nuttakulsv/phantom-deps/blob/5a90d73f98ca77aa25450f5d06579deaf419cb16/skills/phantom-deps/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f2cf622276879cef45032c3b2f99fb6ee92bbd4a",
+            "sha256": "8a7a09df7941a447222a180a07e5ee4691210dec1b1cc4ed0c14b21cdae5f1f0",
+            "url": "https://github.com/nuttakulsv/phantom-deps/blob/5a90d73f98ca77aa25450f5d06579deaf419cb16/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "markksantos/caption-checker",
+        "disposition": "no_admission_objection",
+        "public_scope": "Caption-checker distributes three offline subtitle skills for SRT/WebVTT standards, repairs and timing-format conversion.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "b8cf9c3e508444093f2b3d74b8d156d8c98ca297",
+            "sha256": "a5beab7524b27f2daf77aab0c5efe7d474bdf16cf0e3cc700cf7549a875dba58",
+            "url": "https://github.com/markksantos/caption-checker/blob/4a504ede1606fbefd7e7b658281b9b8f7a4ef9e2/README.md"
+          },
+          {
+            "path": "skills/caption-checker/SKILL.md",
+            "blob_sha": "16e626b42563f46916b86f7527618c0beacb3d6b",
+            "sha256": "52f2756b38f2e71e9a6ed22a1f7121926fc5ad1df33639003e085ae8e4f89224",
+            "url": "https://github.com/markksantos/caption-checker/blob/4a504ede1606fbefd7e7b658281b9b8f7a4ef9e2/skills/caption-checker/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "9ab45de3b1e5ea3ed6fe0669fb4ada9697bf5db2",
+            "sha256": "a93155020f9f4be5bacd7291f13aa5c07b7dc784423ab52d509a819b36ab5fca",
+            "url": "https://github.com/markksantos/caption-checker/blob/4a504ede1606fbefd7e7b658281b9b8f7a4ef9e2/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      },
+      {
+        "full_name": "KeWang0622/MRFoundry",
+        "disposition": "no_admission_objection",
+        "public_scope": "MRFoundry distributes seven MRI research skills for reconstruction, diffusion imaging, hardware and evidence-linked research practice.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "5fefbb246222ca667c7ac9f214279f08604d0c11",
+            "sha256": "16932322e577dc3e05cadd4905199949c9ef5d91715d67dc88f1e25d0d4c6b38",
+            "url": "https://github.com/KeWang0622/MRFoundry/blob/4f2b6aeaf5446647819d73c7dc9028b30e4def0c/README.md"
+          },
+          {
+            "path": "skills/deep-learning-recon/SKILL.md",
+            "blob_sha": "90f5f9e0314be91301cc98414216c85d1c680cf6",
+            "sha256": "c2eea13379a9191e8794c96dcbf8a160d5d52edd513f6c2f96d20472b7ca5276",
+            "url": "https://github.com/KeWang0622/MRFoundry/blob/4f2b6aeaf5446647819d73c7dc9028b30e4def0c/skills/deep-learning-recon/SKILL.md"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "33ceef6070596d3494b71851946dd266626f3665",
+            "sha256": "90a9fe1858557ca1245bf41b88f286d17ab9fe1b5d4d6642dc0c0c30983a75d2",
+            "url": "https://github.com/KeWang0622/MRFoundry/blob/4f2b6aeaf5446647819d73c7dc9028b30e4def0c/LICENSE"
+          }
+        ],
+        "review_limit": "Second-pass admission screening of README distribution evidence, representative entry format, count scope, and licensing flags; not an audit of every skill body or a runtime test."
+      }
+    ],
+    "coverage": {
+      "expected_count": 63,
+      "reviewed_count": 63,
+      "missing_names": [],
+      "extra_names": []
+    },
+    "conclusion": "No additional admission exclusions are warranted by this screening. Three records need more precise public counts/distribution/licence scope. The original br3eze-code pending record is outside these 63 accepted candidates and remains unchanged."
+  },
+  "limits": [
+    "Search API first-page result windows are recorded separately; review completion does not mean all GitHub search hits were read.",
+    "Focused specialist streams may overlap root inputs; recommendations are not added together without name/ID deduplication.",
+    "Pending candidates and publication-time inaccessible repositories do not count as new accepted identities."
+  ]
+}
