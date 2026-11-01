@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-01",
+  "timezone": "Asia/Shanghai",
+  "part": "part97",
+  "status": "published",
+  "baseline_catalog_rows": 3114,
+  "accepted_new_repository_ids": 158,
+  "final_catalog_rows": 3272,
+  "curated_skill_bodies": 1114,
+  "verified_file_references": 497,
+  "baseline_data_files_preserved": 92,
+  "data_shard_sha256": "135df875eea4584ef3dd2dcbf63434b4e9b913d762c33f0699b208f6ed11ee62",
+  "publication": {
+    "main": {
+      "pull_request": "https://github.com/findscripter/everything-skills/pull/65",
+      "data_head": "392a64abe2354f438b7a2fe1f85197e9941e4fd7",
+      "merge_commit": "01818caf194c75b5c27aa381d1dcd5898c34fd67",
+      "merged_at": "2026-11-01T06:04:40Z",
+      "pr_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 41279298580,
+          "event": "pull_request",
+          "headSha": "392a64abe2354f438b7a2fe1f85197e9941e4fd7",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/41279298580"
+        }
+      ],
+      "merged_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 41279347612,
+          "event": "push",
+          "headSha": "01818caf194c75b5c27aa381d1dcd5898c34fd67",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/41279347612"
+        }
+      ]
+    },
+    "zh": {
+      "pull_request": "https://github.com/findscripter/everything-skills/pull/66",
+      "data_head": "291d7842b1cb5448538ccdbfa13ec19906c1fd56",
+      "merge_commit": "71302f3ddc709538f3704952f878f67f42068b52",
+      "merged_at": "2026-11-01T06:07:37Z",
+      "pr_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 41279471648,
+          "event": "pull_request",
+          "headSha": "291d7842b1cb5448538ccdbfa13ec19906c1fd56",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/41279471648"
+        }
+      ],
+      "merged_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 41279544507,
+          "event": "push",
+          "headSha": "71302f3ddc709538f3704952f878f67f42068b52",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/41279544507"
+        }
+      ]
+    }
+  },
+  "local_validation": {
+    "main": {
+      "build": "passed",
+      "tests_passed": 73,
+      "tests_failed": 0,
+      "post_commit_generated_check": "passed"
+    },
+    "zh": {
+      "build": "passed",
+      "tests_passed": 73,
+      "tests_failed": 0,
+      "post_commit_generated_check": "passed"
+    },
+    "staged_shard_sha256_utf8_lf": "passed",
+    "coverage_missing_inputs": 0,
+    "source_and_code_equality": "Only five allowed language interface paths differ.",
+    "baseline_git_objects": "All 92 before/after Git blob IDs are identical; baseline.json separates observed-worktree and Git-byte SHA-256 values for the one legacy CRLF file."
+  },
+  "ci_scope": "These successful runs prove the exact data heads and their post-merge commits. This later documentation receipt does not claim to certify its own commit.",
+  "policy": "No numeric cap; 50 is a minimum daily goal and never an acceptance-count stopping condition.",
+  "limits": [
+    "Finite search/review windows are documented; this is not exhaustive coverage of all public GitHub repositories.",
+    "Repository admission samples representative instructions; no third-party skill installation, execution or body copying.",
+    "59 excluded or held and 19 deferred records do not count as accepted new identities. Deflow is held after publication-time official API 404 responses."
+  ]
+}
