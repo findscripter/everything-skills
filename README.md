@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1114 skills · 11 volumes · 6787 relation edges · 3272 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1114 skills · 11 volumes · 6787 relation edges · 3273 indexed entries" width="1200" /></picture>
 </p>
 <!-- END GENERATED:brand -->
 
@@ -117,7 +117,7 @@ For provenance and license terms, see [Sources](INDEX/sources.md), [LICENSE](LIC
 <!-- BEGIN GENERATED:skill-repos -->
 ## Skill repos directory
 
-Currently **3272** indexed entries for GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.
+Currently **3273** indexed entries for GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.
 
 Full tables (stars / summary / license) are generated from `data/skill-repos.jsonl` (and part shards) into **[INDEX/skill-repos.md](INDEX/skill-repos.md)**. This page is the categorized link directory.
 
@@ -1108,7 +1108,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 </details>
 
 <details>
-<summary>3. Vertical (1420)</summary>
+<summary>3. Vertical (1421)</summary>
 
 - [`obra/superpowers`](https://github.com/obra/superpowers) — Methodology skills pack: TDD, brainstorming, subagent-driven development, and other composable engineering disciplines. (upstream accessible)
 - [`affaan-m/ECC`](https://github.com/affaan-m/ECC) — ECC, successor to Everything Claude Code: skills/agents/commands/hooks plugin marketplace. Formerly everything-claude-code. (upstream accessible)
@@ -1299,6 +1299,7 @@ Full tables (stars / summary / license) are generated from `data/skill-repos.jso
 - [`LeonChaoX/qinyan-academic-skills`](https://github.com/LeonChaoX/qinyan-academic-skills) — Academic research skill library with 187 installable skills across 18 domains, including literature, writing, grants, bioinformatics, clinical, ML, and data analysis. (upstream accessible)
 - [`simonw/claude-skills`](https://github.com/simonw/claude-skills) — Mirror of Claude code-interpreter /mnt/skills contents. (upstream accessible)
 - [`boyang-hu/website-rebuild-skill`](https://github.com/boyang-hu/website-rebuild-skill) — Read-only mirror crawl + compressed-code website rebuild Agent Skill. (upstream accessible)
+- [`vostride/agent-qa`](https://github.com/vostride/agent-qa) — Official [agent-qa](https://vostride.com) skills for authoring web/mobile tests, evidence-based triage and debugging, and memidex knowledge inspection; the QA runner retains verified lessons and retires stale knowledge. (upstream accessible)
 - [`alchaincyf/huashu-md-html`](https://github.com/alchaincyf/huashu-md-html) — Huashu md↔html/docx four-way pipeline Agent Skill (4 anti-AI-slop themes); npx skills add alchaincyf/huashu-md-html. (upstream accessible)
 - [`Bhanunamikaze/Agentic-SEO-Skill`](https://github.com/Bhanunamikaze/Agentic-SEO-Skill) — LLM-first SEO analysis Skill for Antigravity/Codex/Claude. (upstream accessible)
 - [`sunbigfly/ppt-agent-skills`](https://github.com/sunbigfly/ppt-agent-skills) — Code-driven presentation generation framework and Agent Skills. (upstream accessible)
