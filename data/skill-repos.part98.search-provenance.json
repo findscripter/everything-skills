@@ -1,0 +1,321 @@
+{
+  "date": "2026-11-02",
+  "backend": "agent-reach GitHub route via official gh API",
+  "search_windows": {
+    "root": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" in:readme pushed:>=2026-11-01 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 17174,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"npx skills add\" in:readme pushed:>=2026-11-01 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 3622,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" in:readme pushed:>=2026-11-01 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 26432,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "topic:agent-skills pushed:>=2026-11-01 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 2448,
+          "retrieved": 100,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 312,
+      "baseline_duplicate_hits": 27
+    },
+    "science": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" \"Slurm\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 745,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"computational chemistry\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 115,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"geospatial\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 870,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"climate\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 1397,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"teaching\" \"assessment\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 1348,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"digital humanities\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 25,
+          "retrieved": 25,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"agriculture\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 520,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"nonprofit\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 736,
+          "retrieved": 30,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 180,
+      "baseline_duplicate_hits": 21
+    },
+    "product": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" \"SDK\" \"install\" in:readme stars:>=2",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 8611,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"CLI\" \"install\" in:readme stars:>=2",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 36362,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"database\" \"npx skills\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 4901,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"document\" \"skills add\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 14332,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"payment\" in:readme stars:>=1",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 6523,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"media\" \"install\" in:readme stars:>=1",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 8945,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"skill registry\" in:readme stars:>=1",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 4304,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"lint\" \"provenance\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-02",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 5318,
+          "retrieved": 30,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 148,
+      "baseline_duplicate_hits": 17
+    }
+  },
+  "source_followups": {
+    "method": "Related-source follow-up from previously read immutable READMEs",
+    "source_trace": [
+      {
+        "target": "askalf/truecopy",
+        "channel": "fixed README-derived related-source follow-up",
+        "source_repository": "askalf/plumbline",
+        "source_repository_id": 1312886250,
+        "source_commit": "6eab8216c803a21c1f9ecb62de8bf4ff0f6c322e",
+        "source_tree": "c915faeac90b89df9597defe9bb7b83b07284bfc",
+        "source_readme": {
+          "path": "README.md",
+          "blob_sha": "fa76fefd89e272dd3daa7716acf35a05d45e677a",
+          "sha256": "2dae495d97223f1fd90e557579c01951c2f9e0ee3f456f6d669f11896625e782",
+          "url": "https://github.com/askalf/plumbline/blob/6eab8216c803a21c1f9ecb62de8bf4ff0f6c322e/README.md",
+          "bytes": 16913
+        },
+        "relationship": "Security-stack README links truecopy as the dedicated agent-skill integrity product."
+      },
+      {
+        "target": "maycuatroi1/agent-skills",
+        "channel": "fixed README-derived related-source follow-up",
+        "source_repository": "maycuatroi1/evo-cli",
+        "source_repository_id": 957372431,
+        "source_commit": "d551f70d67453542a40006af9c0e8c60a4319ba1",
+        "source_tree": "7b73a5b856ea40118a6699905fee8197d5137ad6",
+        "source_readme": {
+          "path": "README.md",
+          "blob_sha": "5e739b25b73252b28f6ea82ff845fa3b8aa33212",
+          "sha256": "d57e022ee79c5ea390c98a519a5ab03ec1a28e932403cae05e6f9b1709f8e51f",
+          "url": "https://github.com/maycuatroi1/evo-cli/blob/d551f70d67453542a40006af9c0e8c60a4319ba1/README.md",
+          "bytes": 22958
+        },
+        "relationship": "TTS documentation links agent-skills as the consumer skill/MCP distribution repository."
+      },
+      {
+        "target": "SOFTURE/SKILLS",
+        "channel": "fixed README-derived related-source follow-up",
+        "source_repository": "SOFTURE/AI",
+        "source_repository_id": 1401412036,
+        "source_commit": "c9380e559072165abb18a7021f5731aa8b69dee7",
+        "source_tree": "6b46741c3cf105c640461b65003091dd1495b7ce",
+        "source_readme": {
+          "path": "README.md",
+          "blob_sha": "00c4ef4ab3482559823341c6e9ba75d09bebbd52",
+          "sha256": "0bc78efd1450a321185c86977d61f9ef2ec0203b6ecbc8f509eb6453b30501d6",
+          "url": "https://github.com/SOFTURE/AI/blob/c9380e559072165abb18a7021f5731aa8b69dee7/README.md",
+          "bytes": 6278
+        },
+        "relationship": "Sister-repository section identifies SOFTURE/SKILLS and @softure-ai/skills as the actual agent workflow package."
+      },
+      {
+        "target": "aliyun/alibabacloud-aiops-skills",
+        "channel": "official candidate preliminary-held follow-up",
+        "initial_reason": "No root LICENSE file; investigate actual per-skill licence declarations rather than organization or badges.",
+        "source_readme": {
+          "path": "README.md",
+          "blob_sha": "5e8dfe501776ea191ff746f040cfbb3c3adf680e",
+          "sha256": "2e33341c7efb9c682a08a6f74ab0503b5787c1800fb73648c84b022cbe6783b2",
+          "url": "https://github.com/aliyun/alibabacloud-aiops-skills/blob/91e035b04586ce17f14c9e9da09ef413db511552/README.md",
+          "bytes": 3645
+        },
+        "source_commit": "91e035b04586ce17f14c9e9da09ef413db511552",
+        "source_tree": "fbcc3327caae33953d8f9464369cd4b909f1b4bd"
+      }
+    ],
+    "scope_license_lookup": {
+      "repository": "aliyun/alibabacloud-aiops-skills",
+      "backend": "GitHub official code search API",
+      "query": "repo:aliyun/alibabacloud-aiops-skills filename:SKILL.md \"license:\"",
+      "total_matches": 49,
+      "retrieved_paths": 49,
+      "fixed_snapshot_files_inspected": 8,
+      "purpose": "Find explicit file-level licence declarations; each chosen result was re-read by blob from the already frozen tree. Not a new broad repository search."
+    }
+  },
+  "policy": "No numeric acceptance stopping condition; finite query windows and reserves are explicitly recorded."
+}
