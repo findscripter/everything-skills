@@ -1,0 +1,579 @@
+{
+  "quality-science-notes.json": {
+    "reviewed_names": [
+      "boluopai-net/Yinyang",
+      "MakeItEzzz555/Gridline",
+      "devduck123/swe-os",
+      "MetamoL/japanese-novel-skill",
+      "Vincebye/Ting",
+      "muthuishere/toolnexus",
+      "mblauberg/provenant"
+    ],
+    "corrections": [
+      {
+        "full_name": "MetamoL/japanese-novel-skill",
+        "field_updates": {
+          "license_scope": "Custom Japanese-authoritative use-only licence permits viewing/downloading, installation in own AI tooling for personal or business use, and modification for own/organisation-internal use. The generated/written outputs belong to the user and may be used commercially; that output grant does not authorise copying protected instruction content. Sharing official links and attributed short introductions/reviews is permitted. Redistribution, republication or sale of original/modified/translated instruction content, substantial incorporation into products, false authorship and notice removal are prohibited. Metadata and official links only; not unrestricted open source."
+        },
+        "reason": "范围澄清，不改变准入或计数：现有说明正确记录了使用/再分发限制，但遗漏日文正文许可第3项明确的成果物归属及自由商业使用授权。将输出权利与受限指令内容分开写明。",
+        "evidence": [
+          {
+            "path": "LICENSE",
+            "blob_sha": "61413c7f2ae09390c2250abc6bd4f6ddc0183b63",
+            "sha256": "2224515e01d31b47ae3a89449ff5cc6ce1dd085d37076b4457aa01e9adfef242",
+            "url": "https://github.com/MetamoL/japanese-novel-skill/blob/afdb78844439e0539958d608453498d8c742102e/LICENSE",
+            "bytes": 2330
+          },
+          {
+            "path": "README.md",
+            "blob_sha": "47554ae87afcd834671b4375155ec53800c2dba3",
+            "sha256": "f0174c137a040a7fb159bae3ceab828caaacd7593cdeb8b19dd66fde873638aa",
+            "url": "https://github.com/MetamoL/japanese-novel-skill/blob/afdb78844439e0539958d608453498d8c742102e/README.md",
+            "bytes": 2790
+          }
+        ]
+      },
+      {
+        "full_name": "mblauberg/provenant",
+        "field_updates": {
+          "near_licenses": [
+            {
+              "evidence": {
+                "path": "ACKNOWLEDGEMENTS.md",
+                "blob_sha": "82f1c14170a9206701792095bd1b123d1b61a95f",
+                "sha256": "a6918fcf43fb1a18b8d6430fade3940cfa05026e2daec9a4f933f4abab275c37",
+                "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/ACKNOWLEDGEMENTS.md",
+                "bytes": 774
+              }
+            }
+          ],
+          "license_scope": "Root MIT covers authored skills/harness. ACKNOWLEDGEMENTS names influences including Impeccable, UI UX Pro Max, Matt Pocock skills, Skill Optimizer, Superpowers, Google SDLC writing, LLM Council and Cursor Team Kit; it does not relicense those upstream projects. External model/provider/tool terms remain separate. No quota routing, account switching or confinement guarantee was executed."
+        },
+        "reason": "证据补齐，不改变准入或计数：现有license_scope引用ACKNOWLEDGEMENTS但near_licenses无固定证据；现已补读同一commit的原文并保存blob/SHA256，同时限定其作用为影响来源说明，不把根MIT扩展到外部项目。",
+        "evidence": [
+          {
+            "path": "LICENSE",
+            "blob_sha": "cee77b02ed59fd643c1166e136b8faac08c8af3a",
+            "sha256": "f4da4681392ea3fdd8ac08ce99ee959bd908f39ebbee985ac283fcf435411ca2",
+            "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/LICENSE",
+            "bytes": 1073
+          },
+          {
+            "path": "ACKNOWLEDGEMENTS.md",
+            "blob_sha": "82f1c14170a9206701792095bd1b123d1b61a95f",
+            "sha256": "a6918fcf43fb1a18b8d6430fade3940cfa05026e2daec9a4f933f4abab275c37",
+            "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/ACKNOWLEDGEMENTS.md",
+            "bytes": 774
+          },
+          {
+            "path": "README.md",
+            "blob_sha": "1df9402f3cad39b0e0cec7662cedd018c3dfd34e",
+            "sha256": "f58e77536883758c6bb057c0c5820210082e56f91fac4a8200bcc1ded3008824",
+            "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/README.md",
+            "bytes": 15344
+          }
+        ]
+      }
+    ],
+    "objections": [],
+    "confirmations": [
+      {
+        "full_name": "boluopai-net/Yinyang",
+        "reason": "确认22个公开规范包，不将22个插件投影重复计数；22对SKILL具有相同Git blob。规范包的LICENSE实核为21个MIT同blob、1个yinyang-empty自定义受限许可；没有把根自定义许可或MIT一律覆盖全体。Empty正文是完整形成/协作方法并明确“空”指个人材料未填，不能因名称而当作空白fixture剔除。Yinyang Full哲学附件目录无额外SKILL入口，不另计。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "0de7d012463d799c781acb6323463b70bb9af227",
+            "sha256": "846cc9987cd60dec12a197c8f6dc685f29f248bdac207d75f4f9dba965eae88c",
+            "url": "https://github.com/boluopai-net/Yinyang/blob/b78286d0fce098be4807f1c73c8a882d590b5bb2/README.md",
+            "bytes": 16662
+          },
+          {
+            "path": "LICENSING.md",
+            "blob_sha": "7bed69a5c7f8dfa90c98a7afa922fccd193a4137",
+            "sha256": "b587c44945dba1e2f1209d6fedadbc7db4f34b959e6380ddcc9fbe1023f80606",
+            "url": "https://github.com/boluopai-net/Yinyang/blob/b78286d0fce098be4807f1c73c8a882d590b5bb2/LICENSING.md",
+            "bytes": 3154
+          },
+          {
+            "path": "skills/agent-orchestration-master/LICENSE",
+            "blob_sha": "e65931507bf1c6b08c9689cea20d429c0b09cfec",
+            "sha256": "e10b8879f86e437066ac69f52129b8b659534ae187b5bd7dd9d5e5aaf4c3e45e",
+            "url": "https://github.com/boluopai-net/Yinyang/blob/b78286d0fce098be4807f1c73c8a882d590b5bb2/skills/agent-orchestration-master/LICENSE",
+            "bytes": 1069
+          },
+          {
+            "path": "skills/yinyang-empty/LICENSE",
+            "blob_sha": "f884dfaab1dfcd83d7536fc7fa7f8c3b735e8c43",
+            "sha256": "f1427de83346abaded96d6df081b9cfc183b87a73fb808467bd2bb1edfc29a63",
+            "url": "https://github.com/boluopai-net/Yinyang/blob/b78286d0fce098be4807f1c73c8a882d590b5bb2/skills/yinyang-empty/LICENSE",
+            "bytes": 5108
+          },
+          {
+            "path": "skills/yinyang-empty/SKILL.md",
+            "blob_sha": "e1c59d9b79eae83edf7ac4d0611ad8de0013274c",
+            "sha256": "c673a82a877e4c7cc5eaf95752ca0431fcf2b59671113de16941ac1b4a126eca",
+            "url": "https://github.com/boluopai-net/Yinyang/blob/b78286d0fce098be4807f1c73c8a882d590b5bb2/skills/yinyang-empty/SKILL.md",
+            "bytes": 7558
+          }
+        ],
+        "confirmed_skill_count": 22
+      },
+      {
+        "full_name": "MakeItEzzz555/Gridline",
+        "reason": "确认30个规范入口＝29个专业叶任务＋1个architecture-orchestrator协调路由；另30个Claude投影的SKILL blob逐对相同，不重复计数，12 agents也未混算。根MIT与BLENDER-LICENSING中的GPL-2.0-or-later边界一致；新components_worker与验收脚本的固定文件头均明确GPL-2.0-or-later。外部ARCHIMESH、CC0素材和生成输出权利独立，没有被描述成全MIT或专业认证。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "7719e0a503811f579e4307bb864068585068a0da",
+            "sha256": "0dc67da31a7bc14608a3d668a3ebc1545892cb91396095166f511ab1ca5321cc",
+            "url": "https://github.com/MakeItEzzz555/Gridline/blob/f8e80a349621d2e3fc2adcdb9ef9fbb5d3cfd210/README.md",
+            "bytes": 22726
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "0a21f463e52a9c71301c81e3b1e455ea28fc5f1e",
+            "sha256": "7a4e92282917a5766eb32602be28c3a02e8929df9e54051c1da7d2bafd4d6a5b",
+            "url": "https://github.com/MakeItEzzz555/Gridline/blob/f8e80a349621d2e3fc2adcdb9ef9fbb5d3cfd210/LICENSE",
+            "bytes": 1073
+          },
+          {
+            "path": "skills/architecture-orchestrator/SKILL.md",
+            "blob_sha": "126b613caf226c01e5cb88b3f90d3bfe648ea906",
+            "sha256": "499c99be4ae5cf51472e3d1a167e8d0b2ef04e7099a806f75924a66d031446d4",
+            "url": "https://github.com/MakeItEzzz555/Gridline/blob/f8e80a349621d2e3fc2adcdb9ef9fbb5d3cfd210/skills/architecture-orchestrator/SKILL.md",
+            "bytes": 5231
+          },
+          {
+            "path": "skills/architectural-drawing-generation/references/BLENDER-LICENSING.md",
+            "blob_sha": "736c4c8e206505b757b05863107056e9f38e1e6d",
+            "sha256": "e839fbb75dc1821ab9106e2e1669f3c46df508b9740727a3f0ad6a6da416c48b",
+            "url": "https://github.com/MakeItEzzz555/Gridline/blob/f8e80a349621d2e3fc2adcdb9ef9fbb5d3cfd210/skills/architectural-drawing-generation/references/BLENDER-LICENSING.md",
+            "bytes": 2087
+          },
+          {
+            "path": "skills/architectural-drawing-generation/scripts/components_worker.py",
+            "blob_sha": "02b1e817ea0f812f75b6243b85b113364160b723",
+            "sha256": "3f3015ff46efb1753291352246020c3cb287d404becd7ffb8348e54f836b47c4",
+            "url": "https://github.com/MakeItEzzz555/Gridline/blob/f8e80a349621d2e3fc2adcdb9ef9fbb5d3cfd210/skills/architectural-drawing-generation/scripts/components_worker.py",
+            "bytes": 32082
+          },
+          {
+            "path": "tests/components_native_acceptance.py",
+            "blob_sha": "ccb0945eda1f54c3116ab0dfc018aebcb8834dee",
+            "sha256": "d3b33b91d96a086651dc76ea411bae591a7b24e39bc30cab01730a221ba77da7",
+            "url": "https://github.com/MakeItEzzz555/Gridline/blob/f8e80a349621d2e3fc2adcdb9ef9fbb5d3cfd210/tests/components_native_acceptance.py",
+            "bytes": 5857
+          }
+        ],
+        "confirmed_skill_count": 29
+      },
+      {
+        "full_name": "devduck123/swe-os",
+        "reason": "确认七个公开任务入口，网站原文/克隆/插件分发契约明确；22篇指南、网站实现与starter模板未误算叶技能。LICENSE-CONTENT明确core/profile/skills/evals文字为CC-BY-4.0，根MIT只覆盖其余代码/脚本/模板，现有license_spdx与license_scope已经正确使用具体内容许可。署名指定为Tommy's SWE OS及仓库链接。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "5b503dd1092c2a0bd50c855859b7ef2c75c7471d",
+            "sha256": "ab634278bab635a71191e015aa60a5cb9af4e641131e1acdc27ffb5cf3f9a3f8",
+            "url": "https://github.com/devduck123/swe-os/blob/4cc36f8eb66ac24d72f5cdffab2bf2a2fd84404a/README.md",
+            "bytes": 4185
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "0aa8e52743aa0d8284619301e85a3e0d37c0fb96",
+            "sha256": "fd028e4d66563736fb28f687e0c1dd569b8c98d4792b00ccb283e9c59d8d4c27",
+            "url": "https://github.com/devduck123/swe-os/blob/4cc36f8eb66ac24d72f5cdffab2bf2a2fd84404a/LICENSE",
+            "bytes": 1062
+          },
+          {
+            "path": "LICENSE-CONTENT.md",
+            "blob_sha": "8595c9c9de5f3bc921ebed5c21891bc69a5db7ad",
+            "sha256": "541b42c9e459fc2cfa09c46ff8379da0fba5c0e8a3edd72ec384c395e089e60d",
+            "url": "https://github.com/devduck123/swe-os/blob/4cc36f8eb66ac24d72f5cdffab2bf2a2fd84404a/LICENSE-CONTENT.md",
+            "bytes": 613
+          },
+          {
+            "path": "skills/build-feature/SKILL.md",
+            "blob_sha": "d4d3482024a9da849e98c2067e3d5f157a5b681f",
+            "sha256": "84496b5b908ef78fda2b1dd6ad45bf26eab3519135b6e067f5cf62ad9d41a913",
+            "url": "https://github.com/devduck123/swe-os/blob/4cc36f8eb66ac24d72f5cdffab2bf2a2fd84404a/skills/build-feature/SKILL.md",
+            "bytes": 4406
+          }
+        ],
+        "confirmed_skill_count": 7
+      },
+      {
+        "full_name": "MetamoL/japanese-novel-skill",
+        "reason": "确认一个实际根技能，旧fiction-prose-jp名及MetamoL/skills市场入口不形成另一个身份或技能。README明确官方市场与直接clone安装；日文许可允许自行环境使用/内部修改，但不允许转发、转载、销售或将实质指令纳入自己的产品。仅建议补明已明确授予的输出权利；无准入反对。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "47554ae87afcd834671b4375155ec53800c2dba3",
+            "sha256": "f0174c137a040a7fb159bae3ceab828caaacd7593cdeb8b19dd66fde873638aa",
+            "url": "https://github.com/MetamoL/japanese-novel-skill/blob/afdb78844439e0539958d608453498d8c742102e/README.md",
+            "bytes": 2790
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "61413c7f2ae09390c2250abc6bd4f6ddc0183b63",
+            "sha256": "2224515e01d31b47ae3a89449ff5cc6ce1dd085d37076b4457aa01e9adfef242",
+            "url": "https://github.com/MetamoL/japanese-novel-skill/blob/afdb78844439e0539958d608453498d8c742102e/LICENSE",
+            "bytes": 2330
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "8791686054847364bcf315349235f3335acbfab1",
+            "sha256": "4a2b4b05d1b0945287a536cf6ffa09c005c046e617222930477f2092f47463b9",
+            "url": "https://github.com/MetamoL/japanese-novel-skill/blob/afdb78844439e0539958d608453498d8c742102e/SKILL.md",
+            "bytes": 10384
+          }
+        ],
+        "confirmed_skill_count": 1
+      },
+      {
+        "full_name": "Vincebye/Ting",
+        "reason": "确认技能静态可达性/关系IR基础设施用途，不把2份examples算公开叶技能（0）。README明示MIT OR Apache-2.0，但现有固定根LICENSE确为Apache-2.0；记录仅确认有完整文本支撑的Apache选项是合理限定，无需推定另一个MIT文本或改成全双许可。未把静态扫描推断描述成恶意性/安全证明。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "f8488d8f8bf53d51ee5bb25c3c6a0a3f440449d8",
+            "sha256": "70b26760b4a3a74bd560f7db071e961108496be1bc021f63bf06fd437b8079ec",
+            "url": "https://github.com/Vincebye/Ting/blob/369c480cffa93bdecf9feac1df4be0d67d280f04/README.md",
+            "bytes": 8861
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+            "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "url": "https://github.com/Vincebye/Ting/blob/369c480cffa93bdecf9feac1df4be0d67d280f04/LICENSE",
+            "bytes": 11357
+          },
+          {
+            "path": "examples/demo-skill/SKILL.md",
+            "blob_sha": "18b6967b8305603f2b50087817cf5c24a3d5c0ff",
+            "sha256": "21379ccdd32ed1913d5155cbdc10e9f468800cf39c08a3e5eb538fbbafa72dc5",
+            "url": "https://github.com/Vincebye/Ting/blob/369c480cffa93bdecf9feac1df4be0d67d280f04/examples/demo-skill/SKILL.md",
+            "bytes": 394
+          }
+        ],
+        "confirmed_skill_count": 0
+      },
+      {
+        "full_name": "muthuishere/toolnexus",
+        "reason": "确认SDK有明确SKILL.md按需发现/注入契约；47条精确分为6维护入口、3教学样例、38 fixture/probe，故0公开叶技能、infra分类正确。根及七个语言子包LICENSE具有相同Git blob，MIT说明有固定树支持。报告代表已改为hello-world教学样例并在计数中排除，未以最初anchors解析fixture冒充公开技能。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "81a00e1e83ef9465a86bb8a41f8f581cce0a82ff",
+            "sha256": "321e18e1211b4e393b05c47327502c00335a9e1e47e3297f84c1f875d6caa84c",
+            "url": "https://github.com/muthuishere/toolnexus/blob/d2de17561c14ea89f31ad6c3befaf34913bf7af4/README.md",
+            "bytes": 10331
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "3ea731eb4f78de05e1be976ab202b9aa7ecc7d82",
+            "sha256": "7e289c52973c70fff5604a8de8e855496bd1ec1167ebacd11746f076d8d61ddc",
+            "url": "https://github.com/muthuishere/toolnexus/blob/d2de17561c14ea89f31ad6c3befaf34913bf7af4/LICENSE",
+            "bytes": 1088
+          },
+          {
+            "path": "examples/skills/hello-world/SKILL.md",
+            "blob_sha": "12a57d2e8e31af473a1b373c533be070de3f1728",
+            "sha256": "993feea49f5ffb77c188526bc6a551c2180a8c688c1d9d354e4807e4dc51e409",
+            "url": "https://github.com/muthuishere/toolnexus/blob/d2de17561c14ea89f31ad6c3befaf34913bf7af4/examples/skills/hello-world/SKILL.md",
+            "bytes": 628
+          }
+        ],
+        "confirmed_skill_count": 0
+      },
+      {
+        "full_name": "mblauberg/provenant",
+        "reason": "确认README和固定树对应20个skills工作流＋8个library技能，共28；宿主链接/投影和CLI/MCP工具未重复计数。补读orchestrate、session可见其具有实际图运行、收集证据、检查点和交接程序，不是仅跳转的导航索引，保留计数有依据。根MIT/来源影响限定无准入异议；补固定ACK证据即可。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "1df9402f3cad39b0e0cec7662cedd018c3dfd34e",
+            "sha256": "f58e77536883758c6bb057c0c5820210082e56f91fac4a8200bcc1ded3008824",
+            "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/README.md",
+            "bytes": 15344
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "cee77b02ed59fd643c1166e136b8faac08c8af3a",
+            "sha256": "f4da4681392ea3fdd8ac08ce99ee959bd908f39ebbee985ac283fcf435411ca2",
+            "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/LICENSE",
+            "bytes": 1073
+          },
+          {
+            "path": "library/d2-diagrams/SKILL.md",
+            "blob_sha": "044c3b56b9d88ec41af18a4be8e243459207d6ff",
+            "sha256": "a7943cc777624af56b172710567119344434aec2c31147f62f8abe4e7591f28f",
+            "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/library/d2-diagrams/SKILL.md",
+            "bytes": 3021
+          },
+          {
+            "path": "ACKNOWLEDGEMENTS.md",
+            "blob_sha": "82f1c14170a9206701792095bd1b123d1b61a95f",
+            "sha256": "a6918fcf43fb1a18b8d6430fade3940cfa05026e2daec9a4f933f4abab275c37",
+            "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/ACKNOWLEDGEMENTS.md",
+            "bytes": 774
+          },
+          {
+            "path": "skills/orchestrate/SKILL.md",
+            "blob_sha": "9a123c5f4ddbbbfeefdc6cc6170e96f48b57948f",
+            "sha256": "45c32a9cead12f7fef8047455bfa62d7ffc90b593f4c2d992ac33a7097433847",
+            "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/skills/orchestrate/SKILL.md",
+            "bytes": 3547
+          },
+          {
+            "path": "skills/session/SKILL.md",
+            "blob_sha": "d2ca8b4e9ffb8b988d3c82bff206d004b5aa9d94",
+            "sha256": "bac1d2ff6f98e316df07daf2eb9522a43c0b7779c6c47231a82fe4b3a594a6dc",
+            "url": "https://github.com/mblauberg/provenant/blob/73cf94414b783c12213fb12f5a822fbe86601feb/skills/session/SKILL.md",
+            "bytes": 3649
+          }
+        ],
+        "confirmed_skill_count": 28
+      }
+    ],
+    "review_scope": "Independent cross-check of fixed README distribution, representative/route purposes, licensing scopes and structural counts; no new repository freeze, runtime/provider calls, third-party execution or full-body audit of every leaf.",
+    "verification": {
+      "reviewed_count": 7,
+      "missing": [],
+      "admission_objections": 0,
+      "count_changes": 0,
+      "corrections_kind": [
+        "output-rights scope clarification",
+        "fixed acknowledgement evidence enrichment"
+      ],
+      "new_fixed_blob_reads": 6,
+      "whole_repository_refreezes": 0,
+      "third_party_execution": "not_run"
+    }
+  },
+  "quality-boundary-notes.json": {
+    "reviewed_names": [
+      "JavaArthur/ai-trend-radar",
+      "tbdavid2019/stock-underdog-ml"
+    ],
+    "confirmations": [
+      {
+        "full_name": "JavaArthur/ai-trend-radar",
+        "conclusion": "保留accepted / infra / 0公开叶技能。",
+        "reason": "存在专门的Skills目录分支与证据约束，达到技能发现基础设施边界。README明确Skills与开源应用工具两个入口；directory.family实际仅把aiRelated且skillEvidence且forms包含skill的项目送入skills分支。classify.hasSkillEvidence识别真实SKILL.md或明确技能安装命令，validateLabels拒绝无证据的skill标签，verify-skills脚本从上游树/README重新核实并移除无根据标签。因此有具体技能发现/分类/核验契约，不能仅按宽泛的仓库描述与普通awesome-stars等同。自身0个SKILL不改变其基础设施身份。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6101f7035412c453bd28ea56b042d086a2c98e61",
+            "sha256": "526a34d01c8643be8c97e60d4b023d2b72619a542d6c4d99f433c1fd516642a2",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/README.md",
+            "bytes": 5761
+          },
+          {
+            "path": "src/lib/directory.ts",
+            "blob_sha": "62d0a0ce2e3dfc43b0dd525b85d0ed7b6bce8a3c",
+            "sha256": "935906bb6beca74a4156be4e17fc55d03783efd8d9ffb2368733f5e4d543e5a9",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/src/lib/directory.ts",
+            "bytes": 1123
+          },
+          {
+            "path": "src/lib/classify.ts",
+            "blob_sha": "d61314d70be733348d3920cd076f9041a3fbcf9b",
+            "sha256": "eb6543051bddc9ba73b66a422a3afd1f0f740ae42a3151352bb9911ec4397b20",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/src/lib/classify.ts",
+            "bytes": 3912
+          },
+          {
+            "path": "scripts/verify-skills.ts",
+            "blob_sha": "76bab83de57fbc0fceab0d9054e16363b2481f94",
+            "sha256": "899f739945232fc7381ef9ae9cbc19043d28bfbdb55ae1523270a4d78846b71e",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/scripts/verify-skills.ts",
+            "bytes": 2159
+          },
+          {
+            "path": "scripts/validate.ts",
+            "blob_sha": "821115c8bd7c52cfa44c0ef44a321f627a86b35f",
+            "sha256": "791b710371e59e8eef500889c54a06e53fa28dc6e395a0874103f0c1768d4a93",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/scripts/validate.ts",
+            "bytes": 1177
+          }
+        ],
+        "runtime_verification": "未运行收集器/验证器，未访问热榜网站或模型服务；仅固定源代码交叉检查。"
+      },
+      {
+        "full_name": "tbdavid2019/stock-underdog-ml",
+        "conclusion": "保留accepted / vertical / 1公开叶技能。",
+        "reason": "stock-quant是明确面向外部调用者的产品使用技能，而非作者运维脚本。README在对外FastAPI/MCP/Agent章节指向skills/stock-quant/SKILL.md并公开/skill、llms.txt与在线服务入口；代表正文定义对使用者问题的四步分析工作流和MCP/REST契约。固定api/main.py第824–833行实际将GET /skill绑定到规范SKILL文件并按Markdown返回，证明有实现的对外分发入口。作者机器路径示例及私网备用Base URL不抹除其公开服务/可自部署分发契约。其余15项属于三个宿主目录中的OpenSpec工程维护入口，已正确排除；不应计16。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "9b25ae6d716c2d6532edde9c44c183a519806a4e",
+            "sha256": "31863353a13b5014e975ff14a7a27d8bc9d50d3588d037a46704be8db68b2ae5",
+            "url": "https://github.com/tbdavid2019/stock-underdog-ml/blob/e018db0418daa9dd395d2a8d13a09f5135cc6557/README.md",
+            "bytes": 49965
+          },
+          {
+            "path": "skills/stock-quant/SKILL.md",
+            "blob_sha": "dd1dc4f1fd0cfdb1d99405159a3ea1bcb8f088a3",
+            "sha256": "5b39a147cf379e5df3d3e151ba2907e968e0a7a38c71a6c47dfe18c91f3a8b3c",
+            "url": "https://github.com/tbdavid2019/stock-underdog-ml/blob/e018db0418daa9dd395d2a8d13a09f5135cc6557/skills/stock-quant/SKILL.md",
+            "bytes": 11796
+          },
+          {
+            "path": "api/main.py",
+            "blob_sha": "79b7bf1fa8e354a3c97e219c9fd322ede4bf2a8a",
+            "sha256": "cbd975833134d692d5d8e107770fcef387fdcbb22b306fbf0cdd45fbb8837fac",
+            "url": "https://github.com/tbdavid2019/stock-underdog-ml/blob/e018db0418daa9dd395d2a8d13a09f5135cc6557/api/main.py",
+            "bytes": 53458
+          }
+        ],
+        "runtime_verification": "未调用行情、预测、LLM或/skill在线服务；不验证收益、胜率、实时可用性或服务权限。"
+      }
+    ],
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "JavaArthur/ai-trend-radar",
+        "field_updates": {
+          "distribution_evidence": {
+            "readme": {
+              "path": "README.md",
+              "blob_sha": "6101f7035412c453bd28ea56b042d086a2c98e61",
+              "sha256": "526a34d01c8643be8c97e60d4b023d2b72619a542d6c4d99f433c1fd516642a2",
+              "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/README.md",
+              "bytes": 5761
+            },
+            "basis": "专门Skills/Tools目录分支；Skills分支要求真实技能文件或明确安装说明证据；固定分类与标签校验、重核脚本实现了该契约。0个本地叶技能，以技能发现/分类基础设施准入。",
+            "supplemental": [
+              {
+                "path": "src/lib/directory.ts",
+                "blob_sha": "62d0a0ce2e3dfc43b0dd525b85d0ed7b6bce8a3c",
+                "sha256": "935906bb6beca74a4156be4e17fc55d03783efd8d9ffb2368733f5e4d543e5a9",
+                "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/src/lib/directory.ts",
+                "bytes": 1123
+              },
+              {
+                "path": "src/lib/classify.ts",
+                "blob_sha": "d61314d70be733348d3920cd076f9041a3fbcf9b",
+                "sha256": "eb6543051bddc9ba73b66a422a3afd1f0f740ae42a3151352bb9911ec4397b20",
+                "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/src/lib/classify.ts",
+                "bytes": 3912
+              },
+              {
+                "path": "scripts/verify-skills.ts",
+                "blob_sha": "76bab83de57fbc0fceab0d9054e16363b2481f94",
+                "sha256": "899f739945232fc7381ef9ae9cbc19043d28bfbdb55ae1523270a4d78846b71e",
+                "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/scripts/verify-skills.ts",
+                "bytes": 2159
+              },
+              {
+                "path": "scripts/validate.ts",
+                "blob_sha": "821115c8bd7c52cfa44c0ef44a321f627a86b35f",
+                "sha256": "791b710371e59e8eef500889c54a06e53fa28dc6e395a0874103f0c1768d4a93",
+                "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/scripts/validate.ts",
+                "bytes": 1177
+              }
+            ]
+          }
+        },
+        "reason": "补齐准入边界的固定实现证据，不改变现有准入、分类或计数。README的专门Skills目录说明有源码支持。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6101f7035412c453bd28ea56b042d086a2c98e61",
+            "sha256": "526a34d01c8643be8c97e60d4b023d2b72619a542d6c4d99f433c1fd516642a2",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/README.md",
+            "bytes": 5761
+          },
+          {
+            "path": "src/lib/directory.ts",
+            "blob_sha": "62d0a0ce2e3dfc43b0dd525b85d0ed7b6bce8a3c",
+            "sha256": "935906bb6beca74a4156be4e17fc55d03783efd8d9ffb2368733f5e4d543e5a9",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/src/lib/directory.ts",
+            "bytes": 1123
+          },
+          {
+            "path": "src/lib/classify.ts",
+            "blob_sha": "d61314d70be733348d3920cd076f9041a3fbcf9b",
+            "sha256": "eb6543051bddc9ba73b66a422a3afd1f0f740ae42a3151352bb9911ec4397b20",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/src/lib/classify.ts",
+            "bytes": 3912
+          },
+          {
+            "path": "scripts/verify-skills.ts",
+            "blob_sha": "76bab83de57fbc0fceab0d9054e16363b2481f94",
+            "sha256": "899f739945232fc7381ef9ae9cbc19043d28bfbdb55ae1523270a4d78846b71e",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/scripts/verify-skills.ts",
+            "bytes": 2159
+          },
+          {
+            "path": "scripts/validate.ts",
+            "blob_sha": "821115c8bd7c52cfa44c0ef44a321f627a86b35f",
+            "sha256": "791b710371e59e8eef500889c54a06e53fa28dc6e395a0874103f0c1768d4a93",
+            "url": "https://github.com/JavaArthur/ai-trend-radar/blob/49c80a845e42b53ee3c81002ea7d24d6315ee5e4/scripts/validate.ts",
+            "bytes": 1177
+          }
+        ]
+      },
+      {
+        "full_name": "tbdavid2019/stock-underdog-ml",
+        "field_updates": {
+          "distribution_evidence": {
+            "readme": {
+              "path": "README.md",
+              "blob_sha": "9b25ae6d716c2d6532edde9c44c183a519806a4e",
+              "sha256": "31863353a13b5014e975ff14a7a27d8bc9d50d3588d037a46704be8db68b2ae5",
+              "url": "https://github.com/tbdavid2019/stock-underdog-ml/blob/e018db0418daa9dd395d2a8d13a09f5135cc6557/README.md",
+              "bytes": 49965
+            },
+            "basis": "README明确向外部AI Agent提供stock-quant与/skill；固定api/main.py的GET /skill路由直接返回skills/stock-quant/SKILL.md。仅此1个产品使用workflow，15个OpenSpec维护入口排除。",
+            "supplemental": [
+              {
+                "path": "api/main.py",
+                "blob_sha": "79b7bf1fa8e354a3c97e219c9fd322ede4bf2a8a",
+                "sha256": "cbd975833134d692d5d8e107770fcef387fdcbb22b306fbf0cdd45fbb8837fac",
+                "url": "https://github.com/tbdavid2019/stock-underdog-ml/blob/e018db0418daa9dd395d2a8d13a09f5135cc6557/api/main.py",
+                "bytes": 53458
+              }
+            ]
+          }
+        },
+        "reason": "补入固定公开分发路由证据，不改变准入或1叶技能计数。",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "9b25ae6d716c2d6532edde9c44c183a519806a4e",
+            "sha256": "31863353a13b5014e975ff14a7a27d8bc9d50d3588d037a46704be8db68b2ae5",
+            "url": "https://github.com/tbdavid2019/stock-underdog-ml/blob/e018db0418daa9dd395d2a8d13a09f5135cc6557/README.md",
+            "bytes": 49965
+          },
+          {
+            "path": "skills/stock-quant/SKILL.md",
+            "blob_sha": "dd1dc4f1fd0cfdb1d99405159a3ea1bcb8f088a3",
+            "sha256": "5b39a147cf379e5df3d3e151ba2907e968e0a7a38c71a6c47dfe18c91f3a8b3c",
+            "url": "https://github.com/tbdavid2019/stock-underdog-ml/blob/e018db0418daa9dd395d2a8d13a09f5135cc6557/skills/stock-quant/SKILL.md",
+            "bytes": 11796
+          },
+          {
+            "path": "api/main.py",
+            "blob_sha": "79b7bf1fa8e354a3c97e219c9fd322ede4bf2a8a",
+            "sha256": "cbd975833134d692d5d8e107770fcef387fdcbb22b306fbf0cdd45fbb8837fac",
+            "url": "https://github.com/tbdavid2019/stock-underdog-ml/blob/e018db0418daa9dd395d2a8d13a09f5135cc6557/api/main.py",
+            "bytes": 53458
+          }
+        ]
+      }
+    ],
+    "verification": {
+      "reviewed_count": 2,
+      "missing": [],
+      "admission_objections": 0,
+      "count_changes": 0,
+      "new_same_commit_blob_refs": 5,
+      "repository_refreezes": 0,
+      "candidate_execution": "not_run",
+      "shared_reports_or_formal_data_modified": false
+    }
+  }
+}
