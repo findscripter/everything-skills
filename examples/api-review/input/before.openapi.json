@@ -1,0 +1,34 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Widget API — original synthetic fixture", "version": "1.0.0" },
+  "servers": [{ "url": "https://api.example.invalid" }],
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/api/v1/widgets": {
+      "get": {
+        "description": "List widgets with a bounded page.",
+        "parameters": [{ "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100 } }],
+        "responses": { "200": { "description": "Widget page", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Widget" } } } } } }
+      },
+      "post": {
+        "description": "Create a widget.",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateWidget" } } } },
+        "responses": { "201": { "description": "Created widget", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Widget" } } } } }
+      }
+    },
+    "/api/v1/widgets/{widgetId}": {
+      "parameters": [{ "name": "widgetId", "in": "path", "required": true, "schema": { "type": "string" } }],
+      "get": {
+        "description": "Read one widget owned by the authenticated user.",
+        "responses": { "200": { "description": "One widget", "headers": { "ETag": { "description": "Representation validator", "schema": { "type": "string" } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Widget" } } } }, "401": { "description": "Authentication required" }, "403": { "description": "Ownership check failed" } }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": { "bearerAuth": { "type": "http", "scheme": "bearer" } },
+    "schemas": {
+      "Widget": { "type": "object", "required": ["id", "name"], "properties": { "id": { "type": "string" }, "name": { "type": "string" } } },
+      "CreateWidget": { "type": "object", "required": ["name"], "properties": { "name": { "type": "string" }, "ownerId": { "type": "string" } } }
+    }
+  }
+}

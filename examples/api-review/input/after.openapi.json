@@ -1,0 +1,37 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Widget API — intentionally flawed proposed change", "version": "1.1.0" },
+  "servers": [{ "url": "http://api.example.invalid" }],
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/api/v1/getWidgets": {
+      "get": {
+        "description": "List widgets without a bounded page.",
+        "parameters": [],
+        "responses": { "200": { "description": "All widgets", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Widget" } } } } } }
+      }
+    },
+    "/api/v1/widgets": {
+      "post": {
+        "description": "Create a widget; ownerId is now mandatory.",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CreateWidget" } } } },
+        "responses": { "201": { "description": "Created widget", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Widget" } } } } }
+      }
+    },
+    "/api/v1/widgets/{widgetId}": {
+      "parameters": [{ "name": "widgetId", "in": "path", "required": true, "schema": { "type": "string" } }],
+      "get": {
+        "description": "Read one widget; proposed specification allows anonymous access.",
+        "security": [],
+        "responses": { "200": { "description": "One widget", "headers": { "ETag": { "description": "Representation validator", "schema": { "type": "string" } } }, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Widget" } } } } }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": { "bearerAuth": { "type": "http", "scheme": "bearer" } },
+    "schemas": {
+      "Widget": { "type": "object", "required": ["id"], "properties": { "id": { "type": "integer" } } },
+      "CreateWidget": { "type": "object", "required": ["name", "ownerId"], "properties": { "name": { "type": "string" }, "ownerId": { "type": "string" } } }
+    }
+  }
+}

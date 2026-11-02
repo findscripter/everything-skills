@@ -187,7 +187,7 @@ test('ENG-08 failed directory reads stop generation without replacing any existi
   assert.deepEqual(await snapshot(root), before);
 });
 
-test('repository directory counts describe entries and surface unavailable or archived upstream snapshots', async t => {
+test('repository directory counts describe entries and summarize unavailable or archived upstream snapshots', async t => {
   const root = await fixture(t);
   await writeRepos(root, [
     repo('demo/unavailable', { upstream_snapshot: { checked_at: '2026-10-23', state: 'unavailable' } }),
@@ -204,6 +204,45 @@ test('repository directory counts describe entries and surface unavailable or ar
   assert.match(readme, /indexed entries/);
   assert.match(readme, /upstream unavailable/);
   assert.match(readme, /upstream archived/);
+});
+
+for (const lang of ['en', 'zh']) test(`README repository directory stays compact and links to the complete ${lang} category tables`, async t => {
+  const root = await fixture(t);
+  const sections = ['official', 'collections', 'vertical', 'infra', 'other', 'unnamed'];
+  const rows = Array.from({ length: 2400 }, (_, i) => repo(`demo/repository-${i}`, {
+    section: sections[i % sections.length],
+    summary: `FULL-ENTRY-SENTINEL ${'Long upstream summary. '.repeat(15)}`,
+  }));
+  await writeRepos(root, rows);
+  await fs.writeFile(path.join(root, 'data/skill-repos.part1.jsonl'), JSON.stringify(repo('demo/shard', { section: 'official' })) + '\n');
+  assert.equal(run(root, 'build-index.mjs', [`--lang=${lang}`]).status, 0);
+  assert.equal(run(root, 'build-skill-repos.mjs', [`--lang=${lang}`]).status, 0);
+  assert.equal(run(root, 'build-readme-intro.mjs', [`--lang=${lang}`]).status, 0);
+  assert.equal(run(root, 'build-brand.mjs', [`--lang=${lang}`]).status, 0);
+  const result = run(root, 'refresh-readme-skill-repos-directory.mjs', [`--lang=${lang}`]);
+  assert.equal(result.status, 0, result.stderr);
+  const readme = await fs.readFile(path.join(root, 'README.md'), 'utf8');
+  const index = await fs.readFile(path.join(root, 'INDEX/skill-repos.md'), 'utf8');
+  assert.ok(Buffer.byteLength(readme) < 20_000, 'the homepage must stay under 20KB even with thousands of upstream entries');
+  assert.match(readme, /\*\*2401\*\*/);
+  assert.doesNotMatch(readme, /FULL-ENTRY-SENTINEL|demo\/repository-0/);
+  assert.match(index, /FULL-ENTRY-SENTINEL/);
+  assert.match(index, /demo\/shard/);
+  const categoryLinks = [...readme.matchAll(/\]\(INDEX\/skill-repos\.md#([^)]*)\)\s*\|\s*(\d+)\s*\|/g)];
+  assert.equal(categoryLinks.length, sections.length);
+  assert.deepEqual(categoryLinks.map(match => Number(match[2])), [401, 400, 400, 400, 400, 400]);
+  const headings = [...index.matchAll(/^## (.+)$/gm)].map(match => match[1]
+    .toLowerCase().replace(/[^\p{L}\p{N}_\- ]/gu, '').replace(/ /g, '-'));
+  for (const [, anchor] of categoryLinks) assert.ok(headings.includes(anchor), `missing index category anchor ${anchor}`);
+});
+
+test('README overview does not link empty categories to missing index headings', async t => {
+  const root = await fixture(t);
+  const result = run(root, 'refresh-readme-skill-repos-directory.mjs', ['--lang=en']);
+  assert.equal(result.status, 0, result.stderr);
+  const readme = await fs.readFile(path.join(root, 'README.md'), 'utf8');
+  const categoryLinks = [...readme.matchAll(/\]\(INDEX\/skill-repos\.md#([^)]*)\)/g)];
+  assert.deepEqual(categoryLinks.map(match => match[1]), ['5-other']);
 });
 
 test('repository lookup keeps exact historical aliases ahead of fuzzy canonical matches', async t => {

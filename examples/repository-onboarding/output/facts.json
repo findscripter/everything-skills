@@ -1,0 +1,53 @@
+{
+  "fixture": "original synthetic Node.js workspace",
+  "fileCount": 7,
+  "sourceModules": [
+    "apps/cli/index.mjs",
+    "packages/core/index.mjs",
+    "test/core.test.mjs"
+  ],
+  "workspacePatterns": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packages": [
+    {
+      "name": "@trail/cli",
+      "manifest": "apps/cli/package.json"
+    },
+    {
+      "name": "@trail/core",
+      "manifest": "packages/core/package.json"
+    }
+  ],
+  "dependencyEdges": [
+    {
+      "from": "@trail/cli",
+      "to": "@trail/core"
+    }
+  ],
+  "inputSha256": {
+    "README.md": "3608fbe70250553f44a37ea85e34c2f76a788e2056a57bebcd4658959862c738",
+    "apps/cli/index.mjs": "4ec411397b9c5c28314e183b42d8b4128b9fa952ebe7afcc5f19a5eede59aa36",
+    "apps/cli/package.json": "79076cdf03c9e2f8614671e2be3d71688f2f358f00d820042c728bfa285dfb3f",
+    "package.json": "b84f3d4f2999b85a36e03416899b80428649132c6c5cfed95b7a64e6ef668cd7",
+    "packages/core/index.mjs": "36364ac34bc5170a3ddf3406db3bbe97d173b3a6e3cbe8fc61910460425226ca",
+    "packages/core/package.json": "581cf6261a9a88fca5c20c3217251b5760a11d73df95cc4f51578e3e7d760067",
+    "test/core.test.mjs": "cb88118916a69beac1f8846d639af419135dfa6070c67d4035f6f7cf7bb0c6b0"
+  },
+  "cleanDirectoryRun": {
+    "tests": {
+      "command": "node --test --test-reporter=tap test/core.test.mjs",
+      "exitCode": 0,
+      "testCount": 3
+    },
+    "demo": {
+      "command": "node apps/cli/index.mjs",
+      "exitCode": 0,
+      "output": {
+        "count": 3,
+        "totalMinutes": 60
+      }
+    }
+  }
+}

@@ -9,6 +9,10 @@ everything-skills/
 
 node_modules/
 
+# Static website build and local browser QA output
+_site/
+.qa/
+
 # 推广素材（站外投稿/社媒用，本地保留，不公开发布）
 promo/
 

@@ -14,7 +14,7 @@
 </style>
   <rect width="600" height="360" rx="20" fill="#111d1a"/>
   <rect x="1" y="1" width="598" height="358" rx="19" fill="none" stroke="#30473c"/>
-  <text x="32" y="48" class="mono" font-size="12" letter-spacing="2.6" fill="#deb46c">AN ATLAS OF AGENT SKILLS</text>
+  <text x="32" y="48" class="mono" font-size="12" letter-spacing="2.6" fill="#deb46c">TASKS / SKILLS / WORKFLOWS</text>
   <text x="29" y="128" class="sans" font-size="62" font-weight="700" letter-spacing="-3" fill="#f3eddc">EVERYTHING</text>
   <text x="29" y="216" class="serif" font-size="80" font-style="italic" fill="#deb46c">Skills.</text>
   <svg xmlns="http://www.w3.org/2000/svg" x="433" y="138" viewBox="0 0 192 192" width="108" height="108" role="img" aria-labelledby="logo-title logo-desc">
@@ -84,6 +84,6 @@
 </svg>
 
   <path d="M32 254H568" stroke="#385348"/>
-  <text x="32" y="288" class="sans" font-size="19" fill="#b6c8bc">Curated by domain. Connected by knowledge.</text>
+  <text x="32" y="288" class="sans" font-size="19" fill="#b6c8bc">Find a skill. Connect steps. Build a workflow.</text>
   <text x="32" y="325" class="mono" font-size="11" letter-spacing="1.2" fill="#819b8e">11 VOLUMES / ONE LIVING LIBRARY</text>
 </svg>
