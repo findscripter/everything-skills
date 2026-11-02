@@ -1,0 +1,10 @@
+{
+  "scope": "Live DataCite title/year/eight-author/DOI comparison and versioned arXiv HTTP accessibility; does not reread the full paper",
+  "metadataHttpStatus": 200,
+  "paperHttpStatus": 200,
+  "publicationYear": 2017,
+  "authorCount": 8,
+  "doi": "10.48550/arxiv.1706.03762",
+  "metadataSource": "https://api.datacite.org/dois/10.48550/arxiv.1706.03762",
+  "paperUrl": "https://arxiv.org/abs/1706.03762v7"
+}

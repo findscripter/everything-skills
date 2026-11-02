@@ -51,6 +51,12 @@ data/skill-repos*.jsonl + data/skill-repos.meta.md
 - 外部目录显示目录记录数，不能将缺失身份的记录推断为独立仓库；可选 `upstream_snapshot.state` 在目录中展示可访问、归档或当前不可访问的核查状态，与历史 Stars、采编状态分开。
 - 品牌数据直接读取索引；CI 包含 `assets/brand` 的漂移检查与 Node 内建回归测试。
 
+## 公开检索站与案例
+
+`site/` 是零运行时服务的静态检索界面；`scripts/build-site.mjs` 从 `INDEX/search.json` 和共享外部仓库 loader 生成 `_site/catalog.json`，并复制页面资源。`_site/` 不提交。历史停荐/不可访问的上游状态被保留，默认发现排除这些记录；外部目录总量仍包含历史记录，不能等同当前可用仓库数。GitHub Pages Actions 只在 `main` 更新后部署，站内可切换中英文。
+
+`examples/` 保存三个有明确输入、方法参考、人工叙述结果和原创复现脚本的教学案例。`npm run examples:check` 核对具体 fixture、机器事实与文档链接，不重新调用模型，不验证客户端安装，也不升级全库 quality 状态。`marketing/` 为待审的站外发布文案；`assets/demos/` 的录屏仅演示真实网页操作。
+
 ## 常用命令
 
 ```bash

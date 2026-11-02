@@ -1,0 +1,19 @@
+{
+  "fixture": "Original deliberately flawed citation draft; both records refer to the same real work",
+  "records": [
+    {
+      "id": "draft-1",
+      "title": "Attention Is All You Need",
+      "year": 2018,
+      "authors": ["Vaswani, Ashish"],
+      "identifier": "https://arxiv.org/abs/1706.03762v7"
+    },
+    {
+      "id": "draft-2",
+      "title": "Attention Is All You Need",
+      "year": 2017,
+      "authors": ["Vaswani, Ashish", "Shazeer, Noam", "Parmar, Niki", "Uszkoreit, Jakob", "Jones, Llion", "Gomez, Aidan N.", "Kaiser, Lukasz", "Polosukhin, Illia"],
+      "identifier": "https://doi.org/10.48550/arXiv.1706.03762"
+    }
+  ]
+}

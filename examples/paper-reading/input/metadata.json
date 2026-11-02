@@ -1,0 +1,24 @@
+{
+  "title": "Attention Is All You Need",
+  "doi": "10.48550/arxiv.1706.03762",
+  "arxivId": "1706.03762",
+  "readVersion": "v7",
+  "publicationYear": 2017,
+  "versionDate": "2023-08-02",
+  "publisher": "arXiv",
+  "resourceType": "Preprint",
+  "authors": [
+    "Vaswani, Ashish",
+    "Shazeer, Noam",
+    "Parmar, Niki",
+    "Uszkoreit, Jakob",
+    "Jones, Llion",
+    "Gomez, Aidan N.",
+    "Kaiser, Lukasz",
+    "Polosukhin, Illia"
+  ],
+  "metadataSource": "https://api.datacite.org/dois/10.48550/arxiv.1706.03762",
+  "paperUrl": "https://arxiv.org/abs/1706.03762v7",
+  "observedOn": "2026-11-02",
+  "scope": "Selected bibliographic facts extracted from DataCite and cross-checked against arXiv; not the paper text"
+}

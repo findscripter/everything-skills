@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Find agent skills by task, follow their relationships, and install the volumes you need. Browse Everything Skills with examples for codebase onboarding, papers, and API reviews.">
+  <meta name="theme-color" content="#123b32">
+  <meta property="og:title" content="Everything Skills — Start with a task">
+  <meta property="og:description" content="Find a skill. Follow its connections. Put a workflow to work.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://findscripter.github.io/everything-skills/">
+  <meta property="og:image" content="https://findscripter.github.io/everything-skills/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://findscripter.github.io/everything-skills/">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Everything Skills — Start with a task</title>
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#explore">Skip to skill search</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="./" aria-label="Everything Skills home"><img src="logo.svg" width="36" height="36" alt=""><span>everything<span class="wordmark-light">skills</span><span class="wordmark-dot">.</span></span></a>
+    <nav aria-label="Main navigation">
+      <a href="#examples" data-i18n="navExamples">Examples</a>
+      <a href="https://github.com/findscripter/everything-skills" class="github-link">GitHub <span aria-hidden="true">↗</span></a>
+      <button class="language-button" id="language" type="button" aria-label="Switch to Chinese">中文</button>
+    </nav>
+  </header>
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span><span data-i18n="eyebrow">AN OPEN LIBRARY FOR AGENT WORKFLOWS</span></p>
+        <h1 id="hero-title"><span data-i18n="heroOne">Start with a task.</span><br><span class="hero-accent" data-i18n="heroTwo">Find your next skill.</span></h1>
+        <p class="hero-description" data-i18n="heroDescription">Find instructions for the job at hand, follow their connections, and install only the volumes you need.</p>
+        <div class="hero-actions"><a class="button primary" href="#explore" data-i18n="explore">Explore the library ↓</a><a class="text-link" href="#examples" data-i18n="seeExamples">See worked examples ↗</a></div>
+      </div>
+      <aside class="workflow-preview" aria-label="Example skill workflow">
+        <div class="preview-heading"><span class="tiny-label" data-i18n="oneTask">ONE TASK, CONNECTED STEPS</span><span class="preview-index">01 / 03</span></div>
+        <p class="preview-task" data-i18n="previewTask">“Help me understand this codebase.”</p>
+        <ol class="workflow-steps">
+          <li><span class="step-number">01</span><div><strong data-i18n="stepOne">Map the repository</strong><code>codebase-onboarding-doc</code></div><span class="step-arrow" aria-hidden="true">↗</span></li>
+          <li><span class="step-number">02</span><div><strong data-i18n="stepTwo">Trace the important paths</strong><code>monorepo-navigator</code></div><span class="step-arrow" aria-hidden="true">↗</span></li>
+          <li><span class="step-number">03</span><div><strong data-i18n="stepThree">Verify the handoff</strong><code>3 tests · 1 onboarding guide</code></div><span class="step-arrow" aria-hidden="true">↗</span></li>
+        </ol>
+        <a class="preview-footer" href="https://github.com/findscripter/everything-skills/tree/main/examples/repository-onboarding"><span data-i18n="openExample">Open the input, prompts, and walkthrough</span><span aria-hidden="true">→</span></a>
+      </aside>
+    </section>
+    <section class="stats-strip wrap" aria-label="Library statistics">
+      <div><strong id="active-count">—</strong><span data-i18n="activeSkills">current skill entries</span></div>
+      <div><strong id="volume-count">—</strong><span data-i18n="volumes">installable volumes</span></div>
+      <div><strong id="repo-count">—</strong><span data-i18n="repositories">external directory records</span></div>
+      <p id="stats-note" data-i18n="statsLoading">Loading the generated catalog…</p>
+    </section>
+    <section class="explorer wrap" id="explore" aria-labelledby="explore-title">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="libraryLabel">THE LIBRARY</p><h2 id="explore-title" data-i18n="exploreTitle">What are you working on?</h2></div><a class="text-link" href="https://github.com/findscripter/everything-skills/blob/main/INDEX/graph.md" data-i18n="graphLink">Browse the relationship graph ↗</a></div>
+      <form id="search-form" role="search">
+        <label class="visually-hidden" for="query" data-i18n="searchLabel">Search tasks or skill names</label>
+        <div class="search-box"><span class="search-icon" aria-hidden="true">⌕</span><input id="query" type="search" autocomplete="off" placeholder="Try API review, a paper, or accessibility…"><kbd aria-hidden="true">/</kbd></div>
+        <div class="filter-bar">
+          <div class="mode-buttons" role="group" aria-label="Catalog type"><button id="skills-mode" class="mode-button selected" type="button" aria-pressed="true" data-i18n="skills">Skills</button><button id="repos-mode" class="mode-button" type="button" aria-pressed="false" data-i18n="repos">Repositories</button></div>
+          <label class="filter-label"><span data-i18n="filter">Filter</span><select id="volume" aria-label="Filter by volume"><option value="" data-i18n="allVolumes">All volumes</option></select></label>
+          <button id="share" class="text-button" type="button" data-i18n="share">Copy search link</button>
+        </div>
+      </form>
+      <div class="search-meta"><p id="result-count" role="status" aria-live="polite" data-i18n="loading">Loading…</p><p id="catalog-note" data-i18n="nativeLanguage">Skill instructions keep their original language.</p></div>
+      <div class="results" id="results"></div>
+      <div class="results-footer"><button class="button secondary" id="show-more" type="button" hidden data-i18n="showMore">Show more</button><p class="trust-note" data-i18n="trustNote">The catalog records metadata and review status. Listing, structural checks, and example checks do not certify every skill’s effectiveness, security, or license.</p></div>
+      <noscript><p>JavaScript is needed for interactive search. <a href="https://github.com/findscripter/everything-skills/blob/main/INDEX/catalog.md">Browse the full Markdown catalog instead.</a></p></noscript>
+    </section>
+    <section class="examples-section" id="examples" aria-labelledby="examples-title">
+      <div class="wrap"><div class="section-heading"><div><p class="eyebrow" data-i18n="examplesLabel">FROM INPUT TO OUTPUT</p><h2 id="examples-title" data-i18n="examplesTitle">Try a small, reproducible workflow.</h2></div><a class="text-link" href="https://github.com/findscripter/everything-skills/tree/main/examples" data-i18n="allExamples">All example files ↗</a></div>
+      <div class="example-cards">
+        <a class="example-card" href="https://github.com/findscripter/everything-skills/tree/main/examples/repository-onboarding"><span class="example-number">01 / ENGINEERING</span><h3 data-i18n="exampleOneTitle">Get oriented in a codebase</h3><p data-i18n="exampleOneBody">A small repository, a map of its boundaries, and an onboarding report you can inspect.</p><span class="example-cta" data-i18n="tryExample">Explore the example →</span></a>
+        <a class="example-card" href="https://github.com/findscripter/everything-skills/tree/main/examples/paper-reading"><span class="example-number">02 / RESEARCH</span><h3 data-i18n="exampleTwoTitle">Read a paper with its sources</h3><p data-i18n="exampleTwoBody">Follow the paper’s claims and bibliography, with explicit limits on what was checked.</p><span class="example-cta" data-i18n="tryExample">Explore the example →</span></a>
+        <a class="example-card" href="https://github.com/findscripter/everything-skills/tree/main/examples/api-review"><span class="example-number">03 / API DESIGN</span><h3 data-i18n="exampleThreeTitle">Review an API before delivery</h3><p data-i18n="exampleThreeBody">Inspect a compact API fixture, trace concrete findings, and compare a revised design.</p><span class="example-cta" data-i18n="tryExample">Explore the example →</span></a>
+      </div></div>
+    </section>
+    <section class="install-section wrap" id="install" aria-labelledby="install-title"><div><p class="eyebrow" data-i18n="installLabel">TAKE WHAT YOU NEED</p><h2 id="install-title" data-i18n="installTitle">One library. Eleven volumes.</h2><p data-i18n="installBody">In Claude Code, add the marketplace and install a domain volume. For Codex and other agents, start from the repository guide and open the skill’s instructions.</p><a class="text-link" href="https://github.com/findscripter/everything-skills#2-install-and-try-a-task" data-i18n="installGuide">Read the installation guide ↗</a></div><div class="install-code"><span class="tiny-label">CLAUDE CODE</span><pre><code>/plugin marketplace add findscripter/everything-skills
+/plugin install 02-engineering@everything-skills</code></pre><button class="copy-button" id="copy-install" type="button" data-i18n="copyCommands">Copy commands</button></div></section>
+  </main>
+  <footer class="wrap site-footer"><p>Everything Skills <span>·</span> <span data-i18n="footer">A connected library, maintained in the open.</span></p><div><a href="https://github.com/findscripter/everything-skills/blob/main/CONTRIBUTING.md" data-i18n="contribute">Contribute</a><a href="https://github.com/findscripter/everything-skills/blob/main/INDEX/sources.md" data-i18n="sources">Sources & licenses</a></div></footer>
+  <dialog id="install-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form><h2 data-i18n="volumeInstall">Install this volume</h2><p data-i18n="volumeInstallBody">Run these commands inside Claude Code. For other agents, open the linked SKILL.md and check its runtime requirements.</p><textarea id="volume-command" readonly aria-label="Claude Code install commands" rows="3"></textarea><button type="button" id="copy-volume" class="button primary" data-i18n="copyCommands">Copy commands</button></dialog>
+</body>
+</html>

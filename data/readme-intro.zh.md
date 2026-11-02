@@ -1,102 +1,91 @@
 # 技能大典 · Everything Skills
 
+[English](https://github.com/findscripter/everything-skills/blob/main/README.md) · **简体中文**
+
 <!-- BEGIN GENERATED:brand -->
 <!-- END GENERATED:brand -->
 
-## 快速开始
+从任务找到技能，把技能组合成工作流，再按需安装对应的卷。
 
-在 Claude Code 中添加插件市场，再选择需要的卷：
+**[在线搜索技能](https://findscripter.github.io/everything-skills/)** · **[跟着示例做一遍](examples/README.zh.md)** · [完整目录](INDEX/catalog.md) · [技能关系](INDEX/graph.md)
+
+<details>
+<summary>观看 33 秒目录操作演示</summary>
+
+![真实目录搜索、筛选与分卷安装说明](assets/demos/catalog-walkthrough.gif)
+
+[清晰视频与录制范围说明](assets/demos/README.md)
+
+</details>
+
+## 1. 选任务，找组合
+
+| 你的任务 | 从这里开始 | 再搭配 |
+| --- | --- | --- |
+| 接手一个陌生代码库 | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) | [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) |
+| 解释论文并整理引用 | [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) | [citation-management](01-documents/citation-management/SKILL.md) |
+| 评审与测试 REST API | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) | [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) |
+| 审计网页无障碍体验 | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) | [wcag-22-audit-patterns](02-engineering/wcag-22-audit-patterns/SKILL.md) |
+
+打开技能的 `SKILL.md` 查看范围、输入和依赖。[工作流示例](examples/README.zh.md) 提供首句提示词、预期产物和检查方法；需要更多覆盖时，再沿着 `requires`、`related`、`combines_with` 查找前置与搭配技能。
+
+## 2. 安装并试一个任务
+
+### Claude Code
+
+在 Claude Code 内执行下面两条命令，添加插件市场并安装研发卷：
 
 ```text
 /plugin marketplace add findscripter/everything-skills
-```
-
-例如，安装研发卷：
-
-```text
 /plugin install 02-engineering@everything-skills
 ```
 
-每条技能由一个 `SKILL.md` 和独立目录组成。Codex、Cursor、Gemini CLI 等 Agent 可通过 [AGENTS.md](AGENTS.md)、[GEMINI.md](GEMINI.md) 或 [CLAUDE.md](CLAUDE.md) 找到技能，再按任务读取所需指令。
+然后提供 OpenAPI 文件或接口说明，用这句话开始：
 
-## 从任务开始找技能
+> 使用 api-design-reviewer 技能评审这份 REST API。先阅读前置条件，缺少输入时向我确认，再输出兼容性问题、对应证据和修改建议。
 
-你不必先知道技能名称。先选择最接近目标的一行，打开第一条技能；需要更完整的覆盖时，再沿着它的 `requires` / `related` 关系继续查找：
+每卷是一个独立插件；其他任务可选择下表中的卷，也可以安装多卷。
 
-| 我想要…… | 从这里开始 |
-| --- | --- |
-| 了解并接手一个代码库 | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) → [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) |
-| 调研并解释一篇论文 | [entity-research-dossier](00-meta/entity-research-dossier/SKILL.md) → [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) |
-| 设计、测试和审查 API | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) |
-| 做无障碍或 Agent 安全审计 | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) · [agent-skill-security-scanner](08-security/agent-skill-security-scanner/SKILL.md) |
+### Node.js 22 及以上版本的本地检索
 
-### 你看到的内容分别是什么
+先准备 Git、Node.js **>=22** 和 npm，然后在终端执行：
 
-- **仓库内技能**：本仓库中的实际目录，每条都有 `SKILL.md`，可按卷通过 marketplace 安装。
-- **外部仓库索引**：[INDEX/skill-repos.md](INDEX/skill-repos.md) 中的外部技能库、marketplace 和目录摘要。这里不复制它们的源代码或 `SKILL.md`；使用前请回到上游核对许可和安装方式。
-- **生成的导航文件**：目录、标签、关系图、`search.json`、`quality.json`、marketplace 元数据和 README 统计。这些文件由源数据生成，用于导航，不是额外的技能正文。`quality.json` 提供审核状态、来源新鲜度、许可可信度、依赖和安全风险等证据维度；`unknown` / `unreviewed` 表示尚无对应结论。
-
-### 四个入门组合
-
-下面的组合展示如何把关系图串成一条可执行的工作流：
-
-| 组合 | 建议路径 |
-| --- | --- |
-| 仓库接手 | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) → [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) → [spec-driven-workflow](02-engineering/spec-driven-workflow/SKILL.md) |
-| 文献综述 | [entity-research-dossier](00-meta/entity-research-dossier/SKILL.md) → [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) → [citation-management](01-documents/citation-management/SKILL.md) |
-| API 交付 | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) → [api-security-best-practices](08-security/api-security-best-practices/SKILL.md) |
-| 无障碍与供应链信任 | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) → [wcag-22-audit-patterns](02-engineering/wcag-22-audit-patterns/SKILL.md) → [supply-chain-risk-auditor](08-security/supply-chain-risk-auditor/SKILL.md) |
-
-## 本地检索
-
-仓库自带一个零依赖 CLI，直接读取生成的索引：
-
-```text
-npm run skill -- search "无障碍审计"
-npm run skill -- list --domain science
-npm run skill -- why agent-self-reflection
-npm run skill -- repo anthropics/skills
-npm run skill -- eval
+```sh
+git clone https://github.com/findscripter/everything-skills.git
+cd everything-skills
+node --version
+npm run skill -- search "API review"
+npm run skill -- why api-design-reviewer
 ```
 
-`eval` 会运行版本库中的 `data/search-eval.json` 任务集；分数衡量这些示例的召回覆盖，不代表运行时、安全或专业效果认证。
+CLI 无第三方依赖，不需要 `npm install`。它检索已随仓库提供的索引，`why` 展示技能关系。打开返回路径中的 `SKILL.md`，再让 Agent 按它处理任务。Codex、Cursor、Gemini CLI 可通过 [AGENTS.md](AGENTS.md)、[CLAUDE.md](CLAUDE.md)、[GEMINI.md](GEMINI.md) 熟悉本仓库的导航方式。
 
-## 从发现到组合
+## 3. 按领域继续探索
 
-<p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/workflow-mobile.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/brand/workflow-static.svg" /><img src="assets/brand/workflow.svg" alt="通过描述与触发词发现技能，沿 requires / related / combines_with 关系查找前置与搭配技能，再组合工作流。" width="1200" /></picture>
-</p>
+| 卷 | 适用任务 |
+| --- | --- |
+| [00-meta](00-meta/README.md) | 研究、规划、推理与 Agent 工作流 |
+| [01-documents](01-documents/README.md) | 文档、表格、演示与写作 |
+| [02-engineering](02-engineering/README.md) | 开发、架构、测试与交付 |
+| [03-data](03-data/README.md) | 分析、数据库与数据工程 |
+| [04-ai](04-ai/README.md) | 模型、RAG、Agent 与评测 |
+| [05-business](05-business/README.md) | 营销、产品、经营与增长 |
+| [06-creative](06-creative/README.md) | 设计、图像与音视频 |
+| [07-productivity](07-productivity/README.md) | 沟通、项目与个人工作流 |
+| [08-security](08-security/README.md) | 防御审计、风险与合规 |
+| [09-verticals](09-verticals/README.md) | 科研、医疗、法律与领域专精 |
+| [10-platform](10-platform/README.md) | 云平台、CLI、连接器与自动化 |
 
-这是一部面向 AI Agent 的技能类书：按领域归位，用关系图连接。通过 `domain`、`tags`、`triggers` 缩小候选范围，再按 `description` 匹配任务。技能正文保持原始语言，每个技能只存放一处。
+## 收录内容与证据
 
-完整技能目录见 [Catalog](INDEX/catalog.md)，标签入口见 [Tags](INDEX/tags.md)，依赖、互见与组合关系见 [Graph](INDEX/graph.md)。机器可读版本为 [search.json](INDEX/search.json) 和 [graph.json](INDEX/graph.json)。
+**仓库内技能**是实际的 `SKILL.md` 目录，可按卷安装，正文保留原始语言。**外部仓库目录记录**用于发现上游项目；它们的技能正文不包含在本仓库插件中。
 
-## 十一卷，按需取用
+[技能目录](INDEX/catalog.md)、[标签](INDEX/tags.md)、[关系图](INDEX/graph.md)、[search.json](INDEX/search.json)、[quality.json](INDEX/quality.json) 是生成的导航与证据视图。审核状态、新鲜度、许可与运行依赖分别记录；`unknown`、`unreviewed` 表示尚无对应验证结论。运行前请阅读所选技能的前置条件与[来源/许可记录](INDEX/sources.md)。
 
-| 卷 | 领域 | 适用任务 |
-| --- | --- | --- |
-| [00-meta](00-meta/README.md) | 通用 | 研究、规划、思考与 Agent 工作方法 |
-| [01-documents](01-documents/README.md) | 文书 | 文档、表格、演示与写作 |
-| [02-engineering](02-engineering/README.md) | 研发 | 开发、架构、测试与交付 |
-| [03-data](03-data/README.md) | 数据 | 分析、数据库与数据工程 |
-| [04-ai](04-ai/README.md) | 智能 | 模型、RAG、Agent 与评测 |
-| [05-business](05-business/README.md) | 商业 | 营销、产品、经营与增长 |
-| [06-creative](06-creative/README.md) | 创意 | 设计、图像、音视频与交互 |
-| [07-productivity](07-productivity/README.md) | 协作 | 沟通、项目、流程与个人效率 |
-| [08-security](08-security/README.md) | 安全 | 防御审计、风险与合规 |
-| [09-verticals](09-verticals/README.md) | 领域专精 | 科研、医疗、法律与行业工作流 |
-| [10-platform](10-platform/README.md) | 平台集成 | 云平台、CLI、连接器与自动化 |
+## 参与维护，关注更新
 
-## 维护与贡献
+想推荐技能，或发现某条工作流有问题？[提交 Issue](https://github.com/findscripter/everything-skills/issues/new)，或按 [CONTRIBUTING.md](CONTRIBUTING.md) 参与贡献。如果这个合集帮到了你，可以 Star 方便下次找到，并[关注 Releases](https://github.com/findscripter/everything-skills/releases) 获取精选更新。
 
-技能元数据和外部仓库 JSONL 是源数据，目录、图谱与品牌统计由脚本生成。新增或修改条目后运行 `npm run build:zh`（中文）或 `npm run build`（英文）；提交后运行对应的 `check:zh` / `check` 确认生成物一致。
-
-- [CONTRIBUTING.md](CONTRIBUTING.md)：添加、修改和验证技能。
-- [ARCHITECTURE.md](ARCHITECTURE.md)：源数据、生成物与发布边界。
-- [LANGUAGE.md](LANGUAGE.md)：`main` / `zh` 界面与原语言技能正文；历史 `en` 镜像已废弃。
-- [PROJECT-REVIEW.md](PROJECT-REVIEW.md)：本次全库审查、已修正问题和后续建议。
-- [assets/brand/README.md](assets/brand/README.md)：动画 Logo、静态版本与 SVG 素材使用方法。
-
-安全与许可：技能是 Agent 指令包，来源与许可见 [INDEX/sources.md](INDEX/sources.md)、[LICENSE](LICENSE) 和 [NOTICE](NOTICE)；使用约定见 [SECURITY.md](SECURITY.md)。
+[项目架构](ARCHITECTURE.md) · [语言策略](LANGUAGE.md) · [维护 SOP](sop.md) · [安全约定](SECURITY.md) · [来源](INDEX/sources.md) · [许可](LICENSE) · [声明](NOTICE)
 
 ---
