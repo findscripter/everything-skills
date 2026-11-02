@@ -16,9 +16,11 @@
 2. 打开候选技能，看适用范围、工具依赖，再查看 `requires`、`related`、`combines_with` 关系。
 3. 选择需要的卷使用。Claude Code 可以通过 marketplace 按卷安装；Codex 可以从 `AGENTS.md` 进入，按任务读取技能文件。
 
-例如本地执行：
+本地检索需要 Git 和 Node.js 22 及以上版本。克隆项目后执行：
 
 ```bash
+git clone https://github.com/findscripter/everything-skills.git
+cd everything-skills
 npm run skill -- search "代码库导览" --limit 3
 npm run skill -- why codebase-onboarding-doc
 ```
@@ -29,7 +31,7 @@ Claude Code 安装一个卷的方式：
 
 ```text
 /plugin marketplace add findscripter/everything-skills
-/plugin install 02-engineering@everything-skills
+/plugin install 07-productivity@everything-skills
 ```
 
 网页入口：[Everything Skills 检索站](https://findscripter.github.io/everything-skills/)；操作示例：[examples](https://github.com/findscripter/everything-skills/blob/main/examples/README.md)。
