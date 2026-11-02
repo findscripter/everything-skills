@@ -1,0 +1,11 @@
+{
+  "name": "trail-notes-fixture",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "test": "node --test test/core.test.mjs",
+    "demo": "node apps/cli/index.mjs"
+  }
+}

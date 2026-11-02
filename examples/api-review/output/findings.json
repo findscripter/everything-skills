@@ -1,0 +1,101 @@
+{
+  "scope": "original synthetic OpenAPI fixture; static specification only",
+  "disposition": "revise-or-version",
+  "findings": [
+    {
+      "id": "BREAK_REMOVED_OPERATION",
+      "category": "breaking",
+      "location": "/paths/~1api~1v1~1widgets/get",
+      "before": "present",
+      "after": "absent"
+    },
+    {
+      "id": "BREAK_RESPONSE_TYPE",
+      "category": "breaking",
+      "location": "/components/schemas/Widget/properties/id/type",
+      "before": "string",
+      "after": "integer"
+    },
+    {
+      "id": "BREAK_RESPONSE_PROPERTY",
+      "category": "breaking",
+      "location": "/components/schemas/Widget/properties/name",
+      "before": "string",
+      "after": "absent"
+    },
+    {
+      "id": "BREAK_REQUEST_REQUIRED",
+      "category": "breaking",
+      "location": "/components/schemas/CreateWidget/required",
+      "before": "optional: ownerId",
+      "after": "required: ownerId"
+    },
+    {
+      "id": "DESIGN_VERB_ROUTE",
+      "category": "design",
+      "location": "/paths/~1api~1v1~1getWidgets",
+      "before": "resource noun expected",
+      "after": "/api/v1/getWidgets"
+    },
+    {
+      "id": "DESIGN_UNBOUNDED_COLLECTION",
+      "category": "design",
+      "location": "/paths/~1api~1v1~1getWidgets/get/parameters",
+      "before": "bounded collection expected",
+      "after": "no maximum page size"
+    },
+    {
+      "id": "SEC_ANONYMOUS_DETAIL",
+      "category": "security-design",
+      "location": "/paths/~1api~1v1~1widgets~1{widgetId}/get/security",
+      "before": "global bearerAuth inherited previously",
+      "after": "anonymous override"
+    },
+    {
+      "id": "SEC_CLEARTEXT_SERVER",
+      "category": "security-design",
+      "location": "/servers/0/url",
+      "before": "https://api.example.invalid",
+      "after": "http://api.example.invalid"
+    }
+  ],
+  "scorecard": [
+    {
+      "dimension": "consistency",
+      "weight": 30,
+      "earned": 0,
+      "criterion": "No breaking change or verb route in this fixture"
+    },
+    {
+      "dimension": "documentation",
+      "weight": 20,
+      "earned": 20,
+      "criterion": "Every operation and response has a description"
+    },
+    {
+      "dimension": "security-design",
+      "weight": 20,
+      "earned": 0,
+      "criterion": "HTTPS and no explicit anonymous override"
+    },
+    {
+      "dimension": "usability",
+      "weight": 15,
+      "earned": 0,
+      "criterion": "Collection has a bounded page parameter"
+    },
+    {
+      "dimension": "performance-design",
+      "weight": 15,
+      "earned": 15,
+      "criterion": "Detail response declares an ETag; no latency measurement"
+    }
+  ],
+  "score": 35,
+  "grade": "F",
+  "scoreMeaning": "Example-specific documented design rubric, not runtime performance or security certification",
+  "inputSha256": {
+    "before.openapi.json": "1c3376b31690d332b8bd2e94d8aec38a92598e544172e853bfc4037fc0b7c6bf",
+    "after.openapi.json": "2c892bd076181b9c2cdcc0360f171ed1b95f8afa8aea03922d453f38deb4f3fa"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "snapshot_date": "2026-11-02",
+  "timezone": "Asia/Shanghai",
+  "source_commit": "8b5fbc17a5ed8122c8f02d2697800c8e84dde14f",
+  "source_repository": "https://github.com/findscripter/everything-skills",
+  "counts": {
+    "bundled_skill_index_entries": 1114,
+    "bundled_skill_entries_excluding_deprecated": 1093,
+    "deprecated_skill_entries": 21,
+    "marketplace_volume_plugins": 11,
+    "indexed_external_repository_records": 3273,
+    "graph_nodes": 1114,
+    "graph_raw_edges": 6787
+  },
+  "count_semantics": {
+    "bundled_skill_index_entries": "Generated search index entries for repository SKILL.md files; includes deprecated entries. Not a runtime validation count.",
+    "indexed_external_repository_records": "Records returned by the repository shared loader. External metadata/link directory, not bundled SKILL.md bodies; not a claim of distinct current installable skills.",
+    "graph_raw_edges": "Raw declared requires/related/combines_with edges; direction and declaration duplication are preserved. Not unique verified workflow combinations.",
+    "totals": "Bundled skills, external repository records, and graph edges must not be added together."
+  },
+  "sources": {
+    "INDEX/search.json": {
+      "url": "https://github.com/findscripter/everything-skills/blob/8b5fbc17a5ed8122c8f02d2697800c8e84dde14f/INDEX/search.json",
+      "sha256": "c9360d447aaea9bb3efd5de9dbc1ef85ab3b49a0854b8aaa55550383653e91b2"
+    },
+    "INDEX/graph.json": {
+      "url": "https://github.com/findscripter/everything-skills/blob/8b5fbc17a5ed8122c8f02d2697800c8e84dde14f/INDEX/graph.json",
+      "sha256": "8af5eb9033648c2458de1ca0745cfb2ca88646ad09e340b3d0dc4cb64defeed3"
+    },
+    "INDEX/quality.json": {
+      "url": "https://github.com/findscripter/everything-skills/blob/8b5fbc17a5ed8122c8f02d2697800c8e84dde14f/INDEX/quality.json",
+      "sha256": "a73dfe96768e4ca5debf60fd7d36fb08ace28cfe385e1742138441e8b8507fc9"
+    },
+    ".claude-plugin/marketplace.json": {
+      "url": "https://github.com/findscripter/everything-skills/blob/8b5fbc17a5ed8122c8f02d2697800c8e84dde14f/.claude-plugin/marketplace.json",
+      "sha256": "0131dd749bb9e22f6e38acebbcd31c7e613ed2654031fa951d83ffa2dbfb7898"
+    },
+    "scripts/everything-skills.mjs": {
+      "url": "https://github.com/findscripter/everything-skills/blob/8b5fbc17a5ed8122c8f02d2697800c8e84dde14f/scripts/everything-skills.mjs",
+      "sha256": "019fb1a3b71729b844ba65df96e1130760d02b7d506a3447c2563199e129f94c"
+    },
+    "README.md": {
+      "url": "https://github.com/findscripter/everything-skills/blob/8b5fbc17a5ed8122c8f02d2697800c8e84dde14f/README.md",
+      "sha256": "0182b4b4aeb1e252a897604208e23d607aeb3ac0da561a18bdc1564864467d4f"
+    }
+  },
+  "local_cli_observations": {
+    "date": "2026-11-02",
+    "node_version": "v24.19.0",
+    "search": {
+      "command": "npm run skill -- search \"代码库导览\" --limit 3",
+      "exit_code": 0,
+      "result_names": [
+        "codebase-onboarding-doc",
+        "codetour-authoring",
+        "docs-architect"
+      ]
+    },
+    "relationships": {
+      "command": "npm run skill -- why codebase-onboarding-doc",
+      "exit_code": 0,
+      "confirmed_outgoing_related": [
+        "docs-architect",
+        "readme-doc-writer",
+        "adr-writer",
+        "developer-experience-optimizer"
+      ],
+      "confirmed_outgoing_combines_with": [
+        "docs-architect",
+        "developer-experience-optimizer"
+      ]
+    },
+    "scope": "Local index retrieval only. Does not establish skill execution, marketplace installation, security certification, or public website availability."
+  },
+  "publication_status": {
+    "site": "requires deployment and pre-publication verification",
+    "examples": "requires public merge and case rerun",
+    "marketplace_install": "requires clean-environment smoke test",
+    "codex_file_workflow": "requires task demonstration",
+    "content": "drafts; not posted"
+  },
+  "x_post_lengths": [
+    {
+      "id": "1/4",
+      "characters_literal_urls": 211
+    },
+    {
+      "id": "2/4",
+      "characters_literal_urls": 252
+    },
+    {
+      "id": "3/4",
+      "characters_literal_urls": 229
+    },
+    {
+      "id": "4/4",
+      "characters_literal_urls": 245
+    },
+    {
+      "id": "A · task search",
+      "characters_literal_urls": 254
+    },
+    {
+      "id": "B · relationships",
+      "characters_literal_urls": 222
+    },
+    {
+      "id": "C · a small start",
+      "characters_literal_urls": 258
+    }
+  ]
+}

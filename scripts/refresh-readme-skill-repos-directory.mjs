@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Regenerate README skill-repos directory from data/skill-repos*.jsonl
-// Rebuilds the whole section: summaries + collapsible <details> per category.
+// Keep the homepage compact; full repository rows live in INDEX/skill-repos.md.
 // Usage:
 //   node scripts/refresh-readme-skill-repos-directory.mjs --lang=en
 //   node scripts/refresh-readme-skill-repos-directory.mjs --lang=zh
@@ -20,51 +20,25 @@ if (!['en', 'zh'].includes(LANG)) {
 }
 
 const SECTION_META_ZH = [
-  ['official', '1. 官方与权威（official）'],
-  ['collections', '2. 精选列表 / 大集合（collections）'],
-  ['vertical', '3. 垂直领域技能包（vertical）'],
-  ['infra', '4. 安装器 / 注册表 / 基础设施（infra）'],
-  ['other', '5. 其他（other）'],
-  ['unnamed', '6. 名称不含 skill / agent（unnamed）'],
+  ['official', '官方与权威', '1-官方与权威'],
+  ['collections', '精选列表 / 大集合', '2-精选列表--大集合'],
+  ['vertical', '垂直领域技能包', '3-垂直领域技能包'],
+  ['infra', '安装器 / 注册表 / 基础设施', '4-安装器--注册表--基础设施'],
+  ['other', '其他技能库', '5-其他值得索引的技能库'],
+  ['unnamed', '名称不含 skill / agent', '6-名称不含-skill--agent-的技能库本轮追加'],
 ];
 
 const SECTION_META_EN = [
-  ['official', '1. Official'],
-  ['collections', '2. Collections'],
-  ['vertical', '3. Vertical'],
-  ['infra', '4. Infra'],
-  ['other', '5. Other'],
-  ['unnamed', '6. Unnamed'],
+  ['official', 'Official', '1-official'],
+  ['collections', 'Collections', '2-collections'],
+  ['vertical', 'Domain skills', '3-vertical'],
+  ['infra', 'Installers / registries / infrastructure', '4-infra'],
+  ['other', 'Other skill libraries', '5-other'],
+  ['unnamed', 'Names without skill / agent', '6-unnamed-repo-name-lacks-skill--agent'],
 ];
 
 const SECTION_META = LANG === 'en' ? SECTION_META_EN : SECTION_META_ZH;
 const SECTION_HEADING = LANG === 'en' ? '## Skill repos directory' : '## 技能仓库目录';
-const EMPTY_SUMMARY = LANG === 'en' ? '(no summary)' : '（暂无摘要）';
-
-/** en → summary (English); zh → summary_zh then summary */
-function pickSummary(o) {
-  if (LANG === 'zh') {
-    const zh = o.summary_zh;
-    if (zh != null && String(zh).trim()) return zh;
-  }
-  return o.summary;
-}
-
-function sanitizeSummary(s) {
-  const t = String(s ?? '')
-    .replace(/[\r\n]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-  return t || EMPTY_SUMMARY;
-}
-
-/** Map Chinese status labels to English for --lang=en */
-function pickStatus(status) {
-  const s = String(status ?? '');
-  if (LANG !== 'en') return s;
-  const map = { '仅索引': 'indexed-only', '已采编': 'curated', '本项目': 'this-project' };
-  return map[s] || s;
-}
 
 let repos;
 try {
@@ -74,51 +48,46 @@ try {
   process.exit(1);
 }
 
-const byFull = new Map(repos.map(repo => [String(repo.full_name).toLowerCase(), repo]));
-
 const bySection = Object.fromEntries(SECTION_META.map(([id]) => [id, []]));
-for (const o of byFull.values()) {
-  const sec = bySection[o.section] ? o.section : 'unnamed';
-  bySection[sec].push(o);
-}
-for (const id of Object.keys(bySection)) {
-  bySection[id].sort(
-    (a, b) => (b.stars || 0) - (a.stars || 0) || String(a.full_name).localeCompare(String(b.full_name)),
-  );
-}
+for (const repo of repos) bySection[repo.section].push(repo);
 
-const total = byFull.size;
+const total = repos.length;
 const parts = [];
 parts.push(SECTION_HEADING + '\n');
 if (LANG === 'en') {
   parts.push(
-    `\nCurrently **${total}** indexed entries for GitHub skill libraries / marketplaces / curated lists. README summaries only — we do not vendor their source or copy their SKILL.md bodies.\n`,
+    `\nBrowse **${total}** indexed entries for external GitHub skill libraries, marketplaces, and curated lists. Their skill bodies are not bundled here.\n`,
   );
   parts.push(
-    '\nFull tables (stars / summary / license) are generated from `data/skill-repos.jsonl` (and part shards) into **[INDEX/skill-repos.md](INDEX/skill-repos.md)**. This page is the categorized link directory.\n',
+    '\nOpen a category below for the complete tables, including summaries, licenses, recorded stars, and review status. [Full repository index](INDEX/skill-repos.md).\n\n| Category | Indexed entries |\n| --- | ---: |\n',
   );
 } else {
   parts.push(
-    `\n目前有 **${total}** 条 GitHub 技能库/市场/精选列表目录记录。只根据 README 摘要，不收录对方源码、不复制 SKILL.md。\n`,
+    `\n浏览 **${total}** 条外部 GitHub 技能库、市场和精选列表目录记录；这些上游的技能正文不随本仓库安装。\n`,
   );
   parts.push(
-    '\n完整分表（含 stars / summary / license）由 `data/skill-repos.jsonl`（及 part 分片）生成，见 **[INDEX/skill-repos.md](INDEX/skill-repos.md)**。本页为归类链接目录。\n',
+    '\n点击分类查看完整条目、摘要、许可、历史 Stars 与复核状态。[完整仓库总目](INDEX/skill-repos.md)。\n\n| 分类 | 目录记录 |\n| --- | ---: |\n',
   );
 }
 
 const counts = {};
-for (const [id, title] of SECTION_META) {
+for (const [id, title, anchor] of SECTION_META) {
   const items = bySection[id];
   counts[id] = items.length;
-  const countLabel = LANG === 'en' ? ` (${items.length})` : `（${items.length}）`;
-  parts.push(`\n<details>\n<summary>${title}${countLabel}</summary>\n\n`);
-  for (const o of items) {
-    const url = o.html_url || `https://github.com/${o.full_name}`;
-    const summary = sanitizeSummary(pickSummary(o));
-    const state = upstreamStatus(o, LANG);
-    parts.push(`- [\`${o.full_name}\`](${url}) — ${summary}${state ? ` (${state})` : ''}\n`);
-  }
-  parts.push(`\n</details>\n`);
+  const label = items.length ? `[${title}](INDEX/skill-repos.md#${anchor})` : title;
+  parts.push(`| ${label} | ${items.length} |\n`);
+}
+
+// Preserve the distinction between directory coverage and current recommendations.
+const states = new Map();
+for (const repo of repos) {
+  const state = upstreamStatus(repo, LANG);
+  if (state && state !== (LANG === 'en' ? 'upstream accessible' : '上游可访问'))
+    states.set(state, (states.get(state) || 0) + 1);
+}
+if (states.size) {
+  const label = LANG === 'en' ? 'Recorded upstream status' : '已记录的上游状态';
+  parts.push(`\n${label}: ${[...states].map(([state, count]) => `${count} ${state}`).join(' · ')}.\n`);
 }
 
 const newSec = parts.join('');

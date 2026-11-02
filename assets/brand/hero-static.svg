@@ -13,11 +13,11 @@
   <rect width="1200" height="360" rx="20" fill="#111d1a"/>
   <rect x="1" y="1" width="1198" height="358" rx="19" fill="url(#grid)" stroke="#30473c"/>
   <path d="M44 44H69 M44 44V69 M1156 316H1131 M1156 316V291" stroke="#deb46c" stroke-opacity=".6" fill="none"/>
-  <text x="66" y="72" class="mono" font-size="12" letter-spacing="3.5" fill="#deb46c">AN ATLAS OF AGENT SKILLS</text>
+  <text x="66" y="72" class="mono" font-size="12" letter-spacing="3.5" fill="#deb46c">TASKS / SKILLS / WORKFLOWS</text>
   <text x="62" y="155" class="sans" font-size="70" font-weight="700" letter-spacing="-3" fill="#f3eddc">EVERYTHING</text>
   <text x="62" y="233" class="serif" font-size="78" font-style="italic" letter-spacing="1" fill="#deb46c">Skills.</text>
   <path d="M66 259H649" stroke="#385348"/>
-  <text x="66" y="290" class="sans" font-size="15" fill="#b6c8bc" letter-spacing=".4">Curated by domain. Connected by knowledge.</text>
+  <text x="66" y="290" class="sans" font-size="15" fill="#b6c8bc" letter-spacing=".4">Find a skill. Connect steps. Build a workflow.</text>
   <text x="66" y="316" class="mono" font-size="10" fill="#819b8e" letter-spacing="1.5">OPEN SOURCE  /  NATIVE LANGUAGES  /  ONE SHARED MAP</text>
   <path d="M755 52V308" stroke="#2b4338"/>
   <g><path d="M982 176 L982.00 56.00" stroke="#385348" stroke-width="1"/>

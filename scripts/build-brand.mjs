@@ -73,11 +73,11 @@ function hero(animated = true) {
   <rect width="1200" height="360" rx="20" fill="#111d1a"/>
   <rect x="1" y="1" width="1198" height="358" rx="19" fill="url(#grid)" stroke="#30473c"/>
   <path d="M44 44H69 M44 44V69 M1156 316H1131 M1156 316V291" stroke="#deb46c" stroke-opacity=".6" fill="none"/>
-  <text x="66" y="72" class="mono" font-size="12" letter-spacing="3.5" fill="#deb46c">AN ATLAS OF AGENT SKILLS</text>
+  <text x="66" y="72" class="mono" font-size="12" letter-spacing="3.5" fill="#deb46c">TASKS / SKILLS / WORKFLOWS</text>
   <text x="62" y="155" class="sans" font-size="70" font-weight="700" letter-spacing="-3" fill="#f3eddc">EVERYTHING</text>
   <text x="62" y="233" class="serif" font-size="78" font-style="italic" letter-spacing="1" fill="#deb46c">Skills.</text>
   <path d="M66 259H649" stroke="#385348"/>
-  <text x="66" y="290" class="sans" font-size="15" fill="#b6c8bc" letter-spacing=".4">Curated by domain. Connected by knowledge.</text>
+  <text x="66" y="290" class="sans" font-size="15" fill="#b6c8bc" letter-spacing=".4">Find a skill. Connect steps. Build a workflow.</text>
   <text x="66" y="316" class="mono" font-size="10" fill="#819b8e" letter-spacing="1.5">OPEN SOURCE  /  NATIVE LANGUAGES  /  ONE SHARED MAP</text>
   <path d="M755 52V308" stroke="#2b4338"/>
   <g>${spokes}${edges}</g>
@@ -91,28 +91,28 @@ function hero(animated = true) {
 }
 
 function metrics() {
-  const items = [[stats.skills, 'CURATED SKILLS', '#deb46c'], [stats.volumes, 'DOMAIN VOLUMES', '#90b8a7'], [stats.edges, 'RELATION EDGES', '#e88f76'], [stats.repos, 'INDEXED ENTRIES', '#deb46c']];
+  const items = [[stats.skills, 'SKILL ENTRIES', '#deb46c'], [stats.volumes, 'DOMAIN VOLUMES', '#90b8a7'], [stats.edges, 'RELATION EDGES', '#e88f76'], [stats.repos, 'INDEXED ENTRIES', '#deb46c']];
   const body = `  <rect width="1200" height="138" rx="16" fill="#f3eddc"/>
   <rect x=".5" y=".5" width="1199" height="137" rx="15.5" fill="none" stroke="#d9d2bc"/>
   ${items.map(([value, label, color], i) => `<g transform="translate(${i * 300} 0)">${i ? '<path d="M0 27V111" stroke="#d9d2bc"/>' : ''}<circle cx="28" cy="29" r="3" fill="${color}"/><text x="42" y="33" class="mono" font-size="10.5" letter-spacing="1.6" fill="#526657">${label}</text><text x="27" y="95" class="serif" font-size="51" fill="#182c23">${fmt(value)}</text><path d="M28 114H271" stroke="#c9c5af"/></g>`).join('\n')}`;
-  return wrap(1200, 138, 'Everything Skills at a glance', `${stats.skills} curated skills, ${stats.volumes} domain volumes, ${stats.edges} raw relation edges, and ${stats.repos} indexed entries.`, body, false);
+  return wrap(1200, 138, 'Everything Skills at a glance', `${stats.skills} skill entries, ${stats.volumes} domain volumes, ${stats.edges} raw relation edges, and ${stats.repos} indexed entries.`, body, false);
 }
 
 function mobileHero(animated = true) {
   const body = `  <rect width="600" height="360" rx="20" fill="#111d1a"/>
   <rect x="1" y="1" width="598" height="358" rx="19" fill="none" stroke="#30473c"/>
-  <text x="32" y="48" class="mono" font-size="12" letter-spacing="2.6" fill="#deb46c">AN ATLAS OF AGENT SKILLS</text>
+  <text x="32" y="48" class="mono" font-size="12" letter-spacing="2.6" fill="#deb46c">TASKS / SKILLS / WORKFLOWS</text>
   <text x="29" y="128" class="sans" font-size="62" font-weight="700" letter-spacing="-3" fill="#f3eddc">EVERYTHING</text>
   <text x="29" y="216" class="serif" font-size="80" font-style="italic" fill="#deb46c">Skills.</text>
   ${logoAt(433, 138, 108, animated)}
   <path d="M32 254H568" stroke="#385348"/>
-  <text x="32" y="288" class="sans" font-size="19" fill="#b6c8bc">Curated by domain. Connected by knowledge.</text>
+  <text x="32" y="288" class="sans" font-size="19" fill="#b6c8bc">Find a skill. Connect steps. Build a workflow.</text>
   <text x="32" y="325" class="mono" font-size="11" letter-spacing="1.2" fill="#819b8e">${stats.volumes} VOLUMES / ONE LIVING LIBRARY</text>`;
   return wrap(600, 360, 'Everything Skills', 'A compact book-inspired identity for the Agent Skills atlas.', body, animated);
 }
 
 function mobileMetrics() {
-  const items = [[stats.skills, 'CURATED SKILLS'], [stats.volumes, 'DOMAIN VOLUMES'], [stats.edges, 'RELATION EDGES'], [stats.repos, 'INDEXED ENTRIES']];
+  const items = [[stats.skills, 'SKILL ENTRIES'], [stats.volumes, 'DOMAIN VOLUMES'], [stats.edges, 'RELATION EDGES'], [stats.repos, 'INDEXED ENTRIES']];
   const body = `  <rect width="600" height="260" rx="16" fill="#f3eddc"/>
   <path d="M300 20V240M20 130H580" stroke="#d9d2bc"/>
   ${items.map(([n, label], i) => `<g transform="translate(${i % 2 * 300} ${Math.floor(i / 2) * 130})"><text x="26" y="35" class="mono" font-size="13" letter-spacing="1" fill="#526657">${label}</text><text x="24" y="100" class="serif" font-size="54" fill="#182c23">${fmt(n)}</text></g>`).join('\n')}`;
@@ -145,7 +145,7 @@ let readme = await fs.readFile(path.join(ROOT, 'README.md'), 'utf8');
 const start = readme.indexOf(BEGIN), end = readme.indexOf(END);
 if (start < 0 || end < start || readme.indexOf(BEGIN, start + BEGIN.length) >= 0 || readme.indexOf(END, end + END.length) >= 0)
   throw new Error('README needs exactly one ordered pair of brand markers.');
-const tagline = lang === 'zh' ? '事以类聚，技以互见。为 AI Agent 编写的技能类书。' : 'An encyclopedic skill library for AI agents. Curated by domain. Connected by knowledge.';
+const tagline = lang === 'zh' ? '从任务出发找技能，沿关系组合工作流，按领域安装。' : 'Find skills by task. Connect them into workflows. Install by volume.';
 const nav = lang === 'zh' ? ['技能总目', '关系图谱', '外部技能库', '贡献指南'] : ['Skill catalog', 'Knowledge graph', 'Skill repositories', 'Contributing'];
 const block = `${BEGIN}
 <p align="center">
