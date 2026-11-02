@@ -8,7 +8,7 @@ tags: [accessibility, a11y, wcag, frontend, audit, axe-core, aria, testing]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [axe-core, puppeteer, jest-axe, pa11y, @testing-library/react, GitHub Actions]
+tools: [axe-core, puppeteer, jest-axe, pa11y, "@testing-library/react", GitHub Actions]
 requires: []
 related: []
 combines_with: []

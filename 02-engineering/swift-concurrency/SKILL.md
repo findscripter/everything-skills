@@ -3,7 +3,7 @@ name: swift-concurrency
 title: Swift 并发与 Actor 隔离
 description: 当审查/修复 Swift 6.2+ 并发问题（actor 隔离、Sendable 违规、@MainActor、async 迁移）或读编译器数据竞争诊断时使用；做最小行为变更的安全修复并给出改后代码与验证清单；不适用于纯功能开发、非并发崩溃排查、Objective-C 旧式 GCD 调优；触发词：Swift 并发、actor 隔离、Sendable、@MainActor、@concurrent、data race。
 domain: 研发/mobile
-triggers: [Swift 并发, actor 隔离, Sendable, @MainActor, @concurrent, data race, nonisolated, Swift 6.2]
+triggers: [Swift 并发, actor 隔离, Sendable, "@MainActor", "@concurrent", data race, nonisolated, Swift 6.2]
 tags: [swift, concurrency, actor, ios, mobile]
 level: 精通
 status: stable

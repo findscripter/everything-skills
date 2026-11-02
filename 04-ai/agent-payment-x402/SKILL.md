@@ -8,7 +8,7 @@ tags: [x402, agent-payment, spending-policy, non-custodial-wallet, mcp, agentwal
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [MCP 支付服务器（agentwallet-sdk / OKX Payments）, @modelcontextprotocol/sdk Client + StdioClientTransport, preToolHook / postToolHook 编排钩子]
+tools: [MCP 支付服务器（agentwallet-sdk / OKX Payments）, "@modelcontextprotocol/sdk Client + StdioClientTransport", preToolHook / postToolHook 编排钩子]
 requires: []
 related: [agent-tool-builder, agent-tool-design, mcp-builder, stripe-integration]
 combines_with: [agent-tool-builder, mcp-builder, langgraph-agent-framework]

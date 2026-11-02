@@ -12,10 +12,14 @@ Welcome — add or improve skills for **AI agent consumption**. The bar is alway
 4. **Body**: fixed sections (when to use / steps / examples / cautions / cross-refs); keep it executable and tight.
 5. **Validate**:
    ```bash
+   npm ci
+   npm run check:distribution
    npm run build
    npm test
    ```
    No missing required fields, no duplicate `name`, no dangling cross-refs. The generator rebuilds `INDEX/`.
+
+The local search CLI and index builders remain dependency-free. `npm ci` installs the pinned development-only standard YAML validator used by distribution checks/tests. Quote YAML scalars starting with `@` (including scoped npm package names) and descriptions containing `: `. Archived skills and `_template/SKILL.md` declare `metadata: {"internal": true}` so standard installers exclude them; remove that flag when turning a copied template into a real active skill. Do not remove it from a historical archive to increase discovery counts.
 
 ## PR checklist
 

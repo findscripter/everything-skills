@@ -9,7 +9,7 @@ level: 进阶
 status: deprecated
 deprecate_reason: "Original upstream skill ID was not found during the 2026-09-16 source audit; retained as a historical archive with no replacement."
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [@aomi-labs/client, aomi, npm, npx]
+tools: ["@aomi-labs/client", aomi, npm, npx]
 requires: []
 related: [blockchain-web3-developer, agent-payment-x402, defi-protocol-templates, evm-token-decimals]
 combines_with: [solidity-security-auditor, nodejs-keccak256-hashing]
@@ -17,6 +17,7 @@ license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
 supersedes: []
+metadata: {"internal": true}
 ---
 > **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用

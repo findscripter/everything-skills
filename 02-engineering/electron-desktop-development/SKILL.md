@@ -8,7 +8,7 @@ tags: [electron, 桌面应用, 跨平台, ipc, 安全加固, preload, contextiso
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [electron, electron-builder, electron-forge, electron-vite, electron-updater, electron-store, electron-log, @electron/rebuild, Vite, Playwright, Vitest]
+tools: [electron, electron-builder, electron-forge, electron-vite, electron-updater, electron-store, electron-log, "@electron/rebuild", Vite, Playwright, Vitest]
 requires: []
 related: [chrome-extension-mv3, progressive-web-app, vscode-extension-development, react-state-management]
 combines_with: [typescript-advanced-types, shadcn-ui-components, ci-cd-pipeline-builder]

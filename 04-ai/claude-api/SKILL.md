@@ -3,12 +3,12 @@ name: claude-api
 title: Claude API 应用开发
 description: 当用基于 Anthropic 官方 SDK 构建、调试、优化 Claude API 应用，或在模型版本间迁移代码时使用；做出含提示缓存、自适应思考、工具调用与流式的可运行 Claude 调用代码（产物：SDK 调用代码与配置）；不适用于 OpenAI/其他厂商 SDK、provider-neutral 代码或通用编程/ML 问题；触发词：Claude API、Anthropic SDK、anthropic、prompt caching、提示缓存、tool use、工具调用、Managed Agents、模型迁移、claude-opus-4-8、adaptive thinking
 domain: 智能/model-ops
-triggers: [Claude API, Anthropic SDK, anthropic, @anthropic-ai/sdk, prompt caching, 提示缓存, 缓存命中率, tool use, 工具调用, Managed Agents, 托管智能体, 模型迁移, claude-opus-4-8, adaptive thinking, 自适应思考, effort, batch, 流式 streaming]
+triggers: [Claude API, Anthropic SDK, anthropic, "@anthropic-ai/sdk", prompt caching, 提示缓存, 缓存命中率, tool use, 工具调用, Managed Agents, 托管智能体, 模型迁移, claude-opus-4-8, adaptive thinking, 自适应思考, effort, batch, 流式 streaming]
 tags: [claude-api, anthropic-sdk, llm, prompt-caching, tool-use, model-ops, managed-agents, streaming]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [anthropic (Python SDK), @anthropic-ai/sdk (TypeScript), curl/raw HTTP, WebFetch]
+tools: [anthropic (Python SDK), "@anthropic-ai/sdk (TypeScript)", curl/raw HTTP, WebFetch]
 requires: []
 related: [vercel-ai-sdk, github-copilot-sdk, pydantic-ai-agents, llm-prompt-caching]
 combines_with: [llm-prompt-optimizer, context-window-management, langfuse-llm-observability]

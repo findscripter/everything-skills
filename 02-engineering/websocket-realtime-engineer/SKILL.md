@@ -8,7 +8,7 @@ tags: [backend, 实时通信, websocket, socket.io, redis, 横向扩展, 鉴权]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Node.js, Socket.IO, ws, Redis, @socket.io/redis-adapter, JWT/jsonwebtoken, wscat, nginx]
+tools: [Node.js, Socket.IO, ws, Redis, "@socket.io/redis-adapter", JWT/jsonwebtoken, wscat, nginx]
 requires: []
 related: [convex-reactive-backend, discord-bot-architect, hono-edge-api, rest-api-endpoint-builder]
 combines_with: [bullmq-job-queue, react-state-management, distributed-tracing]

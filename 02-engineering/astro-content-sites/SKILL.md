@@ -1,9 +1,9 @@
 ---
 name: astro-content-sites
 title: Astro 内容型网站构建
-description: 当构建博客/文档/营销页/作品集等内容密集站点且追求 Core Web Vitals 时使用；用 Astro 岛屿架构产出默认零 JS 的 SSG/SSR 站点（含内容集合、按需水合、多框架组件）；不适用于重交互的 SPA 或全栈应用主体；触发词：astro、.astro 文件、client: 指令、content collections、Astro.props、岛屿架构。
+description: "当构建博客/文档/营销页/作品集等内容密集站点且追求 Core Web Vitals 时使用；用 Astro 岛屿架构产出默认零 JS 的 SSG/SSR 站点（含内容集合、按需水合、多框架组件）；不适用于重交互的 SPA 或全栈应用主体；触发词：astro、.astro 文件、client: 指令、content collections、Astro.props、岛屿架构。"
 domain: 研发/frontend
-triggers: [搭建 Astro 博客/文档/营销站, 需要默认零 JS、优化 Core Web Vitals, 处理 Markdown/MDX 内容集合, 出现 .astro / Astro.props / client: 指令 / getStaticPaths, 需要 SSG 静态输出并按页开启 SSR]
+triggers: ["搭建 Astro 博客/文档/营销站","需要默认零 JS、优化 Core Web Vitals","处理 Markdown/MDX 内容集合","出现 .astro / Astro.props / client: 指令 / getStaticPaths","需要 SSG 静态输出并按页开启 SSR"]
 tags: [astro, ssg, ssr, islands, content-collections, markdown, mdx, frontend, performance]
 level: 进阶
 status: stable

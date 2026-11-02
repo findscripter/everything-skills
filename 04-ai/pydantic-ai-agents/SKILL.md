@@ -3,7 +3,7 @@ name: pydantic-ai-agents
 title: PydanticAI 智能体开发
 description: 当用 Python 构建类型安全、可测试的生产级 LLM 智能体（结构化输出、工具调用、依赖注入、多模型切换）时使用；做出经 Pydantic 校验的 Agent 代码与单测；不适用于一次性裸提问、纯提示词设计或非 Python 栈；触发词：PydanticAI、Agent、result_type、@agent.tool、RunContext、ModelRetry、结构化输出。
 domain: 智能/agents
-triggers: [PydanticAI, Agent, result_type, @agent.tool, RunContext, ModelRetry, 结构化输出, TestModel, 依赖注入, 类型安全智能体]
+triggers: [PydanticAI, Agent, result_type, "@agent.tool", RunContext, ModelRetry, 结构化输出, TestModel, 依赖注入, 类型安全智能体]
 tags: [pydantic-ai, ai-agents, llm, tool-use, structured-output, python]
 level: 进阶
 status: stable

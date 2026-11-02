@@ -16,6 +16,7 @@ combines_with: []
 license: MIT
 source: wshobson/agents
 source_license: MIT
+metadata: {"internal": true}
 ---
 
 > 历史归档：本条职责已合并到 [market-sizing-tam-sam-som](../market-sizing-tam-sam-som/SKILL.md)。执行时使用规范条目；以下正文仅保留供追溯。

@@ -3,7 +3,7 @@ name: bun-runtime-development
 title: Bun 运行时现代 JS/TS 开发
 description: 当用 Bun 启动新 JS/TS 项目、从 Node.js 迁移、或用其内置打包/测试/SQLite/HTTP 等能力提速开发时使用；产出可运行的 Bun 项目脚手架、依赖与脚本配置、Bun 原生 API 代码及打包/编译产物；不适用于必须依赖 Node 专有 API（如 setImmediate、process.hrtime）或纯前端框架内部细节的场景。触发词：bun、bun.serve、bun:sqlite、bunx、bun test、bun build、@types/bun、从 Node 迁移
 domain: 研发/backend
-triggers: [bun, bunx, bun init, bun install, bun add, bun run, bun test, bun build, bun.serve, bun:sqlite, bun:test, Bun.file, Bun.password, @types/bun, 从 Node 迁移到 Bun, Elysia, bun --watch, bun --hot, bun --compile]
+triggers: [bun, bunx, bun init, bun install, bun add, bun run, bun test, bun build, bun.serve, bun:sqlite, bun:test, Bun.file, Bun.password, "@types/bun", 从 Node 迁移到 Bun, Elysia, bun --watch, bun --hot, bun --compile]
 tags: [bun, javascript, typescript, 运行时, 包管理, 测试, 打包, sqlite, http-server, node-migration, 研发, misc]
 level: 进阶
 status: stable

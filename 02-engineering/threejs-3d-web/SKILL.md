@@ -8,7 +8,7 @@ tags: [frontend, 3d, three.js, react three fiber, webgl, 性能优化, 可视化
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Three.js, @react-three/fiber, @react-three/drei, @splinetool/react-spline, gltf-transform, GSAP/ScrollTrigger, Blender]
+tools: [Three.js, "@react-three/fiber", "@react-three/drei", "@splinetool/react-spline", gltf-transform, GSAP/ScrollTrigger, Blender]
 requires: []
 related: []
 combines_with: []

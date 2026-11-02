@@ -8,7 +8,7 @@ tags: [apify, ecommerce, web-scraping, price-monitoring, review-analysis, integr
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Apify Actor: apify/e-commerce-scraping-tool, Node.js 20.6+, run_actor.js]
+tools: ["Apify Actor: apify/e-commerce-scraping-tool","Node.js 20.6+","run_actor.js"]
 requires: []
 related: [firecrawl-web-scraper, browser-automation-builder, defuddle-web-extract, exa-semantic-search]
 combines_with: [browser-automation-builder, competitive-analysis, csv-data-cleaner]
