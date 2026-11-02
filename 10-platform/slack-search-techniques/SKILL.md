@@ -3,7 +3,7 @@ name: slack-search-techniques
 title: Slack 检索技巧（消息/文件/人）
 description: 当需要在 Slack 中查找消息、对话、文件、频道或人，或回答前需先收集 Slack 上下文时使用；做选对搜索工具+组合修饰符+多轮检索的可执行策略与产物；不适用于发送/编排消息（见 slack-messaging）；触发词：Slack 搜索、查消息、找频道/找人
 domain: 平台/integration
-triggers: [在 Slack 里搜消息/对话, 按关键词或自然语言找内容, 查找频道/文件/人员, 回答前需收集 Slack 上下文, 用 in:/from:/before: 等修饰符精确检索]
+triggers: ["在 Slack 里搜消息/对话","按关键词或自然语言找内容","查找频道/文件/人员","回答前需收集 Slack 上下文","用 in:/from:/before: 等修饰符精确检索"]
 tags: [slack, 搜索, integration, 平台, 协作工具]
 level: 进阶
 status: stable

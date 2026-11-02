@@ -8,7 +8,7 @@ tags: [bullmq, redis, 任务队列, 后台处理, node.js, typescript, 异步, w
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [bullmq, ioredis, @bull-board/api, @bull-board/express]
+tools: [bullmq, ioredis, "@bull-board/api", "@bull-board/express"]
 requires: []
 related: [temporal-workflow-python, saga-orchestration, rest-api-endpoint-builder, error-handling-patterns]
 combines_with: [nestjs-expert, error-handling-patterns, transactional-email-template-builder]

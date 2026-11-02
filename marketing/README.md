@@ -1,6 +1,8 @@
 # Everything Skills 发布包
 
-状态：待审阅草稿。没有自动发布、私信或联系任何人。
+状态：2026-11-02 已按维护者授权提交 [阮一峰周刊自荐 #13005](https://github.com/ruanyf/weekly/issues/13005) 和 [HelloGitHub 自荐 #4213](https://github.com/521xueweihan/HelloGitHub/issues/4213)，等待编辑处理。下列 V2EX、掘金、X 等材料仍为草稿，未发出；V2EX 等待账号激活。
+
+投稿身份、正文校验和技能分发验证见[本轮回执](submissions-2026-11-02.json)。提交不代表已被周刊或月刊收录。
 
 定位：**从任务出发检索 Agent Skills，查看技能关系，再按需使用。** 面向中文 Claude Code / Codex 用户。Claude Code 支持 marketplace 按卷安装；Codex 通过仓库的 `AGENTS.md` 和技能文件使用。两条路径分别说明。
 
@@ -14,6 +16,7 @@
 | [成效记录模板](channel-results.csv) | 保存公开内容表现，不填写虚构数据 |
 | [定位与 claim 核对](positioning-and-claims.md) | 用词边界、来源和发布门槛 |
 | [统计快照](snapshot-2026-11-02.json) | 固定版本的数字口径 |
+| [2026-11-02 投稿与分发回执](submissions-2026-11-02.json) | 已提交的公开链接及验证范围 |
 
 ## 发布顺序
 

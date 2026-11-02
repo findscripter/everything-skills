@@ -3,7 +3,7 @@ name: nestjs-expert
 title: NestJS 企业架构
 description: 当用 NestJS 构建或排障企业级 Node.js 后端时使用；做模块/依赖注入设计、守卫拦截器管道、TypeORM/Mongoose 集成、Passport+JWT 鉴权、Jest/Supertest 测试与常见报错诊断并产出生产级代码；不适用于纯 TS 类型、纯 SQL 调优、前端或非 NestJS 框架。触发词：NestJS、依赖注入、forwardRef、Guard、Interceptor、TypeORM、Passport JWT
 domain: 研发/backend
-triggers: [NestJS, Nest.js, 依赖注入, DI, forwardRef, 循环依赖, Module, Guard, Interceptor, Pipe, Exception Filter, TypeORM, Mongoose, Passport, JWT, @nestjs/testing, Nest can't resolve dependencies, Unknown authentication strategy]
+triggers: [NestJS, Nest.js, 依赖注入, DI, forwardRef, 循环依赖, Module, Guard, Interceptor, Pipe, Exception Filter, TypeORM, Mongoose, Passport, JWT, "@nestjs/testing", Nest can't resolve dependencies, Unknown authentication strategy]
 tags: [nestjs, nodejs, typescript, dependency-injection, typeorm, mongoose, jwt, passport, testing, 后端, 研发]
 level: 进阶
 status: stable

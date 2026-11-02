@@ -9,13 +9,14 @@ level: 进阶
 status: deprecated
 deprecate_reason: 同职责内容已合并至 x-twitter-scraper-toolkit；保留原文供历史追溯。
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Xquik REST API (https://xquik.com/api/v1), Xquik MCP (https://xquik.com/mcp, StreamableHTTP), 官方 SDK: TypeScript/Python/Ruby/Go/Kotlin/Java/PHP/C#/CLI/Terraform, Hermes Tweet 插件 (hermes-tweet), TweetClaw 插件 (@xquik/tweetclaw)]
+tools: ["Xquik REST API (https://xquik.com/api/v1)","Xquik MCP (https://xquik.com/mcp","StreamableHTTP)","官方 SDK: TypeScript/Python/Ruby/Go/Kotlin/Java/PHP/C#/CLI/Terraform","Hermes Tweet 插件 (hermes-tweet)","TweetClaw 插件 (@xquik/tweetclaw)"]
 requires: []
 related: []
 combines_with: []
 license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
+metadata: {"internal": true}
 ---
 
 > 历史归档：本条职责已合并到 [x-twitter-scraper-toolkit](../x-twitter-scraper-toolkit/SKILL.md)。执行时使用规范条目；以下正文仅保留供追溯。

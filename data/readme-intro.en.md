@@ -46,6 +46,22 @@ Then supply your OpenAPI file or API specification and start with:
 
 Each volume below is a separate plugin; install several when your task needs them.
 
+### Install one skill for Codex with the skills CLI
+
+With Node.js **22.20.0 or later**, run this from the project where you want the skill available:
+
+```sh
+npx skills@1.7.4 add findscripter/everything-skills --skill codebase-onboarding-doc --agent codex --copy
+```
+
+This installs the selected skill files at project scope. Read their runtime prerequisites before using them for a task. To discover the default public set without installing, use a separate command:
+
+```sh
+npx skills@1.7.4 add findscripter/everything-skills --list
+```
+
+Claude Code's volume plugins and the skills CLI's individual-skill installation are separate options.
+
 ### Local search with Node.js 22 or later
 
 With Git, Node.js **>=22**, and npm available, run:

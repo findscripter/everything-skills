@@ -68,7 +68,9 @@ npm run check
 npm run build:zh
 npm run check:zh
 
-# 零依赖的元数据和品牌回归测试
+# 安装开发期 YAML 校验器，再运行回归；本地检索 CLI 仍为零依赖
+npm ci
+npm run check:distribution
 npm test
 ```
 

@@ -8,7 +8,7 @@ tags: [zoom, rtms, meeting-sdk, bot, realtime-media, websocket, transcription, w
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Node.js, @zoom/rtms, @zoom/meetingsdk, WebSocket, ws, jsrsasign, Python]
+tools: [Node.js, "@zoom/rtms", "@zoom/meetingsdk", WebSocket, ws, jsrsasign, Python]
 requires: []
 related: [zoom-rtms-realtime-media, zoom-meeting-app-builder, zoom-virtual-agent-builder, zoom-product-surface-selector]
 combines_with: [zoom-oauth-setup, zoom-webhooks-setup, zoom-ai-scribe-transcription]

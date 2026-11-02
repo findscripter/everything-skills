@@ -8,7 +8,7 @@ tags: [react, nextjs, tanstack-query, react-query, frontend, data-fetching, stat
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [@tanstack/react-query, react, nextjs, typescript]
+tools: ["@tanstack/react-query", react, nextjs, typescript]
 requires: []
 related: [react-state-management, trpc-typesafe-api, zod-schema-validation, sveltekit-fullstack]
 combines_with: [rest-api-endpoint-builder, typescript-advanced-types, shadcn-ui-components]

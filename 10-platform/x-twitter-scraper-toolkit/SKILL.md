@@ -8,7 +8,7 @@ tags: [twitter, x-api, tweet-search, follower-export, automation, webhooks, mcp,
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Xquik REST API (https://xquik.com/api/v1), Xquik MCP (https://xquik.com/mcp, StreamableHTTP), 官方 SDK: TypeScript/Python/Ruby/Go/Kotlin/Java/PHP/C#/CLI/Terraform, Hermes Tweet 插件 (hermes-tweet), TweetClaw 插件 (@xquik/tweetclaw)]
+tools: ["Xquik REST API (https://xquik.com/api/v1)","Xquik MCP (https://xquik.com/mcp","StreamableHTTP)","官方 SDK: TypeScript/Python/Ruby/Go/Kotlin/Java/PHP/C#/CLI/Terraform","Hermes Tweet 插件 (hermes-tweet)","TweetClaw 插件 (@xquik/tweetclaw)"]
 requires: []
 related: [x-post-to-json-fetcher, browser-automation-builder, apify-ecommerce-scraper, social-media-multi-publisher]
 combines_with: [social-media-multi-publisher, news-sentiment-briefing, social-media-content-creator, social-media-performance-analyzer]
