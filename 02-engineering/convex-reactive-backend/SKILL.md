@@ -8,7 +8,7 @@ tags: [convex, 响应式后端, baas, typescript, 实时订阅, schema设计, �
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Convex CLI (npx convex), TypeScript, React/Next.js, convex/react, @convex-dev/auth]
+tools: [Convex CLI (npx convex), TypeScript, React/Next.js, convex/react, "@convex-dev/auth"]
 requires: []
 related: []
 combines_with: []

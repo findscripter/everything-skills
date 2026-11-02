@@ -3,7 +3,7 @@ name: bats-shell-testing
 title: Bats Shell 脚本自动化测试
 description: 当为 Bash/POSIX shell 脚本、CLI 工具或 CI 流程写单元测试、做 TDD 时使用；做 Bats（Bash Automated Testing System）测试编写——断言退出码/输出/文件副作用、setup/teardown 夹具、命令打桩(stub)、CI 接入，产出 .bats 测试套件与 TAP 报告；不适用于非 shell 项目、跨服务集成测试、仅做 lint/格式化或纯 shellcheck 静态检查；触发词：bats、shell 脚本测试、@test、TAP、脚本 TDD
 domain: 研发/testing
-triggers: [写 shell 脚本测试, bats-core, @test 断言, shell 脚本 TDD, 测试退出码与输出, setup/teardown 夹具, 命令 stub/mock, CI 跑 bats, TAP 测试报告, 测脚本错误分支]
+triggers: [写 shell 脚本测试, bats-core, "@test 断言", shell 脚本 TDD, 测试退出码与输出, setup/teardown 夹具, 命令 stub/mock, CI 跑 bats, TAP 测试报告, 测脚本错误分支]
 tags: [bats, shell, 测试, tdd, bash, ci, fixtures, 脚本工程, 研发, tap]
 level: 进阶
 status: stable

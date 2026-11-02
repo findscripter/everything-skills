@@ -16,6 +16,8 @@ license: CC-BY-4.0
 # 采编自第三方时填写（自有原创可删除以下两行）：
 # source: owner/repo
 # source_license: Apache-2.0
+# Template only: remove this field when publishing a real active skill.
+metadata: {"internal": true}
 ---
 
 # 中文标题

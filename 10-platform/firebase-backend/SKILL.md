@@ -8,7 +8,7 @@ tags: [firebase, firestore, 后端即服务, 认证, 云函数, 安全规则, �
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [firebase, firebase-admin, firebase-functions, firebase-tools, @firebase/rules-unit-testing]
+tools: [firebase, firebase-admin, firebase-functions, firebase-tools, "@firebase/rules-unit-testing"]
 requires: []
 related: [convex-reactive-backend, neon-serverless-postgres, cloudflare-workers-edge, gcp-cloud-run]
 combines_with: [firebase-apk-scanner, rest-api-endpoint-builder, stripe-integration]

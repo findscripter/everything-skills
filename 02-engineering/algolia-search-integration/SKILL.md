@@ -8,7 +8,7 @@ tags: [algolia, instantsearch, 搜索, 索引, relevance, faceting, autocomplete
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [algoliasearch, react-instantsearch, react-instantsearch-nextjs, @algolia/autocomplete-js]
+tools: [algoliasearch, react-instantsearch, react-instantsearch-nextjs, "@algolia/autocomplete-js"]
 requires: []
 related: [hybrid-search-retrieval, exa-semantic-search, rest-api-endpoint-builder, vector-index-tuning]
 combines_with: [shadcn-ui-components, fastapi-async-api, react-state-management]

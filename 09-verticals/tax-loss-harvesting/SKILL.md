@@ -16,6 +16,7 @@ combines_with: [portfolio-rebalancer]
 license: Apache-2.0
 source: anthropics/financial-services
 source_license: Apache-2.0
+metadata: {"internal": true}
 ---
 > **Upstream status:** No dedicated tax-loss-harvesting (TLH) skill remains in the current upstream repository tree after a thorough name/alias search (2026-09-16 ambiguous-12 resolution). Entry kept for graph stability; `status: deprecated`.
 ## 何时使用

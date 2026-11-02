@@ -8,7 +8,7 @@ tags: [测试, javascript, typescript, vitest, jest, testing-library, 单元测�
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Jest, Vitest, Testing Library, supertest, @faker-js/faker]
+tools: [Jest, Vitest, Testing Library, supertest, "@faker-js/faker"]
 requires: []
 related: [python-testing-pytest, playwright-e2e-testing, test-coverage-gap-finder, api-test-suite-builder]
 combines_with: [javascript-modern-pro, playwright-e2e-testing, test-coverage-gap-finder]

@@ -166,11 +166,15 @@ git log -5 --oneline
 main 的标准发布验证顺序：
 
 ```powershell
+# 安装锁定的开发期 YAML 校验器；本地检索 CLI 仍无需第三方运行依赖
+npm ci --ignore-scripts
+
 # 仅在正式技能内容/声明变更时执行
 npm run provenance:refresh
 
 npm run check:provenance
 npm run check:assets
+npm run check:distribution
 npm run build
 npm test
 
@@ -183,6 +187,8 @@ npm run check
 `zh` 使用 `npm run build:zh` 与 `npm run check:zh`。`check` 是只读生成漂移检查，还会拒绝未提交的生成物；构建后、提交前的状态报错不应被误判为代码缺陷，也不能因此忽略真正内容漂移。
 
 修改生成器时运行相关现有回归；改变行为先做 RED/GREEN。涉及发布的批次运行完整测试和两种语言检查。只改说明时按影响范围验证链接、构建和相关现有检查，不为凑覆盖率编写无意义测试。
+
+技能分发还须使用标准 YAML 解析器校验，不能只依赖本库受限解析器。YAML 保留字符与 `: ` 使用引号，归档项和模板以布尔 `metadata.internal` 标记隐藏；活动源路径须与 marketplace 精确一致。首次对接标准安装器时可在隔离项目安装一个代表技能并核对原字节，之后用只读发现复验，不通过重复安装制造榜单数量。元数据兼容修复不计入新增技能或运行效果验证。
 
 有正文/资源 hash 变动时，用暂存区或提交后的 Git blob 重算全部受控清单的 SHA-256；工作区校验通过仍可能在 Git 的 CRLF→LF 转换后失败。记录通过的测试数与实际命令，不把本轮的固定测试数作为以后永久门槛。完成后只有新增变化、失败或未解决疑点才重复/扩大测试。
 

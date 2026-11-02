@@ -8,7 +8,7 @@ tags: [vercel, ai-sdk, nextjs, react, llm, streaming]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [typescript, ai, @ai-sdk/react, zod]
+tools: [typescript, ai, "@ai-sdk/react", zod]
 requires: []
 related: [claude-api, github-copilot-sdk, pydantic-ai-agents, transformers-js]
 combines_with: [agent-tool-builder, llm-prompt-caching, langfuse-llm-observability]

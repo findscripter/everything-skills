@@ -25,6 +25,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install pinned development validators
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Validate standard skill distribution
+        run: npm run check:distribution
       - name: Verify index and brand regression tests
         run: npm test
       - name: Validate and regenerate all indexes
