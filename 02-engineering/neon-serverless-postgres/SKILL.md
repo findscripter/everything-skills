@@ -8,7 +8,7 @@ tags: [数据库, postgres, neon, serverless, prisma, drizzle, 连接池, 数据
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Prisma, Drizzle, Neon CLI, @neondatabase/serverless, Vercel, GitHub Actions]
+tools: [Prisma, Drizzle, Neon CLI, "@neondatabase/serverless", Vercel, GitHub Actions]
 requires: []
 related: []
 combines_with: []

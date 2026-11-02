@@ -17,6 +17,7 @@ license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT
 supersedes: []
+metadata: {"internal": true}
 ---
 > **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 技术变更（TC）是一条结构化记录，捕获某次代码改动的 what / why / who / when / 如何测试 / 当前进展到哪一步。记录以 JSON 形式存放在目标项目的 `docs/TC/` 下，受严格 schema 与状态机校验。核心价值是：让一个全新的 AI 会话能在读取记录后 5 分钟内无缝续接前一会话的工作。

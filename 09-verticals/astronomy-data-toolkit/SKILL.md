@@ -17,6 +17,7 @@ license: MIT
 source: K-Dense-AI/scientific-agent-skills
 source_license: MIT
 source_license_scope: "Fixed comparison scope: K-Dense: individual SKILL metadata BSD-3-Clause license takes precedence over root MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
+metadata: {"internal": true}
 ---
 
 > 历史归档：本条职责已合并到 [astropy-astronomy-toolkit](../astropy-astronomy-toolkit/SKILL.md)。执行时使用规范条目；以下正文仅保留供追溯。

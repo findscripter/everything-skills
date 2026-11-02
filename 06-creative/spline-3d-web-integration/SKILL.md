@@ -3,12 +3,12 @@ name: spline-3d-web-integration
 title: Spline 3D 集成：交互式 3D 场景嵌入网页
 description: 当需要把 Spline.design 制作的交互式 3D 场景嵌入网页（原生 HTML/JS、React、Next.js、Vue 或 iframe）时使用；做技术栈选型、获取 .splinecode 场景 URL、运行时控制 API 接入并产出可运行嵌入代码；不适用于用 three.js/GLSL 手写 3D、纯静态图片或后端逻辑。触发词：Spline、splinecode、spline-viewer、react-spline、3D 场景嵌入
 domain: 创意/design
-triggers: [Spline, spline.design, splinecode, spline-viewer, react-spline, @splinetool/runtime, 3D 场景嵌入, 交互式 3D, 网页 3D 背景, vue-spline]
+triggers: [Spline, spline.design, splinecode, spline-viewer, react-spline, "@splinetool/runtime", 3D 场景嵌入, 交互式 3D, 网页 3D 背景, vue-spline]
 tags: [3d, spline, 前端, react, next.js, vue, 交互设计, 创意, webgl]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Spline, @splinetool/react-spline, @splinetool/runtime, @splinetool/vue-spline, JavaScript, React]
+tools: [Spline, "@splinetool/react-spline", "@splinetool/runtime", "@splinetool/vue-spline", JavaScript, React]
 requires: []
 related: [threejs-3d-web, glsl-shader-programming, scroll-driven-web-experience, animejs-web-animation]
 combines_with: [high-end-visual-design, web-artifacts-builder, frontend-design]

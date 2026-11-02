@@ -59,6 +59,22 @@
 
 每卷是一个独立插件；其他任务可选择下表中的卷，也可以安装多卷。
 
+### 通过 skills CLI 为 Codex 安装单个技能
+
+准备 Node.js **22.20.0 及以上版本**，在需要使用技能的项目目录运行：
+
+```sh
+npx skills@1.7.4 add findscripter/everything-skills --skill codebase-onboarding-doc --agent codex --copy
+```
+
+这条命令在项目范围安装所选技能文件；实际执行任务前仍需核对技能要求的工具与输入。只查看默认公开集合、不安装时，单独执行：
+
+```sh
+npx skills@1.7.4 add findscripter/everything-skills --list
+```
+
+Claude Code 的按卷插件与 skills CLI 的单技能安装是两条可选路径。
+
 ### Node.js 22 及以上版本的本地检索
 
 先准备 Git、Node.js **>=22** 和 npm，然后在终端执行：

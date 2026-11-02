@@ -8,7 +8,7 @@ tags: [平台, integration, email, agent, webhook, rest-api, agentmail, automati
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [curl, AgentMail REST API, @agentmail/sdk, Node.js crypto]
+tools: [curl, AgentMail REST API, "@agentmail/sdk", Node.js crypto]
 requires: []
 related: [twilio-communications, whatsapp-cloud-api, transactional-email-template-builder]
 combines_with: [mcp-builder, agent-tool-builder, computer-use-agents]

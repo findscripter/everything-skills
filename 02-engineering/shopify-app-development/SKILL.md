@@ -8,7 +8,7 @@ tags: [shopify, graphql, liquid, ecommerce, app-development, backend]
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [@shopify/cli, graphql, node, python]
+tools: ["@shopify/cli", graphql, node, python]
 requires: []
 related: [stripe-integration, graphql-architect, rest-api-endpoint-builder, shadcn-ui-components]
 combines_with: [stripe-integration, billing-automation-systems, transactional-email-template-builder]

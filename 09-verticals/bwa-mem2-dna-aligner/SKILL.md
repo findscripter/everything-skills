@@ -3,7 +3,7 @@ name: bwa-mem2-dna-aligner
 title: BWA-MEM2 短读 DNA 比对（WGS/WES/ChIP-seq）
 description: 当需要把 Illumina 短读 DNA（50–250 bp，WGS/WES/ChIP-seq/ATAC-seq）比对到参考基因组、生成带 @RG 读组头的排序 BAM 供 GATK/Picard 变异检测或 peak calling 时使用；用 bwa-mem2 index 建索引、bwa-mem2 mem 比对并管道接 samtools sort/index、再 markdup 去重，产出 sorted/markdup BAM 与 flagstat 质控；不适用于跨剪接位点的 RNA-seq（用 star-rnaseq-aligner）、<50bp 极短读（用 BWA-backtrack）、长读（用 minimap2）。触发词：bwa-mem2、DNA 比对、短读、WGS、WES、ChIP-seq、ATAC-seq、@RG 读组、BAM、samtools sort、markdup、参考基因组比对
 domain: 领域/science
-triggers: [bwa-mem2, DNA 比对, 短读比对, WGS, WES, ChIP-seq, ATAC-seq, @RG 读组, read group, BAM, samtools sort, markdup, 去重, 参考基因组比对, alignment, fastq 比对]
+triggers: [bwa-mem2, DNA 比对, 短读比对, WGS, WES, ChIP-seq, ATAC-seq, "@RG 读组", read group, BAM, samtools sort, markdup, 去重, 参考基因组比对, alignment, fastq 比对]
 tags: [bwa-mem2, bioinformatics, genomics, alignment, short-read, dna, wgs, wes, chip-seq, bam, samtools, science]
 level: 进阶
 status: stable

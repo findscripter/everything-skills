@@ -3,7 +3,7 @@ name: slack-message-formatter
 title: Slack 消息撰写与 mrkdwn 排版
 description: 当撰写、起草或代写一条 Slack 消息/公告/Canvas 时使用；做一份合规 mrkdwn 排版的消息（首句点题、要点列表、关键信息加粗、thread/频道分流）；不适用于标准 Markdown 文档、邮件/飞书等非 Slack 渠道、或用 Bolt 编写机器人代码；触发词：slack 消息、mrkdwn、slack 排版、slack 公告、slack 加粗、thread 回复、slack canvas
 domain: 平台/integration
-triggers: [slack 消息, mrkdwn, slack 排版, slack 公告, slack 加粗, thread 回复, slack canvas, slack 格式, slack draft, @提及, 频道发言]
+triggers: [slack 消息, mrkdwn, slack 排版, slack 公告, slack 加粗, thread 回复, slack canvas, slack 格式, slack draft, "@提及", 频道发言]
 tags: [slack, mrkdwn, messaging, formatting, announcement, thread, canvas, integration]
 level: 入门
 status: stable

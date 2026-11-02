@@ -8,7 +8,7 @@ tags: [zoom, rtms, websocket, real-time-media, transcription, integration, video
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [nodejs, @zoom/rtms, python, ws, crypto, websocket]
+tools: [nodejs, "@zoom/rtms", python, ws, crypto, websocket]
 requires: []
 related: [zoom-meeting-bot-builder, zoom-ai-scribe-transcription, zoom-webhooks-setup, zoom-integration-planner]
 combines_with: [zoom-mcp-connectors]

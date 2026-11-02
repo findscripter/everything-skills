@@ -17,6 +17,7 @@ license: MIT
 source: sickn33/agentic-awesome-skills
 source_license: MIT
 supersedes: []
+metadata: {"internal": true}
 ---
 > **Upstream status:** The original upstream skill ID for this encyclopedia entry was not found in the current upstream repository tree after a thorough name/alias search (2026-09-16 cleanup). Entry kept for graph stability; `status: deprecated`.
 # iMessage 短信驱动 Claude 会话桥接

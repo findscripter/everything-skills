@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-02",
+  "timezone": "Asia/Shanghai",
+  "submissions": [
+    {
+      "channel": "ruanyf/weekly",
+      "number": 13005,
+      "url": "https://github.com/ruanyf/weekly/issues/13005",
+      "submitted_at": "2026-11-02T09:09:13Z",
+      "author": "findscripter",
+      "status": "submitted-awaiting-editor",
+      "body_sha256": "023e1082a951195d1695c66287f544c1a3ea92b788b7f28efe61a73da0070c00"
+    },
+    {
+      "channel": "521xueweihan/HelloGitHub",
+      "number": 4213,
+      "url": "https://github.com/521xueweihan/HelloGitHub/issues/4213",
+      "submitted_at": "2026-11-02T09:09:30Z",
+      "author": "findscripter",
+      "status": "submitted-awaiting-editor",
+      "body_sha256": "96e57d2fc1e09501b33358c4eff810ec27b03bb1a559954a0dc58ec5a20adf10"
+    }
+  ],
+  "skills_distribution": {
+    "cli": "skills@1.7.4",
+    "cli_source": "https://github.com/vercel-labs/skills",
+    "node_requirement": ">=22.20.0",
+    "before": {
+      "source_commit": "3641911a4540686b02900c7c49a14d021286e3ee",
+      "expected_active": 1093,
+      "discovered": 1076,
+      "missing_active": 38,
+      "unexpected_deprecated": 20,
+      "template_discovered": true
+    },
+    "after": {
+      "scope": "Local working tree after standard YAML quoting and internal metadata changes",
+      "checked_at": "2026-11-02T09:18:58.327Z",
+      "expected_active": 1093,
+      "discovered": 1093,
+      "unique": 1093,
+      "missing": [],
+      "unexpected": [],
+      "template_discovered": false,
+      "parse_warnings_stderr_bytes": 0,
+      "exit_code": 0,
+      "expected_names_sha256": "09e001ff61c825fc9386e879c5ce7a382600682934d1e441abedb897f717f4ea",
+      "discovered_names_sha256": "09e001ff61c825fc9386e879c5ce7a382600682934d1e441abedb897f717f4ea"
+    },
+    "install_smoke": {
+      "scope": "One project-local Codex installation in an isolated temporary project",
+      "mode": "copy",
+      "skill": "codebase-onboarding-doc",
+      "source_commit": "3641911a4540686b02900c7c49a14d021286e3ee",
+      "source_directory": "07-productivity/codebase-onboarding-doc",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "source_bytes": 5559,
+          "installed_bytes": 5559,
+          "exact_bytes_equal": true,
+          "source_sha256": "7eef1b97eab07556c9cffd16902d25a843f6da41da5c64ff1da1b667cbb5db99",
+          "installed_sha256": "7eef1b97eab07556c9cffd16902d25a843f6da41da5c64ff1da1b667cbb5db99"
+        }
+      ],
+      "skill_body_or_helpers_executed": false
+    },
+    "observed_catalog_pages": [
+      "https://www.skills.sh/findscripter/everything-skills",
+      "https://www.skills.sh/findscripter/everything-skills/codebase-onboarding-doc"
+    ],
+    "limits": [
+      "A public directory page is not a promise of leaderboard rank or editorial endorsement.",
+      "Single-skill installation verifies files and project scope, not skill runtime effectiveness.",
+      "Discovery rechecks use --list only; the representative skill was not repeatedly installed to increase counts."
+    ]
+  }
+}

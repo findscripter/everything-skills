@@ -5,6 +5,10 @@
 
 ## frontmatter 字段
 
+前言须同时是标准 YAML，而不只是被本库受限解析器接受的文本。`@scope/package`、`@Composable` 等以 YAML 保留字符开头的数组元素要加引号；包含 `: ` 的描述也要加引号。可以使用 JSON 字符串转义，保持实际值不变。
+
+标准安装器以 `metadata: {"internal": true}` 隐藏内部条目（这是映射中的布尔值，不是字符串）。本库所有 `deprecated` 技能与 `_template/SKILL.md` 必须设置它，活动技能不得设置为 `true`。从模板创建活动技能时须移除该字段。此分发标记不替代本库的 `status`，也不改变归档内容、来源或质量结论。运行 `npm ci` 后用 `npm run check:distribution` 验证标准 YAML、隐藏标记与 marketplace 活动路径集合。
+
 | 字段 | 必填 | 类型 | 说明 |
 |---|---|---|---|
 | `name` | ✅ | string | 技能唯一 ID，**与文件夹同名**，ASCII kebab-case（如 `pdf-form-filler`） |

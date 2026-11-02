@@ -8,7 +8,7 @@ tags: [azure, serverless, azure-functions, durable-functions, isolated-worker, c
 level: 进阶
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [Azure Functions Core Tools (func), Azure CLI (az), .NET 8/9, @azure/functions v4, azure-functions Python, Application Insights]
+tools: [Azure Functions Core Tools (func), Azure CLI (az), .NET 8/9, "@azure/functions v4", azure-functions Python, Application Insights]
 requires: []
 related: [azure-cloud-architect, aws-serverless-architect, gcp-cloud-run]
 combines_with: [terraform-specialist, ci-cd-pipeline-builder]

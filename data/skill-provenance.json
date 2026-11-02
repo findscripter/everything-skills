@@ -572,7 +572,7 @@
     {
       "name": "first-principles-assumption-auditor",
       "local_path": "00-meta/first-principles-assumption-auditor/SKILL.md",
-      "local_sha256": "4f5c06e98c7dc729651a9f7da7e76669aa31735cb3142f55b28e82a1036127b7",
+      "local_sha256": "67fed19265234389a46344d3280a9685b3e2f0daefcf5355d636c7a14d007772",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -2322,7 +2322,7 @@
     {
       "name": "accessibility-wcag-audit",
       "local_path": "02-engineering/accessibility-wcag-audit/SKILL.md",
-      "local_sha256": "31a110ed92eb2699e391a65f5dc1ce9ad0811b045b5ac3d6187952e0ffed95f2",
+      "local_sha256": "f8ad0b258c058f10c4dd535abbb9abc9594e578140809f3405d426df0ce535d4",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -2516,7 +2516,7 @@
     {
       "name": "algolia-search-integration",
       "local_path": "02-engineering/algolia-search-integration/SKILL.md",
-      "local_sha256": "0ea4fcc46fa7fca71ce8ba60d7051706b9b76dcfb48cca9ff4fb14b0b0e6b003",
+      "local_sha256": "857e76212dd73e94d11270d02a66d418b459517be854d49f918f0fc5c4d7e866",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -2754,7 +2754,7 @@
     {
       "name": "astro-content-sites",
       "local_path": "02-engineering/astro-content-sites/SKILL.md",
-      "local_sha256": "3a301265e7f576700f8db28abf518e8469d147eba1fa5f2ce51fc9a5143e9110",
+      "local_sha256": "c3de406bcdf3354b56291456ac186c2679891be14b26a666f0606e2de5132ca4",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -2970,7 +2970,7 @@
     {
       "name": "bats-shell-testing",
       "local_path": "02-engineering/bats-shell-testing/SKILL.md",
-      "local_sha256": "0473bbc1b87798308ee8586f314bf7983733ff57b3391b3248765b490597e168",
+      "local_sha256": "9754bcd4ba3d124f575e85e57b1c809fa53656022279b5745196675309bc5044",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -3215,7 +3215,7 @@
     {
       "name": "bullmq-job-queue",
       "local_path": "02-engineering/bullmq-job-queue/SKILL.md",
-      "local_sha256": "2a77cbc0337d67ce15a5cd223657caf90adcfc37396e8b3d04758a1a094cd9fa",
+      "local_sha256": "631ade6b74c783107a638af317fb0fc621f2c923ae90bdb813aadb96fa91280a",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -3265,7 +3265,7 @@
     {
       "name": "bun-runtime-development",
       "local_path": "02-engineering/bun-runtime-development/SKILL.md",
-      "local_sha256": "45b963a0425c26ad319e1b34488c19dabd4bb9ced99ddc8e145c058cc1288da8",
+      "local_sha256": "1d36e184b6adcbe9965c89c5f677fb0cbb78864cfdd044112cbe9aaddbded1b0",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -3742,7 +3742,7 @@
     {
       "name": "codetour-walkthrough-builder",
       "local_path": "02-engineering/codetour-walkthrough-builder/SKILL.md",
-      "local_sha256": "a1e5b7213a957a1a09f0af1cea6ad8786a07c35f52572b7618c6822d69424117",
+      "local_sha256": "3406239070418b08049f03eb446c678b3a9ac3c04b9bd6abf3eb88a15de8e3d0",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "alirezarezvani/claude-skills",
@@ -3902,7 +3902,7 @@
     {
       "name": "convex-reactive-backend",
       "local_path": "02-engineering/convex-reactive-backend/SKILL.md",
-      "local_sha256": "71d70bada17309a3d6b1f21691b201aacf9b8cb4702a0f9720a0ebc319340cb4",
+      "local_sha256": "8bc1bc580b2729d012cd2152a15eb1d7b9b84a28ed37be16a751e619a6e9893f",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -4634,7 +4634,7 @@
     {
       "name": "electron-desktop-development",
       "local_path": "02-engineering/electron-desktop-development/SKILL.md",
-      "local_sha256": "c94d69ea6dd0f1cc772c8bf9c33461a19a21ff2d8623c7acf2003479a07dadb7",
+      "local_sha256": "60b3c1abe3a8a4ca5e827e559c0fefbf6484b47747a72accb6a189acfb7a49a1",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -6102,7 +6102,7 @@
     {
       "name": "javascript-testing-patterns",
       "local_path": "02-engineering/javascript-testing-patterns/SKILL.md",
-      "local_sha256": "9e1201801cc87b5c209fff4e28b8d581c4707923aa8982d0592cff15215f52be",
+      "local_sha256": "0b8ec88a255dbd8e2939513a9c544945ccef28e751e99ee2b19ebf3d26d5d1b3",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -6152,7 +6152,7 @@
     {
       "name": "jetpack-compose-expert",
       "local_path": "02-engineering/jetpack-compose-expert/SKILL.md",
-      "local_sha256": "c3b44b8193190e135d5e8c4e790b7f035c8701f4624b9c5937d5fa734e3bc084",
+      "local_sha256": "6df6624e7376eb6f1fcfaa565b33859df11002607357d1d862aa5a36536ac4ec",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -6174,7 +6174,7 @@
     {
       "name": "julia-scientific-pro",
       "local_path": "02-engineering/julia-scientific-pro/SKILL.md",
-      "local_sha256": "9e55e68f26e885221e33f9f29abf0913cdc054c092118c095e3c3be408bb8206",
+      "local_sha256": "62302736078d96da5fefdac908a68cf0c71bbab9b91bcfb39634ef77d0e35576",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -6578,7 +6578,7 @@
     {
       "name": "llm-coding-mistake-guardrails",
       "local_path": "02-engineering/llm-coding-mistake-guardrails/SKILL.md",
-      "local_sha256": "eedf5501335468a0090579480fca12add80e81b2115c3d843153f8817f9090ab",
+      "local_sha256": "bc1b01966319cf42e356f6ef9f8bdbfb9b4d4e1645e60da233f1da29d17fb490",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -6842,7 +6842,7 @@
     {
       "name": "modern-angular-expert",
       "local_path": "02-engineering/modern-angular-expert/SKILL.md",
-      "local_sha256": "a7e058625210bebe349b261a2bcef3ffb06d37846a25ae0bccc2872781130b63",
+      "local_sha256": "8213f63ed8e35f9d0486733a30ecd919cf9ee471644d417df0464774753614f2",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -6914,7 +6914,7 @@
     {
       "name": "neon-serverless-postgres",
       "local_path": "02-engineering/neon-serverless-postgres/SKILL.md",
-      "local_sha256": "4c6de455539abd1e58c3b36d90a696a750b3ab3f02ab8e2ac7bea81a1627bb11",
+      "local_sha256": "dbbe36a058d4edc1046bb1b9561fcf6a7d63236ce55810210f8a722dce3801b3",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -6936,7 +6936,7 @@
     {
       "name": "nestjs-expert",
       "local_path": "02-engineering/nestjs-expert/SKILL.md",
-      "local_sha256": "a4a0faa273728c6a9fdde7ae2c1396f0a0e71ad941c4240f1dfb963053f965fd",
+      "local_sha256": "d924269dd86ebb0491dbccb5a48fa37de61ba2eb50987d6689550645cf5aa0a9",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -6986,7 +6986,7 @@
     {
       "name": "nextjs-supabase-auth",
       "local_path": "02-engineering/nextjs-supabase-auth/SKILL.md",
-      "local_sha256": "a0a539c0222074288d73e6ffc0f546eb2653a175167a3c19d1e2d5983d0760fe",
+      "local_sha256": "394653759530b9e03876de49bcea146f2a2faeee6971b6287e2d71d35e9a96e0",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -7231,7 +7231,7 @@
     {
       "name": "playwright-e2e-testing",
       "local_path": "02-engineering/playwright-e2e-testing/SKILL.md",
-      "local_sha256": "f8cb2323442dbbb036fe5cfdc9197d27c0b465149990a1b999c4b082d2079bb8",
+      "local_sha256": "26681cc38f15fb8962dec2f9dca2e5d7a8d789658c779ff1c69951b122639435",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -7758,7 +7758,7 @@
     {
       "name": "release-manager",
       "local_path": "02-engineering/release-manager/SKILL.md",
-      "local_sha256": "74a9fae56f61d19a61f9327bbc6a5b5a15b3f7c29eb3fbb06ff4519f99aa3cc4",
+      "local_sha256": "167505b27b6209a60c761c138df5ca6d20a28dc87734720b293da62b8529f6cd",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "alirezarezvani/claude-skills",
@@ -8232,7 +8232,7 @@
     {
       "name": "shopify-app-development",
       "local_path": "02-engineering/shopify-app-development/SKILL.md",
-      "local_sha256": "c333697a0c1180eb475f74e3330b284f603a9ba983114f9dcffd2044d58e0835",
+      "local_sha256": "02f203b2d442e0c188579899dc96ecb4748801481bad99ec6fac9645191452b6",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -8370,7 +8370,7 @@
     {
       "name": "swift-concurrency",
       "local_path": "02-engineering/swift-concurrency/SKILL.md",
-      "local_sha256": "b5c285c308780ce7975fcd91667da7f053e54cba7d80d435395f6b7ee7266852",
+      "local_sha256": "17e8db0daa5cc7ed24e0558fa4bb06f34ad80bf49f87a685b7dd8c23233d20ee",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -8392,7 +8392,7 @@
     {
       "name": "swiftui-best-practices",
       "local_path": "02-engineering/swiftui-best-practices/SKILL.md",
-      "local_sha256": "b9dcaf446485c8625a1adb0b79e5a1243ea1c85cabcbd23df322d505d60e7dc4",
+      "local_sha256": "fe4ab6fc3b592e3bc889047ea7c0de606b588b76cb6021fa9a8181349683f88f",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -8536,7 +8536,7 @@
     {
       "name": "tailwind-css-patterns",
       "local_path": "02-engineering/tailwind-css-patterns/SKILL.md",
-      "local_sha256": "36230accd08ae6875f804903a077876ee2b0406d0e60f59edcdf6f5c70fa174d",
+      "local_sha256": "4a4f4434506d1bb40cdfff28edea5e02e51157586d557be1d206137198be8dd5",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -8558,7 +8558,7 @@
     {
       "name": "tanstack-query",
       "local_path": "02-engineering/tanstack-query/SKILL.md",
-      "local_sha256": "8347a773eb355a5366a436a55bf3a226ca8b360298c7686f48dc0b7ade5c5fe4",
+      "local_sha256": "78c80b53d068d832971977d2e62b07e094d5f424a12d6e8779aa3cad86e9a0c9",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -8718,7 +8718,7 @@
     {
       "name": "threejs-3d-web",
       "local_path": "02-engineering/threejs-3d-web/SKILL.md",
-      "local_sha256": "8255e6a16b6287489526d74ed122ed2112fe111f72d2b1019d7f4d0bbf61b0ae",
+      "local_sha256": "2b4430b1ca6cace48d4de128b996f9b6be3b6f8ceceb8467524582bac627a983",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -9266,7 +9266,7 @@
     {
       "name": "websocket-realtime-engineer",
       "local_path": "02-engineering/websocket-realtime-engineer/SKILL.md",
-      "local_sha256": "1c534f141390ddde8cd1b7d69f67e64e00b03f9154eb81792c98f3621230a00c",
+      "local_sha256": "babbe78a6f78bcc1659b65e96d3791b4771c6d7443b5088bc10c5da4461d4bb5",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "jeffallan/claude-skills",
@@ -9751,7 +9751,7 @@
     {
       "name": "data-strategy-review",
       "local_path": "03-data/data-strategy-review/SKILL.md",
-      "local_sha256": "3a84ba5a82ccccc53672df89408d969603bca55bac1c3f30cf28bcb708cf68e9",
+      "local_sha256": "205b6c9ecb82ecc5764590b247ca8029527e769cf613d3378b0eaa3e8a5ba934",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "alirezarezvani/claude-skills",
@@ -11029,7 +11029,7 @@
     {
       "name": "agent-payment-x402",
       "local_path": "04-ai/agent-payment-x402/SKILL.md",
-      "local_sha256": "2eb547488c7923034770f0e3c65e5d172d382bf3047ca351775b3d5a6c932601",
+      "local_sha256": "ac42c5ad6d376d4e9a35f8abe7cbc57ed1341e0026c18b777e5983ca1b94a717",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "affaan-m/ECC",
@@ -11594,7 +11594,7 @@
     {
       "name": "claude-api",
       "local_path": "04-ai/claude-api/SKILL.md",
-      "local_sha256": "05c3bc3f02dc8d441cbfdc7f41d136dc048f26792297ca6d1b7a7f0d814eb24c",
+      "local_sha256": "4d48b6d6f09efa427e364f5ecad165b11b45b9e5b0bec30a0650b532c0cffad0",
       "kind": "curated",
       "declared_license": "Apache-2.0",
       "source_repository": "anthropics/skills",
@@ -12614,7 +12614,7 @@
     {
       "name": "mlops-model-productionizer",
       "local_path": "04-ai/mlops-model-productionizer/SKILL.md",
-      "local_sha256": "081f3335ca0dd1548d3a49a27e1df01574d5c88b2a1456178748c1df55d076d0",
+      "local_sha256": "95a7d5d0dabf709f6b3eaa71828177518880b0e7a25e7fc558e88ac6d8ec7893",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "alirezarezvani/claude-skills",
@@ -12883,7 +12883,7 @@
     {
       "name": "pydantic-ai-agents",
       "local_path": "04-ai/pydantic-ai-agents/SKILL.md",
-      "local_sha256": "877fb1e05eb2749f19ce94970848ef021beaa4b22bd9eb6cfae24125b7e56763",
+      "local_sha256": "387a4f96e5876f5fcb8d16fdf77ca14f94ed42e2bcf4c555de26da6d44d58b2d",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -13311,7 +13311,7 @@
     {
       "name": "transformers-js",
       "local_path": "04-ai/transformers-js/SKILL.md",
-      "local_sha256": "e2ff31b642ed11084de38229f51acac8453efce0d11f5f3530069f4e5ad029b3",
+      "local_sha256": "1033cb5469093db9049e16a3af3a5da477f658ea730d0df950a34fddc0a96410",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -13411,7 +13411,7 @@
     {
       "name": "vercel-ai-sdk",
       "local_path": "04-ai/vercel-ai-sdk/SKILL.md",
-      "local_sha256": "8944e9074b38e93a6f7ef783712bd8059d07b7b58ad3a246d51baecff5c4c293",
+      "local_sha256": "cbbe47f29c9cdad79868de2789979610c58a3d2cf4105ab728b714c0325ecf6b",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -15818,7 +15818,7 @@
     {
       "name": "market-sizing-analyst",
       "local_path": "05-business/market-sizing-analyst/SKILL.md",
-      "local_sha256": "1e61a1a239eed0e07c55506109aebe36e65e83b9b5b1b57b3a10bbe00018977a",
+      "local_sha256": "1c1c16799eaf3085996288fc6924cff69b9bad5091f32aa0fcb499d00cb8a063",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "wshobson/agents",
@@ -16310,7 +16310,7 @@
     {
       "name": "option-volatility-analysis",
       "local_path": "05-business/option-volatility-analysis/SKILL.md",
-      "local_sha256": "3ab7dede56918b1652d189d748f02448449c3b6816150285ebf5605c78fa584e",
+      "local_sha256": "b7ec765fd8ce9ba45f4ca79e8ef927412b9a96ef3a9297747782a350a6ca6787",
       "kind": "curated",
       "declared_license": "Apache-2.0",
       "source_repository": "anthropics/financial-services",
@@ -17437,7 +17437,7 @@
     {
       "name": "seo-traffic-drop-forensics",
       "local_path": "05-business/seo-traffic-drop-forensics/SKILL.md",
-      "local_sha256": "f237fae93993fbd87be084334b8a20883d28227af03922a6f575b75f6080e55d",
+      "local_sha256": "3b173a1bdf74ddb65b3a69a1d15f5e329efdd4def8492f13e129b8b2e8d23165",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -19097,7 +19097,7 @@
     {
       "name": "spline-3d-web-integration",
       "local_path": "06-creative/spline-3d-web-integration/SKILL.md",
-      "local_sha256": "2915e379e50065d029f45f900ad5c7fd3a77ff558786ac2d75d5e0d0741ef56b",
+      "local_sha256": "4ad94dd4d2d1f678b2b3ec0be34ed42507e64bbb2ad2cb08dab8e01aea9a5426",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -21383,7 +21383,7 @@
     {
       "name": "technical-change-tracker",
       "local_path": "07-productivity/technical-change-tracker/SKILL.md",
-      "local_sha256": "4a60f85c1b2122ba7bcc7bf3fef17325789044889cc066aeec4f3514bc42aacf",
+      "local_sha256": "568731aa469a5707204f4570429214e88a9506dbf1dc49a059a491050db24d56",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "alirezarezvani/claude-skills",
@@ -23389,7 +23389,7 @@
     {
       "name": "multi-framework-compliance-orchestrator",
       "local_path": "08-security/multi-framework-compliance-orchestrator/SKILL.md",
-      "local_sha256": "465b24c6510a7518af170c50a7670b8ff522d9b10c16a9003e3fb0e3ffbb57d7",
+      "local_sha256": "6626754a6f444f7fe8978a079b6892560a2d42af143cd75eed3589bfa044f609",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "alirezarezvani/claude-skills",
@@ -23697,7 +23697,7 @@
     {
       "name": "security-antipattern-hook",
       "local_path": "08-security/security-antipattern-hook/SKILL.md",
-      "local_sha256": "76c74034103d918fda0c2c8a4ae00eca9578445363a6ade5159507a550034aa6",
+      "local_sha256": "cb1cee28fd19f0f60c1b7b102fce04a57c6d0a2bb4eaf9863cdacb7b3f127010",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "alirezarezvani/claude-skills",
@@ -24108,7 +24108,7 @@
     {
       "name": "varlock-env-secrets-guard",
       "local_path": "08-security/varlock-env-secrets-guard/SKILL.md",
-      "local_sha256": "adf99212b36c9201f635045936b542f1dd96137925357477c18e590e119aa500",
+      "local_sha256": "b09561157225be57ebfa115e2c87e1d419b556bf24038a5385589deb1f29e79a",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -24643,7 +24643,7 @@
     {
       "name": "astronomy-data-toolkit",
       "local_path": "09-verticals/astronomy-data-toolkit/SKILL.md",
-      "local_sha256": "9e3d4297c15c78ee48725c871cad25887585cd65bacc32813a997742640a3ad0",
+      "local_sha256": "c3117eeec1a3051db02b14237c163434f4711f3b7037a0f63eed80a7add86dbf",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "K-Dense-AI/scientific-agent-skills",
@@ -25114,7 +25114,7 @@
     {
       "name": "bwa-mem2-dna-aligner",
       "local_path": "09-verticals/bwa-mem2-dna-aligner/SKILL.md",
-      "local_sha256": "860552a7beb262cfcbf3d50430699217604b6853ddfaeaa7f0d31db8bbfbfaeb",
+      "local_sha256": "5bbf01db364d863ddffa603f15817aeca7d5a1265ca42482da78267cee3943a7",
       "kind": "curated",
       "declared_license": "CC-BY-4.0",
       "source_repository": "jaechang-hits/SciAgent-Skills",
@@ -26419,7 +26419,7 @@
     {
       "name": "defi-natural-language-agent",
       "local_path": "09-verticals/defi-natural-language-agent/SKILL.md",
-      "local_sha256": "7f5030ee0685fdbaca57ee589dc78747b1b87183af1515b664c64a1cc62daddb",
+      "local_sha256": "bd0fafa97cbac034b647050b76a3ccbd1092134d5e899c41d20338a8eadbb7cb",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -26751,7 +26751,7 @@
     {
       "name": "dpa-clause-reviewer",
       "local_path": "09-verticals/dpa-clause-reviewer/SKILL.md",
-      "local_sha256": "53c86706af3660c2a33f47473e08dcc063bfcada81f8012d4d603ed2077eae7c",
+      "local_sha256": "1e47de75e670564319eb1e84478fc4bfa5f1fd4dd2ed53136b92ef147a182c5c",
       "kind": "curated",
       "declared_license": "Apache-2.0",
       "source_repository": "anthropics/claude-for-legal",
@@ -28235,7 +28235,7 @@
     {
       "name": "hardware-doc-generator",
       "local_path": "09-verticals/hardware-doc-generator/SKILL.md",
-      "local_sha256": "146d0c0a0fe27f14457936cdbc9696fb9d68ea23cb16721f3b4eb363485bd97c",
+      "local_sha256": "009bd1b7e2ec1c29ae95f2cef1c990edf2cd58fcf3e8a1975c89f9e61f246b96",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "aklofas/kicad-happy",
@@ -30162,7 +30162,7 @@
     {
       "name": "molecular-dynamics-simulation",
       "local_path": "09-verticals/molecular-dynamics-simulation/SKILL.md",
-      "local_sha256": "351b0e96f69eb127e04a44545d370da99ebb85a149acc9253d6fb35d8df8cb3b",
+      "local_sha256": "1c700f4fc7b9ffd123b31a1f096cdb59388bd271bea87f31fdd30cd73593c017",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "K-Dense-AI/scientific-agent-skills",
@@ -31713,7 +31713,7 @@
     {
       "name": "odoo-automated-tests",
       "local_path": "09-verticals/odoo-automated-tests/SKILL.md",
-      "local_sha256": "efc833cc5fd8774e57b4bdc00230514f1485a037751eacbf3607e97ed5e23f8c",
+      "local_sha256": "6dd3f313f6cee0f54ac30212b929f0208d99e2655f278c2fe43c9f72a377c1bb",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -33462,7 +33462,7 @@
     {
       "name": "property-auction-legal-analysis",
       "local_path": "09-verticals/property-auction-legal-analysis/SKILL.md",
-      "local_sha256": "d6a9e5ae86361e6ee1ff506e02e146bf9340afdd95076ded2f56e6390e851069",
+      "local_sha256": "2c4142cfc5c7625488d36d4c7b0f38826e60671604bbf7e56929afcacff4a9ae",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -34882,7 +34882,7 @@
     {
       "name": "tax-loss-harvesting",
       "local_path": "09-verticals/tax-loss-harvesting/SKILL.md",
-      "local_sha256": "79616b912734e12f77d1e0e61e8772dd6946cc606cb21768a8e528f4f073e59b",
+      "local_sha256": "a77cc83d7374183e7f439bbc3832567dd51beca46052dd9299a5453f37a5f4f2",
       "kind": "curated",
       "declared_license": "Apache-2.0",
       "source_repository": "anthropics/financial-services",
@@ -35702,7 +35702,7 @@
     {
       "name": "agentmail-email-infra",
       "local_path": "10-platform/agentmail-email-infra/SKILL.md",
-      "local_sha256": "2ee4425b3e246dc3008358beb4aefc57b5feb0ab842cf203ee489f9f33fb95aa",
+      "local_sha256": "e47b31b2cf6e7ace344a6001b61fb17bd0aae1b92cb32631a5ffa91272a4fb45",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -35890,7 +35890,7 @@
     {
       "name": "apify-ecommerce-scraper",
       "local_path": "10-platform/apify-ecommerce-scraper/SKILL.md",
-      "local_sha256": "f4979508f5913a070ded643f51a2546eed19c46d1945b0029fbb4f57ac1b589e",
+      "local_sha256": "89c6c8a798af41376025a6a1c553fdbd7ab6835fa88a3f770bf15f3489968e7c",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -36106,7 +36106,7 @@
     {
       "name": "azure-container-apps-deploy",
       "local_path": "10-platform/azure-container-apps-deploy/SKILL.md",
-      "local_sha256": "80d657e4831172ef310ad9300c2bffa57d199edf58bf88ae65c53710c8a5f0bb",
+      "local_sha256": "a96b5cdf42d74a7b55247d5fd1518c9c1b55d04a2d58dabe58474b168298024b",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -36128,7 +36128,7 @@
     {
       "name": "azure-functions-serverless",
       "local_path": "10-platform/azure-functions-serverless/SKILL.md",
-      "local_sha256": "99d605b840332ef00c6a5fc14ac8ee3438851f2bea860e73a9622d5deb01bb83",
+      "local_sha256": "0839ec1df92dc037b57567a5a2da3782bc9f07e9203f157523fc88ff0d96323c",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -36411,7 +36411,7 @@
     {
       "name": "firebase-backend",
       "local_path": "10-platform/firebase-backend/SKILL.md",
-      "local_sha256": "3aea66951e9cfd9e2d6b45b414937fe7a620bbbbe364a2fc61a81e1c914f07a3",
+      "local_sha256": "4acfcc449236ed61fa4ea0bc4b114926c96f0bc1ded39348a25da6e01b570fdf",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -36700,7 +36700,7 @@
     {
       "name": "imessage-claude-bridge",
       "local_path": "10-platform/imessage-claude-bridge/SKILL.md",
-      "local_sha256": "df44a8208a5e8a972b85fc9954a362b8ec86a2ebedf715e079d9160f49f5470e",
+      "local_sha256": "64db486ff280d1b5bda5189973446149b89c98c826e9b50df87ef7e27947d1c4",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -37032,7 +37032,7 @@
     {
       "name": "slack-message-formatter",
       "local_path": "10-platform/slack-message-formatter/SKILL.md",
-      "local_sha256": "312935bc53a742f775c369115206f3a231e52e476fc364ad63a3523aac18881f",
+      "local_sha256": "c11aa94ac9ed4e641e11d8e046a58417ed34782846e68128ee6c5d62a13e2331",
       "kind": "curated",
       "declared_license": "Apache-2.0",
       "source_repository": "anthropics/knowledge-work-plugins",
@@ -37082,7 +37082,7 @@
     {
       "name": "slack-search-techniques",
       "local_path": "10-platform/slack-search-techniques/SKILL.md",
-      "local_sha256": "fc9469f1932a7e43d5400df11d7ea808d96d01afd9e80aaaa506d983f9b85858",
+      "local_sha256": "70cef980ec50683b050fdffa518f51582d278d66095218e2e2d5ffd5c2ae01da",
       "kind": "curated",
       "declared_license": "Apache-2.0",
       "source_repository": "anthropics/knowledge-work-plugins",
@@ -37492,7 +37492,7 @@
     {
       "name": "x-twitter-automation",
       "local_path": "10-platform/x-twitter-automation/SKILL.md",
-      "local_sha256": "0869e6d9155fd3cbbe2a30a5507bb44908486963297fe40171ec4f4cb565cb33",
+      "local_sha256": "d50ffbac5ac03a31bfbfc6c7476a27435c879a6dceef2272560e637a0ef2d576",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -37514,7 +37514,7 @@
     {
       "name": "x-twitter-scraper-toolkit",
       "local_path": "10-platform/x-twitter-scraper-toolkit/SKILL.md",
-      "local_sha256": "da4ad3e54d33d9e885741f722be362ba8d812741c1a00ca91685c4ba9f7a5680",
+      "local_sha256": "0bc4deebd270e8a0b5560cb18aa22eef8c9cf1d48e4839528419b0b129dc1c4a",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "sickn33/agentic-awesome-skills",
@@ -37720,7 +37720,7 @@
     {
       "name": "zoom-meeting-bot-builder",
       "local_path": "10-platform/zoom-meeting-bot-builder/SKILL.md",
-      "local_sha256": "300303a5b925dee6b5d8c5eca8b5d79e439a1f31c98c997e61a5c2a22fb62100",
+      "local_sha256": "f94fc257e02fc715cbf1ea3e099dda329b7f61420a3ecd84ec16dc4ac0d1bed9",
       "kind": "curated",
       "declared_license": "Apache-2.0",
       "source_repository": "anthropics/knowledge-work-plugins",
@@ -37815,7 +37815,7 @@
     {
       "name": "zoom-rtms-realtime-media",
       "local_path": "10-platform/zoom-rtms-realtime-media/SKILL.md",
-      "local_sha256": "d644c3ca21cac6387d0a3c388ec1a6c3b8a49c8eeff9f99ace70d95a8f7946b8",
+      "local_sha256": "1e182b72388629bd338dec754e545b3eed7000d73719df05a2947b2aa3a81053",
       "kind": "curated",
       "declared_license": "Apache-2.0",
       "source_repository": "anthropics/knowledge-work-plugins",
@@ -37907,5 +37907,5 @@
       }
     }
   ],
-  "refreshed_at": "2026-10-25T06:46:21.512Z"
+  "refreshed_at": "2026-11-02T09:25:15.472Z"
 }

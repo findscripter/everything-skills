@@ -8,7 +8,7 @@ tags: [finance, derivatives, options, volatility, greeks, vol-surface, implied-r
 level: 精通
 status: stable
 agents: [claude-code, codex, cursor, gemini-cli]
-tools: [MCP: equity_vol_surface, MCP: fx_vol_surface, MCP: option_value, MCP: option_template_list, MCP: tscc_historical_pricing_summaries, MCP: qa_historical_equity_price]
+tools: ["MCP: equity_vol_surface","MCP: fx_vol_surface","MCP: option_value","MCP: option_template_list","MCP: tscc_historical_pricing_summaries","MCP: qa_historical_equity_price"]
 requires: []
 related: [options-strategy-advisor, portfolio-risk-metrics, fx-carry-trade-eval, swap-curve-strategy]
 combines_with: [trade-position-sizer, portfolio-rebalancer]
