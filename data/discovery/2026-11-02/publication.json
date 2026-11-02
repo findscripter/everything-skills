@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-02",
+  "timezone": "Asia/Shanghai",
+  "part": "part98",
+  "status": "published",
+  "baseline_catalog_rows": 3273,
+  "accepted_new_repository_ids": 165,
+  "final_catalog_rows": 3438,
+  "curated_skill_bodies": 1114,
+  "verified_file_references": 604,
+  "baseline_git_objects_preserved": 93,
+  "data_shard_sha256": "785182f8dbd7cf1f7eb1bbbea8ecdb12f8d60ca1ce426e35aaf39098b136fd32",
+  "publication": {
+    "main": {
+      "pull_request": "https://github.com/findscripter/everything-skills/pull/67",
+      "data_head": "1ca3741dcc482eac3df22cfcde29dc53db97fe15",
+      "merge_commit": "6112ff54044ddcd5533c74523aafc6987f97e2ca",
+      "merged_at": "2026-11-02T07:52:26Z",
+      "pr_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 41408960440,
+          "event": "pull_request",
+          "headSha": "1ca3741dcc482eac3df22cfcde29dc53db97fe15",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/41408960440"
+        }
+      ],
+      "merged_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 41409098393,
+          "event": "push",
+          "headSha": "6112ff54044ddcd5533c74523aafc6987f97e2ca",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/41409098393"
+        }
+      ]
+    },
+    "zh": {
+      "pull_request": "https://github.com/findscripter/everything-skills/pull/68",
+      "data_head": "00f82b93a26f606f2c9f466bd47b312d0f112c6d",
+      "merge_commit": "fedce7f97874432f778dabff0ac3782d4deacd02",
+      "merged_at": "2026-11-02T07:58:34Z",
+      "pr_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 41409566823,
+          "event": "pull_request",
+          "headSha": "00f82b93a26f606f2c9f466bd47b312d0f112c6d",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/41409566823"
+        }
+      ],
+      "merged_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 41409745721,
+          "event": "push",
+          "headSha": "fedce7f97874432f778dabff0ac3782d4deacd02",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/41409745721"
+        }
+      ]
+    }
+  },
+  "local_validation": {
+    "main": {
+      "build": "passed",
+      "tests_passed": 73,
+      "tests_failed": 0,
+      "post_commit_generated_check": "passed"
+    },
+    "zh": {
+      "build": "passed",
+      "tests_passed": 73,
+      "tests_failed": 0,
+      "post_commit_generated_check": "passed"
+    },
+    "staged_shard_hash_utf8_lf": "passed",
+    "baseline_object_comparison": "passed",
+    "source_equality": "Only AGENTS.md, CLAUDE.md, GEMINI.md, README.md and INDEX/skill-repos.md language interfaces differ."
+  },
+  "ci_scope": "Successful CI URLs prove these exact data heads and post-merge commits. This later documentation receipt does not certify its own commit.",
+  "collection_policy": "No numeric acceptance cap or success-count stopping condition; selected admission, explicit holds and unreviewed reserves are distinct.",
+  "limits": [
+    "Search windows are finite and not exhaustive public-GitHub coverage.",
+    "Admission reads fixed representative instructions/implementation and scoped licensing; it is not an audit of every skill body or a runtime/installation test.",
+    "Root license badges, API tools, model/data rights, routers, mirrors and generated endpoints are not interchangeable skill/permission counts.",
+    "Published Alibaba Cloud admission is limited to its specifically licensed MaxCompute entry. Excluded/held and unreviewed reserves do not count as new accepted identities."
+  ]
+}
