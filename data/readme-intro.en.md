@@ -1,102 +1,91 @@
 # Everything Skills
 
+**English** · [简体中文](https://github.com/findscripter/everything-skills/blob/zh/README.md)
+
 <!-- BEGIN GENERATED:brand -->
 <!-- END GENERATED:brand -->
 
-## Quick start
+Find skills for a task, combine them into a workflow, and install the volumes you need.
 
-Add the marketplace in Claude Code, then choose the volumes you need:
+**[Search skills online](https://findscripter.github.io/everything-skills/)** · **[Try a worked example](examples/README.md)** · [Full catalog](INDEX/catalog.md) · [Relationships](INDEX/graph.md)
+
+<details>
+<summary>Watch the 33-second catalog walkthrough</summary>
+
+![Actual catalog search, filters, and volume installation instructions](assets/demos/catalog-walkthrough.gif)
+
+[Sharper video and recording scope](assets/demos/README.md)
+
+</details>
+
+## 1. Pick a task and a skill combination
+
+| Your task | Start with | Then add |
+| --- | --- | --- |
+| Take over a codebase | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) | [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) |
+| Explain a paper and organize references | [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) | [citation-management](01-documents/citation-management/SKILL.md) |
+| Review and test a REST API | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) | [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) |
+| Audit web accessibility | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) | [wcag-22-audit-patterns](02-engineering/wcag-22-audit-patterns/SKILL.md) |
+
+Open the skill's `SKILL.md` for its scope, inputs, and required tools. [Worked examples](examples/README.md) include prompts, expected outputs, and verification steps. Follow `requires`, `related`, and `combines_with` for more options.
+
+## 2. Install and try a task
+
+### Claude Code
+
+Run these commands inside Claude Code to add the marketplace and install the engineering volume:
 
 ```text
 /plugin marketplace add findscripter/everything-skills
-```
-
-For example, install the engineering volume:
-
-```text
 /plugin install 02-engineering@everything-skills
 ```
 
-Each skill has its own folder and `SKILL.md`. Codex, Cursor, Gemini CLI, and other agents can follow [AGENTS.md](AGENTS.md), [GEMINI.md](GEMINI.md), or [CLAUDE.md](CLAUDE.md) to find and load the instructions for a task.
+Then supply your OpenAPI file or API specification and start with:
 
-## Start from a task
+> Use the api-design-reviewer skill to review this REST API. Read its prerequisites first, ask for missing inputs, and report compatibility issues with evidence and suggested fixes.
 
-You do not need to know a skill name first. Pick the outcome closest to your task, open the first skill, and follow its `requires` / `related` links when you need more coverage:
+Each volume below is a separate plugin; install several when your task needs them.
 
-| I need to... | Start here |
-| --- | --- |
-| Understand and onboard a codebase | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) → [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) |
-| Research and explain a paper | [entity-research-dossier](00-meta/entity-research-dossier/SKILL.md) → [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) |
-| Design, test, and review an API | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) |
-| Audit accessibility or agent security | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) · [agent-skill-security-scanner](08-security/agent-skill-security-scanner/SKILL.md) |
+### Local search with Node.js 22 or later
 
-### What you are looking at
+With Git, Node.js **>=22**, and npm available, run:
 
-- **Bundled skills** are the folders in this repository. Each has a `SKILL.md` and can be installed by volume through the marketplace.
-- **Indexed repositories** are external libraries, marketplaces, and lists summarized in [INDEX/skill-repos.md](INDEX/skill-repos.md). Their source and `SKILL.md` files are not copied here; check the upstream license and install instructions before using them.
-- **Generated maps** are the catalog, tags, graph, `search.json`, `quality.json`, marketplace metadata, and README statistics. They are generated from source data and are navigation aids, not additional skill bodies. `quality.json` exposes evidence facets such as review state, freshness, license confidence, dependencies, and security risk; `unknown` / `unreviewed` means no claim has been established.
-
-### Starter bundles
-
-These small combinations show how to turn the relationship graph into a workflow:
-
-| Bundle | Suggested path |
-| --- | --- |
-| Repository onboarding | [codebase-onboarding-doc](07-productivity/codebase-onboarding-doc/SKILL.md) → [monorepo-navigator](02-engineering/monorepo-navigator/SKILL.md) → [spec-driven-workflow](02-engineering/spec-driven-workflow/SKILL.md) |
-| Literature review | [entity-research-dossier](00-meta/entity-research-dossier/SKILL.md) → [academic-paper-explainer](09-verticals/academic-paper-explainer/SKILL.md) → [citation-management](01-documents/citation-management/SKILL.md) |
-| API delivery | [api-design-reviewer](02-engineering/api-design-reviewer/SKILL.md) → [api-test-suite-builder](02-engineering/api-test-suite-builder/SKILL.md) → [api-security-best-practices](08-security/api-security-best-practices/SKILL.md) |
-| Accessibility and trust | [accessibility-wcag-audit](02-engineering/accessibility-wcag-audit/SKILL.md) → [wcag-22-audit-patterns](02-engineering/wcag-22-audit-patterns/SKILL.md) → [supply-chain-risk-auditor](08-security/supply-chain-risk-auditor/SKILL.md) |
-
-## Search locally
-
-The repository includes a zero-dependency CLI over the generated indexes:
-
-```text
-npm run skill -- search "accessibility audit"
-npm run skill -- list --domain science
-npm run skill -- why agent-self-reflection
-npm run skill -- repo anthropics/skills
-npm run skill -- eval
+```sh
+git clone https://github.com/findscripter/everything-skills.git
+cd everything-skills
+node --version
+npm run skill -- search "API review"
+npm run skill -- why api-design-reviewer
 ```
 
-The evaluation command runs the checked-in task set in `data/search-eval.json`; its score measures retrieval coverage for those examples, not runtime or security certification.
+The CLI has no third-party dependencies, so no `npm install` is needed. It searches the checked-in indexes; `why` shows related skills. Open a returned `SKILL.md`, then ask your agent to follow it for your task. Codex, Cursor, and Gemini CLI can use [AGENTS.md](AGENTS.md), [CLAUDE.md](CLAUDE.md), and [GEMINI.md](GEMINI.md) as repository navigation guides.
 
-## Discover, connect, compose
+## 3. Explore by domain
 
-<p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/workflow-mobile.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/brand/workflow-static.svg" /><img src="assets/brand/workflow.svg" alt="Discover skills through descriptions and triggers, follow their requirements and relationships, then compose a workflow." width="1200" /></picture>
-</p>
+| Volume | Tasks |
+| --- | --- |
+| [00-meta](00-meta/README.md) | Research, planning, reasoning, agent workflows |
+| [01-documents](01-documents/README.md) | Documents, spreadsheets, presentations, writing |
+| [02-engineering](02-engineering/README.md) | Development, architecture, testing, delivery |
+| [03-data](03-data/README.md) | Analysis, databases, data engineering |
+| [04-ai](04-ai/README.md) | Models, RAG, agents, evaluation |
+| [05-business](05-business/README.md) | Marketing, product, operations, growth |
+| [06-creative](06-creative/README.md) | Design, images, audiovisual work |
+| [07-productivity](07-productivity/README.md) | Communication, projects, personal workflows |
+| [08-security](08-security/README.md) | Defensive audits, risk, compliance |
+| [09-verticals](09-verticals/README.md) | Science, healthcare, legal, specialist workflows |
+| [10-platform](10-platform/README.md) | Cloud, CLIs, connectors, automation |
 
-A skill encyclopedia for AI agents: organized by domain and connected by a relationship graph. Use `domain`, `tags`, and `triggers` to narrow candidates, then match the task against `description`. Each skill has one home and keeps its native language.
+## What is included
 
-Browse the [Catalog](INDEX/catalog.md), [Tags](INDEX/tags.md), and [Graph](INDEX/graph.md). Machine-readable indexes are [search.json](INDEX/search.json) and [graph.json](INDEX/graph.json).
+**Bundled skills** are the actual `SKILL.md` folders here and can be installed by volume. Their bodies retain their native language. **External repository entries** below are discovery metadata; their upstream skill bodies are not included in the plugins.
 
-## Eleven volumes, installed as needed
+The [catalog](INDEX/catalog.md), [tags](INDEX/tags.md), [graph](INDEX/graph.md), [search.json](INDEX/search.json), and [quality.json](INDEX/quality.json) are generated navigation and evidence views. Review status, freshness, licenses, and runtime dependencies are separate facets; `unknown` or `unreviewed` is not a verification claim. Read the selected skill's prerequisites and [source/license record](INDEX/sources.md) before running it.
 
-| Volume | Domain | Typical tasks |
-| --- | --- | --- |
-| [00-meta](00-meta/README.md) | Meta | Research, planning, reasoning, and agent workflows |
-| [01-documents](01-documents/README.md) | Documents | Documents, spreadsheets, presentations, and writing |
-| [02-engineering](02-engineering/README.md) | Engineering | Development, architecture, testing, and delivery |
-| [03-data](03-data/README.md) | Data | Analysis, databases, and data engineering |
-| [04-ai](04-ai/README.md) | AI | Models, RAG, agents, and evaluation |
-| [05-business](05-business/README.md) | Business | Marketing, product, operations, and growth |
-| [06-creative](06-creative/README.md) | Creative | Design, images, audiovisual work, and interaction |
-| [07-productivity](07-productivity/README.md) | Productivity | Communication, projects, processes, and personal workflows |
-| [08-security](08-security/README.md) | Security | Defensive audits, risk, and compliance |
-| [09-verticals](09-verticals/README.md) | Industry | Research, healthcare, legal, and specialist workflows |
-| [10-platform](10-platform/README.md) | Platform | Cloud platforms, CLIs, connectors, and automation |
+## Contribute and follow updates
 
-## Maintenance and contributions
+Missing a useful skill or found a broken workflow? [Open an issue](https://github.com/findscripter/everything-skills/issues/new) or follow [CONTRIBUTING.md](CONTRIBUTING.md). If this collection helps you, star it to find it again and [watch releases](https://github.com/findscripter/everything-skills/releases) for curated updates.
 
-Skill metadata and repository JSONL files are the source of truth. Indexes, graphs, and brand statistics are generated. Run `npm run build` for English or `npm run build:zh` for Chinese; commit the generated files, then run the corresponding `check` or `check:zh`.
-
-- [CONTRIBUTING.md](CONTRIBUTING.md): adding and validating skills.
-- [ARCHITECTURE.md](ARCHITECTURE.md): source, generation, and publishing boundaries.
-- [LANGUAGE.md](LANGUAGE.md): `main` / `zh` interfaces and native-language skill bodies; the historical `en` mirror is retired.
-- [PROJECT-REVIEW.md](PROJECT-REVIEW.md): the project audit, fixes, and follow-up work.
-- [assets/brand/README.md](assets/brand/README.md): animated and static SVG branding.
-
-For provenance and license terms, see [Sources](INDEX/sources.md), [LICENSE](LICENSE), and [NOTICE](NOTICE). Usage policy: [SECURITY.md](SECURITY.md).
+[Architecture](ARCHITECTURE.md) · [Language policy](LANGUAGE.md) · [Maintenance SOP](sop.md) · [Security](SECURITY.md) · [Sources](INDEX/sources.md) · [License](LICENSE) · [Notice](NOTICE)
 
 ---

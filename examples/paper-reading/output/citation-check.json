@@ -1,0 +1,35 @@
+{
+  "scope": "Offline bibliographic fixture check against selected previously verified metadata; not full-text fact checking",
+  "inputCount": 2,
+  "uniqueWorkCount": 1,
+  "errors": [
+    {
+      "record": "draft-1",
+      "code": "YEAR_MISMATCH",
+      "actual": 2018,
+      "expected": 2017
+    },
+    {
+      "record": "draft-1",
+      "code": "AUTHOR_LIST_MISMATCH",
+      "actualCount": 1,
+      "expectedCount": 8
+    }
+  ],
+  "duplicateGroups": [
+    {
+      "doi": "10.48550/arxiv.1706.03762",
+      "records": [
+        "draft-1",
+        "draft-2"
+      ]
+    }
+  ],
+  "correctedYear": 2017,
+  "canonicalAuthorCount": 8,
+  "canonicalDoi": "10.48550/arxiv.1706.03762",
+  "inputSha256": {
+    "metadata.json": "34e7a34c6fe269df04500f426e0cb2ba4f59704923dcbcbefa4683c716c9bd86",
+    "draft-citations.json": "515e1b9186b37fe34da67f97ddb8151e51433281d1fa731f320ece55f02e8c78"
+  }
+}

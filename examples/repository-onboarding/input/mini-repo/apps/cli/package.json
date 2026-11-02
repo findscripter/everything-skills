@@ -1,0 +1,6 @@
+{
+  "name": "@trail/cli",
+  "private": true,
+  "type": "module",
+  "dependencies": { "@trail/core": "*" }
+}

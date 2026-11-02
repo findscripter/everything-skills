@@ -1,0 +1,10 @@
+{
+  "observedOn": "2026-11-02",
+  "sources": [
+    { "id": "arxiv-v7", "url": "https://arxiv.org/html/1706.03762v7", "kind": "versioned primary full text", "readSections": ["Abstract", "1-7", "References", "Attention Visualizations"], "note": "Paper was actually read; full text is not redistributed in this example" },
+    { "id": "arxiv-v7-pdf", "url": "https://arxiv.org/pdf/1706.03762v7", "kind": "versioned primary PDF", "readSections": ["Abstract", "3 Model Architecture", "6 Results"], "note": "Used to cross-check reported text values, including Table 2 and section 6.1 on PDF page 8; PDF is not redistributed" },
+    { "id": "arxiv-record", "url": "https://arxiv.org/abs/1706.03762", "kind": "primary version history", "note": "Submitted in 2017, v7 dated 2023-08-02" },
+    { "id": "datacite", "url": "https://api.datacite.org/dois/10.48550/arxiv.1706.03762", "kind": "DOI registration metadata", "note": "Title, eight authors, publicationYear 2017, arXiv publisher and Preprint type checked" },
+    { "id": "neurips-record", "url": "https://papers.nips.cc/paper_files/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html", "kind": "conference proceedings record", "note": "2017 conference identity verified; its abstract reports different BLEU numbers, so it is not used as the v7 metric source" }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "scope": "Agent-authored reading checks against the cited paper, not automatically regenerated from full text",
+  "claims": [
+    { "id": "C1", "claim": "The paper's first submission was in 2018", "verdict": "contradicted", "correction": "First submitted 2017-06-12; v7 was revised in 2023", "sources": ["arxiv-record", "datacite"] },
+    { "id": "C2", "claim": "The decoder generates all output tokens simultaneously at inference", "verdict": "contradicted", "correction": "The decoder is autoregressive; training parallelism does not remove sequential token generation", "sources": ["arxiv-v7"], "locator": "Sections 3 and 3.1, decoder and causal masking" },
+    { "id": "C3", "claim": "The v7 Table 2 Transformer big row reports EN-DE 28.4 and EN-FR 41.8 BLEU", "verdict": "supported-as-reported", "reported": { "enDe": 28.4, "enFr": 41.8 }, "sources": ["arxiv-v7", "arxiv-v7-pdf"], "locator": "Table 2; not a new experiment" },
+    { "id": "C4", "claim": "All linked primary pages report identical translation results", "verdict": "contradicted", "correction": "NeurIPS abstract lists 27.5/41.1; v7 abstract and Table 2 list 28.4/41.8; v7 section 6.1 prose says EN-FR 41.0. Preserve these source/version distinctions rather than silently reconciling them", "sources": ["neurips-record", "arxiv-v7", "arxiv-v7-pdf"], "locator": "NeurIPS abstract, v7 abstract/Table 2/section 6.1", "unresolved": "This example does not determine why the primary-source numbers differ" }
+  ]
+}
