@@ -1,0 +1,1564 @@
+{
+  "overlap-resolution-science.json": {
+    "reviewed_names": [
+      "Amitro123/claudemod",
+      "ecorkran/squadron",
+      "ArvorCo/PNAD",
+      "zululima/dotclaude",
+      "YJLi-new/AndroidClaw",
+      "TechTripAi/techtrip-secondbrain",
+      "shalintripathi/saas-marketing-agents"
+    ],
+    "corrections": [
+      {
+        "full_name": "Amitro123/claudemod",
+        "field_updates": {
+          "skill_count": 6,
+          "count_basis": "6 publicly packaged procedural skill contracts: 1 directly invoked mistake-brain memory workflow plus 5 model-executed factory roles (spec-writer, builder, security-reviewer, code-reviewer, approver). Role-only invocation is not repository maintenance or a routing alias. Ordinary HUD mods and eval fixtures are excluded.",
+          "public_skill_paths": [
+            "plugins/brain-hud/skills/mistake-brain/SKILL.md",
+            "plugins/factory/skills/approver/SKILL.md",
+            "plugins/factory/skills/builder/SKILL.md",
+            "plugins/factory/skills/code-reviewer/SKILL.md",
+            "plugins/factory/skills/security-reviewer/SKILL.md",
+            "plugins/factory/skills/spec-writer/SKILL.md"
+          ],
+          "additional_evidence": [
+            {
+              "path": "README.md",
+              "blob_sha": "f5b2c2b91ef9db24c5cbc8ce0bae7da8f143b130",
+              "sha256": "b3f520e8acf725db823bb5b78755d55da1d28b638aad50db27ee2c53a7f22e05",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/README.md",
+              "bytes": 59882
+            },
+            {
+              "path": "plugins/factory/skills/approver/SKILL.md",
+              "blob_sha": "4cbfd6946aad7539fda9a292ec3ddf976ff110e1",
+              "sha256": "3bc2c3353c3bd70ff67cf3e5c2abc51ae4721f1563391833b492e9538a0adb2c",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/approver/SKILL.md",
+              "bytes": 2334
+            },
+            {
+              "path": "plugins/factory/skills/builder/SKILL.md",
+              "blob_sha": "366f642f90259e6ef9e87d4f0a4efcbbeab3ba2f",
+              "sha256": "ed75b35df34f9ec0f3740a21d0134bb55f4ab1f88a106b0263228f23fb2af193",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/builder/SKILL.md",
+              "bytes": 2711
+            },
+            {
+              "path": "plugins/factory/skills/code-reviewer/SKILL.md",
+              "blob_sha": "abc8e7a0e21d7fb0215676f17f6c63adc7cc7a8c",
+              "sha256": "3630ab5a19476678bc5e6aeca4b690a3da20c58ce71a84a2b53a93ad7c137dd2",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/code-reviewer/SKILL.md",
+              "bytes": 3401
+            },
+            {
+              "path": "plugins/factory/skills/security-reviewer/SKILL.md",
+              "blob_sha": "9f1f79e93f6563b299accf9c3ff4b6eb4f3366e8",
+              "sha256": "62a4c05edb470b85458078e10ec5362fe01a62314153443baed8179f4781faa3",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/security-reviewer/SKILL.md",
+              "bytes": 2703
+            },
+            {
+              "path": "plugins/factory/skills/spec-writer/SKILL.md",
+              "blob_sha": "099ed1b2c29d4eb7ba824bdd4c2bde903790bb35",
+              "sha256": "f50d865038ff55ffb27ec487c3fd8d7d881b84c67e92de08e75c588ddcfee3af",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/spec-writer/SKILL.md",
+              "bytes": 3865
+            },
+            {
+              "path": "plugins/factory/.claude-plugin/plugin.json",
+              "blob_sha": "1a0defd58e8d883c10737c2223e076fcdd9eca30",
+              "sha256": "734c03d689484d45496f5a68d583db4b5073fd4ca2b15f65518823fea934a4d0",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/.claude-plugin/plugin.json",
+              "bytes": 3636
+            }
+          ]
+        },
+        "reason": "同一 commit。science 原1只统计主会话直接调用范围，错误地把5项由factory代理加载的具体任务流程排除。5份文件分别规定规格、实现、两类审阅、批准/升级的输入、步骤与产出；它们服务用户项目，不是维护claudemod仓库。采用breadth的6，但必须写清1直接任务+5代理角色任务，不能说6项均由主会话独立调用。",
+        "evidence": {
+          "repository_id": 1410680824,
+          "commit": "c076ba15e149407297b7d1dd4054d87cf8634e85",
+          "tree": "4c0e0ebe0fa49790144d3386dc5dd6404e461fc8",
+          "references": [
+            {
+              "path": "README.md",
+              "blob_sha": "f5b2c2b91ef9db24c5cbc8ce0bae7da8f143b130",
+              "sha256": "b3f520e8acf725db823bb5b78755d55da1d28b638aad50db27ee2c53a7f22e05",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/README.md",
+              "bytes": 59882
+            },
+            {
+              "path": "plugins/factory/skills/approver/SKILL.md",
+              "blob_sha": "4cbfd6946aad7539fda9a292ec3ddf976ff110e1",
+              "sha256": "3bc2c3353c3bd70ff67cf3e5c2abc51ae4721f1563391833b492e9538a0adb2c",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/approver/SKILL.md",
+              "bytes": 2334
+            },
+            {
+              "path": "plugins/factory/skills/builder/SKILL.md",
+              "blob_sha": "366f642f90259e6ef9e87d4f0a4efcbbeab3ba2f",
+              "sha256": "ed75b35df34f9ec0f3740a21d0134bb55f4ab1f88a106b0263228f23fb2af193",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/builder/SKILL.md",
+              "bytes": 2711
+            },
+            {
+              "path": "plugins/factory/skills/code-reviewer/SKILL.md",
+              "blob_sha": "abc8e7a0e21d7fb0215676f17f6c63adc7cc7a8c",
+              "sha256": "3630ab5a19476678bc5e6aeca4b690a3da20c58ce71a84a2b53a93ad7c137dd2",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/code-reviewer/SKILL.md",
+              "bytes": 3401
+            },
+            {
+              "path": "plugins/factory/skills/security-reviewer/SKILL.md",
+              "blob_sha": "9f1f79e93f6563b299accf9c3ff4b6eb4f3366e8",
+              "sha256": "62a4c05edb470b85458078e10ec5362fe01a62314153443baed8179f4781faa3",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/security-reviewer/SKILL.md",
+              "bytes": 2703
+            },
+            {
+              "path": "plugins/factory/skills/spec-writer/SKILL.md",
+              "blob_sha": "099ed1b2c29d4eb7ba824bdd4c2bde903790bb35",
+              "sha256": "f50d865038ff55ffb27ec487c3fd8d7d881b84c67e92de08e75c588ddcfee3af",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/skills/spec-writer/SKILL.md",
+              "bytes": 3865
+            },
+            {
+              "path": "plugins/factory/.claude-plugin/plugin.json",
+              "blob_sha": "1a0defd58e8d883c10737c2223e076fcdd9eca30",
+              "sha256": "734c03d689484d45496f5a68d583db4b5073fd4ca2b15f65518823fea934a4d0",
+              "url": "https://github.com/Amitro123/claudemod/blob/c076ba15e149407297b7d1dd4054d87cf8634e85/plugins/factory/.claude-plugin/plugin.json",
+              "bytes": 3636
+            }
+          ],
+          "findings": [
+            {
+              "paths": [
+                "plugins/factory/skills/approver/SKILL.md",
+                "plugins/factory/skills/builder/SKILL.md",
+                "plugins/factory/skills/code-reviewer/SKILL.md",
+                "plugins/factory/skills/security-reviewer/SKILL.md",
+                "plugins/factory/skills/spec-writer/SKILL.md"
+              ],
+              "classification": "model-executed procedural role tasks",
+              "basis": "Each file defines a distinct work product and checks; plugin.json userConfig.skills allows each factory role to load/replace these named skills."
+            },
+            {
+              "path": "plugins/brain-hud/skills/mistake-brain/SKILL.md",
+              "classification": "direct public task",
+              "basis": "Memory capture, PARA routing, promotion and recall workflow; separately reviewed in science admission."
+            }
+          ],
+          "review_scope": "All five factory task bodies and factory plugin manifest fully read at the shared snapshot; mistake-brain had already been fully read for admission."
+        }
+      },
+      {
+        "full_name": "ecorkran/squadron",
+        "field_updates": {
+          "skill_count": 5,
+          "count_basis": "5 canonical procedural tasks: brownfield onboarding, prompt-only pipeline execution, conversation summary/restore, tech-debt audit and graph-derived planning analysis. The public install set contains 15 entries = these 5 +9 CLI transport adapters +1 sq-analysis router. Exclude the 3 repository contributor setup/release entries and 1 duplicated project-guide setup template from the 19 raw paths. Do not label the 15 installable command bindings as 15 independent task workflows.",
+          "public_skill_paths": [
+            "commands/agents/sq-onboard/SKILL.md",
+            "commands/agents/sq-run/SKILL.md",
+            "commands/agents/sq-summary/SKILL.md",
+            "commands/analysis/agents/analysis-tech-debt-audit/SKILL.md",
+            "commands/analysis/agents/analysis-understand/SKILL.md"
+          ],
+          "additional_evidence": [
+            {
+              "path": "README.md",
+              "blob_sha": "d633b32867064267e83668e6e119b7db89dc9b13",
+              "sha256": "e9d880920ca33167e63ee835c97cdd8c9692565844acf0f0da06385fa33f0f72",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/README.md",
+              "bytes": 30267
+            },
+            {
+              "path": "commands/agents/sq-analysis/SKILL.md",
+              "blob_sha": "06bb888a301ffe7f701bbbea918e7587167b668d",
+              "sha256": "8af22453b0ad056fe0f5a6702d9bd44ce78d6388115c14d1ca9546e231d691fe",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-analysis/SKILL.md",
+              "bytes": 1934
+            },
+            {
+              "path": "commands/agents/sq-auth/SKILL.md",
+              "blob_sha": "826c8175b434b6247fa1d13e83bda164b43c757e",
+              "sha256": "ee994b4313748db207da8eebd46f8aa981d32e32de6965d5471d443695d635ce",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-auth/SKILL.md",
+              "bytes": 828
+            },
+            {
+              "path": "commands/agents/sq-list/SKILL.md",
+              "blob_sha": "ddb30503e67a6da95423bcaf8390fc0b7ba51013",
+              "sha256": "d4fc36d1331d901f71cc765f285a70391b66d4999b743989b1a0d20b9fb5ba77",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-list/SKILL.md",
+              "bytes": 474
+            },
+            {
+              "path": "commands/agents/sq-onboard/SKILL.md",
+              "blob_sha": "9cb4826dec93708bf6ead9f742fa1ba040b468c3",
+              "sha256": "4a310e083ea176ef6ed25f2043af4203fe1293a271c537a9b4d072800e73d6c8",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-onboard/SKILL.md",
+              "bytes": 3725
+            },
+            {
+              "path": "commands/agents/sq-pr/SKILL.md",
+              "blob_sha": "727ed28189070d1b54597ebd208403f03ab70d32",
+              "sha256": "afaf27fe8a156a0a26d457ee1e963f4f81cd45381c0b76642eef4f66eeefe385",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-pr/SKILL.md",
+              "bytes": 4188
+            },
+            {
+              "path": "commands/agents/sq-replay/SKILL.md",
+              "blob_sha": "c2e42d0491c82471ca9d9d451b1aee49fc65a365",
+              "sha256": "a48c877626bdeb7e7168aff46732fb4c5e66febc6b076a3dea674c2e2875d75c",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-replay/SKILL.md",
+              "bytes": 1149
+            },
+            {
+              "path": "commands/agents/sq-review/SKILL.md",
+              "blob_sha": "7d163e2698e90e3c6b68aa6e6f1b54378a9f82ee",
+              "sha256": "273d8bc0b17af251f6b05ac05a8739d50398dc50fe22afcc7a73622076e808f2",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-review/SKILL.md",
+              "bytes": 14300
+            },
+            {
+              "path": "commands/agents/sq-run/SKILL.md",
+              "blob_sha": "84a02e899d6e928f91e9173ec87b9270197793ee",
+              "sha256": "4f1857288366a3b39dae3defb69556fa76c5e45c32b444a3b680f682144802f2",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-run/SKILL.md",
+              "bytes": 8139
+            },
+            {
+              "path": "commands/agents/sq-shutdown/SKILL.md",
+              "blob_sha": "37f652d04177836511c590b2f4c48308e634e2bf",
+              "sha256": "59aea6ac08e9e6ceaf618817dd546f43b4941969f148f902d125e6b40afe4a9a",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-shutdown/SKILL.md",
+              "bytes": 378
+            },
+            {
+              "path": "commands/agents/sq-spawn/SKILL.md",
+              "blob_sha": "08bd3b0ad85d4600120a6e40d3506655fb86e515",
+              "sha256": "6a2aad9e37bcb704dd79ccd9cb6c8c358e84e7b64b332cd75c55947a260b9e13",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-spawn/SKILL.md",
+              "bytes": 500
+            },
+            {
+              "path": "commands/agents/sq-stats/SKILL.md",
+              "blob_sha": "9e5c4eb0401521995b693d07b349b0348fd15cdc",
+              "sha256": "5ef4d114e293a9c86769de95484b0c05e7f01e54033f296dc90458a7ebd6b23f",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-stats/SKILL.md",
+              "bytes": 901
+            },
+            {
+              "path": "commands/agents/sq-summary/SKILL.md",
+              "blob_sha": "4ce61570e454b728f3e15a9d088b0a0bdd125bc6",
+              "sha256": "3f87b913dba5243ce5082a2db96d813931ca9e21af1fefd94958dc48388ce8c3",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-summary/SKILL.md",
+              "bytes": 5963
+            },
+            {
+              "path": "commands/agents/sq-task/SKILL.md",
+              "blob_sha": "ea88f2b5e9ca5043d599924a441fa7c3c82cf0e5",
+              "sha256": "011a304e0ad17510615c0004939fe43b3804d60e2094eb3b4e7bb3c3d2be9b53",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-task/SKILL.md",
+              "bytes": 1045
+            },
+            {
+              "path": "src/squadron/data/skills.toml",
+              "blob_sha": "515a96b727d41c8442a29039b937fefe1178da50",
+              "sha256": "2a9f836830364726a54a6e69845cb4e7efce5172949ee30b38252567cc4e3570",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/src/squadron/data/skills.toml",
+              "bytes": 187
+            },
+            {
+              "path": "commands/analysis/agents/analysis-understand/SKILL.md",
+              "blob_sha": "15fc7c564fa1a73ff6b184d7340960437b1c5b8f",
+              "sha256": "cf69ccee939eceb20dd79bc9aac53f675a0eebf5adf5dac77adcea20c947ab72",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/analysis/agents/analysis-understand/SKILL.md",
+              "bytes": 71545
+            }
+          ]
+        },
+        "reason": "同一 commit，原science的2只计analysis包，漏掉3份命令文件自身实现的任务流程；breadth的15则把CLI调用包装和router一并叫leaf。完整实读13份commands/agents文件后，onboard拥有逐步采纳与无进展停机分支；run拥有行动、检查点、完成状态循环；summary实际生成/保存/恢复会话摘要。其余9份主要传递sq命令参数并显示结果，review/pr虽有长参数和防重复执行说明，实际审阅/PR生成仍由CLI完成；sq-analysis明确转调analysis包。建议任务计5，同时保留15个公开安装条目的说明。",
+        "evidence": {
+          "repository_id": 1160063666,
+          "commit": "c047a2ac5b6f9b1f83372834b791f3f524020e82",
+          "tree": "8aeffa9f6347973d3b4ec246d02ffa3dfb248301",
+          "references": [
+            {
+              "path": "README.md",
+              "blob_sha": "d633b32867064267e83668e6e119b7db89dc9b13",
+              "sha256": "e9d880920ca33167e63ee835c97cdd8c9692565844acf0f0da06385fa33f0f72",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/README.md",
+              "bytes": 30267
+            },
+            {
+              "path": "commands/agents/sq-analysis/SKILL.md",
+              "blob_sha": "06bb888a301ffe7f701bbbea918e7587167b668d",
+              "sha256": "8af22453b0ad056fe0f5a6702d9bd44ce78d6388115c14d1ca9546e231d691fe",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-analysis/SKILL.md",
+              "bytes": 1934
+            },
+            {
+              "path": "commands/agents/sq-auth/SKILL.md",
+              "blob_sha": "826c8175b434b6247fa1d13e83bda164b43c757e",
+              "sha256": "ee994b4313748db207da8eebd46f8aa981d32e32de6965d5471d443695d635ce",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-auth/SKILL.md",
+              "bytes": 828
+            },
+            {
+              "path": "commands/agents/sq-list/SKILL.md",
+              "blob_sha": "ddb30503e67a6da95423bcaf8390fc0b7ba51013",
+              "sha256": "d4fc36d1331d901f71cc765f285a70391b66d4999b743989b1a0d20b9fb5ba77",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-list/SKILL.md",
+              "bytes": 474
+            },
+            {
+              "path": "commands/agents/sq-onboard/SKILL.md",
+              "blob_sha": "9cb4826dec93708bf6ead9f742fa1ba040b468c3",
+              "sha256": "4a310e083ea176ef6ed25f2043af4203fe1293a271c537a9b4d072800e73d6c8",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-onboard/SKILL.md",
+              "bytes": 3725
+            },
+            {
+              "path": "commands/agents/sq-pr/SKILL.md",
+              "blob_sha": "727ed28189070d1b54597ebd208403f03ab70d32",
+              "sha256": "afaf27fe8a156a0a26d457ee1e963f4f81cd45381c0b76642eef4f66eeefe385",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-pr/SKILL.md",
+              "bytes": 4188
+            },
+            {
+              "path": "commands/agents/sq-replay/SKILL.md",
+              "blob_sha": "c2e42d0491c82471ca9d9d451b1aee49fc65a365",
+              "sha256": "a48c877626bdeb7e7168aff46732fb4c5e66febc6b076a3dea674c2e2875d75c",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-replay/SKILL.md",
+              "bytes": 1149
+            },
+            {
+              "path": "commands/agents/sq-review/SKILL.md",
+              "blob_sha": "7d163e2698e90e3c6b68aa6e6f1b54378a9f82ee",
+              "sha256": "273d8bc0b17af251f6b05ac05a8739d50398dc50fe22afcc7a73622076e808f2",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-review/SKILL.md",
+              "bytes": 14300
+            },
+            {
+              "path": "commands/agents/sq-run/SKILL.md",
+              "blob_sha": "84a02e899d6e928f91e9173ec87b9270197793ee",
+              "sha256": "4f1857288366a3b39dae3defb69556fa76c5e45c32b444a3b680f682144802f2",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-run/SKILL.md",
+              "bytes": 8139
+            },
+            {
+              "path": "commands/agents/sq-shutdown/SKILL.md",
+              "blob_sha": "37f652d04177836511c590b2f4c48308e634e2bf",
+              "sha256": "59aea6ac08e9e6ceaf618817dd546f43b4941969f148f902d125e6b40afe4a9a",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-shutdown/SKILL.md",
+              "bytes": 378
+            },
+            {
+              "path": "commands/agents/sq-spawn/SKILL.md",
+              "blob_sha": "08bd3b0ad85d4600120a6e40d3506655fb86e515",
+              "sha256": "6a2aad9e37bcb704dd79ccd9cb6c8c358e84e7b64b332cd75c55947a260b9e13",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-spawn/SKILL.md",
+              "bytes": 500
+            },
+            {
+              "path": "commands/agents/sq-stats/SKILL.md",
+              "blob_sha": "9e5c4eb0401521995b693d07b349b0348fd15cdc",
+              "sha256": "5ef4d114e293a9c86769de95484b0c05e7f01e54033f296dc90458a7ebd6b23f",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-stats/SKILL.md",
+              "bytes": 901
+            },
+            {
+              "path": "commands/agents/sq-summary/SKILL.md",
+              "blob_sha": "4ce61570e454b728f3e15a9d088b0a0bdd125bc6",
+              "sha256": "3f87b913dba5243ce5082a2db96d813931ca9e21af1fefd94958dc48388ce8c3",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-summary/SKILL.md",
+              "bytes": 5963
+            },
+            {
+              "path": "commands/agents/sq-task/SKILL.md",
+              "blob_sha": "ea88f2b5e9ca5043d599924a441fa7c3c82cf0e5",
+              "sha256": "011a304e0ad17510615c0004939fe43b3804d60e2094eb3b4e7bb3c3d2be9b53",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-task/SKILL.md",
+              "bytes": 1045
+            },
+            {
+              "path": "src/squadron/data/skills.toml",
+              "blob_sha": "515a96b727d41c8442a29039b937fefe1178da50",
+              "sha256": "2a9f836830364726a54a6e69845cb4e7efce5172949ee30b38252567cc4e3570",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/src/squadron/data/skills.toml",
+              "bytes": 187
+            },
+            {
+              "path": "commands/analysis/agents/analysis-understand/SKILL.md",
+              "blob_sha": "15fc7c564fa1a73ff6b184d7340960437b1c5b8f",
+              "sha256": "cf69ccee939eceb20dd79bc9aac53f675a0eebf5adf5dac77adcea20c947ab72",
+              "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/analysis/agents/analysis-understand/SKILL.md",
+              "bytes": 71545
+            }
+          ],
+          "findings": [
+            {
+              "paths": [
+                "commands/agents/sq-onboard/SKILL.md",
+                "commands/agents/sq-run/SKILL.md",
+                "commands/agents/sq-summary/SKILL.md",
+                "commands/analysis/agents/analysis-tech-debt-audit/SKILL.md",
+                "commands/analysis/agents/analysis-understand/SKILL.md"
+              ],
+              "classification": "procedural task definitions",
+              "basis": "onboard: next-step/consent/staleness/no-progress workflow; run: per-action execution/checkpoint/resume loop; summary: model produces conversation artifact then clipboard/file/restore; analysis files own substantive audit and graph-to-document processes."
+            },
+            {
+              "paths": [
+                "commands/agents/sq-auth/SKILL.md",
+                "commands/agents/sq-list/SKILL.md",
+                "commands/agents/sq-pr/SKILL.md",
+                "commands/agents/sq-replay/SKILL.md",
+                "commands/agents/sq-review/SKILL.md",
+                "commands/agents/sq-shutdown/SKILL.md",
+                "commands/agents/sq-spawn/SKILL.md",
+                "commands/agents/sq-stats/SKILL.md",
+                "commands/agents/sq-task/SKILL.md"
+              ],
+              "classification": "CLI method transport adapters",
+              "basis": "Bodies dispatch sq auth/list/pr/replay/review/shutdown/spawn/stats/task commands and display results; no extra canonical task is created for each CLI binding."
+            },
+            {
+              "path": "commands/agents/sq-analysis/SKILL.md",
+              "classification": "pure router",
+              "basis": "Selects tech-debt-audit/understand and invokes the corresponding analysis skill rather than implementing those tasks."
+            },
+            {
+              "paths": [
+                ".agents/skills/setup-ci/SKILL.md",
+                ".claude/skills/release/SKILL.md",
+                ".claude/skills/setup-ci/SKILL.md",
+                "project-documents/ai-project-guide/project-guides/skills/setup-ci/SKILL.md"
+              ],
+              "classification": "repository maintenance or copied guide projection",
+              "basis": "Three .agents/.claude contributor entries and project-guide setup-ci template are excluded by both streams."
+            }
+          ],
+          "review_scope": "All 13 commands/agents bodies and skills.toml fully read; analysis-tech-debt-audit fully read during admission. The 71KB analysis-understand was classified from its complete purpose/preflight and document-output excerpts, not claimed as a new full-body audit."
+        }
+      },
+      {
+        "full_name": "ArvorCo/PNAD",
+        "field_updates": {
+          "skill_count": 2,
+          "count_basis": "2 canonical public task skills: brasil-cli-analyst and pnad-query. No count disagreement; correct the copyright scope rather than applying root MIT to instructional prose.",
+          "public_skill_paths": [
+            "skills/brasil-cli-analyst/SKILL.md",
+            "skills/pnad-query/SKILL.md"
+          ],
+          "additional_evidence": [
+            {
+              "path": "README.md",
+              "blob_sha": "b931130d2dfcf4ef33a3e9d11e69e44d6c1a2515",
+              "sha256": "3045aab6f5062fe49b6afe32933ce36c45bc38232dcad5c58fe91121787775a6",
+              "url": "https://github.com/ArvorCo/PNAD/blob/20c6a4fa19b286fbd8aa35bd7196cca1ddbc62bb/README.md",
+              "bytes": 29626
+            }
+          ],
+          "license_spdx": "CC-BY-4.0 AND MIT",
+          "license_scope": "README expressly assigns original prose to CC-BY-4.0 and code to MIT. The SKILL.md instructional text falls within prose; executable helpers remain MIT. IBGE/PNADC microdata, downloaded source material and statistical output rights remain separate; this is not a blanket MIT grant over prose or data."
+        },
+        "reason": "两流的2项技能和快照一致。README页脚明确分别写Data © IBGE/PNADC、Code © MIT、Prose © CC-BY-4.0；SKILL.md指令属于文字，不应仅因根MIT覆盖软件及associated documentation而忽略这个更具体的文字许可声明。",
+        "evidence": {
+          "repository_id": 1046070065,
+          "commit": "20c6a4fa19b286fbd8aa35bd7196cca1ddbc62bb",
+          "tree": "db465a1f9154548921419ce0127b7694a7c300c4",
+          "references": [
+            {
+              "path": "README.md",
+              "blob_sha": "b931130d2dfcf4ef33a3e9d11e69e44d6c1a2515",
+              "sha256": "3045aab6f5062fe49b6afe32933ce36c45bc38232dcad5c58fe91121787775a6",
+              "url": "https://github.com/ArvorCo/PNAD/blob/20c6a4fa19b286fbd8aa35bd7196cca1ddbc62bb/README.md",
+              "bytes": 29626
+            }
+          ],
+          "findings": [
+            {
+              "path": "README.md",
+              "classification": "explicit split copyright/license statement",
+              "basis": "Footer links code to LICENSE/MIT and prose to CC-BY-4.0; data attributed separately to IBGE/PNADC."
+            },
+            {
+              "paths": [
+                "skills/brasil-cli-analyst/SKILL.md",
+                "skills/pnad-query/SKILL.md"
+              ],
+              "classification": "instructional prose",
+              "basis": "Two actual task instructions; supporting executable code stays under MIT and source microdata remains separately licensed."
+            }
+          ],
+          "review_scope": "Current frozen snapshot classification; no new search, install or execution."
+        }
+      },
+      {
+        "full_name": "zululima/dotclaude",
+        "field_updates": {
+          "skill_count": 3,
+          "count_basis": "3 reusable public task skills: commit-messages, pull-requests and slack-draft. A fourth packaged file, skills/dotclaude/SKILL.md, is the project-specific configuration-mirror installation/maintenance guide and is excluded from the reusable task count. All four SKILL.md prose files remain CC-BY-SA-4.0; non-prose code AGPL-3.0-or-later.",
+          "public_skill_paths": [
+            "skills/commit-messages/SKILL.md",
+            "skills/pull-requests/SKILL.md",
+            "skills/slack-draft/SKILL.md"
+          ],
+          "additional_evidence": [
+            {
+              "path": "README.md",
+              "blob_sha": "968681829ab8e5ba6690ff2b885593999dca5497",
+              "sha256": "65cdbf2c7e05e80a3d01bc684b65753323bc8890f21adfbb9de926542a5281a4",
+              "url": "https://github.com/zululima/dotclaude/blob/70a8532e0e793597d5488f8f687dadfdb617516d/README.md",
+              "bytes": 1216
+            },
+            {
+              "path": "skills/dotclaude/SKILL.md",
+              "blob_sha": "9cbd260f302c3a08600e0f6c7e5411224f5b3391",
+              "sha256": "c7a951d4ae7857e0d9ee256c687accfc31cfc509c00627183ec6e9e027b76125",
+              "url": "https://github.com/zululima/dotclaude/blob/70a8532e0e793597d5488f8f687dadfdb617516d/skills/dotclaude/SKILL.md",
+              "bytes": 11395
+            }
+          ],
+          "license_spdx": "CC-BY-SA-4.0 AND AGPL-3.0-or-later",
+          "license_scope": "README explicitly assigns every SKILL.md and other prose CC-BY-SA-4.0; everything else AGPL-3.0-or-later. Excluding the self-maintenance guide from task counting does not change its text license."
+        },
+        "reason": "同一 commit。采用breadth的3。完整实读第四份dotclaude文件后，主体绑定~/Projects/dotclaude、sync.sh镜像名单、该配置仓库的身份/扫描/提交/推送以及随后更新其PR正文；虽也含新机器安装说明，仍是自身配置产品的运行维护契约。science原4采用了全部skills目录文件口径，需改为3可复用任务+1自维护指南。",
+        "evidence": {
+          "repository_id": 1376901487,
+          "commit": "70a8532e0e793597d5488f8f687dadfdb617516d",
+          "tree": "fa17a9c76c82aaf5157a879624477eec2fdf8ddc",
+          "references": [
+            {
+              "path": "README.md",
+              "blob_sha": "968681829ab8e5ba6690ff2b885593999dca5497",
+              "sha256": "65cdbf2c7e05e80a3d01bc684b65753323bc8890f21adfbb9de926542a5281a4",
+              "url": "https://github.com/zululima/dotclaude/blob/70a8532e0e793597d5488f8f687dadfdb617516d/README.md",
+              "bytes": 1216
+            },
+            {
+              "path": "skills/dotclaude/SKILL.md",
+              "blob_sha": "9cbd260f302c3a08600e0f6c7e5411224f5b3391",
+              "sha256": "c7a951d4ae7857e0d9ee256c687accfc31cfc509c00627183ec6e9e027b76125",
+              "url": "https://github.com/zululima/dotclaude/blob/70a8532e0e793597d5488f8f687dadfdb617516d/skills/dotclaude/SKILL.md",
+              "bytes": 11395
+            }
+          ],
+          "findings": [
+            {
+              "path": "skills/dotclaude/SKILL.md",
+              "classification": "repository/product-self configuration maintenance guide",
+              "basis": "Sections The checkout/sync.sh/After a push/Identity and contents/New machine bind specifically to this setup mirror and its publication."
+            }
+          ],
+          "review_scope": "Current frozen snapshot classification; no new search, install or execution."
+        }
+      },
+      {
+        "full_name": "YJLi-new/AndroidClaw",
+        "field_updates": {
+          "skill_count": 2,
+          "count_basis": "5 bundled host-native SKILL.md assets =2 model-driven task definitions (summarize_session, task_helper) +3 direct-tool dispatch wrappers (compact, list_tasks, memory). Count the2 procedural model tasks; do not count native command-tool methods as additional independent skills. Kotlin tools, scheduler methods and duplicate instances remain outside the count. Host-native names/metadata are not a claim of strict cross-host Agent Skills portability.",
+          "public_skill_paths": [
+            "app/src/main/assets/skills/summarize_session/SKILL.md",
+            "app/src/main/assets/skills/task_helper/SKILL.md"
+          ],
+          "additional_evidence": [
+            {
+              "path": "README.md",
+              "blob_sha": "b97f943c9a52386e25832b66e3614fe5df2889a4",
+              "sha256": "2e0c94a7bbfde5fc5d90555a6e7379490c838ef1a9251829d10c83bc3072f6f3",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/README.md",
+              "bytes": 34708
+            },
+            {
+              "path": "app/src/main/assets/skills/compact/SKILL.md",
+              "blob_sha": "c4fb035d0fdb67e4d6644bcf36ad783a3ab24887",
+              "sha256": "cb46281394cbe1b2d5691ee8544c2ede7892c7c2a36378fc5cb73fed15eaa2c3",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/compact/SKILL.md",
+              "bytes": 746
+            },
+            {
+              "path": "app/src/main/assets/skills/list_tasks/SKILL.md",
+              "blob_sha": "017f0172c5e0a67bf4e3d0b76011e5d8978330c1",
+              "sha256": "2edd02cc1cdeecd4a0478e509f6552df9791a0d0f601a75980942ae7f4ae4611",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/list_tasks/SKILL.md",
+              "bytes": 337
+            },
+            {
+              "path": "app/src/main/assets/skills/memory/SKILL.md",
+              "blob_sha": "2dc09caa453be947a7219a3d81667a6cb497ca5e",
+              "sha256": "6fa94c0110076c5a3349a25b5a84a565114755c37f79fad2cdc8cb615e84f5f7",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/memory/SKILL.md",
+              "bytes": 643
+            },
+            {
+              "path": "app/src/main/assets/skills/summarize_session/SKILL.md",
+              "blob_sha": "55e36de8bace6abdaae726eeda258dee1c58c804",
+              "sha256": "be932b30225e1e33961003217d6e7b1f8404768dbe5669e20670c9edd7bb4681",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/summarize_session/SKILL.md",
+              "bytes": 318
+            },
+            {
+              "path": "app/src/main/assets/skills/task_helper/SKILL.md",
+              "blob_sha": "0f35c1dd6c5b05ebec8d28848afce9168c874d52",
+              "sha256": "27a62d64923525ba37b2a252a4be10c3a7f2c066ecbab50c47bfe680275b069d",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/task_helper/SKILL.md",
+              "bytes": 1043
+            }
+          ]
+        },
+        "reason": "同一 commit，属于实质范围修正而非格式。science原0表示只按host基础设施入表，不能据此否认实际存在的两项模型任务。breadth的5是完整资产数量，但compact/list_tasks/memory均显式disable-model-invocation:true、command-dispatch:tool，分别直接映射sessions_compact、tasks_list、memory_command；正文主要是命令帮助。summarize_session由模型生成摘要并在缺上下文时读历史；task_helper将请求转成一次/间隔/cron任务并确认下一次运行，属于实际公共任务。建议任务计2、同时披露3个原生命令包装。",
+        "evidence": {
+          "repository_id": 1176002618,
+          "commit": "7ecb238a95c21a99508a5842c3ca26f1f8eff9be",
+          "tree": "13ce8745a4fde750ebc8f069f9846f06cfbff466",
+          "references": [
+            {
+              "path": "README.md",
+              "blob_sha": "b97f943c9a52386e25832b66e3614fe5df2889a4",
+              "sha256": "2e0c94a7bbfde5fc5d90555a6e7379490c838ef1a9251829d10c83bc3072f6f3",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/README.md",
+              "bytes": 34708
+            },
+            {
+              "path": "app/src/main/assets/skills/compact/SKILL.md",
+              "blob_sha": "c4fb035d0fdb67e4d6644bcf36ad783a3ab24887",
+              "sha256": "cb46281394cbe1b2d5691ee8544c2ede7892c7c2a36378fc5cb73fed15eaa2c3",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/compact/SKILL.md",
+              "bytes": 746
+            },
+            {
+              "path": "app/src/main/assets/skills/list_tasks/SKILL.md",
+              "blob_sha": "017f0172c5e0a67bf4e3d0b76011e5d8978330c1",
+              "sha256": "2edd02cc1cdeecd4a0478e509f6552df9791a0d0f601a75980942ae7f4ae4611",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/list_tasks/SKILL.md",
+              "bytes": 337
+            },
+            {
+              "path": "app/src/main/assets/skills/memory/SKILL.md",
+              "blob_sha": "2dc09caa453be947a7219a3d81667a6cb497ca5e",
+              "sha256": "6fa94c0110076c5a3349a25b5a84a565114755c37f79fad2cdc8cb615e84f5f7",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/memory/SKILL.md",
+              "bytes": 643
+            },
+            {
+              "path": "app/src/main/assets/skills/summarize_session/SKILL.md",
+              "blob_sha": "55e36de8bace6abdaae726eeda258dee1c58c804",
+              "sha256": "be932b30225e1e33961003217d6e7b1f8404768dbe5669e20670c9edd7bb4681",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/summarize_session/SKILL.md",
+              "bytes": 318
+            },
+            {
+              "path": "app/src/main/assets/skills/task_helper/SKILL.md",
+              "blob_sha": "0f35c1dd6c5b05ebec8d28848afce9168c874d52",
+              "sha256": "27a62d64923525ba37b2a252a4be10c3a7f2c066ecbab50c47bfe680275b069d",
+              "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/task_helper/SKILL.md",
+              "bytes": 1043
+            }
+          ],
+          "findings": [
+            {
+              "paths": [
+                "app/src/main/assets/skills/compact/SKILL.md",
+                "app/src/main/assets/skills/list_tasks/SKILL.md",
+                "app/src/main/assets/skills/memory/SKILL.md"
+              ],
+              "classification": "direct tool-dispatch command wrappers",
+              "basis": "All three set disable-model-invocation:true and command-dispatch:tool with an exact command-tool, bypassing a model task round-trip."
+            },
+            {
+              "paths": [
+                "app/src/main/assets/skills/summarize_session/SKILL.md",
+                "app/src/main/assets/skills/task_helper/SKILL.md"
+              ],
+              "classification": "model-driven procedural tasks",
+              "basis": "summarize_session owns recap output and history fallback; task_helper owns scheduling interpretation, fields/mode selection, task creation and next-run confirmation."
+            }
+          ],
+          "review_scope": "All five bundled asset bodies fully read; parser/bundled loader implementation had already been fully read for science infrastructure admission."
+        }
+      },
+      {
+        "full_name": "TechTripAi/techtrip-secondbrain",
+        "field_updates": {
+          "skill_count": 8,
+          "count_basis": "8 operational task/setup/ingestion/origination workflows plus1 publicly packaged, read-only interactive teaching/reference guide (brain-dump), for9 total SKILL.md entries. The tour is not an alias or missing file: it explains workflows and supplies prompts but explicitly never runs them or reads/modifies the vault. This operational-task count excludes that help/reference surface; linked Obsidian skills and host projections are not additional local tasks.",
+          "public_skill_paths": [
+            "skills/code-fetch/SKILL.md",
+            "skills/new-idea/SKILL.md",
+            "skills/notebooklm-ingest/SKILL.md",
+            "skills/secondbrain-doctor/SKILL.md",
+            "skills/secondbrain/SKILL.md",
+            "skills/voice-fetch/SKILL.md",
+            "skills/x-fetch/SKILL.md",
+            "skills/yt-fetch/SKILL.md"
+          ],
+          "additional_evidence": [
+            {
+              "path": "README.md",
+              "blob_sha": "a13db286cec4738b9d14ac33c719d2cdf3088415",
+              "sha256": "9358f7d52442a2545e50860f1539a3fea6197c7f610e1c0139eb72899d6b3cc0",
+              "url": "https://github.com/TechTripAi/techtrip-secondbrain/blob/08d8996ce6ba3905f92949cfe7209f97ff3aa0d2/README.md",
+              "bytes": 41989
+            },
+            {
+              "path": "skills/brain-dump/SKILL.md",
+              "blob_sha": "8b7ce792e2a3058e62fe91030a12a0d828777f7f",
+              "sha256": "44131646413b076bb15f98f02357e74e2eba2b44eadebdd0167ca207809afdd9",
+              "url": "https://github.com/TechTripAi/techtrip-secondbrain/blob/08d8996ce6ba3905f92949cfe7209f97ff3aa0d2/skills/brain-dump/SKILL.md",
+              "bytes": 42603
+            },
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "a5c4b795003e390cbf0cc9dfac1f47ddb120faf4",
+              "sha256": "4020dc5ad354fd3a139b81cd371d9c0caaf850bdac6a7deeabbf7276f037a96e",
+              "url": "https://github.com/TechTripAi/techtrip-secondbrain/blob/08d8996ce6ba3905f92949cfe7209f97ff3aa0d2/.claude-plugin/plugin.json",
+              "bytes": 1043
+            }
+          ]
+        },
+        "reason": "同一 commit。完整实读42KB brain-dump确认它不是重复文件或简单别名，而是14节交互教程：解释后提供复制用prompt并说明预期结果；allowed-tools为Read，明确不运行摄取、不读写vault、不安装/检查。它具有真实教学用途，但不是第9项执行工作流。为统一“操作任务”口径可采用breadth的8，并明确另有1项公开教学/参考入口；science原9是把这个教程也纳入全部公开包的口径，不能把差异描述为版本变化或少读一份文件。",
+        "evidence": {
+          "repository_id": 1287519941,
+          "commit": "08d8996ce6ba3905f92949cfe7209f97ff3aa0d2",
+          "tree": "1510d80204af5ab89a0dc77186e0a50b2c239e07",
+          "references": [
+            {
+              "path": "README.md",
+              "blob_sha": "a13db286cec4738b9d14ac33c719d2cdf3088415",
+              "sha256": "9358f7d52442a2545e50860f1539a3fea6197c7f610e1c0139eb72899d6b3cc0",
+              "url": "https://github.com/TechTripAi/techtrip-secondbrain/blob/08d8996ce6ba3905f92949cfe7209f97ff3aa0d2/README.md",
+              "bytes": 41989
+            },
+            {
+              "path": "skills/brain-dump/SKILL.md",
+              "blob_sha": "8b7ce792e2a3058e62fe91030a12a0d828777f7f",
+              "sha256": "44131646413b076bb15f98f02357e74e2eba2b44eadebdd0167ca207809afdd9",
+              "url": "https://github.com/TechTripAi/techtrip-secondbrain/blob/08d8996ce6ba3905f92949cfe7209f97ff3aa0d2/skills/brain-dump/SKILL.md",
+              "bytes": 42603
+            },
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "a5c4b795003e390cbf0cc9dfac1f47ddb120faf4",
+              "sha256": "4020dc5ad354fd3a139b81cd371d9c0caaf850bdac6a7deeabbf7276f037a96e",
+              "url": "https://github.com/TechTripAi/techtrip-secondbrain/blob/08d8996ce6ba3905f92949cfe7209f97ff3aa0d2/.claude-plugin/plugin.json",
+              "bytes": 1043
+            }
+          ],
+          "findings": [
+            {
+              "path": "skills/brain-dump/SKILL.md",
+              "classification": "public read-only interactive tutorial/reference, not an operational executor or alias",
+              "basis": "Golden rules and opening protocol require short explanation → exact prompt → expected result; fourteen sections teach ingestion, immutable sources, maintenance and sync, while execution belongs to the other skills/user."
+            },
+            {
+              "path": ".claude-plugin/plugin.json",
+              "classification": "real public plugin distribution",
+              "basis": "Plugin package is techtrip-secondbrain; local fixed tree contains9 distinct skill directories, not25 skills from the separately linked Obsidian plugin."
+            }
+          ],
+          "review_scope": "Complete42,069-character brain-dump body read in three overlapping ranges; public plugin manifest read; other task distribution/tree already reviewed at this frozen commit."
+        }
+      },
+      {
+        "full_name": "shalintripathi/saas-marketing-agents",
+        "field_updates": {
+          "skill_count": 18,
+          "count_basis": "19 publicly packaged entries =18 task/domain workflows (17 specialty groups plus the substantive six-phase CATALYST campaign orchestration task) +1 global saas-marketing-suite router. Count18 tasks and disclose the router separately. The91 agent role documents are not additional SKILL.md tasks.",
+          "public_skill_paths": [
+            "plugins/saas-marketing/skills/abm-ops/SKILL.md",
+            "plugins/saas-marketing/skills/catalyst-orchestrator/SKILL.md",
+            "plugins/saas-marketing/skills/client-operations/SKILL.md",
+            "plugins/saas-marketing/skills/comms-ops/SKILL.md",
+            "plugins/saas-marketing/skills/content-marketing/SKILL.md",
+            "plugins/saas-marketing/skills/design-ops/SKILL.md",
+            "plugins/saas-marketing/skills/developer-marketing-ops/SKILL.md",
+            "plugins/saas-marketing/skills/email-marketing-ops/SKILL.md",
+            "plugins/saas-marketing/skills/events-ops/SKILL.md",
+            "plugins/saas-marketing/skills/growth-ops/SKILL.md",
+            "plugins/saas-marketing/skills/marketing-analytics/SKILL.md",
+            "plugins/saas-marketing/skills/marketing-project-mgmt/SKILL.md",
+            "plugins/saas-marketing/skills/paid-media-ops/SKILL.md",
+            "plugins/saas-marketing/skills/partnerships-ops/SKILL.md",
+            "plugins/saas-marketing/skills/product-marketing-ops/SKILL.md",
+            "plugins/saas-marketing/skills/sales-enablement/SKILL.md",
+            "plugins/saas-marketing/skills/seo-growth/SKILL.md",
+            "plugins/saas-marketing/skills/social-media-ops/SKILL.md"
+          ],
+          "additional_evidence": [
+            {
+              "path": "README.md",
+              "blob_sha": "439044dcaabe6215204bdb299b0f86306ac431c6",
+              "sha256": "e256c5aa5178fdc9a74fad1aa25a4b54465b3d3fd6ae66f5c2ab02d26f96c9d9",
+              "url": "https://github.com/shalintripathi/saas-marketing-agents/blob/4dcf1978dfed4099af2ee443b871d573d7d68a20/README.md",
+              "bytes": 26941
+            },
+            {
+              "path": "plugins/saas-marketing/skills/saas-marketing-suite/SKILL.md",
+              "blob_sha": "7fc08e5a8a9c75ec8cb0a4e787338a4948e4c23c",
+              "sha256": "f93a24fc53afcbda14adecd9d75b423c1592a4df89d7ec408d40830fa56b5204",
+              "url": "https://github.com/shalintripathi/saas-marketing-agents/blob/4dcf1978dfed4099af2ee443b871d573d7d68a20/plugins/saas-marketing/skills/saas-marketing-suite/SKILL.md",
+              "bytes": 30259
+            },
+            {
+              "path": "plugins/saas-marketing/skills/catalyst-orchestrator/SKILL.md",
+              "blob_sha": "bbbeb6c6223ed35ef4bd618e250ee34448a7f12b",
+              "sha256": "131d4929e3f9fad0f5ab8e26c10357a77044c7f974e35388df2aff238de40f4c",
+              "url": "https://github.com/shalintripathi/saas-marketing-agents/blob/4dcf1978dfed4099af2ee443b871d573d7d68a20/plugins/saas-marketing/skills/catalyst-orchestrator/SKILL.md",
+              "bytes": 31847
+            },
+            {
+              "path": "plugins/saas-marketing/.claude-plugin/plugin.json",
+              "blob_sha": "2fb38dafc8b5c08ccce7ca2f896475c5eb9335dd",
+              "sha256": "c5b8346c28166dece26a1beb31e4c4190a5611a0386f7c4e4bc4ebefef0de62d",
+              "url": "https://github.com/shalintripathi/saas-marketing-agents/blob/4dcf1978dfed4099af2ee443b871d573d7d68a20/plugins/saas-marketing/.claude-plugin/plugin.json",
+              "bytes": 1014
+            }
+          ]
+        },
+        "reason": "同一固定快照。README的19是安装包入口数，套件文件自己标题为Complete Agency Router，description称ALL marketing requests的入口，What This Is与decision matrix用于选择已有专项团队。排除它后是17个专项任务组+1个有Full/Sprint/Micro模式、六阶段、交接/升级/质量门槛和交付标准的CATALYST任务。不能只凭orchestrator名称把CATALYST也当纯router，亦不能把91代理文档加到技能数。建议18任务+1router，或展示19条入口时必须同时拆分。",
+        "evidence": {
+          "repository_id": 1199990729,
+          "commit": "4dcf1978dfed4099af2ee443b871d573d7d68a20",
+          "tree": "34f4d0826865f6f36b238df03e6be4778c5547b3",
+          "references": [
+            {
+              "path": "README.md",
+              "blob_sha": "439044dcaabe6215204bdb299b0f86306ac431c6",
+              "sha256": "e256c5aa5178fdc9a74fad1aa25a4b54465b3d3fd6ae66f5c2ab02d26f96c9d9",
+              "url": "https://github.com/shalintripathi/saas-marketing-agents/blob/4dcf1978dfed4099af2ee443b871d573d7d68a20/README.md",
+              "bytes": 26941
+            },
+            {
+              "path": "plugins/saas-marketing/skills/saas-marketing-suite/SKILL.md",
+              "blob_sha": "7fc08e5a8a9c75ec8cb0a4e787338a4948e4c23c",
+              "sha256": "f93a24fc53afcbda14adecd9d75b423c1592a4df89d7ec408d40830fa56b5204",
+              "url": "https://github.com/shalintripathi/saas-marketing-agents/blob/4dcf1978dfed4099af2ee443b871d573d7d68a20/plugins/saas-marketing/skills/saas-marketing-suite/SKILL.md",
+              "bytes": 30259
+            },
+            {
+              "path": "plugins/saas-marketing/skills/catalyst-orchestrator/SKILL.md",
+              "blob_sha": "bbbeb6c6223ed35ef4bd618e250ee34448a7f12b",
+              "sha256": "131d4929e3f9fad0f5ab8e26c10357a77044c7f974e35388df2aff238de40f4c",
+              "url": "https://github.com/shalintripathi/saas-marketing-agents/blob/4dcf1978dfed4099af2ee443b871d573d7d68a20/plugins/saas-marketing/skills/catalyst-orchestrator/SKILL.md",
+              "bytes": 31847
+            },
+            {
+              "path": "plugins/saas-marketing/.claude-plugin/plugin.json",
+              "blob_sha": "2fb38dafc8b5c08ccce7ca2f896475c5eb9335dd",
+              "sha256": "c5b8346c28166dece26a1beb31e4c4190a5611a0386f7c4e4bc4ebefef0de62d",
+              "url": "https://github.com/shalintripathi/saas-marketing-agents/blob/4dcf1978dfed4099af2ee443b871d573d7d68a20/plugins/saas-marketing/.claude-plugin/plugin.json",
+              "bytes": 1014
+            }
+          ],
+          "findings": [
+            {
+              "path": "plugins/saas-marketing/skills/saas-marketing-suite/SKILL.md",
+              "classification": "global navigation/router entry",
+              "basis": "Frontmatter, Complete Agency Router title, What This Is and routing decision matrix explicitly select existing specialist skills."
+            },
+            {
+              "path": "plugins/saas-marketing/skills/catalyst-orchestrator/SKILL.md",
+              "classification": "substantive campaign orchestration task",
+              "basis": "Defines Full/Sprint/Micro modes, six phase gates, phase handoffs, escalation, quality checkpoints, deliverables and success criteria."
+            }
+          ],
+          "review_scope": "Router frontmatter/purpose/routing sections and CATALYST purpose/phase/output structure inspected, against all19 source paths and plugin manifest. This is count classification, not a new full-body review of all19 entries."
+        }
+      }
+    ],
+    "objections": [
+      {
+        "full_name": "ecorkran/squadron",
+        "field": "skill_count/count_basis",
+        "objection": "15 is a supported public installation-entry count, but not a supported independent-task count: 9 entries are CLI transport adapters and sq-analysis is a router. science 2 was also too narrow because onboard/run/summary own real workflows. Recommended canonical task count is5; retain15 only with its explicit component breakdown.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "d633b32867064267e83668e6e119b7db89dc9b13",
+            "sha256": "e9d880920ca33167e63ee835c97cdd8c9692565844acf0f0da06385fa33f0f72",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/README.md",
+            "bytes": 30267
+          },
+          {
+            "path": "commands/agents/sq-analysis/SKILL.md",
+            "blob_sha": "06bb888a301ffe7f701bbbea918e7587167b668d",
+            "sha256": "8af22453b0ad056fe0f5a6702d9bd44ce78d6388115c14d1ca9546e231d691fe",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-analysis/SKILL.md",
+            "bytes": 1934
+          },
+          {
+            "path": "commands/agents/sq-auth/SKILL.md",
+            "blob_sha": "826c8175b434b6247fa1d13e83bda164b43c757e",
+            "sha256": "ee994b4313748db207da8eebd46f8aa981d32e32de6965d5471d443695d635ce",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-auth/SKILL.md",
+            "bytes": 828
+          },
+          {
+            "path": "commands/agents/sq-list/SKILL.md",
+            "blob_sha": "ddb30503e67a6da95423bcaf8390fc0b7ba51013",
+            "sha256": "d4fc36d1331d901f71cc765f285a70391b66d4999b743989b1a0d20b9fb5ba77",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-list/SKILL.md",
+            "bytes": 474
+          },
+          {
+            "path": "commands/agents/sq-onboard/SKILL.md",
+            "blob_sha": "9cb4826dec93708bf6ead9f742fa1ba040b468c3",
+            "sha256": "4a310e083ea176ef6ed25f2043af4203fe1293a271c537a9b4d072800e73d6c8",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-onboard/SKILL.md",
+            "bytes": 3725
+          },
+          {
+            "path": "commands/agents/sq-pr/SKILL.md",
+            "blob_sha": "727ed28189070d1b54597ebd208403f03ab70d32",
+            "sha256": "afaf27fe8a156a0a26d457ee1e963f4f81cd45381c0b76642eef4f66eeefe385",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-pr/SKILL.md",
+            "bytes": 4188
+          },
+          {
+            "path": "commands/agents/sq-replay/SKILL.md",
+            "blob_sha": "c2e42d0491c82471ca9d9d451b1aee49fc65a365",
+            "sha256": "a48c877626bdeb7e7168aff46732fb4c5e66febc6b076a3dea674c2e2875d75c",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-replay/SKILL.md",
+            "bytes": 1149
+          },
+          {
+            "path": "commands/agents/sq-review/SKILL.md",
+            "blob_sha": "7d163e2698e90e3c6b68aa6e6f1b54378a9f82ee",
+            "sha256": "273d8bc0b17af251f6b05ac05a8739d50398dc50fe22afcc7a73622076e808f2",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-review/SKILL.md",
+            "bytes": 14300
+          },
+          {
+            "path": "commands/agents/sq-run/SKILL.md",
+            "blob_sha": "84a02e899d6e928f91e9173ec87b9270197793ee",
+            "sha256": "4f1857288366a3b39dae3defb69556fa76c5e45c32b444a3b680f682144802f2",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-run/SKILL.md",
+            "bytes": 8139
+          },
+          {
+            "path": "commands/agents/sq-shutdown/SKILL.md",
+            "blob_sha": "37f652d04177836511c590b2f4c48308e634e2bf",
+            "sha256": "59aea6ac08e9e6ceaf618817dd546f43b4941969f148f902d125e6b40afe4a9a",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-shutdown/SKILL.md",
+            "bytes": 378
+          },
+          {
+            "path": "commands/agents/sq-spawn/SKILL.md",
+            "blob_sha": "08bd3b0ad85d4600120a6e40d3506655fb86e515",
+            "sha256": "6a2aad9e37bcb704dd79ccd9cb6c8c358e84e7b64b332cd75c55947a260b9e13",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-spawn/SKILL.md",
+            "bytes": 500
+          },
+          {
+            "path": "commands/agents/sq-stats/SKILL.md",
+            "blob_sha": "9e5c4eb0401521995b693d07b349b0348fd15cdc",
+            "sha256": "5ef4d114e293a9c86769de95484b0c05e7f01e54033f296dc90458a7ebd6b23f",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-stats/SKILL.md",
+            "bytes": 901
+          },
+          {
+            "path": "commands/agents/sq-summary/SKILL.md",
+            "blob_sha": "4ce61570e454b728f3e15a9d088b0a0bdd125bc6",
+            "sha256": "3f87b913dba5243ce5082a2db96d813931ca9e21af1fefd94958dc48388ce8c3",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-summary/SKILL.md",
+            "bytes": 5963
+          },
+          {
+            "path": "commands/agents/sq-task/SKILL.md",
+            "blob_sha": "ea88f2b5e9ca5043d599924a441fa7c3c82cf0e5",
+            "sha256": "011a304e0ad17510615c0004939fe43b3804d60e2094eb3b4e7bb3c3d2be9b53",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/agents/sq-task/SKILL.md",
+            "bytes": 1045
+          },
+          {
+            "path": "src/squadron/data/skills.toml",
+            "blob_sha": "515a96b727d41c8442a29039b937fefe1178da50",
+            "sha256": "2a9f836830364726a54a6e69845cb4e7efce5172949ee30b38252567cc4e3570",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/src/squadron/data/skills.toml",
+            "bytes": 187
+          },
+          {
+            "path": "commands/analysis/agents/analysis-understand/SKILL.md",
+            "blob_sha": "15fc7c564fa1a73ff6b184d7340960437b1c5b8f",
+            "sha256": "cf69ccee939eceb20dd79bc9aac53f675a0eebf5adf5dac77adcea20c947ab72",
+            "url": "https://github.com/ecorkran/squadron/blob/c047a2ac5b6f9b1f83372834b791f3f524020e82/commands/analysis/agents/analysis-understand/SKILL.md",
+            "bytes": 71545
+          }
+        ]
+      },
+      {
+        "full_name": "ArvorCo/PNAD",
+        "field": "license_spdx/license_scope",
+        "objection": "Reject breadth license_scope wording that root MIT covers authored skill text. The same frozen README expressly separates prose CC-BY-4.0 from code MIT. Preserve both scopes.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "b931130d2dfcf4ef33a3e9d11e69e44d6c1a2515",
+            "sha256": "3045aab6f5062fe49b6afe32933ce36c45bc38232dcad5c58fe91121787775a6",
+            "url": "https://github.com/ArvorCo/PNAD/blob/20c6a4fa19b286fbd8aa35bd7196cca1ddbc62bb/README.md",
+            "bytes": 29626
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "df12ed368b8887b315e54dc65b74868f4aa43b5b",
+            "sha256": "7c938cef615ff2e2e7aa9a42bbe9e8e2fc5cbab9d97d8311562c45968ffd6ba4",
+            "url": "https://github.com/ArvorCo/PNAD/blob/20c6a4fa19b286fbd8aa35bd7196cca1ddbc62bb/LICENSE",
+            "bytes": 1080
+          }
+        ]
+      },
+      {
+        "full_name": "YJLi-new/AndroidClaw",
+        "field": "skill_count/count_basis",
+        "objection": "5 is the packaged asset count. Calling all5 independent standard task skills hides3 explicitly non-model command-dispatch tool wrappers. Recommended canonical model-task count is2, with the3 wrappers disclosed separately; science original0 was infrastructure-only scope, not absence of assets.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "b97f943c9a52386e25832b66e3614fe5df2889a4",
+            "sha256": "2e0c94a7bbfde5fc5d90555a6e7379490c838ef1a9251829d10c83bc3072f6f3",
+            "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/README.md",
+            "bytes": 34708
+          },
+          {
+            "path": "app/src/main/assets/skills/compact/SKILL.md",
+            "blob_sha": "c4fb035d0fdb67e4d6644bcf36ad783a3ab24887",
+            "sha256": "cb46281394cbe1b2d5691ee8544c2ede7892c7c2a36378fc5cb73fed15eaa2c3",
+            "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/compact/SKILL.md",
+            "bytes": 746
+          },
+          {
+            "path": "app/src/main/assets/skills/list_tasks/SKILL.md",
+            "blob_sha": "017f0172c5e0a67bf4e3d0b76011e5d8978330c1",
+            "sha256": "2edd02cc1cdeecd4a0478e509f6552df9791a0d0f601a75980942ae7f4ae4611",
+            "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/list_tasks/SKILL.md",
+            "bytes": 337
+          },
+          {
+            "path": "app/src/main/assets/skills/memory/SKILL.md",
+            "blob_sha": "2dc09caa453be947a7219a3d81667a6cb497ca5e",
+            "sha256": "6fa94c0110076c5a3349a25b5a84a565114755c37f79fad2cdc8cb615e84f5f7",
+            "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/memory/SKILL.md",
+            "bytes": 643
+          },
+          {
+            "path": "app/src/main/assets/skills/summarize_session/SKILL.md",
+            "blob_sha": "55e36de8bace6abdaae726eeda258dee1c58c804",
+            "sha256": "be932b30225e1e33961003217d6e7b1f8404768dbe5669e20670c9edd7bb4681",
+            "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/summarize_session/SKILL.md",
+            "bytes": 318
+          },
+          {
+            "path": "app/src/main/assets/skills/task_helper/SKILL.md",
+            "blob_sha": "0f35c1dd6c5b05ebec8d28848afce9168c874d52",
+            "sha256": "27a62d64923525ba37b2a252a4be10c3a7f2c066ecbab50c47bfe680275b069d",
+            "url": "https://github.com/YJLi-new/AndroidClaw/blob/7ecb238a95c21a99508a5842c3ca26f1f8eff9be/app/src/main/assets/skills/task_helper/SKILL.md",
+            "bytes": 1043
+          }
+        ]
+      }
+    ],
+    "confirmations": [
+      {
+        "scope": "snapshot and identity",
+        "finding": "All7 assigned names have the same commit/true tree and stable repository IDs in science and breadth where breadth has a record. No latest HEAD fetched; marketing uses its assigned frozen science/parent snapshot.",
+        "repository_ids": {
+          "Amitro123/claudemod": 1410680824,
+          "ecorkran/squadron": 1160063666,
+          "ArvorCo/PNAD": 1046070065,
+          "zululima/dotclaude": 1376901487,
+          "YJLi-new/AndroidClaw": 1176002618,
+          "TechTripAi/techtrip-secondbrain": 1287519941,
+          "shalintripathi/saas-marketing-agents": 1199990729
+        }
+      },
+      {
+        "scope": "science discovery frozen identities",
+        "finding": "No kgyujin repository occurs in science input. All117 complete science caches match frozen science-search IDs; trureturing metadata also matches frozen ID1296799024. Thus118/118 assigned science search identities have no observed search-to-read ID mismatch. This does not assert future ID availability or supersede the integrator fresh object validation."
+      },
+      {
+        "full_name": "smileynet/grey-matter",
+        "finding": "No new fetch or count decision made. Preserve the integrator selected breadth fixed snapshot and record its version difference, as instructed."
+      }
+    ]
+  },
+  "overlap-resolution-product.json": {
+    "reviewed_names": [
+      "HazemSalah29/agentsaisle",
+      "verkyyi/claude-fleet",
+      "QwenLM/qwen-code"
+    ],
+    "corrections": [
+      {
+        "full_name": "HazemSalah29/agentsaisle",
+        "field_updates": {
+          "skill_count": 44,
+          "count_basis": "typed_count=official_registry_installable_entries. 44 immediate registry/official/<name>/ directories each have SKILL.md and skill.meta.yaml; registry/build.ts lines421-440 enumerates only those immediate children. Exclude 37 packages/audit fixtures and nested arch-visualize/evals/fixture-app/skills/refund-helper from raw82. This is not a claim of44 independent task leaves: published video is a library/hub requiring19 component entries, including video-core as part_of:video. Library/router/component entries remain explicitly typed public catalog entries, not extra aliases.",
+          "public_skill_paths": [
+            "registry/official/arabic-rtl/SKILL.md",
+            "registry/official/arch-visualize/SKILL.md",
+            "registry/official/budget/SKILL.md",
+            "registry/official/code-quality/SKILL.md",
+            "registry/official/commit/SKILL.md",
+            "registry/official/db-migrate/SKILL.md",
+            "registry/official/db-optimize-query/SKILL.md",
+            "registry/official/db-schema/SKILL.md",
+            "registry/official/db-seed/SKILL.md",
+            "registry/official/debug-trace/SKILL.md",
+            "registry/official/design-clean-saas/SKILL.md",
+            "registry/official/design-motion-portfolio/SKILL.md",
+            "registry/official/edit/SKILL.md",
+            "registry/official/explore/SKILL.md",
+            "registry/official/handoff/SKILL.md",
+            "registry/official/implement/SKILL.md",
+            "registry/official/plan/SKILL.md",
+            "registry/official/review/SKILL.md",
+            "registry/official/rtl-check/SKILL.md",
+            "registry/official/test-fix/SKILL.md",
+            "registry/official/test-write/SKILL.md",
+            "registry/official/verify/SKILL.md",
+            "registry/official/video-analyze/SKILL.md",
+            "registry/official/video-brand/SKILL.md",
+            "registry/official/video-calligraphy/SKILL.md",
+            "registry/official/video-captions/SKILL.md",
+            "registry/official/video-core/SKILL.md",
+            "registry/official/video-data/SKILL.md",
+            "registry/official/video-edit/SKILL.md",
+            "registry/official/video-explain/SKILL.md",
+            "registry/official/video-generate/SKILL.md",
+            "registry/official/video-ingest/SKILL.md",
+            "registry/official/video-kinetic/SKILL.md",
+            "registry/official/video-localize/SKILL.md",
+            "registry/official/video-product/SKILL.md",
+            "registry/official/video-publish/SKILL.md",
+            "registry/official/video-qa/SKILL.md",
+            "registry/official/video-showcase/SKILL.md",
+            "registry/official/video-story/SKILL.md",
+            "registry/official/video-voice/SKILL.md",
+            "registry/official/video-write/SKILL.md",
+            "registry/official/video/SKILL.md",
+            "registry/official/web-performance/SKILL.md",
+            "registry/official/web-security/SKILL.md"
+          ],
+          "license_spdx": "MIT",
+          "license_scope": "MIT applies to CLI/scanner/schema/registry and first-party official instruction entries. apps/web/LICENSE separately applies PolyForm Shield1.0.0 to the website; name/logo/site-design rights remain reserved. arch-visualize/assets/icons/NOTICE.md attributes Simple Icons16.36.0 brand SVGs under CC0 with independent trademark limits. Root MIT does not replace either scoped exception; no audit scores or services executed.",
+          "near_licenses": [
+            {
+              "evidence": {
+                "path": "apps/web/LICENSE",
+                "blob_sha": "08abf84ec0761bb0fa3558f3f1ba5c1d39319286",
+                "sha256": "c8249ab9ac359989789774a7d466b2d5204429bf6e2db92312383778d6c2ea4f",
+                "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/apps/web/LICENSE",
+                "bytes": 5970
+              }
+            },
+            {
+              "evidence": {
+                "path": "registry/official/arch-visualize/assets/icons/NOTICE.md",
+                "blob_sha": "c7c485c092d28e5e3187556061453e0a3743cb27",
+                "sha256": "09a0d5d36a6c4788086cb89253ae0a4cd51ab4782de55f1c87d9a59a8cbe6904",
+                "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/official/arch-visualize/assets/icons/NOTICE.md",
+                "bytes": 955
+              }
+            }
+          ],
+          "additional_evidence": [
+            {
+              "path": "registry/build.ts",
+              "blob_sha": "a880f8c9ffb030405d975b8416014e757684818f",
+              "sha256": "7d74a7f506c2265346939ee33b5bae119f5450c3ffca7af406441c852125f80e",
+              "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/build.ts",
+              "bytes": 21808
+            },
+            {
+              "path": "registry/official/arch-visualize/skill.meta.yaml",
+              "blob_sha": "3f423dc80bea7baad7feacd8572dccfbe5adac89",
+              "sha256": "db3d17ae754d64c2b726c3b0f3868a1e571095aa9970975a38c9d3a63aa40f4b",
+              "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/official/arch-visualize/skill.meta.yaml",
+              "bytes": 2940
+            },
+            {
+              "path": "registry/official/arch-visualize/evals/fixture-app/skills/refund-helper/SKILL.md",
+              "blob_sha": "c7dff992b3461dea41f3b30783df6661433dad0c",
+              "sha256": "20292223b8112e48e108b1fc1872db28bc7122ea22e1c3e77b3259c8d79399ac",
+              "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/official/arch-visualize/evals/fixture-app/skills/refund-helper/SKILL.md",
+              "bytes": 136
+            },
+            {
+              "path": "registry/official/video/skill.meta.yaml",
+              "blob_sha": "31a17ddde00e4330acbcfe903cd5f782061b2c40",
+              "sha256": "e32849d9f4bb6d41b2478371f02b2df4edda776e54cabf97bdd007c600dc6a71",
+              "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/official/video/skill.meta.yaml",
+              "bytes": 1258
+            },
+            {
+              "path": "registry/official/video-core/skill.meta.yaml",
+              "blob_sha": "62e3736de2b0772a4768f58c5a2f824146e090ad",
+              "sha256": "1448ff1a63ecda877d6eca4b58e872732dd1f34495b936d1daf71aa74b39b091",
+              "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/official/video-core/skill.meta.yaml",
+              "bytes": 268
+            }
+          ]
+        },
+        "reason": "breadth45 included one actual nested eval fixture despite saying fixtures were excluded. Product44 matches the publish builder and44 top-level official metadata records at the identical snapshot. Correct the global field to44 typed registry entries; do not describe44 as all independent leaves.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "b6599103dee3d73696d459eef662c0759c6f917f",
+            "sha256": "ec1b28ad6938b08ce5352bf367850a162449de236a8bc8362a9fe47b9fc5153b",
+            "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/README.md",
+            "bytes": 26938
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "a452b4ba7b5f1c574d0fae32a9bef40207bb26c2",
+            "sha256": "4565178df12548646f256ed80ee7e260f3aff1d4e5b0dedd7f4f579eafc025f5",
+            "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/LICENSE",
+            "bytes": 1081
+          },
+          {
+            "path": "registry/build.ts",
+            "blob_sha": "a880f8c9ffb030405d975b8416014e757684818f",
+            "sha256": "7d74a7f506c2265346939ee33b5bae119f5450c3ffca7af406441c852125f80e",
+            "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/build.ts",
+            "bytes": 21808
+          },
+          {
+            "path": "registry/official/arch-visualize/skill.meta.yaml",
+            "blob_sha": "3f423dc80bea7baad7feacd8572dccfbe5adac89",
+            "sha256": "db3d17ae754d64c2b726c3b0f3868a1e571095aa9970975a38c9d3a63aa40f4b",
+            "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/official/arch-visualize/skill.meta.yaml",
+            "bytes": 2940
+          },
+          {
+            "path": "registry/official/arch-visualize/evals/fixture-app/skills/refund-helper/SKILL.md",
+            "blob_sha": "c7dff992b3461dea41f3b30783df6661433dad0c",
+            "sha256": "20292223b8112e48e108b1fc1872db28bc7122ea22e1c3e77b3259c8d79399ac",
+            "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/official/arch-visualize/evals/fixture-app/skills/refund-helper/SKILL.md",
+            "bytes": 136
+          },
+          {
+            "path": "registry/official/video/skill.meta.yaml",
+            "blob_sha": "31a17ddde00e4330acbcfe903cd5f782061b2c40",
+            "sha256": "e32849d9f4bb6d41b2478371f02b2df4edda776e54cabf97bdd007c600dc6a71",
+            "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/official/video/skill.meta.yaml",
+            "bytes": 1258
+          },
+          {
+            "path": "registry/official/video-core/skill.meta.yaml",
+            "blob_sha": "62e3736de2b0772a4768f58c5a2f824146e090ad",
+            "sha256": "1448ff1a63ecda877d6eca4b58e872732dd1f34495b936d1daf71aa74b39b091",
+            "url": "https://github.com/HazemSalah29/agentsaisle/blob/f343df7a816a4192e9bc3c6fab63515ada66d1b1/registry/official/video-core/skill.meta.yaml",
+            "bytes": 268
+          }
+        ]
+      },
+      {
+        "full_name": "verkyyi/claude-fleet",
+        "field_updates": {
+          "skill_count": 17,
+          "count_basis": "typed_count=public_non_help_operational_skill_entrypoints. 17=4 base operation/handoff entries+1 optional browser skill+1 optional epic-page skill+11 optional admin infrastructure runbooks. There are18 distinct native shipped entrypoints in total; fleet-help is the18th, a legitimate device-aware read-only documentation/navigation support skill, excluded only from this operation-entry count. Root marketplace publishes all four plugin roots; fleet-infra is public/admin-only and never installed by default, not an undisclosed contributor-maintenance folder. Generated Codex command mirrors, commands/Markdown and mod interfaces add no independent native leaf count. Science5 is the declared base-tree subset(4 operations+fleet-help), not the repository total and not additive to17.",
+          "public_skill_paths": [
+            "plugins/fleet-browser/skills/fleet-browser/SKILL.md",
+            "plugins/fleet-epic/skills/epic-page/SKILL.md",
+            "plugins/fleet-infra/skills/ack-linux-node/SKILL.md",
+            "plugins/fleet-infra/skills/hub-deploy/SKILL.md",
+            "plugins/fleet-infra/skills/login-lifecycle/SKILL.md",
+            "plugins/fleet-infra/skills/mac-node-enroll/SKILL.md",
+            "plugins/fleet-infra/skills/mac-node-prep/SKILL.md",
+            "plugins/fleet-infra/skills/node-doctor/SKILL.md",
+            "plugins/fleet-infra/skills/release-rules/SKILL.md",
+            "plugins/fleet-infra/skills/runbook-door-down/SKILL.md",
+            "plugins/fleet-infra/skills/runbook-tcc-stuck/SKILL.md",
+            "plugins/fleet-infra/skills/runbook-train-stuck/SKILL.md",
+            "plugins/fleet-infra/skills/sg-relay-setup/SKILL.md",
+            "skills/fleet-add-repo/SKILL.md",
+            "skills/fleet-open/SKILL.md",
+            "skills/fleet-preview/SKILL.md",
+            "skills/handoff/SKILL.md"
+          ],
+          "license_spdx": "MIT",
+          "license_scope": "Root MIT covers first-party fleet instructions/code and plugin manifests. tokenledger/LICENSE retains its own MIT notice(ccquota contributors); tokenledger/agent/internal/xssh/LICENSE retains Go Authors BSD-3-Clause terms. Model subscriptions, machine/admin privileges and hosted/remote accounts remain separate. Optional deployment does not enlarge use authorization.",
+          "near_licenses": [
+            {
+              "evidence": {
+                "path": "tokenledger/LICENSE",
+                "blob_sha": "563b8daba5f415a0caeb41c8681089002c9fee7f",
+                "sha256": "1d64984afb58e8be4e450e443dbcd9e984fdef5cdadf2e34da6368110f461694",
+                "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/tokenledger/LICENSE",
+                "bytes": 1077
+              }
+            },
+            {
+              "evidence": {
+                "path": "tokenledger/agent/internal/xssh/LICENSE",
+                "blob_sha": "2a7cf70da6e498df9c11ab6a5eaa2ddd7af34da4",
+                "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+                "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/tokenledger/agent/internal/xssh/LICENSE",
+                "bytes": 1453
+              }
+            }
+          ],
+          "additional_evidence": [
+            {
+              "path": "skills/fleet-help/SKILL.md",
+              "blob_sha": "457eb1bed085eff0fcb4ea34eb3a35fe447b3912",
+              "sha256": "3e0a986a29be294bae93a11ca820a999cf10a8b9e26de46db2cc3a6b4f9307d9",
+              "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/skills/fleet-help/SKILL.md",
+              "bytes": 10846
+            },
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "0b79afd21a21896b6683963ac36f29eab3fc4fef",
+              "sha256": "1d1ecae4057babd6b98d1cc7fa263807a44e6bd2c694223f773ddb0034fe5353",
+              "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/.claude-plugin/plugin.json",
+              "bytes": 840
+            },
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "0bd42caa33fb00d8235c518af2f2f9387ef7df39",
+              "sha256": "9cafcd8c0ffae6d50d0c3a1ee767f1e8e471d63408c149ed97d2788465671b9a",
+              "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/.claude-plugin/marketplace.json",
+              "bytes": 1250
+            },
+            {
+              "path": "plugins/fleet-browser/.claude-plugin/plugin.json",
+              "blob_sha": "9de0ad7692d674da5ff39e1f72414253d157ef73",
+              "sha256": "c464bea6f7fbe69963d8db8bb35b71988a857dd7ebb91840a697df7da1fc3c94",
+              "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/plugins/fleet-browser/.claude-plugin/plugin.json",
+              "bytes": 622
+            },
+            {
+              "path": "plugins/fleet-epic/.claude-plugin/plugin.json",
+              "blob_sha": "98a00092c2ca6fdc91064db8c3449559c9790c24",
+              "sha256": "811f45b99266bfd58a75ce249228ca929edc6a1a68f01e35534fb02f8be2159e",
+              "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/plugins/fleet-epic/.claude-plugin/plugin.json",
+              "bytes": 491
+            },
+            {
+              "path": "plugins/fleet-infra/.claude-plugin/plugin.json",
+              "blob_sha": "95dbcce987b6d97e6fb46557e5bc669156aef777",
+              "sha256": "c3538de29091f2b5388899464d6c20cbf587555bf4f67670936ed6e5ce0866f9",
+              "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/plugins/fleet-infra/.claude-plugin/plugin.json",
+              "bytes": 870
+            }
+          ]
+        },
+        "reason": "All three reports bind the same ID/commit/tree. Product18 counted every packaged native entrypoint; breadth17 excluded help-navigation; science5 covers only root skills/. Harmonize to17 explicitly typed operational entries while retaining18 packaged and5 base-subset facts. fleet-help is neither a duplicate alias nor private/unlicensed; it is excluded by count type.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "0109bc1ea5027920d770804c9a30ac7887bcee6f",
+            "sha256": "a56f73e3a0cb3a938ab260be1978c449f0975304ee91aa83ba9d27e2561c4017",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/README.md",
+            "bytes": 45857
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "c44817a8b47cdcdb27e28704a3c932d86b36d90e",
+            "sha256": "ab3caeee33700d8ee1f42bc737d7177301311e7b54c5e11686d43aae02765100",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/LICENSE",
+            "bytes": 1065
+          },
+          {
+            "path": "skills/fleet-help/SKILL.md",
+            "blob_sha": "457eb1bed085eff0fcb4ea34eb3a35fe447b3912",
+            "sha256": "3e0a986a29be294bae93a11ca820a999cf10a8b9e26de46db2cc3a6b4f9307d9",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/skills/fleet-help/SKILL.md",
+            "bytes": 10846
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "0b79afd21a21896b6683963ac36f29eab3fc4fef",
+            "sha256": "1d1ecae4057babd6b98d1cc7fa263807a44e6bd2c694223f773ddb0034fe5353",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/.claude-plugin/plugin.json",
+            "bytes": 840
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "0bd42caa33fb00d8235c518af2f2f9387ef7df39",
+            "sha256": "9cafcd8c0ffae6d50d0c3a1ee767f1e8e471d63408c149ed97d2788465671b9a",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/.claude-plugin/marketplace.json",
+            "bytes": 1250
+          },
+          {
+            "path": "plugins/fleet-browser/.claude-plugin/plugin.json",
+            "blob_sha": "9de0ad7692d674da5ff39e1f72414253d157ef73",
+            "sha256": "c464bea6f7fbe69963d8db8bb35b71988a857dd7ebb91840a697df7da1fc3c94",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/plugins/fleet-browser/.claude-plugin/plugin.json",
+            "bytes": 622
+          },
+          {
+            "path": "plugins/fleet-epic/.claude-plugin/plugin.json",
+            "blob_sha": "98a00092c2ca6fdc91064db8c3449559c9790c24",
+            "sha256": "811f45b99266bfd58a75ce249228ca929edc6a1a68f01e35534fb02f8be2159e",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/plugins/fleet-epic/.claude-plugin/plugin.json",
+            "bytes": 491
+          },
+          {
+            "path": "plugins/fleet-infra/.claude-plugin/plugin.json",
+            "blob_sha": "95dbcce987b6d97e6fb46557e5bc669156aef777",
+            "sha256": "c3538de29091f2b5388899464d6c20cbf587555bf4f67670936ed6e5ce0866f9",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/plugins/fleet-infra/.claude-plugin/plugin.json",
+            "bytes": 870
+          },
+          {
+            "path": "tokenledger/LICENSE",
+            "blob_sha": "563b8daba5f415a0caeb41c8681089002c9fee7f",
+            "sha256": "1d64984afb58e8be4e450e443dbcd9e984fdef5cdadf2e34da6368110f461694",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/tokenledger/LICENSE",
+            "bytes": 1077
+          },
+          {
+            "path": "tokenledger/agent/internal/xssh/LICENSE",
+            "blob_sha": "2a7cf70da6e498df9c11ab6a5eaa2ddd7af34da4",
+            "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+            "url": "https://github.com/verkyyi/claude-fleet/blob/f9ccd735726b9f0b754d0d45993d2b6200c3e6f9/tokenledger/agent/internal/xssh/LICENSE",
+            "bytes": 1453
+          }
+        ]
+      }
+    ],
+    "objections": [],
+    "confirmations": [
+      {
+        "full_name": "QwenLM/qwen-code",
+        "skill_count": 18,
+        "count_basis": "typed_count=declared_public_product_entrypoint_subset:17 core bundled source skills plus README-linked qwen-code-claw. Core copy_bundle_assets.js places source core/skills/bundled into dist/bundled; SkillManager reads that runtime level. This intentionally bounded18 excludes27 other raw native paths and is not an all-repository/all-runtime or independent-leaf total. It includes meta/workflow-authoring/helper entrypoints by public-product packaging type; representative dataviz was read, not all18 bodies.",
+        "public_skill_paths": [
+          ".qwen/skills/qwen-code-claw/SKILL.md",
+          "packages/core/src/skills/bundled/agent-delegation/SKILL.md",
+          "packages/core/src/skills/bundled/autofix-pr/SKILL.md",
+          "packages/core/src/skills/bundled/batch-api/SKILL.md",
+          "packages/core/src/skills/bundled/batch/SKILL.md",
+          "packages/core/src/skills/bundled/coordinate/SKILL.md",
+          "packages/core/src/skills/bundled/dataviz/SKILL.md",
+          "packages/core/src/skills/bundled/extension-creator/SKILL.md",
+          "packages/core/src/skills/bundled/goal-draft/SKILL.md",
+          "packages/core/src/skills/bundled/loop/SKILL.md",
+          "packages/core/src/skills/bundled/new-app/SKILL.md",
+          "packages/core/src/skills/bundled/qc-helper/SKILL.md",
+          "packages/core/src/skills/bundled/review/SKILL.md",
+          "packages/core/src/skills/bundled/simplify/SKILL.md",
+          "packages/core/src/skills/bundled/stuck/SKILL.md",
+          "packages/core/src/skills/bundled/workflow-authoring/SKILL.md",
+          "packages/core/src/skills/bundled/workflow-creator/SKILL.md",
+          "packages/core/src/skills/bundled/zvec-grep-install/SKILL.md"
+        ],
+        "raw_skill_file_count": 45,
+        "out_of_subset_classification": {
+          "other_qwen_contributor_or_repo_context_entries": 21,
+          "cli_extension_examples": 2,
+          "optional_integrations": 2,
+          "cua_driver_package_skill": 1,
+          "desktop_brand_maintenance": 1
+        },
+        "license_spdx": "Apache-2.0",
+        "license_scope": "Root Apache-2.0 applies to the selected first-party core/claw instruction subset. Browser/CUA/Java SDK/desktop and vendored packages keep their separate LICENSE/NOTICE terms; optional integration sources are not automatically covered or counted. Models/services/outputs remain separate. No additional AGPL or commercial grant is inferred.",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "c4bb4561bebdd628ba1580dbf62c31a6ff76b146",
+            "sha256": "65acee1bf2041c31e7de2829ed4428aa4e9aa1fa3882c3633758d9e3b07bb58d",
+            "url": "https://github.com/QwenLM/qwen-code/blob/02b8b0108c2d81db92f6768a6c55eee759fde30d/README.md",
+            "bytes": 13217
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "2d4f1fee82272cbad5f22394dc064e621f668aac",
+            "sha256": "55367b61ccd2a016a0159ad886bd66a3ee6cb5e873d0c75c803c897dd245b075",
+            "url": "https://github.com/QwenLM/qwen-code/blob/02b8b0108c2d81db92f6768a6c55eee759fde30d/LICENSE",
+            "bytes": 11361
+          },
+          {
+            "path": "packages/core/src/skills/bundled/dataviz/SKILL.md",
+            "blob_sha": "577000817c587925c4b07d7784c3f447fb3613b4",
+            "sha256": "1c9c7f32c9c3fc60ffb513ae40b81fc948bcd2caa20ecd2a0d2c2272ebff8a4b",
+            "url": "https://github.com/QwenLM/qwen-code/blob/02b8b0108c2d81db92f6768a6c55eee759fde30d/packages/core/src/skills/bundled/dataviz/SKILL.md",
+            "bytes": 2055
+          },
+          {
+            "path": "packages/core/src/skills/skill-manager.ts",
+            "blob_sha": "ea24f4ffd4715ffce36653a885f0fa26529710c8",
+            "sha256": "338e1adeb32ac862d1c6f6e99ce19c59842724e780490730c4f3d2b0f40032c5",
+            "url": "https://github.com/QwenLM/qwen-code/blob/02b8b0108c2d81db92f6768a6c55eee759fde30d/packages/core/src/skills/skill-manager.ts",
+            "bytes": 48340
+          },
+          {
+            "path": "scripts/copy_bundle_assets.js",
+            "blob_sha": "db7b7c85170f84b070b4909ff5f5f1ba246583fb",
+            "sha256": "854660c02462675853264e5596e7a10db28115972a51a155d46b0c18c54fe2fd",
+            "url": "https://github.com/QwenLM/qwen-code/blob/02b8b0108c2d81db92f6768a6c55eee759fde30d/scripts/copy_bundle_assets.js",
+            "bytes": 29032
+          }
+        ]
+      },
+      {
+        "full_name": "HazemSalah29/agentsaisle",
+        "typed_counts": {
+          "raw_recursive_SKILL_files": 82,
+          "registered_official_entries": 44,
+          "excluded_audit_fixtures": 37,
+          "excluded_nested_eval_fixture": 1
+        },
+        "scope": "44 is a registry-entry count, not a universal independent-task-leaf claim; video hub/component relationship preserved."
+      },
+      {
+        "full_name": "verkyyi/claude-fleet",
+        "typed_counts": {
+          "raw_native_published_entries": 18,
+          "non_help_operation_entries": 17,
+          "help_navigation_entries": 1,
+          "science_base_subset_entries": 5,
+          "optional_admin_runbook_entries": 11
+        },
+        "scope": "Same immutable snapshot across product/breadth/science. Public optional/admin deployment and reference navigation remain distinct; no double-addition of subsets or Codex generated projections."
+      }
+    ]
+  },
+  "publication_rechecks": {
+    "dzshzx/agent-skills": {
+      "disposition": "held",
+      "repository_id": 1287038798,
+      "reason": "Final official name and stable-ID checks confirm the repository is archived. Hold from this active-distribution batch; this does not negate the earlier fixed content review.",
+      "checked_at": "2026-11-03",
+      "evidence": [
+        "https://api.github.com/repos/dzshzx/agent-skills",
+        "https://api.github.com/repositories/1287038798"
+      ],
+      "previous_fixed_commit": "54878c62bd76fdd172452dd1230fc68a6f661163"
+    },
+    "shtokolov-k/awesome-book-to-skill": {
+      "disposition": "held",
+      "repository_id": 1443860022,
+      "reason": "Final official canonical-name and stable-ID endpoints both returned HTTP 404. Current public accessibility cannot be confirmed; no assertion of deletion or privatization. Earlier fixed evidence is historical and does not qualify this as a published new identity.",
+      "checked_at": "2026-11-03",
+      "evidence": [
+        "https://api.github.com/repos/shtokolov-k/awesome-book-to-skill",
+        "https://api.github.com/repositories/1443860022"
+      ],
+      "previous_fixed_commit": "ee5e2b9c58d3ed043795d919f4fe4ac97927ff56"
+    }
+  },
+  "resolved_field_issues": [
+    {
+      "full_name": "ecorkran/squadron",
+      "field": "skill_count/count_basis",
+      "resolution": "Concrete field correction applied below; this is not a repository-admission rejection."
+    },
+    {
+      "full_name": "ArvorCo/PNAD",
+      "field": "license_spdx/license_scope",
+      "resolution": "Concrete field correction applied below; this is not a repository-admission rejection."
+    },
+    {
+      "full_name": "YJLi-new/AndroidClaw",
+      "field": "skill_count/count_basis",
+      "resolution": "Concrete field correction applied below; this is not a repository-admission rejection."
+    }
+  ]
+}
