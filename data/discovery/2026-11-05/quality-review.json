@@ -1,0 +1,508 @@
+{
+  "overlap-resolution-science.json": {
+    "date": "2026-11-05",
+    "reviewer": "science stream independent cross-check",
+    "status": "complete",
+    "source_snapshots": {
+      "quality-machine.json": "9cd82c13f679c3e69650aba5c638d03a08460804a2a20c604ea37d08b5036a91",
+      "integrated.json": "922ce4111636dbb13cd0719512da5d0cf780fafa31149b0205724b425b053de3",
+      "science-results.json": "4b0db9010ad4fbcac512e394963ec01218f8eb9d380ba4f35257ae8b8b272a4b"
+    },
+    "observed_counts": {
+      "accepted_stream_snapshots": 125,
+      "integrated_unique_ids": 118,
+      "cross_stream_overlaps": 7,
+      "science_accepted": 33,
+      "science_fixed_refs": 121
+    },
+    "mechanical_checks": {
+      "unique_id_and_name_sets": "passed",
+      "baseline_identity_disjointness": "passed",
+      "science_integrated_version_count_license_and_added_evidence_preservation": "passed"
+    },
+    "corrections": [],
+    "objections": [],
+    "decisions": [
+      {
+        "full_name": "blixel-app/skills",
+        "read_scope": "Compared both stream count bases and selected paths against the cached fixed-tree seven SKILL.md paths; read the CLI representative and README distribution portions.",
+        "conclusion": "Both counts describe two canonical tasks and three Codex command adapters. The two codex/skills mirrors are excluded. Retaining the five explicitly typed selected paths does not claim five independent task workflows.",
+        "evidence": {
+          "repository_id": 1409457026,
+          "commit": "44ea5e09815be8479355ddcf4f9a3c1d186440ea",
+          "tree": "2e9585f086d0e85d40bbc189b53e261145b62e08",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "3d5b3051c5b91485f5d8fa0109a2c49b4f69eca4",
+              "sha256": "f8c679157e3e4919b6ccfd563069b1cfc643eb65db2424ca0176921aec6a562f",
+              "url": "https://github.com/blixel-app/skills/blob/44ea5e09815be8479355ddcf4f9a3c1d186440ea/README.md",
+              "bytes": 21182
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "c77c13f3dbe3b96b6f83f25d3d26f2ff30afd419",
+              "sha256": "893b2ed1526693c09252dd08b1bb38404e0d242e80d0385cbc2cbf05d86411fb",
+              "url": "https://github.com/blixel-app/skills/blob/44ea5e09815be8479355ddcf4f9a3c1d186440ea/LICENSE",
+              "bytes": 1067
+            },
+            {
+              "path": "skills/blixel/SKILL.md",
+              "blob_sha": "27b8872c62c6ec67eb11c2facd9ed58461bdf148",
+              "sha256": "1e3eb9b2c847de2565c8356045c426c352e117d9a9dd855aad4eaa2bb7a31cdd",
+              "url": "https://github.com/blixel-app/skills/blob/44ea5e09815be8479355ddcf4f9a3c1d186440ea/skills/blixel/SKILL.md",
+              "bytes": 15610
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "ChuluuMGL/yueyu-skill",
+        "read_scope": "Read the complete service-query representative and README distribution/read-only-tool portions.",
+        "conclusion": "One query-routing skill is distinct from six read-only MCP tools. Disabled lead/subscription writes are outside its scope. Product wording is more precise than an untyped numeric one; source claims and live service quality were not tested.",
+        "evidence": {
+          "repository_id": 1219918708,
+          "commit": "d44fb3b3f01dd5006803630b6fb8b52e3951bb02",
+          "tree": "3af3ebd41677f7b58cf2f03a8d520f0dc40b5d77",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "fc724c7823f25c166709f6bece69f80285579762",
+              "sha256": "c2403cec80d84103c0ea6dfc82d91363b372df97e67e4ed2b68b0c1664714312",
+              "url": "https://github.com/ChuluuMGL/yueyu-skill/blob/d44fb3b3f01dd5006803630b6fb8b52e3951bb02/README.md",
+              "bytes": 10877
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "12029fdf309472a0a209e715a9a542d2427ee53d",
+              "sha256": "a3778da5e8f4e5b6ca99cf20e6c9ef3b45a9b8bd1fa690b72a57561bc1dd00c6",
+              "url": "https://github.com/ChuluuMGL/yueyu-skill/blob/d44fb3b3f01dd5006803630b6fb8b52e3951bb02/LICENSE",
+              "bytes": 1082
+            },
+            {
+              "path": "SKILL.md",
+              "blob_sha": "911dbd672614728a3a2773bcafc21edebc4368b5",
+              "sha256": "f3c514f0dffe2177bdf37798689b29af403ec146e1a7041046ad91bcb5501507",
+              "url": "https://github.com/ChuluuMGL/yueyu-skill/blob/d44fb3b3f01dd5006803630b6fb8b52e3951bb02/SKILL.md",
+              "bytes": 6519
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "nucliweb/webperf-snippets",
+        "read_scope": "Compared both reports and the fixed-tree skills/client/export path inventory; read README Agent Skills installation section and representative diagnostic routing portions.",
+        "conclusion": "Five diagnostic families plus one webperf router is consistent with six canonical skill entries. Client/export mirrors are excluded. This check does not certify browser snippets, current thresholds or measured website performance.",
+        "evidence": {
+          "repository_id": 493156800,
+          "commit": "7961b2a2c0db593e1e0d2dbb95a9c637984276e9",
+          "tree": "96a424176e4213f1f7565274573469489e5923f7",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "aa6368e28a1d7b10e4c43d9b6fb350355c3619bb",
+              "sha256": "204f30c1b531db821999685f097b7c777f376ca8de11221e6eef0166f35a358e",
+              "url": "https://github.com/nucliweb/webperf-snippets/blob/7961b2a2c0db593e1e0d2dbb95a9c637984276e9/README.md",
+              "bytes": 11901
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "4dfb830196a18c28ff52bb67ad4309d5d670d840",
+              "sha256": "e81298c8fc5684e5cc32b4e23e4f2977a414593c64598bbd5545efe8d9d039da",
+              "url": "https://github.com/nucliweb/webperf-snippets/blob/7961b2a2c0db593e1e0d2dbb95a9c637984276e9/LICENSE",
+              "bytes": 1067
+            },
+            {
+              "path": "skills/webperf-core-web-vitals/SKILL.md",
+              "blob_sha": "2a6950577a1cd5dcaac06df739430486251c34bf",
+              "sha256": "f760fe3078ee3be5ebb17d1e9beee6679d18f3231de7d301e55564af2e10489d",
+              "url": "https://github.com/nucliweb/webperf-snippets/blob/7961b2a2c0db593e1e0d2dbb95a9c637984276e9/skills/webperf-core-web-vitals/SKILL.md",
+              "bytes": 13389
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "Ekos-Labs/skills",
+        "read_scope": "Read README purpose/install/catalog sections and counted 32 canonical tree entries including ai-cmo-router and product-context; compared both stream count bases.",
+        "conclusion": "32 installable entries and 31 workflows plus one router describe the same package inventory. Selected breadth count already explicitly includes routing/setup and denies a 32-leaf claim, so no admission correction is required.",
+        "evidence": {
+          "repository_id": 1421379862,
+          "commit": "2b74e03370ed923e9056c8a1e8c57cb49813d8fc",
+          "tree": "6f494101c6188b469b166e897dc4e368c1508988",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "45e30255626567e3574319a5846a3a2e41113cd5",
+              "sha256": "af0294c6890f4fad334cc88d6bf4d0158d371a376caa0e844bd3261c372dd602",
+              "url": "https://github.com/Ekos-Labs/skills/blob/2b74e03370ed923e9056c8a1e8c57cb49813d8fc/README.md",
+              "bytes": 7352
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "63ca4b119107032ef0b37ab7f49e1ba0a9a5779b",
+              "sha256": "d37ec101757d2b850cdf3893efcb3f0b403cb1cf9a033f645fea0cb6f7d5e0db",
+              "url": "https://github.com/Ekos-Labs/skills/blob/2b74e03370ed923e9056c8a1e8c57cb49813d8fc/LICENSE",
+              "bytes": 1084
+            },
+            {
+              "path": "skills/lead-scoring/SKILL.md",
+              "blob_sha": "4bf31cf5d689331c792a915f66b586957cf8254b",
+              "sha256": "2cea31560d6b30a955777f563231b371669016ab221eec4b9549d9fe1ecb1f7f",
+              "url": "https://github.com/Ekos-Labs/skills/blob/2b74e03370ed923e9056c8a1e8c57cb49813d8fc/skills/lead-scoring/SKILL.md",
+              "bytes": 2333
+            },
+            {
+              "path": "skills/idea-gate/LICENSE",
+              "blob_sha": "225fceb8bfae8654c80ae0baa4ee7228f95c10e8",
+              "sha256": "63d79181709f834910dfdb40f34db17bbe61ff87ccf6eb53992e31fe4ea1ed28",
+              "url": "https://github.com/Ekos-Labs/skills/blob/2b74e03370ed923e9056c8a1e8c57cb49813d8fc/skills/idea-gate/LICENSE",
+              "bytes": 1070
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "OpenRAL/openral",
+        "read_scope": "Read README harness/rSkill distribution sections and generated representative frontmatter; counted cached tree paths and inspected selected record licensing scope/evidence inventory.",
+        "conclusion": "53 raw paths consist of 50 rskills views including one template and three authoring/bring-up guides. The typed count49 generated views is accurate and is not49 executable Agent Skills leaves. Separate weights/runtime licenses remain explicitly outside root Apache.",
+        "evidence": {
+          "repository_id": 1295357346,
+          "commit": "137843ecaf95d54707624ec44697d6b823ae8689",
+          "tree": "da169a4279f1b597d60848babfee78cdc3d1800e",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "ba95f8cc4f8e4157a9416ad9e30263c254e4c705",
+              "sha256": "fe4fb03fe32e60b013a054b5ad6a2d1eaf610cbe4031d77aaa89142182e40510",
+              "url": "https://github.com/OpenRAL/openral/blob/137843ecaf95d54707624ec44697d6b823ae8689/README.md",
+              "bytes": 30671
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "7818ad2d740f9b1b648a325358da9bd965576fa4",
+              "sha256": "d17adbbf10a4913e84e596c70c4865de546b07814158024aadf3f7a98eae9907",
+              "url": "https://github.com/OpenRAL/openral/blob/137843ecaf95d54707624ec44697d6b823ae8689/LICENSE",
+              "bytes": 11356
+            },
+            {
+              "path": "rskills/3d-diffuser-actor-rlbench/SKILL.md",
+              "blob_sha": "e3525741616c274fa427f1577720d16c6c044d15",
+              "sha256": "6599917deaadf787b6658d26bbca46f26ff93e18439994b7aa55930708127192",
+              "url": "https://github.com/OpenRAL/openral/blob/137843ecaf95d54707624ec44697d6b823ae8689/rskills/3d-diffuser-actor-rlbench/SKILL.md",
+              "bytes": 3439
+            },
+            {
+              "path": "rskills/3d-diffuser-actor-rlbench/rskill.yaml",
+              "blob_sha": "ae89a857bf2e58845010f23dc0a52babc0508438",
+              "sha256": "bf3085a34e47cb02f6f2035a31fccf402c572bc99a07e2042fe418ca61008408",
+              "url": "https://github.com/OpenRAL/openral/blob/137843ecaf95d54707624ec44697d6b823ae8689/rskills/3d-diffuser-actor-rlbench/rskill.yaml",
+              "bytes": 5425
+            },
+            {
+              "path": "NOTICE",
+              "blob_sha": "4ed5bac5792a4dcf320e151170dcd9bbe0849a87",
+              "sha256": "d32714c6a60bb7c411afa381a694b99f5581d788f41b140edf197452b51a6c8f",
+              "url": "https://github.com/OpenRAL/openral/blob/137843ecaf95d54707624ec44697d6b823ae8689/NOTICE",
+              "bytes": 1673
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "PetriLahdelma/measured-type",
+        "read_scope": "Read README install/evidence/noncommercial portions, representative frontmatter and root/near-folder license scope.",
+        "conclusion": "One skill with CC-BY-NC prose, MIT scripts and OFL fixtures is explicitly scoped; unresolved paid-client NonCommercial interpretation must remain visible. Metadata admission grants no commercial-use assurance or body-copy permission.",
+        "evidence": {
+          "repository_id": 1438092753,
+          "commit": "c31b0e533f88904dcfcd6087518b54498be1931f",
+          "tree": "9f55ad71844104cdf9eefc123677daac91e6b3e9",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "30797efd7220d19bc3d07d525df856ed27e3448b",
+              "sha256": "78d369248fa0ab93f49f3379067c0c8a007366a5f8067b622527c43089f5eafc",
+              "url": "https://github.com/PetriLahdelma/measured-type/blob/c31b0e533f88904dcfcd6087518b54498be1931f/README.md",
+              "bytes": 31149
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "2575b6847da8203b9535bca4bb6719218accfe60",
+              "sha256": "29791dd92d1c170fe82996caabee63de33b5de6c3a89fe1c0d60476fca8390b8",
+              "url": "https://github.com/PetriLahdelma/measured-type/blob/c31b0e533f88904dcfcd6087518b54498be1931f/LICENSE",
+              "bytes": 2531
+            },
+            {
+              "path": "skills/measured-type/SKILL.md",
+              "blob_sha": "3168fa3f8bb0244977332ab155572540c14de79e",
+              "sha256": "03b144da7b2459b7b70fe68cd3b97ee633a9594ffa92c9a5b194af6dc1af2dcd",
+              "url": "https://github.com/PetriLahdelma/measured-type/blob/c31b0e533f88904dcfcd6087518b54498be1931f/skills/measured-type/SKILL.md",
+              "bytes": 15098
+            },
+            {
+              "path": "skills/measured-type/LICENSE",
+              "blob_sha": "1bfffd7ffac5e9bd1f2cd5b803bbb6b7eb70d009",
+              "sha256": "5290c8cabb2d3b127263a9ed3fbb4b16eba29fae96ccdc3b817755076258d380",
+              "url": "https://github.com/PetriLahdelma/measured-type/blob/c31b0e533f88904dcfcd6087518b54498be1931f/skills/measured-type/LICENSE",
+              "bytes": 2803
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "charlus/carja",
+        "read_scope": "Read README consumer installation/upgrade/schema descriptions and the test-strategy representative; counted 33 fixed-tree paths.",
+        "conclusion": "32 templates/.agents/skills entries are real consumer-installed packages; only the separate blank skill.md authoring scaffold is excluded. A directory named templates is insufficient reason to classify all task packages as fixtures.",
+        "evidence": {
+          "repository_id": 1179910768,
+          "commit": "dcfb6949e997d72d84300d9c81f55417c1f4b337",
+          "tree": "069a74a71690c4cbe120189019ad3f976f58ff48",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "fbc3f12904d8bb064fdefeadf23ee70c95c25ca3",
+              "sha256": "fe94052f3907614a81ba6973ea56c647d8e048dc6366d9c7fcb42de77d821253",
+              "url": "https://github.com/charlus/carja/blob/dcfb6949e997d72d84300d9c81f55417c1f4b337/README.md",
+              "bytes": 39413
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "14fac913ccf80234b1848540089a3bbcb6e5283d",
+              "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+              "url": "https://github.com/charlus/carja/blob/dcfb6949e997d72d84300d9c81f55417c1f4b337/LICENSE",
+              "bytes": 1056
+            },
+            {
+              "path": "templates/.agents/skills/analyze-tests/SKILL.md",
+              "blob_sha": "dd3d1463d1bf4d66bbe9d8562b7b0fd0a87c1a2d",
+              "sha256": "0bd4df43e6cc0034002ce2b8d0542c6141415ab4da4409bd21a66ccd64e56a0e",
+              "url": "https://github.com/charlus/carja/blob/dcfb6949e997d72d84300d9c81f55417c1f4b337/templates/.agents/skills/analyze-tests/SKILL.md",
+              "bytes": 963
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "Jeroen-G/skills",
+        "read_scope": "Read README installation/curated/experimental/credits portions and agent-docs representative; counted fixed-tree paths.",
+        "conclusion": "13 curated-only admission is accurate. Four experimental entries are separately offered upstream but are explicitly outside this bounded count; one repository maintenance skill is excluded. Adaptation provenance is retained rather than claiming all bodies novel.",
+        "evidence": {
+          "repository_id": 1414577063,
+          "commit": "728e0271974b7e72bd47a00efa79531ce5bc740e",
+          "tree": "9fe82d1c709f6dd20b6ecceb1d0c49bcdd4dee97",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "9ab859e8c1f0c4d721fb76695335497fb8f09515",
+              "sha256": "94edf1b74f072a8e233501881cb0e3899c17a2d64aca268b172a8a27ae07294e",
+              "url": "https://github.com/Jeroen-G/skills/blob/728e0271974b7e72bd47a00efa79531ce5bc740e/README.md",
+              "bytes": 2443
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "9fd4617ef01e0b0ed2e764521029f9c35f3ff38a",
+              "sha256": "4573b78c29df8c371ec056ab3d17bccbd99f0ce2d4ff9b66f04e77b2e55c8523",
+              "url": "https://github.com/Jeroen-G/skills/blob/728e0271974b7e72bd47a00efa79531ce5bc740e/LICENSE",
+              "bytes": 1063
+            },
+            {
+              "path": "skills/.curated/engineering/agent-docs/SKILL.md",
+              "blob_sha": "c78623f922e26bb8d1623c3f56878b8fd2befb91",
+              "sha256": "9c8fe91bff355a21b9c344c7eb8f390ad9fdb5f3a614281a644aef6de8063219",
+              "url": "https://github.com/Jeroen-G/skills/blob/728e0271974b7e72bd47a00efa79531ce5bc740e/skills/.curated/engineering/agent-docs/SKILL.md",
+              "bytes": 960
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "yasyf/cc-skills",
+        "read_scope": "Read README public marketplace/plugin descriptions and compared raw fixed-tree24 SKILL.md paths with the selected count basis; only opening portions of long representative inspected in this cross-check.",
+        "conclusion": "One nested Swift scaffold is excluded, yielding23 installable entries. The selected count already includes orchestration/refresh/helper roles and denies23 independent leaves. This check does not sign off the entire long-running implementation.",
+        "evidence": {
+          "repository_id": 1259912052,
+          "commit": "d116670a09d93bc8f97dfb9731b0cff29a1f1103",
+          "tree": "84b8d60778f3c0b89385afec872a83750be2484f",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "92e5b2ce1d38cd75d29f8e763af9a1977635af12",
+              "sha256": "f6fe2461c0e9a9c9b9286b18ef038ada2c943729c32749ef57935b70415b1738",
+              "url": "https://github.com/yasyf/cc-skills/blob/d116670a09d93bc8f97dfb9731b0cff29a1f1103/README.md",
+              "bytes": 6786
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "164acf22167ff4bd87fbe1b2fd991401683cba67",
+              "sha256": "5a6c04f4a0dcb03df658581ece9b7e59a25424a4dd3e41586c5afb0a3a92606a",
+              "url": "https://github.com/yasyf/cc-skills/blob/d116670a09d93bc8f97dfb9731b0cff29a1f1103/LICENSE",
+              "bytes": 1073
+            },
+            {
+              "path": "plugins/long-running/skills/bulk-read/SKILL.md",
+              "blob_sha": "1b56c8d2a37c7b714741d2066e244244023e764b",
+              "sha256": "79c93fc4d55c4bbd89c3685b1c8fe77b42ec884f21190ac8c240471b07318ce0",
+              "url": "https://github.com/yasyf/cc-skills/blob/d116670a09d93bc8f97dfb9731b0cff29a1f1103/plugins/long-running/skills/bulk-read/SKILL.md",
+              "bytes": 3316
+            }
+          ]
+        }
+      }
+    ],
+    "limits": [
+      "Review is scoped to the named README portions, representative material, cached complete-tree path inventories and report fields. It is not a second full-body review of all accepted collections.",
+      "The parent performs fresh official-API fixed-object verification; this cross-check does not substitute for it or claim to have run candidate code.",
+      "Exact representative blob overlap absence does not establish semantic originality or independent maintenance for every file. Rejected copy identities in the science report remain excluded.",
+      "Counts and digests bind the snapshot read here; later report changes require checking affected fields before reusing these conclusions."
+    ]
+  },
+  "quality-parent.json": {
+    "date": "2026-11-05",
+    "reviewer": "parent integration review",
+    "scope": "Cross-stream identity/snapshot/count comparison and direct semantic admission of six historical reserve leads refetched today.",
+    "corrections": [],
+    "objections": [],
+    "decisions": [
+      {
+        "full_name": "blixel-app/skills",
+        "conclusion": "Same repository/commit; both reviews distinguish 2 task workflows and 3 Codex command adapters. Preserve breadth five explicitly typed public entry paths; its two codex/skills mirrors are excluded."
+      },
+      {
+        "full_name": "ChuluuMGL/yueyu-skill",
+        "conclusion": "Same fixed snapshot; 1 and 1 service-query skill are semantic labels for the same single routing workflow. Use product label with explicit service-query type."
+      },
+      {
+        "full_name": "nucliweb/webperf-snippets",
+        "conclusion": "Both reviews identify 5 diagnostics and 1 router. Choose product wording (5 diagnostic families + 1 router), not 6 undifferentiated leaves."
+      },
+      {
+        "full_name": "vibe-weaver/media-router-skill",
+        "conclusion": "One exported runtime skill; 541 cases/47 templates are reference data, with nested MIT library license plus explicit retained third-party rights. No prompt-copy grant inferred."
+      },
+      {
+        "full_name": "skulitom/Pixelbolt",
+        "conclusion": "One public pixel-art workflow. Three eval graders excluded; npm package skills inclusion and portable Node runtime notices separately checked."
+      },
+      {
+        "full_name": "HUIIIM/operator-session-permissions",
+        "conclusion": "Design/audit-only metadata admission. Author claims of dual review and unpublished production precondition closure are unverified; no production access or runtime security certification implied."
+      },
+      {
+        "full_name": "igorsaevets/ai-second-opinion",
+        "conclusion": "One public workflow. Static review explicitly records multi-vendor data transmission, default PII warning-and-send, model-training/retention possibilities and vendor-permission patching; no provider claims or live runs certified."
+      },
+      {
+        "full_name": "Ekos-Labs/skills",
+        "conclusion": "Both reviews use the same fixed snapshot with 32 canonical entries. Product typing distinguishes 31 workflows and 1 router, and is selected instead of the broader 32 installable entries label."
+      }
+    ],
+    "limits": [
+      "Direct body reading covers the six parent carryover representatives and cited scope documents; it does not mean every accepted repository body was reread by the parent.",
+      "Independent fixed-object API verification and exact representative-blob overlap scans are separate evidence and not runtime, provenance-origin or legal clearance."
+    ],
+    "untraversed_file_references": "Checked across all accepted report fields; no nested fixed-reference object was outside the verifier traversal.",
+    "status": "complete",
+    "same_snapshot_evidence_union": "When overlapping streams use the same immutable commit/tree, fixed references from both are retained and independently reverified. Count wording uses explicit selected-stream choices; different commits are never silently mixed.",
+    "final_report_stages": {
+      "breadth": "complete",
+      "science": "complete",
+      "product": "complete",
+      "carryover": "complete"
+    }
+  },
+  "quality-machine.json": {
+    "date": "2026-11-05",
+    "accepted_snapshot_count": 125,
+    "unique_repository_ids": 118,
+    "cross_stream_overlaps": [
+      {
+        "repository_id": 1409457026,
+        "full_name": "blixel-app/skills",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {
+          "skill_count": {
+            "breadth": "2 tasks + 3 command wrappers",
+            "product": "2 workflows + 3 Codex adapters"
+          }
+        }
+      },
+      {
+        "repository_id": 1109724716,
+        "full_name": "xpert-ai/xpert-skills",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {}
+      },
+      {
+        "repository_id": 1446461039,
+        "full_name": "IgorACNC/skill-lib",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {}
+      },
+      {
+        "repository_id": 1219918708,
+        "full_name": "ChuluuMGL/yueyu-skill",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {
+          "skill_count": {
+            "breadth": 1,
+            "product": "1 service-query skill"
+          }
+        }
+      },
+      {
+        "repository_id": 1415211798,
+        "full_name": "blockvectra/agent-quickstart",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {}
+      },
+      {
+        "repository_id": 493156800,
+        "full_name": "nucliweb/webperf-snippets",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {
+          "skill_count": {
+            "breadth": "5 tasks + 1 router",
+            "product": "5 diagnostic families + 1 router"
+          }
+        }
+      },
+      {
+        "repository_id": 1421379862,
+        "full_name": "Ekos-Labs/skills",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {
+          "skill_count": {
+            "breadth": "32 installable entries",
+            "product": "31 workflows + 1 router"
+          }
+        }
+      }
+    ],
+    "baseline_representative_blob_matches": [],
+    "within_batch_representative_blob_matches": [],
+    "limits": "Exact representative-blob comparison only; not a semantic full-body plagiarism or independent-value certification."
+  },
+  "publication_rechecks": {},
+  "resolved_field_issues": []
+}
