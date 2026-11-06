@@ -1,0 +1,291 @@
+{
+  "date": "2026-11-06",
+  "backend": "agent-reach GitHub route via official gh API",
+  "search_windows": {
+    "breadth": {
+      "queries": [
+        {
+          "query": "skill in:name pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 9424,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "topic:agent-skills pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 2866,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"skill registry\" in:readme pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 681,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"claude plugin\" \"SKILL.md\" in:readme pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 2917,
+          "retrieved": 100,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 317,
+      "baseline_duplicate_hits": 55
+    },
+    "science": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" scientific in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 7213,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" geospatial in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 876,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" agriculture in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 536,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" climate in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 1405,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" education in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 6225,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" laboratory in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 840,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" genomics in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 832,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" accessibility in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 27500,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" robotics in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 7101,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" CAD in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 2271,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" Slurm in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 761,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" museum in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 724,
+          "retrieved": 30,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 204,
+      "baseline_duplicate_hits": 59
+    },
+    "product": {
+      "queries": [
+        {
+          "query": "\"npx skills add\" in:readme pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 4637,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skill\" SDK in:readme pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 4340,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" product in:readme pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 4650,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" marketing in:readme pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 1031,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" registry in:readme pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 4050,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" creative in:readme pushed:>=2026-11-05 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-06",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 751,
+          "retrieved": 40,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 160,
+      "baseline_duplicate_hits": 20
+    }
+  },
+  "source_followups": [
+    {
+      "kind": "historical_lead_refetched",
+      "source": "2026-11-05 explicitly unreviewed breadth reserves",
+      "observed_date": "2026-11-06",
+      "names": [
+        "Jack0813y/niaoshu-packaging",
+        "revnu-app/revnu-plugin",
+        "wellspentai/wellspent-mcp",
+        "flop-labs/technocore-chat",
+        "Joopp1/skill-file-checker",
+        "tedix-hq/tedix"
+      ]
+    },
+    {
+      "full_name": "Khoshkhah/roadstyle",
+      "repository_id": 1254095340,
+      "source_repository": "sacridini/Awesome-Geospatial",
+      "source_commit": "f67e9962c553467cbbe16939309194ce1b820f75",
+      "source_readme_url": "https://github.com/sacridini/Awesome-Geospatial/blob/f67e9962c553467cbbe16939309194ce1b820f75/README.md",
+      "observed_date": "2026-11-06",
+      "kind": "fixed_readme_followup_today"
+    }
+  ],
+  "policy": "No numeric acceptance stopping condition; finite query windows and reserves are explicitly recorded."
+}
