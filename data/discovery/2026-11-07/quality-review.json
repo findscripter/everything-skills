@@ -1,0 +1,851 @@
+{
+  "overlap-resolution-science.json": {
+    "date": "2026-11-07",
+    "status": "complete",
+    "reviewer": "science stream scoped independent cross-check",
+    "source_snapshots": {
+      "science-results.json": "a4c77c02ab27e3e7961cdb69e71e1df4ba66551c1a4a42f6a33dada876fad4ee",
+      "integrated.json": "2e03751d02f9ac3970b0c16510f99765d9982f1cc329984774d54a8e5bb2fab3",
+      "quality-machine.json": "c2df63751c49d62d6e62721d2106c855abb84085c2590eb1ecbce66bab8915f4",
+      "quality-parent.json": "bccff8228189a84c2b324e9e6d3cf4a1e867836cedbdac15e77c82656ed8a8d8"
+    },
+    "observed_counts": {
+      "accepted_stream_snapshots": 55,
+      "integrated_unique_ids": 53,
+      "cross_stream_overlaps": 2,
+      "science_accepted": 13,
+      "science_fixed_refs": 53
+    },
+    "mechanical_checks": {
+      "integrated_unique_ids_and_baseline_disjointness": "passed",
+      "all_science_version_count_license_scope_and_refs_preserved": "passed",
+      "representative_blob_and_reference_traversal_checks": "passed"
+    },
+    "corrections": [],
+    "objections": [],
+    "decisions": [
+      {
+        "full_name": "alibaba-damo-academy/ScholarSeed",
+        "read_scope": "Read full README, shared academic-routing body, complete project-literature consumer body, source/lock validation implementation, find-skill NOTICE and precise-search vendor notice; root Apache scope reviewed.",
+        "conclusion": "One scoped literature workflow is deliberately narrower than13 community entries plus a UI example. Shared research guidance is not a standalone research deliverable. The unlicensed/unknown-source paper-fulltext-dl wheel and the rest of precise-search are outside this admission; original Apache instructions do not clear third-party runtime/material rights.",
+        "evidence": {
+          "repository_id": 1380885309,
+          "commit": "b305c75e3fda6af5e25f200f138f1768f05efc8d",
+          "tree": "b3e36f58d65e81b16f8de6b66d29a45a63da96de",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "63f55582e8cb0db5a169884807714522d0ed7b54",
+              "sha256": "c1272b5a57b592f4e44ed40f7fcc291f61a3d755ba373b4e950183038cf61741",
+              "url": "https://github.com/alibaba-damo-academy/ScholarSeed/blob/b305c75e3fda6af5e25f200f138f1768f05efc8d/README.md",
+              "bytes": 22679
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+              "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+              "url": "https://github.com/alibaba-damo-academy/ScholarSeed/blob/b305c75e3fda6af5e25f200f138f1768f05efc8d/LICENSE",
+              "bytes": 11358
+            },
+            {
+              "path": "skills/community/project-literature/SKILL.md",
+              "blob_sha": "952fde7bd600cd9585cc4b1b6cf23bd666b7971c",
+              "sha256": "93c97dafe04ed08013d9195fc56b7f446972c5eb1668224ebef15de1cddf00c7",
+              "url": "https://github.com/alibaba-damo-academy/ScholarSeed/blob/b305c75e3fda6af5e25f200f138f1768f05efc8d/skills/community/project-literature/SKILL.md",
+              "bytes": 9205
+            },
+            {
+              "path": "scripts/shared/skills.cjs",
+              "blob_sha": "93adc6f29d5c55250273e658da0a64acc28dca44",
+              "sha256": "2412e3c9756ec96e6fd48b898e56e21da89ce00844eb144264ea2bf2ffc13305",
+              "url": "https://github.com/alibaba-damo-academy/ScholarSeed/blob/b305c75e3fda6af5e25f200f138f1768f05efc8d/scripts/shared/skills.cjs",
+              "bytes": 5992
+            },
+            {
+              "path": "skills/community/find-skill/NOTICE.md",
+              "blob_sha": "146faaf9ed421b4ccbece5521e8ff7e6a6649b12",
+              "sha256": "ca85b5018b070743d0af3d67919d58dd10c8b524e95ec60fa4adafe6151f6a3c",
+              "url": "https://github.com/alibaba-damo-academy/ScholarSeed/blob/b305c75e3fda6af5e25f200f138f1768f05efc8d/skills/community/find-skill/NOTICE.md",
+              "bytes": 812
+            },
+            {
+              "path": "skills/community/precise-literature-search/vendor/THIRD_PARTY_NOTICES.md",
+              "blob_sha": "c119a4bdbff125cda7809cfd801d2326b40a7ed1",
+              "sha256": "47042af1830b9617a7c1e2ced761acbf80d917f9c70338c241f849fddbe4e95e",
+              "url": "https://github.com/alibaba-damo-academy/ScholarSeed/blob/b305c75e3fda6af5e25f200f138f1768f05efc8d/skills/community/precise-literature-search/vendor/THIRD_PARTY_NOTICES.md",
+              "bytes": 1773
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "helikos-labs/prompts",
+        "read_scope": "Read complete README, complete QGIS task and checkpointed-publish instructions; root MIT content exclusion and LICENSE-CONTENT grant/attribution and conditions.",
+        "conclusion": "Seven public workflow/guidance entries are supported by skill directories and explicit ZIP distribution. Skills/content are CC-BY4, not root MIT; code/docs follow MIT. Placeholder configuration and task phases are not extra skills; no GIS endpoint, publication or provider-version behavior certified.",
+        "evidence": {
+          "repository_id": 1448831187,
+          "commit": "3b9161e38928d64ecb5c1b699be2dadb529a0956",
+          "tree": "856e4be9ae598e9f1ac57e404840dbae9aa9b68c",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "181b05f8d30d3ce6ed2b400ae1bedc4e1b899036",
+              "sha256": "3ed73f843e1686d5e97a1da0551a9f54d614169266f5e4534945167a429cec5e",
+              "url": "https://github.com/helikos-labs/prompts/blob/3b9161e38928d64ecb5c1b699be2dadb529a0956/README.md",
+              "bytes": 3422
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "2c47b792caa3c4406cd002f377759a31d7090087",
+              "sha256": "7093cfb6ea0fcc03fb59d691fe3fccb357c5db31be10122f628b1dee366cc0a9",
+              "url": "https://github.com/helikos-labs/prompts/blob/3b9161e38928d64ecb5c1b699be2dadb529a0956/LICENSE",
+              "bytes": 1258
+            },
+            {
+              "path": "skills/qgis-layer-builder/SKILL.md",
+              "blob_sha": "5e7666a779b192732636df8e53c71480625f581a",
+              "sha256": "58174e1dc12c942d7ec0aeb6678e473c665ba3c278df861d2636261b05de81f8",
+              "url": "https://github.com/helikos-labs/prompts/blob/3b9161e38928d64ecb5c1b699be2dadb529a0956/skills/qgis-layer-builder/SKILL.md",
+              "bytes": 12594
+            },
+            {
+              "path": "LICENSE-CONTENT",
+              "blob_sha": "68ed6c257c8f4f1fd3d913de730d94fc589d40ad",
+              "sha256": "67cc719407c4e804cdd71671dda58c5952ff4d91ba92ee69d6abe2eb74ba30fa",
+              "url": "https://github.com/helikos-labs/prompts/blob/3b9161e38928d64ecb5c1b699be2dadb529a0956/LICENSE-CONTENT",
+              "bytes": 19079
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "justfinethanku/lej-3d-workshop",
+        "read_scope": "Read complete README and representative, root MIT and fixed-tree reference paths.",
+        "conclusion": "One adaptable public printing-workshop workflow, not a requirement to use the author hardware/Fleet service. Five references and owner configuration are resources. Software validation is separate from a physical print; external CAD/model/material terms remain separate.",
+        "evidence": {
+          "repository_id": 1359455774,
+          "commit": "fc34041e399e3e28e8c05f19c3f0f34f88929d76",
+          "tree": "1411e5a9fcb3cdc0c6c19f9e667f5f18cc766718",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "ce531e6d3ca8620e71887d9c015541c74a944e42",
+              "sha256": "ec1153a1866baa0ab9ef663e4a529b4c31aaea7133ad0427e4d89548c60c5cd7",
+              "url": "https://github.com/justfinethanku/lej-3d-workshop/blob/fc34041e399e3e28e8c05f19c3f0f34f88929d76/README.md",
+              "bytes": 2986
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "46c8d41f02df2ccfa13f254aad44df27999908ef",
+              "sha256": "31509a678f416b3bda9d53bdfa6227527762ddcf7c4a80d38d7e69c83069ec54",
+              "url": "https://github.com/justfinethanku/lej-3d-workshop/blob/fc34041e399e3e28e8c05f19c3f0f34f88929d76/LICENSE",
+              "bytes": 1073
+            },
+            {
+              "path": "skill/lej-3d-workshop/SKILL.md",
+              "blob_sha": "497c4407d7ab911f3d16c9cea9fdd07a889c6e29",
+              "sha256": "e8deff28b35e48edb3f779ba0ab63597de6e113b92cb421a232196343846d39b",
+              "url": "https://github.com/justfinethanku/lej-3d-workshop/blob/fc34041e399e3e28e8c05f19c3f0f34f88929d76/skill/lej-3d-workshop/SKILL.md",
+              "bytes": 6366
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "Senki-zip/codex_Biomedical_Illustration",
+        "read_scope": "Read complete README, complete drawing and onboarding bodies, root/near MIT scope exclusions, source-provenance reference, Reactome NOTICE and plugin manifest.",
+        "conclusion": "One drawing task plus one guide. Thousands of SVGs/records/duplicates are asset counts rather than skills. First-party MIT does not relicense per-icon CC0/CC-BY/CC-BY-SA/MIT/BSD or the Reactome attribution; no whole-library rights or biological-identity certification.",
+        "evidence": {
+          "repository_id": 1439884164,
+          "commit": "76ed161fc84611e72be210a02c9f1a02decae20d",
+          "tree": "315b5d55a68bd4eb6b383ca89071c3446ca44391",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "b1fc990805598bdcbc42e5f5b49080c1559b18dd",
+              "sha256": "1ca4544563b3d55a1e4415d8b1afba7cbe7313bdc578aa3559a49a6e8f59b845",
+              "url": "https://github.com/Senki-zip/codex_Biomedical_Illustration/blob/76ed161fc84611e72be210a02c9f1a02decae20d/README.md",
+              "bytes": 8969
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "e908d25e915b99fd6e02975aec466fba236b4e82",
+              "sha256": "a0cd2e8305ce5d98420c4865f86a441bb80b8286a83dc88d1f0d9bc2aedfcbdc",
+              "url": "https://github.com/Senki-zip/codex_Biomedical_Illustration/blob/76ed161fc84611e72be210a02c9f1a02decae20d/LICENSE",
+              "bytes": 1331
+            },
+            {
+              "path": "plugins/bio-mechanism/skills/bio-mechanism/SKILL.md",
+              "blob_sha": "7785d124bf3de217ce6accb57c051456a670310e",
+              "sha256": "917250152cd84ee29d9d5d2245f6e2d0df86fc449769b655b4ad54ab557da336",
+              "url": "https://github.com/Senki-zip/codex_Biomedical_Illustration/blob/76ed161fc84611e72be210a02c9f1a02decae20d/plugins/bio-mechanism/skills/bio-mechanism/SKILL.md",
+              "bytes": 5451
+            },
+            {
+              "path": "plugins/bio-mechanism/LICENSE",
+              "blob_sha": "e908d25e915b99fd6e02975aec466fba236b4e82",
+              "sha256": "a0cd2e8305ce5d98420c4865f86a441bb80b8286a83dc88d1f0d9bc2aedfcbdc",
+              "url": "https://github.com/Senki-zip/codex_Biomedical_Illustration/blob/76ed161fc84611e72be210a02c9f1a02decae20d/plugins/bio-mechanism/LICENSE",
+              "bytes": 1331
+            },
+            {
+              "path": "plugins/bio-mechanism/plugin.json",
+              "blob_sha": "44386988743ec9f28175289f1153e7b476ad3798",
+              "sha256": "3613c13892f029f88a2929fa6fff1e1196bf3e895275a8b893eaa80166d56336",
+              "url": "https://github.com/Senki-zip/codex_Biomedical_Illustration/blob/76ed161fc84611e72be210a02c9f1a02decae20d/plugins/bio-mechanism/plugin.json",
+              "bytes": 1318
+            },
+            {
+              "path": "plugins/bio-mechanism/skills/bio-mechanism/assets/library/reactome/NOTICE.md",
+              "blob_sha": "14133dddfb804920580fffeb97da4d9968980c1b",
+              "sha256": "30335bb67c1ff1bfe05215cb5159e9d757030b0bbc7735578e466304940e3dc3",
+              "url": "https://github.com/Senki-zip/codex_Biomedical_Illustration/blob/76ed161fc84611e72be210a02c9f1a02decae20d/plugins/bio-mechanism/skills/bio-mechanism/assets/library/reactome/NOTICE.md",
+              "bytes": 347
+            },
+            {
+              "path": "plugins/bio-mechanism/skills/bio-mechanism/references/sources.md",
+              "blob_sha": "0cfc3f30c47004152561962b98ca84c01ff9d570",
+              "sha256": "05ad16ad172adf9fa7eab742e863fa85f3ad5bb935534a26ad336935c1243a58",
+              "url": "https://github.com/Senki-zip/codex_Biomedical_Illustration/blob/76ed161fc84611e72be210a02c9f1a02decae20d/plugins/bio-mechanism/skills/bio-mechanism/references/sources.md",
+              "bytes": 3519
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "AWolf81/openfoam-electronics-cooling-skill",
+        "read_scope": "Read complete README and representative, root MIT, declared core template/model/generation/run/report path inventory and explicit reference-image exclusion.",
+        "conclusion": "One phased CFD workflow. Infineon IR image is outside MIT; OpenFOAM/container and report dependencies retain terms. A fit to an unknown fan speed is expressly calibration, not independent prediction. No solver, physical validation or thermal safety signoff occurred.",
+        "evidence": {
+          "repository_id": 1435006880,
+          "commit": "75f2bdeddf4731494455e88a7cd1937204d09cf4",
+          "tree": "ab15c2b8b8d3e72b8853ebdc9f1d67bc2ea3da67",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "1e32f65c862d3f303f1bc6fb9652e01561393c23",
+              "sha256": "14bed06126a707113939b70417fcba794dd829cb0a9771ef34c22b829031b1a2",
+              "url": "https://github.com/AWolf81/openfoam-electronics-cooling-skill/blob/75f2bdeddf4731494455e88a7cd1937204d09cf4/README.md",
+              "bytes": 6008
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "3e92198c62a11ada285cb1ba3fa3e70deb8006a8",
+              "sha256": "895a87903e659c2fa5c828e89e4666bbbe90686b886e388eb85b6e5dac50dbdc",
+              "url": "https://github.com/AWolf81/openfoam-electronics-cooling-skill/blob/75f2bdeddf4731494455e88a7cd1937204d09cf4/LICENSE",
+              "bytes": 1064
+            },
+            {
+              "path": "SKILL.md",
+              "blob_sha": "d3c02a011040831213310a696c6886e76fb7bedd",
+              "sha256": "bbcbfdc259579a775ed804591e9996a6bfcfd74eb2e6b22a4e859afde5de9815",
+              "url": "https://github.com/AWolf81/openfoam-electronics-cooling-skill/blob/75f2bdeddf4731494455e88a7cd1937204d09cf4/SKILL.md",
+              "bytes": 20601
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "kltng/humanities-skills",
+        "read_scope": "Read complete README and full Alma-SRU representative, root MIT and fixed30-entry marketplace manifest.",
+        "conclusion": "Thirty public research/interface packages include overlapping library interfaces and control/evaluation helpers.21 libraries in one package and shared client code are not additional leaves or30 globally novel methods. External databases, records, OCR weights and schemas retain their terms.",
+        "evidence": {
+          "repository_id": 1080894520,
+          "commit": "018d9e3e085fe9183fa122fcfb290e54b4d53513",
+          "tree": "b71b4a4c68e7c268193b154ba58222b79f5396aa",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "8ecee876e8322102021d61b1cd0a4a106f7bc023",
+              "sha256": "81c665eeefbf21a2de018b06040a7784af04394a63fd401d1d0b143ef20f50ce",
+              "url": "https://github.com/kltng/humanities-skills/blob/018d9e3e085fe9183fa122fcfb290e54b4d53513/README.md",
+              "bytes": 8892
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "0725057510f17f705fc8a5e002bcbdadc6f1d9a5",
+              "sha256": "8def95bf7204e7963d7c15a5ca02d796fbf63ba1a7f22b0915030e6f8b2f3097",
+              "url": "https://github.com/kltng/humanities-skills/blob/018d9e3e085fe9183fa122fcfb290e54b4d53513/LICENSE",
+              "bytes": 1077
+            },
+            {
+              "path": "alma-sru-catalogs/SKILL.md",
+              "blob_sha": "1ffbc9a2cfa220784826039a1b9ecd7ebcffcb21",
+              "sha256": "4ce17ea04d941286683f19c676a78f3451d4adf84993dfc72bea430b678714a4",
+              "url": "https://github.com/kltng/humanities-skills/blob/018d9e3e085fe9183fa122fcfb290e54b4d53513/alma-sru-catalogs/SKILL.md",
+              "bytes": 13793
+            },
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "374a728ae6845c2322c2b01387e4ee1e8f7577ca",
+              "sha256": "60b60295746fc3adbc283526799f53cc76f9701cc7099668e60dd7f0ecbbc88c",
+              "url": "https://github.com/kltng/humanities-skills/blob/018d9e3e085fe9183fa122fcfb290e54b4d53513/.claude-plugin/marketplace.json",
+              "bytes": 14757
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "Drix10/ai-resources",
+        "read_scope": "Read complete representative, README introduction/install/API/data-credit sections, root CC-BY4 declaration/legal scope and complete MCP MIT grant.",
+        "conclusion": "One dated-news workflow with alternate API/MCP/repository paths. Authored content/skill is CC-BY4 and MCP code MIT; archive category/item counts are not skill counts or independent factual verification of original posts.",
+        "evidence": {
+          "repository_id": 887435804,
+          "commit": "557db0e353961f3fdb2233ce819536e21a89ef4d",
+          "tree": "23d0f0008db0a2bc715f8e81015c5e654c1da0d3",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "b5eef2027a39f477effb356315b2ed2d940602e0",
+              "sha256": "9a590a15ff2aecbbcae9570e3cbf07e365a20527a5e895ab4bb52e9089a517a3",
+              "url": "https://github.com/Drix10/ai-resources/blob/557db0e353961f3fdb2233ce819536e21a89ef4d/README.md",
+              "bytes": 37305
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "da6ab6cc8f333d7e89a99812866df8f24374d47c",
+              "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411",
+              "url": "https://github.com/Drix10/ai-resources/blob/557db0e353961f3fdb2233ce819536e21a89ef4d/LICENSE",
+              "bytes": 18657
+            },
+            {
+              "path": "skills/ai-news/SKILL.md",
+              "blob_sha": "d6c07d204fb66d90b7a49fbf1c8032c525dee7b9",
+              "sha256": "4e7292f3c9c6937a1a3353fa6f393cfbfb4fdce402756fa54d0253b1d5c38ffd",
+              "url": "https://github.com/Drix10/ai-resources/blob/557db0e353961f3fdb2233ce819536e21a89ef4d/skills/ai-news/SKILL.md",
+              "bytes": 3546
+            },
+            {
+              "path": "mcp/LICENSE",
+              "blob_sha": "c266ecc4acc94367776447adeaa5c5466a34adef",
+              "sha256": "9c05d0369cf09735020ee320283f802468a3751e97aae796b7e9df3842e7de0f",
+              "url": "https://github.com/Drix10/ai-resources/blob/557db0e353961f3fdb2233ce819536e21a89ef4d/mcp/LICENSE",
+              "bytes": 1072
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "timothymeyers/discovery-tools",
+        "read_scope": "Read complete README and AlphaFold-provenance representative, root MIT and explicit root plugin skills manifest.",
+        "conclusion": "Seventeen research/platform/pointer entries include experimental guides and an external-tool pointer. Linked tools/catalogs are not bundled or adopted by installing this catalog; their dataset/compute/individual subtree terms remain separate. No biological thresholds, model outputs or cloud operations validated.",
+        "evidence": {
+          "repository_id": 1381406579,
+          "commit": "89621076d83833cf2eb99f58f7a75f2375eabe65",
+          "tree": "f18cd2c639fc30f97bc0296f623fe65b88d4b2cb",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "5942003cc0055a428c3f6523ddeb290becb3fb70",
+              "sha256": "119c10204f5aaa5dc6d86f062a78935f17e887945f1240bd7b2f347d583f9fd0",
+              "url": "https://github.com/timothymeyers/discovery-tools/blob/89621076d83833cf2eb99f58f7a75f2375eabe65/README.md",
+              "bytes": 18043
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "352fc92766e437d41486655649b056340af4549a",
+              "sha256": "8f784d56c5a8a885e4be598ec2909b3da498d25e5ae368ed5d0b7ce3282b1504",
+              "url": "https://github.com/timothymeyers/discovery-tools/blob/89621076d83833cf2eb99f58f7a75f2375eabe65/LICENSE",
+              "bytes": 1067
+            },
+            {
+              "path": "skills/alphafold-structure-provenance/SKILL.md",
+              "blob_sha": "905554d3e1991ab9c108969a9029c5be70aac4bf",
+              "sha256": "fb4feb44fd7f2bbdefd27abc8e8b8a9f6291250414a4235c95bfed15d2e21c1c",
+              "url": "https://github.com/timothymeyers/discovery-tools/blob/89621076d83833cf2eb99f58f7a75f2375eabe65/skills/alphafold-structure-provenance/SKILL.md",
+              "bytes": 11239
+            },
+            {
+              "path": "plugin.json",
+              "blob_sha": "f2118bc909c761ea85dbde41e386b89a50a691d0",
+              "sha256": "ba6b01e7d532ac6666a796d80f86f39f58bb94f66816dc97f540d813e59188bb",
+              "url": "https://github.com/timothymeyers/discovery-tools/blob/89621076d83833cf2eb99f58f7a75f2375eabe65/plugin.json",
+              "bytes": 1957
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "rryam/FoundationModelsKit",
+        "read_scope": "Read complete app-builder and OS27-updater consumer instructions, SDK README product/runtime/privacy portions and root MIT; inspected the Foundation Lab README Agent Skills section naming both actual Skills CLI source paths.",
+        "conclusion": "Two general consumer guides for arbitrary Swift apps/packages, rather than SDK-only maintenance. Four Swift products, test-support fixtures, runtime modes and recipes are separate counts. MIT for authored SDK/instructions does not clear Apple framework/model/entitlement terms or user Health/Contacts/Calendar data. API names, platform/PCC availability and permission/privacy behavior were not compiled, called or independently certified.",
+        "evidence": {
+          "repository_id": 1016557057,
+          "commit": "4900266d34019bcaac8cdd6452d3447ccc20947e",
+          "tree": "61cfd316f12c0fecdcb7357c9b001a92a5bb86f2",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "ca42a8ad137d1084ae3798f0742dac63091d1e9b",
+              "sha256": "8b8217551e699d0014eb9e20112364192ef8172235cb4c30ffec2b136d19ad86",
+              "url": "https://github.com/rryam/FoundationModelsKit/blob/4900266d34019bcaac8cdd6452d3447ccc20947e/README.md",
+              "bytes": 23773
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "d7118c35af3e7697546d80b55d9ded0692136e20",
+              "sha256": "bb3ed780d373ad8ee41ea8d2f5dffe62475f90914c77a24a7eae715cbe40f9a8",
+              "url": "https://github.com/rryam/FoundationModelsKit/blob/4900266d34019bcaac8cdd6452d3447ccc20947e/LICENSE",
+              "bytes": 1070
+            },
+            {
+              "path": "skills/foundation-models-app-builder/SKILL.md",
+              "blob_sha": "7cd611b4a51d950d35d4c954f76e83a857273171",
+              "sha256": "8674edc3a0f9fe8213a0fc2680dde2d455cf8fbf6be6299816ce8fbf4dad6372",
+              "url": "https://github.com/rryam/FoundationModelsKit/blob/4900266d34019bcaac8cdd6452d3447ccc20947e/skills/foundation-models-app-builder/SKILL.md",
+              "bytes": 4299
+            },
+            {
+              "path": "skills/foundation-models-os27-updater/SKILL.md",
+              "blob_sha": "f1c51464246c0448ad486e855c045db419c48a0c",
+              "sha256": "3bf16850dc3bd103a3936f6c6326519532959a1b00abd1ad1766dea173331a0b",
+              "url": "https://github.com/rryam/FoundationModelsKit/blob/4900266d34019bcaac8cdd6452d3447ccc20947e/skills/foundation-models-os27-updater/SKILL.md",
+              "bytes": 11515
+            }
+          ]
+        },
+        "source_followup_evidence": {
+          "full_name": "rudrankriyam/Foundation-Models-Framework-Lab",
+          "commit": "9bcd8d0f72383a3bfc195bc4ec12e6cbb21673b8",
+          "tree": "e54c48cd0b09750969eb23c9e0c47ffcec7e72ac",
+          "readme": {
+            "path": "README.md",
+            "blob_sha": "dee67e5f03b91842df685543406020f0ed9f63fa",
+            "sha256": "fdb5d684cc6660bf9de36449c3bdf376e33bd4af66811fde30a91f0bf849ca37",
+            "url": "https://github.com/rudrankriyam/Foundation-Models-Framework-Lab/blob/9bcd8d0f72383a3bfc195bc4ec12e6cbb21673b8/README.md",
+            "bytes": 10000
+          }
+        }
+      }
+    ],
+    "limits": [
+      "Direct semantic reading covers only the stated bodies/README portions/notices and manifests; not a second full-body audit of every accepted collection.",
+      "The parent performs fresh official-API object/byte verification; these conclusions do not certify runtime, clinical/scientific results, legal clearance, origin or independence of every source body.",
+      "Source hashes and counts bind the exact integration snapshots read here. Later field/evidence changes need affected checks rerun; unreviewed reserves are not signed off."
+    ]
+  },
+  "overlap-resolution-product.json": {
+    "date": "2026-11-07",
+    "stage": "complete",
+    "status": "complete",
+    "reviewer": "breadth stream scoped independent cross-check",
+    "source_snapshots": {
+      "quality-parent.json": "641cf563469ada9c82eadb5cd889dbd589e0f86897251e3c8014c5a18d10651b",
+      "integrated.json": "572f4aac56dbc034140a3565767d1ceb6576506d7232d929d379331d3762f852",
+      "breadth-results.json": "c31b87a52e77e7b362b2477d7fa3c5295f2ebc7093029070f5b0902c3d1d4610"
+    },
+    "observed_integrated_unique_ids": 60,
+    "corrections": [],
+    "objections": [],
+    "decisions": [
+      {
+        "full_name": "Simon-Lind-glitch/ai-skills",
+        "read_scope": "Complete README and root license including its original-work exclusion; complete docs-sync authored representative and full plugin skill-array manifest; counted cached13 source paths and checked selected eight authored paths against README source table.",
+        "conclusion": "13 installed entries are not13 wholly licensed originals. Eight team-authored guides are the bounded metadata count; five vendored modules are excluded, including clean-code/lensed-review with no declared upstream grant. Attribution or removal-on-objection is not permission. Some authored orchestrators still reference excluded modules, so whole-bundle redistribution/operation remains uncleared. Parent scope preserves this limitation.",
+        "evidence": {
+          "repository_id": 1340367926,
+          "commit": "3a45bc9ba11602e486c337ccd385f3621d91be4c",
+          "tree": "c4a4fd1ea6a13b25a3668d5e45fc2c5f40a80049",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "ce79140667e22e1fea899b8dda04663f0c388aea",
+              "sha256": "80a9611de1f18440b7e8844127ac09eb5005a0234a2e016a6710708706eda67b",
+              "url": "https://github.com/Simon-Lind-glitch/ai-skills/blob/3a45bc9ba11602e486c337ccd385f3621d91be4c/README.md",
+              "bytes": 6976
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "02ead3c33358aaee3e75610c43075f2fdc17ba23",
+              "sha256": "b1c13c819e5b4774f6c406eb961b49014ef020a6aecf3cf23083c1e90e0cdb57",
+              "url": "https://github.com/Simon-Lind-glitch/ai-skills/blob/3a45bc9ba11602e486c337ccd385f3621d91be4c/LICENSE",
+              "bytes": 1404
+            },
+            {
+              "path": "skills/docs-sync/SKILL.md",
+              "blob_sha": "02f1c8abb84c9da7f38b0e3a69c95f579811b4a7",
+              "sha256": "48bb2ab26595d0da450d1c55a6db6c66a65f21dfe1e768c6cfff2cd9e4509608",
+              "url": "https://github.com/Simon-Lind-glitch/ai-skills/blob/3a45bc9ba11602e486c337ccd385f3621d91be4c/skills/docs-sync/SKILL.md",
+              "bytes": 3324
+            },
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "d85380d9879372ba92adf20898f0e0dcd730ff5d",
+              "sha256": "1c70c330f1c33f30986a9872a1c90e141044c85c34c8821f8d787ceb1c32b922",
+              "url": "https://github.com/Simon-Lind-glitch/ai-skills/blob/3a45bc9ba11602e486c337ccd385f3621d91be4c/.claude-plugin/plugin.json",
+              "bytes": 1093
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "9thDuck/claude-apcc",
+        "read_scope": "Full current PolyForm Shield license, complete persisting-context representative, README install/skill/scope/license portions and current0.2.1 plugin manifest. Did not read the full event-handler implementation or certify privacy/storage gates.",
+        "conclusion": "One persistence skill plus hook runtime is supported. The fixed current grant and manifest are PolyForm-Shield-1.0.0 with noncompete/notice limits; README historical MIT through0.2.0 does not turn this snapshot into MIT or OSI open source. Marker/source-file protocols were read only; no transcript collection, hook, gate, compaction or install was run.",
+        "evidence": {
+          "repository_id": 1437956646,
+          "commit": "5fb149425dfde737a12a3b6efa21750bcd5175b4",
+          "tree": "4d5e8b4a223c3bd636b9fca4a5bef6c617c986d9",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "61977c1fbd5a9ab271f9771effa3fd0ae0688e83",
+              "sha256": "1ad657bc388f97c08faa1adfe1c29e7734e2309468f2a8fede9e9ecd991bedb4",
+              "url": "https://github.com/9thDuck/claude-apcc/blob/5fb149425dfde737a12a3b6efa21750bcd5175b4/README.md",
+              "bytes": 19272
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "19f6d9bd85f04311eb70c4594f7ac6cef8528af5",
+              "sha256": "20965198054d152094ddfdae196e422b2d29f4ad0595c6642efdbe40d34ddc74",
+              "url": "https://github.com/9thDuck/claude-apcc/blob/5fb149425dfde737a12a3b6efa21750bcd5175b4/LICENSE",
+              "bytes": 5834
+            },
+            {
+              "path": "skills/persisting-context/SKILL.md",
+              "blob_sha": "22ac6e18df6ea1e66e731a88174e75536cfad89e",
+              "sha256": "b4f815f068fae25abf9fce5b3afbffa2a8f4285b0ba9719c05cec1ae808cf1e3",
+              "url": "https://github.com/9thDuck/claude-apcc/blob/5fb149425dfde737a12a3b6efa21750bcd5175b4/skills/persisting-context/SKILL.md",
+              "bytes": 3507
+            },
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "b8beadcd3a5f9a1cd7464a92e1b4ec1a8aa37ce9",
+              "sha256": "cffc4761f537d0f27568c157089edf9669256bbc6ae7622414c0ef3755299275",
+              "url": "https://github.com/9thDuck/claude-apcc/blob/5fb149425dfde737a12a3b6efa21750bcd5175b4/.claude-plugin/plugin.json",
+              "bytes": 490
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "Odin41/model-picker",
+        "read_scope": "Complete README, MIT grant, full pick-model representative and complete marketplace/plugin manifests; compared single public skill path. No Python watchdog body or live host/session API was executed/validated.",
+        "conclusion": "One advisory workflow and optional hook, not four model tasks. Native marketplace source ./ and MIT plugin support distribution; manual nested-folder fallback remains unverified. Mandatory model/session/tool instructions are source data, not authority here. Named models, prices, start_session aliases, effort limits and host API semantics are author claims; no model/effort/session change or subagent run was launched.",
+        "evidence": {
+          "repository_id": 1446641043,
+          "commit": "31b82d96e89df0feb3f6f79799db9a6ae96f18a8",
+          "tree": "70a105ecbd8b31ea0cf06465adc87fa5e756b487",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "8057a3dc5c05f34584c5a2a97d17dcbaf8789645",
+              "sha256": "d7d16acf7b4f6581206953c80c9696f7fb7bf16e899886b39122dcede7a1fff6",
+              "url": "https://github.com/Odin41/model-picker/blob/31b82d96e89df0feb3f6f79799db9a6ae96f18a8/README.md",
+              "bytes": 7736
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "22a44a38c14897750ed644efc9596c5432f67049",
+              "sha256": "943a62d311d2c4146e1d9ced669ef7c3bfff420526c77448d1c28d3eb132a919",
+              "url": "https://github.com/Odin41/model-picker/blob/31b82d96e89df0feb3f6f79799db9a6ae96f18a8/LICENSE",
+              "bytes": 1072
+            },
+            {
+              "path": "skills/pick-model/SKILL.md",
+              "blob_sha": "3f17dcf55603394c752a0864b546d6a25fd718a2",
+              "sha256": "8932ce9fdac86743045cee3f84132b6c115cea85d298e49dbdff9b4fda08aec0",
+              "url": "https://github.com/Odin41/model-picker/blob/31b82d96e89df0feb3f6f79799db9a6ae96f18a8/skills/pick-model/SKILL.md",
+              "bytes": 6047
+            },
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "325534b678510d94d85b25bdddde3d6f93edeede",
+              "sha256": "36d40088b867f76b0f1a895f4c8fef82e5b7a50cb368493605172fdd5f1a8aea",
+              "url": "https://github.com/Odin41/model-picker/blob/31b82d96e89df0feb3f6f79799db9a6ae96f18a8/.claude-plugin/marketplace.json",
+              "bytes": 439
+            },
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "ce81a7661e1e61be4b204c34159b5ab637623d55",
+              "sha256": "1a26448851b96553454c2964443111a198598543a9987e2e404d95c194a94a18",
+              "url": "https://github.com/Odin41/model-picker/blob/31b82d96e89df0feb3f6f79799db9a6ae96f18a8/.claude-plugin/plugin.json",
+              "bytes": 524
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "avivsinai/skills-marketplace",
+        "related_repository": "avivsinai/agent-message-queue",
+        "read_scope": "Complete registry README, root and reviewed AMQ-bundle MIT grants, full AMQ-board representative reused only after exact blob/text equality; fixed registry and generated Claude manifest parsed and compared across all13 name/SHA pairs. Read child AMQ README intro/skill-install/wake portions, plugin skills pointer and CodexBar notice; did not read all generated child bodies or execute sync/install/message operations.",
+        "conclusion": "Registry provides independent pinning/distribution value:13 plugin records,0 original leaf tasks.15 raw skill.md paths resolve to14 generated package views plus1 nested bkt rules reference; a registry record is not necessarily one local bundle or one task. Shared AMQ-board blob5ca1c44f4816c9274585d45e1e65c1e6e2542c7c is an acknowledged generated view of its source, not a second novel task. Child AMQ separately ships four canonical guides via ./skills/. Root MIT does not replace all child/service grants, and translated CodexBar MIT attribution is retained.",
+        "mechanical_checks": {
+          "registry_and_manifest_name_sha_parity": 13,
+          "marketplace_raw_skill_paths": 15,
+          "generated_canonical_views": 14,
+          "nested_rules_reference": 1,
+          "amq_native_paths": 4,
+          "representative_blob_and_text_equality": true
+        },
+        "evidence": {
+          "repository_id": 1122660400,
+          "commit": "69114bf250e2bccaa50f1176846fc029c154757f",
+          "tree": "38a7005536c8db700d9628590da31cea909082df",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "192526ea505eeaf0565aedff99ccdd4e96dc7d50",
+              "sha256": "bfd7862563f764e5668ed2dc3d13a70945ef492c3884b74dd416966779c337ae",
+              "url": "https://github.com/avivsinai/skills-marketplace/blob/69114bf250e2bccaa50f1176846fc029c154757f/README.md",
+              "bytes": 5726
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "0e2196ca4ebad1b169cbaabdcd441314f2cde6ea",
+              "sha256": "30e15a642db040298918810365a1bf599b23558068b1a68844400ba88ac20800",
+              "url": "https://github.com/avivsinai/skills-marketplace/blob/69114bf250e2bccaa50f1176846fc029c154757f/LICENSE",
+              "bytes": 1067
+            },
+            {
+              "path": "plugins/amq-cli/skills/amq-board/SKILL.md",
+              "blob_sha": "5ca1c44f4816c9274585d45e1e65c1e6e2542c7c",
+              "sha256": "0e51acc2829ca73eafeb93b8b3a6c6b590ea28a9ca26d4194836c9dfa92727ec",
+              "url": "https://github.com/avivsinai/skills-marketplace/blob/69114bf250e2bccaa50f1176846fc029c154757f/plugins/amq-cli/skills/amq-board/SKILL.md",
+              "bytes": 3813
+            },
+            {
+              "path": "registry/plugins.json",
+              "blob_sha": "ead0cdf4e2dfb626f1fa4492fea29e24744519a3",
+              "sha256": "011de07db1ead31f3640dda5ff876a8ca97af8a78b20c8b1941883b06d2e9e4d",
+              "url": "https://github.com/avivsinai/skills-marketplace/blob/69114bf250e2bccaa50f1176846fc029c154757f/registry/plugins.json",
+              "bytes": 11872
+            },
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "f6b5e6874b7b02a08b52809cc7069f607dc5bf4b",
+              "sha256": "d8088f3ee0364673c003221b13d469d406d68d9af603057e89de021aebd5efbe",
+              "url": "https://github.com/avivsinai/skills-marketplace/blob/69114bf250e2bccaa50f1176846fc029c154757f/.claude-plugin/marketplace.json",
+              "bytes": 8705
+            }
+          ]
+        },
+        "related_evidence": {
+          "repository_id": 1122637774,
+          "commit": "6a363c72e4ce278e72c4788c1ada10021eb51696",
+          "tree": "e595d1f7e8afe801545f4a91d4e8ca108134ab77",
+          "fixed_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "1a6cfa51286cea80be197041a3dc8e414d68a71d",
+              "sha256": "949fca74df041a9db0ce2114099a846914484868145a74c007807703100a751b",
+              "url": "https://github.com/avivsinai/agent-message-queue/blob/6a363c72e4ce278e72c4788c1ada10021eb51696/README.md",
+              "bytes": 8205
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "0e2196ca4ebad1b169cbaabdcd441314f2cde6ea",
+              "sha256": "30e15a642db040298918810365a1bf599b23558068b1a68844400ba88ac20800",
+              "url": "https://github.com/avivsinai/agent-message-queue/blob/6a363c72e4ce278e72c4788c1ada10021eb51696/LICENSE",
+              "bytes": 1067
+            },
+            {
+              "path": "skills/amq-board/SKILL.md",
+              "blob_sha": "5ca1c44f4816c9274585d45e1e65c1e6e2542c7c",
+              "sha256": "0e51acc2829ca73eafeb93b8b3a6c6b590ea28a9ca26d4194836c9dfa92727ec",
+              "url": "https://github.com/avivsinai/agent-message-queue/blob/6a363c72e4ce278e72c4788c1ada10021eb51696/skills/amq-board/SKILL.md",
+              "bytes": 3813
+            },
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "b04062a71a7c9f8453c5d8a47ad0827d8da963e9",
+              "sha256": "4e8ea9ed9eb3da67c399f60af9384cb427819ff244f87ad8e6bcb813a27129d2",
+              "url": "https://github.com/avivsinai/agent-message-queue/blob/6a363c72e4ce278e72c4788c1ada10021eb51696/.claude-plugin/plugin.json",
+              "bytes": 555
+            },
+            {
+              "path": "third_party/codexbar/NOTICE.md",
+              "blob_sha": "c32cd78f8ee94bc4a08928501914d5d3ae6396c5",
+              "sha256": "f84e550cb5a017b90e4b89acb98f003f8a9093a0a2acfc31584e1a95e442e7f5",
+              "url": "https://github.com/avivsinai/agent-message-queue/blob/6a363c72e4ce278e72c4788c1ada10021eb51696/third_party/codexbar/NOTICE.md",
+              "bytes": 955
+            }
+          ]
+        }
+      }
+    ],
+    "limits": [
+      "Four named cross-checks only; no second full-body audit of every accepted repository or dependency.",
+      "Cached fixed objects were inspected without refetching the repository universe. Parent fresh official-API object/byte verification remains separate.",
+      "Metadata indexing does not certify source originality, licensing clearance, model/host capability, runtime efficacy or privacy/security enforcement.",
+      "Counts and source hashes bind the records read here. Later changed fields need comparison; unread bodies and arbitrary generated views are not signed off."
+    ]
+  },
+  "quality-parent.json": {
+    "date": "2026-11-07",
+    "status": "complete",
+    "reviewer": "parent integration review",
+    "scope": "Direct static admission of six refetched historical leads and three actual skill sources followed from fixed product READMEs, plus aggregate identity/reference/typed-count checks.",
+    "corrections": [
+      {
+        "full_name": "sepsarip/agent-skills",
+        "field_updates": {
+          "section": "collections"
+        },
+        "reason": "Both publish multiple consumer skill workflows. The proposed library label is not a repository section; use existing collections taxonomy. No loader/schema rule changed."
+      },
+      {
+        "full_name": "yyShine760/engineering-agent-skills",
+        "field_updates": {
+          "section": "collections"
+        },
+        "reason": "Both publish multiple consumer skill workflows. The proposed library label is not a repository section; use existing collections taxonomy. No loader/schema rule changed."
+      }
+    ],
+    "objections": [],
+    "decisions": [
+      {
+        "full_name": "lpsjor/godot-ui-skills",
+        "conclusion": "Three canonical user-facing workflows; optional scripts and referenced fonts/art/model services are not extra skills or automatically MIT assets. Representative read fully, no Godot/media operation performed."
+      },
+      {
+        "full_name": "betsyhcamp/agent-skills",
+        "conclusion": "Two manually invoked guides. Full create-handoff representative is a concrete artifact workflow; link.sh/host discovery is declared distribution, not an executed installation or compatibility test."
+      },
+      {
+        "full_name": "Odin41/model-picker",
+        "conclusion": "One advisory skill and optional watchdog. Native marketplace/plugin route is evidenced; manual nested-folder fallback and source model IDs/prices/tool names are not independently validated. Source mandatory launch instructions were read as data and did not authorize any model/session change."
+      },
+      {
+        "full_name": "9thDuck/claude-apcc",
+        "conclusion": "Current fixed version0.2.1 is PolyForm-Shield-1.0.0, not the earlier MIT grant described by README. One persistence workflow plus hook infrastructure; trivial/attempted persist writes and verbatim-user-words privacy limits remain explicit, with no hook/transcript operation run."
+      },
+      {
+        "full_name": "chutingyean/Agent-Cockpit",
+        "conclusion": "One public consumer workflow; AGPL3-or-later scope and retained MIT/Apache/OFL bundled notices are separated. Hash/event bookkeeping and external-provider claims are not scientific or security validation."
+      },
+      {
+        "full_name": "Simon-Lind-glitch/ai-skills",
+        "conclusion": "Representative corrected from undeclared-upstream clean-code to authored docs-sync. Eight authored guides are the bounded count; all five vendored modules excluded, including two with no source grant. Some own orchestrators reference those modules, so whole-bundle redistribution/operation is not cleared."
+      },
+      {
+        "full_name": "AriesYB/c-relocator",
+        "conclusion": "One canonical skill/SKILL.md. Scan, map, migration, undo/rebuild/backup-confirm commands and rule entries are capabilities/resources, not separate skills. Root MIT and representative MIT declaration for repository-owned instructions/scripts. Windows/PowerShell/NTFS, migrated applications, user data, credentials and dependency terms remain separate. Upstream undoability, disk-savings, junction/deletion safety and OS compatibility claims were not executed or certified."
+      },
+      {
+        "full_name": "rryam/FoundationModelsKit",
+        "conclusion": "Two canonical skills/ entries: foundation-models-app-builder and foundation-models-os27-updater. Four Swift products, reference recipes, tools, fixtures and runtime modes are separate package capabilities rather than extra skills. Root MIT for authored SDK/instructions. Apple SDK/framework/model/service/entitlement terms, third-party tools, Health/Contacts/Calendar data and user app assets remain separate. API names, model/PCC availability, platform versions, permission enforcement and privacy/runtime claims were not compiled, called or independently certified."
+      },
+      {
+        "full_name": "elkouhen/systemlens-skill",
+        "conclusion": "One canonical root SKILL.md. CodeQL/source fallback engines, source modules, namespaces, JSON manifest and HTML examples are workflow components, not independent skills. Root Apache2 for authored instructions/examples. CodeQL CLI authorization/license, SystemLens/source-parser dependencies, analyzed repositories and source data retain separate rights. Source-level observations are not runtime proof; no analysis tool installed, database created, import or export executed, and graph/security correctness not certified."
+      },
+      {
+        "full_name": "avivsinai/skills-marketplace",
+        "conclusion": "Independent registry/distribution value, not original skill-body count. Both streams identify13 registry pins; select product typed count and registry-only MIT/per-plugin scope, preserve same-snapshot fixed registry/manifest refs. Shared AMQ representative blob is a generated view of its actual source, not a second novel workflow."
+      },
+      {
+        "full_name": "Amal-David/awesome-jev",
+        "conclusion": "Parent read the fixed README and complete curator representative. Local skill is a repository-bound curation guide; README only advertises external skills. Hold as a source lead rather than independent consumer-skill admission, pending concrete distribution/skill-infrastructure evidence."
+      },
+      {
+        "full_name": "modelplan/modelplan",
+        "conclusion": "Two streams use the same fixed snapshot and scoped single planning consumer entry. Product wording explicitly identifies a router and distinguishes MIT skill/code from per-file data/visual terms, so select that label; private scoring/API and reserved official visuals are not licensed by root MIT. Same-snapshot fixed evidence is merged before revalidation."
+      }
+    ],
+    "limits": [
+      "Metadata indexing only; fixed-byte verification is not legal clearance, origin certification, installation or runtime validation.",
+      "Direct representative reading does not mean full-body review of every accepted repository or dependency.",
+      "No exact representative-blob match does not establish semantic originality or independent maintenance of every file."
+    ],
+    "final_report_stages": {
+      "breadth": "complete",
+      "science": "complete",
+      "product": "complete",
+      "carryover": "complete"
+    },
+    "same_snapshot_evidence_union": "Fixed references from overlapping streams with the same immutable commit/tree are retained and independently reverified. ModelPlan/registry labels select explicit scoped wording; duplicate generated AMQ view is documented rather than counted as a novel task.",
+    "local_classification_validation": {
+      "initial_failure": "Two newly admitted collections used unsupported section=library; existing loader correctly rejected them.",
+      "resolution": "Classify both as collections and regenerate shard/hash/audit/interfaces before rerunning release checks."
+    }
+  },
+  "quality-machine.json": {
+    "date": "2026-11-07",
+    "accepted_snapshot_count": 69,
+    "unique_repository_ids": 66,
+    "cross_stream_overlaps": [
+      {
+        "repository_id": 1415346147,
+        "full_name": "modelplan/modelplan",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {
+          "skill_count": {
+            "breadth": "1 model-plan workflow (scoped)",
+            "product": "1 canonical planning router (scoped)"
+          },
+          "license_spdx": {
+            "breadth": "MIT",
+            "product": "MIT (skill/code); per-file data/visual terms"
+          }
+        }
+      },
+      {
+        "repository_id": 1449027865,
+        "full_name": "xinghe-labs/easy-websearch",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {}
+      },
+      {
+        "repository_id": 1122660400,
+        "full_name": "avivsinai/skills-marketplace",
+        "streams": [
+          "breadth",
+          "product"
+        ],
+        "differences": {
+          "skill_count": {
+            "breadth": "13 registry entries; generated task copies excluded",
+            "product": "13 registry entries; 0 original task skills"
+          },
+          "license_spdx": {
+            "breadth": "MIT",
+            "product": "MIT (registry); per-plugin grants"
+          }
+        }
+      }
+    ],
+    "baseline_representative_blob_matches": [],
+    "untraversed_file_references": [],
+    "within_batch_representative_blob_matches": [
+      {
+        "blob_sha": "5ca1c44f4816c9274585d45e1e65c1e6e2542c7c",
+        "names": [
+          "avivsinai/agent-message-queue",
+          "avivsinai/skills-marketplace"
+        ]
+      }
+    ],
+    "limits": "Exact representative-blob comparison only; not a semantic full-body plagiarism or independent-value certification."
+  },
+  "publication_rechecks": {
+    "Amal-David/awesome-jev": {
+      "repository_id": 1375815381,
+      "reason": "Held as a general Jev ecosystem directory/source lead. Fixed README documents external SDK/skill links and repository contribution/curation, but does not publish the local jev-curator as an independently distributed consumer workflow. Representative is bound to this repository data/curated.json and AGENTS regeneration commands. The prior generic claim of README installation routes is unsupported; this is not a no-SKILL-file or license-failure claim.",
+      "source_commit": "d4842510c5a9be5bc508b2175e88644eb079cc03",
+      "evidence": [
+        {
+          "path": "README.md",
+          "blob_sha": "a67dd6f3ba246a864250c446bce22ce3097a573c",
+          "sha256": "f28228823bb157f33220b9457153802f243c76883c6ad71e5f406681b0b7ee6d",
+          "url": "https://github.com/Amal-David/awesome-jev/blob/d4842510c5a9be5bc508b2175e88644eb079cc03/README.md",
+          "bytes": 19195
+        },
+        {
+          "path": "skills/jev-curator/SKILL.md",
+          "blob_sha": "9cb19248340746c612dabd75907284e4fac5df71",
+          "sha256": "c72d2338b203c1359637784430c7fa6e2529888f1b1a26a9c503725590fc9d89",
+          "url": "https://github.com/Amal-David/awesome-jev/blob/d4842510c5a9be5bc508b2175e88644eb079cc03/skills/jev-curator/SKILL.md",
+          "bytes": 2372
+        }
+      ]
+    }
+  },
+  "resolved_field_issues": []
+}
