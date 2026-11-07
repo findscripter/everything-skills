@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1114 skills · 11 volumes · 6787 relation edges · 3832 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1114 skills · 11 volumes · 6787 relation edges · 3898 indexed entries" width="1200" /></picture>
 </p>
 <!-- END GENERATED:brand -->
 
@@ -122,16 +122,16 @@ CLI 无第三方依赖，不需要 `npm install`。它检索已随仓库提供�
 <!-- BEGIN GENERATED:skill-repos -->
 ## 技能仓库目录
 
-浏览 **3832** 条外部 GitHub 技能库、市场和精选列表目录记录；这些上游的技能正文不随本仓库安装。
+浏览 **3898** 条外部 GitHub 技能库、市场和精选列表目录记录；这些上游的技能正文不随本仓库安装。
 
 点击分类查看完整条目、摘要、许可、历史 Stars 与复核状态。[完整仓库总目](INDEX/skill-repos.md)。
 
 | 分类 | 目录记录 |
 | --- | ---: |
 | [官方与权威](INDEX/skill-repos.md#1-官方与权威) | 508 |
-| [精选列表 / 大集合](INDEX/skill-repos.md#2-精选列表--大集合) | 644 |
-| [垂直领域技能包](INDEX/skill-repos.md#3-垂直领域技能包) | 1677 |
-| [安装器 / 注册表 / 基础设施](INDEX/skill-repos.md#4-安装器--注册表--基础设施) | 781 |
+| [精选列表 / 大集合](INDEX/skill-repos.md#2-精选列表--大集合) | 657 |
+| [垂直领域技能包](INDEX/skill-repos.md#3-垂直领域技能包) | 1711 |
+| [安装器 / 注册表 / 基础设施](INDEX/skill-repos.md#4-安装器--注册表--基础设施) | 800 |
 | [其他技能库](INDEX/skill-repos.md#5-其他值得索引的技能库) | 23 |
 | [名称不含 skill / agent](INDEX/skill-repos.md#6-名称不含-skill--agent-的技能库本轮追加) | 199 |
 
