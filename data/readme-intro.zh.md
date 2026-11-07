@@ -94,7 +94,9 @@ CLI 无第三方依赖，不需要 `npm install`。它检索已随仓库提供�
 
 ## 收录内容与证据
 
-**仓库内技能**是实际的 `SKILL.md` 目录，可按卷安装，正文保留原始语言。**外部仓库目录记录**用于发现上游项目；它们的技能正文不包含在本仓库插件中。
+按卷插件可安装 **{{CURRENT_SKILLS}} 条现行技能**；目录另保留 **{{ARCHIVED_SKILLS}} 条归档记录**用于来源追溯和迁移，合计 **{{BUNDLED_SKILLS}} 个技能目录**。正文保留原始语言。
+
+**{{EXTERNAL_REPOS}} 条外部仓库记录**用于发现上游项目，其技能正文不包含在按卷插件中。日常仓库收集扩充这份外部目录，仓库内技能的新增与修订另按采编流程处理。
 
 [技能目录](INDEX/catalog.md)、[标签](INDEX/tags.md)、[关系图](INDEX/graph.md)、[search.json](INDEX/search.json)、[quality.json](INDEX/quality.json) 是生成的导航与证据视图。审核状态、新鲜度、许可与运行依赖分别记录；`unknown`、`unreviewed` 表示尚无对应验证结论。运行前请阅读所选技能的前置条件与[来源/许可记录](INDEX/sources.md)。
 
