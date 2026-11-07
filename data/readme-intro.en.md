@@ -94,7 +94,9 @@ The CLI has no third-party dependencies, so no `npm install` is needed. It searc
 
 ## What is included
 
-**Bundled skills** are the actual `SKILL.md` folders here and can be installed by volume. Their bodies retain their native language. **External repository entries** below are discovery metadata; their upstream skill bodies are not included in the plugins.
+Volume plugins offer **{{CURRENT_SKILLS}} current skills**. The catalog also retains **{{ARCHIVED_SKILLS}} archived entries** for source history and migration, making **{{BUNDLED_SKILLS}} bundled skill folders** in total. Their bodies retain their native language.
+
+**{{EXTERNAL_REPOS}} external repository entries** provide discovery metadata for upstream projects. Their skill bodies are not included in the volume plugins. Daily repository collection expands this directory; bundled skill additions and revisions follow a separate curation workflow.
 
 The [catalog](INDEX/catalog.md), [tags](INDEX/tags.md), [graph](INDEX/graph.md), [search.json](INDEX/search.json), and [quality.json](INDEX/quality.json) are generated navigation and evidence views. Review status, freshness, licenses, and runtime dependencies are separate facets; `unknown` or `unreviewed` is not a verification claim. Read the selected skill's prerequisites and [source/license record](INDEX/sources.md) before running it.
 
