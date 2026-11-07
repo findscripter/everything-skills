@@ -236,6 +236,31 @@ for (const lang of ['en', 'zh']) test(`README repository directory stays compact
   for (const [, anchor] of categoryLinks) assert.ok(headings.includes(anchor), `missing index category anchor ${anchor}`);
 });
 
+for (const lang of ['en', 'zh']) test(`README introduction distinguishes current, archived and external counts in ${lang}`, async t => {
+  const root = await fixture(t);
+  await addSkill(root, 'retired', { status: 'deprecated' });
+  await addSkill(root, 'replacement', { supersedes: '[retired]' });
+  const readmePath = path.join(root, 'README.md');
+  const directory = `${BEGIN}\nCATALOG-CONTENT-SENTINEL\n${END}\n`;
+  await fs.writeFile(readmePath, directory);
+  async function verify(current, bundled, external) {
+    await writeRepos(root, Array.from({ length: external }, (_, i) => repo(`demo/count-${i}`)));
+    assert.equal(run(root, 'build-index.mjs', [`--lang=${lang}`]).status, 0);
+    const result = run(root, 'build-readme-intro.mjs', [`--lang=${lang}`]);
+    assert.equal(result.status, 0, result.stderr);
+    const readme = await fs.readFile(readmePath, 'utf8');
+    const expected = lang === 'en'
+      ? [`**${current} current skills**`, '**1 archived entries**', `**${bundled} bundled skill folders**`, `**${external} external repository entries**`]
+      : [`**${current} 条现行技能**`, '**1 条归档记录**', `**${bundled} 个技能目录**`, `**${external} 条外部仓库记录**`];
+    for (const text of expected) assert.ok(readme.includes(text), `missing ${text}`);
+    assert.ok(readme.endsWith(directory), 'the existing repository-directory block must survive');
+    assert.doesNotMatch(readme, /\{\{(?:CURRENT_SKILLS|ARCHIVED_SKILLS|BUNDLED_SKILLS|EXTERNAL_REPOS)\}\}/);
+  }
+  await verify(2, 3, 5);
+  await addSkill(root, 'new-current');
+  await verify(3, 4, 6);
+});
+
 test('README overview does not link empty categories to missing index headings', async t => {
   const root = await fixture(t);
   const result = run(root, 'refresh-readme-skill-repos-directory.mjs', ['--lang=en']);
