@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-08",
+  "timezone": "Asia/Shanghai",
+  "part": "part103",
+  "status": "published",
+  "baseline_catalog_rows": 3898,
+  "accepted_new_repository_ids": 97,
+  "final_catalog_rows": 3995,
+  "curated_skill_bodies": 1114,
+  "active_curated_skills": 1093,
+  "deprecated_curated_skills": 21,
+  "verified_file_references": 428,
+  "baseline_git_objects_preserved": 98,
+  "data_shard_sha256": "10db85c6d6addbc80fc2516a24ab7a22f0c8d9b30179b724694dea5f9d70c38c",
+  "publication": {
+    "main": {
+      "pull_request": "https://github.com/findscripter/everything-skills/pull/85",
+      "data_head": "321a0412d39e78a13ba333198c764ac3de95907f",
+      "merge_commit": "de92995f9fc2c586c597ae86534f4f6e7e98f5af",
+      "merged_at": "2026-11-08T08:10:20Z",
+      "pr_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 42461709776,
+          "event": "pull_request",
+          "headSha": "321a0412d39e78a13ba333198c764ac3de95907f",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/42461709776",
+          "workflowName": "publish-site"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 42461709864,
+          "event": "pull_request",
+          "headSha": "321a0412d39e78a13ba333198c764ac3de95907f",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/42461709864",
+          "workflowName": "generated-index"
+        }
+      ],
+      "merged_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 42461776838,
+          "event": "push",
+          "headSha": "de92995f9fc2c586c597ae86534f4f6e7e98f5af",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/42461776838",
+          "workflowName": "publish-site"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 42461776847,
+          "event": "push",
+          "headSha": "de92995f9fc2c586c597ae86534f4f6e7e98f5af",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/42461776847",
+          "workflowName": "generated-index"
+        }
+      ]
+    },
+    "zh": {
+      "pull_request": "https://github.com/findscripter/everything-skills/pull/86",
+      "data_head": "232f49c1ec300948137f9eb836fdea1bdef85b79",
+      "merge_commit": "3e7ff39258f8e3844655a1db25258da3b0f77559",
+      "merged_at": "2026-11-08T08:13:48Z",
+      "pr_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 42461965889,
+          "event": "pull_request",
+          "headSha": "232f49c1ec300948137f9eb836fdea1bdef85b79",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/42461965889",
+          "workflowName": "generated-index"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 42461965802,
+          "event": "pull_request",
+          "headSha": "232f49c1ec300948137f9eb836fdea1bdef85b79",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/42461965802",
+          "workflowName": "publish-site"
+        }
+      ],
+      "merged_ci": [
+        {
+          "conclusion": "success",
+          "databaseId": 42462026941,
+          "event": "push",
+          "headSha": "3e7ff39258f8e3844655a1db25258da3b0f77559",
+          "status": "completed",
+          "url": "https://github.com/findscripter/everything-skills/actions/runs/42462026941",
+          "workflowName": "generated-index"
+        }
+      ]
+    }
+  },
+  "local_validation": {
+    "main": {
+      "build": "passed",
+      "tests_passed": 109,
+      "tests_failed": 0,
+      "post_commit_generated_check": "passed",
+      "distribution": "passed",
+      "offline_examples": "passed",
+      "site_build": "passed"
+    },
+    "zh": {
+      "build": "passed",
+      "tests_passed": 109,
+      "tests_failed": 0,
+      "post_commit_generated_check": "passed",
+      "distribution": "passed",
+      "offline_examples": "passed",
+      "site_build": "passed"
+    },
+    "staged_shard_hash_utf8_lf": "passed",
+    "baseline_object_comparison": "passed",
+    "source_equality": "Only AGENTS.md, CLAUDE.md, GEMINI.md, README.md and INDEX/skill-repos.md language interfaces differ."
+  },
+  "ci_scope": "Successful CI URLs prove these exact data heads and post-merge commits. This later documentation receipt does not certify its own commit.",
+  "collection_policy": "No numeric acceptance cap or success-count stopping condition; selected admission, explicit holds and unreviewed reserves are distinct.",
+  "limits": [
+    "Search windows are finite and not exhaustive public-GitHub coverage.",
+    "Admission reads fixed representative instructions/implementation and scoped licensing; it is not an audit of every skill body or a runtime/installation test.",
+    "Leaf tasks, routers, adapters, maintenance, mirrors, fixtures and dynamic endpoints are distinguished in per-repository count bases.",
+    "License scope is recorded per reviewed object, including prose, code, models, data and local exceptions. Metadata indexing does not grant permission to copy bodies.",
+    "Held, rejected and unreviewed reserves are excluded from accepted new identity counts."
+  ]
+}
