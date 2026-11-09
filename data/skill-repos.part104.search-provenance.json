@@ -1,0 +1,266 @@
+{
+  "date": "2026-11-09",
+  "backend": "agent-reach GitHub route via official gh API",
+  "search_windows": {
+    "breadth": {
+      "queries": [
+        {
+          "query": "topic:agent-skills pushed:>=2026-11-08 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 70,
+          "total": 2512,
+          "retrieved": 70,
+          "incomplete_results": false
+        },
+        {
+          "query": "topic:claude-code skills pushed:>=2026-11-08 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 70,
+          "total": 1885,
+          "retrieved": 70,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"skill registry\" in:readme pushed:>=2026-11-08 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 70,
+          "total": 627,
+          "retrieved": 70,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" in:description pushed:>=2026-11-08 fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 70,
+          "total": 2475,
+          "retrieved": 70,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 187,
+      "baseline_duplicate_hits": 43
+    },
+    "science": {
+      "queries": [
+        {
+          "query": "skills GIS in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 432,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills climate in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 712,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills robotics in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 5459,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills embedded in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 13349,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills manufacturing in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 1021,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills energy in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 2743,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills humanities in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 121,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills agriculture in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 488,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills government in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 1338,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills laboratory education in:readme pushed:>=2026-11-08 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 245,
+          "retrieved": 30,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 255,
+      "baseline_duplicate_hits": 11
+    },
+    "product": {
+      "queries": [
+        {
+          "query": "\"npx skills add\" in:readme pushed:>=2026-11-08",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 3804,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" SDK in:readme pushed:>=2026-11-08",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 2739,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skill\" CLI in:readme pushed:>=2026-11-08",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 11505,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "skill workflow product in:readme pushed:>=2026-11-08",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 11476,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" creative in:readme pushed:>=2026-11-08",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 1067,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills registry in:readme pushed:>=2026-11-08",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-09",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 12148,
+          "retrieved": 40,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 191,
+      "baseline_duplicate_hits": 19
+    }
+  },
+  "source_followups": [
+    {
+      "source": "Yesterday explicit product unreviewed reserves, not fresh search results.",
+      "observed_date": "2026-11-09",
+      "names": [
+        "mohessaid/girth",
+        "rohitg00/agentmemory",
+        "mridang/plumbline",
+        "shivarajbakale/inkling"
+      ]
+    },
+    {
+      "source": "Three fixed product-stream inputs delegated for parent actual reading; original input IDs matched product freeze.",
+      "names": [
+        "ji-hun-git/how-to-use-ai",
+        "CodeAlive-AI/pragmatic-orchestration",
+        "david-engelmann/recognitio"
+      ],
+      "observed_date": "2026-11-09"
+    }
+  ],
+  "policy": "No numeric acceptance stopping condition; finite query windows and reserves are explicitly recorded."
+}
