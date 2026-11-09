@@ -1,0 +1,1448 @@
+{
+  "overlap-resolution-science.json": {
+    "stage": "complete",
+    "date": "2026-11-09",
+    "reviewed": [
+      {
+        "full_name": "mohessaid/girth",
+        "repository_id": 1418773019,
+        "commit": "002407753c7c15d40e9184c5d73c56ffc83d3301",
+        "tree": "34373f6febcf1609f9d3dc128ab2a9a1806471ce",
+        "disposition_reviewed": "accepted",
+        "fixed_refs_rehashed": [
+          {
+            "path": "README.md",
+            "blob_sha": "f0b51595b8b34767b91ae66d142bbfdbeba444e3",
+            "sha256": "37737a5cc96c57a466c5d4a304d119dd626c7dc95d7500182232dce429b29906",
+            "url": "https://github.com/mohessaid/girth/blob/002407753c7c15d40e9184c5d73c56ffc83d3301/README.md",
+            "bytes": 27750
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "1e5beca7858f34ddd84bfc8634f57584ce8b1739",
+            "sha256": "ee3ecdb275f7fc7520ba440e662c20e3c4f7c995259d22201c5419ccf4dac399",
+            "url": "https://github.com/mohessaid/girth/blob/002407753c7c15d40e9184c5d73c56ffc83d3301/LICENSE",
+            "bytes": 1066
+          },
+          {
+            "path": "skills/girth/SKILL.md",
+            "blob_sha": "b0e7d54a1042adba5ee99ed775a247402676c23a",
+            "sha256": "4037fc713880d1ae6adf398a3d0e51d7e7d6be4d2fe5d47df2860aeb411424e3",
+            "url": "https://github.com/mohessaid/girth/blob/002407753c7c15d40e9184c5d73c56ffc83d3301/skills/girth/SKILL.md",
+            "bytes": 5070
+          }
+        ],
+        "conclusion": "agree with bounded infrastructure admission",
+        "count_check": "11 raw paths = one distributed skills/girth router + two hidden author guides + eight crafted/example fixtures. Only one public path admitted.",
+        "rights_check": "Full core requires verbatim copying of must/never rules and complete tone text, so root MIT cannot be extended to source skills or generated slices. Parent explicitly retains that limitation.",
+        "distribution_check": "README publishes plain Skills CLI and plugin routes; manifest and complete core bind the consumer package.",
+        "privacy_check": "Sharing guide requests one opt-in after the original task and allows preview/deny; anonymous-content-hash/privacy assurances remain source claims and no upload/consent command was executed."
+      },
+      {
+        "full_name": "rohitg00/agentmemory",
+        "repository_id": 1166408297,
+        "commit": "5634bc5efd28b2ed2e7311df4e636215fc1b3cd7",
+        "tree": "7ea659e8890a1d58004435f649424c599501f425",
+        "disposition_reviewed": "accepted",
+        "fixed_refs_rehashed": [
+          {
+            "path": "README.md",
+            "blob_sha": "07640fb80b067ce82cb70ae1d07fee7f30cc6f37",
+            "sha256": "dc805de90e5e31fc844efda005a7d769f212d067072cdf3570acb8c50f049f66",
+            "url": "https://github.com/rohitg00/agentmemory/blob/5634bc5efd28b2ed2e7311df4e636215fc1b3cd7/README.md",
+            "bytes": 94319
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "cb13c72881997c8ad1662ec42c1484cc15859147",
+            "sha256": "76c8d49ab42216a2533f603fbafa20a1bf71b56de136a401be52da034dcc012c",
+            "url": "https://github.com/rohitg00/agentmemory/blob/5634bc5efd28b2ed2e7311df4e636215fc1b3cd7/LICENSE",
+            "bytes": 10764
+          },
+          {
+            "path": "plugin/skills/agentmemory-agents/SKILL.md",
+            "blob_sha": "ced3c2ef42e3da0cb77fc50db146afef8e858288",
+            "sha256": "d478c3898a8f78ef1f0138b7aac245fd1c6a98639731cc394d1fada5319ae89c",
+            "url": "https://github.com/rohitg00/agentmemory/blob/5634bc5efd28b2ed2e7311df4e636215fc1b3cd7/plugin/skills/agentmemory-agents/SKILL.md",
+            "bytes": 3276
+          }
+        ],
+        "conclusion": "agree with bounded infrastructure admission",
+        "count_check": "All 17 tree paths match README named partition: nine invocable action workflows and eight on-demand references. Representative agentmemory-agents is a reference with user-invocable:false, not an extra action.",
+        "distribution_check": "README native-skills CLI route and plugin skills manifest establish consumer scope, with connector-bundled skills not multiplied.",
+        "rights_check": "Root retains complete Apache operative Sections 1–9. Comparison to the standard block found two added articles, those→any in NOTICE exclusion, and omitted explanatory appendix before author notice; parent already discloses text variation without legal-equivalence certification. This does not establish provider/log/data rights.",
+        "limits_check": "Memory capture/config/hook/privacy behavior was not run; only the complete selected reference was body-reviewed."
+      },
+      {
+        "full_name": "mridang/plumbline",
+        "repository_id": 1428916084,
+        "commit": "5ac33fa01ceca07b76bbea060df78dc7615dbf12",
+        "tree": "f5a28570ac400bd46ae708b49eb591d075fff698",
+        "disposition_reviewed": "accepted",
+        "fixed_refs_rehashed": [
+          {
+            "path": "README.md",
+            "blob_sha": "80d6b78e899efccdcc9ef2e34145f00d6a73a93d",
+            "sha256": "091d16ee9d75211e5a4914f36200bfc6efaea3fc413ceeca41e469a46f74c6b1",
+            "url": "https://github.com/mridang/plumbline/blob/5ac33fa01ceca07b76bbea060df78dc7615dbf12/README.md",
+            "bytes": 140913
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+            "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "url": "https://github.com/mridang/plumbline/blob/5ac33fa01ceca07b76bbea060df78dc7615dbf12/LICENSE",
+            "bytes": 11357
+          },
+          {
+            "path": "packages/skills/skills/plumbline/SKILL.md",
+            "blob_sha": "ef4633108b9062d0f26e956964e05ecc860c004e",
+            "sha256": "0db09c80f1608c52eb20030dda3d0f6d142d8508337bf3266d50e1b97725bb2f",
+            "url": "https://github.com/mridang/plumbline/blob/5ac33fa01ceca07b76bbea060df78dc7615dbf12/packages/skills/skills/plumbline/SKILL.md",
+            "bytes": 4398
+          }
+        ],
+        "conclusion": "agree with instruction-only admission",
+        "count_check": "Exactly one public packages/skills/skills/plumbline/SKILL.md, with rule-engine checks, MCP and CLI wrappers excluded.",
+        "distribution_check": "Root README coding-agent section explicitly links skill package, publishes Skills CLI installation and documents browser/Node prerequisites; full representative covers scan→interpret→narrow→report plus browserless skipped checks.",
+        "rights_check": "Parent correctly limits Apache-2.0 to authored skill instructions. README sources include MPL-2.0, MIT/Apache, CC-BY/SA, IETF and site-content references; root Apache is not proof that the engine can be redistributed under one uniform license.",
+        "limits_check": "No network/DNS/mail/TLS scan or --no-sandbox use performed; rule/source attribution and compatibility are not runtime/legal certifications."
+      },
+      {
+        "full_name": "shivarajbakale/inkling",
+        "repository_id": 1448763418,
+        "commit": "219bdc196acbaa7837d4a49c7a2f1646448f353f",
+        "tree": "395c05bfd6b64c1939bd770e0b4620362c147082",
+        "disposition_reviewed": "held",
+        "fixed_refs_rehashed": [
+          {
+            "path": "README.md",
+            "blob_sha": "8ad55a5090776fec36b01c6f31166d72c45346d4",
+            "sha256": "6a6d2d5ee5aeff2f20dfc5c4dac732169d38107fff315ae4d956c4aebe4a3423",
+            "url": "https://github.com/shivarajbakale/inkling/blob/219bdc196acbaa7837d4a49c7a2f1646448f353f/README.md",
+            "bytes": 17543
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "8ce6dd9e47d56c7ef9af608784dd6c66cc9afb8b",
+            "sha256": "a516f2567f7fd4b04f452eae256a0f8cd749c2b713bd492481fb20551a601b84",
+            "url": "https://github.com/shivarajbakale/inkling/blob/219bdc196acbaa7837d4a49c7a2f1646448f353f/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": ".claude/skills/inkling/SKILL.md",
+            "blob_sha": "6f42fa3d790533d0eddfc6c8291b7addf433bfe9",
+            "sha256": "97558ec416132bdd3073aff232aa7450c47482ea093b0d10bfc4b3add918e544",
+            "url": "https://github.com/shivarajbakale/inkling/blob/219bdc196acbaa7837d4a49c7a2f1646448f353f/.claude/skills/inkling/SKILL.md",
+            "bytes": 6868
+          }
+        ],
+        "conclusion": "agree with hold for unclosed consumer delivery",
+        "count_check": "One hidden .claude skill is a substantive diagram-authoring recipe, not automatically maintenance.",
+        "distribution_check": "Full skill says in this repo and uses repository-relative checker/build paths. Checked README product/library/CLI/LSP distribution and license portions do not supply a skill-consumer install/packaging route; no AGENTS.md/CLAUDE.md or plugin manifest in frozen inventory closes that gap.",
+        "rights_check": "Root full MIT present. Hold concerns consumer distribution, not absent license or hidden-directory status.",
+        "limits_check": "No diagram checker/render, npm build/install or external endpoint used."
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "limits": [
+      "Independent substantive cross-review used fixed raw-text caches already fetched by the parent; SHA-1/SHA-256/byte counts of all 12 core refs were independently recomputed, not another full network crawl.",
+      "Read complete four selected representatives plus relevant README distribution/license portions and Girth sharing guide; did not reread entire 94KB/141KB READMEs or all collection bodies.",
+      "No candidate executable, installer, external service, model, private endpoint, sharing command or scan was run.",
+      "No legal-equivalence or runtime/security/privacy certification; third-party data and engine licensing stay separate from authored instruction grants."
+    ]
+  },
+  "overlap-resolution-product.json": {
+    "date": "2026-11-09",
+    "stage": "complete",
+    "reviewed": [
+      {
+        "full_name": "Renovara/agents",
+        "repository_id": 1235049838,
+        "commit": "4a281918a33354f91f52a92a723aa0b2c1dc54ef",
+        "tree": "1611002c659ccdc24c44fb108c721ef4b2569b3e",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "1748e5d8404a28aef0c24fda47bf472d0660505d",
+          "sha256": "8b692c57bc4ddc2f6bba2b18af87e5767f2a7081b999b4bbe0facd09b52b0a74",
+          "url": "https://github.com/Renovara/agents/blob/4a281918a33354f91f52a92a723aa0b2c1dc54ef/README.md",
+          "bytes": 4322
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "3c5768fea82af474a55d372711e9983ca929cab0",
+          "sha256": "368e6b0ee8524ffe002dbdb0f1920140a8fd90608d9a2e07f3142b92f171b0a5",
+          "url": "https://github.com/Renovara/agents/blob/4a281918a33354f91f52a92a723aa0b2c1dc54ef/LICENSE",
+          "bytes": 1065
+        },
+        "conclusion": "pass",
+        "count": 7,
+        "findings": "README describes generated but standalone consumer bundles from a private Genie pipeline, installed from release ZIPs. Its five-name list is stale relative to seven distinct fixed SKILL.md blobs. The ISP and gas entry headers identify separate actual analysis tasks; references/data are not extra skills. Root and AER-local MIT do not license external AEMO/AER material or certify scientific outputs.",
+        "additional_evidence": [
+          {
+            "path": "skills/isp-2026-agent/SKILL.md",
+            "blob_sha": "aafb2ebbc25a97c3effca45e9b4b6504d7d2667c",
+            "sha256": "dedde06c25e144c478a76f7b342f5718fd5127b13cb847fe055138a2c5b63a17",
+            "url": "https://github.com/Renovara/agents/blob/4a281918a33354f91f52a92a723aa0b2c1dc54ef/skills/isp-2026-agent/SKILL.md",
+            "bytes": 7732
+          },
+          {
+            "path": "skills/renovara_ai_gas_analyst/SKILL.md",
+            "blob_sha": "4b6f378856438ac9a5ef36cb78d588c91a665f28",
+            "sha256": "d30813ce27e1edfa1af15f20f8ca2d4d07d9368f4e9dff1e926962288cb52b80",
+            "url": "https://github.com/Renovara/agents/blob/4a281918a33354f91f52a92a723aa0b2c1dc54ef/skills/renovara_ai_gas_analyst/SKILL.md",
+            "bytes": 18296
+          }
+        ]
+      },
+      {
+        "full_name": "IO42630/skills",
+        "repository_id": 1353564417,
+        "commit": "abdfafa193d8d9a9c29c796cc1d31f91089c9f45",
+        "tree": "962037d829b66be2c27ee04fb5532a338fb1cd76",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "445d982dbfc8a66e4d587f61f814d011ef438eb1",
+          "sha256": "c61d5731f3b22c79317d7195f93460f178fdf8422ae79714b309982a171bd58c",
+          "url": "https://github.com/IO42630/skills/blob/abdfafa193d8d9a9c29c796cc1d31f91089c9f45/README.md",
+          "bytes": 2325
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "4b7fdda83cde13f98800f06e171941a2dbf7ecf0",
+          "sha256": "bcac9226ca86c5c87aeaec901a8f69e2b702ca607a3928137d37c0719251813d",
+          "url": "https://github.com/IO42630/skills/blob/abdfafa193d8d9a9c29c796cc1d31f91089c9f45/LICENSE",
+          "bytes": 253
+        },
+        "conclusion": "pass",
+        "count": 7,
+        "findings": "README individually names seven consumer skills and concrete skills CLI install/use commands. Full 253-byte root grant is THE BEER-WARE LICENSE Revision 42 with notice retention; Beerware is supported by the text despite API NOASSERTION and must not be relabeled MIT. Evaluation runners/output are not extra tasks."
+      },
+      {
+        "full_name": "HuginStudios/usd_chunks",
+        "repository_id": 1023847703,
+        "commit": "fb73dbd41602063af2808a8cf38037e21d0b6092",
+        "tree": "9ce12dab587b68171d6a3ecf078754033ab89dd5",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "4d77c433dff894ea5e430a57497634ae443da784",
+          "sha256": "d19995c9bbd3d0460cf877461cf41dd6d26a872a823a5799a59074e27f6d7daf",
+          "url": "https://github.com/HuginStudios/usd_chunks/blob/fb73dbd41602063af2808a8cf38037e21d0b6092/README.md",
+          "bytes": 11066
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "e5d50402206f6ec3135d9c9a311e59c472822772",
+          "sha256": "40bc02863ebd9cadb523d558ca1c6fcf33e6f4236cb20b651cc874b2697caec2",
+          "url": "https://github.com/HuginStudios/usd_chunks/blob/fb73dbd41602063af2808a8cf38037e21d0b6092/LICENSE",
+          "bytes": 11343
+        },
+        "conclusion": "pass",
+        "count": 5,
+        "findings": "README explicitly lists seven canonical source recipes and three client-directory symlinks. Official fixed-tree retrieval confirms all three mode-120000 entries share one target blob. Full review-chunk guide is tied to repository conventions/test layout; excluding it and framework-change as maintenance leaves the five domain-use/authoring entries. Symlink projections do not multiply native counts.",
+        "additional_evidence": [
+          {
+            "path": "skills/usd-chunks-review-chunk/SKILL.md",
+            "blob_sha": "e157b153bf7a4cc74d80a7c1dee609e2400e26e1",
+            "sha256": "b80df0159d989dd6eda570e80a9369c8fe7e0ca34ecf96fefca22897737b9cd1",
+            "url": "https://github.com/HuginStudios/usd_chunks/blob/fb73dbd41602063af2808a8cf38037e21d0b6092/skills/usd-chunks-review-chunk/SKILL.md",
+            "bytes": 5227
+          }
+        ],
+        "tree_observations": {
+          "symlink_paths": [
+            ".agents/skills",
+            ".claude/skills",
+            ".codex/skills"
+          ],
+          "mode": "120000",
+          "shared_blob_sha": "42c5394a18a882778ebf50eb940fb5a96bc4a6d9",
+          "source": "Official recursive Git tree at the declared immutable tree SHA; no symlink followed/executed."
+        }
+      },
+      {
+        "full_name": "Snehal707/fieldkit",
+        "repository_id": 1450624021,
+        "commit": "e341511e138acb1a7db2bbf7acfd8165c01ee28b",
+        "tree": "1c82879d91ff8064b5711eb1becf7220a976a666",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "026e1b2ee1ff6d4d93ec4950a6d558aa5ea4a249",
+          "sha256": "0ff83c368ceaeb0d7044baea67603fc1513e7b5dac94e2a4b336770f870df8a6",
+          "url": "https://github.com/Snehal707/fieldkit/blob/e341511e138acb1a7db2bbf7acfd8165c01ee28b/README.md",
+          "bytes": 8360
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "375079cf0d23576ac9f188792bdd23ae8be04547",
+          "sha256": "1559248a9613e5a932dce47f9e6907e7e16ff9857d40cd7a0c7798099edd8914",
+          "url": "https://github.com/Snehal707/fieldkit/blob/e341511e138acb1a7db2bbf7acfd8165c01ee28b/LICENSE",
+          "bytes": 1078
+        },
+        "conclusion": "pass",
+        "count": 1,
+        "findings": "README identifies one native Hermes plugin with 23 tools and one bundled skill; the single canonical skills/fieldkit path supports count 1. Full THIRD_PARTY notice separates original MIT, CC0 synthetic demos, MIT/Apache/ISC bundled JavaScript and setup-time fetched assets; it explicitly says no binaries/WASM/model weights are committed. The existing qualified MIT display label and scoped license explanation are appropriate.",
+        "additional_evidence": [
+          {
+            "path": "THIRD_PARTY.md",
+            "blob_sha": "4f2228ef3dd16e94b11c0af3355b51cb155eaa00",
+            "sha256": "8906ab14077f5023ef3ceac51aa1a81dd5e6a42a47eb4ac818b6eaed8267aead",
+            "url": "https://github.com/Snehal707/fieldkit/blob/e341511e138acb1a7db2bbf7acfd8165c01ee28b/THIRD_PARTY.md",
+            "bytes": 2623
+          }
+        ]
+      }
+    ],
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "Renovara/agents",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "skills/isp-2026-agent/SKILL.md",
+              "blob_sha": "aafb2ebbc25a97c3effca45e9b4b6504d7d2667c",
+              "sha256": "dedde06c25e144c478a76f7b342f5718fd5127b13cb847fe055138a2c5b63a17",
+              "url": "https://github.com/Renovara/agents/blob/4a281918a33354f91f52a92a723aa0b2c1dc54ef/skills/isp-2026-agent/SKILL.md",
+              "bytes": 7732
+            },
+            {
+              "path": "skills/renovara_ai_gas_analyst/SKILL.md",
+              "blob_sha": "4b6f378856438ac9a5ef36cb78d588c91a665f28",
+              "sha256": "d30813ce27e1edfa1af15f20f8ca2d4d07d9368f4e9dff1e926962288cb52b80",
+              "url": "https://github.com/Renovara/agents/blob/4a281918a33354f91f52a92a723aa0b2c1dc54ef/skills/renovara_ai_gas_analyst/SKILL.md",
+              "bytes": 18296
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "HuginStudios/usd_chunks",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "NOTICE",
+              "blob_sha": "f7d216a3c8ec0bc1a64f98c42dce34f8c6ccf5af",
+              "sha256": "34ea701529b603622e02e3d5b7a604e2da2bb1f2cb704b7c9776c723b6cab495",
+              "url": "https://github.com/HuginStudios/usd_chunks/blob/fb73dbd41602063af2808a8cf38037e21d0b6092/NOTICE",
+              "bytes": 145
+            },
+            {
+              "path": "skills/usd-chunks-review-chunk/SKILL.md",
+              "blob_sha": "e157b153bf7a4cc74d80a7c1dee609e2400e26e1",
+              "sha256": "b80df0159d989dd6eda570e80a9369c8fe7e0ca34ecf96fefca22897737b9cd1",
+              "url": "https://github.com/HuginStudios/usd_chunks/blob/fb73dbd41602063af2808a8cf38037e21d0b6092/skills/usd-chunks-review-chunk/SKILL.md",
+              "bytes": 5227
+            }
+          ]
+        }
+      }
+    ],
+    "limits": [
+      "Bounded cross-review of counting, consumer distribution and licensing only; it does not replace the originating stream complete-representative review.",
+      "No candidate installed/executed; no hosted service, model, SQL, DCC, phone or redistributable asset grant independently certified.",
+      "Renovara extra bodies were fetched and hashed, but this cross-review reads their headers/task scopes rather than certifying every scientific instruction."
+    ]
+  },
+  "overlap-resolution-breadth.json": {
+    "stage": "complete",
+    "reviewed": [
+      {
+        "full_name": "ravi-arnan/agent-skills-doctor",
+        "repository_id": 1451044354,
+        "commit": "32e2efa8a4c93fd7c1229a6b2585781444103375",
+        "tree": "fa0184493d965a647d310adb96319dfb403ad2ab",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "f934607ca300e63ef793c3aafa61fb100a9e2afa",
+          "sha256": "fef4e157a62fdb4084d76cf125ee4989be9f83f9be8deb0cd245948cc6a210b1",
+          "url": "https://github.com/ravi-arnan/agent-skills-doctor/blob/32e2efa8a4c93fd7c1229a6b2585781444103375/README.md",
+          "bytes": 4749
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "774a28cb25843509f334e7664dc28f45d9059c40",
+          "sha256": "dda02b6a4e76de9cb53e78e5f0c121ae0e46467898d7e81f57ad3bd93e9d0001",
+          "url": "https://github.com/ravi-arnan/agent-skills-doctor/blob/32e2efa8a4c93fd7c1229a6b2585781444103375/LICENSE",
+          "bytes": 1067
+        },
+        "representative": {
+          "path": "cli.mjs",
+          "blob_sha": "d78614959a85775e16ebe663ed352cb57331719e",
+          "sha256": "b980b2b950f5bd223a4017674b1d5752e5096afa26d72006ba7c5a25996aa1cd",
+          "url": "https://github.com/ravi-arnan/agent-skills-doctor/blob/32e2efa8a4c93fd7c1229a6b2585781444103375/cli.mjs",
+          "bytes": 16832
+        },
+        "disposition": "accepted-bounded-static-cross-review",
+        "checked_scope": "Complete consumer CLI, README and npm bin/files declaration plus root MIT; zero native SKILL.md is valid infrastructure, not a missing public task.",
+        "additional_evidence": [
+          {
+            "path": "cli.mjs",
+            "blob_sha": "d78614959a85775e16ebe663ed352cb57331719e",
+            "sha256": "b980b2b950f5bd223a4017674b1d5752e5096afa26d72006ba7c5a25996aa1cd",
+            "url": "https://github.com/ravi-arnan/agent-skills-doctor/blob/32e2efa8a4c93fd7c1229a6b2585781444103375/cli.mjs",
+            "bytes": 16832
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "2d0a0bde5f38c9866a9c3293e1eabf05902b4257",
+            "sha256": "0112807761719d71ed24e42ba1a68a55c5163427ec8cc23e5a1c8b635bcff8c9",
+            "url": "https://github.com/ravi-arnan/agent-skills-doctor/blob/32e2efa8a4c93fd7c1229a6b2585781444103375/package.json",
+            "bytes": 1089
+          }
+        ]
+      },
+      {
+        "full_name": "omelas-tech/brain",
+        "repository_id": 1156991329,
+        "commit": "957a83846c4c956904da0bed6083cab0189bcb36",
+        "tree": "9c5954e372e10591a9fdad60828e17d8528b430c",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "d9fb8351bf15b9ab0ae03c011320bf50bbcae77a",
+          "sha256": "eb61af251da9fcee0a3bc6aa723cf82656ae5068ac311303fc50970b1252d4a2",
+          "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/README.md",
+          "bytes": 59269
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "f2e6e9699279908da65b6be6d284e661039c7fe4",
+          "sha256": "49ae6c3b2fac757ae02a39b6890a6d5bddca8250aa5ef05c8e3d0660a9be5ca7",
+          "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/LICENSE",
+          "bytes": 1068
+        },
+        "representative": {
+          "path": "integrations/agentskills/brain-memory/SKILL.md",
+          "blob_sha": "13dabb68f518d509b87592edaf42120e4b4232f9",
+          "sha256": "e904a87ae6446974ee87786d85d98ca606c35a1a287ab7a3238281cbfc9fdb63",
+          "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/agentskills/brain-memory/SKILL.md",
+          "bytes": 6324
+        },
+        "disposition": "accepted-bounded-static-cross-review",
+        "checked_scope": "Complete portable representative, all three Copilot wrappers and OpenClaw projection; README installation routes, host manifests and root MIT. Typed client-entry count is necessary; projections are not certified equivalent.",
+        "additional_evidence": [
+          {
+            "path": "integrations/copilot/plugin/skills/brain-memorize/SKILL.md",
+            "blob_sha": "1bbbbbf261a7f294ba9becb08e9d407615b2f81c",
+            "sha256": "ba5b74252d6e383e7e1ca020fa202913715905346db6300e5c11eb2ca5a01172",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/skills/brain-memorize/SKILL.md",
+            "bytes": 3079
+          },
+          {
+            "path": "integrations/copilot/plugin/skills/brain-remember/SKILL.md",
+            "blob_sha": "094d6dab9dfbac5677c62185e04ae768617e35fc",
+            "sha256": "7bac555430f8962e6dfd25b3d5c29247fdd99c2f41fbbc53ffeef69fe18181ee",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/skills/brain-remember/SKILL.md",
+            "bytes": 3045
+          },
+          {
+            "path": "integrations/copilot/plugin/skills/brain-status/SKILL.md",
+            "blob_sha": "85d85537b6c08370362b948a080f39dd30a158a1",
+            "sha256": "6b1748973cf0c96f5cb78b03701d822f9d7c8e24372f3429d15abebaf248792b",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/skills/brain-status/SKILL.md",
+            "bytes": 2430
+          },
+          {
+            "path": "integrations/openclaw/skill/brain-memory/SKILL.md",
+            "blob_sha": "2f60293a79765614fac4b53d22f8fe3c7beafe58",
+            "sha256": "9eda017a1ff05b601ee258a9d035740d4f51410d690c841cbfe93f46af95870c",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/openclaw/skill/brain-memory/SKILL.md",
+            "bytes": 4969
+          }
+        ]
+      },
+      {
+        "full_name": "yx709057978/DeepTutor-Link",
+        "repository_id": 1449449164,
+        "commit": "d3cdd3ae9753a34cd7ce906874b63321196db155",
+        "tree": "6307cb31ccb14c595e588db3a7d06cc181fe4665",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "3498673acf0c79ae546314fb1b3ac15bc0409eb2",
+          "sha256": "2c06acbe10f93546ee9d6a885a93061cd1685ffde4b073b4ef6499b5e655595a",
+          "url": "https://github.com/yx709057978/DeepTutor-Link/blob/d3cdd3ae9753a34cd7ce906874b63321196db155/README.md",
+          "bytes": 30636
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "ae1dbfc5e74c6c9ebb3e46ea9ea8dde8a4a04ed8",
+          "sha256": "cd2f54e1e5066644023203dcbd956776a9f4ef6eb8b6225afe1ffa2d380fede4",
+          "url": "https://github.com/yx709057978/DeepTutor-Link/blob/d3cdd3ae9753a34cd7ce906874b63321196db155/LICENSE",
+          "bytes": 11408
+        },
+        "representative": {
+          "path": "src/deeptutor_link/assets/skill/SKILL.md",
+          "blob_sha": "3506bbea22720e74eb038c9b0c139dc8c3c4efc8",
+          "sha256": "57f325635d7e29db0076f15e423aacd8ce959d553c2fa53b27d84d69ab9e9722",
+          "url": "https://github.com/yx709057978/DeepTutor-Link/blob/d3cdd3ae9753a34cd7ce906874b63321196db155/src/deeptutor_link/assets/skill/SKILL.md",
+          "bytes": 11038
+        },
+        "disposition": "accepted-bounded-static-cross-review",
+        "checked_scope": "Complete selected packaged Skill and README installation/support/license portions; all script/reference paths exist and match package-data declarations. Root Apache grant compared completely to read grant, including differing appendix; third-party notice read.",
+        "additional_evidence": [
+          {
+            "path": "pyproject.toml",
+            "blob_sha": "12d258b234e90629dbf893a93b4daa773e6e90cc",
+            "sha256": "4f6cf6c97f6b72e502387af72bd797277c1d79f29f19166cf05fad54e8b9177f",
+            "url": "https://github.com/yx709057978/DeepTutor-Link/blob/d3cdd3ae9753a34cd7ce906874b63321196db155/pyproject.toml",
+            "bytes": 1078
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "2d427815835c3708e2ff3a2b987d369fabca1de4",
+            "sha256": "67498b45cf78512a01a0f2dcd07857be0f397da185029d8bb7141baf88091f6d",
+            "url": "https://github.com/yx709057978/DeepTutor-Link/blob/d3cdd3ae9753a34cd7ce906874b63321196db155/THIRD_PARTY_NOTICES.md",
+            "bytes": 710
+          }
+        ]
+      }
+    ],
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "ravi-arnan/agent-skills-doctor",
+        "field_updates": {
+          "limitations": "No CLI execution or installed-skill scan occurred. Source uses a limited frontmatter parser and ceil(character-count/4) token approximation; README speed and compatibility claims were not certified. Catalog precedence and token approximation specifically use Command Code/Shared Agents four-root catalog logic; scanning paths for other hosts does not establish their loader parity."
+        }
+      },
+      {
+        "full_name": "omelas-tech/brain",
+        "field_updates": {
+          "skill_count": "1 portable workflow + 3 Copilot task wrappers",
+          "count_basis": "Five raw SKILL.md paths: one portable brain-memory workflow, three consumer Copilot task wrappers (memorize/remember/status), and one OpenClaw client projection. These are four installable instruction entries after excluding the OpenClaw projection, not four independent portable methods. OpenClaw and Copilot instructions are not byte- or policy-equivalent to the portable representative.",
+          "limitations": "Metadata review only; no candidate installation, helper execution, external service call or redistribution certification. Cross-review found differing client guidance: portable origin/sensitivity/quarantine and authorization-receipt rules are not uniformly repeated in older Copilot/OpenClaw instructions. Actual CLI enforcement was not inspected or executed; a client projection is not semantic-equivalence certification.",
+          "additional_evidence": [
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "af539e0caa89e03f56a7a016a5e7eb5f39520f68",
+              "sha256": "de96d47f12736488f7e2751a01ffb8c26e39f01008f26a71d414cc4307576e06",
+              "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/.claude-plugin/plugin.json",
+              "bytes": 889
+            },
+            {
+              "path": "integrations/copilot/plugin/plugin.json",
+              "blob_sha": "abd7a58718b6e14fd9cc7bc4c9b59caea3d5d96f",
+              "sha256": "cb6af527ce77a7bb58dd003f8d571a425c075cd8f1ebf90b2bd9495da4cc31c4",
+              "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/plugin.json",
+              "bytes": 913
+            },
+            {
+              "path": "integrations/copilot/plugin/skills/brain-memorize/SKILL.md",
+              "blob_sha": "1bbbbbf261a7f294ba9becb08e9d407615b2f81c",
+              "sha256": "ba5b74252d6e383e7e1ca020fa202913715905346db6300e5c11eb2ca5a01172",
+              "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/skills/brain-memorize/SKILL.md",
+              "bytes": 3079
+            },
+            {
+              "path": "integrations/copilot/plugin/skills/brain-remember/SKILL.md",
+              "blob_sha": "094d6dab9dfbac5677c62185e04ae768617e35fc",
+              "sha256": "7bac555430f8962e6dfd25b3d5c29247fdd99c2f41fbbc53ffeef69fe18181ee",
+              "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/skills/brain-remember/SKILL.md",
+              "bytes": 3045
+            },
+            {
+              "path": "integrations/copilot/plugin/skills/brain-status/SKILL.md",
+              "blob_sha": "85d85537b6c08370362b948a080f39dd30a158a1",
+              "sha256": "6b1748973cf0c96f5cb78b03701d822f9d7c8e24372f3429d15abebaf248792b",
+              "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/skills/brain-status/SKILL.md",
+              "bytes": 2430
+            },
+            {
+              "path": "integrations/openclaw/skill/brain-memory/SKILL.md",
+              "blob_sha": "2f60293a79765614fac4b53d22f8fe3c7beafe58",
+              "sha256": "9eda017a1ff05b601ee258a9d035740d4f51410d690c841cbfe93f46af95870c",
+              "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/openclaw/skill/brain-memory/SKILL.md",
+              "bytes": 4969
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "yx709057978/DeepTutor-Link",
+        "field_updates": {
+          "license_scope": "Root Apache-2.0 covers repository instructions and implementation. Read THIRD_PARTY_NOTICES.md explicitly attributes DeepTutor-derived integration/installer support to HKUDS/DeepTutor v1.7.1 at f7aed0744c36c5afef16a4261c31ebee1208cac2 and points to the accompanying root grant; preserve this notice. The separate pinned host, teaching materials, account data and model/provider access retain their own access/rights scope. Metadata admission is not authorship, runtime or aggregate copying certification.",
+          "limitations": "Metadata only; README declares a pinned DeepTutor v1.7.1 host and Python 3.11+ client. No learning-state mutation, server patch, PDF validation or compatibility execution occurred. Server support is bounded to macOS/Linux on local POSIX-flock filesystems; Windows server installation and NFS/SMB shared writes are unsupported. The standalone script is the stdlib client; pyproject declares pydantic for the package and fastapi for the server extra.",
+          "additional_evidence": [
+            {
+              "path": "pyproject.toml",
+              "blob_sha": "12d258b234e90629dbf893a93b4daa773e6e90cc",
+              "sha256": "4f6cf6c97f6b72e502387af72bd797277c1d79f29f19166cf05fad54e8b9177f",
+              "url": "https://github.com/yx709057978/DeepTutor-Link/blob/d3cdd3ae9753a34cd7ce906874b63321196db155/pyproject.toml",
+              "bytes": 1078
+            },
+            {
+              "path": "THIRD_PARTY_NOTICES.md",
+              "blob_sha": "2d427815835c3708e2ff3a2b987d369fabca1de4",
+              "sha256": "67498b45cf78512a01a0f2dcd07857be0f397da185029d8bb7141baf88091f6d",
+              "url": "https://github.com/yx709057978/DeepTutor-Link/blob/d3cdd3ae9753a34cd7ce906874b63321196db155/THIRD_PARTY_NOTICES.md",
+              "bytes": 710
+            }
+          ]
+        }
+      }
+    ],
+    "limits": [
+      "Bounded static cross-review of the three declared product records only; no new repository searches or additional admissions.",
+      "No installation, candidate execution, model/service access, memory writes, learning-state mutation or all-source security audit. No public bodies or full trees included."
+    ]
+  },
+  "quality-parent.json": {
+    "stage": "complete",
+    "reviewed": [
+      "mohessaid/girth",
+      "rohitg00/agentmemory",
+      "mridang/plumbline",
+      "shivarajbakale/inkling",
+      "ji-hun-git/how-to-use-ai",
+      "CodeAlive-AI/pragmatic-orchestration",
+      "david-engelmann/recognitio",
+      "Traction-AI-Labs/skills",
+      "xuyewild/multi-ai-skills",
+      "xuyewild/ai-video-skills"
+    ],
+    "objections": [],
+    "corrections": [],
+    "resolutions": [
+      {
+        "full_name": "shivarajbakale/inkling",
+        "disposition": "held",
+        "basis": "Selected hidden skill body read completely; checked public README describes library/CLI/LSP only and no explicit skill consumer distribution, so no admission counted."
+      },
+      {
+        "full_name": "rohitg00/agentmemory",
+        "basis": "17 packaged entries typed as nine invocable workflows plus eight reference guides, not 17 independently reviewed leaf skills; complete selected connector body plus published distribution inspected."
+      },
+      {
+        "full_name": "mohessaid/girth",
+        "basis": "Only public core skill counted; eight crafted examples and two internal guides excluded. Sharing/usage and verbatim source-distillation limits remain source claims, not privacy/reuse certification."
+      },
+      {
+        "full_name": "mridang/plumbline",
+        "basis": "One public instruction pack counted. Ported engine/check source licenses remain distinct from authored Apache skill instructions."
+      },
+      {
+        "full_name": "Traction-AI-Labs/skills",
+        "basis": "Eight marketplace entries match eight paths; complete go-deeper selected instead of unreviewed default call-prep. Root/near MIT terms compare equal with distinct notices preserved; external essay/citation is not redistribution clearance."
+      },
+      {
+        "full_name": "xuyewild/multi-ai-skills",
+        "basis": "Two named tasks in en/zh; complete English handoff representative, full README and MIT read. Localized copies do not add native tasks; helper path presence is not execution."
+      },
+      {
+        "full_name": "xuyewild/ai-video-skills",
+        "basis": "Two tasks in en/zh; complete English action choreography, README and MIT read. Model constraints and generation results not independently verified."
+      }
+    ],
+    "limits": "Bounded static metadata admission; no candidate runtime/install or full product/source-rights audit. Parent will separately check stream coverage, duplicates and recorded objects before publication."
+  },
+  "quality-machine.json": {
+    "date": "2026-11-09",
+    "accepted_snapshot_count": 90,
+    "unique_repository_ids": 90,
+    "cross_stream_overlaps": [],
+    "baseline_representative_blob_matches": [],
+    "untraversed_file_references": [],
+    "within_batch_representative_blob_matches": [],
+    "limits": "Exact representative-blob comparison only; not a semantic full-body plagiarism or independent-value certification.",
+    "stage": "complete",
+    "objections": [],
+    "corrections": [],
+    "inventory_check": {
+      "selected_new_ids": 90,
+      "results": [
+        {
+          "full_name": "a-pavithraa/springboot-skills-marketplace",
+          "repository_id": 1129738349,
+          "commit": "29db0b7a245d4329722a8b90518de7ba3bd887b5",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "adeerkhan/vitruvius",
+          "repository_id": 1355977090,
+          "commit": "afba4c3c19b78890c89a546b6a54bc93f3b9ff11",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Ahmed-G-Gad/apothem",
+          "repository_id": 1291153380,
+          "commit": "d4a4faafed7f5e167904cae472c028330bb8b9c1",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "AiGuangInc/superun-cli",
+          "repository_id": 1254425706,
+          "commit": "ad4765ef682ff1b280f12a5d8da7b6e327c9e4f7",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ainiaa/skills-project-docs",
+          "repository_id": 1385492496,
+          "commit": "13132516567c07172434aef1ea7c2ce025b4918c",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "aisusdev/aisus",
+          "repository_id": 1428537989,
+          "commit": "f87118cfcf0f8ac293c1efd3b1ec90add86cada0",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "antropos17/chatgpt-gif-cinema",
+          "repository_id": 1446596087,
+          "commit": "2c4ff8bc0341d0b72cff6cfc60939977bd3a3ac8",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "asheshgoplani/agent-deck",
+          "repository_id": 1109341946,
+          "commit": "0549d06f93a542bae2360e8afc49768be0fd05ff",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "bardiz12/jaklingko-client",
+          "repository_id": 1449331060,
+          "commit": "88aba08272077f10d1f6a10d020a69a916c5cc0d",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "brickfact-com/agent-skills",
+          "repository_id": 1451046797,
+          "commit": "c9474b7e647faee0b9f16b4bf5691d4f41d26df2",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "catalyst-cooperative/agent-skills",
+          "repository_id": 1182013260,
+          "commit": "44c20f299edc9d6d013560a7ac33038e2bcd93a3",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "chanmuzi/git-claw",
+          "repository_id": 1163832703,
+          "commit": "8ea91c1e81aeb57e17292f93b8535c453f1227a2",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "CheaperGen/skills",
+          "repository_id": 1422869521,
+          "commit": "3e440c93c6ece0b16deb38af209c50974fb9838b",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ClarrieO5/skillpath-guard",
+          "repository_id": 1451045460,
+          "commit": "5268ffbaa4cbe2ef12ed34248b02bd8fbb46f26e",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "CleanScrape/agent-skills",
+          "repository_id": 1395589824,
+          "commit": "a6db2ddc1f9c8b23734bc07a109958e7f1a28922",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "CodeAlive-AI/pragmatic-orchestration",
+          "repository_id": 1374424107,
+          "commit": "0e384c640c6b35a79c78f370f0d569feccd77bf3",
+          "public_path_count": 2,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "codepawl/67.js",
+          "repository_id": 1410899895,
+          "commit": "496014d3367043d06b9c15f093cf47429b4c94fc",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Dada-liu/land-a-job",
+          "repository_id": 1448422610,
+          "commit": "880987fc4ea0dabbffe7bf21580bcfc9951604ca",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "david-engelmann/recognitio",
+          "repository_id": 1421280020,
+          "commit": "4bd3bf6559807a31e55158bbe3217da8e734c73d",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "DIYgod/pinky",
+          "repository_id": 1448515937,
+          "commit": "1fde25b82bac21f69c0c59af7a78685f9cdb5b45",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "douxl-lab/research-figure-skill",
+          "repository_id": 1413186212,
+          "commit": "4e6d33a4957c3cc7b95bbc20a9b35506e229420f",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "drvova/dither-ui",
+          "repository_id": 1301111408,
+          "commit": "ac2a46684f8e3e90fe00c79693b6237a584be00a",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ekko8600/enzyme_design_harness",
+          "repository_id": 1449510014,
+          "commit": "27eb2e2594124228e157f7480eb7012072e2d658",
+          "public_path_count": 93,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ellmos-ai/bach",
+          "repository_id": 1164337426,
+          "commit": "254a0ef46467f7f2daf3ce88ae82b796d72a26c7",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "EmileBrunelle/vitae-agent-skill",
+          "repository_id": 1335474269,
+          "commit": "87c6d7b3b4aa8c599b28266d5a1bc3bc9161ad64",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "feiskyer/video-skills",
+          "repository_id": 1211373726,
+          "commit": "a6e2571f6bd4fcb5f877d5b43ba8532330fa795b",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "FiscalAPI/fiscalapi-ai",
+          "repository_id": 1420170956,
+          "commit": "326887726c35de653db5d33560c23b40cdd8582c",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "gmchocolate/svg-animation-skill",
+          "repository_id": 1451045708,
+          "commit": "4ddaebe94c64e713f1d7d96d337a6bf916c7c9e2",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "gug007/explaincast",
+          "repository_id": 1449224395,
+          "commit": "976a61e58ddc2ae4764adf68af81a70d514ce0a1",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "haiderstudio/commit-message-skill",
+          "repository_id": 1438980397,
+          "commit": "5fc568901e24bea4d14795c303750d9f0b65f361",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "haiderstudio/sitemap-audit-skill",
+          "repository_id": 1436843352,
+          "commit": "7f6169b5557dae61bed7cce371acb35d023e01b2",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "hedges333/makeflow-skill",
+          "repository_id": 1438783253,
+          "commit": "a7b82447448b68e2ac75f1abac4cb5c0468f3702",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "HuginStudios/usd_chunks",
+          "repository_id": 1023847703,
+          "commit": "fb73dbd41602063af2808a8cf38037e21d0b6092",
+          "public_path_count": 5,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "HwangSlater/ui-design-director",
+          "repository_id": 1350362589,
+          "commit": "8e1a60b2babdd19c708e41f8937407821254dad1",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "hype-sports/hype-assistant-plugin",
+          "repository_id": 1447813816,
+          "commit": "1ca9e5ced24c622800c8c600b44c87be975dbcd6",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "insightflo/edu-deck-skills",
+          "repository_id": 1447088628,
+          "commit": "4abbb007de4525c2b611e308a231206b0b0d5397",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "IO42630/skills",
+          "repository_id": 1353564417,
+          "commit": "abdfafa193d8d9a9c29c796cc1d31f91089c9f45",
+          "public_path_count": 7,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Jeroen-G/albus",
+          "repository_id": 1414508353,
+          "commit": "85e6effceb997c7954cdcd8ffa13e76d14ba1d15",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ji-hun-git/how-to-use-ai",
+          "repository_id": 1450464992,
+          "commit": "7fe5cf010cd6850739bb9205b15818c535997e42",
+          "public_path_count": 10,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Jiansen/clear-output-skill",
+          "repository_id": 1450021928,
+          "commit": "030847e2f7473663d3516b42d0c07f3f64d7b41a",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "joonyeonglim/realistic-job-market-research",
+          "repository_id": 1349300550,
+          "commit": "df49dd68c47eb1f6c038037d367c26e3a87b73c4",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Jrleitersdorf/study-tools",
+          "repository_id": 1450962169,
+          "commit": "8ff2c1248e198dd3c862e886a220e8acc836cdd5",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "KaGaMi16/agent-security",
+          "repository_id": 1451001164,
+          "commit": "edac4dd732cf1f637a3da15a717c3e56e0146857",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "kirillgotovtsev/visual-no-slop",
+          "repository_id": 1430295602,
+          "commit": "af634603dce27f81b3a4867493c213d99d349478",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "kwonzweig/there-is-a-tool-for-that",
+          "repository_id": 1409592090,
+          "commit": "4fa971afcfbe522ce12c2af98e14fb88d3d7b034",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "KyaniteHQ/linctl",
+          "repository_id": 1273663589,
+          "commit": "22eeac7aa6462acfc19cc82a74bb9fca8ac32bfe",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "lamngockhuong/aiteamkit",
+          "repository_id": 1130177868,
+          "commit": "7d0c5ca6f17723fef986f9622ae3a0f3385a7950",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "lazz3737/ugliness-review",
+          "repository_id": 1450922911,
+          "commit": "d8903105edcf6796629b0a44b1c485299f6a9b8b",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "leoguolabs/codex-film-studio",
+          "repository_id": 1427915644,
+          "commit": "0fdaa8a776662fee05856b20333e095f96f758b2",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "leotrvs/claude-model-router",
+          "repository_id": 1448886068,
+          "commit": "d6d98f1cef400092db624074245b686e9f1f720a",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Longfei-Tao/xmu-ppt",
+          "repository_id": 1439265092,
+          "commit": "cd471b25e743ce52f94e7280aabef9dc3e87ac85",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "lwmxiaobei/dsh-plugins",
+          "repository_id": 1333311578,
+          "commit": "43b40f29f8fc9c644489029287520b56c7a94a46",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "LWWalker2202/econ-research-kit-zh",
+          "repository_id": 1444223995,
+          "commit": "4c6dac701ce4607f34296a3208a179bee9b8f20f",
+          "public_path_count": 9,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Melvynx/ai-maxxing-skills",
+          "repository_id": 1423215427,
+          "commit": "6a0180aa7d89c7b572ecc7cbc47ed1d42a6ead62",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "mixocreative/cia",
+          "repository_id": 1363331716,
+          "commit": "782cc2d5d8053890091545cff97ea239034c566a",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "mohessaid/girth",
+          "repository_id": 1418773019,
+          "commit": "002407753c7c15d40e9184c5d73c56ffc83d3301",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "mozership/probe",
+          "repository_id": 844875185,
+          "commit": "d53c0d21e241f2906c1a2ed5efefe06e9a6d2d75",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "mridang/plumbline",
+          "repository_id": 1428916084,
+          "commit": "5ac33fa01ceca07b76bbea060df78dc7615dbf12",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "naief9961-tech/naif-gravity-mcp-diagnostics",
+          "repository_id": 1408086061,
+          "commit": "fa506606f53cdcebeed9ca19d63342c54ce4dcf7",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ngviettam82/AutoMetashape",
+          "repository_id": 1442881311,
+          "commit": "51e00ee0356bf1a5ebe87f5a9d6b2a5e7e8d96e6",
+          "public_path_count": 2,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "omelas-tech/brain",
+          "repository_id": 1156991329,
+          "commit": "957a83846c4c956904da0bed6083cab0189bcb36",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "oxylabs/web-api-skills",
+          "repository_id": 1344121954,
+          "commit": "d555d795c78adf2afded902a08edb177e151c70c",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "pinkpixel-dev/flikka",
+          "repository_id": 1440410027,
+          "commit": "2d283531f11ee0e8b35524a274c0adf79554e689",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "publora/publora-api-docs",
+          "repository_id": 1159582096,
+          "commit": "5c7efeb51b9ece931ca02c0fbac8f39b00b7ffd4",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "qianluxi/Sciverse-Agent-Tools",
+          "repository_id": 1426702860,
+          "commit": "9e13391b7102e4cec79425b8d1ee8782f5e7582d",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "qingtongqt/zotero-daily-papers",
+          "repository_id": 1448482179,
+          "commit": "374e6d363bc7b610d5e2a0074f03cc796eba373d",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ravi-arnan/agent-skills-doctor",
+          "repository_id": 1451044354,
+          "commit": "32e2efa8a4c93fd7c1229a6b2585781444103375",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "reason-machines/reason-marketplace",
+          "repository_id": 1411694638,
+          "commit": "5331d4a42498ea252d3ab78e366c41eba3d0615f",
+          "public_path_count": 265,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Renovara/agents",
+          "repository_id": 1235049838,
+          "commit": "4a281918a33354f91f52a92a723aa0b2c1dc54ef",
+          "public_path_count": 7,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "rmyndharis/aimhooman",
+          "repository_id": 1301417609,
+          "commit": "471a82fe1c4c8dc57056e42801ac47dab727d69b",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "rohitg00/agentmemory",
+          "repository_id": 1166408297,
+          "commit": "5634bc5efd28b2ed2e7311df4e636215fc1b3cd7",
+          "public_path_count": 17,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "RoversX/ThinkTerm",
+          "repository_id": 1400046300,
+          "commit": "9963017f1290107e4051221872fddde99e9ac583",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ryanbiddy/zing",
+          "repository_id": 1304681269,
+          "commit": "6585457e8d175d07d63c859d862011c4effeb081",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "saksham-shr/athene",
+          "repository_id": 1407585083,
+          "commit": "179079a6a211b4dafea1cdbce9835e8fab3e86ed",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "shkodnik1917/claude-brainlab",
+          "repository_id": 1229160538,
+          "commit": "b761c0a414bb0cd79dceeaea1c90bce459a18eb9",
+          "public_path_count": 67,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Snehal707/fieldkit",
+          "repository_id": 1450624021,
+          "commit": "e341511e138acb1a7db2bbf7acfd8165c01ee28b",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "solo-swe/agentic-task-manager",
+          "repository_id": 1200865283,
+          "commit": "e99b5736703cd7c2ac13b670efe987c5d667601b",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "SutariyaVishal/parallel-branches",
+          "repository_id": 1447302290,
+          "commit": "927208d220ee4b894be6014d3e23775123cbddbd",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ThomasMichon/copilot-extensions",
+          "repository_id": 1250685696,
+          "commit": "0435bc152cd59cc077f51b54949894a6ecc718af",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "TOOEASY-crew/junis-kit",
+          "repository_id": 1446231145,
+          "commit": "d7f9f48540b1b11ee18ce0a365f163c20e7cf0d3",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Traction-AI-Labs/skills",
+          "repository_id": 1399369206,
+          "commit": "2f6f1b70c86bd7886d587bc9017e84838426f909",
+          "public_path_count": 8,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "tz1335/video-lint",
+          "repository_id": 1449472847,
+          "commit": "93a4cfed30453dee6270ccb65a7dcf2c1655e356",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "WhoIsTyfur/roblox-i18n",
+          "repository_id": 1451041322,
+          "commit": "b1ce5969721fe8fab00695879f67737ef992f3fd",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "writeCasually/deepseek-harness-plugins",
+          "repository_id": 1333735549,
+          "commit": "c6f3470ea7ff70d039b1ac918d7b3c4162c3add0",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "x-mesh/jstyle",
+          "repository_id": 1445305845,
+          "commit": "641923e861271481634704fc6473b67d874f1f6d",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "xuyewild/ai-video-skills",
+          "repository_id": 1432853604,
+          "commit": "b67fb4d74ea01d071f5266a0d7ec697b3f2fa672",
+          "public_path_count": 2,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "xuyewild/multi-ai-skills",
+          "repository_id": 1431990310,
+          "commit": "02e0c56962d7a8449187056eb10af6f405da0462",
+          "public_path_count": 2,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ystory/pstack",
+          "repository_id": 1420372947,
+          "commit": "314552a420ded51acdb5e22ea1f2066944cbd36f",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "yx709057978/DeepTutor-Link",
+          "repository_id": 1449449164,
+          "commit": "d3cdd3ae9753a34cd7ce906874b63321196db155",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ZenlixAI/skill-dock",
+          "repository_id": 1314732478,
+          "commit": "d3ef05a4a776121ffd4869b295504113fce7dae7",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        }
+      ],
+      "missing_paths": []
+    },
+    "public_report_hygiene": "UTF-8/LF, no raw bodies/trees, long upstream grants, operator paths or credential-like strings in reviewed public reports."
+  },
+  "publication_rechecks": {},
+  "resolved_field_issues": [],
+  "integration_application": [
+    {
+      "full_name": "Renovara/agents",
+      "source_review": "overlap-resolution-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "path": "skills/isp-2026-agent/SKILL.md",
+            "blob_sha": "aafb2ebbc25a97c3effca45e9b4b6504d7d2667c",
+            "sha256": "dedde06c25e144c478a76f7b342f5718fd5127b13cb847fe055138a2c5b63a17",
+            "url": "https://github.com/Renovara/agents/blob/4a281918a33354f91f52a92a723aa0b2c1dc54ef/skills/isp-2026-agent/SKILL.md",
+            "bytes": 7732
+          },
+          {
+            "path": "skills/renovara_ai_gas_analyst/SKILL.md",
+            "blob_sha": "4b6f378856438ac9a5ef36cb78d588c91a665f28",
+            "sha256": "d30813ce27e1edfa1af15f20f8ca2d4d07d9368f4e9dff1e926962288cb52b80",
+            "url": "https://github.com/Renovara/agents/blob/4a281918a33354f91f52a92a723aa0b2c1dc54ef/skills/renovara_ai_gas_analyst/SKILL.md",
+            "bytes": 18296
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "HuginStudios/usd_chunks",
+      "source_review": "overlap-resolution-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "path": "NOTICE",
+            "blob_sha": "f7d216a3c8ec0bc1a64f98c42dce34f8c6ccf5af",
+            "sha256": "34ea701529b603622e02e3d5b7a604e2da2bb1f2cb704b7c9776c723b6cab495",
+            "url": "https://github.com/HuginStudios/usd_chunks/blob/fb73dbd41602063af2808a8cf38037e21d0b6092/NOTICE",
+            "bytes": 145
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "f7d216a3c8ec0bc1a64f98c42dce34f8c6ccf5af",
+            "sha256": "34ea701529b603622e02e3d5b7a604e2da2bb1f2cb704b7c9776c723b6cab495",
+            "url": "https://github.com/HuginStudios/usd_chunks/blob/fb73dbd41602063af2808a8cf38037e21d0b6092/NOTICE",
+            "bytes": 145
+          },
+          {
+            "path": "skills/usd-chunks-review-chunk/SKILL.md",
+            "blob_sha": "e157b153bf7a4cc74d80a7c1dee609e2400e26e1",
+            "sha256": "b80df0159d989dd6eda570e80a9369c8fe7e0ca34ecf96fefca22897737b9cd1",
+            "url": "https://github.com/HuginStudios/usd_chunks/blob/fb73dbd41602063af2808a8cf38037e21d0b6092/skills/usd-chunks-review-chunk/SKILL.md",
+            "bytes": 5227
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "ravi-arnan/agent-skills-doctor",
+      "source_review": "overlap-resolution-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "No CLI execution or installed-skill scan occurred. Source uses a limited frontmatter parser and ceil(character-count/4) token approximation; README speed and compatibility claims were not certified. Catalog precedence and token approximation specifically use Command Code/Shared Agents four-root catalog logic; scanning paths for other hosts does not establish their loader parity."
+      }
+    },
+    {
+      "full_name": "omelas-tech/brain",
+      "source_review": "overlap-resolution-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "skill_count": "1 portable workflow + 3 Copilot task wrappers",
+        "count_basis": "Five raw SKILL.md paths: one portable brain-memory workflow, three consumer Copilot task wrappers (memorize/remember/status), and one OpenClaw client projection. These are four installable instruction entries after excluding the OpenClaw projection, not four independent portable methods. OpenClaw and Copilot instructions are not byte- or policy-equivalent to the portable representative.",
+        "limitations": "Metadata review only; no candidate installation, helper execution, external service call or redistribution certification. Cross-review found differing client guidance: portable origin/sensitivity/quarantine and authorization-receipt rules are not uniformly repeated in older Copilot/OpenClaw instructions. Actual CLI enforcement was not inspected or executed; a client projection is not semantic-equivalence certification.",
+        "additional_evidence": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "af539e0caa89e03f56a7a016a5e7eb5f39520f68",
+            "sha256": "de96d47f12736488f7e2751a01ffb8c26e39f01008f26a71d414cc4307576e06",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/.claude-plugin/plugin.json",
+            "bytes": 889
+          },
+          {
+            "path": "integrations/copilot/plugin/plugin.json",
+            "blob_sha": "abd7a58718b6e14fd9cc7bc4c9b59caea3d5d96f",
+            "sha256": "cb6af527ce77a7bb58dd003f8d571a425c075cd8f1ebf90b2bd9495da4cc31c4",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/plugin.json",
+            "bytes": 913
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "af539e0caa89e03f56a7a016a5e7eb5f39520f68",
+            "sha256": "de96d47f12736488f7e2751a01ffb8c26e39f01008f26a71d414cc4307576e06",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/.claude-plugin/plugin.json",
+            "bytes": 889
+          },
+          {
+            "path": "integrations/copilot/plugin/plugin.json",
+            "blob_sha": "abd7a58718b6e14fd9cc7bc4c9b59caea3d5d96f",
+            "sha256": "cb6af527ce77a7bb58dd003f8d571a425c075cd8f1ebf90b2bd9495da4cc31c4",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/plugin.json",
+            "bytes": 913
+          },
+          {
+            "path": "integrations/copilot/plugin/skills/brain-memorize/SKILL.md",
+            "blob_sha": "1bbbbbf261a7f294ba9becb08e9d407615b2f81c",
+            "sha256": "ba5b74252d6e383e7e1ca020fa202913715905346db6300e5c11eb2ca5a01172",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/skills/brain-memorize/SKILL.md",
+            "bytes": 3079
+          },
+          {
+            "path": "integrations/copilot/plugin/skills/brain-remember/SKILL.md",
+            "blob_sha": "094d6dab9dfbac5677c62185e04ae768617e35fc",
+            "sha256": "7bac555430f8962e6dfd25b3d5c29247fdd99c2f41fbbc53ffeef69fe18181ee",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/skills/brain-remember/SKILL.md",
+            "bytes": 3045
+          },
+          {
+            "path": "integrations/copilot/plugin/skills/brain-status/SKILL.md",
+            "blob_sha": "85d85537b6c08370362b948a080f39dd30a158a1",
+            "sha256": "6b1748973cf0c96f5cb78b03701d822f9d7c8e24372f3429d15abebaf248792b",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/copilot/plugin/skills/brain-status/SKILL.md",
+            "bytes": 2430
+          },
+          {
+            "path": "integrations/openclaw/skill/brain-memory/SKILL.md",
+            "blob_sha": "2f60293a79765614fac4b53d22f8fe3c7beafe58",
+            "sha256": "9eda017a1ff05b601ee258a9d035740d4f51410d690c841cbfe93f46af95870c",
+            "url": "https://github.com/omelas-tech/brain/blob/957a83846c4c956904da0bed6083cab0189bcb36/integrations/openclaw/skill/brain-memory/SKILL.md",
+            "bytes": 4969
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "yx709057978/DeepTutor-Link",
+      "source_review": "overlap-resolution-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "Root Apache-2.0 covers repository instructions and implementation. Read THIRD_PARTY_NOTICES.md explicitly attributes DeepTutor-derived integration/installer support to HKUDS/DeepTutor v1.7.1 at f7aed0744c36c5afef16a4261c31ebee1208cac2 and points to the accompanying root grant; preserve this notice. The separate pinned host, teaching materials, account data and model/provider access retain their own access/rights scope. Metadata admission is not authorship, runtime or aggregate copying certification.",
+        "limitations": "Metadata only; README declares a pinned DeepTutor v1.7.1 host and Python 3.11+ client. No learning-state mutation, server patch, PDF validation or compatibility execution occurred. Server support is bounded to macOS/Linux on local POSIX-flock filesystems; Windows server installation and NFS/SMB shared writes are unsupported. The standalone script is the stdlib client; pyproject declares pydantic for the package and fastapi for the server extra.",
+        "additional_evidence": [
+          {
+            "path": "pyproject.toml",
+            "blob_sha": "12d258b234e90629dbf893a93b4daa773e6e90cc",
+            "sha256": "4f6cf6c97f6b72e502387af72bd797277c1d79f29f19166cf05fad54e8b9177f",
+            "url": "https://github.com/yx709057978/DeepTutor-Link/blob/d3cdd3ae9753a34cd7ce906874b63321196db155/pyproject.toml",
+            "bytes": 1078
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "2d427815835c3708e2ff3a2b987d369fabca1de4",
+            "sha256": "67498b45cf78512a01a0f2dcd07857be0f397da185029d8bb7141baf88091f6d",
+            "url": "https://github.com/yx709057978/DeepTutor-Link/blob/d3cdd3ae9753a34cd7ce906874b63321196db155/THIRD_PARTY_NOTICES.md",
+            "bytes": 710
+          }
+        ]
+      }
+    }
+  ],
+  "application_note": "Reviewer correction.applied flags describe pre-integration delivery; integration_application binds the fields actually applied to the published records."
+}
