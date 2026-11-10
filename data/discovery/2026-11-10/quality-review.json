@@ -1,0 +1,1801 @@
+{
+  "overlap-resolution-science.json": {
+    "date": "2026-11-10",
+    "stage": "complete",
+    "reviewed": [
+      {
+        "full_name": "glichtenthal/ai-project-steward",
+        "repository_id": 1351945884,
+        "commit": "00866f821f6c250b567b8d27616f16cf354ab079",
+        "tree": "de086a96200d4cb15c69e9ff3bed84897a8eedb8",
+        "verified_refs": [
+          {
+            "path": "SKILL.md",
+            "blob_sha": "d4cb09882e16f25373549c69b5af741f59b102af",
+            "sha256": "a67245b3797c837d58f94010ce1930352bb15865e514331b8a2dc66a748f9c16",
+            "url": "https://github.com/glichtenthal/ai-project-steward/blob/00866f821f6c250b567b8d27616f16cf354ab079/SKILL.md",
+            "bytes": 8296
+          },
+          {
+            "path": "distribution-manifest.txt",
+            "blob_sha": "dc52ae50cd07ab2ffb55d674712de8f0e0468b9a",
+            "sha256": "379439834e8e47ae7d1c37a72eff6b5e51ca6d0ee78e607e141babe212f29660",
+            "url": "https://github.com/glichtenthal/ai-project-steward/blob/00866f821f6c250b567b8d27616f16cf354ab079/distribution-manifest.txt",
+            "bytes": 235
+          },
+          {
+            "path": "metadata/release.json",
+            "blob_sha": "af3ebaeb248df3c47a01a5b6beef9a40d446f571",
+            "sha256": "a5a888ca45b104c65c6497c2c3485fc41058b2a21b9da459f8edd9c6edd723af",
+            "url": "https://github.com/glichtenthal/ai-project-steward/blob/00866f821f6c250b567b8d27616f16cf354ab079/metadata/release.json",
+            "bytes": 2507
+          }
+        ],
+        "conclusion": "agree",
+        "reviewed_scope": "Confirmed one root skill; distribution allowlist has eight runtime artifacts and matching instruction digest. Codex-only bounded release, false strict regression gate, explicit-activation limitation and unpublished Claude candidate remain source-declared exceptions, not certified behavior.",
+        "execution": false
+      },
+      {
+        "full_name": "vaam-apps/meta-whatsapp-rs",
+        "repository_id": 1385293471,
+        "commit": "c7551171b3462420400a08d6e128f2fd11923f64",
+        "tree": "3aa7de71952660208e4bab34037f86060c1ae69d",
+        "verified_refs": [
+          {
+            "path": "skills/meta-whatsapp-rs-bot/SKILL.md",
+            "blob_sha": "484c38cf17acdb9937d40200406cc852107aa5fa",
+            "sha256": "41c7fe4382b5bb8bdc7be7c99aa484de55a0e1b2da2241319598b46fe20ae0cb",
+            "url": "https://github.com/vaam-apps/meta-whatsapp-rs/blob/c7551171b3462420400a08d6e128f2fd11923f64/skills/meta-whatsapp-rs-bot/SKILL.md",
+            "bytes": 8910
+          },
+          {
+            "path": "skills/README.md",
+            "blob_sha": "71ed3c44e8de98779e0807eec5c98a2bbe74802d",
+            "sha256": "c0105dcbfa6ff7b7b0c26761c44e59dcab7569c3d021588ee14ec6b602b59781",
+            "url": "https://github.com/vaam-apps/meta-whatsapp-rs/blob/c7551171b3462420400a08d6e128f2fd11923f64/skills/README.md",
+            "bytes": 14049
+          }
+        ],
+        "conclusion": "agree",
+        "reviewed_scope": "Confirmed tree/catalog have 40 public entries and six hidden maintenance entries, versus stale root README 28. Map router is separate from 39 task/reference guides. Representative stamp is 8a675b0eb925f90de831184ab43065009e8ad3c3 dated 2026-11-01, not the fixed current repository commit; no runtime compatibility inference.",
+        "execution": false
+      },
+      {
+        "full_name": "Asun28/AIDLC",
+        "repository_id": 1364829328,
+        "commit": "19b0da8fc939c75698f97c5b5df8f413cef4d0fd",
+        "tree": "8d793883ae6d1a7e4db0556e88240acaf4fa74f6",
+        "verified_refs": [
+          {
+            "path": "templates/claude/skills/aidlc-loop/SKILL.md",
+            "blob_sha": "e257033bf59ff61db3112d529183452185a15c75",
+            "sha256": "5254a5d5d7929348bb11f3e4f7117c81abb510e5e61606c678deec8d2340685b",
+            "url": "https://github.com/Asun28/AIDLC/blob/19b0da8fc939c75698f97c5b5df8f413cef4d0fd/templates/claude/skills/aidlc-loop/SKILL.md",
+            "bytes": 4488
+          },
+          {
+            "path": "docs/THIRD-PARTY-NOTICES.md",
+            "blob_sha": "0c29885ee9332e5255507718ee87f6799db835f0",
+            "sha256": "260825206c7dc39110c64ac5e9127e0257daac4166d4179e728ae2535ee465df",
+            "url": "https://github.com/Asun28/AIDLC/blob/19b0da8fc939c75698f97c5b5df8f413cef4d0fd/docs/THIRD-PARTY-NOTICES.md",
+            "bytes": 1780
+          },
+          {
+            "path": "src/scaffold/init.ts",
+            "blob_sha": "9adf6f167abf6663d6b94ce8c87d68cf505839f7",
+            "sha256": "20abdff058a689f2e7675e95608dfa38947fa0b0fa7fb01fae62a6ece9c835ec",
+            "url": "https://github.com/Asun28/AIDLC/blob/19b0da8fc939c75698f97c5b5df8f413cef4d0fd/src/scaffold/init.ts",
+            "bytes": 15917
+          }
+        ],
+        "conclusion": "agree",
+        "reviewed_scope": "Confirmed six template/local pairs have identical frozen blobs; initializer recursively copies skills and separately merges settings. One control router plus five companions is accurate typed inventory. NOTICE preserves MIT adaptations and states MIT-0 lineage; production approval fallback and reminder-only Stop are disclosed, not a security guarantee.",
+        "execution": false
+      },
+      {
+        "full_name": "WebXR-JP/xrift-world-lobby",
+        "repository_id": 1182073697,
+        "commit": "305b25032d18c5f445330689638861326ca3f8ac",
+        "tree": "3b370269899c2e23f69371739b15245895d2697c",
+        "verified_refs": [
+          {
+            "path": ".agents/skills/xrift-world/SKILL.md",
+            "blob_sha": "1377c313e6b8fa533e1c8909e8246b5f8c6aeb18",
+            "sha256": "f69e735df7a6cce35ab0d3aaf8e56d267b807b733d1eb786ea0797ee11427df0",
+            "url": "https://github.com/WebXR-JP/xrift-world-lobby/blob/305b25032d18c5f445330689638861326ca3f8ac/.agents/skills/xrift-world/SKILL.md",
+            "bytes": 7735
+          }
+        ],
+        "conclusion": "agree",
+        "reviewed_scope": "Confirmed one embedded hidden copy, MIT root grant and README consumer installation redirect to separate xrift-skills identity. Representative top-level physics differs from README world.physics; retain held until version/distribution mapping, without claiming missing licence or unusable product.",
+        "execution": false
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "limits": [
+      "Read-only cross-review of the four exact fixed snapshots and critical source passages; nine representative/manifest/notice/initializer refs freshly fetched and hashes checked.",
+      "No release archive, installation, hook, CLI, server, SDK send, external account, live XR world or model evaluation was executed.",
+      "Companion/subguide inventory does not claim full body review of all bundled files."
+    ]
+  },
+  "overlap-resolution-product.json": {
+    "date": "2026-11-10",
+    "stage": "complete",
+    "reviewed": [
+      {
+        "full_name": "AgrDataSci/environment-data",
+        "repository_id": 1451503659,
+        "commit": "295c4d569fc32076b62ac7d03ad89c94ab23c22e",
+        "tree": "353a8e379eca5f51b073bbc00848713f72b885e0",
+        "skill_count": 5,
+        "license_spdx": "CC-BY-4.0",
+        "api_license_spdx": "MIT",
+        "conclusion": "agree_with_scoped_admission",
+        "review_notes": "Agree with five ready source-specific leaves. Root SKILL.md is a selector; admin-boundaries, climate-hazards and future-climate are planned, not bundled. Full README and elevation representative support the public copy/symlink/script contract. README explicitly separates documentation/protocols CC-BY-4.0 from code MIT and preserves third-party data terms; API MIT must not override that instruction scope.",
+        "file_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "4bed01fbafca40fb0edeba84ef3de0d9612d66e3",
+            "sha256": "d21bf43f18d335c3afd7decaa0246e75f7780677f7e068e2649fbce3809ab840",
+            "url": "https://github.com/AgrDataSci/environment-data/blob/295c4d569fc32076b62ac7d03ad89c94ab23c22e/README.md",
+            "bytes": 4559
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "bacdf2248efb27a4aa9738b3ee4b6a60a2a033fa",
+            "sha256": "4601397036e954e59fc175a6d5f9f94cf2c6f0727bc19439941baaa2ab328ba7",
+            "url": "https://github.com/AgrDataSci/environment-data/blob/295c4d569fc32076b62ac7d03ad89c94ab23c22e/LICENSE",
+            "bytes": 1131
+          },
+          {
+            "path": "skills/elevation/SKILL.md",
+            "blob_sha": "7a73385f40d4f6a39d902640931332ac21bad8b2",
+            "sha256": "7f09e80c90211b944b63bae5279276d5a0c372e356e81260c42861d7be3074a4",
+            "url": "https://github.com/AgrDataSci/environment-data/blob/295c4d569fc32076b62ac7d03ad89c94ab23c22e/skills/elevation/SKILL.md",
+            "bytes": 2999
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "ea7b7b0d2088d5e8b3ddd7303c55dc597fd99009",
+            "sha256": "98050ad95d5d1ea8a685c9c6bc6ebf297c8212c2a55dcf1065945851ecd7bb6c",
+            "url": "https://github.com/AgrDataSci/environment-data/blob/295c4d569fc32076b62ac7d03ad89c94ab23c22e/SKILL.md",
+            "bytes": 5661
+          }
+        ]
+      },
+      {
+        "full_name": "ai-skills-without-borders/skills",
+        "repository_id": 1452145949,
+        "commit": "1e36ed2b4f36bde5210aceec2579f502163a9b11",
+        "tree": "5b5c21bee1243a59faf2fb1f02271a4244c72c13",
+        "skill_count": 6,
+        "license_spdx": "CC-BY-4.0",
+        "api_license_spdx": "NOASSERTION",
+        "conclusion": "agree_with_scoped_admission",
+        "review_notes": "Agree with six source skill leaves and exclusion of generated dist ZIP/paste-in copies. Full exam-question representative and README expose an educator-facing workflow and marketplace/upload contract. Root LICENSE explicitly grants CC-BY-4.0 for skills/references/profiles/docs; LICENSE-CODE grants MIT to scripts only and excludes third-party competency-framework rights.",
+        "file_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "f69aad1df3c12350885a558a97e85b072d7a792e",
+            "sha256": "ddbb21305d27fed3a52d5b67e6d8e244b26cabd9532cc4aa826e40bfbeff4781",
+            "url": "https://github.com/ai-skills-without-borders/skills/blob/1e36ed2b4f36bde5210aceec2579f502163a9b11/README.md",
+            "bytes": 5636
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "ecdbff8a901b9e6731d4cfe96aba43549f4ce845",
+            "sha256": "8b63890a3ed9aec9662b7e0e1a5ae4f33681f0daf924e23541d5cec174fdde56",
+            "url": "https://github.com/ai-skills-without-borders/skills/blob/1e36ed2b4f36bde5210aceec2579f502163a9b11/LICENSE",
+            "bytes": 728
+          },
+          {
+            "path": "skills/exam-question-writer/SKILL.md",
+            "blob_sha": "6b5063e79d75ee2f225291c71423b194286c5333",
+            "sha256": "63bc0655e52bc11de295d4c8a27f363e0b60dce5ab76e4660621b99dbfa0820f",
+            "url": "https://github.com/ai-skills-without-borders/skills/blob/1e36ed2b4f36bde5210aceec2579f502163a9b11/skills/exam-question-writer/SKILL.md",
+            "bytes": 5595
+          },
+          {
+            "path": "LICENSE-CODE",
+            "blob_sha": "41b9ded35a619467ab7c9c7610f893406cddfcc1",
+            "sha256": "640e415018d641fdb20be9e1d109a4bc6779c12eda0d2577583d1ad4cdba5fca",
+            "url": "https://github.com/ai-skills-without-borders/skills/blob/1e36ed2b4f36bde5210aceec2579f502163a9b11/LICENSE-CODE",
+            "bytes": 1095
+          }
+        ]
+      },
+      {
+        "full_name": "dolepee/crashlab",
+        "repository_id": 1448468211,
+        "commit": "4baa5617e4d10a17cb29cd99508914ed52bd8049",
+        "tree": "2ce2c491118de533e465d744e50d545eeab57d7b",
+        "skill_count": 1,
+        "license_spdx": "MIT",
+        "api_license_spdx": "MIT",
+        "conclusion": "agree_with_scoped_admission",
+        "review_notes": "Agree with one canonical skills/crashlab leaf. Root SKILL.md only redirects; bundled app cases and external evidence are fixtures/history, not extra skills. README publishes Hermes plugin install and the full representative names prepare/run/status/export/import workflows with disposable Git-application, frozen-case and valid-baseline boundaries. Root MIT supports project instructions; historical repair claims remain unverified here.",
+        "file_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "a3e16501024011b670fafa67c38f18211a01d8d5",
+            "sha256": "7e7a62b7555d714a16ef5aaea4613048da54b0b527523e0aa0d7345e468ced8e",
+            "url": "https://github.com/dolepee/crashlab/blob/4baa5617e4d10a17cb29cd99508914ed52bd8049/README.md",
+            "bytes": 28491
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "940e292ed5ab733a835c9f1de17ed692f34f274c",
+            "sha256": "8538ffac9c36d97e606a8fcb224b00e06597e4c9e90113d63982b5a8b2bf71a9",
+            "url": "https://github.com/dolepee/crashlab/blob/4baa5617e4d10a17cb29cd99508914ed52bd8049/LICENSE",
+            "bytes": 1084
+          },
+          {
+            "path": "skills/crashlab/SKILL.md",
+            "blob_sha": "e8151ac652ed7dce5c90fefc543237bb22857908",
+            "sha256": "69303a120c8a07f58f3c63f77c6ef594ce6622716b9c1a31aa7512852cff8b2d",
+            "url": "https://github.com/dolepee/crashlab/blob/4baa5617e4d10a17cb29cd99508914ed52bd8049/skills/crashlab/SKILL.md",
+            "bytes": 7514
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "33335a8875022df1500f0c1841d57b72c708ab14",
+            "sha256": "a584973f9fc5254b72d9f8eaee3de976bf11e107b585dbc5e69890117644aa93",
+            "url": "https://github.com/dolepee/crashlab/blob/4baa5617e4d10a17cb29cd99508914ed52bd8049/SKILL.md",
+            "bytes": 731
+          }
+        ]
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "limits": [
+      "Read-only cross-review of the named fixed snapshots and cached byte-verified files. No candidate installation, helper execution, data/model/service call or host compatibility test. Parent performs fresh official-API object verification.",
+      "Only the three requested identities were reviewed; scientific/provider claims, medical-education outcomes and historical benchmark/effect claims were not independently validated."
+    ]
+  },
+  "overlap-resolution-breadth.json": {
+    "date": "2026-11-10",
+    "stage": "complete",
+    "reviewed": [
+      {
+        "full_name": "AtlasScope/agent-kit",
+        "repository_id": 1449657458,
+        "commit": "7576c3ae316b2142962eae62feab88caf5a63638",
+        "tree": "f5572e0500e47f9233d4eb2a2954ffba17131ad1",
+        "disposition": "accepted",
+        "conclusion": "Admission supported. 59 tasks, two routers and an alternate composite are distinct categories; imported CC-BY material cannot be shown as root MIT. Original-entry wording clarified.",
+        "review_scope": "Bounded independent cross-review of purpose/distribution, exact inventory/manifest scope, applicable grant/attribution and selected consumer body. No all-body collection review or runtime execution.",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "9af55175bfe2db4f2f6ee18a1bb6f0661f9370e0",
+          "sha256": "c3d890b5dd820f29780f66d9e1f4bac4dc97b674fb2d78349884408bd9ecc58c",
+          "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/README.md",
+          "bytes": 6121
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "13d9054cfa80db25c84fda4f0141b1a18097c701",
+          "sha256": "c39ef5780ca1db8dd0d96f282758ed20c8aeca390d80719f56dd2874232169aa",
+          "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/LICENSE",
+          "bytes": 1326
+        },
+        "representative": {
+          "path": "kits/working-style/plugins/working-style/skills/recommend/SKILL.md",
+          "blob_sha": "6ac95219c94c79b160989fe5c4ff08c4bb45641d",
+          "sha256": "541fe59e575e7d89a494e71571fa5a1ca2d27a3fc929588c5ed3fe3d25237ebb",
+          "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/working-style/plugins/working-style/skills/recommend/SKILL.md",
+          "bytes": 4231
+        },
+        "additional_evidence": [
+          {
+            "path": "kits/design-kit/plugins/design-kit/skills/color-expert/LICENSE",
+            "blob_sha": "10fabd90118f7ce38bb2e4753e105e744442a429",
+            "sha256": "f5b745ef98087f531e719ee8ca6a96809444573ecc7173c6fa68eaad39b3cc3f",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/design-kit/plugins/design-kit/skills/color-expert/LICENSE",
+            "bytes": 18658
+          },
+          {
+            "path": "kits/engineering-kit/THIRD_PARTY.md",
+            "blob_sha": "b21054ed5f7f5a6acab537d697f7eb77ab625a8d",
+            "sha256": "01d13582f765b6f7171237f4e9919a0884cf166fd6fefb3c7200bee5b00a7b8e",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/engineering-kit/THIRD_PARTY.md",
+            "bytes": 3208
+          }
+        ]
+      },
+      {
+        "full_name": "atlanai/atlan-plugins",
+        "repository_id": 1439387614,
+        "commit": "3a10edd89c52eee7e4fb9c71cd86e727fb498f68",
+        "tree": "adfd62da2dbb1a2af2428855cf375ad4fd918ea4",
+        "disposition": "accepted",
+        "conclusion": "Admission and 16 consumer-entry count supported by actual marketplace/plugin manifests and tree. Three plugins are not 16 plugins; seven module support skills and the fixture remain excluded.",
+        "review_scope": "Bounded independent cross-review of purpose/distribution, exact inventory/manifest scope, applicable grant/attribution and selected consumer body. No all-body collection review or runtime execution.",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "23a4a215054b204477315e26f9869758f40c2cc8",
+          "sha256": "8d5f7d961ac9b517e05d783c9ffe389f534f10671a149b98af74143f4b299f92",
+          "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/README.md",
+          "bytes": 15505
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/LICENSE",
+          "bytes": 11358
+        },
+        "representative": {
+          "path": "plugins/atlanai/skills/atlan-find-artifacts/SKILL.md",
+          "blob_sha": "7d7fc7926f4d9b447806f1bcfe6bcd5f33880712",
+          "sha256": "eb1254d4c7218ce16cfb1fd560cf1ca76bb6279e98c6fbc9c9b6749da98abe6d",
+          "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/skills/atlan-find-artifacts/SKILL.md",
+          "bytes": 9216
+        },
+        "additional_evidence": [
+          {
+            "path": "plugins/atlanai/.claude-plugin/plugin.json",
+            "blob_sha": "ccb72183134723123a60e9625826a139452614b1",
+            "sha256": "1d6aa3f07f5647b87396b5c299adb5fce04aafbf8071c837690d41bc6faf7bff",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/.claude-plugin/plugin.json",
+            "bytes": 637
+          },
+          {
+            "path": "plugins/atlanai-analytics/.claude-plugin/plugin.json",
+            "blob_sha": "3a6c8f1fb8b3588fd5bd5849d50aa13f55f106df",
+            "sha256": "446eaa77ab52eb74969aa692d03b34fc7f3e60ee2a02af96a74498ebe9499a80",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-analytics/.claude-plugin/plugin.json",
+            "bytes": 810
+          },
+          {
+            "path": "plugins/atlanai-mods/.claude-plugin/plugin.json",
+            "blob_sha": "62b0eb6479f367e3bdad168cf70c9e3bf4930e28",
+            "sha256": "3756279e33f42efe27d36f8e6b2373d9a2d36a227447d7697d30aec550efdaca",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-mods/.claude-plugin/plugin.json",
+            "bytes": 1525
+          }
+        ]
+      },
+      {
+        "full_name": "lxc248/-interestseed",
+        "repository_id": 1436624935,
+        "commit": "951f37d3d14b13329f5f1e867cdc70c914055a40",
+        "tree": "3455a9412743e97967c45647616043e47b9e865c",
+        "disposition": "accepted",
+        "conclusion": "AGPL-3.0-only and two active entries supported. Seven-day root versus three-day standalone difference remains an explicit limitation; archived/derived product pieces add no extra skill count. Commercial/brand wording clarified.",
+        "review_scope": "Bounded independent cross-review of purpose/distribution, exact inventory/manifest scope, applicable grant/attribution and selected consumer body. No all-body collection review or runtime execution.",
+        "readme": {
+          "path": "README.md",
+          "blob_sha": "d3a9e1da030974fc4b2a93cdf234ae8bd099b71f",
+          "sha256": "a17635d16a0680155524093c6ea4ea4bfcedf1d093650402fc46f0e5457e15c4",
+          "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/README.md",
+          "bytes": 12699
+        },
+        "license": {
+          "path": "LICENSE",
+          "blob_sha": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+          "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+          "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/LICENSE",
+          "bytes": 34523
+        },
+        "representative": {
+          "path": "standalone/skill/SKILL.md",
+          "blob_sha": "a02ed787915af023677dc278bc9f063daf69ea33",
+          "sha256": "6c2d3ebaa42f8ae06a5f5867ec1f983ebc51990ce1a939188cba61f2f2e73bf8",
+          "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/standalone/skill/SKILL.md",
+          "bytes": 4687
+        },
+        "additional_evidence": [
+          {
+            "path": "package.json",
+            "blob_sha": "548dc15450f875e1a5775bb6855522850adc137d",
+            "sha256": "118caf0f0af349976f2dc1b11bdc45366ba9081d9b386492d5f8bae45756837c",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/package.json",
+            "bytes": 2662
+          },
+          {
+            "path": "standalone/package.json",
+            "blob_sha": "ef38692cf39110f6cb54a0e43359542e69c73304",
+            "sha256": "febb3727bc0a5baad9eebc8d592b0f73ec7ec2c73fff334a954f8d1b3a228a61",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/standalone/package.json",
+            "bytes": 519
+          },
+          {
+            "path": "COMMERCIAL_LICENSE.md",
+            "blob_sha": "49445956f810bf678d0278b04ce5678b7698f4fe",
+            "sha256": "d992a10368da8b4f0e78f23b3553c3dace1bd5b129205274fb0730330068625f",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/COMMERCIAL_LICENSE.md",
+            "bytes": 1289
+          },
+          {
+            "path": "TRADEMARKS.md",
+            "blob_sha": "fdc93da3d8d1bd4c6919c4731bec0233e1185398",
+            "sha256": "a141ad1dd952f042eb9f1ffd9a13569c69e006aa3350168d7c6a88be8e6a9cb6",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/TRADEMARKS.md",
+            "bytes": 1287
+          },
+          {
+            "path": "skill/SKILL.md",
+            "blob_sha": "18a080b178a8ab8e595f8ee38d7020b0ce84e8cc",
+            "sha256": "2be9dbefe06411828b38d6a585f892410ed7d687d6a45e59f3423557cb80b1ab",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/skill/SKILL.md",
+            "bytes": 3438
+          }
+        ]
+      }
+    ],
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "AtlasScope/agent-kit",
+        "field_updates": {
+          "count_basis": "61 plugin SKILL.md entries: 59 task entries (49 third-party plus 10 original) and two original design/engineer routers. One claude-ai composite is an alternate distribution, excluded. Credits enumerates 12 original plugin entries including the two routers; it does not establish 12 original leaves plus routers. Inventory, not all-body review.",
+          "license_spdx": "Mixed: MIT (originals/scoped imports); CC-BY-4.0 (color-expert)",
+          "license_scope": "Root MIT applies to original Agent Kit text including the 12 original plugin entries (two routers and ten tasks), prompt library and website. Imported folders retain their own grants: MIT imports and color-expert CC-BY-4.0, whose actual local LICENSE grant/attribution clauses were read. Credits and both kit THIRD_PARTY notices enumerate origins/changes. The working-style LICENSE repeats a design-only scope sentence; root MIT and Credits establish the original working-style scope, rather than extending that copied sentence to imported material. No complete upstream-rights or whole-body certification.",
+          "distribution_evidence": "Root marketplace points to four real kit plugin directories; complete recommend consumer representative is a distinct original workflow. Fixed tree has 61 plugin entries plus one alternate claude-ai composite. Counts and scope were reconciled with CREDITS and design/engineering THIRD_PARTY notices; no installer or host execution.",
+          "additional_evidence": [
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "ef5590b07de608c331f56031d04091cf5ebbb7da",
+              "sha256": "995895d1c4734dfa477194cf288505411526f8131cc38fa268703723a167e51a",
+              "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/.claude-plugin/marketplace.json",
+              "bytes": 3172
+            },
+            {
+              "path": "CREDITS.md",
+              "blob_sha": "b9245292b0fd45e1f85dafe70c084f2b16d704cb",
+              "sha256": "660682cd31fdcc2e72daabd0379bc64f85d677a68195fef8ead7a3b8d7315ecf",
+              "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/CREDITS.md",
+              "bytes": 3982
+            },
+            {
+              "path": "kits/design-kit/THIRD_PARTY.md",
+              "blob_sha": "eebf7db718d27782ccc8b05d24d228525ed7c695",
+              "sha256": "416a2212381dcee3b50a8dfe38ef6ff9c599b1edd7329aad30da2a24149dfac2",
+              "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/design-kit/THIRD_PARTY.md",
+              "bytes": 4983
+            },
+            {
+              "path": "kits/working-style/LICENSE",
+              "blob_sha": "6742e248a898f813d245707860a77b0ccd32ad28",
+              "sha256": "c3aa4fe1abecd83fe6404dbaa963700689cc29e300bb4ecbce36bc250805e2c3",
+              "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/working-style/LICENSE",
+              "bytes": 1217
+            },
+            {
+              "path": "kits/working-style/plugins/working-style/skills/recommend/SKILL.md",
+              "blob_sha": "6ac95219c94c79b160989fe5c4ff08c4bb45641d",
+              "sha256": "541fe59e575e7d89a494e71571fa5a1ca2d27a3fc929588c5ed3fe3d25237ebb",
+              "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/working-style/plugins/working-style/skills/recommend/SKILL.md",
+              "bytes": 4231
+            },
+            {
+              "path": "kits/design-kit/plugins/design-kit/skills/color-expert/LICENSE",
+              "blob_sha": "10fabd90118f7ce38bb2e4753e105e744442a429",
+              "sha256": "f5b745ef98087f531e719ee8ca6a96809444573ecc7173c6fa68eaad39b3cc3f",
+              "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/design-kit/plugins/design-kit/skills/color-expert/LICENSE",
+              "bytes": 18658
+            },
+            {
+              "path": "kits/engineering-kit/THIRD_PARTY.md",
+              "blob_sha": "b21054ed5f7f5a6acab537d697f7eb77ab625a8d",
+              "sha256": "01d13582f765b6f7171237f4e9919a0884cf166fd6fefb3c7200bee5b00a7b8e",
+              "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/engineering-kit/THIRD_PARTY.md",
+              "bytes": 3208
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "atlanai/atlan-plugins",
+        "field_updates": {
+          "distribution_evidence": "README installation and root marketplace expose atlanai, atlanai-analytics and atlanai-mods. Three real plugin manifests were read: core declares MCP and publish hooks; analytics depends on core; mods is an optional runtime/permission add-on with no SKILL.md leaves. Default plugin skills directories contain 13 core plus three analytics consumer entries; seven nested metrics-engine support bodies and one eval fixture excluded. Complete atlan-find-artifacts consumer body was re-read; host installation not run.",
+          "limitations": "Static review only. Optional Registry Mods manifest defaults suggest_skills to true and declares sending the first 300 request characters to Atlan search; core README describes selected-folder publishing hooks and remote update checks. No installation, OAuth/session, hook, registry query/write, model call or hosted privacy/compatibility/cost claim was tested.",
+          "additional_evidence": [
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "aa433a9120dbfc01d7545a8e0f35b687e4bac3f0",
+              "sha256": "c962860bb339e7b73dbcdac9cba61e3a42fad3c67b1a4a6fc63a7060948932c3",
+              "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/.claude-plugin/marketplace.json",
+              "bytes": 3097
+            },
+            {
+              "path": "plugins/atlanai-analytics/LICENSE",
+              "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+              "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+              "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-analytics/LICENSE",
+              "bytes": 11358
+            },
+            {
+              "path": "plugins/atlanai-analytics/modules/metrics/engine/LICENSE",
+              "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+              "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+              "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-analytics/modules/metrics/engine/LICENSE",
+              "bytes": 11358
+            },
+            {
+              "path": "plugins/atlanai/LICENSE",
+              "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+              "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+              "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/LICENSE",
+              "bytes": 11358
+            },
+            {
+              "path": "plugins/atlanai/skills/atlan-find-artifacts/SKILL.md",
+              "blob_sha": "7d7fc7926f4d9b447806f1bcfe6bcd5f33880712",
+              "sha256": "eb1254d4c7218ce16cfb1fd560cf1ca76bb6279e98c6fbc9c9b6749da98abe6d",
+              "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/skills/atlan-find-artifacts/SKILL.md",
+              "bytes": 9216
+            },
+            {
+              "path": "plugins/atlanai/.claude-plugin/plugin.json",
+              "blob_sha": "ccb72183134723123a60e9625826a139452614b1",
+              "sha256": "1d6aa3f07f5647b87396b5c299adb5fce04aafbf8071c837690d41bc6faf7bff",
+              "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/.claude-plugin/plugin.json",
+              "bytes": 637
+            },
+            {
+              "path": "plugins/atlanai-analytics/.claude-plugin/plugin.json",
+              "blob_sha": "3a6c8f1fb8b3588fd5bd5849d50aa13f55f106df",
+              "sha256": "446eaa77ab52eb74969aa692d03b34fc7f3e60ee2a02af96a74498ebe9499a80",
+              "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-analytics/.claude-plugin/plugin.json",
+              "bytes": 810
+            },
+            {
+              "path": "plugins/atlanai-mods/.claude-plugin/plugin.json",
+              "blob_sha": "62b0eb6479f367e3bdad168cf70c9e3bf4930e28",
+              "sha256": "3756279e33f42efe27d36f8e6b2373d9a2d36a227447d7697d30aec550efdaca",
+              "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-mods/.claude-plugin/plugin.json",
+              "bytes": 1525
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "lxc248/-interestseed",
+        "field_updates": {
+          "license_scope": "Root README and both root/standalone package manifests explicitly apply AGPL-3.0-only to repository-owned code/instructions, supported by full LICENSE and attribution NOTICE. Commercial-license document expressly preserves AGPL for compliant use; it offers an alternative where copyleft compliance is unsuitable, including hosted distribution without required source, and separately addresses brand permission. AGPL-compliant commercial/hosted use is not categorically prohibited. Trademarks, third-party components, services and user-vault content retain their own rights; no legal or complete dependency-license certification.",
+          "distribution_evidence": "README primarily distributes current standalone CLI/local web/skill. Both distinct active bodies were read: standalone/skill/SKILL.md uses real three-day experiment commands, while skill/SKILL.md defines a separate cosmic-map renderer/seven-day workflow whose render.mjs path exists. One archive/legacy body excluded. These are two workflow entries within one product identity, not three independent native skills; package/build/model/experiment runtime not executed.",
+          "additional_evidence": [
+            {
+              "path": "NOTICE",
+              "blob_sha": "cf4a568bb8b3163508338a262ef72ec521289cc1",
+              "sha256": "94ecda7c25e84cf75cf717171913be669b8ebc845168dd7fc2837d5cce05cd38",
+              "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/NOTICE",
+              "bytes": 1530
+            },
+            {
+              "path": "standalone/skill/SKILL.md",
+              "blob_sha": "a02ed787915af023677dc278bc9f063daf69ea33",
+              "sha256": "6c2d3ebaa42f8ae06a5f5867ec1f983ebc51990ce1a939188cba61f2f2e73bf8",
+              "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/standalone/skill/SKILL.md",
+              "bytes": 4687
+            },
+            {
+              "path": "package.json",
+              "blob_sha": "548dc15450f875e1a5775bb6855522850adc137d",
+              "sha256": "118caf0f0af349976f2dc1b11bdc45366ba9081d9b386492d5f8bae45756837c",
+              "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/package.json",
+              "bytes": 2662
+            },
+            {
+              "path": "standalone/package.json",
+              "blob_sha": "ef38692cf39110f6cb54a0e43359542e69c73304",
+              "sha256": "febb3727bc0a5baad9eebc8d592b0f73ec7ec2c73fff334a954f8d1b3a228a61",
+              "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/standalone/package.json",
+              "bytes": 519
+            },
+            {
+              "path": "COMMERCIAL_LICENSE.md",
+              "blob_sha": "49445956f810bf678d0278b04ce5678b7698f4fe",
+              "sha256": "d992a10368da8b4f0e78f23b3553c3dace1bd5b129205274fb0730330068625f",
+              "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/COMMERCIAL_LICENSE.md",
+              "bytes": 1289
+            },
+            {
+              "path": "TRADEMARKS.md",
+              "blob_sha": "fdc93da3d8d1bd4c6919c4731bec0233e1185398",
+              "sha256": "a141ad1dd952f042eb9f1ffd9a13569c69e006aa3350168d7c6a88be8e6a9cb6",
+              "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/TRADEMARKS.md",
+              "bytes": 1287
+            },
+            {
+              "path": "skill/SKILL.md",
+              "blob_sha": "18a080b178a8ab8e595f8ee38d7020b0ce84e8cc",
+              "sha256": "2be9dbefe06411828b38d6a585f892410ed7d687d6a45e59f3423557cb80b1ab",
+              "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/skill/SKILL.md",
+              "bytes": 3438
+            }
+          ]
+        }
+      }
+    ],
+    "limits": [
+      "Three requested product records only; no expanded candidate search, full-collection body review, installation, helper execution, model/API/service call, publication or legal/professional-effect certification.",
+      "Today fixed-object caches were independently read; new supplemental refs were fetched with official GitHub API and Git blob/SHA256/byte-verified. Parent performs independent fresh-object validation."
+    ],
+    "validation": {
+      "passed": true,
+      "expected_names": [
+        "AtlasScope/agent-kit",
+        "atlanai/atlan-plugins",
+        "lxc248/-interestseed"
+      ],
+      "reviewed_count": 3,
+      "missing": [],
+      "new_file_byte_checks": [
+        {
+          "full_name": "AtlasScope/agent-kit",
+          "path": "kits/design-kit/plugins/design-kit/skills/color-expert/LICENSE",
+          "blob_sha": "10fabd90118f7ce38bb2e4753e105e744442a429",
+          "sha256": "f5b745ef98087f531e719ee8ca6a96809444573ecc7173c6fa68eaad39b3cc3f",
+          "bytes": 18658,
+          "passed": true
+        },
+        {
+          "full_name": "AtlasScope/agent-kit",
+          "path": "kits/engineering-kit/THIRD_PARTY.md",
+          "blob_sha": "b21054ed5f7f5a6acab537d697f7eb77ab625a8d",
+          "sha256": "01d13582f765b6f7171237f4e9919a0884cf166fd6fefb3c7200bee5b00a7b8e",
+          "bytes": 3208,
+          "passed": true
+        },
+        {
+          "full_name": "atlanai/atlan-plugins",
+          "path": "plugins/atlanai/.claude-plugin/plugin.json",
+          "blob_sha": "ccb72183134723123a60e9625826a139452614b1",
+          "sha256": "1d6aa3f07f5647b87396b5c299adb5fce04aafbf8071c837690d41bc6faf7bff",
+          "bytes": 637,
+          "passed": true
+        },
+        {
+          "full_name": "atlanai/atlan-plugins",
+          "path": "plugins/atlanai-analytics/.claude-plugin/plugin.json",
+          "blob_sha": "3a6c8f1fb8b3588fd5bd5849d50aa13f55f106df",
+          "sha256": "446eaa77ab52eb74969aa692d03b34fc7f3e60ee2a02af96a74498ebe9499a80",
+          "bytes": 810,
+          "passed": true
+        },
+        {
+          "full_name": "atlanai/atlan-plugins",
+          "path": "plugins/atlanai-mods/.claude-plugin/plugin.json",
+          "blob_sha": "62b0eb6479f367e3bdad168cf70c9e3bf4930e28",
+          "sha256": "3756279e33f42efe27d36f8e6b2373d9a2d36a227447d7697d30aec550efdaca",
+          "bytes": 1525,
+          "passed": true
+        },
+        {
+          "full_name": "lxc248/-interestseed",
+          "path": "package.json",
+          "blob_sha": "548dc15450f875e1a5775bb6855522850adc137d",
+          "sha256": "118caf0f0af349976f2dc1b11bdc45366ba9081d9b386492d5f8bae45756837c",
+          "bytes": 2662,
+          "passed": true
+        },
+        {
+          "full_name": "lxc248/-interestseed",
+          "path": "standalone/package.json",
+          "blob_sha": "ef38692cf39110f6cb54a0e43359542e69c73304",
+          "sha256": "febb3727bc0a5baad9eebc8d592b0f73ec7ec2c73fff334a954f8d1b3a228a61",
+          "bytes": 519,
+          "passed": true
+        },
+        {
+          "full_name": "lxc248/-interestseed",
+          "path": "COMMERCIAL_LICENSE.md",
+          "blob_sha": "49445956f810bf678d0278b04ce5678b7698f4fe",
+          "sha256": "d992a10368da8b4f0e78f23b3553c3dace1bd5b129205274fb0730330068625f",
+          "bytes": 1289,
+          "passed": true
+        },
+        {
+          "full_name": "lxc248/-interestseed",
+          "path": "TRADEMARKS.md",
+          "blob_sha": "fdc93da3d8d1bd4c6919c4731bec0233e1185398",
+          "sha256": "a141ad1dd952f042eb9f1ffd9a13569c69e006aa3350168d7c6a88be8e6a9cb6",
+          "bytes": 1287,
+          "passed": true
+        }
+      ]
+    }
+  },
+  "overlap-resolution-parent-product.json": {
+    "date": "2026-11-10",
+    "stage": "complete",
+    "reviewed": [
+      {
+        "full_name": "pskoett/pmx-canvas",
+        "repository_id": 1192029247,
+        "commit": "dc1a36ed76291296e4b2d55b7b04aa7884f7a659",
+        "tree": "073a64145fa0661849681621aef26f858608c5d1",
+        "parent_disposition": "accepted",
+        "conclusion": "agree_with_scoped_parent_conclusion",
+        "review_notes": "Agree with limited metadata admission for one scoped consumer workflow. Parent count_basis and license_scope correctly exclude other raw skill bodies and separately licensed components from this review.",
+        "findings": [
+          {
+            "path": "Readme.md",
+            "lines": [
+              60
+            ],
+            "conclusion": "README explicitly designates this one consumer installation entry; it does not require treating all 18 raw repository skills as reviewed consumer leaves."
+          },
+          {
+            "path": "skills/pmx-canvas/SKILL.md",
+            "conclusion": "Complete canonical skill describes workspace verification, board reads/writes, skill replacement approval, review boundaries and runtime limitations; the original default orchestrator was correctly replaced as the admission representative."
+          },
+          {
+            "path": "LICENSE",
+            "conclusion": "Root and plugin MIT grants are byte-identical. Scoped admission does not relicense other bundled skills/components or user board data."
+          }
+        ],
+        "file_evidence": [
+          {
+            "path": "Readme.md",
+            "blob_sha": "2791ac3ee2b761fd1274be52d6177e6c170d909b",
+            "sha256": "8f919f8e0039600cc12c8276780f3fb79c48ec3213a71859cd25e40eb971a1f2",
+            "url": "https://github.com/pskoett/pmx-canvas/blob/dc1a36ed76291296e4b2d55b7b04aa7884f7a659/Readme.md",
+            "bytes": 7439
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4d399416adfe4b9c24aa2e6cf65b47d76e2e565b",
+            "sha256": "d254372599cfa6e6f65c57fe01af129160ffe787356c0543e213319e5617075e",
+            "url": "https://github.com/pskoett/pmx-canvas/blob/dc1a36ed76291296e4b2d55b7b04aa7884f7a659/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "skills/pmx-canvas/SKILL.md",
+            "blob_sha": "cd6dbf48e8ebefefdc3ccb67ba315ec9cb69cf08",
+            "sha256": "fb89e8632db8427da426d788a0918385b3f48af3a48f601ae068b8d4d47525d6",
+            "url": "https://github.com/pskoett/pmx-canvas/blob/dc1a36ed76291296e4b2d55b7b04aa7884f7a659/skills/pmx-canvas/SKILL.md",
+            "bytes": 18795
+          },
+          {
+            "path": "plugins/pmx-canvas/LICENSE",
+            "blob_sha": "4d399416adfe4b9c24aa2e6cf65b47d76e2e565b",
+            "sha256": "d254372599cfa6e6f65c57fe01af129160ffe787356c0543e213319e5617075e",
+            "url": "https://github.com/pskoett/pmx-canvas/blob/dc1a36ed76291296e4b2d55b7b04aa7884f7a659/plugins/pmx-canvas/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "plugins/pmx-canvas/plugin.json",
+            "blob_sha": "9dbfaadc5c69e10939d8d4437a3203f0baa11e74",
+            "sha256": "41e4867fdd1cdc31a94c65ff505f0eb02d2436a705e63d119dd9c799f8e88505",
+            "url": "https://github.com/pskoett/pmx-canvas/blob/dc1a36ed76291296e4b2d55b7b04aa7884f7a659/plugins/pmx-canvas/plugin.json",
+            "bytes": 818
+          }
+        ]
+      },
+      {
+        "full_name": "Rodegrs-lin/voice-to-deck",
+        "repository_id": 1451025946,
+        "commit": "b103d7e5ec43cfa5e5851a90212f5bfb84be71dd",
+        "tree": "0e48c55aa635ad3e0f76744ac4c60d83af529179",
+        "parent_disposition": "held",
+        "conclusion": "agree_with_scoped_parent_conclusion",
+        "review_notes": "Agree that held is evidence-based pending clarification of the core mode/synchronization contract. Keep the static qualification: no playback failure was reproduced, and a mode-specific implementation could resolve the ambiguity.",
+        "findings": [
+          {
+            "path": "SKILL.md",
+            "lines": [
+              37,
+              54,
+              71
+            ],
+            "conclusion": "The same root document makes audible output a first-class mode and defines dh(video), while an unqualified invariant requires every runtime and recording path to remain silent. Mode-specific precedence is unresolved."
+          },
+          {
+            "path": "references/CLOCK-AND-SYNC.md",
+            "lines": [
+              34,
+              75,
+              16
+            ],
+            "conclusion": "Audible mode assigns clock ownership to the sounding video and requires the MP3 to be paused, but the unqualified drift-correction example sets video time from audio time. No mode guard or prior audio-follows-video mapping is specified around this instruction. This supports ambiguity/inconsistency of the written contract, not proof of an executed runtime defect."
+          },
+          {
+            "path": "LICENSE",
+            "conclusion": "An applicable root MIT grant exists, and themes retain a separate MIT/source notice. The hold is not caused by missing licensing or paid access."
+          }
+        ],
+        "file_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "6da687648e369cd8509e52606184bcba049e30f3",
+            "sha256": "36c98186c94aeb608faf7e5a1049ba783ce650d4764aea7926b14f072502b600",
+            "url": "https://github.com/Rodegrs-lin/voice-to-deck/blob/b103d7e5ec43cfa5e5851a90212f5bfb84be71dd/README.md",
+            "bytes": 15314
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "8c30ea5ad58705680fded2802e54f839ab007ede",
+            "sha256": "1ddd1ce73ed1fbec49cda6e56126727082e1d1c316108880885b4ec8c3b3abfa",
+            "url": "https://github.com/Rodegrs-lin/voice-to-deck/blob/b103d7e5ec43cfa5e5851a90212f5bfb84be71dd/LICENSE",
+            "bytes": 1207
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "3162c93e75e3b0b7a51be693005252483006f594",
+            "sha256": "5fe943370d2379242b02ea93c32d989c2ebb4ec31a9f286838159fff9ee47106",
+            "url": "https://github.com/Rodegrs-lin/voice-to-deck/blob/b103d7e5ec43cfa5e5851a90212f5bfb84be71dd/SKILL.md",
+            "bytes": 19338
+          },
+          {
+            "path": "references/CLOCK-AND-SYNC.md",
+            "blob_sha": "cfc9264be73f91ce31f71464cbf8b9d638c8770a",
+            "sha256": "e19b4c1f1fbe328cb0ad5889538a89f44e969fe819a410472b7a92ff7fcdf35e",
+            "url": "https://github.com/Rodegrs-lin/voice-to-deck/blob/b103d7e5ec43cfa5e5851a90212f5bfb84be71dd/references/CLOCK-AND-SYNC.md",
+            "bytes": 5260
+          },
+          {
+            "path": "NOTICE.md",
+            "blob_sha": "694a78e6645cf3bb6f19d4f49491dcf51e13519c",
+            "sha256": "195990fb851187cdf9c2cbf3b19ae524ba760a9b8e4e803323855dadbaaeb9b4",
+            "url": "https://github.com/Rodegrs-lin/voice-to-deck/blob/b103d7e5ec43cfa5e5851a90212f5bfb84be71dd/NOTICE.md",
+            "bytes": 2956
+          },
+          {
+            "path": "themes/LICENSE",
+            "blob_sha": "14fac913ccf80234b1848540089a3bbcb6e5283d",
+            "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+            "url": "https://github.com/Rodegrs-lin/voice-to-deck/blob/b103d7e5ec43cfa5e5851a90212f5bfb84be71dd/themes/LICENSE",
+            "bytes": 1056
+          },
+          {
+            "path": "themes/_SOURCE.md",
+            "blob_sha": "48204786a284f57d21805de8d74478f58e235e6e",
+            "sha256": "7bca0898f98f06716ebfc169622f09f5e4086cd6bc0d07cea0afa3c57d546875",
+            "url": "https://github.com/Rodegrs-lin/voice-to-deck/blob/b103d7e5ec43cfa5e5851a90212f5bfb84be71dd/themes/_SOURCE.md",
+            "bytes": 1593
+          }
+        ]
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "limits": [
+      "Only the two named fixed snapshots were reviewed. PMX README and canonical representative/grants were read completely; voice-to-deck root representative, clock reference and license/notices were read, with README purpose/install portions.",
+      "No installation, helper/validator execution, browser playback, service/model call, complete helper audit or external license/source fetching. Functional observations are static contract inconsistencies, not reproduced runtime failures.",
+      "Source reports remain unchanged; parent performs fresh API/object verification before publication."
+    ]
+  },
+  "quality-parent.json": {
+    "date": "2026-11-10",
+    "stage": "complete",
+    "reviewed": [
+      "glichtenthal/ai-project-steward",
+      "vaam-apps/meta-whatsapp-rs",
+      "Asun28/AIDLC",
+      "WebXR-JP/xrift-world-lobby",
+      "SuresoftTechnologies/dvera-plugin",
+      "m4bwav/wikiwright",
+      "apismith-labs/instagram-ai-agent-skills",
+      "pskoett/pmx-canvas",
+      "Rodegrs-lin/voice-to-deck"
+    ],
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "AtlasScope/agent-kit",
+        "field_updates": {
+          "skill_count": "59 task entries + 2 routers"
+        },
+        "reason": "Use the cross-reviewed typed inventory in the displayed count: 59 tasks plus two routers; do not hide routers behind a bare numeric total or count twelve original leaves."
+      }
+    ],
+    "resolutions": [
+      {
+        "full_name": "glichtenthal/ai-project-steward",
+        "basis": "Complete representative and README, eight-entry runtime manifest and metadata read. Fixed instruction SHA256 matches metadata; Codex-only clearance is source self-report with explicit failed strict gate and incomplete activation/compatibility limits."
+      },
+      {
+        "full_name": "vaam-apps/meta-whatsapp-rs",
+        "basis": "40 consumer catalog names equal fixed public skills paths; root stale28 not used for current inventory. Six hidden maintenance excluded; map router included and older per-guide SDK stamp preserved."
+      },
+      {
+        "full_name": "Asun28/AIDLC",
+        "basis": "Relevant init implementation actually copies six consumer templates; six local copies have identical blobs. One extra repository-maintenance skill excluded. Root MIT and specific third-party notices retained; no claim of enforced security or qualified shipping."
+      },
+      {
+        "full_name": "WebXR-JP/xrift-world-lobby",
+        "basis": "Complete hidden guide/README/MIT read. README directs installation to distinct skill source; local guide and template physics path disagree. Independent copy scope/version mapping unresolved, held."
+      },
+      {
+        "full_name": "SuresoftTechnologies/dvera-plugin",
+        "basis": "Real public provider pack and complete representative workflow; explicit product dependency and missing-runtime stop boundary preserved."
+      },
+      {
+        "full_name": "m4bwav/wikiwright",
+        "basis": "Single public consumer skill with complete reusable survey/write/validate/update process; publication and package-execution effects recorded without running them."
+      },
+      {
+        "full_name": "apismith-labs/instagram-ai-agent-skills",
+        "basis": "Explicit separate consumer workflows, fixed representative and same-blob client-copy exclusion; public account/data/usage boundaries retained."
+      },
+      {
+        "full_name": "pskoett/pmx-canvas",
+        "basis": "One explicit consumer entry and complete representative support limited metadata admission, without inflating eighteen repository skill files."
+      },
+      {
+        "full_name": "Rodegrs-lin/voice-to-deck",
+        "basis": "Complete root representative, MIT grant, NOTICE, theme MIT/source and clock reference read; README purpose/install portions support one public skill and source separately licenses themes. Hold for contradictory core playback instructions: root allows audible dh(video) mode but also requires every runtime/recording path silent; CLOCK-AND-SYNC says audible video owns the clock and MP3 is paused, yet its unconditional follow-correction assigns video.currentTime from MP3.currentTime. Required mode/version-specific interpretation is unresolved. This is not missing-license or paid-access rejection. No install, media edit, runtime/validator or playback test executed; static contradictions not reproduced."
+      }
+    ],
+    "limits": "Bounded metadata admission and fixed-object checks; no candidate execution, credentials, messaging, model/provider calls or general runtime/third-party-rights certification."
+  },
+  "quality-machine.json": {
+    "date": "2026-11-10",
+    "accepted_snapshot_count": 77,
+    "unique_repository_ids": 77,
+    "cross_stream_overlaps": [],
+    "baseline_representative_blob_matches": [],
+    "untraversed_file_references": [],
+    "within_batch_representative_blob_matches": [],
+    "limits": "Exact representative-blob comparison only; not a semantic full-body plagiarism or independent-value certification.",
+    "stage": "complete",
+    "objections": [],
+    "corrections": [],
+    "inventory_check": {
+      "selected_new_ids": 77,
+      "inventory": [
+        {
+          "full_name": "2youg1/sprawling-agents",
+          "repository_id": 1342832444,
+          "commit": "b57dec230a346a2b6acd1b4cdf16bc5a73517e9d",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "AgrDataSci/environment-data",
+          "repository_id": 1451503659,
+          "commit": "295c4d569fc32076b62ac7d03ad89c94ab23c22e",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ai-skills-without-borders/skills",
+          "repository_id": 1452145949,
+          "commit": "1e36ed2b4f36bde5210aceec2579f502163a9b11",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "apismith-labs/instagram-ai-agent-skills",
+          "repository_id": 1436555295,
+          "commit": "fea02bcd4bebea275a9b3dfb17d80d1cafdbc2a6",
+          "public_path_count": 2,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "apissaj/humanizer-id",
+          "repository_id": 1374586495,
+          "commit": "94739aac22cde4f6ac02e15201ef21f18384fe4b",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Arisgod1/ebook-workshop",
+          "repository_id": 1432899059,
+          "commit": "a9ad496aacfb8a9d42a6df4744b5bfde38140aa6",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Asun28/AIDLC",
+          "repository_id": 1364829328,
+          "commit": "19b0da8fc939c75698f97c5b5df8f413cef4d0fd",
+          "public_path_count": 6,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "atlanai/atlan-plugins",
+          "repository_id": 1439387614,
+          "commit": "3a10edd89c52eee7e4fb9c71cd86e727fb498f68",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "AtlasScope/agent-kit",
+          "repository_id": 1449657458,
+          "commit": "7576c3ae316b2142962eae62feab88caf5a63638",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "autonomous-ai/lampOS",
+          "repository_id": 1259624583,
+          "commit": "b3e2d0903fb9a9a5fd34c41d84af761f9db3413c",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "bostonaholic/skills",
+          "repository_id": 1395258539,
+          "commit": "0d9d28678919b6fa76d12689ae6ecfd66ef04df3",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "byronwall/draftably",
+          "repository_id": 1420117634,
+          "commit": "3e89d7a6a3207648811ae34b0ab966b108f3d8a1",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ChrisMarxDev/cmrx-video-toolkit",
+          "repository_id": 1418768751,
+          "commit": "549e7fb7737daa991eedf58c5b2fd57cc2f4bf8b",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "DarkWorldCoder/market-mirror",
+          "repository_id": 1423104631,
+          "commit": "2ffb39fd55c6d5a2d1f33807e70711197b110701",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "desirecore/market",
+          "repository_id": 1159241329,
+          "commit": "756b0f500bb41192f083d07e6f5dd52789304d49",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "dolepee/crashlab",
+          "repository_id": 1448468211,
+          "commit": "4baa5617e4d10a17cb29cd99508914ed52bd8049",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "drsamonline/skills",
+          "repository_id": 1429299337,
+          "commit": "fec37252e0d8a4c9e2f5e294b170af4b4bec7df1",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "dsanchezp18/maplestats-mcp",
+          "repository_id": 1370622027,
+          "commit": "58f6f42040b172c97677945aa298e45b59f071f6",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "dyuzhou/novel-asset-pack",
+          "repository_id": 1450879365,
+          "commit": "c52d22512a084ccf3ce309276d813cd827612465",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "evergreentree97/K-Humanizer",
+          "repository_id": 1288949520,
+          "commit": "61f0bb0632a75846b4cb37da19c55427bf8d6a8d",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "FonaTech/Translation_Skills",
+          "repository_id": 1445131101,
+          "commit": "1a9db0c4ca4eb8209af5d8d72750776ba685b2fd",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "genfeedai/genfeed.ai",
+          "repository_id": 1201383909,
+          "commit": "aff64f421e48762fa12ddd543b019f42eab1b5c4",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "glichtenthal/ai-project-steward",
+          "repository_id": 1351945884,
+          "commit": "00866f821f6c250b567b8d27616f16cf354ab079",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "GuidanceStudio/sentl-monitor",
+          "repository_id": 1422002083,
+          "commit": "356a963290b3870d6cc90a43f29c7d3f0825ebc6",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "gusdecool/ai-skill",
+          "repository_id": 1443960185,
+          "commit": "ec6eca5686561e6ba8c65c99414350ee95f84ada",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "hany202507/finance-ai-skills",
+          "repository_id": 1426252735,
+          "commit": "e91f4f48bd381b08b105857c8b809e6e46447d78",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "HoraceLuBFA/zh-en-translation-polish",
+          "repository_id": 1307385511,
+          "commit": "362f39c172c6cce2a6837bb635f10fdf05818bff",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "iniself/epub-zh-translate",
+          "repository_id": 1435203250,
+          "commit": "35b424a0e01018364f0a928da30f55c4b25dd25b",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "joelhagvall/shodan-cert-report",
+          "repository_id": 1445266071,
+          "commit": "559b94553365c3276714c1c3896fc1da27b6da89",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "kafernaum/free-africa",
+          "repository_id": 1451166295,
+          "commit": "1f534ff1ee5e91900edcc0e0152fbe72042b5424",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "knownothing20/skills-hub-plus",
+          "repository_id": 1432727385,
+          "commit": "36e35467e5abe22795546046d0523923be73394f",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "logitsolutionsai/say-it-right",
+          "repository_id": 1452159835,
+          "commit": "3aea608dab2ea799daa867d679fa9246e4ba36b2",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Lusona/ai-skills",
+          "repository_id": 1432532408,
+          "commit": "e40b9599b1dd8c5d2be59e3d0eeec5055098283d",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "LuzianMe/myco-notes",
+          "repository_id": 1444931542,
+          "commit": "c783c3868b36c773129fcba5959d3951a6b0529d",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "lxc248/-interestseed",
+          "repository_id": 1436624935,
+          "commit": "951f37d3d14b13329f5f1e867cdc70c914055a40",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "m4bwav/wikiwright",
+          "repository_id": 1393636756,
+          "commit": "a22b78a83ab3c09b6994a51f4a1a408bbb2af9b3",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Magic-Pod/skills",
+          "repository_id": 1452101432,
+          "commit": "519c500b0e570b9739bdb289863dca49e33bf939",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Miaoge-Ge/agent-skills",
+          "repository_id": 1138966757,
+          "commit": "73f90bec32f130ce0ee3dfbeca8b0ce9c4cf6afc",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "mkaufhol/environment-store",
+          "repository_id": 1080137685,
+          "commit": "18382eebff8a9f771832d665b8a8e4f34e15e792",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Morrison-Lab/ai-config",
+          "repository_id": 1242996892,
+          "commit": "37df3fcdc150c7df8103769739086f763c59b99f",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "musterd-io/musterd",
+          "repository_id": 1266759362,
+          "commit": "a73cfd2c7ec3c1e35ff5bf1672453b07c13db8e3",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "NanFengCheong/software-anatomy",
+          "repository_id": 1452186005,
+          "commit": "4c50dc9b97d62c0fb1df7550e4b30c5770abd79c",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Nightious-Tools/zendesk-knowledge-mcp",
+          "repository_id": 1409449018,
+          "commit": "41e3ed7796bea768ec1f5099e7ce066d9182f7e6",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Nixy-pwd/arrephorion-proportionate-writing",
+          "repository_id": 1451459074,
+          "commit": "17e7dc2ab3fe478917201e5e2e6f484cfe24453b",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ohstr/cashctl",
+          "repository_id": 1361940795,
+          "commit": "01991e9ab6004fd7767c68c4f799f10535dde589",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "pedrojioc/product-dev-kit",
+          "repository_id": 1433498171,
+          "commit": "7c016417d9231668675f578ab54032a1d1df0093",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "pragmatest-dev/lvkit",
+          "repository_id": 1123034401,
+          "commit": "9f02444d9216a9194ad1d1595b9361726582f0a2",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "protechnocrats/algorithmic-intelligence",
+          "repository_id": 1436452977,
+          "commit": "523c02551beff6999604247d603f5bafaca9b433",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "pskoett/pmx-canvas",
+          "repository_id": 1192029247,
+          "commit": "dc1a36ed76291296e4b2d55b7b04aa7884f7a659",
+          "public_path_count": 1,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "qiaomiaojoe/ai-academic-workflow",
+          "repository_id": 1223485145,
+          "commit": "4f909f3f49a1a23b5f9cf4c16900e3f73356c3f8",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "quangdang46/prompt_storage",
+          "repository_id": 1342395568,
+          "commit": "f3f62059cbf53077a65ef6795a2676d7b8cbcf20",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "R-CCS-HPBD/r4",
+          "repository_id": 1448924106,
+          "commit": "2bf2ebe2b10d022a7a22eb33d0b23a11ff9f049a",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "richfrem/oracle-forms-workbench",
+          "repository_id": 1449777996,
+          "commit": "a4529af09af8c77d810ed3c2bd7361e28747fb1f",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "rjwalters/kicad-tools",
+          "repository_id": 1124924260,
+          "commit": "5adc652d391aafbcdbfe4d2771af04b38ba15fce",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "rkh4m/car-research-skills",
+          "repository_id": 1450929528,
+          "commit": "687660df60549175b7774f6e0eced3d90b3334e5",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "rogerchappel/skill-io-contract-skill",
+          "repository_id": 1302298363,
+          "commit": "62237924d38d1c7bd7ae7c1d81838d4ea36298c8",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Sagargupta16/claude-cost-optimizer",
+          "repository_id": 1175746744,
+          "commit": "89c1bf1decd2bdfb8ed6c108fa280ef2a828d89f",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Sagargupta16/svg-forge",
+          "repository_id": 1413172315,
+          "commit": "1ea7db144dc19fab09b90ee7c8023945707d0b8f",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Sapar-hub/sapar-skills",
+          "repository_id": 1434691247,
+          "commit": "cd844487059d20816ff0775893999651d83e6013",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "Satyam085/neopop-design-skill",
+          "repository_id": 1452177829,
+          "commit": "11ca20883634f66b184577c13edc6508f933d0b5",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "sbl-sdsc/mcp-okn",
+          "repository_id": 1255735598,
+          "commit": "8fa1d9fb9076fb8cc46ca75ce3170b1022da19f4",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "scottcrosby-securebine/doctrine-skills",
+          "repository_id": 1295838050,
+          "commit": "3ebfadfa789b99469a618b59e02de46210d6e680",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "sentryrelay/sentryrelay",
+          "repository_id": 1446306672,
+          "commit": "490c1943671f4679a6e53e44c25859f6bdd290e5",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "siege-analytics/claude-configs-public",
+          "repository_id": 1195770616,
+          "commit": "a0dc815f5737eafd5a1bc947973c8de31a2694d1",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "silkyland/deep-plan",
+          "repository_id": 1290506947,
+          "commit": "abf51265cb42076258fab5983538bb6fc0790739",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "SuresoftTechnologies/dvera-plugin",
+          "repository_id": 1354128958,
+          "commit": "128b9cd82c621a5a744fec5ccf9e05955658f406",
+          "public_path_count": 14,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "swissspidy/trod",
+          "repository_id": 1448116224,
+          "commit": "652f336652ed49d47f892642ea268516bdef1a14",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "the-omega-institute/trureturing",
+          "repository_id": 1296799024,
+          "commit": "894649b204a4c147b6f99d2b6ba87d6d25702fdb",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "vaam-apps/meta-whatsapp-rs",
+          "repository_id": 1385293471,
+          "commit": "c7551171b3462420400a08d6e128f2fd11923f64",
+          "public_path_count": 40,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "virologist/smart-textbook-team",
+          "repository_id": 1363548161,
+          "commit": "7204d3d634c9899e1dfa3f8c8965293e8699f3f7",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "webmcpx/webmcpx",
+          "repository_id": 1449358043,
+          "commit": "0f4edff70bdc6e66195ea65cffdd0b7325ee7ec9",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "XGENT-ai/skills",
+          "repository_id": 1301156344,
+          "commit": "d5904e146588766dda1b425bc6f927a0b861984f",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "xsignon-secure/E2E",
+          "repository_id": 1427445609,
+          "commit": "199ce6ac7c4c33c0a02755515968b21e2de1d493",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "yandong79/parent-book-chapter-review",
+          "repository_id": 1452135892,
+          "commit": "1bbb774c35933b6b277b539fee05bc85ff9c2081",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "YuanMenghe/trip-cheat-sheet-skill",
+          "repository_id": 1450236297,
+          "commit": "af290d04e4b0eba2a68ca58a5678dfd3c1558038",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "YuqingNicole/variant-design-skill",
+          "repository_id": 1178993538,
+          "commit": "cbbc696b2c67ed0cce6f4f7dc924e6ebfd41ffe8",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        },
+        {
+          "full_name": "ziva-sh/godot-skills",
+          "repository_id": 1452164460,
+          "commit": "1f5597edd2840037c93cdf237f430648880b4541",
+          "public_path_count": 0,
+          "cached_tree_inventory_checked": true
+        }
+      ],
+      "partition_checks": [
+        {
+          "stream": "breadth",
+          "frozen_unique_names": 229,
+          "disposition_names": 229,
+          "repeated": [],
+          "missing": []
+        },
+        {
+          "stream": "science",
+          "frozen_unique_names": 204,
+          "disposition_names": 204,
+          "repeated": [],
+          "missing": []
+        },
+        {
+          "stream": "product",
+          "frozen_unique_names": 208,
+          "disposition_names": 208,
+          "repeated": [],
+          "missing": []
+        },
+        {
+          "stream": "carryover",
+          "frozen_unique_names": 4,
+          "disposition_names": 4,
+          "repeated": [],
+          "missing": []
+        }
+      ]
+    },
+    "public_report_hygiene": "Reviewed UTF-8/LF, raw-body/tree exclusion, operator-path and credential-like-string checks passed. No candidate install/execution or all-body/origin/redistribution certification."
+  },
+  "publication_rechecks": {},
+  "resolved_field_issues": [],
+  "integration_application": [
+    {
+      "full_name": "AtlasScope/agent-kit",
+      "source_review": "overlap-resolution-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "count_basis": "61 plugin SKILL.md entries: 59 task entries (49 third-party plus 10 original) and two original design/engineer routers. One claude-ai composite is an alternate distribution, excluded. Credits enumerates 12 original plugin entries including the two routers; it does not establish 12 original leaves plus routers. Inventory, not all-body review.",
+        "license_spdx": "Mixed: MIT (originals/scoped imports); CC-BY-4.0 (color-expert)",
+        "license_scope": "Root MIT applies to original Agent Kit text including the 12 original plugin entries (two routers and ten tasks), prompt library and website. Imported folders retain their own grants: MIT imports and color-expert CC-BY-4.0, whose actual local LICENSE grant/attribution clauses were read. Credits and both kit THIRD_PARTY notices enumerate origins/changes. The working-style LICENSE repeats a design-only scope sentence; root MIT and Credits establish the original working-style scope, rather than extending that copied sentence to imported material. No complete upstream-rights or whole-body certification.",
+        "distribution_evidence": "Root marketplace points to four real kit plugin directories; complete recommend consumer representative is a distinct original workflow. Fixed tree has 61 plugin entries plus one alternate claude-ai composite. Counts and scope were reconciled with CREDITS and design/engineering THIRD_PARTY notices; no installer or host execution.",
+        "additional_evidence": [
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "ef5590b07de608c331f56031d04091cf5ebbb7da",
+            "sha256": "995895d1c4734dfa477194cf288505411526f8131cc38fa268703723a167e51a",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/.claude-plugin/marketplace.json",
+            "bytes": 3172
+          },
+          {
+            "path": "CREDITS.md",
+            "blob_sha": "b9245292b0fd45e1f85dafe70c084f2b16d704cb",
+            "sha256": "660682cd31fdcc2e72daabd0379bc64f85d677a68195fef8ead7a3b8d7315ecf",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/CREDITS.md",
+            "bytes": 3982
+          },
+          {
+            "path": "kits/design-kit/THIRD_PARTY.md",
+            "blob_sha": "eebf7db718d27782ccc8b05d24d228525ed7c695",
+            "sha256": "416a2212381dcee3b50a8dfe38ef6ff9c599b1edd7329aad30da2a24149dfac2",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/design-kit/THIRD_PARTY.md",
+            "bytes": 4983
+          },
+          {
+            "path": "kits/working-style/LICENSE",
+            "blob_sha": "6742e248a898f813d245707860a77b0ccd32ad28",
+            "sha256": "c3aa4fe1abecd83fe6404dbaa963700689cc29e300bb4ecbce36bc250805e2c3",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/working-style/LICENSE",
+            "bytes": 1217
+          },
+          {
+            "path": "kits/working-style/plugins/working-style/skills/recommend/SKILL.md",
+            "blob_sha": "6ac95219c94c79b160989fe5c4ff08c4bb45641d",
+            "sha256": "541fe59e575e7d89a494e71571fa5a1ca2d27a3fc929588c5ed3fe3d25237ebb",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/working-style/plugins/working-style/skills/recommend/SKILL.md",
+            "bytes": 4231
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "ef5590b07de608c331f56031d04091cf5ebbb7da",
+            "sha256": "995895d1c4734dfa477194cf288505411526f8131cc38fa268703723a167e51a",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/.claude-plugin/marketplace.json",
+            "bytes": 3172
+          },
+          {
+            "path": "CREDITS.md",
+            "blob_sha": "b9245292b0fd45e1f85dafe70c084f2b16d704cb",
+            "sha256": "660682cd31fdcc2e72daabd0379bc64f85d677a68195fef8ead7a3b8d7315ecf",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/CREDITS.md",
+            "bytes": 3982
+          },
+          {
+            "path": "kits/design-kit/THIRD_PARTY.md",
+            "blob_sha": "eebf7db718d27782ccc8b05d24d228525ed7c695",
+            "sha256": "416a2212381dcee3b50a8dfe38ef6ff9c599b1edd7329aad30da2a24149dfac2",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/design-kit/THIRD_PARTY.md",
+            "bytes": 4983
+          },
+          {
+            "path": "kits/working-style/LICENSE",
+            "blob_sha": "6742e248a898f813d245707860a77b0ccd32ad28",
+            "sha256": "c3aa4fe1abecd83fe6404dbaa963700689cc29e300bb4ecbce36bc250805e2c3",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/working-style/LICENSE",
+            "bytes": 1217
+          },
+          {
+            "path": "kits/working-style/plugins/working-style/skills/recommend/SKILL.md",
+            "blob_sha": "6ac95219c94c79b160989fe5c4ff08c4bb45641d",
+            "sha256": "541fe59e575e7d89a494e71571fa5a1ca2d27a3fc929588c5ed3fe3d25237ebb",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/working-style/plugins/working-style/skills/recommend/SKILL.md",
+            "bytes": 4231
+          },
+          {
+            "path": "kits/design-kit/plugins/design-kit/skills/color-expert/LICENSE",
+            "blob_sha": "10fabd90118f7ce38bb2e4753e105e744442a429",
+            "sha256": "f5b745ef98087f531e719ee8ca6a96809444573ecc7173c6fa68eaad39b3cc3f",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/design-kit/plugins/design-kit/skills/color-expert/LICENSE",
+            "bytes": 18658
+          },
+          {
+            "path": "kits/engineering-kit/THIRD_PARTY.md",
+            "blob_sha": "b21054ed5f7f5a6acab537d697f7eb77ab625a8d",
+            "sha256": "01d13582f765b6f7171237f4e9919a0884cf166fd6fefb3c7200bee5b00a7b8e",
+            "url": "https://github.com/AtlasScope/agent-kit/blob/7576c3ae316b2142962eae62feab88caf5a63638/kits/engineering-kit/THIRD_PARTY.md",
+            "bytes": 3208
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "atlanai/atlan-plugins",
+      "source_review": "overlap-resolution-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "distribution_evidence": "README installation and root marketplace expose atlanai, atlanai-analytics and atlanai-mods. Three real plugin manifests were read: core declares MCP and publish hooks; analytics depends on core; mods is an optional runtime/permission add-on with no SKILL.md leaves. Default plugin skills directories contain 13 core plus three analytics consumer entries; seven nested metrics-engine support bodies and one eval fixture excluded. Complete atlan-find-artifacts consumer body was re-read; host installation not run.",
+        "limitations": "Static review only. Optional Registry Mods manifest defaults suggest_skills to true and declares sending the first 300 request characters to Atlan search; core README describes selected-folder publishing hooks and remote update checks. No installation, OAuth/session, hook, registry query/write, model call or hosted privacy/compatibility/cost claim was tested.",
+        "additional_evidence": [
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "aa433a9120dbfc01d7545a8e0f35b687e4bac3f0",
+            "sha256": "c962860bb339e7b73dbcdac9cba61e3a42fad3c67b1a4a6fc63a7060948932c3",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/.claude-plugin/marketplace.json",
+            "bytes": 3097
+          },
+          {
+            "path": "plugins/atlanai-analytics/LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-analytics/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "plugins/atlanai-analytics/modules/metrics/engine/LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-analytics/modules/metrics/engine/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "plugins/atlanai/LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "plugins/atlanai/skills/atlan-find-artifacts/SKILL.md",
+            "blob_sha": "7d7fc7926f4d9b447806f1bcfe6bcd5f33880712",
+            "sha256": "eb1254d4c7218ce16cfb1fd560cf1ca76bb6279e98c6fbc9c9b6749da98abe6d",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/skills/atlan-find-artifacts/SKILL.md",
+            "bytes": 9216
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "aa433a9120dbfc01d7545a8e0f35b687e4bac3f0",
+            "sha256": "c962860bb339e7b73dbcdac9cba61e3a42fad3c67b1a4a6fc63a7060948932c3",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/.claude-plugin/marketplace.json",
+            "bytes": 3097
+          },
+          {
+            "path": "plugins/atlanai-analytics/LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-analytics/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "plugins/atlanai-analytics/modules/metrics/engine/LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-analytics/modules/metrics/engine/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "plugins/atlanai/LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "plugins/atlanai/skills/atlan-find-artifacts/SKILL.md",
+            "blob_sha": "7d7fc7926f4d9b447806f1bcfe6bcd5f33880712",
+            "sha256": "eb1254d4c7218ce16cfb1fd560cf1ca76bb6279e98c6fbc9c9b6749da98abe6d",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/skills/atlan-find-artifacts/SKILL.md",
+            "bytes": 9216
+          },
+          {
+            "path": "plugins/atlanai/.claude-plugin/plugin.json",
+            "blob_sha": "ccb72183134723123a60e9625826a139452614b1",
+            "sha256": "1d6aa3f07f5647b87396b5c299adb5fce04aafbf8071c837690d41bc6faf7bff",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai/.claude-plugin/plugin.json",
+            "bytes": 637
+          },
+          {
+            "path": "plugins/atlanai-analytics/.claude-plugin/plugin.json",
+            "blob_sha": "3a6c8f1fb8b3588fd5bd5849d50aa13f55f106df",
+            "sha256": "446eaa77ab52eb74969aa692d03b34fc7f3e60ee2a02af96a74498ebe9499a80",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-analytics/.claude-plugin/plugin.json",
+            "bytes": 810
+          },
+          {
+            "path": "plugins/atlanai-mods/.claude-plugin/plugin.json",
+            "blob_sha": "62b0eb6479f367e3bdad168cf70c9e3bf4930e28",
+            "sha256": "3756279e33f42efe27d36f8e6b2373d9a2d36a227447d7697d30aec550efdaca",
+            "url": "https://github.com/atlanai/atlan-plugins/blob/3a10edd89c52eee7e4fb9c71cd86e727fb498f68/plugins/atlanai-mods/.claude-plugin/plugin.json",
+            "bytes": 1525
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "lxc248/-interestseed",
+      "source_review": "overlap-resolution-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "Root README and both root/standalone package manifests explicitly apply AGPL-3.0-only to repository-owned code/instructions, supported by full LICENSE and attribution NOTICE. Commercial-license document expressly preserves AGPL for compliant use; it offers an alternative where copyleft compliance is unsuitable, including hosted distribution without required source, and separately addresses brand permission. AGPL-compliant commercial/hosted use is not categorically prohibited. Trademarks, third-party components, services and user-vault content retain their own rights; no legal or complete dependency-license certification.",
+        "distribution_evidence": "README primarily distributes current standalone CLI/local web/skill. Both distinct active bodies were read: standalone/skill/SKILL.md uses real three-day experiment commands, while skill/SKILL.md defines a separate cosmic-map renderer/seven-day workflow whose render.mjs path exists. One archive/legacy body excluded. These are two workflow entries within one product identity, not three independent native skills; package/build/model/experiment runtime not executed.",
+        "additional_evidence": [
+          {
+            "path": "NOTICE",
+            "blob_sha": "cf4a568bb8b3163508338a262ef72ec521289cc1",
+            "sha256": "94ecda7c25e84cf75cf717171913be669b8ebc845168dd7fc2837d5cce05cd38",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/NOTICE",
+            "bytes": 1530
+          },
+          {
+            "path": "standalone/skill/SKILL.md",
+            "blob_sha": "a02ed787915af023677dc278bc9f063daf69ea33",
+            "sha256": "6c2d3ebaa42f8ae06a5f5867ec1f983ebc51990ce1a939188cba61f2f2e73bf8",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/standalone/skill/SKILL.md",
+            "bytes": 4687
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "cf4a568bb8b3163508338a262ef72ec521289cc1",
+            "sha256": "94ecda7c25e84cf75cf717171913be669b8ebc845168dd7fc2837d5cce05cd38",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/NOTICE",
+            "bytes": 1530
+          },
+          {
+            "path": "standalone/skill/SKILL.md",
+            "blob_sha": "a02ed787915af023677dc278bc9f063daf69ea33",
+            "sha256": "6c2d3ebaa42f8ae06a5f5867ec1f983ebc51990ce1a939188cba61f2f2e73bf8",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/standalone/skill/SKILL.md",
+            "bytes": 4687
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "548dc15450f875e1a5775bb6855522850adc137d",
+            "sha256": "118caf0f0af349976f2dc1b11bdc45366ba9081d9b386492d5f8bae45756837c",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/package.json",
+            "bytes": 2662
+          },
+          {
+            "path": "standalone/package.json",
+            "blob_sha": "ef38692cf39110f6cb54a0e43359542e69c73304",
+            "sha256": "febb3727bc0a5baad9eebc8d592b0f73ec7ec2c73fff334a954f8d1b3a228a61",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/standalone/package.json",
+            "bytes": 519
+          },
+          {
+            "path": "COMMERCIAL_LICENSE.md",
+            "blob_sha": "49445956f810bf678d0278b04ce5678b7698f4fe",
+            "sha256": "d992a10368da8b4f0e78f23b3553c3dace1bd5b129205274fb0730330068625f",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/COMMERCIAL_LICENSE.md",
+            "bytes": 1289
+          },
+          {
+            "path": "TRADEMARKS.md",
+            "blob_sha": "fdc93da3d8d1bd4c6919c4731bec0233e1185398",
+            "sha256": "a141ad1dd952f042eb9f1ffd9a13569c69e006aa3350168d7c6a88be8e6a9cb6",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/TRADEMARKS.md",
+            "bytes": 1287
+          },
+          {
+            "path": "skill/SKILL.md",
+            "blob_sha": "18a080b178a8ab8e595f8ee38d7020b0ce84e8cc",
+            "sha256": "2be9dbefe06411828b38d6a585f892410ed7d687d6a45e59f3423557cb80b1ab",
+            "url": "https://github.com/lxc248/-interestseed/blob/951f37d3d14b13329f5f1e867cdc70c914055a40/skill/SKILL.md",
+            "bytes": 3438
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "AtlasScope/agent-kit",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "skill_count": "59 task entries + 2 routers"
+      }
+    }
+  ],
+  "application_note": "Reviewer correction.applied flags describe pre-integration delivery; integration_application binds the fields actually applied to the published records."
+}
