@@ -1,0 +1,257 @@
+{
+  "date": "2026-11-11",
+  "backend": "agent-reach GitHub route via official gh API",
+  "search_windows": {
+    "breadth": {
+      "queries": [
+        {
+          "query": "topic:agent-skills pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 80,
+          "total": 2841,
+          "retrieved": 80,
+          "incomplete_results": false
+        },
+        {
+          "query": "topic:claude-code skills pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 80,
+          "total": 2193,
+          "retrieved": 80,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"skill registry\" in:readme pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 80,
+          "total": 682,
+          "retrieved": 80,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" in:description pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 80,
+          "total": 2879,
+          "retrieved": 80,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 207,
+      "baseline_duplicate_hits": 61
+    },
+    "science": {
+      "queries": [
+        {
+          "query": "skill geospatial in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 631,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" climate in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 154,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skill robotics in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 6442,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skill embedded in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 14789,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skill manufacturing in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 1087,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skill energy in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 2774,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skill \"digital humanities\" in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 41,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "skill agriculture in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 554,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" nonprofit in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 88,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" education in:name,description,readme pushed:>=2026-11-10 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 654,
+          "retrieved": 30,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 220,
+      "baseline_duplicate_hits": 15
+    },
+    "product": {
+      "queries": [
+        {
+          "query": "\"npx skills add\" in:readme pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 4484,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" SDK in:readme pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 3172,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skill\" CLI in:readme pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 13284,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "skill workflow product in:readme pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 12513,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" creative in:readme pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 1108,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "skills registry in:readme pushed:>=2026-11-10",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-11",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 13541,
+          "retrieved": 40,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 172,
+      "baseline_duplicate_hits": 26
+    }
+  },
+  "source_followups": [
+    {
+      "source": "Four explicit historical unreviewed leads, not fresh search results.",
+      "observed_date": "2026-11-11",
+      "names": [
+        "symansun/doops",
+        "Hive-Academy/PtahCode",
+        "tomas-samek/tiko-di",
+        "bvolpato/kevala"
+      ]
+    }
+  ],
+  "policy": "No numeric acceptance stopping condition; finite query windows and reserves are explicitly recorded."
+}

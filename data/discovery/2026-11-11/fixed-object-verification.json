@@ -1,0 +1,747 @@
+{
+  "date": "2026-11-11",
+  "accepted_new_repository_ids": 92,
+  "verified_file_references": 461,
+  "baseline_git_objects_preserved": 101,
+  "failed_accepted_identities": 0,
+  "method": "Fresh official repository ID/canonical name and pinned commit/true-tree checks; every recorded path bound to its tree Git blob, raw byte Git SHA-1, SHA-256, size and immutable URL. Identical blobs may share one byte fetch.",
+  "results": [
+    {
+      "full_name": "1pedroosilva/databricks-genie-skills",
+      "repository_id": 1331544788,
+      "commit": "df3cdc8952de884d180836bd1ecbaf5ad6bd41a4",
+      "tree": "302dabf452f2f0262e0554628f23c80768eb16d1",
+      "refs_sha256": "ddf9579f41e399d031f555d13b4eba1827dec3a3558a4630c132ef6c94f8e52f",
+      "reference_count": 3
+    },
+    {
+      "full_name": "23333ironnnnn/minigame-loop",
+      "repository_id": 1452518457,
+      "commit": "cac73159063ad8549e1cc0247c0c84a7f12f90f6",
+      "tree": "56b5d559da8f8424733e49451fe392436f9230bf",
+      "refs_sha256": "0f76ccfa6ec62378ec790ddbe6811740f3bd00a2147afa77d59088c763eb2c67",
+      "reference_count": 3
+    },
+    {
+      "full_name": "460707300-tech/agent-skill-html2pptx",
+      "repository_id": 1377742736,
+      "commit": "b79c2446d7c984a7040a9c55702cf3d407d59c04",
+      "tree": "4f55fe51a5a5aef1eaa3c0d4a67530aa844711b6",
+      "refs_sha256": "b3e315bda712a074bb336c219d3abfe60522786e5873b15018be9fcfe1473cb0",
+      "reference_count": 3
+    },
+    {
+      "full_name": "892041548/companion-picture-book",
+      "repository_id": 1453474275,
+      "commit": "54f782d4ac838615c894efe42a468f673af350b1",
+      "tree": "d4914120328d6a0a2ca906bb490747e1ac2bf157",
+      "refs_sha256": "fa7e8185679261f15628836e1e70480dd53c3e09658b06fe0b2ca8c0157e3642",
+      "reference_count": 5
+    },
+    {
+      "full_name": "aglowinthefield/clearstack",
+      "repository_id": 1398736751,
+      "commit": "bf255e74a0f33fba991bd4dcbe0d27a2a86c156c",
+      "tree": "eddd57c0ceb443cc179ecae2e80f52e6a59435e1",
+      "refs_sha256": "c1fbb5db49e082d59cbe07c93c7cd31c3bf463a68cef3f71bd3916a71549d06a",
+      "reference_count": 3
+    },
+    {
+      "full_name": "AmirinNS/coding-agent-skills",
+      "repository_id": 1245189096,
+      "commit": "c3e0d19df8da86ce20fedb344dcd97793cf22f60",
+      "tree": "ea6a0142341a9fcc03e88823bf9c11ac8ab12c70",
+      "refs_sha256": "6b71d68e2ddf945a61e8703eed3d110e1ed69c6826ff9540ead1de9407c92f86",
+      "reference_count": 3
+    },
+    {
+      "full_name": "anzy-renlab-ai/pronounce",
+      "repository_id": 1240396926,
+      "commit": "67a44f04b6907a24f4e9f22811ea30486a2b8b64",
+      "tree": "8024bfbcf6506f6a4219928002e0573d5ffd9e40",
+      "refs_sha256": "fd91e24cf9f0bb9f318a6470287d7cc5a39e67a212b06af990e6b94b53914561",
+      "reference_count": 6
+    },
+    {
+      "full_name": "avalonreset/legends-stable-audio-3",
+      "repository_id": 1356025755,
+      "commit": "8cc42360d12c4054c269fdce937e597f634c3096",
+      "tree": "1496bfe6bcbd9e8d918866373ccc3cd68274eac5",
+      "refs_sha256": "92046e51e3b887a3b984b1c062cfcecb8b0c1dceeb13dde84ae511609fc52987",
+      "reference_count": 7
+    },
+    {
+      "full_name": "avoidwork/madz",
+      "repository_id": 1248389007,
+      "commit": "50c05775cb6b6187fcd5ef81214b07ed6389db08",
+      "tree": "0a94936ba4c73413d90176cef298eeadd303137b",
+      "refs_sha256": "40afb0934c1e63fe1c765f128fe32af9c5cf92315f5b38027f6260c399eeb2c0",
+      "reference_count": 5
+    },
+    {
+      "full_name": "balinomad/opencode-project-router",
+      "repository_id": 1438430997,
+      "commit": "f2ac5a99aef537133dc8ee327e5171c131792318",
+      "tree": "423f1b7264a0937b4b0d645e924d5566916b3bc8",
+      "refs_sha256": "c7a7ceec1c7f1136e9d2d01b78c767995f212ce302a3801e89681bd4d81e9d3d",
+      "reference_count": 8
+    },
+    {
+      "full_name": "bitranox/bitranox-skills",
+      "repository_id": 1278079726,
+      "commit": "d7ae747e1c53605f9dd9fe92c77a3eb0a4422101",
+      "tree": "2269a3d70a5965e25d88fdaf7daf07c7337cc66d",
+      "refs_sha256": "af22bd39c5ae0de4b0aca4ba0c069105ae61d25a5110304cda6f6e338cd36411",
+      "reference_count": 7
+    },
+    {
+      "full_name": "BohnBawerick/catallax",
+      "repository_id": 1428654385,
+      "commit": "25b7c2d1341db65e0b8ee494a0f4309d95259008",
+      "tree": "416dbd7d67e4bfec707d6f2a774f80680aa9cf3f",
+      "refs_sha256": "c9a15f1022cbfb3cea03bd37942ab89a4c10f79d0966024bab0fe17ff3a695fe",
+      "reference_count": 7
+    },
+    {
+      "full_name": "Broville/skills",
+      "repository_id": 1244179047,
+      "commit": "972e720bc275bf8a907f4cbcad295cc46e0439fe",
+      "tree": "ab5f7175aa8e737804817edeafd6c39862a592f5",
+      "refs_sha256": "94ab73196e26ae695b97fa49f3b5b39f49e4592f30c2615b3b60dbc9b66a5fe9",
+      "reference_count": 5
+    },
+    {
+      "full_name": "buffer121328/skill-hub",
+      "repository_id": 1453478732,
+      "commit": "ba93a9bdab9028bb9bc05a41b046fe4e48441a39",
+      "tree": "0f87cc9f04fcf3041f9b912aec3751cbd8ff8632",
+      "refs_sha256": "0fb3d3f66f3558666d73e070373b3dc2a84b7a9e4588de9569c12859e52363a2",
+      "reference_count": 4
+    },
+    {
+      "full_name": "bvolpato/kevala",
+      "repository_id": 1380656567,
+      "commit": "596ab90b233492b02b0ed0966c860b6de6f00b9a",
+      "tree": "6c56d7cbc006319d789b1d8f2c645e1f10f37f11",
+      "refs_sha256": "4af485050e0e703be626653cd9bad36c294ccfb5268ead0cc1819813b4f5351e",
+      "reference_count": 4
+    },
+    {
+      "full_name": "bynanci/storytelling",
+      "repository_id": 1448857872,
+      "commit": "906c2c64aba820c06e4a74f4348c746b53e8b17b",
+      "tree": "11697dad208b455cd5af51071a381fef9cd94322",
+      "refs_sha256": "4e503f58f7b912ae69ae291706337cec77adf836e01aae6a9f369101b4903114",
+      "reference_count": 6
+    },
+    {
+      "full_name": "change-fabric/change-fabric",
+      "repository_id": 1180238677,
+      "commit": "80161a70860fc5e7bd0ec998e34c5a86d7d0bd85",
+      "tree": "3c80608bb1aab1679ba43f2b5a1428b8da6f9302",
+      "refs_sha256": "9af18b74794ddd9efaa782229cb9da433db766f92b6cd6f04ba6b6b12a1c18a1",
+      "reference_count": 5
+    },
+    {
+      "full_name": "connorwhite-online/loadpath",
+      "repository_id": 1437548124,
+      "commit": "f840de03095b9ce56a50eb116988b3a143e2e69c",
+      "tree": "549a0ac78bfd1328c4f85e53db2288c055282d97",
+      "refs_sha256": "1e832a4937b3da5e226da858535c1f0acd4e6923447d12cf1e4d7c3d21d05f9b",
+      "reference_count": 3
+    },
+    {
+      "full_name": "cybrking/paranoid",
+      "repository_id": 1400989124,
+      "commit": "a23fda0f6bfd9db47141bfd0ee9f98bc8e13a74f",
+      "tree": "cfdd96cf9f9d4c1cbab9df5c6a8c355578104bc8",
+      "refs_sha256": "b9a33d2bc33c8683c05db3a214b9c3b154a7adeca2ed08ffcacb18ebc02598db",
+      "reference_count": 10
+    },
+    {
+      "full_name": "dpkingii/dpk-skills",
+      "repository_id": 1453492696,
+      "commit": "d46f3c41d18e3d3915cc16fbacf7a37322ff424e",
+      "tree": "d321e82df5d3a0e37ce8b93d89b7b1353b951481",
+      "refs_sha256": "7aecfe84aa3fc2bf3cd8263a9a49c2a082dc84ff350102361216d12045467d08",
+      "reference_count": 5
+    },
+    {
+      "full_name": "drinkspiller/armature-cdd",
+      "repository_id": 1165362102,
+      "commit": "87bf1f64fcabaa24afccda89c8d3467916e913e8",
+      "tree": "195f2e3e03a5c90e44ca3aa0b4d5eb1eb2e7c07d",
+      "refs_sha256": "70a12dfc6494d582467c21f496b33d82e8c44f0c1db9a1197ea5a4e1facc94cd",
+      "reference_count": 6
+    },
+    {
+      "full_name": "eiway112/prefab-interior-agent",
+      "repository_id": 1422260503,
+      "commit": "686f06c34f35d4cd1976ffa7112e6ca7aa1ad240",
+      "tree": "d1f1836d17f0477cc28df85b95c847355d7f3f8a",
+      "refs_sha256": "c2a0fd0419936adde1e2a43d6e673679e2639e327e6c7503ea43b45cfee8f350",
+      "reference_count": 3
+    },
+    {
+      "full_name": "elevchuk-lab/mckee-story-engine",
+      "repository_id": 1445693653,
+      "commit": "3c732fcf3e9758e94240aec8ac6c2730235ac881",
+      "tree": "17aea8d68b38f1672f25d6fd94e085477f80cf0d",
+      "refs_sha256": "340c8922ecf9b6503d8f3ec5e6573e5944bd74329e52887191886d24bfbbafb2",
+      "reference_count": 3
+    },
+    {
+      "full_name": "elevchuk-lab/subtext-engine",
+      "repository_id": 1446680760,
+      "commit": "095d89697b21393793fbbeed9e8cc1d8e61a563a",
+      "tree": "b8074e957f19722fb908cd3ad5c6f4d3ade2a5cf",
+      "refs_sha256": "7dd5a648ddec3a4d997fed4559340bcade2ed9e9180ca9e78739a3af2a50f66e",
+      "reference_count": 3
+    },
+    {
+      "full_name": "evenweiss/ai-skills",
+      "repository_id": 1439192076,
+      "commit": "092bb455afc2891528f3c6c7221890833f413099",
+      "tree": "2e38efc493eb81d4dce8ced564cbd4fa86afaee4",
+      "refs_sha256": "6c5200c7c3622253398793894bc727f1392e40e29475209cae1174890682f199",
+      "reference_count": 3
+    },
+    {
+      "full_name": "evillollive/Analyze-Video-Skill",
+      "repository_id": 1225262816,
+      "commit": "06b0bff42b241fdb191fad3875a902dd78b50cfc",
+      "tree": "7945fc30509e6a5ae59553d539e2d5690119bc60",
+      "refs_sha256": "0afc4d6eb77fd8b568caf1cf4125bcbb5e0b619ec932066ed5209177b0154112",
+      "reference_count": 6
+    },
+    {
+      "full_name": "facundoPri/agent-eye",
+      "repository_id": 1429030202,
+      "commit": "a1d2789514701b6cbdcb73a84bcc3ffd305af916",
+      "tree": "bf22a823f709fd66c8f9e959b60bd21d79c0e095",
+      "refs_sha256": "f7bc11629340d3f17ca9ec3d82021ddcf909b6a4f7beb2439c7a6318b12c44a2",
+      "reference_count": 5
+    },
+    {
+      "full_name": "faysalishere/RepoContinuity",
+      "repository_id": 1453167814,
+      "commit": "a4369411a66ff36ff39e2e54c6dbb14851d07272",
+      "tree": "346864d690752ff58377881fbfe38c88fcca977e",
+      "refs_sha256": "4fae827ce6bd38ea14a9f78f9df4f58c48f16ee17cde2a4306c44a938d9911df",
+      "reference_count": 3
+    },
+    {
+      "full_name": "floegence/floe-webapp",
+      "repository_id": 1136309618,
+      "commit": "598887fccf85e7de2ae368e131aacc513df16701",
+      "tree": "bc260d37a53d28e0d39649fa13f67bf92b995e01",
+      "refs_sha256": "cd7078146e0bf799207fa3acc348767a18e867497cdc7d120e25e4f438976ec4",
+      "reference_count": 6
+    },
+    {
+      "full_name": "GarphenGate/moltline-oss",
+      "repository_id": 1335974292,
+      "commit": "d31d61d73ee53d3f5a895424fae2a762146efff3",
+      "tree": "1a823b8d44ec00a1afd4f39b24253e8e48f10c67",
+      "refs_sha256": "dc6f7e0579e2127f81d8f54e99ce8c0a819402a8baca381499256b400a8532ca",
+      "reference_count": 3
+    },
+    {
+      "full_name": "google/elephant-goldfish-model",
+      "repository_id": 1368596582,
+      "commit": "8c29f560e300471d458b71d1131834e097b18d4f",
+      "tree": "a394b99ed4033e48f6234b285df753821f7dd8eb",
+      "refs_sha256": "345c19714e781b88ca08a7f2e691cde8304b8c3d499caa7997f679280c7d792a",
+      "reference_count": 13
+    },
+    {
+      "full_name": "Harish-here/maddog",
+      "repository_id": 1319422521,
+      "commit": "640e50429d42b6ae679599533f5633012f8bf5d4",
+      "tree": "97ce43948182f4a70b22a71fdec1810a8d8c8cf4",
+      "refs_sha256": "3bd286a9f6fe940876f120964360cdb784c689547f057025f18d93e232e4b558",
+      "reference_count": 4
+    },
+    {
+      "full_name": "Hive-Academy/PtahCode",
+      "repository_id": 1048056694,
+      "commit": "afd0ddd0253a634a4d7ec453500168c4bd88122d",
+      "tree": "a461f939f81b91a5e2e0f5c28d9646e44d9d74a7",
+      "refs_sha256": "bb68ed35b8df871d29278c03b49f180ef9a859b7fd6eff271864ed3c5596a6ba",
+      "reference_count": 5
+    },
+    {
+      "full_name": "hollisorg/iv-studio",
+      "repository_id": 1437405881,
+      "commit": "b90402402ed41809fad2ff1c1b45b408a243eb09",
+      "tree": "e096b358e4cb4cf9784774474402bae266476583",
+      "refs_sha256": "02605b5a7df50845a425c727245d13de50a781466333706e88551b044a2b0788",
+      "reference_count": 7
+    },
+    {
+      "full_name": "hyper-elements/hyper-elements",
+      "repository_id": 1044405251,
+      "commit": "502252bbbb3dccdec56d66c9b24641fbeece34c3",
+      "tree": "d58fc2075310032fb632d0060cd5db602406d963",
+      "refs_sha256": "37e71a85e16d0382d5d1a5ee633af83a09c9154cfe606209e84461eb4735668b",
+      "reference_count": 4
+    },
+    {
+      "full_name": "immurray/gridzen-developer-kit",
+      "repository_id": 1409932406,
+      "commit": "df706b7fed93251b0deaba492ed5073de0b46058",
+      "tree": "e05c2a491ccfd7b8bbc0ea8c940bb4a30e9b01c7",
+      "refs_sha256": "1583b9b9efd61bda13ca47b9955d62648abedede617c1164c1503d148c391a68",
+      "reference_count": 9
+    },
+    {
+      "full_name": "jack12w/agent-skill-platform",
+      "repository_id": 1254101664,
+      "commit": "8be4a196378fca5143ee4a0c3822834883d28664",
+      "tree": "79f9d5447cc85502fef9c555ad3e2f280bf83262",
+      "refs_sha256": "be95fff1d277dc516df07e8762a82cf2fca8c5485110b284eb4ba4bd82c9faaf",
+      "reference_count": 7
+    },
+    {
+      "full_name": "jinwei-pikmin/tw-stock-screener",
+      "repository_id": 1453489604,
+      "commit": "1cc4643f3648703907e78486c6cc2b11242886b3",
+      "tree": "561341390e0866dec8cb348bb5359c8612a0daef",
+      "refs_sha256": "872439c67e2ade2517cf5ffa2129d7aea8fcbfd53faa4c178f9ed80d038413e5",
+      "reference_count": 3
+    },
+    {
+      "full_name": "jmagly/aiwg",
+      "repository_id": 1038153811,
+      "commit": "548827f5e6d0e87efcba8d23ab4b75b4f6222882",
+      "tree": "db1a86dff00fcb20360a719d63383db67cba6291",
+      "refs_sha256": "42be45df2c447a48b6c5ce2767716cfada682b1445a66dcdf63acf145f4904be",
+      "reference_count": 9
+    },
+    {
+      "full_name": "katisfaktion/loadouts",
+      "repository_id": 1446353039,
+      "commit": "c4ffaf5d3b095779f27246bf477f8560995c4772",
+      "tree": "11e9f05de1ea35c237699f2297891987ef3d8213",
+      "refs_sha256": "8464ef24aab5da4de32e6b4d1582299ce23155c1f5c559b6c798b67dce81d714",
+      "reference_count": 3
+    },
+    {
+      "full_name": "KenLP/bim-ai-architect",
+      "repository_id": 1452934888,
+      "commit": "9599990746c792d22aab0fe8e104eff4d813052d",
+      "tree": "ccfe5aa258cd216dea7ba75556055938354a3732",
+      "refs_sha256": "c513cdda556e7721fad60fef2ba1df1d4e2323dba79f8e871aee6a1d9b20fe5e",
+      "reference_count": 5
+    },
+    {
+      "full_name": "kheelco/kheel-mockups",
+      "repository_id": 1384391393,
+      "commit": "85389acb93532f07b030041f079b4be68facaaa0",
+      "tree": "e6bf2ee4170e6ff5acf275f284f55be40d0529f3",
+      "refs_sha256": "a3a90d2a1f115ef846ec32fde46ad8569f99094ff26867c352d663d6d82c9783",
+      "reference_count": 8
+    },
+    {
+      "full_name": "kuailexiaozixin/dsh-skill-mcp-market",
+      "repository_id": 1452404215,
+      "commit": "fb7a24b2031fcd654861a8245a01894b1ec39366",
+      "tree": "5033fda4e0466a2cb23eedd44d8aaa588a152076",
+      "refs_sha256": "888b2b12d46873d6ca1e272001a88411bb96ff83623e8aefc6b78d17a9b0fe26",
+      "reference_count": 6
+    },
+    {
+      "full_name": "kunwarmahen/yantra",
+      "repository_id": 1366847931,
+      "commit": "696e34064afdc1cc5b68a6c024cf87c0bc63f962",
+      "tree": "8902311e635e0a48609c379bbffa190c2ed0dee4",
+      "refs_sha256": "860975acdab6ee6bcbbbb9cca1612db1bd91f4b6e289a924b499927c0f5e96ad",
+      "reference_count": 6
+    },
+    {
+      "full_name": "laopro/talkicut",
+      "repository_id": 1430364538,
+      "commit": "f6625bf411555dbd5df8d69ed98814b0da246474",
+      "tree": "29a06348ecc0a68c93c4261a1edd2139794251b1",
+      "refs_sha256": "9bfe9169b13ba43e14b156a432e9f8d7a6e3c4f08dcb96b68ae4cf5b2a39f7c6",
+      "reference_count": 3
+    },
+    {
+      "full_name": "leiverkus/research-superpowers",
+      "repository_id": 1250723848,
+      "commit": "0ef04d9fc31e8b3e587c2eb8a45f87c74a9adb4c",
+      "tree": "802664e791e40494f8d9a732c644f17d02296fc3",
+      "refs_sha256": "bcdd17afc259fc295001e58bd120649444879b6c8409c1223cd2741a8233203f",
+      "reference_count": 5
+    },
+    {
+      "full_name": "LukaVodopivec/factorio-codex",
+      "repository_id": 1410210822,
+      "commit": "35fe716056957d1b31cb71730bbd248351b05706",
+      "tree": "1eea3239282ebb7b96554e25256928daad78d5a0",
+      "refs_sha256": "4a97e56423db1c03d28605de94ca371242a62fce2ac12fbfc2d3509629862881",
+      "reference_count": 4
+    },
+    {
+      "full_name": "m4bwav/askwright",
+      "repository_id": 1432647436,
+      "commit": "2e8799940f6e5dd1132ac81181bd93ce310c4ff5",
+      "tree": "1fbf9c6ca9fb5ac4699a5a633cbf229b7d5c51d5",
+      "refs_sha256": "79376d24596437a342fbb61590f0954f4c0c22cbfdc6b2ae2e3eb8af93fa7fb0",
+      "reference_count": 5
+    },
+    {
+      "full_name": "madsouris/dsh-sketch",
+      "repository_id": 1453489092,
+      "commit": "15debfb4c3017c7c6aa4a0ed4212a932c8c209e0",
+      "tree": "21fd76816c6be40b70c8e45d1feb4fe74c688516",
+      "refs_sha256": "a10e3f9da43aa2e2e33caae4c87333480a7676ec7277d226a98b518c599b74cc",
+      "reference_count": 6
+    },
+    {
+      "full_name": "mani901/next-fastify-audit-skill",
+      "repository_id": 1452183504,
+      "commit": "42b17db7780af0c0592afb242fe1e85f8e2502fa",
+      "tree": "462146c040b7a356f79e0011087a739071982a58",
+      "refs_sha256": "bf677489e81abca8770f5e6b9f5eef16410a708bd456201a1ab349c5d49c4dfa",
+      "reference_count": 3
+    },
+    {
+      "full_name": "mapleleo-hub/skill-registry-publish",
+      "repository_id": 1453333392,
+      "commit": "82e73f94a2dbd75d8b028954d16e67b508956f91",
+      "tree": "c9e766a15edde1ed42f819ef46a3e994002a6557",
+      "refs_sha256": "564950c59a77cc7a8201ea0f69848738272ed4d619860baac4d37a4498eeb02d",
+      "reference_count": 3
+    },
+    {
+      "full_name": "max-now/heymax-plugin",
+      "repository_id": 1438056019,
+      "commit": "7ea43edd8aa405ba1b8a6f39c7d030020f14ef52",
+      "tree": "71cc41cfdd57115a127e1e62b0bd17486d535577",
+      "refs_sha256": "355fe30a245d5435c211ad74b9b0f43c25e3162ad91d2a3abbc2714ca4993239",
+      "reference_count": 8
+    },
+    {
+      "full_name": "narayana006/agent-skills-collection",
+      "repository_id": 1452181967,
+      "commit": "b9aad3fd0055007c24d3b5da328af337276b3958",
+      "tree": "c1835ef753c2af346a4a47c0ef2854b9b4043438",
+      "refs_sha256": "8f81e033ff3a2f4680749a7d06580bf91b8065dae70126df7b26edc79f28bcb4",
+      "reference_count": 3
+    },
+    {
+      "full_name": "nasimubd/skills",
+      "repository_id": 1345596622,
+      "commit": "c46674d02219cffb6ffe43507f979e25a57b4a9a",
+      "tree": "055f08d645c81bf3fdcc2db0c92e6aa2bcc13b74",
+      "refs_sha256": "db7600a7191efe0f56f94d4cc4ad192303cd49c2c9be7d6a5dbe6225a9940707",
+      "reference_count": 7
+    },
+    {
+      "full_name": "NeuralDEEPnet/Open3DJ",
+      "repository_id": 1435739260,
+      "commit": "eee170f781d263b3812cf6a2b805c9f00162fc2c",
+      "tree": "64d7f7bb0500ce36f471502c9a2535bfae470a83",
+      "refs_sha256": "aaf0729f65709a2bb6a5e96a74278c64714db23755c74a37e8950c5c68ab32a2",
+      "reference_count": 4
+    },
+    {
+      "full_name": "oaslananka/kicad-mcp-pro",
+      "repository_id": 1255527274,
+      "commit": "a9cfbb864af84f0c3097ada55b953ae18d927306",
+      "tree": "c3045fa7950ab6fbf4284a69c92c864c2e39cc02",
+      "refs_sha256": "6a9271e483856f1e049dd728dc21453ff8842da2e28ea1707198de62fcb1fec5",
+      "reference_count": 6
+    },
+    {
+      "full_name": "opengeos/RustGIS",
+      "repository_id": 1413549354,
+      "commit": "2ce3d7506d89664a1262817707978520b994615a",
+      "tree": "ec910c668ba2ade6e68653d09f3568376546fec7",
+      "refs_sha256": "e48ad34677045b6d1b340f5f3fed6a4e7dab66b731e8443dcbe5f3b31697a3db",
+      "reference_count": 4
+    },
+    {
+      "full_name": "pubino/automac",
+      "repository_id": 1452017146,
+      "commit": "d0fcdf584a0a021cfeeed18d2e26ad639b7d44b0",
+      "tree": "582807f5d8835a0f8325c8e03a904cc0b373283e",
+      "refs_sha256": "4baaddc81b7828e551975f2757b5a4edb214a93472e8a5a70fa8951d0404707d",
+      "reference_count": 3
+    },
+    {
+      "full_name": "pycodebr/pycode-skills",
+      "repository_id": 1453463336,
+      "commit": "9e9f898368cc497423cd7e89df3b01c469683663",
+      "tree": "e475d08dbea2f2e6267de55199249d66b0f63716",
+      "refs_sha256": "a3f87d00172d72d2ed87a6eafb9433f148ae7bce7ab0a851e67d36a1ed640cef",
+      "reference_count": 4
+    },
+    {
+      "full_name": "QinMian5/watch-for-me",
+      "repository_id": 1453470686,
+      "commit": "2e737cae814f4bdba5ee3b38a826d3fe17cd1b3d",
+      "tree": "a98c1b6d7fc2f49de4e1dcaf2b271961a55da635",
+      "refs_sha256": "6838578ac1f67fa93eae6defc052c26bc2443accbd2fcc1dae1b8abbab0f9942",
+      "reference_count": 10
+    },
+    {
+      "full_name": "ranadhir19/skillkiln",
+      "repository_id": 1444074426,
+      "commit": "bdaba1250d51fe6e43a67b0a7df9dc6da27341f2",
+      "tree": "0ff2bd4f7f2a1de17efb9a6a3f209ba86b43a974",
+      "refs_sha256": "34221525cf324595e9f8465739c16ac11fc608120884431ea26d3df2d3e1c6af",
+      "reference_count": 5
+    },
+    {
+      "full_name": "Rodert/awesome-skill",
+      "repository_id": 1323120028,
+      "commit": "74161faa7a82c003c32296ebaa971ed54b0ef873",
+      "tree": "6b5aeadebfef839253a42b0ada9b2eb9e8516229",
+      "refs_sha256": "1a8c3093d04b3c7a010c384f48963f0d82453357d3c43c34ebf4f2f7a2b70c42",
+      "reference_count": 4
+    },
+    {
+      "full_name": "SallyRS/video-director",
+      "repository_id": 1447731805,
+      "commit": "21efe30f930f0079fa03e34757370adc3de9da97",
+      "tree": "3d68965369471640833e3d3c7602c70810c75054",
+      "refs_sha256": "7298a2e881505bd4ea19dafcb950f86018e54fa88ca21dbf0417c9ddb4e1b83e",
+      "reference_count": 9
+    },
+    {
+      "full_name": "samthedataman/daisychain",
+      "repository_id": 1453499381,
+      "commit": "063fba3bc1d4055104113e86d2564d2b7f556c53",
+      "tree": "6c7dd286b298a881ca19fe36c68d73a95aa1a843",
+      "refs_sha256": "0a45988252fc90537b813e19383ce9f5898691a43df0810c0b1afa2802a0e97d",
+      "reference_count": 3
+    },
+    {
+      "full_name": "Samuelfmedeiros/ai-test-loop",
+      "repository_id": 1422138496,
+      "commit": "005b9d918ff2281ab14c559d675a19e7789d8e15",
+      "tree": "c2a6a18578a6bf124bdd025b067a327c52675945",
+      "refs_sha256": "834beabdfe5b5d796d76d6b02e74a27373abbe41fcbf6ca3380a30bb14e82a6d",
+      "reference_count": 3
+    },
+    {
+      "full_name": "SandroDuarsa/lawful-ui",
+      "repository_id": 1453443143,
+      "commit": "8f18cd12e6e915b26953f74675cb7ad21a788352",
+      "tree": "0579de2cb8b941cb6519d2199e2cd61ed1f2ec03",
+      "refs_sha256": "ef033238ca89859bb259d31240a74fd44921fd24d652585c533b263da66063d3",
+      "reference_count": 4
+    },
+    {
+      "full_name": "saross/research-agent-toolkit",
+      "repository_id": 1450857562,
+      "commit": "d7bbb1d6870ed1b6ff53df53e1a109fe9f2357a4",
+      "tree": "c2632c1967d20cde0f9e4ae445569ca58b05008f",
+      "refs_sha256": "0b8b6171fdca66ee4d08b38611462042fad2a858501afaacf3c39b52be439c55",
+      "reference_count": 5
+    },
+    {
+      "full_name": "saydamonur2002-tech/skillpack",
+      "repository_id": 1452289523,
+      "commit": "a296b2ee47786ad8878721b2e911c60df9a9fef6",
+      "tree": "c11e69c3e4b7421d0320b6466d7cff64bc6c0a4c",
+      "refs_sha256": "0de10dc5ac4db9e18f6049d9be9c0884bc7b21bacc96b7869e0275f2ababf724",
+      "reference_count": 7
+    },
+    {
+      "full_name": "scharkuwitz/utility",
+      "repository_id": 1453463599,
+      "commit": "df7fffbd2744977e873448e20dac0cc3f7a3f3ca",
+      "tree": "41d464db2f17ed6b32f0a6dab597e203930d05ed",
+      "refs_sha256": "5d6bf0735257f6c2e2c9482e27287f8b4fa50aea3d7ae1a93be041f204674da3",
+      "reference_count": 3
+    },
+    {
+      "full_name": "seiya/spec2science",
+      "repository_id": 1087035461,
+      "commit": "0b22e6a550831ecaa3b90c70985d4a76ad8963a0",
+      "tree": "79c7d800760799972136b10f3fcbc12a8639a573",
+      "refs_sha256": "500b90018041e91c5ba55a58ad698d24dbd98faa707941fbc4fe2af644f8b83d",
+      "reference_count": 5
+    },
+    {
+      "full_name": "SFDO-Community-Sprints/SF-community-skills",
+      "repository_id": 1453209900,
+      "commit": "75339dff09164ac148e81afcc43d145df814315a",
+      "tree": "2c941a3d3e40618fa8becbc05c08a00f1aec33b2",
+      "refs_sha256": "91017bfa5a3c2a3589313f30774ba542bbed0fa78dbc12cd9923bfa701a9f225",
+      "reference_count": 5
+    },
+    {
+      "full_name": "sgtao/skill-websearch-slide-ja",
+      "repository_id": 1254774948,
+      "commit": "485471e59220e2ab2fcaea957b77b13ef699e7db",
+      "tree": "0d98ca5f187574bacc1999e78446d14b0f016b28",
+      "refs_sha256": "0c542e9294f86779d51096ccc4e9ad4ac2b4e98ffb7eee5c7d279aead8355d06",
+      "reference_count": 3
+    },
+    {
+      "full_name": "sirkirby/routr",
+      "repository_id": 1378717659,
+      "commit": "77e6afa97159175860f1150e288433e825e085ee",
+      "tree": "51c6ab9d9b76c2716e02e4a58d09b1c977d620b3",
+      "refs_sha256": "325e71e9c21a131571ea0e6db59c8583d5b52f48ed915517e03c5fa9518530e3",
+      "reference_count": 3
+    },
+    {
+      "full_name": "SupereeeYunjiu/self-media-os",
+      "repository_id": 1453386333,
+      "commit": "dad0f352f7b8afc1448983df63f0d5584c6e4339",
+      "tree": "e77c9b0fe1ef05dcd03e78c7d64c3d9d46b93c96",
+      "refs_sha256": "4998c9445e276fc48bfd6bdbfcd500a94b1aa744671428db174c4cead9b01f46",
+      "reference_count": 3
+    },
+    {
+      "full_name": "swarm-routing/skills",
+      "repository_id": 1442448137,
+      "commit": "e5abd31f75e7b0eff10aa61f7c1ef703a5a7375d",
+      "tree": "4831e15942873d932c8e5e1a7cd9952b08ee6e19",
+      "refs_sha256": "72f77fbd69e19d7d45c94a826ec11aebba13990ae0e604b024cc753db881d500",
+      "reference_count": 11
+    },
+    {
+      "full_name": "SWEStash/swe-workflow-skills",
+      "repository_id": 1194032723,
+      "commit": "9e4f445b1bd1625ca331b7aef0c5e7d1a36c4437",
+      "tree": "8f6423854a9712ebda91ea3f5a5808febae2751f",
+      "refs_sha256": "c1af9cb3ccb2bcdd226276c33e2fbd59916795460849cf99a2531bf78958f80f",
+      "reference_count": 20
+    },
+    {
+      "full_name": "symansun/doops",
+      "repository_id": 1449416026,
+      "commit": "2395d17bd9bf8abc88756b1f03a4861b9b8a4439",
+      "tree": "410b3a3193cfa82508e54f163764bc2c158bf640",
+      "refs_sha256": "84ee943729878c07a2934d88738917b7750a3215ec0a045905ba3ff6867f559e",
+      "reference_count": 5
+    },
+    {
+      "full_name": "tomas-samek/tiko-di",
+      "repository_id": 1219167738,
+      "commit": "8ff933c404185e7032519a17bc1b5266127d7198",
+      "tree": "adc9932db2e9e289ddfb13d43c9bba0d047f9601",
+      "refs_sha256": "f94f1d284a76892e500dd35b1927cd39261e4fbf865de6bd1f33cb42aa27cb9c",
+      "reference_count": 6
+    },
+    {
+      "full_name": "tryAGI/AutoSDK",
+      "repository_id": 721935174,
+      "commit": "fe081bd31f78d4eed33ed01ae54bea34557654e7",
+      "tree": "43e53b392aa5224841ac0f396650e4c733356c43",
+      "refs_sha256": "55bf5266509b8f0ccb01cecb8e8685a9b8fd85c051e3d8f94c8f5850863012bf",
+      "reference_count": 3
+    },
+    {
+      "full_name": "tuist/tuist",
+      "repository_id": 129699403,
+      "commit": "ae641aaf5a955f0e4d84277487f49ed87e409fdb",
+      "tree": "795e3045885871483c294bba52cd8f73352d0fe5",
+      "refs_sha256": "fde96dfbc5d0b54e2832e4a0ec05f099dfd6070f856763e774d28f4e6bad7ec4",
+      "reference_count": 4
+    },
+    {
+      "full_name": "twinace98/matviz",
+      "repository_id": 1198074668,
+      "commit": "ff0475764f0e03ad06fb96fb8c7d1253ac3be6f2",
+      "tree": "ae9ee717844bcf4acd2099deadaec1e05dce5155",
+      "refs_sha256": "663f040961ce9c435c7985db7d82c462efd43d7e5d0d87c31498dd3d8c5addc2",
+      "reference_count": 4
+    },
+    {
+      "full_name": "upscaler-io/upscaler-skills",
+      "repository_id": 1334186174,
+      "commit": "2dcf68dfd2a5284a254a2652f4eeb7f2144aefea",
+      "tree": "f1ab4341be79736d8e67ce628529cc0ebbaba9c8",
+      "refs_sha256": "e602f2d9c1a56e8008c1bc8f521aa1b753c7070cf509ea27552af9131930ded2",
+      "reference_count": 4
+    },
+    {
+      "full_name": "usct01/high-reliability-docs",
+      "repository_id": 1453490788,
+      "commit": "70cc12f8f4fd5cf53b68ba86cdbade2ed10437a0",
+      "tree": "cb88f3ae85c1f649670f92a0c3111c21391b14b5",
+      "refs_sha256": "61620268eafb24e5176fad09c249ec758178049dc603f5a4c5dab66980618602",
+      "reference_count": 3
+    },
+    {
+      "full_name": "VdustR/skills",
+      "repository_id": 1227716130,
+      "commit": "42a6eb8fe36c9a31def1482feba180fdc0d9ac9f",
+      "tree": "45f313b04a69e93b8bd65dbdd03553485674c75b",
+      "refs_sha256": "4bbee78251a068cd54938ac398c6591248e294682ed6d59ac618c998cbd4d3b4",
+      "reference_count": 3
+    },
+    {
+      "full_name": "VelaFi-Tech/skills",
+      "repository_id": 1452305757,
+      "commit": "bc5ce6c2f3fbc434f38a7d1e600e05218a3921d7",
+      "tree": "56f64fa07baf76a6370fce2e540e9ccf7c8f34fd",
+      "refs_sha256": "1124c60384ceb30b8598a19787a104bde4c07ea47528a9f5b47270931be63301",
+      "reference_count": 3
+    },
+    {
+      "full_name": "wheelcog778/design-doctrine",
+      "repository_id": 1452790754,
+      "commit": "3a8d4345fbdc86e1fb87f23ac3f01b4a4f4bec61",
+      "tree": "a8d623990c807056ee9dbca74eda4d98ee716419",
+      "refs_sha256": "41ba6f673ab207ada33a49e7ee54d83caae7d7b51dccc3a2379ae1f7ff7d95fe",
+      "reference_count": 3
+    },
+    {
+      "full_name": "wri/wri-design-systems",
+      "repository_id": 869661226,
+      "commit": "7ec9727dc38cef03694590bd669dcc9706d4ba57",
+      "tree": "acc3285f384fb411aef8f0bd9584f733a7be0906",
+      "refs_sha256": "22dae6eb2c4ff504ffe2cbdbdc9bf4692a79b1ad280491691c26a37f7e0dff88",
+      "reference_count": 3
+    },
+    {
+      "full_name": "xemiq/agent-skills",
+      "repository_id": 1453465716,
+      "commit": "c1dc307c7208c1df768ded2b8c46b711a209470a",
+      "tree": "c06e533189e22309b420039746634ea213d6f3d0",
+      "refs_sha256": "fa7d80028d80a47a255a2656938cea2cf89ff9f49cb52984cfa6cbf945b9e905",
+      "reference_count": 5
+    },
+    {
+      "full_name": "xnjslg/wecom-documents-skill",
+      "repository_id": 1452942409,
+      "commit": "83295ba181b4dc8c95a49fd2f5eb683e12ea2745",
+      "tree": "f0def1a2681525ad8aac51d6c204c9adf89e0427",
+      "refs_sha256": "e7c9b4c2e8b39df1a146cc7234e13002def0b532c39ef06dc47a3473e518f9d1",
+      "reference_count": 3
+    },
+    {
+      "full_name": "Xquik-dev/xquik-docs",
+      "repository_id": 1165321890,
+      "commit": "8bbbcecf69855c9db03cc1dfc0ae7866dfc48bb6",
+      "tree": "fa87e2bd4d7ea33c668e414677093050dda27413",
+      "refs_sha256": "a46129cef6c97f17ab337659545f2cf165fa4163772cfb1d1956308e6fd135e3",
+      "reference_count": 3
+    },
+    {
+      "full_name": "yuiseki/Geo-Ref-skills",
+      "repository_id": 1444157136,
+      "commit": "037fefe72e3dc2ce4c94afe6ea29adf93e1b6f71",
+      "tree": "2613b91f28818a9dc7bd95a44fce04226bbb7700",
+      "refs_sha256": "7b9239f00e6a2478d4d4af5698b112faaebaa747493906d2d0fde2518c07aceb",
+      "reference_count": 3
+    },
+    {
+      "full_name": "zhouxinhao19/akshare-dictionary",
+      "repository_id": 1349145650,
+      "commit": "2763bae3c6d46cd70f0a9cee5686a495200fe606",
+      "tree": "bc1068caccccec498ef6fef31f950af1cf6c2bf7",
+      "refs_sha256": "7e351921f050a38cc11998ecf483773e76ff8ba461ebf7a6e7de5e25e4b84d1b",
+      "reference_count": 3
+    }
+  ],
+  "limits": "Fixed-object verification is not origin certification, installation, runtime execution, legal clearance or exhaustive skill-body review."
+}
