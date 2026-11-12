@@ -98,6 +98,12 @@ Agent 发现技能靠 `description` 语义匹配，不浏览目录。规模化�
 
 因此 `description` 必须含**负边界**（不适用于…）降误召、含**触发词**提召回。`INDEX/search.json` 是这套召回的机读底座，由生成器维护。完整的发现-治理路线见 [ROADMAP.md](ROADMAP.md)。
 
+## 有序案例配方（`data/workflows.json`）
+
+配方将已有教学案例的技能顺序与交接单独登记，供 `compose` 查询。每项有唯一 `id`、`title`、`triggers`、本库内的 `source` 文档、`inputs`、`outputs`、`limits` 及非空 `steps`。每个步骤引用现行技能 `skill`，给出非空输入/输出列表及 `check` 验收说明。CLI 读取时校验字段、技能存在性与源文件路径边界，错误不能静默退回空配方。
+
+配方是有来源的 plan-only 说明，不是可执行命令清单。没有配方时只能返回声明关系与组合候选，不从无向 `combines_with` 推断先后顺序，不把 `requires` 当系统包名，也不把案例验证扩大成通用运行认证。
+
 ## 正文结构（机读友好，单一职责）
 
 正文是给 Agent 执行用的，**精简、可操作**，不要写源流/文献那类百科叙事。固定小节：

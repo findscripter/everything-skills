@@ -128,3 +128,24 @@ test('compose rejects a corrupt registry instead of silently losing workflows', 
   assert.equal(result.status, 1);
   assert.match(result.stderr, /workflows/);
 });
+
+test('a combination limit never hides declared prerequisites', t => {
+  const { dir, rows, write, invoke } = catalogFixture(t);
+  rows.push({ name: 'gamma', status: 'stable', path: '00-meta/gamma/SKILL.md' });
+  fs.mkdirSync(path.join(dir, '00-meta/gamma'));
+  fs.writeFileSync(path.join(dir, '00-meta/gamma/SKILL.md'), '# gamma\n');
+  write('INDEX/search.json', rows);
+  write('INDEX/graph.json', { edges: ['beta', 'gamma'].map(to => ({ from: 'alpha', to, type: 'requires' })) });
+  const result = invoke('compose', 'alpha', '--limit', '1', '--json');
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(JSON.parse(result.stdout).prerequisites.map(row => row.name), ['beta', 'gamma']);
+});
+
+test('compose rejects a workflow source outside the installed catalog', t => {
+  const { write, invoke } = catalogFixture(t);
+  write('data/workflows.json', [{ id: 'unsafe', title: 'unsafe', source: '../SKILL.md', triggers: [], inputs: ['input'], outputs: ['output'], limits: ['bounded'],
+    steps: [{ skill: 'alpha', inputs: ['input'], outputs: ['output'], check: 'check' }] }]);
+  const result = invoke('compose', 'unsafe', '--json');
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /越界|outside/i);
+});

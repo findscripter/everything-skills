@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [OpenAPI/Swagger, python, api_linter.py, breaking_change_detector.py, api_scorecard.py]
 requires: []
 related: [code-reviewer, dependency-auditor]
-combines_with: []
+combines_with: [api-security-best-practices]
 license: MIT
 source: alirezarezvani/claude-skills
 source_license: MIT

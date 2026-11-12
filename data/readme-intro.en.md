@@ -76,6 +76,17 @@ npm run skill -- why api-design-reviewer
 
 The CLI has no third-party dependencies, so no `npm install` is needed. It searches the checked-in indexes; `why` shows related skills. Open a returned `SKILL.md`, then ask your agent to follow it for your task. Codex, Cursor, and Gemini CLI can use [AGENTS.md](AGENTS.md), [CLAUDE.md](CLAUDE.md), and [GEMINI.md](GEMINI.md) as repository navigation guides.
 
+### System entry and composition plans
+
+The entry `bin/everything-skills.mjs` locates its own catalog, including when called from another project directory:
+
+```sh
+node bin/everything-skills.mjs compose api-review --json
+node bin/everything-skills.mjs show api-design-reviewer --json
+```
+
+`compose` returns an ordered, documented example recipe or unordered combination suggestions; it executes nothing. `show` returns the skill body, absolute path and resource directory. The [catalog navigation skill](00-meta/everything-skills-catalog/SKILL.md) explains staged use. See [Arch/Omarchy integration](docs/omarchy.md) for the optional system package, client setup, dependencies and limits; the package is not yet in Omarchy's repositories.
+
 ## 3. Explore by domain
 
 | Volume | Tasks |
