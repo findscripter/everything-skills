@@ -733,6 +733,46 @@
     }
   },
   {
+    "name": "everything-skills-catalog",
+    "title": "Everything Skills 系统技能目录导航",
+    "vol": "00-meta",
+    "domain": "通用/thinking",
+    "level": "入门",
+    "status": "stable",
+    "tags": [
+      "skill-discovery",
+      "composition",
+      "cli",
+      "omarchy"
+    ],
+    "triggers": [
+      "找技能",
+      "组合技能",
+      "系统技能目录",
+      "skill catalog",
+      "compose workflow"
+    ],
+    "description": "当需要为任务查找技能、查看组合关系或选择已有工作流时使用；调用本机 Everything Skills CLI 检索、生成方案并按阶段读取正文和资源；不替代技能本身的输入、依赖与权限检查。触发词：找技能、组合技能、系统技能目录、skill catalog、compose workflow",
+    "path": "00-meta/everything-skills-catalog/SKILL.md",
+    "quality": {
+      "review_status": "unreviewed",
+      "last_reviewed": null,
+      "source_type": "native",
+      "source_freshness": "unknown",
+      "license_confidence": "declared",
+      "dependencies": {
+        "skills": [],
+        "tools": [
+          "Node.js 22+",
+          "everything-skills CLI"
+        ]
+      },
+      "capabilities": [],
+      "maturity": "stable",
+      "security_risk": "unknown"
+    }
+  },
+  {
     "name": "executive-adversarial-mentor",
     "title": "高管对抗式思维伙伴",
     "vol": "00-meta",

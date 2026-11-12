@@ -106,6 +106,13 @@
       "status": "stable"
     },
     {
+      "id": "everything-skills-catalog",
+      "title": "Everything Skills 系统技能目录导航",
+      "domain": "通用/thinking",
+      "level": "入门",
+      "status": "stable"
+    },
+    {
       "id": "executive-adversarial-mentor",
       "title": "高管对抗式思维伙伴",
       "domain": "通用/thinking",
@@ -8226,6 +8233,31 @@
       "type": "combines_with"
     },
     {
+      "from": "everything-skills-catalog",
+      "to": "skill-router-interviewer",
+      "type": "related"
+    },
+    {
+      "from": "everything-skills-catalog",
+      "to": "cross-tool-skill-manager",
+      "type": "related"
+    },
+    {
+      "from": "everything-skills-catalog",
+      "to": "codebase-onboarding-doc",
+      "type": "combines_with"
+    },
+    {
+      "from": "everything-skills-catalog",
+      "to": "api-design-reviewer",
+      "type": "combines_with"
+    },
+    {
+      "from": "everything-skills-catalog",
+      "to": "academic-paper-explainer",
+      "type": "combines_with"
+    },
+    {
       "from": "executive-adversarial-mentor",
       "to": "boardroom-deliberation",
       "type": "related"
@@ -10049,6 +10081,11 @@
       "from": "api-design-reviewer",
       "to": "dependency-auditor",
       "type": "related"
+    },
+    {
+      "from": "api-design-reviewer",
+      "to": "api-security-best-practices",
+      "type": "combines_with"
     },
     {
       "from": "api-test-suite-builder",
@@ -25371,6 +25408,11 @@
       "type": "combines_with"
     },
     {
+      "from": "codebase-onboarding-doc",
+      "to": "monorepo-navigator",
+      "type": "combines_with"
+    },
+    {
       "from": "company-culture-architect",
       "to": "company-culture-builder",
       "type": "related"
@@ -29538,6 +29580,11 @@
     {
       "from": "academic-paper-explainer",
       "to": "scientific-database-lookup",
+      "type": "combines_with"
+    },
+    {
+      "from": "academic-paper-explainer",
+      "to": "citation-management",
       "type": "combines_with"
     },
     {

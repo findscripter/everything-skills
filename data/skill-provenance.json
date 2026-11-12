@@ -6,7 +6,7 @@
   "summary": {
     "path-unresolved": 647,
     "fixed-reference": 436,
-    "native": 14,
+    "native": 15,
     "ambiguous-fixed-candidates": 11,
     "snapshot-unavailable": 5,
     "needs-review": 1
@@ -509,6 +509,14 @@
         "record_name": "entity-research-dossier",
         "reference_scope_display": "Fixed comparison scope: file metadata MIT; nearest directory MIT / nearest directory MIT. Original adaptation revision unrecorded; this scope note is not an SPDX expression."
       }
+    },
+    {
+      "name": "everything-skills-catalog",
+      "local_path": "00-meta/everything-skills-catalog/SKILL.md",
+      "local_sha256": "678026bbe08cf7b2189aea0fbd49d522b6148a3262cb04e4f52e358bec6ffe8f",
+      "kind": "native",
+      "declared_license": "CC-BY-4.0",
+      "origin_revision_status": "native-repository-history"
     },
     {
       "name": "executive-adversarial-mentor",
@@ -2632,7 +2640,7 @@
     {
       "name": "api-design-reviewer",
       "local_path": "02-engineering/api-design-reviewer/SKILL.md",
-      "local_sha256": "a11e6969b6eb8fed1867498987aa23715b10859a2a27ff9b18642149139feca9",
+      "local_sha256": "1f0b65b7a590370c468b346240de7e598ec078362553d21e1d8fbd22e03a7491",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "alirezarezvani/claude-skills",
@@ -19850,7 +19858,7 @@
     {
       "name": "codebase-onboarding-doc",
       "local_path": "07-productivity/codebase-onboarding-doc/SKILL.md",
-      "local_sha256": "7eef1b97eab07556c9cffd16902d25a843f6da41da5c64ff1da1b667cbb5db99",
+      "local_sha256": "7861873f7a03595f6aa90866d67f9a8e6b2a423b9e43ff39d5a9eeabad573222",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "alirezarezvani/claude-skills",
@@ -24288,7 +24296,7 @@
     {
       "name": "academic-paper-explainer",
       "local_path": "09-verticals/academic-paper-explainer/SKILL.md",
-      "local_sha256": "47de77048c51bddabf7040cacec4eac6c016bc58eae9b5cd8ac7e7eaedbac043",
+      "local_sha256": "09f60425ebf413333f296989722a1a58ea30e1f817bb3ed8b8ea740e55fcf9dd",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "voidful/academic-skills",
@@ -37907,5 +37915,5 @@
       }
     }
   ],
-  "refreshed_at": "2026-11-02T09:25:15.472Z"
+  "refreshed_at": "2026-11-12T14:01:21.565Z"
 }

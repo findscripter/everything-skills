@@ -1,0 +1,41 @@
+[
+  {
+    "id": "repository-onboarding",
+    "title": "接手陌生仓库",
+    "triggers": ["接手陌生仓库", "代码库导览", "repository onboarding"],
+    "source": "examples/repository-onboarding/README.md",
+    "inputs": ["指定仓库目录、目标读者、允许的检查与运行范围"],
+    "outputs": ["带文件证据的上手指南、工作区依赖地图与验证记录"],
+    "limits": ["来源是有界教学案例；真实仓库必须重新核对输入、工具和权限。", "案例使用原创 reproduce.mjs，不冒称运行技能中未随包的 Python helper。"],
+    "steps": [
+      { "skill": "codebase-onboarding-doc", "inputs": ["指定仓库与目标读者"], "outputs": ["配置、入口、技术栈与运行命令的文件证据"], "check": "每个运行命令和架构判断能定位到仓库文件；未运行项明确标记。" },
+      { "skill": "monorepo-navigator", "inputs": ["前一步的入口和配置证据、工作区目录"], "outputs": ["包依赖地图、修改影响与排错步骤，合并进上手指南"], "check": "区分实际依赖与推断；仅在允许范围内执行测试并保存输出。" }
+    ]
+  },
+  {
+    "id": "paper-reading",
+    "title": "论文解释与引用核查",
+    "triggers": ["读论文并核查引用", "解释论文并整理引用", "paper reading and citations"],
+    "source": "examples/paper-reading/README.md",
+    "inputs": ["可读取的论文正文、书目记录与来源链接"],
+    "outputs": ["论文导读、修正的引用记录与主张核查"],
+    "limits": ["案例使用一篇固定公开论文；不分发论文全文或图表。", "保存的机器事实与导读不是模型重跑或科学结果复现；新增引用仍需来源证据。"],
+    "steps": [
+      { "skill": "academic-paper-explainer", "inputs": ["已提供的论文正文与研究问题"], "outputs": ["贡献、方法、局限的结构化导读及需核查主张"], "check": "主张与正文或图表对应；未知内容不得补写为事实。" },
+      { "skill": "citation-management", "inputs": ["前一步的主张清单、论文元数据与引用记录"], "outputs": ["规范书目和可追溯引用核查"], "check": "区分已核对来源、仅保存元数据和无法验证项。" }
+    ]
+  },
+  {
+    "id": "api-review",
+    "title": "API 设计与安全评审",
+    "triggers": ["评审 API 改动", "评审API改动", "API 改动评审", "API review"],
+    "source": "examples/api-review/README.md",
+    "inputs": ["OpenAPI 旧版和提议版本，或明确的接口变更说明"],
+    "outputs": ["破坏性变更、设计与安全发现、迁移建议和文件证据"],
+    "limits": ["来源案例针对合成规范文件，不证明生产服务存在漏洞。", "案例用原创零依赖检查器，不冒称运行缺失 helper 或进行客户端安装验证。"],
+    "steps": [
+      { "skill": "api-design-reviewer", "inputs": ["旧版与提议版接口契约"], "outputs": ["路由、响应类型、必填项等兼容性变化及 JSON Pointer"], "check": "每项发现包含消费者影响与对应契约位置。" },
+      { "skill": "api-security-best-practices", "inputs": ["接口契约、前一步变更清单及实际授权范围"], "outputs": ["认证、HTTPS、输入边界等静态问题及验证建议"], "check": "区分规范发现与运行时漏洞；未获授权不对真实服务发起测试。" }
+    ]
+  }
+]
