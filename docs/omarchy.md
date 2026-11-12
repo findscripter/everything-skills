@@ -42,6 +42,15 @@ The recipe in `packaging/arch/PKGBUILD` builds an architecture-independent data/
 
 The initial recipe pins a reviewed source commit instead of following a moving branch. A maintainer must update that pin when publishing the next version. For an integration review, the feature PR and pin are usable as an unreleased snapshot; they are not an official Omarchy package or an upstream endorsement.
 
+Check out the reviewed feature/release containing the recipe, inspect it, then build and install as your regular user on Arch:
+
+```sh
+cd packaging/arch
+makepkg -si
+```
+
+`makepkg` obtains the pinned source and runs the focused CLI checks. Installation and missing package dependencies may request system authorization. The recipe uses a custom collective-work license reference with the bundled texts, following [Arch's license metadata convention](https://wiki.archlinux.org/title/PKGBUILD#license); it does not replace individual source/resource grants.
+
 The package is optional and is not yet available from Omarchy's configured repositories. Do not advertise `pacman -S everything-skills` until a repository actually provides it. The Omarchy adapter is submitted separately and may depend on this feature being merged and packaged.
 
 Package upgrades and removals are handled by pacman. Keep user-level agent links/configuration outside package post-install scripts; the adapter's user setup should link only its own entry and keep conflicting user files. Existing Omarchy users need that setup or an appropriate migration because first-user provisioning runs once.

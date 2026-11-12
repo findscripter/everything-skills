@@ -1,0 +1,36 @@
+# Unreleased integration snapshot; update the immutable pin for each package.
+pkgname=everything-skills
+_commit=71aed2643e414ba0533103a978164fd2ceed3fda
+pkgver=0.0.0.r20261112.g71aed26
+pkgrel=1
+pkgdesc='Local agent skill discovery, composition plans and complete skill resources'
+arch=('any')
+url='https://github.com/findscripter/everything-skills'
+license=('LicenseRef-Everything-Skills')
+depends=('nodejs>=22')
+makedepends=('git')
+source=("everything-skills::git+https://github.com/findscripter/everything-skills.git#commit=$_commit")
+sha256sums=('SKIP')
+
+check() {
+  cd "$srcdir/everything-skills"
+  node --test tests/skill-cli.test.mjs
+}
+
+package() {
+  cd "$srcdir/everything-skills"
+  local runtime="$pkgdir/usr/share/everything-skills"
+  install -d "$runtime" "$runtime/scripts" "$runtime/INDEX" "$runtime/data" "$pkgdir/usr/bin"
+  install -Dm755 bin/everything-skills.mjs "$runtime/bin/everything-skills.mjs"
+  install -m644 scripts/everything-skills.mjs scripts/load-skill-repos.mjs "$runtime/scripts/"
+  install -m644 INDEX/search.json INDEX/graph.json INDEX/quality.json INDEX/sources.md "$runtime/INDEX/"
+  install -m644 data/skill-repos*.jsonl data/workflows.json data/search-eval.json data/skill-provenance.json data/skill-resources.json "$runtime/data/"
+  local directory
+  for directory in 00-meta 01-documents 02-engineering 03-data 04-ai 05-business 06-creative 07-productivity 08-security 09-verticals 10-platform examples docs; do
+    cp -a "$directory" "$runtime/"
+  done
+  install -m644 LICENSE NOTICE README.md "$runtime/"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 NOTICE "$pkgdir/usr/share/licenses/$pkgname/NOTICE"
+  ln -s /usr/share/everything-skills/bin/everything-skills.mjs "$pkgdir/usr/bin/everything-skills"
+}

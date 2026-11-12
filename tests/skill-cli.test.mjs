@@ -149,3 +149,31 @@ test('compose rejects a workflow source outside the installed catalog', t => {
   assert.equal(result.status, 1);
   assert.match(result.stderr, /越界|outside/i);
 });
+
+test('Arch package staging preserves runtime queries, source licenses and resources', { skip: process.platform === 'win32' ? 'POSIX staging runs in Linux CI' : false }, t => {
+  const stage = fs.mkdtempSync(path.join(os.tmpdir(), 'everything-skills-package-'));
+  t.after(() => {
+    assert.equal(path.dirname(stage), fs.realpathSync(os.tmpdir()));
+    fs.rmSync(stage, { recursive: true, force: true });
+  });
+  fs.mkdirSync(path.join(stage, 'source'));
+  fs.symlinkSync(root, path.join(stage, 'source/everything-skills'), 'dir');
+  const recipe = path.join(root, 'packaging/arch/PKGBUILD');
+  execFileSync('bash', ['-euo', 'pipefail', '-c', 'source "$1"; package', 'package-stage', recipe], {
+    cwd: os.tmpdir(), env: { ...process.env, srcdir: path.join(stage, 'source'), pkgdir: path.join(stage, 'package') }, encoding: 'utf8',
+  });
+  const installed = path.join(stage, 'package/usr/share/everything-skills');
+  const entry = path.join(installed, 'bin/everything-skills.mjs');
+  const result = JSON.parse(execFileSync(process.execPath, [entry, 'compose', 'api-review', '--json'], { cwd: os.tmpdir(), encoding: 'utf8' }));
+  assert.equal(result.recipe.id, 'api-review');
+  assert.ok(result.steps.every(step => step.skill.absolute_path.startsWith(installed + path.sep)));
+  const repository = JSON.parse(execFileSync(process.execPath, [entry, 'repo', 'anthropics/skills', '--json'], { cwd: os.tmpdir(), encoding: 'utf8' }));
+  assert.equal(repository.full_name, 'anthropics/skills');
+  assert.equal(fs.readlinkSync(path.join(stage, 'package/usr/bin/everything-skills')), '/usr/share/everything-skills/bin/everything-skills.mjs');
+  assert.deepEqual(fs.readFileSync(path.join(installed, 'LICENSE')), fs.readFileSync(path.join(root, 'LICENSE')));
+  const resources = JSON.parse(fs.readFileSync(path.join(installed, 'data/skill-resources.json'), 'utf8'));
+  assert.ok(resources.skills.length);
+  for (const skill of resources.skills) for (const resource of skill.resources) {
+    assert.deepEqual(fs.readFileSync(path.join(installed, resource.path)), fs.readFileSync(path.join(root, resource.path)));
+  }
+});
