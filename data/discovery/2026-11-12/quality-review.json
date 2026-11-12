@@ -1,0 +1,1574 @@
+{
+  "quality-parent.json": {
+    "stage": "complete",
+    "checked": [
+      {
+        "full_name": "firedrill-tools/firedrill-skills",
+        "scope": "Complete representative, README distribution and root/near proprietary clauses.",
+        "conclusion": "One public workflow; plugin delivery alias. Client-code grant does not certify general prose adaptation."
+      },
+      {
+        "full_name": "nobodywho-ooo/nobodywho",
+        "scope": "Complete public entry, README installer/license and four-file inventory.",
+        "conclusion": "One public documentation router; three maintenance guides excluded. Entry/root EUPL-1.2 agree; default Kokoro espeak-ng GPL terms separate. Proprietary-linking explanation is publisher claim."
+      },
+      {
+        "full_name": "andrew1407/stencil",
+        "scope": "Complete public entry, README operator context, root Apache header and eight-file inventory.",
+        "conclusion": "One consumer workflow, seven maintenance guides excluded; guide assumes repository CLI/source dependencies."
+      },
+      {
+        "full_name": "duriantaco/skylos",
+        "repository_id": 974288191,
+        "commit": "d9388732296a4b8de5faaa66d22322c224987bfd",
+        "tree": "583c5736bc8555110a3212466625d66146a1d181",
+        "scope": "Complete fixed generator and standards document, all four complete internal skill entries, README install-standards portions and root license boundary.",
+        "conclusion": "Admission as public standards-skill generation infrastructure is supported: one YAML name/description-bearing template, two client output paths and one policy. Four checked-in files are two internal roles, all metadata.internal true; they are excluded from public leaf counts. General Skylos client views differ, so this is a role/delivery classification, not an assertion that all mirror blobs are identical.",
+        "template_static_parse": "ast.parse + literal_eval of a string constant only; no module import or execution",
+        "classified_paths": [
+          ".agents/skills/skylos-security/SKILL.md",
+          ".agents/skills/skylos/SKILL.md",
+          ".claude/skills/skylos/SKILL.md",
+          ".claude/skills/skylos-security/SKILL.md"
+        ],
+        "provenance": "Original frozen producer and complete path inventory; additional Claude security file freshly fetched and independently hashed."
+      },
+      {
+        "full_name": "longbridge/nsh",
+        "repository_id": 1419211419,
+        "commit": "ca7e70e51f67490e0babd347f3167276ad049874",
+        "tree": "039f9b8defe108bf13fb6beb71f6f1c239de77cb",
+        "scope": "Both complete fixed entry guides, README skill installation and license sections, exact LICENSE-APACHE and complete skill/notice path inventory.",
+        "conclusion": "Two public app-development/design entry guides are supported. Mode pages, recipes and design/coding references are supporting material, not extra skills. Root license target is real Apache-2.0 despite generic filename helper/API NOASSERTION. LLRT/browser-path/sound notices outside the two guide folders retain their scopes.",
+        "checks": "Both standard YAML name/description parsed; source-byte Git/SHA-256/size/immutable-URL checks passed.",
+        "limits": "Did not certify every transitive guide, live docs URL, target build, interface appearance, platform support or legal effect."
+      },
+      {
+        "full_name": "AI-Hydro/aihydro-tools",
+        "repository_id": 1204304569,
+        "commit": "1ef1b75833b69ae44c4588a2df2fe2390a922f44",
+        "tree": "6d3452c8e614843f78af8c511dda3d6b93ed95db",
+        "fresh_official_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "4a907afa3e1537a18f3544704183e95544370857",
+            "sha256": "e2e1fc401a246b07b8a3793e8811c82ceb1c5b5c6b7fa6f8a31c502cbccafdd9",
+            "url": "https://github.com/AI-Hydro/aihydro-tools/blob/1ef1b75833b69ae44c4588a2df2fe2390a922f44/README.md",
+            "bytes": 23106
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "3bbfc2249fe4533cdd9fcdd0a4b81efdf5264656",
+            "sha256": "9e0d38c25d726086cd74fafe75281323577f1208cd03b5eed4b37585d7a04b35",
+            "url": "https://github.com/AI-Hydro/aihydro-tools/blob/1ef1b75833b69ae44c4588a2df2fe2390a922f44/LICENSE",
+            "bytes": 11377
+          },
+          {
+            "path": "ai_hydro/skills/registry.py",
+            "blob_sha": "086abb1921f8520746fda04f6f069ba5deae6de1",
+            "sha256": "b374936c444efc47a124e24b17fcbe062d7a8ab4402dd2208183c38106c565e0",
+            "url": "https://github.com/AI-Hydro/aihydro-tools/blob/1ef1b75833b69ae44c4588a2df2fe2390a922f44/ai_hydro/skills/registry.py",
+            "bytes": 6561
+          },
+          {
+            "path": "ai_hydro/mcp/tools_skills.py",
+            "blob_sha": "b1eaaba358744ad273fc7d73167164eeffd3e59f",
+            "sha256": "a23d8241135f27e9785e81d333322ab3aaedd2d5994231f8a99659097cd34512",
+            "url": "https://github.com/AI-Hydro/aihydro-tools/blob/1ef1b75833b69ae44c4588a2df2fe2390a922f44/ai_hydro/mcp/tools_skills.py",
+            "bytes": 3549
+          }
+        ],
+        "raw_SKILL_md_count": 1,
+        "scope": "README public registry/MCP discovery and install contract; complete registry.py + tools_skills.py implementation and full authoring guide classification. This focused cross-check does not audit hydrology models or every MCP tool.",
+        "finding": "Agree with infra admission: the only bundled SKILL is contributor/tool-authoring material, not a hydrology leaf. Public implementation actually scans SKILL.md folders, lints required metadata, applies marketplace→agent-created→manual→workspace name precedence, and exposes list/load/save operations. External/private modelling and installed marketplace content are not leaf count or license claims."
+      },
+      {
+        "full_name": "yuiseki/GeoAI-master-skills",
+        "repository_id": 1416514496,
+        "commit": "9347da7590313e3e4faeab661590316a50a9bf33",
+        "tree": "3daa1f3df9c79b402c8283934e9f95af1f5fc040",
+        "fresh_official_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "7bc66b37c403a90a0d78317208b7a00f66c8b431",
+            "sha256": "827cba9b1cc67671d8426a90543cf573df31594e3084a50a9b421da2ffe8349c",
+            "url": "https://github.com/yuiseki/GeoAI-master-skills/blob/9347da7590313e3e4faeab661590316a50a9bf33/README.md",
+            "bytes": 23122
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/yuiseki/GeoAI-master-skills/blob/9347da7590313e3e4faeab661590316a50a9bf33/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": ".agents/skills/analysis-reporting/SKILL.md",
+            "blob_sha": "8eb62c632759b94ef557517f7f8f51e4b5ca4d95",
+            "sha256": "f34885fd74884af447f60c920db598bd7508c0b0a8c01fc5264a057e0351741b",
+            "url": "https://github.com/yuiseki/GeoAI-master-skills/blob/9347da7590313e3e4faeab661590316a50a9bf33/.agents/skills/analysis-reporting/SKILL.md",
+            "bytes": 12868
+          }
+        ],
+        "raw_SKILL_md_count": 55,
+        "scope": "README consumer-use and license/exceptions table, official full-tree inventory, 50-path scoped set and root grant. Not a second full read of all scientific workflows.",
+        "finding": "Agree with 50 scoped workflows +5 imported helpers excluded. README explicitly distributes these as directly usable agent procedures/textbook material, so the hidden folder is not by itself contributor-only. Apache-2.0 applies to authored material. Important precision retained: web-design-guidelines is described as upstream-README MIT without a license file, and other imported helpers/font/Unicode/data scopes are separate; no imported-body rights or source-data science is certified."
+      },
+      {
+        "full_name": "Weisg1999/energy-skills",
+        "repository_id": 1366391314,
+        "commit": "b3a9effb0c71c87bb8d648b805001f446611432c",
+        "tree": "f21cc6d8d4e3d0048e0a81e02c74d4384d124882",
+        "fresh_official_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "f4627ee217b529ed7153af3798e7ebe89d39afd6",
+            "sha256": "6d5ac7bcf3eca6fe6d2c3d99fb6060aa6fe6c99d27109a3fa98f291cf683b2bd",
+            "url": "https://github.com/Weisg1999/energy-skills/blob/b3a9effb0c71c87bb8d648b805001f446611432c/README.md",
+            "bytes": 20979
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f0c164ba674002344c7628d20ab8195fcb9080ec",
+            "sha256": "d21da798c1d6498ccee5797f092a46c82917964a2a37ee4cf1988b7210eff816",
+            "url": "https://github.com/Weisg1999/energy-skills/blob/b3a9effb0c71c87bb8d648b805001f446611432c/LICENSE",
+            "bytes": 1657
+          },
+          {
+            "path": "skills/tariff-bill-optimization/SKILL.md",
+            "blob_sha": "3835d174ee245fbcc61012ac6ba4deea1a6b0762",
+            "sha256": "bd747817fa449f50823ca33b8e68f887ea180c2eb18a0342f6234528b8dfb720",
+            "url": "https://github.com/Weisg1999/energy-skills/blob/b3a9effb0c71c87bb8d648b805001f446611432c/skills/tariff-bill-optimization/SKILL.md",
+            "bytes": 33643
+          }
+        ],
+        "raw_SKILL_md_count": 9,
+        "scope": "Full custom LICENSE, README public context-injection/registration contract and source-book caveats, representative header/boundaries/synthetic-data/professional-review sections, full-tree count. The whole 33,643-byte representative and eight siblings were not re-read in this focused cross-check.",
+        "finding": "Agree with nine canonical manuals; nine English views, 101 knowledge Markdown modules and generated HTML/figures are separate. Root notice expressly names CC-BY-NC-4.0 and covers authored Markdown/notes/research/scripts, requires attribution/noncommercial use and reserves underlying sources. Metadata-only indexing copies no restricted body. Policy/tariff data and tool selftests are not current professional/legal advice or runtime certification."
+      },
+      {
+        "full_name": "with-logic/crew",
+        "repository_id": 1215703747,
+        "commit": "a678864c58d11251668207ac177819ac9abc3b23",
+        "tree": "90551ecd6ff0e46a1ffdae88e0c4fe01d14a0659",
+        "fresh_official_identity_tree_objects": "passed",
+        "verified_file_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "28988731d0b95eb6db5116948cbfb1df5254b2ed",
+            "sha256": "3c6db74bea0da23deb650f650808268c6266d7c46d75718c892b3b59cc7f1fcb",
+            "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/README.md",
+            "bytes": 32045
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "c32aa48ca09abcbcbca5780a7fdd33cc8a19a989",
+            "sha256": "0e7db7c5b3b346813072dffa9069e0e5e366393c87890414f3a6902488f8c8a7",
+            "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "src/agents/install.ts",
+            "blob_sha": "1dc0c443c493970f762ca28b9f24d2a52479f049",
+            "sha256": "45e873286de6e1b52ab17afee9a542c819d2d131333ae4092ca24d8c5a52686b",
+            "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/src/agents/install.ts",
+            "bytes": 6667
+          },
+          {
+            "path": "src/agents/agent-skills.ts",
+            "blob_sha": "5d538edf8641851dc79e4aaba19dbed5421f5eb2",
+            "sha256": "e39a81a0eb6a9a9385276609552d4efad4bb3566ff5967858c9e434af794ff51",
+            "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/src/agents/agent-skills.ts",
+            "bytes": 1254
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "1956fd104e681b0ef66749d889b0f23d69d6c038",
+            "sha256": "70dfc6a0a23f234953d54564b9c5e2cc1040cf84d7d535f818622514e0a0b158",
+            "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/package.json",
+            "bytes": 1671
+          }
+        ],
+        "raw_skill_path_count": 0,
+        "license_like_filename_count": 3,
+        "supported_disposition": "accepted_as_infrastructure",
+        "distribution_and_count_conclusion": "0 bundled SKILL.md task guides; package-manager implementation. README public crew install/tap/update contract is implemented by complete install.ts, portable agent-skills.ts and package binary metadata. Adapters, taps and generated catalogue rows are not bundled skills.",
+        "licence_scope_conclusion": "Root MIT is Logic App, Inc.'s package-manager/documentation grant, not a grant for installed skills/taps, agent clients or dependencies. notice.ts and notice.test.ts are update-notice source/tests, not extra licence grants.",
+        "observed_grant_paths": [
+          "LICENSE"
+        ],
+        "reviewed_decision_sha256": "ce71d6cb3aba9ec0730b200a7b7e0e70659d8ed38cd4d0968c7b8cc437b29e71",
+        "reviewed_paths": [
+          "README.md",
+          "LICENSE",
+          "src/agents/install.ts",
+          "src/agents/agent-skills.ts",
+          "package.json"
+        ]
+      },
+      {
+        "full_name": "yacb2/aidex",
+        "repository_id": 1200474378,
+        "commit": "65576716b3d4347b46efca68e78699381a575170",
+        "tree": "ac7f4b7ee8452c6f41db6c5413238485e75c55e7",
+        "fresh_official_identity_tree_objects": "passed",
+        "verified_file_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "f6eddb1347522159988a5674858ce777429a547f",
+            "sha256": "0770194a9da91f780965e7ee445f0fec56d012aecfe934368a47a50b156eecdc",
+            "url": "https://github.com/yacb2/aidex/blob/65576716b3d4347b46efca68e78699381a575170/README.md",
+            "bytes": 18571
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "79ec9901e0473f273c7e918623ffc23906545a25",
+            "sha256": "527a69024296f99210c004ac653a5a9d86b090b0ecd069daf20cc59ae1bd9251",
+            "url": "https://github.com/yacb2/aidex/blob/65576716b3d4347b46efca68e78699381a575170/LICENSE",
+            "bytes": 1062
+          },
+          {
+            "path": "skills/request/SKILL.md",
+            "blob_sha": "18b6946e087f7f9025dc5569bc4b392250242519",
+            "sha256": "e0fad3227217fa5f73eff384ad5d461320290fa208fed9361a2fa0a6bf6157ac",
+            "url": "https://github.com/yacb2/aidex/blob/65576716b3d4347b46efca68e78699381a575170/skills/request/SKILL.md",
+            "bytes": 3326
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "ee7e2cc517f5f94a2da7b10557cdcaa7ed1c169c",
+            "sha256": "87324c45c43d580bcdd1bbe7d2ce7ba2e1a7a4630630f4007d54cbd701d6ccde",
+            "url": "https://github.com/yacb2/aidex/blob/65576716b3d4347b46efca68e78699381a575170/.claude-plugin/plugin.json",
+            "bytes": 595
+          }
+        ],
+        "raw_skill_path_count": 22,
+        "license_like_filename_count": 1,
+        "supported_disposition": "accepted_as_mixed_workflow_collection",
+        "distribution_and_count_conclusion": "22 raw SKILL.md paths:21 under public skills/ and1 retired guide excluded. README explicitly types conventions as passive/non-invocable;20 remaining mixed workflow/router guides are not20 independently validated leaf tasks. Complete request guide delegates formatting to its shared canon; plugin metadata and README installation bind public consumer delivery.",
+        "licence_scope_conclusion": "Root MIT and plugin MIT declaration agree; no nearer separate grant was found for request. Third-party clients/dependencies and user project records remain separate. No all-sibling-body or compatibility certification.",
+        "observed_grant_paths": [
+          "LICENSE"
+        ],
+        "reviewed_decision_sha256": "7eb169a2fbd10dd3327492750efe85fb9431f02dcf89a310a80c78d56606bc82",
+        "reviewed_paths": [
+          "README.md",
+          "LICENSE",
+          "skills/request/SKILL.md",
+          ".claude-plugin/plugin.json"
+        ]
+      },
+      {
+        "full_name": "thanet-s/thai-lang-for-qwen-skill",
+        "repository_id": 1447910824,
+        "commit": "bd571170bca1f5d7689bb9e21922682e2c5f2836",
+        "tree": "665ac734c45b687a578a989cdc022a3397b7fb24",
+        "fresh_official_identity_tree_objects": "passed",
+        "verified_file_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "bc7146b2f636aa83fd183e3781b0efd7941cf662",
+            "sha256": "368d75e8078b3be2a2ef405696e5af0b55bafe23cdc8010ed958936a1bcea4b2",
+            "url": "https://github.com/thanet-s/thai-lang-for-qwen-skill/blob/bd571170bca1f5d7689bb9e21922682e2c5f2836/README.md",
+            "bytes": 4709
+          },
+          {
+            "path": "skills/thai-lang-for-qwen/SKILL.md",
+            "blob_sha": "95d4487a250d82bcd55f4175e84a9a8dcc8b8573",
+            "sha256": "8e876a64ed6c2c7854d157a44e6dcdba3c3999e40e2fb19bcc7874e1cc292302",
+            "url": "https://github.com/thanet-s/thai-lang-for-qwen-skill/blob/bd571170bca1f5d7689bb9e21922682e2c5f2836/skills/thai-lang-for-qwen/SKILL.md",
+            "bytes": 8975
+          }
+        ],
+        "raw_skill_path_count": 1,
+        "license_like_filename_count": 0,
+        "supported_disposition": "held_for_instruction_licence_evidence",
+        "distribution_and_count_conclusion": "One canonical self-contained Thai-language/style guard; complete README and full representative establish skills-CLI/manual public distribution. Examples, Unicode tables and client install forms do not add skills. Held means0 accepted new IDs for this entry.",
+        "licence_scope_conclusion": "Fresh complete tree contains no licence/notice grant path, and full README plus representative contain no explicit instruction-content grant. Installer/format credits do not license the original guide. Hold is supported without a claim of infringement or non-functionality.",
+        "observed_grant_paths": [],
+        "reviewed_decision_sha256": "e34a5fd69d080c67111c7276981e56fe3179fa92a00d68c47804bedcf16c8635",
+        "reviewed_paths": [
+          "README.md",
+          "skills/thai-lang-for-qwen/SKILL.md"
+        ]
+      },
+      {
+        "scope": "Public identity and complete tree",
+        "result": "Official canonical ID and pinned true-tree/regular-file paths verified; two raw entries and no skill-local license overrides."
+      },
+      {
+        "scope": "Consumer semantics",
+        "result": "Full entry follows profile/source selection, deterministic and rare-word checks, meaning-protection comparison, contextual model/manual review, per-finding human decisions, hash-bound judgment receipts and controlled feedback promotion."
+      },
+      {
+        "scope": "Distribution and count",
+        "result": "README consumer/maintenance distinction and full installer mapping support one consumer guide; optional global client installation routes are delivery, not new leaves."
+      },
+      {
+        "scope": "Licensing",
+        "result": "Root MIT and NOTICE/OFL font exception read and byte-bound; external service/user/corpus rights remain separate."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "firedrill-tools/firedrill-skills",
+        "field_updates": {
+          "license_scope": "Root and both adjacent LICENSE.md files state proprietary client-use permission, explicitly for client code in official artifacts and accessing Firedrill. Placement beside the guide does not certify prose adaptation/general reuse rights. Third-party terms remain; no open-source grant, service entitlement, price or availability promise.",
+          "limitations": [
+            "Static review only. No target, cloud resources, account, budget, OAuth/MCP or native process used. Native execution is not a sandbox; real dependencies and local argv/state hooks need distinct human approvals. No safety, performance, compatibility or prose-reuse certification."
+          ]
+        }
+      },
+      {
+        "full_name": "andrew1407/stencil",
+        "field_updates": {
+          "limitations": [
+            "Static review only. CLI needs repository layout, Zig/C++ core and optional ffmpeg/Docker/Python. URL/source-site modes fetch network data; remote-update changes shared projects and confinement is optional. No install, build, renderer, media fetch, server operation or user-file write; equivalence/compatibility untested."
+          ]
+        }
+      },
+      {
+        "full_name": "nobodywho-ooo/nobodywho",
+        "field_updates": {
+          "limitations": [
+            "Public router requires network access to current docs although described inference may run locally. No docs endpoint, model/weights, binding build or speech backend used; proprietary-linking behavior not legally certified. Dynamic docs may differ from a user's pinned version."
+          ]
+        }
+      },
+      {
+        "full_name": "duriantaco/skylos",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": ".agents/skills/skylos-security/SKILL.md",
+              "blob_sha": "795d2bc9f701f2a84c0c0d80ea2cc12ae1f53361",
+              "sha256": "4afe3ef5fddf5642c4dbfb30368a07d27160f0928c6b50a0e44af4c8c27b3a6b",
+              "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/.agents/skills/skylos-security/SKILL.md",
+              "bytes": 2338
+            },
+            {
+              "path": ".claude/skills/skylos-security/SKILL.md",
+              "blob_sha": "795d2bc9f701f2a84c0c0d80ea2cc12ae1f53361",
+              "sha256": "4afe3ef5fddf5642c4dbfb30368a07d27160f0928c6b50a0e44af4c8c27b3a6b",
+              "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/.claude/skills/skylos-security/SKILL.md",
+              "bytes": 2338
+            }
+          ]
+        },
+        "reason": "Append the two fixed internal security-role files actually checked, so four-file/two-role classification is directly reproducible; no admission/count change."
+      }
+    ],
+    "objections": [],
+    "limits": "Fixed representative admission and focused cross-reviews, not all-body/runtime/legal certification. All inputs partitioned once and selected reviews closed. Korean correction already applied by its owner.",
+    "date": "2026-11-12",
+    "independent_reviews": {
+      "product-parent-cross.json": {
+        "stage": "complete",
+        "date": "2026-11-12",
+        "checked": [
+          {
+            "full_name": "duriantaco/skylos",
+            "repository_id": 974288191,
+            "commit": "d9388732296a4b8de5faaa66d22322c224987bfd",
+            "tree": "583c5736bc8555110a3212466625d66146a1d181",
+            "scope": "Complete fixed generator and standards document, all four complete internal skill entries, README install-standards portions and root license boundary.",
+            "conclusion": "Admission as public standards-skill generation infrastructure is supported: one YAML name/description-bearing template, two client output paths and one policy. Four checked-in files are two internal roles, all metadata.internal true; they are excluded from public leaf counts. General Skylos client views differ, so this is a role/delivery classification, not an assertion that all mirror blobs are identical.",
+            "template_static_parse": "ast.parse + literal_eval of a string constant only; no module import or execution",
+            "classified_paths": [
+              ".agents/skills/skylos-security/SKILL.md",
+              ".agents/skills/skylos/SKILL.md",
+              ".claude/skills/skylos/SKILL.md",
+              ".claude/skills/skylos-security/SKILL.md"
+            ],
+            "provenance": "Original frozen producer and complete path inventory; additional Claude security file freshly fetched and independently hashed."
+          },
+          {
+            "full_name": "longbridge/nsh",
+            "repository_id": 1419211419,
+            "commit": "ca7e70e51f67490e0babd347f3167276ad049874",
+            "tree": "039f9b8defe108bf13fb6beb71f6f1c239de77cb",
+            "scope": "Both complete fixed entry guides, README skill installation and license sections, exact LICENSE-APACHE and complete skill/notice path inventory.",
+            "conclusion": "Two public app-development/design entry guides are supported. Mode pages, recipes and design/coding references are supporting material, not extra skills. Root license target is real Apache-2.0 despite generic filename helper/API NOASSERTION. LLRT/browser-path/sound notices outside the two guide folders retain their scopes.",
+            "checks": "Both standard YAML name/description parsed; source-byte Git/SHA-256/size/immutable-URL checks passed.",
+            "limits": "Did not certify every transitive guide, live docs URL, target build, interface appearance, platform support or legal effect."
+          }
+        ],
+        "objections": [],
+        "corrections": [
+          {
+            "full_name": "duriantaco/skylos",
+            "field_updates": {
+              "additional_evidence": [
+                {
+                  "path": ".agents/skills/skylos-security/SKILL.md",
+                  "blob_sha": "795d2bc9f701f2a84c0c0d80ea2cc12ae1f53361",
+                  "sha256": "4afe3ef5fddf5642c4dbfb30368a07d27160f0928c6b50a0e44af4c8c27b3a6b",
+                  "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/.agents/skills/skylos-security/SKILL.md",
+                  "bytes": 2338
+                },
+                {
+                  "path": ".claude/skills/skylos-security/SKILL.md",
+                  "blob_sha": "795d2bc9f701f2a84c0c0d80ea2cc12ae1f53361",
+                  "sha256": "4afe3ef5fddf5642c4dbfb30368a07d27160f0928c6b50a0e44af4c8c27b3a6b",
+                  "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/.claude/skills/skylos-security/SKILL.md",
+                  "bytes": 2338
+                }
+              ]
+            },
+            "reason": "Append the two fixed internal security-role files actually checked, so four-file/two-role classification is directly reproducible; no admission/count change."
+          }
+        ],
+        "limits": "Focused independent static review of two parent-owned candidates; no candidate installation, generation, scanner/hook execution or app/service operation."
+      },
+      "breadth-science-cross.json": {
+        "date": "2026-11-12",
+        "stage": "complete",
+        "reviewer_stream": "breadth",
+        "source_report": "science-results.json",
+        "source_report_sha256": "e64a527e1e70c9bc216d538d73492b1f6b62ac9daf4ac7e01de698a2e99c14c7",
+        "checked": [
+          {
+            "full_name": "AI-Hydro/aihydro-tools",
+            "repository_id": 1204304569,
+            "commit": "1ef1b75833b69ae44c4588a2df2fe2390a922f44",
+            "tree": "6d3452c8e614843f78af8c511dda3d6b93ed95db",
+            "fresh_official_refs": [
+              {
+                "path": "README.md",
+                "blob_sha": "4a907afa3e1537a18f3544704183e95544370857",
+                "sha256": "e2e1fc401a246b07b8a3793e8811c82ceb1c5b5c6b7fa6f8a31c502cbccafdd9",
+                "url": "https://github.com/AI-Hydro/aihydro-tools/blob/1ef1b75833b69ae44c4588a2df2fe2390a922f44/README.md",
+                "bytes": 23106
+              },
+              {
+                "path": "LICENSE",
+                "blob_sha": "3bbfc2249fe4533cdd9fcdd0a4b81efdf5264656",
+                "sha256": "9e0d38c25d726086cd74fafe75281323577f1208cd03b5eed4b37585d7a04b35",
+                "url": "https://github.com/AI-Hydro/aihydro-tools/blob/1ef1b75833b69ae44c4588a2df2fe2390a922f44/LICENSE",
+                "bytes": 11377
+              },
+              {
+                "path": "ai_hydro/skills/registry.py",
+                "blob_sha": "086abb1921f8520746fda04f6f069ba5deae6de1",
+                "sha256": "b374936c444efc47a124e24b17fcbe062d7a8ab4402dd2208183c38106c565e0",
+                "url": "https://github.com/AI-Hydro/aihydro-tools/blob/1ef1b75833b69ae44c4588a2df2fe2390a922f44/ai_hydro/skills/registry.py",
+                "bytes": 6561
+              },
+              {
+                "path": "ai_hydro/mcp/tools_skills.py",
+                "blob_sha": "b1eaaba358744ad273fc7d73167164eeffd3e59f",
+                "sha256": "a23d8241135f27e9785e81d333322ab3aaedd2d5994231f8a99659097cd34512",
+                "url": "https://github.com/AI-Hydro/aihydro-tools/blob/1ef1b75833b69ae44c4588a2df2fe2390a922f44/ai_hydro/mcp/tools_skills.py",
+                "bytes": 3549
+              }
+            ],
+            "raw_SKILL_md_count": 1,
+            "scope": "README public registry/MCP discovery and install contract; complete registry.py + tools_skills.py implementation and full authoring guide classification. This focused cross-check does not audit hydrology models or every MCP tool.",
+            "finding": "Agree with infra admission: the only bundled SKILL is contributor/tool-authoring material, not a hydrology leaf. Public implementation actually scans SKILL.md folders, lints required metadata, applies marketplace→agent-created→manual→workspace name precedence, and exposes list/load/save operations. External/private modelling and installed marketplace content are not leaf count or license claims."
+          },
+          {
+            "full_name": "yuiseki/GeoAI-master-skills",
+            "repository_id": 1416514496,
+            "commit": "9347da7590313e3e4faeab661590316a50a9bf33",
+            "tree": "3daa1f3df9c79b402c8283934e9f95af1f5fc040",
+            "fresh_official_refs": [
+              {
+                "path": "README.md",
+                "blob_sha": "7bc66b37c403a90a0d78317208b7a00f66c8b431",
+                "sha256": "827cba9b1cc67671d8426a90543cf573df31594e3084a50a9b421da2ffe8349c",
+                "url": "https://github.com/yuiseki/GeoAI-master-skills/blob/9347da7590313e3e4faeab661590316a50a9bf33/README.md",
+                "bytes": 23122
+              },
+              {
+                "path": "LICENSE",
+                "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+                "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                "url": "https://github.com/yuiseki/GeoAI-master-skills/blob/9347da7590313e3e4faeab661590316a50a9bf33/LICENSE",
+                "bytes": 11358
+              },
+              {
+                "path": ".agents/skills/analysis-reporting/SKILL.md",
+                "blob_sha": "8eb62c632759b94ef557517f7f8f51e4b5ca4d95",
+                "sha256": "f34885fd74884af447f60c920db598bd7508c0b0a8c01fc5264a057e0351741b",
+                "url": "https://github.com/yuiseki/GeoAI-master-skills/blob/9347da7590313e3e4faeab661590316a50a9bf33/.agents/skills/analysis-reporting/SKILL.md",
+                "bytes": 12868
+              }
+            ],
+            "raw_SKILL_md_count": 55,
+            "scope": "README consumer-use and license/exceptions table, official full-tree inventory, 50-path scoped set and root grant. Not a second full read of all scientific workflows.",
+            "finding": "Agree with 50 scoped workflows +5 imported helpers excluded. README explicitly distributes these as directly usable agent procedures/textbook material, so the hidden folder is not by itself contributor-only. Apache-2.0 applies to authored material. Important precision retained: web-design-guidelines is described as upstream-README MIT without a license file, and other imported helpers/font/Unicode/data scopes are separate; no imported-body rights or source-data science is certified."
+          },
+          {
+            "full_name": "Weisg1999/energy-skills",
+            "repository_id": 1366391314,
+            "commit": "b3a9effb0c71c87bb8d648b805001f446611432c",
+            "tree": "f21cc6d8d4e3d0048e0a81e02c74d4384d124882",
+            "fresh_official_refs": [
+              {
+                "path": "README.md",
+                "blob_sha": "f4627ee217b529ed7153af3798e7ebe89d39afd6",
+                "sha256": "6d5ac7bcf3eca6fe6d2c3d99fb6060aa6fe6c99d27109a3fa98f291cf683b2bd",
+                "url": "https://github.com/Weisg1999/energy-skills/blob/b3a9effb0c71c87bb8d648b805001f446611432c/README.md",
+                "bytes": 20979
+              },
+              {
+                "path": "LICENSE",
+                "blob_sha": "f0c164ba674002344c7628d20ab8195fcb9080ec",
+                "sha256": "d21da798c1d6498ccee5797f092a46c82917964a2a37ee4cf1988b7210eff816",
+                "url": "https://github.com/Weisg1999/energy-skills/blob/b3a9effb0c71c87bb8d648b805001f446611432c/LICENSE",
+                "bytes": 1657
+              },
+              {
+                "path": "skills/tariff-bill-optimization/SKILL.md",
+                "blob_sha": "3835d174ee245fbcc61012ac6ba4deea1a6b0762",
+                "sha256": "bd747817fa449f50823ca33b8e68f887ea180c2eb18a0342f6234528b8dfb720",
+                "url": "https://github.com/Weisg1999/energy-skills/blob/b3a9effb0c71c87bb8d648b805001f446611432c/skills/tariff-bill-optimization/SKILL.md",
+                "bytes": 33643
+              }
+            ],
+            "raw_SKILL_md_count": 9,
+            "scope": "Full custom LICENSE, README public context-injection/registration contract and source-book caveats, representative header/boundaries/synthetic-data/professional-review sections, full-tree count. The whole 33,643-byte representative and eight siblings were not re-read in this focused cross-check.",
+            "finding": "Agree with nine canonical manuals; nine English views, 101 knowledge Markdown modules and generated HTML/figures are separate. Root notice expressly names CC-BY-NC-4.0 and covers authored Markdown/notes/research/scripts, requires attribution/noncommercial use and reserves underlying sources. Metadata-only indexing copies no restricted body. Policy/tariff data and tool selftests are not current professional/legal advice or runtime certification."
+          }
+        ],
+        "objections": [],
+        "corrections": [],
+        "limits": "Focused independent distribution/count/license-scope review only. Selected refs and exact fixed trees were freshly re-verified by official API. No candidate installation, runtime execution, service write, legal clearance, scientific or performance certification."
+      },
+      "science-breadth-cross.json": {
+        "date": "2026-11-12",
+        "stage": "complete",
+        "checked": [
+          {
+            "full_name": "with-logic/crew",
+            "repository_id": 1215703747,
+            "commit": "a678864c58d11251668207ac177819ac9abc3b23",
+            "tree": "90551ecd6ff0e46a1ffdae88e0c4fe01d14a0659",
+            "fresh_official_identity_tree_objects": "passed",
+            "verified_file_refs": [
+              {
+                "path": "README.md",
+                "blob_sha": "28988731d0b95eb6db5116948cbfb1df5254b2ed",
+                "sha256": "3c6db74bea0da23deb650f650808268c6266d7c46d75718c892b3b59cc7f1fcb",
+                "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/README.md",
+                "bytes": 32045
+              },
+              {
+                "path": "LICENSE",
+                "blob_sha": "c32aa48ca09abcbcbca5780a7fdd33cc8a19a989",
+                "sha256": "0e7db7c5b3b346813072dffa9069e0e5e366393c87890414f3a6902488f8c8a7",
+                "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/LICENSE",
+                "bytes": 1072
+              },
+              {
+                "path": "src/agents/install.ts",
+                "blob_sha": "1dc0c443c493970f762ca28b9f24d2a52479f049",
+                "sha256": "45e873286de6e1b52ab17afee9a542c819d2d131333ae4092ca24d8c5a52686b",
+                "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/src/agents/install.ts",
+                "bytes": 6667
+              },
+              {
+                "path": "src/agents/agent-skills.ts",
+                "blob_sha": "5d538edf8641851dc79e4aaba19dbed5421f5eb2",
+                "sha256": "e39a81a0eb6a9a9385276609552d4efad4bb3566ff5967858c9e434af794ff51",
+                "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/src/agents/agent-skills.ts",
+                "bytes": 1254
+              },
+              {
+                "path": "package.json",
+                "blob_sha": "1956fd104e681b0ef66749d889b0f23d69d6c038",
+                "sha256": "70dfc6a0a23f234953d54564b9c5e2cc1040cf84d7d535f818622514e0a0b158",
+                "url": "https://github.com/with-logic/crew/blob/a678864c58d11251668207ac177819ac9abc3b23/package.json",
+                "bytes": 1671
+              }
+            ],
+            "raw_skill_path_count": 0,
+            "license_like_filename_count": 3,
+            "supported_disposition": "accepted_as_infrastructure",
+            "distribution_and_count_conclusion": "0 bundled SKILL.md task guides; package-manager implementation. README public crew install/tap/update contract is implemented by complete install.ts, portable agent-skills.ts and package binary metadata. Adapters, taps and generated catalogue rows are not bundled skills.",
+            "licence_scope_conclusion": "Root MIT is Logic App, Inc.'s package-manager/documentation grant, not a grant for installed skills/taps, agent clients or dependencies. notice.ts and notice.test.ts are update-notice source/tests, not extra licence grants.",
+            "observed_grant_paths": [
+              "LICENSE"
+            ],
+            "reviewed_decision_sha256": "ce71d6cb3aba9ec0730b200a7b7e0e70659d8ed38cd4d0968c7b8cc437b29e71",
+            "reviewed_paths": [
+              "README.md",
+              "LICENSE",
+              "src/agents/install.ts",
+              "src/agents/agent-skills.ts",
+              "package.json"
+            ]
+          },
+          {
+            "full_name": "yacb2/aidex",
+            "repository_id": 1200474378,
+            "commit": "65576716b3d4347b46efca68e78699381a575170",
+            "tree": "ac7f4b7ee8452c6f41db6c5413238485e75c55e7",
+            "fresh_official_identity_tree_objects": "passed",
+            "verified_file_refs": [
+              {
+                "path": "README.md",
+                "blob_sha": "f6eddb1347522159988a5674858ce777429a547f",
+                "sha256": "0770194a9da91f780965e7ee445f0fec56d012aecfe934368a47a50b156eecdc",
+                "url": "https://github.com/yacb2/aidex/blob/65576716b3d4347b46efca68e78699381a575170/README.md",
+                "bytes": 18571
+              },
+              {
+                "path": "LICENSE",
+                "blob_sha": "79ec9901e0473f273c7e918623ffc23906545a25",
+                "sha256": "527a69024296f99210c004ac653a5a9d86b090b0ecd069daf20cc59ae1bd9251",
+                "url": "https://github.com/yacb2/aidex/blob/65576716b3d4347b46efca68e78699381a575170/LICENSE",
+                "bytes": 1062
+              },
+              {
+                "path": "skills/request/SKILL.md",
+                "blob_sha": "18b6946e087f7f9025dc5569bc4b392250242519",
+                "sha256": "e0fad3227217fa5f73eff384ad5d461320290fa208fed9361a2fa0a6bf6157ac",
+                "url": "https://github.com/yacb2/aidex/blob/65576716b3d4347b46efca68e78699381a575170/skills/request/SKILL.md",
+                "bytes": 3326
+              },
+              {
+                "path": ".claude-plugin/plugin.json",
+                "blob_sha": "ee7e2cc517f5f94a2da7b10557cdcaa7ed1c169c",
+                "sha256": "87324c45c43d580bcdd1bbe7d2ce7ba2e1a7a4630630f4007d54cbd701d6ccde",
+                "url": "https://github.com/yacb2/aidex/blob/65576716b3d4347b46efca68e78699381a575170/.claude-plugin/plugin.json",
+                "bytes": 595
+              }
+            ],
+            "raw_skill_path_count": 22,
+            "license_like_filename_count": 1,
+            "supported_disposition": "accepted_as_mixed_workflow_collection",
+            "distribution_and_count_conclusion": "22 raw SKILL.md paths:21 under public skills/ and1 retired guide excluded. README explicitly types conventions as passive/non-invocable;20 remaining mixed workflow/router guides are not20 independently validated leaf tasks. Complete request guide delegates formatting to its shared canon; plugin metadata and README installation bind public consumer delivery.",
+            "licence_scope_conclusion": "Root MIT and plugin MIT declaration agree; no nearer separate grant was found for request. Third-party clients/dependencies and user project records remain separate. No all-sibling-body or compatibility certification.",
+            "observed_grant_paths": [
+              "LICENSE"
+            ],
+            "reviewed_decision_sha256": "7eb169a2fbd10dd3327492750efe85fb9431f02dcf89a310a80c78d56606bc82",
+            "reviewed_paths": [
+              "README.md",
+              "LICENSE",
+              "skills/request/SKILL.md",
+              ".claude-plugin/plugin.json"
+            ]
+          },
+          {
+            "full_name": "thanet-s/thai-lang-for-qwen-skill",
+            "repository_id": 1447910824,
+            "commit": "bd571170bca1f5d7689bb9e21922682e2c5f2836",
+            "tree": "665ac734c45b687a578a989cdc022a3397b7fb24",
+            "fresh_official_identity_tree_objects": "passed",
+            "verified_file_refs": [
+              {
+                "path": "README.md",
+                "blob_sha": "bc7146b2f636aa83fd183e3781b0efd7941cf662",
+                "sha256": "368d75e8078b3be2a2ef405696e5af0b55bafe23cdc8010ed958936a1bcea4b2",
+                "url": "https://github.com/thanet-s/thai-lang-for-qwen-skill/blob/bd571170bca1f5d7689bb9e21922682e2c5f2836/README.md",
+                "bytes": 4709
+              },
+              {
+                "path": "skills/thai-lang-for-qwen/SKILL.md",
+                "blob_sha": "95d4487a250d82bcd55f4175e84a9a8dcc8b8573",
+                "sha256": "8e876a64ed6c2c7854d157a44e6dcdba3c3999e40e2fb19bcc7874e1cc292302",
+                "url": "https://github.com/thanet-s/thai-lang-for-qwen-skill/blob/bd571170bca1f5d7689bb9e21922682e2c5f2836/skills/thai-lang-for-qwen/SKILL.md",
+                "bytes": 8975
+              }
+            ],
+            "raw_skill_path_count": 1,
+            "license_like_filename_count": 0,
+            "supported_disposition": "held_for_instruction_licence_evidence",
+            "distribution_and_count_conclusion": "One canonical self-contained Thai-language/style guard; complete README and full representative establish skills-CLI/manual public distribution. Examples, Unicode tables and client install forms do not add skills. Held means0 accepted new IDs for this entry.",
+            "licence_scope_conclusion": "Fresh complete tree contains no licence/notice grant path, and full README plus representative contain no explicit instruction-content grant. Installer/format credits do not license the original guide. Hold is supported without a claim of infringement or non-functionality.",
+            "observed_grant_paths": [],
+            "reviewed_decision_sha256": "e34a5fd69d080c67111c7276981e56fe3179fa92a00d68c47804bedcf16c8635",
+            "reviewed_paths": [
+              "README.md",
+              "skills/thai-lang-for-qwen/SKILL.md"
+            ]
+          }
+        ],
+        "objections": [],
+        "corrections": [],
+        "owner_initial_complete_report_sha256": "2fc00d02beed5a444b7b8060a8068b3ad45405d2a1879ad0e44e3bdb7c53483a",
+        "owner_report_sha256_at_cross_completion": "a50de59754dcfd60d7c28f4a8254193607e4aede16a3d71232ccd39880eea2d0",
+        "owner_stage_at_cross_completion": "in_progress",
+        "review_scope": "Focused independent cross-review of3 final target decisions only. Fresh official canonical IDs, pinned Commit.tree, complete trees and all11 recorded fixed file references checked. Read selected README purpose/distribution/licence sections, both MIT grants, complete install implementation/adapter/request entry and full Thai README/representative. No all-repository or all-skill-body claim.",
+        "source_freeze_note": "The owner initially marked its whole report complete, then reopened an unrelated Korean review. These3 decision records remain frozen by their owner; individual reviewed_decision_sha256 digests bind the actual cross-review inputs rather than treating the old whole-report hash as current.",
+        "limits": [
+          "Static selected-path review only; no candidate installation, hook, browser, update, copy, cleanup, model-language or helper execution. Object equality does not certify runtime safety, platform compatibility, semantic originality or reuse clearance."
+        ]
+      },
+      "product-korean-review.json": {
+        "stage": "complete",
+        "date": "2026-11-12",
+        "full_name": "kkhfiles/korean-writing-qa",
+        "repository_id": 1359695095,
+        "commit": "4226493a4151fa37f9311e1d35d07a95bbd6707b",
+        "tree": "7ff417f2ad69161f7fe57ec787ba70511da22daf",
+        "recommended_disposition": "accepted",
+        "recommended_new_consumer_count": 1,
+        "read_coverage": {
+          "consumer_path": "skills/finalize-korean-document/SKILL.md",
+          "raw_bytes": 69926,
+          "decoded_characters": 33582,
+          "contiguous_character_intervals": [
+            [
+              0,
+              7000
+            ],
+            [
+              7000,
+              14000
+            ],
+            [
+              14000,
+              21000
+            ],
+            [
+              21000,
+              28000
+            ],
+            [
+              28000,
+              33582
+            ]
+          ],
+          "missing_characters": 0,
+          "substitute_short_guide_used": false
+        },
+        "checked": [
+          {
+            "scope": "Public identity and complete tree",
+            "result": "Official canonical ID and pinned true-tree/regular-file paths verified; two raw entries and no skill-local license overrides."
+          },
+          {
+            "scope": "Consumer semantics",
+            "result": "Full entry follows profile/source selection, deterministic and rare-word checks, meaning-protection comparison, contextual model/manual review, per-finding human decisions, hash-bound judgment receipts and controlled feedback promotion."
+          },
+          {
+            "scope": "Distribution and count",
+            "result": "README consumer/maintenance distinction and full installer mapping support one consumer guide; optional global client installation routes are delivery, not new leaves."
+          },
+          {
+            "scope": "Licensing",
+            "result": "Root MIT and NOTICE/OFL font exception read and byte-bound; external service/user/corpus rights remain separate."
+          }
+        ],
+        "validation": {
+          "standard_yaml": "PyYAML 6.0.3 safe_load name/description passed",
+          "fixed_reference_count": 7,
+          "git_blob_sha1_sha256_size_url": "passed against fresh pinned complete tree",
+          "core_packaged_paths_present": [
+            "skills/finalize-korean-document/references/core-rules.md",
+            "skills/finalize-korean-document/references/document-types.md",
+            "skills/finalize-korean-document/scripts/check.py",
+            "skills/finalize-korean-document/scripts/check_meaning.py",
+            "skills/finalize-korean-document/scripts/record_feedback.py",
+            "skills/finalize-korean-document/scripts/promote_feedback.py",
+            "skills/finalize-korean-document/scripts/self_test.py",
+            "scripts/korean_qa_run.py",
+            "scripts/check_record.py",
+            "scripts/judge_layer2.py",
+            "scripts/review_screen.py",
+            "assets/doc-style-check.py"
+          ]
+        },
+        "file_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "529f6a49fc4b4505220d10e47d3448b7d4a0cd79",
+            "sha256": "4c7e402c71751378721484345e902b915d65839822e6e2c62cd9c0fc5816a327",
+            "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/README.md",
+            "bytes": 25894
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "71bb9e0dcce5d5f969de3d838cb2c433aa327c96",
+            "sha256": "5aeec9983bfeedcc80b02ac6d1b147483a52743ecc04cd5fda336958f0bc1fc4",
+            "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/LICENSE",
+            "bytes": 1074
+          },
+          {
+            "path": "skills/finalize-korean-document/SKILL.md",
+            "blob_sha": "baf30aee6f5f05fa8dca557aa8ca14b027445209",
+            "sha256": "3a8db4aff577b5c4eecc6670c56fff0e015c3a25984afdd86b9ebcaad62019cb",
+            "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/skills/finalize-korean-document/SKILL.md",
+            "bytes": 69926
+          },
+          {
+            "path": "skills/fix-korean-finding/SKILL.md",
+            "blob_sha": "215ebb6beee426cafe8ffdac5b485e9babda6b3c",
+            "sha256": "c1f7bc882c7982b1956591952858b2557743d31ce9fb7bff72070626cf9ec659",
+            "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/skills/fix-korean-finding/SKILL.md",
+            "bytes": 18825
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "d9b44b167b211cb7eeb38070b41d022e89215596",
+            "sha256": "b3f37da8639712c46cc39f6fdb128501a2b1ff54e68ea999dfb9b65a3e8b9df9",
+            "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/NOTICE",
+            "bytes": 1894
+          },
+          {
+            "path": "install.py",
+            "blob_sha": "5dbda706b50623951805556a0b04e97a4bf6c524",
+            "sha256": "70b54d1c10675e00010067af4f40d774183bc11f408849d4429ce8139e0ce55a",
+            "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/install.py",
+            "bytes": 22798
+          },
+          {
+            "path": "licenses/OFL-1.1.txt",
+            "blob_sha": "160421b6039671e5c85e1646bee4167844a5d69c",
+            "sha256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+            "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/licenses/OFL-1.1.txt",
+            "bytes": 4816
+          }
+        ],
+        "objections": [],
+        "corrections": [
+          {
+            "full_name": "kkhfiles/korean-writing-qa",
+            "field_updates": {
+              "disposition": "accepted",
+              "representative": {
+                "path": "skills/finalize-korean-document/SKILL.md",
+                "blob_sha": "baf30aee6f5f05fa8dca557aa8ca14b027445209",
+                "sha256": "3a8db4aff577b5c4eecc6670c56fff0e015c3a25984afdd86b9ebcaad62019cb",
+                "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/skills/finalize-korean-document/SKILL.md",
+                "bytes": 69926
+              },
+              "section": "vertical",
+              "discovery_family": "language-accessibility",
+              "summary_en": "Korean document-finalization workflow combining deterministic checks, meaning preservation, contextual review and explicit human decisions; optional global hook and model-judge integration.",
+              "summary_zh": "韩文文档终稿流程，结合确定性检查、语义保留、语境复核及人工判断；可选全局钩子与模型评审集成。",
+              "skill_count": "1 consumer finalization workflow; 1 maintenance workflow excluded",
+              "count_basis": "Complete fixed tree has two SKILL.md files. finalize-korean-document is the README-published consumer finalization entry, fully read (69,926 bytes). fix-korean-finding explicitly describes repository-maintenance rounds; installer copying both folders does not make it a second consumer leaf. Scripts, references and agent definitions are support/delivery artifacts.",
+              "distribution_evidence": "README distinguishes standalone checker, skills installation and opt-in hooks; install.py copies the repository skills/ and supporting assets, records the source-repository pointer, and optionally installs Codex skills/hooks. The selected long consumer guide and required core helper/reference paths exist at the fixed tree.",
+              "license_spdx": "MIT",
+              "license_scope": "Root MIT covers repository-owned guide/code. README and NOTICE separately retain SIL OFL-1.1 for the embedded Doc KR font subset in docs/showcase.html; licenses/OFL-1.1.txt preserves four copyright holders and Reserved Font Names. No skill-local override observed. Attributed external taxonomies, model services, private research documents and user material are not cleared for reuse by this metadata index.",
+              "reason": "The earlier finite-review hold is resolved by complete segmented reading of the actual consumer entry, README public distribution and full installer/notice review. One consumer workflow is supported; the shorter maintenance guide is not used as a substitute representative.",
+              "review_scope": "Complete 33,582-character / 69,926-byte consumer entry read in five contiguous segments; complete installer and applicable MIT/NOTICE/OFL texts read. README purpose/install/licensing, short maintenance entry metadata/role section and fresh complete tree inspected. Linked rule catalogs, all helper bodies, all agent definitions and research results are not exhaustively audited.",
+              "public_skill_paths": [
+                "skills/finalize-korean-document/SKILL.md"
+              ],
+              "limitations": [
+                "Static metadata admission only. No candidate install, checker, hook, model call, feedback promotion, document edit, local web UI or publication operation was executed.",
+                "Installer targets user-level Claude assets/skills/agents and can overwrite differing copied files; --hooks changes Claude settings with backup, while --codex installs both skills and hooks and recreates owned skill directories. A repository-location pointer remains required. These global effects need user scope before actual use.",
+                "The consumer flow sends document text and rules to a configured model judge, records per-line decisions/cost estimates and can serve review screens or update both installed and repository rule/test copies. Provider data handling, billed cost limits, loopback binding and rollback behavior were not runtime-certified.",
+                "The long guide uses Codex/Claude backend flags, while README still says Codex-only machines cannot invoke the model judge; cross-client/backend compatibility remains untested and should be checked before use.",
+                "Historical user quotations and sandbox/budget/approval directions in the third-party guide are publisher workflow data, not authorization for this indexing session. Korean style judgments and claimed private-corpus/benchmark results were not independently certified."
+              ],
+              "additional_evidence": [
+                {
+                  "path": "skills/finalize-korean-document/SKILL.md",
+                  "blob_sha": "baf30aee6f5f05fa8dca557aa8ca14b027445209",
+                  "sha256": "3a8db4aff577b5c4eecc6670c56fff0e015c3a25984afdd86b9ebcaad62019cb",
+                  "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/skills/finalize-korean-document/SKILL.md",
+                  "bytes": 69926
+                },
+                {
+                  "path": "licenses/OFL-1.1.txt",
+                  "blob_sha": "160421b6039671e5c85e1646bee4167844a5d69c",
+                  "sha256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+                  "url": "https://github.com/kkhfiles/korean-writing-qa/blob/4226493a4151fa37f9311e1d35d07a95bbd6707b/licenses/OFL-1.1.txt",
+                  "bytes": 4816
+                }
+              ]
+            },
+            "reason": "Resolve length-only scope hold after complete consumer review; breadth owner must move the identity from held to accepted, retain existing maintenance/NOTICE/installer refs and append the long consumer/OFL refs before revalidation."
+          }
+        ],
+        "limits": "Representative admission is not every linked helper/reference audit, runtime/installation verification, model/corpus benchmark replication or legal clearance."
+      }
+    },
+    "partition_verification": {
+      "date": "2026-11-12",
+      "streams": {
+        "breadth": {
+          "input_identities": 350,
+          "selected_review_identities": 47,
+          "dispositions": {
+            "accepted": 32,
+            "held": 14,
+            "duplicates": 1,
+            "unreviewed_reserve": 303
+          },
+          "missing": [],
+          "multiple_dispositions": [],
+          "frozen_identity_check": "passed",
+          "report_sha256": "7acfc33be3f867345f0e2f7bcc00f1cee6b174349f858e9c01107f65e2ae3670"
+        },
+        "science": {
+          "input_identities": 600,
+          "selected_review_identities": 36,
+          "dispositions": {
+            "accepted": 25,
+            "held": 11,
+            "unreviewed_reserve": 564
+          },
+          "missing": [],
+          "multiple_dispositions": [],
+          "frozen_identity_check": "passed",
+          "report_sha256": "e64a527e1e70c9bc216d538d73492b1f6b62ac9daf4ac7e01de698a2e99c14c7"
+        },
+        "product": {
+          "input_identities": 317,
+          "selected_review_identities": 45,
+          "dispositions": {
+            "accepted": 39,
+            "held": 2,
+            "rejected": 4,
+            "unreviewed_reserve": 272
+          },
+          "missing": [],
+          "multiple_dispositions": [],
+          "frozen_identity_check": "passed",
+          "report_sha256": "92fcaa114fe59e61ffb2dd81143bfb7864291af8f961ff08b94d00d491088f7c"
+        },
+        "carryover": {
+          "input_identities": 6,
+          "selected_review_identities": 6,
+          "dispositions": {
+            "accepted": 5,
+            "held": 1
+          },
+          "missing": [],
+          "multiple_dispositions": [],
+          "frozen_identity_check": "passed",
+          "report_sha256": "aacd142635f44839ab0346f0cc620cf26083a27e7057664f8dff104704a22b80"
+        }
+      },
+      "baseline_worktree_bytes": "preserved"
+    },
+    "representative_yaml": {
+      "date": "2026-11-12",
+      "checks": [
+        {
+          "full_name": "leejungmin91/engineering-workflow",
+          "path": "plugins/engineering-workflow/skills/engineering-workflow/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "jcl2018/agent-workflow-template",
+          "path": "skills/workflow-delivery/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "yacb2/aidex",
+          "path": "skills/request/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "yumingtao/agent-skills",
+          "path": "skills/diagram-generator/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "DgxSparkLabs/professionals",
+          "path": "plugins/pro-docs-designer/skills/docs-designer/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "SimaAlexandru99/agentscan",
+          "path": "skills/agentscan/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "duckysmacky/german-mode-skill",
+          "path": "skills/german-mode/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "CaelanDrayer/cAgents",
+          "path": ".claude/skills/act/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "tsukumogami/shirabe",
+          "path": "skills/brief/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "alxn0/toolshed",
+          "path": "plugins/relay/skills/handoff/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Wenston-dev/awesome-dsh-plugin",
+          "path": "scripts/aggregate.py",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "iscvlab/xboost",
+          "path": "skills/xcontext/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "shuxidemosheng/dsh-skill-doctor",
+          "path": "src/scanner/scan.ts",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "with-logic/crew",
+          "path": "src/agents/install.ts",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "gcalacoci/second-brain-starter-kit",
+          "path": "skills/kb-dream/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "kkhfiles/korean-writing-qa",
+          "path": "skills/finalize-korean-document/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "vtmocanu/skills",
+          "path": "skills/done/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "anoscranel/agent-skills-subskills",
+          "path": "skills/ac-academic-writing/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "tanle-mtr/dsh-plogin-plugin-recommender",
+          "path": "scripts/fetch-plugins.js",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "Zavragskiy/plan-ledger",
+          "path": "skill/plan-ledger/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Whosekey-Labs/career-skill",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "lomconsultoria/consultor-de-viagens",
+          "path": "consultor-de-viagens/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "joshystuart/build-bench",
+          "path": "src/build_bench/cli.py",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "stounio/assisted-pr-review-skill",
+          "path": "skills/assisted-pr-review/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "mturac/local-advisor-suite",
+          "path": "suite/skills/artifact-studio/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "linggan121/visual-fidelity",
+          "path": "visual-fidelity/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "kajisho5/subtitle-skill",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "geronco/commandvault-library",
+          "path": "skills/accessibility-check/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "charlesroper/skills",
+          "path": "cbeams-git-commit-messages/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Iceman2050/skillguard-registry",
+          "path": "tools/scan_and_grade.py",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "Iceman2050/agent-skills-security-scanner",
+          "path": "skillscan.py",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "Iceman2050/agent-skill-sbom",
+          "path": "agent_skill_sbom.py",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "yuiseki/GeoAI-master-skills",
+          "path": ".agents/skills/analysis-reporting/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "nkeikon/inlineviewer",
+          "path": "skills/viewinline/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "AI-Hydro/aihydro-tools",
+          "path": "ai_hydro/skills/registry.py",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "JiamingShi-JsPhys/3d-fabric",
+          "path": "skills/3d-fabric/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "LeeJUNhao791/glb-dimension-check",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Lilililiyyy/gear-transmission-skills",
+          "path": "skills/bevel-gear-design/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "ninja7v/freecad-skill",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "leoyang1984/image-to-cad-skill",
+          "path": "skills/image-to-cad/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "xngg1021/academic-research-kernel",
+          "path": "skills/literature-watch/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Weisg1999/energy-skills",
+          "path": "skills/tariff-bill-optimization/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "chuonglife-ops/curriculum-designer-skill",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "andreasschliep/learning-objective-lint",
+          "path": ".claude/skills/analyze-learning-objectives/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "poppopa/qyc-skills",
+          "path": "skills/geekbang-lesson-learning/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "xiaofengShi/paper-reading-skill",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "m4bwav/historywright",
+          "path": "skills/historywright-pack/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "JialiNong/europe-city-culture-planner-skill",
+          "path": "europe-city-culture-planner/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "tahodev/baodao-skill",
+          "path": "cwa-weather/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "YangLiu68/sim-env-builder",
+          "path": "plugin/skills/sim-env-builder/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "scottmss/hse-nz-au-skills",
+          "path": "packs/hse-core/skills/complex-problem-analyst/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "OUATILANAS/journal-lens",
+          "path": "skills/journal-lens/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "zhiganov/impact-to-funding",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "edisonymy/forecast-scaffold",
+          "path": "skills/calibrate/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "taoshijie111/codex-hpc",
+          "path": "skills/hpc/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "rkrug/zotero-backup",
+          "path": "skills/zotero-backup/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "OrgMentem/papio",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "firedrill-tools/firedrill-skills",
+          "path": "skills/firedrill/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Wexop/atelier",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Anctoster/facetkit",
+          "path": "skills/anchored-handoff/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Vaspyyy/pulse",
+          "path": "skill/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "vike-io/vike-data-cli",
+          "path": "skills/vike-alerts-setup/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "andrew1407/stencil",
+          "path": ".claude/skills/stencil/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "ThomasRayvol/viraldar-agent",
+          "path": "skills/viraldar-creation/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "schedchie/plugins",
+          "path": "skills/schedchie/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "devvcore/agentos-cli",
+          "path": "skills/agentos-crm/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "pureartisan/dev-disk-doctor",
+          "path": "skills/dev-disk-doctor/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "jaemk/sirene",
+          "path": "skills/render/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "stainless-code/verdict",
+          "path": "skills/verdict/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "hyperlocalise/hyperlocalise",
+          "path": "skills/hyperlocalise/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "studiometa/foehn-framework",
+          "path": "packages/vite-plugin/skills/foehn-vite-plugin/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "livekit/verwalter",
+          "path": "skills/verwalter/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "glaforge/gemini-interactions-api-sdk",
+          "path": "skills/gemini-interactions-java-api/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "nobodywho-ooo/nobodywho",
+          "path": ".agents/skills/nobodywho/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "missing-elements/h5p-offline-player",
+          "path": "skills/h5p-player-setup/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "kunalgoesbyken/seedfall",
+          "path": "skills/seedfall-fix-and-prove/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "dream-num/univer-workspace",
+          "path": "skills/univer-workspace-cli/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "owner888/apkx",
+          "path": "skills/apkx/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Open330/barshelf",
+          "path": "skills/barshelf-widget/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "handoffandhope/m18-pad",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Nimbleway/webrouter",
+          "path": "skills/web-router/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "inferedge-ai/evalkit",
+          "path": "skills/connect-traces/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "markymakes-dev/javabytes",
+          "path": "skills/javabytes-setup/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "zajca/pohunek",
+          "path": "crates/knowledge/src/agent_skill/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "godwit-email/godwit",
+          "path": "core/skills/builtin/format/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "trstdata/trustdata-integrations",
+          "path": "skills/trustdata/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "ashish10alex/xf",
+          "path": "skills/xf-checks/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Open330/tend",
+          "path": "crates/tend-cli/assets/agent-integration/skills/tend-collaboration/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "AKzar1el/mcp-gsc",
+          "path": "skills/gsc-indexing-triage/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "leadsets/leadsets-skills",
+          "path": "skills/account-research-brief/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "dev-five-git/vespera",
+          "path": "SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Solder-labs/claude-solder",
+          "path": "skills/solder-charts/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "Stock-Compass/stock-compass-plugin",
+          "path": "skills/stock-compass/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "sonic0002/pikabo",
+          "path": "skills/pikabo-testing-extensions/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "qjy0128/sgen",
+          "path": "skill/sgen/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "homeassistant-ai/ha-mcp",
+          "path": "src/ha_mcp/utils/skill_loader.py",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "dinhkarate/keyshroud",
+          "path": "skills/keyshroud/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "longbridge/nsh",
+          "path": "skills/nsh-design-guides/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "duriantaco/skylos",
+          "path": "skylos/commands/install_standards_cmd.py",
+          "status": "infrastructure implementation, not a SKILL leaf"
+        },
+        {
+          "full_name": "derpsn/access-virus-ti-revive",
+          "path": ".claude/skills/tirevive-diagnose/SKILL.md",
+          "status": "safe_load and name/description passed"
+        },
+        {
+          "full_name": "adrianmross/pursuit",
+          "path": "skills/pursuit/SKILL.md",
+          "status": "safe_load and name/description passed"
+        }
+      ],
+      "failures": [],
+      "scope": "Fixed admitted representatives only; transitive files/producer outputs not relabeled as validated leaves."
+    },
+    "parent_owned_template_yaml": {
+      "date": "2026-11-12",
+      "safe_yaml_name_description": "passed",
+      "checked": [
+        "skills/keyshroud/SKILL.md",
+        "skills/nsh/SKILL.md",
+        "skills/nsh-design-guides/SKILL.md",
+        ".claude/skills/tirevive-test/SKILL.md",
+        ".claude/skills/tirevive-diagnose/SKILL.md",
+        "skills/pursuit/SKILL.md",
+        "skylos-generated-template"
+      ],
+      "method": "Safe YAML parsing of fixed entry bytes and static ast.literal_eval of the single generated template; no producer execution."
+    }
+  },
+  "quality-machine.json": {
+    "date": "2026-11-12",
+    "accepted_snapshot_count": 101,
+    "unique_repository_ids": 101,
+    "cross_stream_overlaps": [],
+    "baseline_representative_blob_matches": [],
+    "untraversed_file_references": [],
+    "within_batch_representative_blob_matches": [],
+    "limits": "Exact representative-blob comparison only; not a semantic full-body plagiarism or independent-value certification.",
+    "stage": "complete"
+  },
+  "publication_rechecks": {},
+  "resolved_field_issues": [],
+  "integration_application": [
+    {
+      "full_name": "firedrill-tools/firedrill-skills",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "Root and both adjacent LICENSE.md files state proprietary client-use permission, explicitly for client code in official artifacts and accessing Firedrill. Placement beside the guide does not certify prose adaptation/general reuse rights. Third-party terms remain; no open-source grant, service entitlement, price or availability promise.",
+        "limitations": [
+          "Static review only. No target, cloud resources, account, budget, OAuth/MCP or native process used. Native execution is not a sandbox; real dependencies and local argv/state hooks need distinct human approvals. No safety, performance, compatibility or prose-reuse certification."
+        ]
+      }
+    },
+    {
+      "full_name": "andrew1407/stencil",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": [
+          "Static review only. CLI needs repository layout, Zig/C++ core and optional ffmpeg/Docker/Python. URL/source-site modes fetch network data; remote-update changes shared projects and confinement is optional. No install, build, renderer, media fetch, server operation or user-file write; equivalence/compatibility untested."
+        ]
+      }
+    },
+    {
+      "full_name": "nobodywho-ooo/nobodywho",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": [
+          "Public router requires network access to current docs although described inference may run locally. No docs endpoint, model/weights, binding build or speech backend used; proprietary-linking behavior not legally certified. Dynamic docs may differ from a user's pinned version."
+        ]
+      }
+    },
+    {
+      "full_name": "duriantaco/skylos",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "path": ".agents/skills/skylos/SKILL.md",
+            "blob_sha": "524673a5e46c91e9fcf3c5f5f35fed25c6867cd7",
+            "sha256": "ddf23b8a16902acef3c61fe9fd747cf2b230b85d40b98976ef81251cb5ef3c26",
+            "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/.agents/skills/skylos/SKILL.md",
+            "bytes": 2480
+          },
+          {
+            "path": ".claude/skills/skylos/SKILL.md",
+            "blob_sha": "5960a50d1c0153ab4fad0aa7397f712b75b20abf",
+            "sha256": "6d9421fd78ed437ab75c6b3d02aad194fd9e7b85ac1003136188ccc9b9896cb7",
+            "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/.claude/skills/skylos/SKILL.md",
+            "bytes": 3436
+          },
+          {
+            "path": "pyproject.toml",
+            "blob_sha": "f4ef9cf07d8014259dd31990837aa44100dec6ae",
+            "sha256": "7468c670299d0de4fa0086a8e9747794f25ffd5da53426756d7a536461d1bb93",
+            "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/pyproject.toml",
+            "bytes": 5292
+          },
+          {
+            "path": "docs/agent-standards.md",
+            "blob_sha": "660bab193db02da6bbae5c49d2a3db9304088eab",
+            "sha256": "af9f44bc794bf482b88d1c1cffd9289a0caf13e8599adda171a2c4262a3a3d41",
+            "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/docs/agent-standards.md",
+            "bytes": 4061
+          },
+          {
+            "path": "skylos/commands/install_standards_cmd.py",
+            "blob_sha": "e0504f9a010e3615f20c67f187491068a9803cfc",
+            "sha256": "04b37ce23510edbb39baf36901e55d353d7b6bf5a198a1a50c2c439646c4d074",
+            "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/skylos/commands/install_standards_cmd.py",
+            "bytes": 10099
+          },
+          {
+            "path": ".agents/skills/skylos-security/SKILL.md",
+            "blob_sha": "795d2bc9f701f2a84c0c0d80ea2cc12ae1f53361",
+            "sha256": "4afe3ef5fddf5642c4dbfb30368a07d27160f0928c6b50a0e44af4c8c27b3a6b",
+            "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/.agents/skills/skylos-security/SKILL.md",
+            "bytes": 2338
+          },
+          {
+            "path": ".claude/skills/skylos-security/SKILL.md",
+            "blob_sha": "795d2bc9f701f2a84c0c0d80ea2cc12ae1f53361",
+            "sha256": "4afe3ef5fddf5642c4dbfb30368a07d27160f0928c6b50a0e44af4c8c27b3a6b",
+            "url": "https://github.com/duriantaco/skylos/blob/d9388732296a4b8de5faaa66d22322c224987bfd/.claude/skills/skylos-security/SKILL.md",
+            "bytes": 2338
+          }
+        ]
+      }
+    }
+  ],
+  "application_note": "Reviewer correction.applied flags describe pre-integration delivery; integration_application binds the fields actually applied to the published records."
+}
