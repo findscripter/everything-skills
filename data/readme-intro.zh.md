@@ -76,6 +76,17 @@ npm run skill -- why api-design-reviewer
 
 CLI 无第三方依赖，不需要 `npm install`。它检索已随仓库提供的索引，`why` 展示技能关系。打开返回路径中的 `SKILL.md`，再让 Agent 按它处理任务。Codex、Cursor、Gemini CLI 可通过 [AGENTS.md](AGENTS.md)、[CLAUDE.md](CLAUDE.md)、[GEMINI.md](GEMINI.md) 熟悉本仓库的导航方式。
 
+### 系统入口与组合方案
+
+`bin/everything-skills.mjs` 使用自身的目录位置，从其他项目目录调用时也能定位索引：
+
+```sh
+node bin/everything-skills.mjs compose api-review --json
+node bin/everything-skills.mjs show api-design-reviewer --json
+```
+
+`compose` 返回有序的已登记案例配方或无序搭配建议，不执行步骤；`show` 返回正文、绝对路径和资源目录。[目录导航技能](00-meta/everything-skills-catalog/SKILL.md) 说明如何按阶段使用。可选系统包、客户端接入、依赖与限制见 [Arch/Omarchy 接入说明](docs/omarchy.md)；该包尚未进入 Omarchy 软件仓库。
+
 ## 3. 按领域继续探索
 
 | 卷 | 适用任务 |

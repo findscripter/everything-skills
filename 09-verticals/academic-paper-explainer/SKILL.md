@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pdf-reader, web-fetch, latex]
 requires: []
 related: [academic-paper-writer, academic-peer-reviewer, scientific-manuscript-writing, math-proof-writer]
-combines_with: [notebooklm-source-grounded-qa, scientific-database-lookup]
+combines_with: [notebooklm-source-grounded-qa, scientific-database-lookup, citation-management]
 license: MIT
 source: voidful/academic-skills
 source_license: MIT

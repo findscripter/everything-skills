@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "00-meta",
-      "description": "卷〇 · 通用 —— 42 个技能",
+      "description": "卷〇 · 通用 —— 43 个技能",
       "source": "./",
       "strict": false,
       "skills": [
@@ -29,6 +29,7 @@
         "./00-meta/decision-navigator",
         "./00-meta/design-brainstorming",
         "./00-meta/entity-research-dossier",
+        "./00-meta/everything-skills-catalog",
         "./00-meta/executive-adversarial-mentor",
         "./00-meta/fact-checking",
         "./00-meta/filesystem-context-offload",

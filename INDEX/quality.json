@@ -8669,6 +8669,27 @@
       }
     },
     {
+      "name": "everything-skills-catalog",
+      "path": "00-meta/everything-skills-catalog/SKILL.md",
+      "quality": {
+        "review_status": "unreviewed",
+        "last_reviewed": null,
+        "source_type": "native",
+        "source_freshness": "unknown",
+        "license_confidence": "declared",
+        "dependencies": {
+          "skills": [],
+          "tools": [
+            "Node.js 22+",
+            "everything-skills CLI"
+          ]
+        },
+        "capabilities": [],
+        "maturity": "stable",
+        "security_risk": "unknown"
+      }
+    },
+    {
       "name": "evm-token-decimals",
       "path": "09-verticals/evm-token-decimals/SKILL.md",
       "quality": {

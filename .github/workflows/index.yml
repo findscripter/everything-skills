@@ -27,6 +27,13 @@ jobs:
           node-version: 22
       - name: Install pinned development validators
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Provide the Arch package's declared interpreter for staging tests
+        run: |
+          node_path="$(command -v node)"
+          if [ "$(readlink -f "$node_path")" != "$(readlink -f /usr/bin/node)" ]; then
+            sudo ln -sfn "$node_path" /usr/bin/node
+          fi
+          /usr/bin/node --version
       - name: Validate standard skill distribution
         run: npm run check:distribution
       - name: Verify index and brand regression tests
