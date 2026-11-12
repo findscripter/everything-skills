@@ -150,7 +150,7 @@ test('compose rejects a workflow source outside the installed catalog', t => {
   assert.match(result.stderr, /越界|outside/i);
 });
 
-test('Arch package staging preserves runtime queries, source licenses and resources', { skip: process.platform === 'win32' ? 'POSIX staging runs in Linux CI' : false }, t => {
+test('Arch package staging preserves runtime queries, source licenses and resources', { skip: process.platform !== 'linux' || !fs.existsSync('/usr/bin/node') ? 'Arch staging needs Linux with its declared system interpreter' : false }, t => {
   const stage = fs.mkdtempSync(path.join(os.tmpdir(), 'everything-skills-package-'));
   t.after(() => {
     assert.equal(path.dirname(stage), fs.realpathSync(os.tmpdir()));
@@ -167,7 +167,6 @@ test('Arch package staging preserves runtime queries, source licenses and resour
   const result = JSON.parse(execFileSync(process.execPath, [entry, 'compose', 'api-review', '--json'], { cwd: os.tmpdir(), encoding: 'utf8' }));
   assert.equal(result.recipe.id, 'api-review');
   assert.ok(result.steps.every(step => step.skill.absolute_path.startsWith(installed + path.sep)));
-  assert.ok(fs.existsSync('/usr/bin/node'), 'package staging requires the declared system Node interpreter');
   const decoy = path.join(stage, 'decoy');
   fs.mkdirSync(decoy);
   fs.writeFileSync(path.join(decoy, 'node'), '#!/bin/sh\nexit 99\n', { mode: 0o755 });
