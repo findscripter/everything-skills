@@ -167,6 +167,13 @@ test('Arch package staging preserves runtime queries, source licenses and resour
   const result = JSON.parse(execFileSync(process.execPath, [entry, 'compose', 'api-review', '--json'], { cwd: os.tmpdir(), encoding: 'utf8' }));
   assert.equal(result.recipe.id, 'api-review');
   assert.ok(result.steps.every(step => step.skill.absolute_path.startsWith(installed + path.sep)));
+  if (fs.existsSync('/usr/bin/node')) {
+    const decoy = path.join(stage, 'decoy');
+    fs.mkdirSync(decoy);
+    fs.writeFileSync(path.join(decoy, 'node'), '#!/bin/sh\nexit 99\n', { mode: 0o755 });
+    const direct = JSON.parse(execFileSync(entry, ['compose', 'api-review', '--json'], { cwd: os.tmpdir(), env: { ...process.env, PATH: decoy }, encoding: 'utf8' }));
+    assert.equal(direct.recipe.id, 'api-review');
+  }
   const repository = JSON.parse(execFileSync(process.execPath, [entry, 'repo', 'anthropics/skills', '--json'], { cwd: os.tmpdir(), encoding: 'utf8' }));
   assert.equal(repository.full_name, 'anthropics/skills');
   assert.equal(fs.readlinkSync(path.join(stage, 'package/usr/bin/everything-skills')), '/usr/share/everything-skills/bin/everything-skills.mjs');

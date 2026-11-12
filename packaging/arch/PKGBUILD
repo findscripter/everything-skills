@@ -22,6 +22,8 @@ package() {
   local runtime="$pkgdir/usr/share/everything-skills"
   install -d "$runtime" "$runtime/scripts" "$runtime/INDEX" "$runtime/data" "$pkgdir/usr/bin"
   install -Dm755 bin/everything-skills.mjs "$runtime/bin/everything-skills.mjs"
+  # Use the declared system runtime, not a project's unrelated mise Node.
+  sed -i '1c#!/usr/bin/node' "$runtime/bin/everything-skills.mjs"
   install -m644 scripts/everything-skills.mjs scripts/load-skill-repos.mjs "$runtime/scripts/"
   install -m644 INDEX/search.json INDEX/graph.json INDEX/quality.json INDEX/sources.md "$runtime/INDEX/"
   install -m644 data/skill-repos*.jsonl data/workflows.json data/search-eval.json data/skill-provenance.json data/skill-resources.json "$runtime/data/"

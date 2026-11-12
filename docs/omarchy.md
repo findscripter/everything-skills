@@ -40,6 +40,8 @@ An agent with no native skill mechanism can read the path returned by `show` dir
 
 The recipe in `packaging/arch/PKGBUILD` builds an architecture-independent data/Node package. Run `makepkg` as a regular user on Arch. It installs the entry under `/usr/bin/everything-skills`, and the runtime, catalog, complete skill/resource directories and bounded examples under `/usr/share/everything-skills`. It declares Node.js 22 or later as a runtime dependency. An installed agent's mise configuration is not a substitute for that package dependency.
 
+The Arch-installed entry selects `/usr/bin/node` explicitly, so a project's older mise Node cannot shadow the runtime declared by the package. The checkout entry remains portable through `node` on PATH.
+
 The initial recipe pins a reviewed source commit instead of following a moving branch. A maintainer must update that pin when publishing the next version. For an integration review, the feature PR and pin are usable as an unreleased snapshot; they are not an official Omarchy package or an upstream endorsement.
 
 Check out the reviewed feature/release containing the recipe, inspect it, then build and install as your regular user on Arch:
