@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-共 1114 条技能。
+共 1115 条技能。
 
 ## 卷〇 · 通用
 
@@ -34,6 +34,7 @@
 - [`decision-cooldown-freeze`](../00-meta/decision-cooldown-freeze/SKILL.md) — 决策冷静期锁定　`通用/thinking` · 进阶
 - [`decision-navigator`](../00-meta/decision-navigator/SKILL.md) — 分支提问引导决策导航　`通用/thinking` · 入门
 - [`design-brainstorming`](../00-meta/design-brainstorming/SKILL.md) — 构思转设计的结构化头脑风暴　`通用/thinking` · 进阶
+- [`everything-skills-catalog`](../00-meta/everything-skills-catalog/SKILL.md) — Everything Skills 系统技能目录导航　`通用/thinking` · 入门
 - [`executive-adversarial-mentor`](../00-meta/executive-adversarial-mentor/SKILL.md) — 高管对抗式思维伙伴　`通用/thinking` · 进阶
 - [`first-principles-assumption-auditor`](../00-meta/first-principles-assumption-auditor/SKILL.md) — 第一性原理假设审计 ~~(deprecated)~~　`通用/thinking` · 进阶
 - [`first-principles-thinking`](../00-meta/first-principles-thinking/SKILL.md) — 第一性原理思考　`通用/thinking` · 进阶

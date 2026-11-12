@@ -1833,6 +1833,7 @@
 - [`customer-health-scorer`](../05-business/customer-health-scorer/SKILL.md) — 客户健康度评分与扩展机会
 - [`defi-natural-language-agent`](../09-verticals/defi-natural-language-agent/SKILL.md) — 自然语言 DeFi 链上交易代理
 - [`defuddle-web-extract`](../10-platform/defuddle-web-extract/SKILL.md) — Defuddle 网页正文提取为 Markdown
+- [`everything-skills-catalog`](../00-meta/everything-skills-catalog/SKILL.md) — Everything Skills 系统技能目录导航
 - [`huggingface-hub-cli`](../04-ai/huggingface-hub-cli/SKILL.md) — Hugging Face Hub CLI（hf 命令行）
 - [`jq-json-processing`](../03-data/jq-json-processing/SKILL.md) — jq JSON 查询与转换
 - [`ledger-tasks-yylo`](../04-ai/ledger-tasks-yylo/SKILL.md) — YYLO Ledger 任务看板与依赖管理
@@ -2110,6 +2111,9 @@
 
 ### `composio`
 - [`salesforce-automation`](../07-productivity/salesforce-automation/SKILL.md) — Salesforce 自动化
+
+### `composition`
+- [`everything-skills-catalog`](../00-meta/everything-skills-catalog/SKILL.md) — Everything Skills 系统技能目录导航
 
 ### `compression`
 - [`zarr-chunked-arrays`](../03-data/zarr-chunked-arrays/SKILL.md) — Zarr 云端分块 N 维数组
@@ -7186,6 +7190,9 @@
 - [`ai-model-knowledge-distill`](../04-ai/ai-model-knowledge-distill/SKILL.md) — 从 AI 模型蒸馏结构化领域知识
 - [`local-llm-inference`](../04-ai/local-llm-inference/SKILL.md) — 本地 LLM 推理部署
 
+### `omarchy`
+- [`everything-skills-catalog`](../00-meta/everything-skills-catalog/SKILL.md) — Everything Skills 系统技能目录导航
+
 ### `on-call`
 - [`incident-commander-framework`](../02-engineering/incident-commander-framework/SKILL.md) — 事故指挥与响应框架
 - [`oncall-handoff-writer`](../07-productivity/oncall-handoff-writer/SKILL.md) — 值班交接记录撰写
@@ -9789,6 +9796,9 @@
 
 ### `skill-audit`
 - [`agent-skill-security-scanner`](../08-security/agent-skill-security-scanner/SKILL.md) — AI 技能安装前安全扫描
+
+### `skill-discovery`
+- [`everything-skills-catalog`](../00-meta/everything-skills-catalog/SKILL.md) — Everything Skills 系统技能目录导航
 
 ### `skill-health`
 - [`skill-ecosystem-auditor`](../08-security/skill-ecosystem-auditor/SKILL.md) — 技能生态审计：质量、安全、成本与重复检测

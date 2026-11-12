@@ -57,6 +57,12 @@ data/skill-repos*.jsonl + data/skill-repos.meta.md
 
 `examples/` 保存三个有明确输入、方法参考、人工叙述结果和原创复现脚本的教学案例。`npm run examples:check` 核对具体 fixture、机器事实与文档链接，不重新调用模型，不验证客户端安装，也不升级全库 quality 状态。`marketing/` 为待审的站外发布文案；`assets/demos/` 的录屏仅演示真实网页操作。
 
+## 系统目录与组合接口
+
+`bin/everything-skills.mjs` 把资源根目录固定到自身安装位置，复用现有 CLI 的 `main`。`show` 只读返回正文、绝对路径与资源目录，并拒绝越界路径和外逃链接。`compose` 读取 `data/workflows.json` 的有序案例配方；无配方时结合现有搜索和图谱返回无序组合建议。两种输出均为 `plan-only`，不启动模型、子 Agent 或脚本，不安装系统依赖。
+
+案例配方与无向 `combines_with` 声明分别保存顺序契约与搭配关系；`requires` 仍是前置技能声明。配方保留来源、输入输出、验收与教学范围限制，不把示例当全库运行认证。Arch/Omarchy 的安装布局、参数及客户端边界见 [系统接入说明](docs/omarchy.md)。
+
 ## 常用命令
 
 ```bash

@@ -2368,6 +2368,7 @@
 - [`apify-ecommerce-scraper`](../10-platform/apify-ecommerce-scraper/SKILL.md) — Apify 电商数据抓取
 
 ### `Node.js 22+`
+- [`everything-skills-catalog`](../00-meta/everything-skills-catalog/SKILL.md) — Everything Skills 系统技能目录导航
 - [`full-page-screenshot`](../10-platform/full-page-screenshot/SKILL.md) — 整页网页截图捕获
 
 ### `Node.js crypto`
@@ -5490,6 +5491,9 @@
 
 ### `eur-lex`
 - [`dsar-response-builder`](../09-verticals/dsar-response-builder/SKILL.md) — 数据主体请求响应起草
+
+### `everything-skills CLI`
+- [`everything-skills-catalog`](../00-meta/everything-skills-catalog/SKILL.md) — Everything Skills 系统技能目录导航
 
 ### `evidence_tracker.py`
 - [`soc2-compliance-preparer`](../08-security/soc2-compliance-preparer/SKILL.md) — SOC 2 审计准备与控制矩阵
