@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1115 skills · 11 volumes · 6795 relation edges · 4355 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1115 skills · 11 volumes · 6795 relation edges · 4441 indexed entries" width="1200" /></picture>
 </p>
 <!-- END GENERATED:brand -->
 
@@ -120,7 +120,7 @@ node bin/everything-skills.mjs show api-design-reviewer --json
 
 Volume plugins offer **1094 current skills**. The catalog also retains **21 archived entries** for source history and migration, making **1115 bundled skill folders** in total. Their bodies retain their native language.
 
-**4355 external repository entries** provide discovery metadata for upstream projects. Their skill bodies are not included in the volume plugins. Daily repository collection expands this directory; bundled skill additions and revisions follow a separate curation workflow.
+**4441 external repository entries** provide discovery metadata for upstream projects. Their skill bodies are not included in the volume plugins. Daily repository collection expands this directory; bundled skill additions and revisions follow a separate curation workflow.
 
 The [catalog](INDEX/catalog.md), [tags](INDEX/tags.md), [graph](INDEX/graph.md), [search.json](INDEX/search.json), and [quality.json](INDEX/quality.json) are generated navigation and evidence views. Review status, freshness, licenses, and runtime dependencies are separate facets; `unknown` or `unreviewed` is not a verification claim. Read the selected skill's prerequisites and [source/license record](INDEX/sources.md) before running it.
 
@@ -135,16 +135,16 @@ Missing a useful skill or found a broken workflow? [Open an issue](https://githu
 <!-- BEGIN GENERATED:skill-repos -->
 ## Skill repos directory
 
-Browse **4355** indexed entries for external GitHub skill libraries, marketplaces, and curated lists. Their skill bodies are not bundled here.
+Browse **4441** indexed entries for external GitHub skill libraries, marketplaces, and curated lists. Their skill bodies are not bundled here.
 
 Open a category below for the complete tables, including summaries, licenses, recorded stars, and review status. [Full repository index](INDEX/skill-repos.md).
 
 | Category | Indexed entries |
 | --- | ---: |
 | [Official](INDEX/skill-repos.md#1-official) | 543 |
-| [Collections](INDEX/skill-repos.md#2-collections) | 734 |
-| [Domain skills](INDEX/skill-repos.md#3-vertical) | 1959 |
-| [Installers / registries / infrastructure](INDEX/skill-repos.md#4-infra) | 896 |
+| [Collections](INDEX/skill-repos.md#2-collections) | 750 |
+| [Domain skills](INDEX/skill-repos.md#3-vertical) | 2012 |
+| [Installers / registries / infrastructure](INDEX/skill-repos.md#4-infra) | 913 |
 | [Other skill libraries](INDEX/skill-repos.md#5-other) | 24 |
 | [Names without skill / agent](INDEX/skill-repos.md#6-unnamed-repo-name-lacks-skill--agent) | 199 |
 
