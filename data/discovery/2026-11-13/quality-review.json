@@ -1,0 +1,519 @@
+{
+  "quality-parent.json": {
+    "stage": "complete",
+    "date": "2026-11-13",
+    "scope": "Focused primary-agent semantic recheck; not a full duplicate audit of all selected bodies.",
+    "objections": [],
+    "corrections": [],
+    "reviewed": [
+      {
+        "full_name": "kingpanther13/Hubitat-local-MCP-server",
+        "commit": "53897a1ba8dc954bef4a9c27477309709b30f332",
+        "scope": "Complete canonical consumer SKILL and both safety/rule references, root MIT, relevant README purpose/distribution/license/test-warning sections and complete tree inventory; root development role identified from opening metadata and headings.",
+        "conclusion": "One distributed consumer guide; root development reference excluded. Corrected representative/count/licensing/limitations delivered to product owner.",
+        "source_role_correction": "Canonical agent-skill/hubitat-mcp/SKILL.md supersedes helper default root SKILL.md for this admission record."
+      },
+      {
+        "full_name": "akashdhruv/HPC-Lab-SC26",
+        "scope": "Complete loop-status representative; README purpose, public tutorial-stage delivery, setup/quickstart, layout and licensing statements; complete four-path skill inventory. Apache header cross-read only, not a new independent legal review.",
+        "conclusion": "Four stage contracts are supported; count separates three workflow stages from one status helper. Scientist-only acceptance and repository/container dependencies are explicit, with no execution claim."
+      },
+      {
+        "full_name": "Furox-Art/scientific-toolkit",
+        "scope": "Complete root operational SKILL; README gateway/distribution/limitations/licensing sections; complete one-skill inventory. Root Apache header cross-read; tool implementation and every external child project not audited.",
+        "conclusion": "One public gateway guide is supported. Nine independent upstream projects and 14 tool endpoints are not nine new bundled skills; scientific correctness, production/OAuth and client compatibility remain untested."
+      }
+    ]
+  },
+  "quality-machine.json": {
+    "stage": "complete",
+    "date": "2026-11-13",
+    "accepted_snapshot_count": 86,
+    "unique_repository_ids": 86,
+    "cross_stream_overlaps": [],
+    "baseline_representative_blob_matches": [],
+    "untraversed_file_references": [],
+    "within_batch_representative_blob_matches": [],
+    "limits": "Exact representative-blob comparison only; not a semantic full-body plagiarism or independent-value certification."
+  },
+  "science-cross-breadth.json": {
+    "date": "2026-11-13",
+    "stage": "complete",
+    "owner_report_sha256": "a82654459305321753ad17fcc6df17a4f8b891445fa531aab466e132fff51bb7",
+    "checked": [
+      {
+        "full_name": "yuluod/SkillMate",
+        "repository_id": 1189225943,
+        "commit": "3dcaea6a1c4664280a2cbc5ae3bb163f5669f0d2",
+        "tree": "a3046dc57553746edc5fb87255052f9ecf7a235c",
+        "owner_decision_sha256": "469c76d840095a6b7d76181d221eced5ee002bd5781f7f94a029dbd63c6749d6",
+        "official_fixed_objects": "passed",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "44fa1f2adb81870bf6e8a964056276d2fd699379",
+            "sha256": "fcde91f0620ae163137363f0a71a3c7c6a05aabf6abc88e4e40c2d3f21457856",
+            "url": "https://github.com/yuluod/SkillMate/blob/3dcaea6a1c4664280a2cbc5ae3bb163f5669f0d2/README.md",
+            "bytes": 20401
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "0c97efd25b5974b974ed9a8a18207bc4f55bb338",
+            "sha256": "d8a6cc31abc16b6748c7a21f21611f5a1ec33f67d22ca23d7da1c19b95496bee",
+            "url": "https://github.com/yuluod/SkillMate/blob/3dcaea6a1c4664280a2cbc5ae3bb163f5669f0d2/LICENSE",
+            "bytes": 34020
+          },
+          {
+            "path": "src-tauri/resources/skills/skillmate/SKILL.md",
+            "blob_sha": "cdb0c34c6510de2c4d492f2f9722967b0c973da8",
+            "sha256": "1633a00505f98a7b2767f3444ed09e501bab3552ee63d52ed12c1d7552c5ddae",
+            "url": "https://github.com/yuluod/SkillMate/blob/3dcaea6a1c4664280a2cbc5ae3bb163f5669f0d2/src-tauri/resources/skills/skillmate/SKILL.md",
+            "bytes": 2835
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "57c898c73c3c43c5c9779e646d35d3adb193df9c",
+            "sha256": "fcb794fef6b6569dd42b9f70d314ae071b54cd07b59fb571d27c1c1ca82d99af",
+            "url": "https://github.com/yuluod/SkillMate/blob/3dcaea6a1c4664280a2cbc5ae3bb163f5669f0d2/package.json",
+            "bytes": 1458
+          },
+          {
+            "path": "src-tauri/Cargo.toml",
+            "blob_sha": "507ca7735b19dd6c593cfc067e04def663912922",
+            "sha256": "b498b16f18d8c43ff21c7e76696d083e95641468dbbb3564ef0ccbd1f5421888",
+            "url": "https://github.com/yuluod/SkillMate/blob/3dcaea6a1c4664280a2cbc5ae3bb163f5669f0d2/src-tauri/Cargo.toml",
+            "bytes": 1122
+          },
+          {
+            "path": "src-tauri/src/bin/skillmate-cli.rs",
+            "blob_sha": "73600016dc7d3101d19cff934021a5e7dcbadd6c",
+            "sha256": "e635bd4c3991f5fbb9410803ffc861636ffebb8a8e73ba888ece26fb53419450",
+            "url": "https://github.com/yuluod/SkillMate/blob/3dcaea6a1c4664280a2cbc5ae3bb163f5669f0d2/src-tauri/src/bin/skillmate-cli.rs",
+            "bytes": 242
+          }
+        ],
+        "additional_verified_refs": [],
+        "conclusion": "Agree with the corrected AGPL-3.0-or-later metadata and public consumer/infrastructure scope.",
+        "reviewed_scope": "Complete bundled skillmate consumer guide; README purpose/delivery/licence sections; full package.json and Cargo.toml licence/bin declarations; CLI entry; root AGPL instrument; complete tree licence/skill inventory.",
+        "rationale": "README explicitly says AGPLv3 or later and both package manifests spell AGPL-3.0-or-later. The generic AGPLv3 instrument alone does not narrow that later-version offer to only. The single bundled guide says it operates SkillMate, not its source code; scopes, plan tokens and adopt/enable lifecycle are consumer operations. Managed third-party skills retain independent rights.",
+        "count_conclusion": "One product-usage guide plus skill-manager infrastructure; desktop, CLI, client adapters and global/project scopes do not add skills.",
+        "runtime_limits": "No installer, library scan, plan token, adopt/enable, write or delete operation ran. A242-byte CLI entry is entrypoint evidence, not validation of all dispatcher/library invariants or cross-client behavior."
+      },
+      {
+        "full_name": "NJ-Burrito/NJ-Kit",
+        "repository_id": 1429372532,
+        "commit": "6c02b27befe684d033c0d47e7a9f44a423e1ba9b",
+        "tree": "a36498e9146e86591293bb44adfd6b1930a36668",
+        "owner_decision_sha256": "c83fc884613ef20232123fb4771c859f8d71ae260fa0867df5e73fe0c19d32d2",
+        "official_fixed_objects": "passed",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "3e843c00e54f18333061c437c12e125fd577d4e2",
+            "sha256": "1311eeaf6b42c4da526f6704696b988557fe077d46aa86ef46a2003dda5f0e04",
+            "url": "https://github.com/NJ-Burrito/NJ-Kit/blob/6c02b27befe684d033c0d47e7a9f44a423e1ba9b/README.md",
+            "bytes": 35771
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "bd461fc68c247824fb756e33f6e7a54d567c1a1e",
+            "sha256": "8cedfa13a9006d495aff6a84fcb67d67496d1549635f11450ab5fc393bcc5216",
+            "url": "https://github.com/NJ-Burrito/NJ-Kit/blob/6c02b27befe684d033c0d47e7a9f44a423e1ba9b/LICENSE",
+            "bytes": 1084
+          },
+          {
+            "path": "nj-plugin/skills/nj-chart/SKILL.md",
+            "blob_sha": "ff98dc2e664db6475a18a48741953349f81b2609",
+            "sha256": "5f27efa79cdde5ae48cc8c9239f68de79199623deb66fa707ad38da56c654ce0",
+            "url": "https://github.com/NJ-Burrito/NJ-Kit/blob/6c02b27befe684d033c0d47e7a9f44a423e1ba9b/nj-plugin/skills/nj-chart/SKILL.md",
+            "bytes": 3481
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "aa0a3099a8baa5ecb990801e9e750f4bdc6d66d7",
+            "sha256": "e929e0d43bba62f4ec4b7d07dd46063a43761faee24674b0251c21255dd2883b",
+            "url": "https://github.com/NJ-Burrito/NJ-Kit/blob/6c02b27befe684d033c0d47e7a9f44a423e1ba9b/.claude-plugin/marketplace.json",
+            "bytes": 2267
+          },
+          {
+            "path": "nj-plugin/.claude-plugin/plugin.json",
+            "blob_sha": "d9c706e5e615310e293e57915253901264561fd1",
+            "sha256": "63849f34f09b3bbe43e8db10a0004da54a94a7597c630066d93626a7c550d399",
+            "url": "https://github.com/NJ-Burrito/NJ-Kit/blob/6c02b27befe684d033c0d47e7a9f44a423e1ba9b/nj-plugin/.claude-plugin/plugin.json",
+            "bytes": 1066
+          },
+          {
+            "path": "NOTICE.md",
+            "blob_sha": "d3aae2589445513dcf59f9c7c72cb1ec95da0f01",
+            "sha256": "94dcd10ab5c7013eb93ff6158eaf12aa725d19ce22b2c975a3346bf450b29da7",
+            "url": "https://github.com/NJ-Burrito/NJ-Kit/blob/6c02b27befe684d033c0d47e7a9f44a423e1ba9b/NOTICE.md",
+            "bytes": 268
+          },
+          {
+            "path": "nj-plugin/skills/nj-animation-direction/NOTICE.md",
+            "blob_sha": "ae8f189098cb81f720f133a306218482123f8311",
+            "sha256": "55242c7907dd5bead8d46fa6d68dbe846ef3d796e86421c92bd1f547434f258a",
+            "url": "https://github.com/NJ-Burrito/NJ-Kit/blob/6c02b27befe684d033c0d47e7a9f44a423e1ba9b/nj-plugin/skills/nj-animation-direction/NOTICE.md",
+            "bytes": 1401
+          },
+          {
+            "path": "nj-kit/bundled/nj-untangle-codebase/LICENSE",
+            "blob_sha": "0f255b7e8b17e994384d1b981fc1a2d4a27d7bde",
+            "sha256": "cbe11503c54a6eeecf65772e66fbbca7a37750bff9812c742b11dca47ceb539c",
+            "url": "https://github.com/NJ-Burrito/NJ-Kit/blob/6c02b27befe684d033c0d47e7a9f44a423e1ba9b/nj-kit/bundled/nj-untangle-codebase/LICENSE",
+            "bytes": 1061
+          },
+          {
+            "path": "THIRD_PARTY.md",
+            "blob_sha": "7e6d5424246b1aa1d436dc1d20bca71bf34d05b7",
+            "sha256": "2ea66476a096b72866d77172bdb1fb0d63602377e37875b28097ea73bbb09f01",
+            "url": "https://github.com/NJ-Burrito/NJ-Kit/blob/6c02b27befe684d033c0d47e7a9f44a423e1ba9b/THIRD_PARTY.md",
+            "bytes": 1746
+          }
+        ],
+        "additional_verified_refs": [],
+        "conclusion": "Agree with29 manifest-backed plugin guide paths plus21 separately labelled kit inventory paths, retaining scoped nj-chart as representative.",
+        "reviewed_scope": "Complete nj-chart consumer guide, root MIT, full marketplace/plugin manifests, root NOTICE/THIRD_PARTY, near animation NOTICE and sampled bundled MIT grant; README install/distribution/attribution sections; fresh untruncated tree path and blob inventory.",
+        "rationale": "Marketplace maps ./nj-plugin and explicitly lists exactly29 plugin skill directories matching the tree, including nj-chart.21 kit paths include one kit-level router and lowercase skill.md; they are a separate inventory, not21 certified independent tasks. PDF task names intersect but blobs differ across delivery versions. Third-party bundled guides, language/views and possible mirrors are not claimed globally new/original. Reviewed nj-chart is original wiring around an external unshipped Flint service; its backend and other assets are not relicensed by root MIT.",
+        "count_conclusion": "29 plugin paths +21 kit paths =50 raw entries as typed inventory; not50 independent novel leaves. No templates/fixtures are promoted by this count. Long kit router and other bodies remain outside substantive review.",
+        "licence_limits": "Preserve animation-source provenance uncertainty, external author rights, GreenSock and website-only Transitions restrictions; source claims that ideas/quotes were properly adapted and backend MIT rights are not independently legally cleared.",
+        "runtime_limits": "No Flint service, asset fetch, downloaded library, installer, PASS/FAIL gate, long-router behavior or host compatibility was exercised."
+      },
+      {
+        "full_name": "aignerdevelopment/harnessator",
+        "repository_id": 1424295594,
+        "commit": "aa8f8747af372f708ce72aaf565d7e631c7b4569",
+        "tree": "1a931748744cdafa911ac9f087ec9af341d4217b",
+        "owner_decision_sha256": "0a02845f55fe3ff42a6de53ad16d369606ce1fe29ef9fe01a16fde0f8f58e8ae",
+        "official_fixed_objects": "passed",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "82c9dd7ebef58c3128444a5b30e88ecc0d864255",
+            "sha256": "befd08ec2910ead5442b3fb08163071f3b598f19fd39514cc77fe74d3b932ed4",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/README.md",
+            "bytes": 12642
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "90821691e19be0350eade1d63683c94181a74dd3",
+            "sha256": "47058ad37e5725d0395990012a7fc431d57a52db390524bf895efac0015c4b19",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/LICENSE",
+            "bytes": 11344
+          },
+          {
+            "path": "source/harnessator/skills/harnessator-harvest/SKILL.md",
+            "blob_sha": "ca4450b9ec2d505d22e6e61ebe37d27f343a90ca",
+            "sha256": "36622b32576635d521bffeab9946e34beeba3e8967a9fdf281ea5e0b568e21a6",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/source/harnessator/skills/harnessator-harvest/SKILL.md",
+            "bytes": 3041
+          }
+        ],
+        "additional_verified_refs": [
+          {
+            "path": "source/harnessator/harnessator.toml",
+            "blob_sha": "24fce5307a5b5dcafe0beb46b7435f269a3df235",
+            "sha256": "c6301b9520b4855102237cf255b936076c6d010f0691f97e4db8454c3f89335d",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/source/harnessator/harnessator.toml",
+            "bytes": 1023
+          },
+          {
+            "path": "cmd/harnessator/main.go",
+            "blob_sha": "e06429b534def73a3f83f39ad24838b0b2c296c9",
+            "sha256": "ba90af5486b5bfe94683e4cd87c4974d3fc6cc0be26b3d03047acfa85cee3702",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/cmd/harnessator/main.go",
+            "bytes": 1043
+          },
+          {
+            "path": "internal/cli/harvest.go",
+            "blob_sha": "da5bf332d65d340848b519d9d4e1f10965552454",
+            "sha256": "ac9e35b8861dfadeee4d941f954f88ee12b43d11f22aa8971627cf4d4e9c6f99",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/internal/cli/harvest.go",
+            "bytes": 8186
+          },
+          {
+            "path": "internal/harvest/residual.go",
+            "blob_sha": "e242f85598e7b7f851c309868518b78ba38094c6",
+            "sha256": "0be0538f3f431bb53ae5a3e4681da27e6f1191a5b2f966aa2d4d5a1adf86b5d6",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/internal/harvest/residual.go",
+            "bytes": 2489
+          }
+        ],
+        "conclusion": "Agree with public infrastructure plus one consumer harvest-tail guide and explicit fixture exclusion; add source manifest/implementation evidence for the actual delivery and CLI path.",
+        "reviewed_scope": "Full consumer harvest guide, root Apache grant and README purpose/install/pinned-source sections; complete source/harnessator/harnessator.toml, CLI main, harvest command/ratify dispatcher and residual-report implementation; complete tree fixture/guide inventory.",
+        "rationale": "Native source manifest expressly documents source add --manifest source/harnessator and enable harnessator:default, mapping its default profile to the real guide. CLI harvest calls the implementation, reports residual output and instructs use of that skill; residual.go writes the named report and ratifyCommit validates the source before git commit. This is actual consumer infrastructure, not the testdata example. Apache SPDX headers in implementation agree with root. Donor/source content rights remain independent.",
+        "count_conclusion": "One consumer guide; one testdata example excluded from public_skill_paths and skill count. Generated client outputs, component categories and external source libraries are not new bundled skills.",
+        "runtime_limits": "Static selected code-path review only; no scan/harvest, validation, git write, adoption, setup, network contribution or security/platform guarantee was executed. Optional harvest --adopt is a distinct code path that may remove digest-verified donor originals; it was observed as an explicit option, not tested."
+      }
+    ],
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "aignerdevelopment/harnessator",
+        "reason": "Bind public consumer-source delivery and actual harvest/ratify/report implementation to fixed evidence, supplementing the already reviewed guide rather than claiming runtime validation.",
+        "field_updates": {
+          "distribution_evidence": "README documents public CLI installation, pinned-source setup and six target clients. Full harvest guide classifies residual files into manifest components and ratifies the harvested source, explicitly disallowing donor edits and pushes. The native source/harnessator/harnessator.toml maps the default skill profile and documents consumer setup; selected CLI harvest/ratify and residual-report code binds that guide to actual tool output.",
+          "additional_evidence": [
+            {
+              "path": "source/harnessator/harnessator.toml",
+              "blob_sha": "24fce5307a5b5dcafe0beb46b7435f269a3df235",
+              "sha256": "c6301b9520b4855102237cf255b936076c6d010f0691f97e4db8454c3f89335d",
+              "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/source/harnessator/harnessator.toml",
+              "bytes": 1023
+            },
+            {
+              "path": "cmd/harnessator/main.go",
+              "blob_sha": "e06429b534def73a3f83f39ad24838b0b2c296c9",
+              "sha256": "ba90af5486b5bfe94683e4cd87c4974d3fc6cc0be26b3d03047acfa85cee3702",
+              "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/cmd/harnessator/main.go",
+              "bytes": 1043
+            },
+            {
+              "path": "internal/cli/harvest.go",
+              "blob_sha": "da5bf332d65d340848b519d9d4e1f10965552454",
+              "sha256": "ac9e35b8861dfadeee4d941f954f88ee12b43d11f22aa8971627cf4d4e9c6f99",
+              "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/internal/cli/harvest.go",
+              "bytes": 8186
+            },
+            {
+              "path": "internal/harvest/residual.go",
+              "blob_sha": "e242f85598e7b7f851c309868518b78ba38094c6",
+              "sha256": "0be0538f3f431bb53ae5a3e4681da27e6f1191a5b2f966aa2d4d5a1adf86b5d6",
+              "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/internal/harvest/residual.go",
+              "bytes": 2489
+            }
+          ]
+        }
+      }
+    ],
+    "report_reviewed": "breadth-results.json",
+    "review_scope": "Focused independent review of3 final target decisions, not all breadth entries. Fresh official canonical IDs, pinned Commit.tree, full untruncated trees and18 owner refs independently re-fetched;4 additional native manifest/implementation refs fetched, Git-SHA1/SHA256/size/URL checked.",
+    "resolved_pre_review_issues": [
+      {
+        "full_name": "yuluod/SkillMate",
+        "field": "license_spdx",
+        "resolution": "Owner corrected only to or-later before the frozen cross-review input."
+      },
+      {
+        "full_name": "aignerdevelopment/harnessator",
+        "field": "public_skill_paths",
+        "resolution": "Owner removed testdata fixture before frozen cross-review input."
+      }
+    ],
+    "limits": [
+      "No candidate was installed or executed. Static infrastructure paths and exact inventory counts do not certify runtime safety, scientific accuracy, legal clearance, performance or client compatibility.",
+      "Per-decision digests cover the entire owner record serialized with ensure_ascii=False, sort_keys=True, separators=(comma,colon), UTF8, SHA256; later correction application changes the integrated record intentionally."
+    ]
+  },
+  "breadth-cross-product.json": {
+    "stage": "complete",
+    "date": "2026-11-13",
+    "reviewer_stream": "breadth",
+    "reviewed": [
+      {
+        "full_name": "Philipjj609/mneme",
+        "repository_id": 1446821901,
+        "commit": "f7867659339cd85108df4012863680185d297137",
+        "tree": "2893745fd37eb3270d92f385bef5d6682a11590e",
+        "reviewed_decision_sha256": "3ce0510cc68c945c0b20cdb9c91bc98e00a67126a539165a1756fa0a883f81ae",
+        "fresh_official_file_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "56078e8ab1548c7c21f451514fa8df29c25bd626",
+            "sha256": "c7e1efc3c40eff81ddacd0748917f2e3266ba10c9d4cc345d1120ad70a805edd",
+            "url": "https://github.com/Philipjj609/mneme/blob/f7867659339cd85108df4012863680185d297137/README.md",
+            "bytes": 9565
+          },
+          {
+            "path": "LICENSE-MIT",
+            "blob_sha": "f955bb2f06e83366f4d0f169485a5088acde3545",
+            "sha256": "e80d94eb202dbf54c1bec9efcfa6a1aaa339058acaad81ed345d4b4351678865",
+            "url": "https://github.com/Philipjj609/mneme/blob/f7867659339cd85108df4012863680185d297137/LICENSE-MIT",
+            "bytes": 1069
+          },
+          {
+            "path": "skills/mneme/SKILL.md",
+            "blob_sha": "7b796f63f1aea1cec496c1a2553246ad4fe22a25",
+            "sha256": "f3cc902f0b2309f20a9c29a892332721cb9f9717b675d18ea23cc91cd71399c9",
+            "url": "https://github.com/Philipjj609/mneme/blob/f7867659339cd85108df4012863680185d297137/skills/mneme/SKILL.md",
+            "bytes": 2792
+          },
+          {
+            "path": "LICENSE-APACHE",
+            "blob_sha": "b47fd930652b899ba53a3153aa63ef45e920eb0d",
+            "sha256": "7ca0b4e1ba087ecf8fe35607b46ad9f05b654a27bca1057f641c1632d62f0f36",
+            "url": "https://github.com/Philipjj609/mneme/blob/f7867659339cd85108df4012863680185d297137/LICENSE-APACHE",
+            "bytes": 10297
+          }
+        ],
+        "additional_distribution_refs": [],
+        "raw_case_insensitive_skill_entry_count": 1,
+        "scope": "Complete consumer skills/mneme guide, full README purpose/public copy-install/history/limits/license sections, LICENSE-MIT and LICENSE-APACHE; fresh complete tree and recorded fixed references.",
+        "conclusion": "Consumer memory workflow is explicitly public and separate from engine AGENTS maintenance. Exactly one guide. Root hyphenated license filenames explain the initial generic precheck gap; README states MIT OR Apache-2.0 alternatives and both texts exist. Learning-from-feedback inconsistency is already correctly recorded; no private memory corpus accessed."
+      },
+      {
+        "full_name": "Goldziher/skif",
+        "repository_id": 1441519193,
+        "commit": "777309e9e6937c379cc7da4a831e603df1b5651d",
+        "tree": "dd2a2917cfa08513867fa9c464d20e7e25de45c9",
+        "reviewed_decision_sha256": "05796536ead0c76b36a90ecd0826addfeaa54f09f6349a6ba5294160298fdc9a",
+        "fresh_official_file_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "e1289f509d88ea2bb9394efb5e9616d4e4b3a8f2",
+            "sha256": "59b8b5cb0ff96e823b79fa791a3a145513e8622986496181dafcf12edf1fad47",
+            "url": "https://github.com/Goldziher/skif/blob/777309e9e6937c379cc7da4a831e603df1b5651d/README.md",
+            "bytes": 9035
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "7415e6643cbedf99d1d052457fea0eaf3f0e31f1",
+            "sha256": "e4611c3a2a26e8a205cd6456a59513111f9898ff32065b06b7582c734d05b7ea",
+            "url": "https://github.com/Goldziher/skif/blob/777309e9e6937c379cc7da4a831e603df1b5651d/LICENSE",
+            "bytes": 1075
+          },
+          {
+            "path": "skills/skif/SKILL.md",
+            "blob_sha": "6b956686da9c5f50a6d96f16aa0e7ac34f1a0318",
+            "sha256": "bbb9d7ad54cf3784b7983a1247b50587b8aaede4fd1e8a74195c0b35fa6cb0b9",
+            "url": "https://github.com/Goldziher/skif/blob/777309e9e6937c379cc7da4a831e603df1b5651d/skills/skif/SKILL.md",
+            "bytes": 5388
+          },
+          {
+            "path": "ATTRIBUTIONS.md",
+            "blob_sha": "1a5c1a2b44bef5c4a4b6f462c4516dab10f268d8",
+            "sha256": "255f9c0991603d4d86834ee0573ad31cd373b1ec802c0769da2e7127d780d966",
+            "url": "https://github.com/Goldziher/skif/blob/777309e9e6937c379cc7da4a831e603df1b5651d/ATTRIBUTIONS.md",
+            "bytes": 9627
+          }
+        ],
+        "additional_distribution_refs": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "48c110c98e53ed552b3606b7344ce2e729e4232c",
+            "sha256": "4a463db54dd34786989ef27fc41cb5aa00aa74e1077f2fcb589e7f2a3a84611d",
+            "url": "https://github.com/Goldziher/skif/blob/777309e9e6937c379cc7da4a831e603df1b5651d/.claude-plugin/plugin.json",
+            "bytes": 768
+          }
+        ],
+        "raw_case_insensitive_skill_entry_count": 1,
+        "scope": "Complete consumer guide, complete README installation/editor-agent/public contract/license sections, root MIT and full ATTRIBUTIONS.md; fresh complete tree and fixed references.",
+        "conclusion": "Agree with one dependency-management consumer workflow, not skill-registry infrastructure and not rule/plugin count. It directly instructs product users to lint/preview/fix/migrate and names CLI/MCP routes. ATTRIBUTIONS explicitly retains sherif/syncpack MIT and knip ISC with locations and commits; origin/fork history is not misrepresented as all-new original text. No tooling or fixes executed."
+      },
+      {
+        "full_name": "chatmaxima-com/chatmaxima-skills",
+        "repository_id": 1445354374,
+        "commit": "403184761a2a1eaf3d41ff523a197cecac216eb1",
+        "tree": "09ae69f762d87d7d8e4a4622cdb8826560b84dd1",
+        "reviewed_decision_sha256": "f6083023e81dbe15e355b3dcad9c5fcb5d9e5217642be2132aa2b6e4f3ee75bc",
+        "fresh_official_file_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "ac217d8f10c6c98350faef4d7055d73fd961dcf4",
+            "sha256": "0f163dc0dda79ae10d60d985f28cb9d2567bd87dff690327eb493d2e5390d371",
+            "url": "https://github.com/chatmaxima-com/chatmaxima-skills/blob/403184761a2a1eaf3d41ff523a197cecac216eb1/README.md",
+            "bytes": 3757
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "a17be2f333a3759eed248cb3ef215a45a15bef3b",
+            "sha256": "02a7e3c4366306594256197fbd9d7720e2445a31380440f9b2e2bee652da9e80",
+            "url": "https://github.com/chatmaxima-com/chatmaxima-skills/blob/403184761a2a1eaf3d41ff523a197cecac216eb1/LICENSE",
+            "bytes": 1089
+          },
+          {
+            "path": "skills/build-chatbot/SKILL.md",
+            "blob_sha": "281f583b006d83ebb9c792c359823b7076bdb035",
+            "sha256": "ea0fab2be0dac836127d1a6432fd3964c637f5fc00c24e86b4f16c493ebfc45b",
+            "url": "https://github.com/chatmaxima-com/chatmaxima-skills/blob/403184761a2a1eaf3d41ff523a197cecac216eb1/skills/build-chatbot/SKILL.md",
+            "bytes": 3721
+          }
+        ],
+        "additional_distribution_refs": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "0a23775df533be341047168a7b38d3bfe65441a6",
+            "sha256": "3060781c9a6790d79e153a8cbfe2a742a49f384cb65c0050b70b845cb803659a",
+            "url": "https://github.com/chatmaxima-com/chatmaxima-skills/blob/403184761a2a1eaf3d41ff523a197cecac216eb1/.claude-plugin/plugin.json",
+            "bytes": 707
+          },
+          {
+            "path": ".mcp.json",
+            "blob_sha": "c69e9b6739156c370e872cb57a22b3a716605637",
+            "sha256": "51ce6e2eb50cfd8d34cccbae7df09da90bc4e982fdc316d839efca81e1eb576e",
+            "url": "https://github.com/chatmaxima-com/chatmaxima-skills/blob/403184761a2a1eaf3d41ff523a197cecac216eb1/.mcp.json",
+            "bytes": 116
+          }
+        ],
+        "raw_case_insensitive_skill_entry_count": 9,
+        "scope": "Complete build-chatbot guide, full README distribution/data/license, root MIT and exact nine-entry tree inventory; optional plugin/MCP config references freshly fetched.",
+        "conclusion": "Agree with nine guide paths including get-started setup and chatmaxima ground-rules router. No extra mirrored SKILL paths in this pinned tree. MIT applies to instruction package, not hosted service/accounts/customer messages. Representative contains real schema/list/build/test steps; its test mode explicitly simulates external integration/payment/messages and is not a live service test."
+      }
+    ],
+    "source_report_state_at_start": "in_progress",
+    "source_report_sha256_at_start": "b7ea058dd6f275468dc2e854d5fc6f68e81c13346aeca735dca4456110694195",
+    "binding_method": "Per-decision hashes bind the exact reviewed selected records; unrelated owner report additions may proceed. Whole-stream completeness is not claimed by this focused cross-review.",
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "Philipjj609/mneme",
+        "field_updates": {
+          "license_scope": "README offers MIT OR Apache-2.0 alternatives. LICENSE-MIT retains Philip Ciuca (2026); LICENSE-APACHE contains the Apache-2.0 terms and retains its GraphRAG Contributors (2024-2026) copyright notice. These are recorded scoped publication declarations, not an exhaustive origin/third-party-code rights audit. Private memory corpus, captured web/social content, dependencies and user data retain independent rights."
+        },
+        "reason": "Precision: retain the distinct copyright notice actually present in the Apache alternative rather than imply a whole-engine origin/rights clearance. Admission itself is not rejected."
+      }
+    ],
+    "limits": "Only the named representatives and focused public distribution/count/license scopes were reviewed. Official API rechecks bind identities, commits, complete trees and recorded refs; no candidate installation, execution, account/service write, legal clearance, benchmark reproduction or full-code audit."
+  },
+  "publication_rechecks": {},
+  "resolved_field_issues": [],
+  "integration_application": [
+    {
+      "full_name": "aignerdevelopment/harnessator",
+      "source_review": "science-cross-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "distribution_evidence": "README documents public CLI installation, pinned-source setup and six target clients. Full harvest guide classifies residual files into manifest components and ratifies the harvested source, explicitly disallowing donor edits and pushes. The native source/harnessator/harnessator.toml maps the default skill profile and documents consumer setup; selected CLI harvest/ratify and residual-report code binds that guide to actual tool output.",
+        "additional_evidence": [
+          {
+            "path": "source/harnessator/harnessator.toml",
+            "blob_sha": "24fce5307a5b5dcafe0beb46b7435f269a3df235",
+            "sha256": "c6301b9520b4855102237cf255b936076c6d010f0691f97e4db8454c3f89335d",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/source/harnessator/harnessator.toml",
+            "bytes": 1023
+          },
+          {
+            "path": "cmd/harnessator/main.go",
+            "blob_sha": "e06429b534def73a3f83f39ad24838b0b2c296c9",
+            "sha256": "ba90af5486b5bfe94683e4cd87c4974d3fc6cc0be26b3d03047acfa85cee3702",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/cmd/harnessator/main.go",
+            "bytes": 1043
+          },
+          {
+            "path": "internal/cli/harvest.go",
+            "blob_sha": "da5bf332d65d340848b519d9d4e1f10965552454",
+            "sha256": "ac9e35b8861dfadeee4d941f954f88ee12b43d11f22aa8971627cf4d4e9c6f99",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/internal/cli/harvest.go",
+            "bytes": 8186
+          },
+          {
+            "path": "internal/harvest/residual.go",
+            "blob_sha": "e242f85598e7b7f851c309868518b78ba38094c6",
+            "sha256": "0be0538f3f431bb53ae5a3e4681da27e6f1191a5b2f966aa2d4d5a1adf86b5d6",
+            "url": "https://github.com/aignerdevelopment/harnessator/blob/aa8f8747af372f708ce72aaf565d7e631c7b4569/internal/harvest/residual.go",
+            "bytes": 2489
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "Philipjj609/mneme",
+      "source_review": "breadth-cross-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "README offers MIT OR Apache-2.0 alternatives. LICENSE-MIT retains Philip Ciuca (2026); LICENSE-APACHE contains the Apache-2.0 terms and retains its GraphRAG Contributors (2024-2026) copyright notice. These are recorded scoped publication declarations, not an exhaustive origin/third-party-code rights audit. Private memory corpus, captured web/social content, dependencies and user data retain independent rights."
+      }
+    }
+  ],
+  "application_note": "Reviewer correction.applied flags describe pre-integration delivery; integration_application binds the fields actually applied to the published records."
+}
