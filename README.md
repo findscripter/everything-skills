@@ -7,20 +7,49 @@
   <a href="INDEX/catalog.md"><picture><source media="(prefers-reduced-motion: reduce) and (max-width: 600px)" srcset="assets/brand/hero-mobile-static.svg" /><source media="(prefers-reduced-motion: reduce)" srcset="assets/brand/hero-static.svg" /><source media="(max-width: 600px)" srcset="assets/brand/hero-mobile.svg" /><img src="assets/brand/hero.svg" alt="Everything Skills — a connected atlas of Agent Skills" width="1200" /></picture></a>
 </p>
 
-<p align="center"><strong>从任务出发找技能，沿关系组合工作流，按领域安装。</strong></p>
+<p align="center"><strong>按任务组合技能，用输入、交付物和检查记录说明结果。</strong></p>
 
 <p align="center">
   <a href="INDEX/catalog.md">技能总目</a> · <a href="INDEX/graph.md">关系图谱</a> · <a href="INDEX/skill-repos.md">外部技能库</a> · <a href="CONTRIBUTING.md">贡献指南</a>
 </p>
 
+<details>
+<summary>查看技能库规模</summary>
+
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1115 skills · 11 volumes · 6795 relation edges · 4523 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1115 skills · 11 volumes · 6797 relation edges · 4523 indexed entries" width="1200" /></picture>
 </p>
+</details>
 <!-- END GENERATED:brand -->
 
-从任务找到技能，把技能组合成工作流，再按需安装对应的卷。
+先看能检查的交付物：根因报告、审阅过的补丁或有依据的文档。用聚焦的 Agent 技能处理自己的任务，输入、证据与限制都公开。
 
 **[在线搜索技能](https://findscripter.github.io/everything-skills/)** · **[跟着示例做一遍](examples/README.zh.md)** · [完整目录](INDEX/catalog.md) · [技能关系](INDEX/graph.md)
+
+## 先看一次真实修复
+
+**Nix 空技能包：0 → 1116 个导出路径。** 同一固定源码在已有来源覆盖规则修复前后复跑；真实 Nix 求值通过，并实际构建一个代表包，确认指令字节相同。总数包含 **1094 条现行、21 条归档和 1 个模板**。
+
+[![真实分发故障的结果与验证范围](assets/demos/nix-discovery-result.svg)](examples/nix-discovery/README.zh.md)
+
+**[检查输入、补丁与验证](examples/nix-discovery/README.zh.md)** · [上游修复提案](https://github.com/sudosubin/agents.nix/pull/137800) · [提交自己的任务结果](https://github.com/findscripter/everything-skills/issues/new?template=workflow-result.yml)
+
+组合 `systematic-debugger` → `code-reviewer`：先复现、修复并验证，再只读审查精确补丁。这是公开使用起点的维护者真实案例，不是外部用户研究或模型成功率基准；上游最新状态以提案链接为准。
+
+```sh
+node bin/everything-skills.mjs compose skill-distribution-audit --json
+```
+
+命令只返回方案；再向 Agent 提供自己的仓库、故障和允许的测试范围。[完整案例](examples/nix-discovery/README.zh.md)包含提示词、真实扫描器复跑及离线证据核对。
+
+<details>
+<summary>观看真实成果页：证据、复跑范围与技能检索</summary>
+
+![实录成果页、证据入口、复跑限制与技能检索](assets/demos/nix-discovery-walkthrough.gif)
+
+[录制范围](assets/demos/README.md) · 这是成果页操作演示，不是扫描器或 Nix 的运行录像。
+
+</details>
 
 <details>
 <summary>观看 33 秒目录操作演示</summary>
@@ -31,7 +60,7 @@
 
 </details>
 
-## 1. 选任务，找组合
+## 1. 继续探索其他任务组合
 
 | 你的任务 | 从这里开始 | 再搭配 |
 | --- | --- | --- |
@@ -59,15 +88,16 @@
 
 每卷是一个独立插件；其他任务可选择下表中的卷，也可以安装多卷。
 
-### 通过 skills CLI 为 Codex 安装单个技能
+### 为 Codex 安装调试／审查组合
 
 准备 Node.js **22.20.0 及以上版本**，在需要使用技能的项目目录运行：
 
 ```sh
-npx skills@1.7.4 add findscripter/everything-skills --skill codebase-onboarding-doc --agent codex --copy
+npx skills@1.7.4 add findscripter/everything-skills --skill systematic-debugger --agent codex --copy
+npx skills@1.7.4 add findscripter/everything-skills --skill code-reviewer --agent codex --copy
 ```
 
-这条命令在项目范围安装所选技能文件；实际执行任务前仍需核对技能要求的工具与输入。只查看默认公开集合、不安装时，单独执行：
+这两条命令在项目范围安装选定的两个技能；实际执行任务前仍需核对技能要求的工具与输入。只查看默认公开集合、不安装时，单独执行：
 
 ```sh
 npx skills@1.7.4 add findscripter/everything-skills --list

@@ -37,5 +37,18 @@
       { "skill": "api-design-reviewer", "inputs": ["旧版与提议版接口契约"], "outputs": ["路由、响应类型、必填项等兼容性变化及 JSON Pointer"], "check": "每项发现包含消费者影响与对应契约位置。" },
       { "skill": "api-security-best-practices", "inputs": ["接口契约、前一步变更清单及实际授权范围"], "outputs": ["认证、HTTPS、输入边界等静态问题及验证建议"], "check": "区分规范发现与运行时漏洞；未获授权不对真实服务发起测试。" }
     ]
+  },
+  {
+    "id": "skill-distribution-audit",
+    "title": "复现分发故障、修复并静态审查",
+    "triggers": ["技能分发审计","修复技能收录","skill distribution audit"],
+    "source": "examples/nix-discovery/README.md",
+    "inputs": ["有权读取的仓库和消费方固定版本、可复现故障、允许的测试与网络范围"],
+    "outputs": ["原始失败记录、根因证据、最小补丁、回归结果和独立静态审查"],
+    "limits": ["来源是一次真实Nix分发故障复盘，不是盲测、外部用户研究或整库效果基准。","案例1116是导出路径数，含1094现行、21归档和1模板；只实际构建一个代表包。","新任务需重新核对输入、工具、权限与宿主契约；compose只返回方案，不执行任何步骤。"],
+    "steps": [
+      {"skill":"systematic-debugger","inputs":["固定的仓库/消费方、原始故障和允许的隔离执行范围"],"outputs":["复现、根因、最小修复及同路径回归证据"],"check":"固定版本与环境；先确认真实故障，再验证修复；环境失败不能冒充RED。"},
+      {"skill":"code-reviewer","inputs":["精确补丁、直接调用上下文及第一阶段的实际验证记录"],"outputs":["按严重度定位的静态发现，或明确无正确性发现"],"check":"本阶段只读审查，不执行测试、不改文件；不得为了填充报告编造问题。"}
+    ]
   }
 ]

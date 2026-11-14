@@ -1,0 +1,34 @@
+name: Share a workflow result
+description: Report one real task, its output and what you checked.
+title: "[Workflow result] "
+body:
+  - type: markdown
+    attributes:
+      value: "Share a public or sanitized task. Do not upload credentials, private repositories, personal documents or full private agent transcripts. A useful report can include failures."
+  - type: input
+    id: environment
+    attributes:
+      label: Agent and skill IDs
+      description: Agent/client version and the exact skills or recipe you used.
+      placeholder: "Codex …; systematic-debugger → code-reviewer"
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: Task and expected deliverable
+      description: What did you supply, and what result did you need? Link public inputs if available.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Actual output and checks
+      description: What worked or failed? Separate agent claims from checks you actually ran.
+    validations:
+      required: true
+  - type: input
+    id: evidence
+    attributes:
+      label: Public or sanitized evidence (optional)
+      placeholder: "A report, patch, screenshot or reproduction link"

@@ -17,4 +17,4 @@ The site provides English/Chinese interface controls, skill/repository search, v
 
 `social-card.svg` is the editable, original source of `social-card.png` (1200×630). It intentionally contains no changing catalog counts. When updating it, render the SVG in a browser and export a PNG at its native size, then inspect the result. The page's Open Graph and Twitter metadata use the PNG.
 
-Three worked examples are linked directly to their maintained files under [`examples/`](../examples/README.md). The short [recording](../assets/demos/README.md) demonstrates catalog interactions, not an agent executing every skill.
+The homepage leads with a real Nix distribution repair: fixed inputs, observed results, a patch, static review and reproduction steps. Three smaller teaching cases remain under [`examples/`](../examples/README.md). The [recordings](../assets/demos/README.md) show the actual result page and catalog interactions; they do not show agent or Nix execution. Build output fingerprints the scripts, styles and catalog URLs to prevent stale cached dependencies from mixing across deployments.

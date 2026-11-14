@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: [pdb, ipdb, cProfile, Chrome DevTools, VS Code Debugger, Delve, pprof, git bisect, Sentry]
 requires: []
 related: [first-principles-thinking, fact-checking, code-reviewer]
-combines_with: []
+combines_with: [code-reviewer]
 license: MIT
 source: wshobson/agents
 source_license: MIT

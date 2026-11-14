@@ -10748,6 +10748,11 @@
       "type": "related"
     },
     {
+      "from": "code-reviewer",
+      "to": "systematic-debugger",
+      "type": "combines_with"
+    },
+    {
       "from": "code-simplifier",
       "to": "clean-code-principles",
       "type": "related"
@@ -13926,6 +13931,11 @@
       "from": "systematic-debugger",
       "to": "code-reviewer",
       "type": "related"
+    },
+    {
+      "from": "systematic-debugger",
+      "to": "code-reviewer",
+      "type": "combines_with"
     },
     {
       "from": "systematic-debugging-strategies",
