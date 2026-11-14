@@ -1,0 +1,2005 @@
+{
+  "quality-parent.json": {
+    "stage": "complete",
+    "date": "2026-11-14",
+    "scope": "Focused primary-agent semantic review; not a duplicate audit of all candidate bodies.",
+    "reviewed": [
+      {
+        "full_name": "opencue/cuecards",
+        "commit": "23e5f32a2ac6d4becebdcca8184606e6eb675f4c",
+        "scope": "Complete 1,901-character native operational guide, complete root MIT, README purpose/install/profile/skill/licensing paragraphs, complete package.json and .gitmodules, path-role inventory. Imported .agents bodies and linked submodules were not comprehensively read or licensed.",
+        "conclusion": "Independent profile/skill delivery infrastructure with a checked-in operational guide. Npm files list ships resources/skills from a separate submodule and omits top-level skills/, so no claim that the native guide ships in npm or that imported/remote leaves are new originals. Profiles/overlays are not SKILL leaves. Cost, security and cross-client claims are not runtime certification."
+      },
+      {
+        "full_name": "starceas/knuaf-doc",
+        "commit": "1ba89297343493c2906c3164d0e0b56d0aeb23fe",
+        "scope": "Complete canonical Korean consumer SKILL (29,290 Unicode characters / 56,478 bytes) read in contiguous 0:10000,10000:20000,20000:29290 chunks; complete 6,954-character README and root MIT; complete plugin manifest, runtime requirements and version metadata; complete fixed-tree role inventory. Not an exhaustive audit of linked references, Python code or third-party school excerpts.",
+        "conclusion": "Supports one independently distributed workflow; platform and automatic-update declarations are retained as limitations, without runtime or school/finance certification.",
+        "read_coverage": {
+          "characters": 29290,
+          "bytes": 56478,
+          "ranges": [
+            [
+              0,
+              10000
+            ],
+            [
+              10000,
+              20000
+            ],
+            [
+              20000,
+              29290
+            ]
+          ],
+          "complete": true
+        }
+      },
+      {
+        "full_name": "boan-anbo/daihum-workspace",
+        "commit": "4f4a897d2539aa907e7a9d8deceea57e1d6d3c6c",
+        "scope": "Complete actual .agents/skills/entity-extraction.md consumer, complete root MIT and README public reusable-skill/workspace/slash-command description.",
+        "conclusion": "A noncanonical per-file .md layout still carries actual name/description YAML and an actionable source-bounded extraction/output contract. It must be parsed as a Markdown consumer, not misclassified as an implementation solely by filename. Legacy host loading remains untested and is already explicitly limited; no claim of canonical directory/SKILL.md portability."
+      }
+    ],
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "opencue/cuecards",
+        "reason": "Bind package-vs-checkout and submodule boundaries to fixed source evidence.",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "package.json",
+              "blob_sha": "9f8a0d888bed4348c6c054dae4a1064033af4f7b",
+              "sha256": "3066801b408a6834a703f2c9fc8a308fc3311d03d62d57c0ec2dac41c03166f3",
+              "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/package.json",
+              "bytes": 2885
+            },
+            {
+              "path": ".gitmodules",
+              "blob_sha": "14a0f6897f787f52c71a2d3ee1b7cb05a728d7b9",
+              "sha256": "280dac011196233f685ea56881063d6b7729e28253e2fc2e31c6cbd9d2fd58b0",
+              "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.gitmodules",
+              "bytes": 353
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "starceas/knuaf-doc",
+        "reason": "Bind declared runtime/version and exact bounded review scope to fixed evidence.",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "skills/knuaf-doc/scripts/requirements-runtime.txt",
+              "blob_sha": "3eecdf8300c9978ddf7282ae457965748bfd95b9",
+              "sha256": "689270adae6c5d0c02bd0d117011e013b7b748d897ff0b5a15794a2fa0e5f025",
+              "url": "https://github.com/starceas/knuaf-doc/blob/1ba89297343493c2906c3164d0e0b56d0aeb23fe/skills/knuaf-doc/scripts/requirements-runtime.txt",
+              "bytes": 406
+            },
+            {
+              "path": "skills/knuaf-doc/version.json",
+              "blob_sha": "ac29ba309b62f615431b34cbd917d9581ead770c",
+              "sha256": "eba144c136769a5c437d7f09e98a2f1b03b14be03970962a3a802a93bca08646",
+              "url": "https://github.com/starceas/knuaf-doc/blob/1ba89297343493c2906c3164d0e0b56d0aeb23fe/skills/knuaf-doc/version.json",
+              "bytes": 92
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "quality-machine.json": {
+    "stage": "complete",
+    "date": "2026-11-14",
+    "accepted_snapshot_count": 82,
+    "unique_repository_ids": 82,
+    "cross_stream_overlaps": [],
+    "baseline_representative_blob_matches": [],
+    "untraversed_file_references": [],
+    "within_batch_representative_blob_matches": [],
+    "limits": "Exact representative-blob comparison only; not a semantic full-body plagiarism or independent-value certification."
+  },
+  "quality-science-cross-breadth.json": {
+    "date": "2026-11-14",
+    "stage": "complete",
+    "reviewer_stream": "science",
+    "owner_stream": "breadth",
+    "scope": "对三个固定条目独立复核公开分发、实际代表、基础设施/示例/fixture/镜像角色与局部许可。只读 owner 的固定缓存及 extra；另经 GitHub 官方 blob API 读取四个必要源文件。未安装、导入或执行任何候选代码。",
+    "reviewed": [
+      {
+        "full_name": "haqaliz/assay",
+        "repository_id": 1429035869,
+        "commit": "cdbad034da402718882c63a15d51c57ff13bc345",
+        "tree": "b94dc4c7701522509aaceb1720243cb093594cd7",
+        "admission_conclusion": "通过 infra 元数据准入；需修正摘要以避免将 MCP 检查接口写成已实现的 MCP 安全验证。",
+        "representative_read_complete": "src/assay/verdict/policy.py",
+        "other_complete_sources_read": [
+          "src/assay/ingest/records.py",
+          "src/assay/mcp/inspect.py",
+          "pyproject.toml",
+          "corpus/README.md"
+        ],
+        "readme_review": "完整读取 README：CLI 安装、check/verify/corpus/triage、MCP inspect 与 mcp-report、平台前提及明确的非目标。",
+        "semantic_findings": [
+          "policy.py 是真实实现：枚举 FindingClass 的固定 REVIEW severity floor，构造时拒绝缺项、改类、改 severity，并封装不可变映射；不是演示 prompt 或测试技能。",
+          "ingest records 区分 undeclared 与 declared-empty scope，并保存文件内容 hash；mcp inspect 实际启动沙箱 session、initialize/list_tools 并记录错误，返回 ServerReport，没有安全 verdict。",
+          "README 明确 MCP verification 仍 deferred，mcp-report 仅 UNVERIFIED/FLAGGED，没有 CLEAN/MALICIOUS，服务器系统调用未被逐项介入；现有笼统摘要需细分。",
+          "corpus/README 明确 synthetic trace 是 fixture，local-model trace 是 maintainer 自己的 Plumb 技能控制；这证明语料用途，不能把其中有 SKILL.md 的目录当消费者分发。"
+        ],
+        "count_verification": {
+          "raw_skill_paths": 70,
+          "public_consumer_leaves": 0,
+          "maintainer_workflows": 10,
+          "corpus_cases": 44,
+          "test_fixtures": 16,
+          "corpus_partition": "20 development cases + 8 shell heldout + 8 instruction heldout + 8 real controls = 44；README 和 corpus 文档解释其不同测量角色。",
+          "result": "原 count_basis 的 0/10/44/16 成立；公开实现才是准入面。"
+        },
+        "license_verification": "Root Apache-2.0 完整文本与 pyproject license/license-files 一致；完整树 grant inventory 未见更近许可覆盖所读实现。语料的 maintainer-owned/synthetic 来源说明不应扩展为对任意第三方技能的授权。",
+        "evidence_paths": [
+          "README.md",
+          "LICENSE",
+          "src/assay/verdict/policy.py",
+          "src/assay/ingest/records.py",
+          "src/assay/mcp/inspect.py",
+          "pyproject.toml",
+          "corpus/README.md"
+        ]
+      },
+      {
+        "full_name": "galaykos/cc-marketplace",
+        "repository_id": 1289764199,
+        "commit": "966935ebc34b5d20bcbf3cbacbea5b24f4888c4c",
+        "tree": "f2c323740a5b8ff78d58cdc5197631c685533156",
+        "admission_conclusion": "通过 collections 元数据准入；132 是有分发映射的结构清点，不能扩展为132全文或运行验证。建议 SPDX 字段列组件许可，避免单独 MIT 标签吞掉已记录的局部条款。",
+        "representative_read_complete": "plugins/plugin-updater/skills/update-plugins/SKILL.md",
+        "other_complete_sources_read": [
+          "plugins/plugin-updater/.claude-plugin/plugin.json",
+          "plugins/plugin-updater/scripts/update-all.sh",
+          "plugins/blender/NOTICE",
+          "plugins/gamedev/NOTICE",
+          "plugins/godot/NOTICE",
+          "plugins/unity-traps/NOTICE",
+          "plugins/design-kit/vendor/axe-core/LICENSE-3RD-PARTY.txt",
+          "plugins/taskmaster/vendor/axe-core/LICENSE-3RD-PARTY.txt"
+        ],
+        "readme_review": "读取公开安装、source/companions、目录角色、版本/更新约束及许可段落；manifest JSON 全部解析并将 source 与完整树逐路径匹配。未声称完整读完62KB README 中每个非代表插件的使用教程。",
+        "semantic_findings": [
+          "代表是实际用户触发的插件更新工作流，说明 scope、background、退出码、dry-run、失败及不代用户接受变更命令等边界；manifest 将其公开分发。",
+          "update-all.sh 是802字节启动适配，检查 python3 后 exec plugin_updates.py。此次读它用于确认安装面和依赖，不将读此短适配写成已审完未读取的 Python 更新引擎。",
+          "40个marketplace entries 均指向本仓 plugins/ 下本地根；133个 plugins/**/SKILL.md（132任务+1 router）全部在这些根内。5个没有 SKILL.md 的插件仍可能提供 hooks/commands，不能混入叶技能数。",
+          "149个原始 SKILL.md 的 blob SHA 全不同，132个消费者路径也各有不同 blob；同仓未观察到同正文客户端镜像。这个结果只覆盖固定树，不证明全网原创或语义不重叠。",
+          "NOTICE 标明 Blender 两个脚本及三个游戏插件若干脚本/测试的来源和修改；不能把引用或带修改的第三方 helper 当本仓全量镜像。"
+        ],
+        "count_verification": {
+          "raw_skill_paths": 149,
+          "repository_maintenance": 16,
+          "public_router": 1,
+          "consumer_task_definitions": 132,
+          "consumer_plugin_roots": 35,
+          "marketplace_entries": 40,
+          "manifest_covered_plugin_skill_paths": 133,
+          "uncovered_plugin_skill_paths": [],
+          "exact_blob_duplicate_groups_within_raw_skill_paths": [],
+          "result": "149=16+1+132 与完整路径集合一致；132可以作为结构统计保留。"
+        },
+        "license_verification": "Root MIT 覆盖原有材料与选中 updater；README 虽写 every plugin MIT，但近端 blender MIT/NOTICE、gamedev/godot/unity-traps Apache-2.0 LICENSE/NOTICE、两处 axe-core MPL-2.0 及其 MIT/ISC 第三方 notices 均必须保留。owner 的 license_scope 已表达例外；建议 license_spdx 同时列组件表达式，api_license_spdx 保留官方 API 根标签 MIT。",
+        "evidence_paths": [
+          "README.md",
+          ".claude-plugin/marketplace.json",
+          "LICENSE",
+          "plugins/plugin-updater/skills/update-plugins/SKILL.md",
+          "plugins/plugin-updater/.claude-plugin/plugin.json",
+          "plugins/plugin-updater/scripts/update-all.sh",
+          "plugins/blender/LICENSE",
+          "plugins/blender/NOTICE",
+          "plugins/gamedev/LICENSE",
+          "plugins/gamedev/NOTICE",
+          "plugins/godot/LICENSE",
+          "plugins/godot/NOTICE",
+          "plugins/unity-traps/LICENSE",
+          "plugins/unity-traps/NOTICE",
+          "plugins/design-kit/vendor/axe-core/LICENSE",
+          "plugins/design-kit/vendor/axe-core/LICENSE-3RD-PARTY.txt",
+          "plugins/taskmaster/vendor/axe-core/LICENSE",
+          "plugins/taskmaster/vendor/axe-core/LICENSE-3RD-PARTY.txt"
+        ]
+      },
+      {
+        "full_name": "SashaMarchuk/marketplace-base",
+        "repository_id": 1457695345,
+        "commit": "cacd3581c84f195d507dacc63f0ffcad021d71d3",
+        "tree": "3371da79fcef6a91f3b20741264bea61829b3097",
+        "admission_conclusion": "通过 infra 元数据准入；四项是明确公开安装的示例，不应展示为四个新生产业务叶。需将数字4的角色写入 skill_count，并在 path_classification 标明示例。",
+        "representative_read_complete": "examples/plugins/code-review/skills/code-review-checklist/SKILL.md",
+        "other_complete_sources_read": [
+          "tools/lib/gen/manifests.mjs",
+          "tools/lib/gen/build.mjs",
+          "tools/lib/gen/catalog.mjs",
+          "tools/schemas/codex-plugin.schema.json",
+          "tools/templates/skill/SKILL.md",
+          "tools/templates/seeds/LICENSE",
+          ".agents/plugins/marketplace.json",
+          ".claude-plugin/marketplace.json"
+        ],
+        "readme_review": "完整读 README 的消费者安装、四示例表、生成器/多宿主/派生更新用途与许可。",
+        "semantic_findings": [
+          "两份 marketplace 都指向相同四个 examples/plugins 根，README 直接安装 changelog-entry，init 也默认保留示例。因此这四项并非仅 fixture，确为分发示例。",
+          "完整代表有具体 diff 输入、可配置检查表、只读审阅、严重度/数量控制和输出；它不是未展开的 TODO 模板。其配置 resolver 与 fallback 未执行，未将示例可安装声明写成真实宿主验证成功。",
+          "manifests.mjs 为每插件生成两个宿主 manifest；build.mjs 实际遍历插件、生成配置工具树/manifest/文档标记、比较并应用文件差异；catalog.mjs 从 included 列表生成目录与安装说明。基础设施价值有真实实现，不只 README 自称。",
+          "tools/templates/skill/SKILL.md 含 {{skill}}/{{description}}/{{title}} 和 TODO，明确属于未展开模板；tools/tests/fixtures/gen 中九个路径是生成器输入/期望输出，不能计为公开消费者叶。"
+        ],
+        "count_verification": {
+          "raw_skill_paths": 14,
+          "installable_example_definitions": 4,
+          "unexpanded_authoring_template": 1,
+          "generator_fixture_paths": 9,
+          "asserted_production_business_leaves": 0,
+          "client_copy_multiplier": 1,
+          "result": "14=4 examples+1 template+9 fixtures；两份客户端 manifest 共享四个源根，不能翻倍。四示例可保留公开路径，但展示计数必须显式标 example。"
+        },
+        "license_verification": "Root MIT 适用于拥有的基础设施、schema与示例；唯一另一 grant 是 seeds/LICENSE，保留 base 署名并含 {{year}}/{{owner}}，属于派生模板，不能作为一个独立的当前第三方授权或另算组件来源。完整树未见覆盖代表的其他近端许可。",
+        "evidence_paths": [
+          "README.md",
+          "LICENSE",
+          ".agents/plugins/marketplace.json",
+          ".claude-plugin/marketplace.json",
+          "examples/plugins/code-review/skills/code-review-checklist/SKILL.md",
+          "tools/lib/gen/manifests.mjs",
+          "tools/lib/gen/build.mjs",
+          "tools/lib/gen/catalog.mjs",
+          "tools/schemas/codex-plugin.schema.json",
+          "tools/templates/skill/SKILL.md",
+          "tools/templates/seeds/LICENSE"
+        ]
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "haqaliz/assay",
+        "field_updates": {
+          "summary_en": "Skill execution-verification infrastructure with declared scopes, evidence records and verdict policies, plus separate MCP startup/tool inspection and limited task reporting.",
+          "summary_zh": "提供权限范围、证据记录和判定策略的技能执行验证基础设施，另含 MCP 启动与工具检查及有限任务报告。",
+          "limitations": "Static metadata admission only; no candidate installation, model call, sandbox run or helper execution occurred. MCP inspect reports startup/tools and MCP task reports are limited to UNVERIFIED/FLAGGED; full MCP server verification is explicitly deferred. The benchmark is small, single-labeled and synthetic-dominated, not a population safety estimate."
+        }
+      },
+      {
+        "full_name": "galaykos/cc-marketplace",
+        "field_updates": {
+          "license_spdx": "MIT AND Apache-2.0 AND MPL-2.0 AND ISC",
+          "license_scope": "Root MIT covers original material and the reviewed plugin-updater. The blender subtree preserves MIT upstream LICENSE/NOTICE; gamedev, godot and unity-traps preserve Apache-2.0 LICENSE/NOTICE for their upstream-derived components; duplicated vendored axe-core code under design-kit and taskmaster retains MPL-2.0 plus third-party MIT/ISC notices. This is a component expression, not one universal grant, and the README's broad MIT statement does not override these local files.",
+          "count_basis": "149 regular SKILL.md paths: 16 repository-maintenance entries under .claude, 1 coding-entry router and 132 plugin consumer task definitions across 35 plugin roots. All 133 plugin definitions including the router are covered by the 40-entry marketplace source map; five other plugin roots have no SKILL.md. No exact blob duplicate was found among the 149 definitions; this is a structural fixed-tree count, not 132-body or global originality certification.",
+          "additional_evidence": [
+            {
+              "path": "plugins/plugin-updater/scripts/update-all.sh",
+              "blob_sha": "94aaa71b38503cb2b05b4e3820acfc7003a85643",
+              "sha256": "03278a6fa07766f9e59e5590ec258fe4a01741706ea78e07e1eee99d62b18f0a",
+              "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/plugin-updater/scripts/update-all.sh",
+              "bytes": 802
+            }
+          ],
+          "api_license_spdx": "MIT"
+        }
+      },
+      {
+        "full_name": "SashaMarchuk/marketplace-base",
+        "field_updates": {
+          "skill_count": "4 installable example skills; no production-leaf claim",
+          "count_basis": "14 regular definitions: four explicitly marketplace-distributed example skills sharing one source tree across Claude/Codex, one unexpanded {{skill}} authoring template and nine generator input/expected-output fixtures. The repository is admitted for marketplace generation/configuration infrastructure; the four examples are not represented as four new production business leaves.",
+          "additional_evidence": [
+            {
+              "path": "tools/lib/gen/build.mjs",
+              "blob_sha": "6d9ee5db160cb54785263c1f2d8900e501dc5ef7",
+              "sha256": "a81e5e893051c4de33601baf0fe1572da4637bda46f8695859416af9fdaa42b9",
+              "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/tools/lib/gen/build.mjs",
+              "bytes": 5571
+            },
+            {
+              "path": "tools/lib/gen/catalog.mjs",
+              "blob_sha": "00189f2704dc4430453700898051f6bcf618f703",
+              "sha256": "0dd03ccde7e8501c92124df070e20a837a15c9623e92aba0b5c5240553288419",
+              "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/tools/lib/gen/catalog.mjs",
+              "bytes": 5085
+            },
+            {
+              "path": "tools/templates/skill/SKILL.md",
+              "blob_sha": "ecfcf7239f203799e2979e224b82a48f9c8d8ad9",
+              "sha256": "a6bf7e44e36a8fa89e64f5a0db7f12f731a668bc7eadbd2f4f194908de9e3cd5",
+              "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/tools/templates/skill/SKILL.md",
+              "bytes": 366
+            }
+          ]
+        },
+        "path_classification_updates": [
+          {
+            "path": "examples/plugins/changelog-entry/skills/changelog-entry/SKILL.md",
+            "kind": "public_example",
+            "reason": "Explicitly installed example in both marketplace source maps; example demonstration of infrastructure, not asserted production business leaf."
+          },
+          {
+            "path": "examples/plugins/code-review/skills/code-review-checklist/SKILL.md",
+            "kind": "public_example",
+            "reason": "Explicitly installed example in both marketplace source maps; complete consumer representative was read, but example role remains explicit."
+          },
+          {
+            "path": "examples/plugins/commit-message/skills/commit-message/SKILL.md",
+            "kind": "public_example",
+            "reason": "Explicitly installed example in both marketplace source maps; example demonstration of infrastructure, not asserted production business leaf."
+          },
+          {
+            "path": "examples/plugins/meeting-notes/skills/meeting-notes-template/SKILL.md",
+            "kind": "public_example",
+            "reason": "Explicitly installed example in both marketplace source maps; example demonstration of infrastructure, not asserted production business leaf."
+          }
+        ]
+      }
+    ],
+    "coverage": {
+      "requested_names": [
+        "haqaliz/assay",
+        "galaykos/cc-marketplace",
+        "SashaMarchuk/marketplace-base"
+      ],
+      "reviewed_count": 3,
+      "missing": [],
+      "admission_blockers": [],
+      "metadata_corrections": 3
+    },
+    "verification": {
+      "owner_cached_reference_count": 33,
+      "owner_cached_reference_checks": "逐引用对固定树blob及原字节重算Git blob SHA-1、SHA-256、bytes，全部通过。",
+      "additional_fresh_blob_reads": 4,
+      "set_checks": "3项全部覆盖；galaykos manifest确为40 entries且149个raw技能blob互不相同；三项路径分类集合与原始路径集合相等。",
+      "report_encoding": "UTF-8/LF，JSON解析通过。"
+    },
+    "limitations": [
+      "未安装或执行候选；不认证沙箱安全、MCP服务器安全、132个业务正文、生成器运行正确性或宿主兼容。",
+      "公共身份、真实commit/tree与全部引用的独立fresh网络验收由父流负责；本复核重用固定缓存，另取四个必要blob并重算字节hash。",
+      "局部许可证据按根/子目录/NOTICE分别解释，元数据表达式不等同于正文复制授权；未将正文写入公共仓库。",
+      "只写本focused报告，未改breadth owner输出、science主结果、仓库文件或Git。"
+    ],
+    "review_delivery_sha256": "266bf678926851e7612fab75a9a9fddd597ecd66d4f57501bcdf439e47310f48",
+    "advisories": [
+      {
+        "full_name": "haqaliz/assay",
+        "kind": "summary_scope_precision",
+        "admission_blocking": false,
+        "publication_correction_required": true,
+        "observation": "MCP security-verification 的笼统摘要超出了 README 对 MCP inspect/mcp-report 的明确边界。实际技能验证基础设施成立，但 MCP 验证仍 deferred。"
+      },
+      {
+        "full_name": "galaykos/cc-marketplace",
+        "kind": "component_license_label_precision",
+        "admission_blocking": false,
+        "publication_correction_required": true,
+        "observation": "单独 license_spdx=MIT 不能充分表达本次已发现的 Apache-2.0、MPL-2.0 与 ISC 组件；license_scope虽已正确提示，建议将公开主标签同步成组件表达式。"
+      },
+      {
+        "full_name": "SashaMarchuk/marketplace-base",
+        "kind": "example_vs_production_count",
+        "admission_blocking": false,
+        "publication_correction_required": true,
+        "observation": "numeric skill_count=4 与 public_consumer 的无限定角色容易让四个供教学/派生使用的安装示例被当作四个新生产业务叶。基础设施准入有效，需保留example语义。"
+      }
+    ],
+    "objections": [],
+    "normalization_note": "Nonblocking source-documentation/metadata findings remain visible as advisories. Exact publication field corrections below are applied and bound in integration_application."
+  },
+  "quality-breadth-cross-product-long.json": {
+    "stage": "complete",
+    "date": "2026-11-14",
+    "full_name": "ccromp/marcora-mcp",
+    "repository_id": 1206292554,
+    "commit": "14089fa9252baa3246087b245992f5b7f30df4f2",
+    "tree": "f244547f30040954f6177eb88bd6cee5e6589f17",
+    "judgement": "Metadata-only admission is supported by the complete substantive consumer, explicit public distribution and scoped MIT grant; hosted server behavior remains outside this review.",
+    "refs": [
+      {
+        "path": "README.md",
+        "blob_sha": "a47c4223a2f72e9d9b959a726ab1dec640a98d9a",
+        "sha256": "6871ff8e87277fe775aa47ed6bcfa85bfc5c597153168665182cba58822a5e4b",
+        "url": "https://github.com/ccromp/marcora-mcp/blob/14089fa9252baa3246087b245992f5b7f30df4f2/README.md",
+        "bytes": 11327
+      },
+      {
+        "path": "LICENSE",
+        "blob_sha": "7f01536bed0917041cc964b77f1e4c9b79dc8b7d",
+        "sha256": "ef62aec08c0ed105af78c0db108522e835159d330b676403e0be55295bf73cd6",
+        "url": "https://github.com/ccromp/marcora-mcp/blob/14089fa9252baa3246087b245992f5b7f30df4f2/LICENSE",
+        "bytes": 1071
+      },
+      {
+        "path": "skill/marcora-mcp/SKILL.md",
+        "blob_sha": "957a52a9f8ba02f045f58184cbdd9daf77ad5ff0",
+        "sha256": "8651c23bdecf215da23911f34ce4976e1208358f179e8f8727d24ed08b8d6678",
+        "url": "https://github.com/ccromp/marcora-mcp/blob/14089fa9252baa3246087b245992f5b7f30df4f2/skill/marcora-mcp/SKILL.md",
+        "bytes": 82492
+      },
+      {
+        "path": "directories/cursor/marcora/skills/marcora-mcp/SKILL.md",
+        "blob_sha": "957a52a9f8ba02f045f58184cbdd9daf77ad5ff0",
+        "sha256": "8651c23bdecf215da23911f34ce4976e1208358f179e8f8727d24ed08b8d6678",
+        "url": "https://github.com/ccromp/marcora-mcp/blob/14089fa9252baa3246087b245992f5b7f30df4f2/directories/cursor/marcora/skills/marcora-mcp/SKILL.md",
+        "bytes": 82492
+      },
+      {
+        "path": "plugin/skills/marcora-mcp",
+        "blob_sha": "bbcb6d1986a92f5822242074fbd826293c88d9f7",
+        "sha256": "41172a1f624049971fe6c3c66a9311d358d44c5a27093c7d82a54212c54dc505",
+        "url": "https://github.com/ccromp/marcora-mcp/blob/14089fa9252baa3246087b245992f5b7f30df4f2/plugin/skills/marcora-mcp",
+        "bytes": 23
+      },
+      {
+        "path": "plugin/.claude-plugin/plugin.json",
+        "blob_sha": "9808557ebe2eb5107e82a33132acd8531792fc34",
+        "sha256": "c395baef15e0450fb82cec1046af98c84851f0e2824a4eed054ef9ace0d0b7ab",
+        "url": "https://github.com/ccromp/marcora-mcp/blob/14089fa9252baa3246087b245992f5b7f30df4f2/plugin/.claude-plugin/plugin.json",
+        "bytes": 950
+      },
+      {
+        "path": "plugin/README.md",
+        "blob_sha": "c9bc90431eb001b819ebcd2005d0bc1afb881306",
+        "sha256": "b601d2bb838e767f2518599cdc06c92962f41ffb5bc8735753108ca58e2869e8",
+        "url": "https://github.com/ccromp/marcora-mcp/blob/14089fa9252baa3246087b245992f5b7f30df4f2/plugin/README.md",
+        "bytes": 5535
+      },
+      {
+        "path": "directories/cursor/marcora/.cursor-plugin/plugin.json",
+        "blob_sha": "8cb1d8a8892acf2346f8f6f0fa7432e0f98b42b2",
+        "sha256": "0ae043954e4a26bced4b790fde644668c7acb0cfe483fca8c515d6d2141c6592",
+        "url": "https://github.com/ccromp/marcora-mcp/blob/14089fa9252baa3246087b245992f5b7f30df4f2/directories/cursor/marcora/.cursor-plugin/plugin.json",
+        "bytes": 589
+      },
+      {
+        "path": "directories/cursor/marcora/README.md",
+        "blob_sha": "ff52726c0fb4030ad76002ab9090aba12c709207",
+        "sha256": "39c001d7ea7f3541ab9425ce3aa776532014e3fcee4dd1eb4ce7f1cc9dc8cc03",
+        "url": "https://github.com/ccromp/marcora-mcp/blob/14089fa9252baa3246087b245992f5b7f30df4f2/directories/cursor/marcora/README.md",
+        "bytes": 878
+      }
+    ],
+    "scope": {
+      "canonical_consumer": "skill/marcora-mcp/SKILL.md",
+      "client_mirror": "directories/cursor/marcora/skills/marcora-mcp/SKILL.md",
+      "directory_symlink": "plugin/skills/marcora-mcp",
+      "symlink_resolved_target": "skill/marcora-mcp",
+      "raw_skill_file_count": 2,
+      "canonical_public_skill_count": 1,
+      "mirror_count": 1,
+      "additional_skill_count_from_symlink": 0,
+      "license_spdx": "MIT",
+      "license_scope": "Root MIT explicitly covers public documentation, skill and metadata, corroborated by README. No nearer LICENSE/NOTICE exists in the complete fixed tree, and complete consumer frontmatter declares MIT with no additional local legal restriction found in the body. The commercial hosted MCP server implementation is explicitly proprietary and absent; account/subscription terms, private customer material and service behavior are not licensed or validated by this index.",
+      "distribution": "Root README explicitly gives npx skills add, release .skill downloads, unzip and canonical clone/symlink install. Cursor README and plugin metadata identify its bundled byte-identical consumer; native plugin directory symlink resolves to the canonical source."
+    },
+    "read_coverage": {
+      "complete_canonical_body_read": true,
+      "unicode_characters": 81850,
+      "utf8_bytes": 82492,
+      "line_count": 523,
+      "segments": [
+        {
+          "unicode_start_inclusive": 0,
+          "unicode_end_exclusive": 12000,
+          "byte_start_inclusive": 0,
+          "byte_end_exclusive": 12111,
+          "sha256_of_read_segment": "669a1a68d22e29167074859dcc753df6d5423c572802634c2032eed944204027"
+        },
+        {
+          "unicode_start_inclusive": 12000,
+          "unicode_end_exclusive": 24000,
+          "byte_start_inclusive": 12111,
+          "byte_end_exclusive": 24210,
+          "sha256_of_read_segment": "242975f23c812179d8612be9c592fd9d2a1ff488058226ab28428fc6ed72f14b"
+        },
+        {
+          "unicode_start_inclusive": 24000,
+          "unicode_end_exclusive": 36000,
+          "byte_start_inclusive": 24210,
+          "byte_end_exclusive": 36244,
+          "sha256_of_read_segment": "a5548c24b87ba67b3588168d3914c3e9c616e41ac1c2855977a33c6a3b62c664"
+        },
+        {
+          "unicode_start_inclusive": 36000,
+          "unicode_end_exclusive": 48000,
+          "byte_start_inclusive": 36244,
+          "byte_end_exclusive": 48320,
+          "sha256_of_read_segment": "145e02d215471543e232b0102dfb2c21177a3ca477d35aec5e88d900fc1bc90f"
+        },
+        {
+          "unicode_start_inclusive": 48000,
+          "unicode_end_exclusive": 60000,
+          "byte_start_inclusive": 48320,
+          "byte_end_exclusive": 60458,
+          "sha256_of_read_segment": "7f2370050f63276c6b9c3c8fc58fdfac5b0f210a0d29b9e53ef9969bf7e78b80"
+        },
+        {
+          "unicode_start_inclusive": 60000,
+          "unicode_end_exclusive": 72000,
+          "byte_start_inclusive": 60458,
+          "byte_end_exclusive": 72561,
+          "sha256_of_read_segment": "ee85e93ddc780f53b91a03a78702b95a35d8af3bc9077ebd2ab24ccd4d4b6e45"
+        },
+        {
+          "unicode_start_inclusive": 72000,
+          "unicode_end_exclusive": 81850,
+          "byte_start_inclusive": 72561,
+          "byte_end_exclusive": 82492,
+          "sha256_of_read_segment": "058ec89c15a5b2ab6a8d7e261c840d94ccc536f66a085d90c420f2c31615a517"
+        }
+      ],
+      "mirror_equality": "Both fixed tree nodes share Git blob 957a52a9f8ba02f045f58184cbdd9daf77ad5ff0; independently fetched bytes also match SHA256 8651c23bdecf215da23911f34ce4976e1208358f179e8f8727d24ed08b8d6678. One complete text read covers the two byte-identical consumers without inventing a second task.",
+      "also_read": [
+        "Complete root README",
+        "Complete root MIT LICENSE",
+        "Complete native plugin README/manifest",
+        "Complete Cursor README/manifest",
+        "Directory symlink target bytes"
+      ],
+      "optional_references": "The two named workflow/pitfall reference files are optional task-specific resources; tree hashes match their Cursor projections, but their bodies were not part of this complete-main-consumer review.",
+      "not_performed": [
+        "Candidate installation or execution",
+        "MCP/account/remote API use",
+        "Model calls or Studio Credit consumption",
+        "Hosted server correctness or security validation"
+      ]
+    },
+    "validation": {
+      "git_blob_sha1_recomputed": true,
+      "sha256_recomputed": true,
+      "byte_lengths_recomputed": true,
+      "fixed_urls_bound_to_commit_paths": true,
+      "evidence_bound_to_complete_real_tree": true,
+      "standard_yaml_parser": "PyYAML 6.0.3",
+      "name_description_license_valid": true,
+      "json_manifests_parse": true,
+      "private": false,
+      "visibility": "public",
+      "no_unreviewed_body_copied_to_public_report": true
+    },
+    "review_delivery_sha256": "8c91a5ddb4b17d4f3c22a410bbbcb69f6421dbb408e2fc076983352dcf3ca794",
+    "advisories": [
+      {
+        "severity": "nonblocking_documentation_risk",
+        "line": 419,
+        "path": "skill/marcora-mcp/SKILL.md",
+        "finding": "The attachment-only row recommends update_project(project_brief_id), while the same consumer explains that this both attaches the content and replaces the strategic brief pointer. That can change a project decision beyond attachment intent; this is an instruction-level risk, not an observed backend defect.",
+        "effect_on_admission": "Does not defeat public skill distribution/licensing, but no safety or correctness certification should be implied."
+      },
+      {
+        "severity": "nonblocking_internal_inconsistency",
+        "line": 253,
+        "path": "skill/marcora-mcp/SKILL.md",
+        "finding": "Workflow 5 calls its RAG path the only legitimate get_relevant_context use besides a narrow sourcing check, although Workflow 1 and the later own-writing paragraph require it for normal drafting. The earlier exclusivity wording is stale or ambiguous.",
+        "effect_on_admission": "Metadata indexing remains supportable; document effectiveness was not tested."
+      }
+    ],
+    "objections": [],
+    "normalization_note": "Nonblocking source-documentation/metadata findings remain visible as advisories. Exact publication field corrections below are applied and bound in integration_application.",
+    "already_applied_owner_suggestions": [
+      {
+        "field": "skill_count/count_basis/public_skill_paths",
+        "suggested_value": "Count one canonical public consumer; exclude the byte-identical Cursor mirror and native-plugin directory symlink.",
+        "reason": "Same content identity and declared client distribution, not three independent skills."
+      },
+      {
+        "field": "license_scope",
+        "suggested_value": "MIT covers public documentation, skill and metadata only; the hosted MCP implementation is proprietary and absent.",
+        "reason": "Explicit root README legal scope and root LICENSE."
+      },
+      {
+        "field": "limitations",
+        "suggested_value": "Requires an authenticated Marcora hosted-service account. Document generation/grounding/production may consume Studio Credits; account state, document/brand-context overwrites, team visibility, bulk plan creation, external sharing and scheduled workflows are effects described by the consumer. set_active_team changes account-global state across clients. None was exercised or validated.",
+        "reason": "Complete main consumer distinguishes credit costs, full replacements, Only-me confirmation, permissions, active-team state and workflow/schedule controls."
+      },
+      {
+        "field": "review_scope",
+        "suggested_value": "Full 82,492-byte/523-line canonical SKILL read in seven nontruncated segments; mirror independently byte-verified. README, root license and native/Cursor package descriptors read. Optional reference bodies and proprietary service implementation not audited.",
+        "reason": "Avoids presenting a short header or representative sample as complete long-body review."
+      }
+    ],
+    "corrections": [],
+    "owner_application_verified": {
+      "skill_count": "1 canonical public consumer; 1 byte-identical Cursor mirror; 1 directory symlink",
+      "count_basis": "Complete tree contains two SKILL.md files with the same immutable Git blob and independently byte-verified SHA256. Canonical skill/marcora-mcp is counted once; the Cursor mirror and native-plugin directory symlink do not add leaves.",
+      "license_scope": "Root MIT explicitly covers public documentation, skill and metadata, corroborated by README. No nearer LICENSE/NOTICE exists in the complete fixed tree, and complete consumer frontmatter declares MIT with no additional local legal restriction found in the body. The commercial hosted MCP server implementation is explicitly proprietary and absent; account/subscription terms, private customer material and service behavior are not licensed or validated by this index.",
+      "limitations": "Requires an authenticated Marcora hosted-service account. Document generation/grounding/production may consume Studio Credits; account state, document/brand-context overwrites, team visibility, bulk plan creation, external sharing and scheduled workflows are effects described by the consumer. set_active_team changes account-global state across clients. None was exercised or validated. Static instruction risks: attachment-only guidance may replace the strategic brief pointer (line 419), and get_relevant_context exclusivity wording conflicts with ordinary drafting guidance (line 253). Metadata admission is not service correctness or safety certification.",
+      "review_scope": "Full 82,492-byte/523-line canonical SKILL read in seven nontruncated segments; mirror independently byte-verified. README, root license and native/Cursor package descriptors read. Optional reference bodies and proprietary service implementation not audited.",
+      "public_skill_paths": [
+        "skill/marcora-mcp/SKILL.md"
+      ]
+    }
+  },
+  "quality-breadth-cross-science.json": {
+    "stage": "complete",
+    "date": "2026-11-14",
+    "full_name": "znlgis/dsh-opengis-skill",
+    "repository_id": 1425030216,
+    "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+    "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856",
+    "judgement": "Independent metadata-only admission is supported: public native DSH registration, original separately licensed execution adaptations and package wiring add concrete distribution value beyond an unchanged upstream mirror. No claim of 45 new original skills is supported.",
+    "refs": [
+      {
+        "path": "README.md",
+        "blob_sha": "8cb04438d714e979cedd1937b113aaaebf1560e1",
+        "sha256": "ba5f384ba626ec3eccfa8b69c969630fe948eb22c69b4e52a90ef9b7943c4da0",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/README.md",
+        "bytes": 42401,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "LICENSE",
+        "blob_sha": "6d9aa7804f24a70644c91f4b7653f2312a938a87",
+        "sha256": "9988d1b6cdf260b12506f856dd919d7b947eac3a11a068b2a85b9e078b34aa26",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/LICENSE",
+        "bytes": 1059,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "THIRD_PARTY_NOTICES.md",
+        "blob_sha": "0c3e9ffb1d351098f67171f222edd945fe7f7e23",
+        "sha256": "7315b9a148bef3ed36fd5f80b8adb0e6123b0a8e8e5cd54e6fd6856d74105782",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/THIRD_PARTY_NOTICES.md",
+        "bytes": 3186,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "package.json",
+        "blob_sha": "57c1fba6d733655ce9aec2d77b5a0d3e1cf60323",
+        "sha256": "b5e7cba7e59d519f795409487e2a41a43b5467912f709cb131de67e9abffb1cd",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/package.json",
+        "bytes": 2667,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "upstream.json",
+        "blob_sha": "e3389102d59718b108c67d23a84acf7b3b16b481",
+        "sha256": "651032bc0481564a6b625f54fda5e987aa57295f98f84cd90a6b26fda697e15a",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/upstream.json",
+        "bytes": 8370,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "cordis.patch.yml",
+        "blob_sha": "7f62e4365fe423dc0c6c25d753e65f049717db29",
+        "sha256": "72e380730b53708078f61f04438ff42226214c9e4a4cff0324f95ac6e7eb0701",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/cordis.patch.yml",
+        "bytes": 589,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "lib/index.js",
+        "blob_sha": "9c328303c41ed9b1db81adb7e90e6eb409dcefac",
+        "sha256": "63d1a247ef442aca5e6d91b8aa461ac35d202ed5dbe93d1d8c67cda52bff8f14",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/lib/index.js",
+        "bytes": 5944,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "lib/adaptations.js",
+        "blob_sha": "6f8aee2a55d9df5096c8d551717e1356af4092ca",
+        "sha256": "f6ea9698ce29c337681958e1b53e717f495277dd50440cef324a0d286974ed9f",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/lib/adaptations.js",
+        "bytes": 16361,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "adaptations/brutile.md",
+        "blob_sha": "824b0cf5a3ba2299639ad7716f2a730d7dadcb60",
+        "sha256": "e675271af3e9bc47aad3a25a68f40218bfc08a0302f0b234507b81aaa7355980",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/adaptations/brutile.md",
+        "bytes": 2654,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "adaptations/common.md",
+        "blob_sha": "ea1c5b0b1a488bed4e7fd86bbe91a0dd6bf12815",
+        "sha256": "2683174bd5305f9955b7bf304fe881163e145226db208611a2825f78b48bde20",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/adaptations/common.md",
+        "bytes": 6939,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "assets/brutile/SKILL.md",
+        "blob_sha": "13da8a8f52aa7de5201d283cb912fd77ff2981e1",
+        "sha256": "6d5707b0dcf9ffd0947c71e63c7333eecfddd6268338c997cd1770a3e5e2fcc4",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/assets/brutile/SKILL.md",
+        "bytes": 14050,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "assets/opengis-all/SKILL.md",
+        "blob_sha": "81f7f5c57543d86d5f47310f8630036b46f1328e",
+        "sha256": "db520f77272754244d4b64f1fe4d4a68e0aee7ddb06c6434ec59c7bb496e72d3",
+        "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/assets/opengis-all/SKILL.md",
+        "bytes": 14191,
+        "repository": "znlgis/dsh-opengis-skill",
+        "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+        "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+      },
+      {
+        "path": "LICENSE",
+        "blob_sha": "8a0929765f24cf22bd5e9c6889c30b59406d9525",
+        "sha256": "e77864ebc59204aa837e275986f4f8f634cf1df6f81f8d9756aebd431a529c51",
+        "url": "https://github.com/znlgis/opengis-skills/blob/55b87f456d16312effc05a6b9802bbf67dc2ddfa/LICENSE",
+        "bytes": 1068,
+        "repository": "znlgis/opengis-skills",
+        "commit": "55b87f456d16312effc05a6b9802bbf67dc2ddfa",
+        "tree": "dc31b25a10757e6f607302852756f9eb4644b010"
+      },
+      {
+        "path": "gis/brutile/SKILL.md",
+        "blob_sha": "13da8a8f52aa7de5201d283cb912fd77ff2981e1",
+        "sha256": "6d5707b0dcf9ffd0947c71e63c7333eecfddd6268338c997cd1770a3e5e2fcc4",
+        "url": "https://github.com/znlgis/opengis-skills/blob/55b87f456d16312effc05a6b9802bbf67dc2ddfa/gis/brutile/SKILL.md",
+        "bytes": 14050,
+        "repository": "znlgis/opengis-skills",
+        "commit": "55b87f456d16312effc05a6b9802bbf67dc2ddfa",
+        "tree": "dc31b25a10757e6f607302852756f9eb4644b010"
+      }
+    ],
+    "reviewed": {
+      "complete_files": [
+        "assets/brutile/SKILL.md",
+        "adaptations/brutile.md",
+        "adaptations/common.md",
+        "lib/index.js",
+        "lib/adaptations.js",
+        "assets/opengis-all/SKILL.md",
+        "LICENSE",
+        "THIRD_PARTY_NOTICES.md",
+        "package.json",
+        "cordis.patch.yml",
+        "upstream.json"
+      ],
+      "readme_scope": "Purpose, installation, DSH adaptation, source-synchronization and licensing sections; generated catalog table was used structurally, not as substitute for consumer reading.",
+      "representative_skill_yaml": "PyYAML 6.0.3 parsed BruTile and opengis-all frontmatter successfully",
+      "static_code_syntax": "Node --input-type=module --check parsed both complete JS implementations from stdin; no code executed.",
+      "upstream_license": "Complete fixed upstream MIT grant independently fetched and read",
+      "adaptation_inventory": {
+        "markdown_files": 46,
+        "total_tree_bytes": 150883,
+        "substantively_read_files": 2,
+        "substantively_read_bytes": 9593
+      },
+      "independent_value": [
+        "package.json explicitly publishes lib, assets, adaptations and bundle patch; cordis.patch.yml mounts @dsh-gis/dsh-opengis-skill.",
+        "Provider registers ctx.skills, lists lightweight candidate metadata, retains resourceBase and loads a selected asset plus per-skill/common guidance.",
+        "composeSkillContent actually appends the separate DSH blocks; adaptation readers reject missing headings, and public checks distinguish core/optional harness tools.",
+        "Brutile guidance maps pwsh/ops_bash/job_output/read_image/present/ask_user_question to version probes, offline tile-count checks, artifact inspection and permission boundaries."
+      ],
+      "upstream_snapshot": {
+        "full_name": "znlgis/opengis-skills",
+        "repository_id": 1176404755,
+        "commit": "55b87f456d16312effc05a6b9802bbf67dc2ddfa",
+        "tree": "dc31b25a10757e6f607302852756f9eb4644b010",
+        "public": true,
+        "manifest_files": 71,
+        "tree_blob_pairs_equal": 71,
+        "tree_blob_pairs_missing_or_different": 0,
+        "manifest_sha256_independently_recomputed_paths": [
+          "brutile/SKILL.md",
+          "opengis-all/SKILL.md"
+        ],
+        "pairs": [
+          {
+            "relative_path": "brutile/SKILL.md",
+            "local_blob_sha": "13da8a8f52aa7de5201d283cb912fd77ff2981e1",
+            "upstream_blob_sha": "13da8a8f52aa7de5201d283cb912fd77ff2981e1",
+            "manifest_sha256": "6d5707b0dcf9ffd0947c71e63c7333eecfddd6268338c997cd1770a3e5e2fcc4"
+          },
+          {
+            "relative_path": "cesiumjs/SKILL.md",
+            "local_blob_sha": "e7bd52cb91f304bdd24b9f0e03921b6c5dc7f609",
+            "upstream_blob_sha": "e7bd52cb91f304bdd24b9f0e03921b6c5dc7f609",
+            "manifest_sha256": "efa943800c25230296273c1ea1e90b0ee262752e0792294c755cf08c81545971"
+          },
+          {
+            "relative_path": "deck-gl/SKILL.md",
+            "local_blob_sha": "9f6ea5566be7c6825c4ff09d6f5c1e365e90486f",
+            "upstream_blob_sha": "9f6ea5566be7c6825c4ff09d6f5c1e365e90486f",
+            "manifest_sha256": "9f6f53201301f16ceb4d40ebb8ee9858b9a9dff4e59737e6806e3b8fd1151feb"
+          },
+          {
+            "relative_path": "duckdb-spatial/SKILL.md",
+            "local_blob_sha": "67233c0b1099eac0c77814e4849915566cb273d1",
+            "upstream_blob_sha": "67233c0b1099eac0c77814e4849915566cb273d1",
+            "manifest_sha256": "6e11e95d8779178f951e2783f0efaed7d0405023cc2b405bb0230d7bf0f42ab5"
+          },
+          {
+            "relative_path": "gdal-api/SKILL.md",
+            "local_blob_sha": "58b27719986bd0a6d6157dcd4cbf6488b90747c0",
+            "upstream_blob_sha": "58b27719986bd0a6d6157dcd4cbf6488b90747c0",
+            "manifest_sha256": "b8cc8c06b806d4ae33fc106b7612a5a662f31f424250912bec908c614a17f557"
+          },
+          {
+            "relative_path": "gdal-api/reference/raster-api.md",
+            "local_blob_sha": "79c7771730beff56f83c6f535a012c1c4001120d",
+            "upstream_blob_sha": "79c7771730beff56f83c6f535a012c1c4001120d",
+            "manifest_sha256": "d9deb0f35353477edb6e13d2c57171b2af923664ac282b96f5eddb648be62fd0"
+          },
+          {
+            "relative_path": "gdal-api/reference/vector-api.md",
+            "local_blob_sha": "05f98ed715c6f948725de252242b7b948ba1f06f",
+            "upstream_blob_sha": "05f98ed715c6f948725de252242b7b948ba1f06f",
+            "manifest_sha256": "05a60cd50635504d889325c2f57a791c4e4069742c5a2939289add634ba5533e"
+          },
+          {
+            "relative_path": "gdal/SKILL.md",
+            "local_blob_sha": "eac24402fbc0a62d01e20fad359110e5a4ddf9f4",
+            "upstream_blob_sha": "eac24402fbc0a62d01e20fad359110e5a4ddf9f4",
+            "manifest_sha256": "ee5ad8b7766c9b83bbeaf1969260bf2f07af1672cfd789f8b0ec9841de5eb40e"
+          },
+          {
+            "relative_path": "gdal/reference/data-formats.md",
+            "local_blob_sha": "6f756e8ba43eed39c7eecb354f49529261e05258",
+            "upstream_blob_sha": "6f756e8ba43eed39c7eecb354f49529261e05258",
+            "manifest_sha256": "443731a0f13330ab90e7ecc3e8e46d85519fbcd7013861dfa63f693668fdffd3"
+          },
+          {
+            "relative_path": "gdal/reference/raster-tools.md",
+            "local_blob_sha": "47b69abd7b4ee24fca6574a432f492d5b9cc169c",
+            "upstream_blob_sha": "47b69abd7b4ee24fca6574a432f492d5b9cc169c",
+            "manifest_sha256": "b103e3b1676611134c666fe423318816566a749919b1151bae323b64145f9c2c"
+          },
+          {
+            "relative_path": "gdal/reference/vector-tools.md",
+            "local_blob_sha": "b826b656d4572b42ab79e65ba29b7677648e1e2c",
+            "upstream_blob_sha": "b826b656d4572b42ab79e65ba29b7677648e1e2c",
+            "manifest_sha256": "040f59261105194070a67ed0ec27ca29f3ed4bf098906a7034a59066d5aef6b2"
+          },
+          {
+            "relative_path": "geolibre/SKILL.md",
+            "local_blob_sha": "0d050619e7ecd69323be58e5909818c279993969",
+            "upstream_blob_sha": "0d050619e7ecd69323be58e5909818c279993969",
+            "manifest_sha256": "4f01f949246ccb13e00cad8538a477e221506b7d591ec98720d43ef4fb66b257"
+          },
+          {
+            "relative_path": "geometry-api-java/SKILL.md",
+            "local_blob_sha": "2957e76cfe60c8881e6b149d871dc6c0e11361a5",
+            "upstream_blob_sha": "2957e76cfe60c8881e6b149d871dc6c0e11361a5",
+            "manifest_sha256": "0cae7b4ec287bf340a9f8baade3ecc243990574c302c64d5290538550a8284d3"
+          },
+          {
+            "relative_path": "geometry-api-net/SKILL.md",
+            "local_blob_sha": "51529863caf59adbc948c1639f91ac553439d19e",
+            "upstream_blob_sha": "51529863caf59adbc948c1639f91ac553439d19e",
+            "manifest_sha256": "782d5a53b02b68904a3355d9effde5fc7a67580eba4bc0e559c5a5ca7da2da8b"
+          },
+          {
+            "relative_path": "geometry-api-net/reference/geometry-types.md",
+            "local_blob_sha": "e4f646e33c0d01800ae52c584d72c44ae890bbd6",
+            "upstream_blob_sha": "e4f646e33c0d01800ae52c584d72c44ae890bbd6",
+            "manifest_sha256": "e3e73cba5329d1c9d457c4202c2b8ff4e1295b23c01813eb8084ab2a30bf6ab3"
+          },
+          {
+            "relative_path": "geonode/SKILL.md",
+            "local_blob_sha": "eb690c116caa961fcc88f318faeb352520b7c23b",
+            "upstream_blob_sha": "eb690c116caa961fcc88f318faeb352520b7c23b",
+            "manifest_sha256": "37763ba5ade159eba469e136c26ee5f4cedf925374e4a9489011f0d45a4a4fcb"
+          },
+          {
+            "relative_path": "geopandas/SKILL.md",
+            "local_blob_sha": "59e11f7701b7448dba4419cff15ac531963ca0e6",
+            "upstream_blob_sha": "59e11f7701b7448dba4419cff15ac531963ca0e6",
+            "manifest_sha256": "572e17574dd83875c00b359d8cb9c49446a657506d12c9532f848e90fd784d37"
+          },
+          {
+            "relative_path": "geopandas/reference/core-api.md",
+            "local_blob_sha": "fadc97cc3cce6a589918b2e55012fbfb7b0eff16",
+            "upstream_blob_sha": "fadc97cc3cce6a589918b2e55012fbfb7b0eff16",
+            "manifest_sha256": "e9e695aa41101838eca0bc6c4ba60b8d2b6d1b3d2ae009a482e63ad30db08235"
+          },
+          {
+            "relative_path": "geopipe-agent/SKILL.md",
+            "local_blob_sha": "b89427bbcb74b0ee623abdebb9c9b58c657d971a",
+            "upstream_blob_sha": "b89427bbcb74b0ee623abdebb9c9b58c657d971a",
+            "manifest_sha256": "24f90ee7200b5a82c4350a2ced2ba072616760fb55c65564cc907f82f058d3ef"
+          },
+          {
+            "relative_path": "geopipe-agent/reference/backends.md",
+            "local_blob_sha": "a90acb4b23984541f361241f4c8fb4cffee93af4",
+            "upstream_blob_sha": "a90acb4b23984541f361241f4c8fb4cffee93af4",
+            "manifest_sha256": "00d7658470e67661d6774eb827f9ab0ccbb2262604b3cb65a0382bf27d2b331f"
+          },
+          {
+            "relative_path": "geopipe-agent/reference/knowledge.md",
+            "local_blob_sha": "fd76a6ff9317ef1aa2774496824f477840d9911d",
+            "upstream_blob_sha": "fd76a6ff9317ef1aa2774496824f477840d9911d",
+            "manifest_sha256": "63b1d44d6f83d4e33011c35855d08b2c83cd07f2ec21722a120b1e2164685e07"
+          },
+          {
+            "relative_path": "geopipe-agent/reference/pipeline-schema.md",
+            "local_blob_sha": "305d7c0930d101ffeb20dc2745475abedb4d55cb",
+            "upstream_blob_sha": "305d7c0930d101ffeb20dc2745475abedb4d55cb",
+            "manifest_sha256": "9b6a7a87002fa2fa53f61441a0f9ace804b970ba9ea6b00b0308e2dba9a77cb6"
+          },
+          {
+            "relative_path": "geopipe-agent/reference/self-extension.md",
+            "local_blob_sha": "f6513b2cb72c42257071b432af4778a2e831feaa",
+            "upstream_blob_sha": "f6513b2cb72c42257071b432af4778a2e831feaa",
+            "manifest_sha256": "552be0bfaef58f3cb7f10567362c3c7328bea520b8ef61bda5f79f84529e16a1"
+          },
+          {
+            "relative_path": "geopipe-agent/reference/steps-reference.md",
+            "local_blob_sha": "564d274ef6e18c760ca356ff156768fbd2919bb1",
+            "upstream_blob_sha": "564d274ef6e18c760ca356ff156768fbd2919bb1",
+            "manifest_sha256": "7660cbd4db810b7986461ab8f93041e955bc76fa6e7fb96386736a807b3a29a3"
+          },
+          {
+            "relative_path": "geopipe-agent/reference/workflows.md",
+            "local_blob_sha": "539703f96952bb593d0b7fe73128a2be908e28e4",
+            "upstream_blob_sha": "539703f96952bb593d0b7fe73128a2be908e28e4",
+            "manifest_sha256": "b302f98b2e75b692683259a57a60baa52fe7db8bec59a708742dcb2f0f8f0148"
+          },
+          {
+            "relative_path": "geos/SKILL.md",
+            "local_blob_sha": "79e5a0471edfab06f0e7a856e9b730ac5122c624",
+            "upstream_blob_sha": "79e5a0471edfab06f0e7a856e9b730ac5122c624",
+            "manifest_sha256": "6698b8cb775919316a6b6d8033672f418c6b0cc8cd6e78f3e42aa39c3cb20dc5"
+          },
+          {
+            "relative_path": "geoserver-cloud/SKILL.md",
+            "local_blob_sha": "08c6868d6f73a07573f81cbaa48d3dd162d05405",
+            "upstream_blob_sha": "08c6868d6f73a07573f81cbaa48d3dd162d05405",
+            "manifest_sha256": "3b76fe968c6e6d08586080485e08d1b37736324c015482b908a6e77db3409ec1"
+          },
+          {
+            "relative_path": "geoserver-rest-api/SKILL.md",
+            "local_blob_sha": "311c623ceefdf506b8bdd0d66ff51f80a0d914f8",
+            "upstream_blob_sha": "311c623ceefdf506b8bdd0d66ff51f80a0d914f8",
+            "manifest_sha256": "d3d2270b48919df0bea858b812537922cf619826f0377f59fd267af9f5d9d3b3"
+          },
+          {
+            "relative_path": "geoserver-rest-api/reference/endpoints.md",
+            "local_blob_sha": "1679df8aaa2dc8ca0b59c4b80bde5ddcd364575f",
+            "upstream_blob_sha": "1679df8aaa2dc8ca0b59c4b80bde5ddcd364575f",
+            "manifest_sha256": "ba992ea8ebe815dfd062bb7cd00d65cdbfd9f52c5352a9d5ef16277153d7a473"
+          },
+          {
+            "relative_path": "geoserver/SKILL.md",
+            "local_blob_sha": "86bfacbe422f23a96c5cae1f4110be631a0c44cc",
+            "upstream_blob_sha": "86bfacbe422f23a96c5cae1f4110be631a0c44cc",
+            "manifest_sha256": "4753125bba999a1b42ecd301a402ec17cfc064ce8ca63a75214852b10c011dfb"
+          },
+          {
+            "relative_path": "geotools/SKILL.md",
+            "local_blob_sha": "b87a44cbfc5c897387b29407e66945b0ea35739c",
+            "upstream_blob_sha": "b87a44cbfc5c897387b29407e66945b0ea35739c",
+            "manifest_sha256": "818ca46975f86e8192a5fa74bddfcc49e55424acfdecc01753087e2689d159a6"
+          },
+          {
+            "relative_path": "geotools/reference/raster-rendering.md",
+            "local_blob_sha": "411d737e92a74d0531a61e25fbd565a9e5bf9f7c",
+            "upstream_blob_sha": "411d737e92a74d0531a61e25fbd565a9e5bf9f7c",
+            "manifest_sha256": "e7c302dbf3d316635787afdf3283cd2deed05beabe75999938c0714eb5ad9c90"
+          },
+          {
+            "relative_path": "geotools/reference/vector-io.md",
+            "local_blob_sha": "961aa0c7a556a6d1b68c5ebc1e23f057b1a3bd61",
+            "upstream_blob_sha": "961aa0c7a556a6d1b68c5ebc1e23f057b1a3bd61",
+            "manifest_sha256": "15686fa0207a0c45c019c8d12b97113c23001580c65ebd8b7ee1f501b5309829"
+          },
+          {
+            "relative_path": "grass-gis/SKILL.md",
+            "local_blob_sha": "b15f1023e2062e43667f73a094450ec08b37976e",
+            "upstream_blob_sha": "b15f1023e2062e43667f73a094450ec08b37976e",
+            "manifest_sha256": "9a95c6d76eb0770b5bc2a904a700fad77487fc2fe28504c1ded96a5c42edea5f"
+          },
+          {
+            "relative_path": "jts/SKILL.md",
+            "local_blob_sha": "5401b06f16f8e752d4bade063cdd4d34b77d99f7",
+            "upstream_blob_sha": "5401b06f16f8e752d4bade063cdd4d34b77d99f7",
+            "manifest_sha256": "c76377c6deadb1ba8debac98e28233c5c88f9120a99035860b84e886f52ce623"
+          },
+          {
+            "relative_path": "jts/reference/geometry-operations.md",
+            "local_blob_sha": "3cafa1b40a18c409ba450fe81458a2decc7e0a9e",
+            "upstream_blob_sha": "3cafa1b40a18c409ba450fe81458a2decc7e0a9e",
+            "manifest_sha256": "201c5abde537e4ee583667e31c4c6d553f80198eef02e1778ef5be9398399dc0"
+          },
+          {
+            "relative_path": "kepler-gl/SKILL.md",
+            "local_blob_sha": "0d00cb85e03ddc3f4752b5c42570dad3a9bfdc61",
+            "upstream_blob_sha": "0d00cb85e03ddc3f4752b5c42570dad3a9bfdc61",
+            "manifest_sha256": "88493a96c350983e4afb2b9033268f7fde5019406c826c9ddd8b3d6d26a74fb1"
+          },
+          {
+            "relative_path": "leaflet/SKILL.md",
+            "local_blob_sha": "3cc1f10acc682067f099b90ac821cf9c7708c4ef",
+            "upstream_blob_sha": "3cc1f10acc682067f099b90ac821cf9c7708c4ef",
+            "manifest_sha256": "d44e7341ebabbd0c1e6ad86bcd3db302ea82e8af6b1d70f89a6a407fdbb985c2"
+          },
+          {
+            "relative_path": "mapbox-gl-js/SKILL.md",
+            "local_blob_sha": "6de2bbe710ceb1c37307c4d1d49b7d8d18352671",
+            "upstream_blob_sha": "6de2bbe710ceb1c37307c4d1d49b7d8d18352671",
+            "manifest_sha256": "462e33f85f213db9dfca58097a5185c9f9fbd091c1086f91b1fc17dd59a2589a"
+          },
+          {
+            "relative_path": "maplibre-gl-js/SKILL.md",
+            "local_blob_sha": "6f63cb96a8edbcf4cddc38859c22df08771ae220",
+            "upstream_blob_sha": "6f63cb96a8edbcf4cddc38859c22df08771ae220",
+            "manifest_sha256": "cda802134376ea3452c9b2f5124184d86308844753fe7dc53b23da9d19b55803"
+          },
+          {
+            "relative_path": "maplibre-native/SKILL.md",
+            "local_blob_sha": "cdbbd6d28ac75611a7457e6f36b7e6c1060a9cf2",
+            "upstream_blob_sha": "cdbbd6d28ac75611a7457e6f36b7e6c1060a9cf2",
+            "manifest_sha256": "869f618a885b5cfa9febcb24178af0b62ab54fa9c28c0e0923dd830a185b78d7"
+          },
+          {
+            "relative_path": "mapserver/SKILL.md",
+            "local_blob_sha": "6165308ec0f68692a311130595204f3efb909592",
+            "upstream_blob_sha": "6165308ec0f68692a311130595204f3efb909592",
+            "manifest_sha256": "1d374a62a3665896e926adf8b8d0a24087cdc0e6de382e56546bbf8c57f3a322"
+          },
+          {
+            "relative_path": "mapsui/SKILL.md",
+            "local_blob_sha": "f797d09d52935f48144ce7480bd274cadaba43ac",
+            "upstream_blob_sha": "f797d09d52935f48144ce7480bd274cadaba43ac",
+            "manifest_sha256": "98bd40b87e94756c0a686a54c003882bc591ec81cb1e8868319c758f8bd5a6a1"
+          },
+          {
+            "relative_path": "nettopologysuite/SKILL.md",
+            "local_blob_sha": "1ca5efbdcc44af61ffb302be983c59ba8d5027d5",
+            "upstream_blob_sha": "1ca5efbdcc44af61ffb302be983c59ba8d5027d5",
+            "manifest_sha256": "2c34712ba67d5ac0c84f3a2e9b3f2e8d860633e587200c32fad5903f0f5ffec5"
+          },
+          {
+            "relative_path": "opendronemap/SKILL.md",
+            "local_blob_sha": "6c3cf59c291db109aaa4bb6de03d6c679b801599",
+            "upstream_blob_sha": "6c3cf59c291db109aaa4bb6de03d6c679b801599",
+            "manifest_sha256": "2e58183f8e4bde11aaf29dd35801e80facf324d1c36ca27cc83d63fe8f957a90"
+          },
+          {
+            "relative_path": "opengis-all/SKILL.md",
+            "local_blob_sha": "81f7f5c57543d86d5f47310f8630036b46f1328e",
+            "upstream_blob_sha": "81f7f5c57543d86d5f47310f8630036b46f1328e",
+            "manifest_sha256": "db520f77272754244d4b64f1fe4d4a68e0aee7ddb06c6434ec59c7bb496e72d3"
+          },
+          {
+            "relative_path": "opengis-all/reference/data-stages.md",
+            "local_blob_sha": "78ce5093519f28da70ab0637cdfa079da011b203",
+            "upstream_blob_sha": "78ce5093519f28da70ab0637cdfa079da011b203",
+            "manifest_sha256": "147b8b984a3d8f95bd5f1ed435df2c84d10ab6fb7a1ab0f556ef477ee8c12a4f"
+          },
+          {
+            "relative_path": "opengis-all/reference/workflow-cheatsheets.md",
+            "local_blob_sha": "e3d601fceef8f2046efcc4f56857ec1018a6639a",
+            "upstream_blob_sha": "e3d601fceef8f2046efcc4f56857ec1018a6639a",
+            "manifest_sha256": "96f84a2a44dc7b0b5fff31a0999d3a9a534b22573a36855b0aee3fb6282f01de"
+          },
+          {
+            "relative_path": "opengis-daf/SKILL.md",
+            "local_blob_sha": "15be1a8312d439aa20d9c84c56a16f41dd98a00d",
+            "upstream_blob_sha": "15be1a8312d439aa20d9c84c56a16f41dd98a00d",
+            "manifest_sha256": "03c97cb0904a5ddb7669b2b10954b98e1a2142324a91e3ca59db52883831437a"
+          },
+          {
+            "relative_path": "opengis-utils-for-java/SKILL.md",
+            "local_blob_sha": "2e11b3d822e475c24621d53d7ee90da13a8a422f",
+            "upstream_blob_sha": "2e11b3d822e475c24621d53d7ee90da13a8a422f",
+            "manifest_sha256": "9d2855032aadf93b5324e50b89a2b1d20642e7e22f578d3bce6af6e79300db54"
+          },
+          {
+            "relative_path": "opengis-utils-for-java/reference/common-tasks.md",
+            "local_blob_sha": "b0bd1767e681fc328411e00edd588e30635f0902",
+            "upstream_blob_sha": "b0bd1767e681fc328411e00edd588e30635f0902",
+            "manifest_sha256": "6eccb7ea7da35cf8eb3a285cd36fbe44a4ef193187a6b6637d839fab2413bd31"
+          },
+          {
+            "relative_path": "opengis-utils-for-net/SKILL.md",
+            "local_blob_sha": "c2cba5a63e676afd10bbd4f3457ebe76b6923d31",
+            "upstream_blob_sha": "c2cba5a63e676afd10bbd4f3457ebe76b6923d31",
+            "manifest_sha256": "1a536c5381f292c1743f46b7a60df59e457aafd26cb5e6a6a4d4ec8cdccf9c17"
+          },
+          {
+            "relative_path": "opengis-utils-for-net/reference/code-patterns.md",
+            "local_blob_sha": "07ff95366de609ee2586bb9a0f85d7e7c0310069",
+            "upstream_blob_sha": "07ff95366de609ee2586bb9a0f85d7e7c0310069",
+            "manifest_sha256": "29ad815d322dc9b8f2e3d6ea25ff121373fd74e49bcb90d136f097c69f6f6350"
+          },
+          {
+            "relative_path": "opengis-utils-for-net/reference/util-classes.md",
+            "local_blob_sha": "a6ed4e5c972813883147d4b649bac765bf9188e2",
+            "upstream_blob_sha": "a6ed4e5c972813883147d4b649bac765bf9188e2",
+            "manifest_sha256": "95203abddfad9d410bc39bf18b5dd96d56763c0ddf384fb22e0c0b21245b149e"
+          },
+          {
+            "relative_path": "openlayers/SKILL.md",
+            "local_blob_sha": "194a241dce09a4f3e3b111658daf3fdeb3a24fbc",
+            "upstream_blob_sha": "194a241dce09a4f3e3b111658daf3fdeb3a24fbc",
+            "manifest_sha256": "a32b03987a07ede2a87b981ba5f62a0f8bad181a1a4f2baabf375c4476465157"
+          },
+          {
+            "relative_path": "pdal/SKILL.md",
+            "local_blob_sha": "23a3e588abb43ee78d88726c019ec8ac2506d216",
+            "upstream_blob_sha": "23a3e588abb43ee78d88726c019ec8ac2506d216",
+            "manifest_sha256": "ae06daf64fbb9b75dae80229fea14628567f359047be9f099eb8ad30a5d6fb21"
+          },
+          {
+            "relative_path": "postgis/SKILL.md",
+            "local_blob_sha": "5b05b517825ee7a94355616ff81b30b0d18c03e5",
+            "upstream_blob_sha": "5b05b517825ee7a94355616ff81b30b0d18c03e5",
+            "manifest_sha256": "5f553e5438a929020856c75666d972668ff695aae1ed156a85ff72ec22664aac"
+          },
+          {
+            "relative_path": "proj/SKILL.md",
+            "local_blob_sha": "9c6d8493a4197bfba93197955d8fed6d97fa4a81",
+            "upstream_blob_sha": "9c6d8493a4197bfba93197955d8fed6d97fa4a81",
+            "manifest_sha256": "29c96880d228e2775394c3d4d9995835528ee340d63958f9a2e6165812c5a28c"
+          },
+          {
+            "relative_path": "projnet4geoapi/SKILL.md",
+            "local_blob_sha": "957e92f3ac160ecf518875641d9fd17bfcf89ad4",
+            "upstream_blob_sha": "957e92f3ac160ecf518875641d9fd17bfcf89ad4",
+            "manifest_sha256": "48b74def3abfb8e8eeb4c145a50f6e1d7aee7c3d9078fdf1ad75c30b746a52c9"
+          },
+          {
+            "relative_path": "pyqgis/SKILL.md",
+            "local_blob_sha": "908e2f8bcd7e1116e5977f8e2454b4b13834781c",
+            "upstream_blob_sha": "908e2f8bcd7e1116e5977f8e2454b4b13834781c",
+            "manifest_sha256": "7b52cc11decdc91a831e1694ed25e66968d77d79bf33e012995163fdefcb7407"
+          },
+          {
+            "relative_path": "pyqgis/reference/processing-rendering.md",
+            "local_blob_sha": "ffc86f13af360844d5fef304767c262092862d96",
+            "upstream_blob_sha": "ffc86f13af360844d5fef304767c262092862d96",
+            "manifest_sha256": "4eb90ba829a3cb74082a24c7c89ff4410683ad208e31b509cab6f4a1192d0317"
+          },
+          {
+            "relative_path": "pyqgis/reference/vector-raster-layers.md",
+            "local_blob_sha": "8626bcdf0647961fa9de855453ef026cc01aacff",
+            "upstream_blob_sha": "8626bcdf0647961fa9de855453ef026cc01aacff",
+            "manifest_sha256": "e06128fdd0231ae7853d0e2a9b91f1f5fbc722c2c2ec39a3187d347d68a39e06"
+          },
+          {
+            "relative_path": "qgis-process/SKILL.md",
+            "local_blob_sha": "6264cc9b27bab025c54ca444a59eea43b2e1c634",
+            "upstream_blob_sha": "6264cc9b27bab025c54ca444a59eea43b2e1c634",
+            "manifest_sha256": "46ea801d8e58a75da20789e6f21a62699625983fcc6baa4fb758c7b8d549533e"
+          },
+          {
+            "relative_path": "qgis-process/reference/algorithm-cheatsheet.md",
+            "local_blob_sha": "a196340f16b435013fa826352ebe07be37c71669",
+            "upstream_blob_sha": "a196340f16b435013fa826352ebe07be37c71669",
+            "manifest_sha256": "868120c223e63fce43b833c9d7ccf455f9259d8c1601b5bfaa1c26a434454507"
+          },
+          {
+            "relative_path": "qgis-server/SKILL.md",
+            "local_blob_sha": "c04612f3e1ff5c4f1313f1cc3bb8adef4b0b043e",
+            "upstream_blob_sha": "c04612f3e1ff5c4f1313f1cc3bb8adef4b0b043e",
+            "manifest_sha256": "263eaa5d502775144c6f4335aa3f837f86a00b232c7c3227cadcaa10a6f31f2f"
+          },
+          {
+            "relative_path": "shapely/SKILL.md",
+            "local_blob_sha": "0739f7ee3c24880f36bf5f1e54a4bd4ae1fd762c",
+            "upstream_blob_sha": "0739f7ee3c24880f36bf5f1e54a4bd4ae1fd762c",
+            "manifest_sha256": "fb2eb1fc71440c1da231cfc18a4ce57b07153f3aa2782e944edbdb9b192aec1f"
+          },
+          {
+            "relative_path": "shapely/reference/operations-reference.md",
+            "local_blob_sha": "1e0cffc2d6095356f90be9a54beab891abc41ddb",
+            "upstream_blob_sha": "1e0cffc2d6095356f90be9a54beab891abc41ddb",
+            "manifest_sha256": "ee2c02050938d527ad7a804dd0cd846d5d7d4ee13ddaea25ebda5d2a902519c6"
+          },
+          {
+            "relative_path": "sharpmap/SKILL.md",
+            "local_blob_sha": "64d0687abc5b51403cd820b837cec7e59da1a715",
+            "upstream_blob_sha": "64d0687abc5b51403cd820b837cec7e59da1a715",
+            "manifest_sha256": "b8fdc1095b5261c33d33bb3f8a1074be234bc27411dc0b8eb68efa9ad06e85ca"
+          },
+          {
+            "relative_path": "spatialite/SKILL.md",
+            "local_blob_sha": "b702ef96275b0d65f46b7496442f7ffc7f30033c",
+            "upstream_blob_sha": "b702ef96275b0d65f46b7496442f7ffc7f30033c",
+            "manifest_sha256": "de90e105bfb3c94096cfcc33e5e496d69c474a8c9f5fbe87e5992182a549099c"
+          },
+          {
+            "relative_path": "stac-cog-titiler/SKILL.md",
+            "local_blob_sha": "a966defe2708915f915be630ef9906411b5319be",
+            "upstream_blob_sha": "a966defe2708915f915be630ef9906411b5319be",
+            "manifest_sha256": "705e2b9d62998f1a36bbbd95337bac872a2d4ac7c17a5556bd03e6a375547881"
+          },
+          {
+            "relative_path": "whitebox-tools/SKILL.md",
+            "local_blob_sha": "cfa536d5826bdb2418b186c63fac0b1d1bc400af",
+            "upstream_blob_sha": "cfa536d5826bdb2418b186c63fac0b1d1bc400af",
+            "manifest_sha256": "e984e45f882d31b36b079892b23d51b80cf14d1241a658809e0bcc095a1dbcfa"
+          }
+        ]
+      },
+      "review_scope": "Fully read assets/brutile/SKILL.md (14,050 bytes), adaptations/brutile.md (2,654 bytes), adaptations/common.md (6,939 bytes), lib/index.js (5,944 bytes), lib/adaptations.js (16,361 bytes), and opengis-all body for router classification; read README purpose/install/adaptation/licensing sections, complete package/patch/manifest, complete local and pinned upstream MIT grants and THIRD_PARTY_NOTICES. Mechanical fixed-tree/byte equality is separate from substantive body coverage."
+    },
+    "corrections": [
+      {
+        "full_name": "znlgis/dsh-opengis-skill",
+        "field_updates": {
+          "summary_en": "A native DeepSeek Harness distribution of 44 upstream OpenGIS topical skills and one workflow index, adding a separately maintained provider and per-skill execution adaptations.",
+          "summary_zh": "面向 DeepSeek Harness 的 OpenGIS 原生分发，沿用 44 个上游专题技能及 1 个流程索引，并加入独立维护的 provider 与逐技能执行适配。",
+          "license_spdx": "MIT",
+          "license_scope": "Root MIT covers this repository-owned provider, packaging and DSH adaptations. THIRD_PARTY_NOTICES separately preserves the complete MIT grant and copyright (2024-2026 znlgis) for the vendored opengis-skills instructions; the pinned upstream root LICENSE independently confirms it and neither complete fixed tree contains nearer grant files. BruTile representative frontmatter licenses the instruction MIT, while its project-license paragraph identifies the external BruTile implementation as Apache-2.0. Referenced GIS software, basemap/data assets, services, credentials and proprietary Mapbox products retain their own terms; this index does not relicense those projects under either root MIT grant.",
+          "skill_count": 44,
+          "count_basis": "45 distributed, byte-preserved upstream SKILL assets: 44 topical consumer definitions plus 1 opengis-all workflow index/router. The DSH provider and 46 adaptation Markdown files are a distinct distribution/integration layer, not 45 newly authored skills; no extra client mirror or generated SKILL export is counted.",
+          "public_skill_paths": [
+            "assets/brutile/SKILL.md",
+            "assets/cesiumjs/SKILL.md",
+            "assets/deck-gl/SKILL.md",
+            "assets/duckdb-spatial/SKILL.md",
+            "assets/gdal-api/SKILL.md",
+            "assets/gdal/SKILL.md",
+            "assets/geolibre/SKILL.md",
+            "assets/geometry-api-java/SKILL.md",
+            "assets/geometry-api-net/SKILL.md",
+            "assets/geonode/SKILL.md",
+            "assets/geopandas/SKILL.md",
+            "assets/geopipe-agent/SKILL.md",
+            "assets/geos/SKILL.md",
+            "assets/geoserver-cloud/SKILL.md",
+            "assets/geoserver-rest-api/SKILL.md",
+            "assets/geoserver/SKILL.md",
+            "assets/geotools/SKILL.md",
+            "assets/grass-gis/SKILL.md",
+            "assets/jts/SKILL.md",
+            "assets/kepler-gl/SKILL.md",
+            "assets/leaflet/SKILL.md",
+            "assets/mapbox-gl-js/SKILL.md",
+            "assets/maplibre-gl-js/SKILL.md",
+            "assets/maplibre-native/SKILL.md",
+            "assets/mapserver/SKILL.md",
+            "assets/mapsui/SKILL.md",
+            "assets/nettopologysuite/SKILL.md",
+            "assets/opendronemap/SKILL.md",
+            "assets/opengis-daf/SKILL.md",
+            "assets/opengis-utils-for-java/SKILL.md",
+            "assets/opengis-utils-for-net/SKILL.md",
+            "assets/openlayers/SKILL.md",
+            "assets/pdal/SKILL.md",
+            "assets/postgis/SKILL.md",
+            "assets/proj/SKILL.md",
+            "assets/projnet4geoapi/SKILL.md",
+            "assets/pyqgis/SKILL.md",
+            "assets/qgis-process/SKILL.md",
+            "assets/qgis-server/SKILL.md",
+            "assets/shapely/SKILL.md",
+            "assets/sharpmap/SKILL.md",
+            "assets/spatialite/SKILL.md",
+            "assets/stac-cog-titiler/SKILL.md",
+            "assets/whitebox-tools/SKILL.md"
+          ],
+          "distribution_evidence": "README publishes local/npm DSH installation; package.json includes lib/assets/adaptations/cordis.patch.yml and selects lib/index.js, while the bundle patch mounts the plugin. Complete provider get() and composeSkillContent implementations load one canonical upstream asset then append its distinct DSH and shared guidance; representative BruTile adaptation is substantive, not a renamed copy.",
+          "review_scope": "Fully read assets/brutile/SKILL.md (14,050 bytes), adaptations/brutile.md (2,654 bytes), adaptations/common.md (6,939 bytes), lib/index.js (5,944 bytes), lib/adaptations.js (16,361 bytes), and opengis-all body for router classification; read README purpose/install/adaptation/licensing sections, complete package/patch/manifest, complete local and pinned upstream MIT grants and THIRD_PARTY_NOTICES. Mechanical fixed-tree/byte equality is separate from substantive body coverage.",
+          "limitations": "Static representative admission review only. Complete BruTile consumer, its per-skill adaptation, common adaptation, provider and adaptation-composition module were read; the remaining 43 topical consumers and 44 other per-skill adaptations were not fully reviewed. Both complete trees prove all 71 vendored files share upstream Git blob identities, but only BruTile and opengis-all had their SHA-256 manifest entries independently recomputed in this focused review. README acknowledges tolerant handling of malformed inner quotes in some other upstream frontmatter; this does not certify all 45 as portable standard YAML. No candidate installation, helper/provider execution, DSH integration, GIS command, NuGet/network tile request or model call occurred; npm published tarball and claimed runtime/version compatibility were not exercised.",
+          "additional_evidence": [
+            {
+              "path": "cordis.patch.yml",
+              "blob_sha": "7f62e4365fe423dc0c6c25d753e65f049717db29",
+              "sha256": "72e380730b53708078f61f04438ff42226214c9e4a4cff0324f95ac6e7eb0701",
+              "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/cordis.patch.yml",
+              "bytes": 589,
+              "repository": "znlgis/dsh-opengis-skill",
+              "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+              "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+            },
+            {
+              "path": "lib/adaptations.js",
+              "blob_sha": "6f8aee2a55d9df5096c8d551717e1356af4092ca",
+              "sha256": "f6ea9698ce29c337681958e1b53e717f495277dd50440cef324a0d286974ed9f",
+              "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/lib/adaptations.js",
+              "bytes": 16361,
+              "repository": "znlgis/dsh-opengis-skill",
+              "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+              "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+            },
+            {
+              "path": "assets/opengis-all/SKILL.md",
+              "blob_sha": "81f7f5c57543d86d5f47310f8630036b46f1328e",
+              "sha256": "db520f77272754244d4b64f1fe4d4a68e0aee7ddb06c6434ec59c7bb496e72d3",
+              "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/assets/opengis-all/SKILL.md",
+              "bytes": 14191,
+              "repository": "znlgis/dsh-opengis-skill",
+              "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+              "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+            }
+          ]
+        },
+        "remaining_evidence_scope": [
+          "No additional proof is required to support this narrow metadata-index admission.",
+          "All-body review of 43 other topical consumers, 44 other adaptation blocks and other provider helpers remains outside scope.",
+          "Full 71-entry SHA-256 recomputation, full 45-header standard-YAML audit, actual npm tarball and native DSH runtime checks were not performed."
+        ]
+      }
+    ],
+    "validation": {
+      "private": false,
+      "visibility": "public",
+      "upstream_private": false,
+      "upstream_visibility": "public",
+      "real_commit_trees_confirmed": true,
+      "all_recorded_refs_git_blob_sha1_sha256_bytes_url_tree_checked": true,
+      "upstream_tree_truncated": false,
+      "local_tree_truncated": false,
+      "raw_bodies_in_report": false
+    },
+    "review_delivery_sha256": "9e57c72667829ee44b42d49517a9a6b8f7500b0e50b972dc6a5d8f0ce49d01ab",
+    "advisories": [
+      {
+        "severity": "nonblocking_scope_limit",
+        "finding": "The repository advertises 45 skills, but the asset contents are all upstream instruction assets; 44 topical leaves and one workflow index are the supported count, while original value resides in the DSH distribution and adaptation layer.",
+        "resolution": "Use the exact count_basis/summary field updates below; do not describe 45 as new originals."
+      },
+      {
+        "severity": "nonblocking_portability_limit",
+        "finding": "README explicitly states its custom parser tolerates malformed unescaped inner quotes in some other upstream descriptions. Only the two actually reviewed headers passed standard YAML here.",
+        "resolution": "Keep native DSH compatibility as an unexecuted upstream claim and avoid claiming all 45 portable YAML-valid."
+      }
+    ],
+    "objections": [],
+    "normalization_note": "Nonblocking source-documentation/metadata findings remain visible as advisories. Exact publication field corrections below are applied and bound in integration_application."
+  },
+  "publication_rechecks": {},
+  "resolved_field_issues": [],
+  "integration_application": [
+    {
+      "full_name": "opencue/cuecards",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "path": ".agents/skills/ai-slop-detector/LICENSE",
+            "blob_sha": "895f543a728acae7fc275c926c3c7d9e73ac05a5",
+            "sha256": "89cfc5956d3805f1066ecfc428be64588dcb91e2da94fbcca4bdd3f94b7017d2",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/ai-slop-detector/LICENSE",
+            "bytes": 1070
+          },
+          {
+            "path": ".agents/skills/algorithmic-art/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/algorithmic-art/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/api-gateway/LICENSE",
+            "blob_sha": "21bdb8d38f1157a7659effee9bdf6a15e4db6aa6",
+            "sha256": "5ea49945874d3e9d5600b7e2f3119e8cf444fa50252d03e72613823632272984",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/api-gateway/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": ".agents/skills/brand-guidelines/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/brand-guidelines/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/canvas-design/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/canvas-design/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/claude-api/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/claude-api/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/claude-skill-rust/LICENSE",
+            "blob_sha": "b186d86d7e3471635d3d9dfaca2a2c7800347751",
+            "sha256": "e011483f83fab405630135f10f82f3abc68ef1a84fa729bb028e51464ec17084",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/claude-skill-rust/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": ".agents/skills/codebase-documenter/LICENSE",
+            "blob_sha": "7f1f0386a5bc6cfbe4d7453cdc39038a99ce35ae",
+            "sha256": "170ed79bcc4b2a6cec0eca9c126f3f8f46eec0dddb1b8cd512bede64bf16e873",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/codebase-documenter/LICENSE",
+            "bytes": 1056
+          },
+          {
+            "path": ".agents/skills/docx/LICENSE.txt",
+            "blob_sha": "c55ab42224874608473643de0a85736b7fec0730",
+            "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/docx/LICENSE.txt",
+            "bytes": 1467
+          },
+          {
+            "path": ".agents/skills/free-image-and-video-generation/LICENSE",
+            "blob_sha": "b8b0613ab848f96e6be89ed73474ff63ec20161a",
+            "sha256": "6b1a0c6036da1f31a9c21111b9057dfc4f62b1507adb0a3818cb9b2d7ad2595e",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/free-image-and-video-generation/LICENSE",
+            "bytes": 1066
+          },
+          {
+            "path": ".agents/skills/frontend-design/LICENSE.txt",
+            "blob_sha": "f433b1a53f5b830a205fd2df78e2b34974656c7b",
+            "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/frontend-design/LICENSE.txt",
+            "bytes": 10174
+          },
+          {
+            "path": ".agents/skills/github-optimization/LICENSE",
+            "blob_sha": "8652552679d6a977bd985872a38ae392d0ff8ccc",
+            "sha256": "1af8d9ad3d121b328835ddb45e720daff55027e7b77125961636694a125abcf4",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/github-optimization/LICENSE",
+            "bytes": 1076
+          },
+          {
+            "path": ".agents/skills/hydra/LICENSE",
+            "blob_sha": "0a6594d17c68fb69dbcb56a96ef13910130a714c",
+            "sha256": "dea26bbd08cc3add40048f2a39b0aa8ad9b32d548f3492f607f56dcfc8253498",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/hydra/LICENSE",
+            "bytes": 1067
+          },
+          {
+            "path": ".agents/skills/internal-comms/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/internal-comms/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/mcp-builder/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/mcp-builder/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/nsauditor-ai/LICENSE",
+            "blob_sha": "06690dedc972e4888b119f4f11c3863ed21747d4",
+            "sha256": "d5e046a9c5b1d72c513d2f06e2403ec4e4a2bd4f42efec3e35200c35bdf43296",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/nsauditor-ai/LICENSE",
+            "bytes": 1079
+          },
+          {
+            "path": ".agents/skills/pdf/LICENSE.txt",
+            "blob_sha": "c55ab42224874608473643de0a85736b7fec0730",
+            "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/pdf/LICENSE.txt",
+            "bytes": 1467
+          },
+          {
+            "path": ".agents/skills/pptx/LICENSE.txt",
+            "blob_sha": "c55ab42224874608473643de0a85736b7fec0730",
+            "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/pptx/LICENSE.txt",
+            "bytes": 1467
+          },
+          {
+            "path": ".agents/skills/prompt-engineer/LICENSE",
+            "blob_sha": "14fac913ccf80234b1848540089a3bbcb6e5283d",
+            "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/prompt-engineer/LICENSE",
+            "bytes": 1056
+          },
+          {
+            "path": ".agents/skills/reddit-skills/LICENSE",
+            "blob_sha": "13c8997ef8d7046b887652c3d517207a71faeae6",
+            "sha256": "4fa78e9aee5ad85e5761f103bed02360b7fb561868638ef5d859a2ccec1cb318",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/reddit-skills/LICENSE",
+            "bytes": 1075
+          },
+          {
+            "path": ".agents/skills/skill-creator/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/skill-creator/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/slack-gif-creator/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/slack-gif-creator/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/theme-factory/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/theme-factory/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/vap-media/LICENSE",
+            "blob_sha": "08d0aa68dbbdc10fb7fa3eb92c05b0b84e818272",
+            "sha256": "9f2b0775db5af8f5751f49a8e042527f65b180488ea52bf1c4bb4e2c9a194d53",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/vap-media/LICENSE",
+            "bytes": 1066
+          },
+          {
+            "path": ".agents/skills/vc-tech-graph/LICENSE",
+            "blob_sha": "68b17e4f242b403b77f07e3e8933d30fb0deae2c",
+            "sha256": "a71a3dde0999e54206cc012fd97f358e9407e030b1110bac31aaf83834ea2c6d",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/vc-tech-graph/LICENSE",
+            "bytes": 1090
+          },
+          {
+            "path": ".agents/skills/web-artifacts-builder/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/web-artifacts-builder/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/webapp-testing/LICENSE.txt",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/webapp-testing/LICENSE.txt",
+            "bytes": 11345
+          },
+          {
+            "path": ".agents/skills/xlsx/LICENSE.txt",
+            "blob_sha": "c55ab42224874608473643de0a85736b7fec0730",
+            "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.agents/skills/xlsx/LICENSE.txt",
+            "bytes": 1467
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "59b703875a136e361e5f5a00bd5ac138731836f2",
+            "sha256": "5bf2595bcea0f89db3bdf6dc837394357184a2fcc22cafe7f4c9a427de05aa7a",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.claude-plugin/marketplace.json",
+            "bytes": 1123
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "9f8a0d888bed4348c6c054dae4a1064033af4f7b",
+            "sha256": "3066801b408a6834a703f2c9fc8a308fc3311d03d62d57c0ec2dac41c03166f3",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/package.json",
+            "bytes": 2885
+          },
+          {
+            "path": "skills/cue-agent-profile-manager/SKILL.md",
+            "blob_sha": "776fbe6bec557e18728f00ad0114a8eb91474d13",
+            "sha256": "3c80e3ede2c885de7ed1bedb82755921df0745e00345f17077197f2351f2f828",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/skills/cue-agent-profile-manager/SKILL.md",
+            "bytes": 1913
+          },
+          {
+            "path": ".gitmodules",
+            "blob_sha": "14a0f6897f787f52c71a2d3ee1b7cb05a728d7b9",
+            "sha256": "280dac011196233f685ea56881063d6b7729e28253e2fc2e31c6cbd9d2fd58b0",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.gitmodules",
+            "bytes": 353
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "9f8a0d888bed4348c6c054dae4a1064033af4f7b",
+            "sha256": "3066801b408a6834a703f2c9fc8a308fc3311d03d62d57c0ec2dac41c03166f3",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/package.json",
+            "bytes": 2885
+          },
+          {
+            "path": ".gitmodules",
+            "blob_sha": "14a0f6897f787f52c71a2d3ee1b7cb05a728d7b9",
+            "sha256": "280dac011196233f685ea56881063d6b7729e28253e2fc2e31c6cbd9d2fd58b0",
+            "url": "https://github.com/opencue/cuecards/blob/23e5f32a2ac6d4becebdcca8184606e6eb675f4c/.gitmodules",
+            "bytes": 353
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "starceas/knuaf-doc",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "path": ".codex-plugin/plugin.json",
+            "blob_sha": "c6886d534381f5cde9b4e77028ac7bae4d27cf07",
+            "sha256": "97284bbad46c799a81f420712ab018239923100fa344f57869bb8370139a4ff3",
+            "url": "https://github.com/starceas/knuaf-doc/blob/1ba89297343493c2906c3164d0e0b56d0aeb23fe/.codex-plugin/plugin.json",
+            "bytes": 1138
+          },
+          {
+            "path": "skills/knuaf-doc/scripts/requirements-runtime.txt",
+            "blob_sha": "3eecdf8300c9978ddf7282ae457965748bfd95b9",
+            "sha256": "689270adae6c5d0c02bd0d117011e013b7b748d897ff0b5a15794a2fa0e5f025",
+            "url": "https://github.com/starceas/knuaf-doc/blob/1ba89297343493c2906c3164d0e0b56d0aeb23fe/skills/knuaf-doc/scripts/requirements-runtime.txt",
+            "bytes": 406
+          },
+          {
+            "path": "skills/knuaf-doc/version.json",
+            "blob_sha": "ac29ba309b62f615431b34cbd917d9581ead770c",
+            "sha256": "eba144c136769a5c437d7f09e98a2f1b03b14be03970962a3a802a93bca08646",
+            "url": "https://github.com/starceas/knuaf-doc/blob/1ba89297343493c2906c3164d0e0b56d0aeb23fe/skills/knuaf-doc/version.json",
+            "bytes": 92
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "haqaliz/assay",
+      "source_review": "quality-science-cross-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "summary_en": "Skill execution-verification infrastructure with declared scopes, evidence records and verdict policies, plus separate MCP startup/tool inspection and limited task reporting.",
+        "summary_zh": "提供权限范围、证据记录和判定策略的技能执行验证基础设施，另含 MCP 启动与工具检查及有限任务报告。",
+        "limitations": "Static metadata admission only; no candidate installation, model call, sandbox run or helper execution occurred. MCP inspect reports startup/tools and MCP task reports are limited to UNVERIFIED/FLAGGED; full MCP server verification is explicitly deferred. The benchmark is small, single-labeled and synthetic-dominated, not a population safety estimate."
+      }
+    },
+    {
+      "full_name": "galaykos/cc-marketplace",
+      "source_review": "quality-science-cross-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_spdx": "MIT AND Apache-2.0 AND MPL-2.0 AND ISC",
+        "license_scope": "Root MIT covers original material and the reviewed plugin-updater. The blender subtree preserves MIT upstream LICENSE/NOTICE; gamedev, godot and unity-traps preserve Apache-2.0 LICENSE/NOTICE for their upstream-derived components; duplicated vendored axe-core code under design-kit and taskmaster retains MPL-2.0 plus third-party MIT/ISC notices. This is a component expression, not one universal grant, and the README's broad MIT statement does not override these local files.",
+        "count_basis": "149 regular SKILL.md paths: 16 repository-maintenance entries under .claude, 1 coding-entry router and 132 plugin consumer task definitions across 35 plugin roots. All 133 plugin definitions including the router are covered by the 40-entry marketplace source map; five other plugin roots have no SKILL.md. No exact blob duplicate was found among the 149 definitions; this is a structural fixed-tree count, not 132-body or global originality certification.",
+        "additional_evidence": [
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "2736b2f611c17c45332d46c8ff5bda91dbeaf0ba",
+            "sha256": "2be9927a6b94ef12d53629f24e989947caa17d966fffe1bdc9f5065dc231152a",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/.claude-plugin/marketplace.json",
+            "bytes": 29797
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "cf23ea075e036bebc6b2080a4f655e316318795c",
+            "sha256": "e2df5d91a9d3f76d460a5f6b342548c5702a41f2ee19bface967c16b695ac245",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "plugins/blender/LICENSE",
+            "blob_sha": "3f709c423026e30972b83813fc8a58a71495abf0",
+            "sha256": "d81d0037e3a29a01ccfefaae420d5ba73e905cabf3995700e9075c7205c06cc5",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/blender/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "plugins/blender/NOTICE",
+            "blob_sha": "f680572438c649d6c3532511e103692fd0b1a8c8",
+            "sha256": "2fd8cdcb8c72e81c791f0b9261ee614edb7528768c74d13e4478413d60707c5e",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/blender/NOTICE",
+            "bytes": 2065
+          },
+          {
+            "path": "plugins/design-kit/vendor/axe-core/LICENSE",
+            "blob_sha": "be2cc4dfb609fb6c38f6365ec345bded3350dd63",
+            "sha256": "af175b9d96ee93c21a036152e1b905b0b95304d4ae8c2c921c7609100ba8df7e",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/design-kit/vendor/axe-core/LICENSE",
+            "bytes": 15921
+          },
+          {
+            "path": "plugins/gamedev/LICENSE",
+            "blob_sha": "c7fc0c6d59cb8129a0e30fe13f5a6118f3933c44",
+            "sha256": "6f82dcfeb95a1c0a0452180a3b16f21bf82111780018fed59d95a052b5b75f6c",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/gamedev/LICENSE",
+            "bytes": 11395
+          },
+          {
+            "path": "plugins/gamedev/NOTICE",
+            "blob_sha": "80112aa7cee4c02c2484d09c41731d505dc2742c",
+            "sha256": "be81a180ff540b00f4b3c5da25f6446f82e615a1de796b7a9a1664450a110c87",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/gamedev/NOTICE",
+            "bytes": 1957
+          },
+          {
+            "path": "plugins/godot/LICENSE",
+            "blob_sha": "c7fc0c6d59cb8129a0e30fe13f5a6118f3933c44",
+            "sha256": "6f82dcfeb95a1c0a0452180a3b16f21bf82111780018fed59d95a052b5b75f6c",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/godot/LICENSE",
+            "bytes": 11395
+          },
+          {
+            "path": "plugins/godot/NOTICE",
+            "blob_sha": "ed654e2a997abef193fa81908a684e82b0c4cbbd",
+            "sha256": "bcc69c8b829ffc807386be0b164bb51aaedc56a80317ebc63a9d67928b72e396",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/godot/NOTICE",
+            "bytes": 1384
+          },
+          {
+            "path": "plugins/taskmaster/vendor/axe-core/LICENSE",
+            "blob_sha": "be2cc4dfb609fb6c38f6365ec345bded3350dd63",
+            "sha256": "af175b9d96ee93c21a036152e1b905b0b95304d4ae8c2c921c7609100ba8df7e",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/taskmaster/vendor/axe-core/LICENSE",
+            "bytes": 15921
+          },
+          {
+            "path": "plugins/unity-traps/LICENSE",
+            "blob_sha": "c7fc0c6d59cb8129a0e30fe13f5a6118f3933c44",
+            "sha256": "6f82dcfeb95a1c0a0452180a3b16f21bf82111780018fed59d95a052b5b75f6c",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/unity-traps/LICENSE",
+            "bytes": 11395
+          },
+          {
+            "path": "plugins/unity-traps/NOTICE",
+            "blob_sha": "c8de1432e23dd45bdbe946978562a19df0f9fcb9",
+            "sha256": "d70db25e6869b91aea37f0b83caba02543ca70eaf75d78984526a9ab3bd423fc",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/unity-traps/NOTICE",
+            "bytes": 1538
+          },
+          {
+            "path": "plugins/plugin-updater/.claude-plugin/plugin.json",
+            "blob_sha": "01dbc2cd525e9129b22b71688d6104761a133056",
+            "sha256": "e598f226439c4fc65af16fa489cb0209b437ccd72e8e7935ba9dbcc821fb0a93",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/plugin-updater/.claude-plugin/plugin.json",
+            "bytes": 2076
+          },
+          {
+            "path": "plugins/code-architecture/skills/coding-entry/SKILL.md",
+            "blob_sha": "893c334052477f28535d2ebf9b94bb9d505acf43",
+            "sha256": "28e9ddc07b687552ef3e5adc3ce4d80cde5503e96f84eff475402a0b7d4c5c54",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/code-architecture/skills/coding-entry/SKILL.md",
+            "bytes": 10084
+          },
+          {
+            "path": "plugins/design-kit/vendor/axe-core/LICENSE-3RD-PARTY.txt",
+            "blob_sha": "368c293bef3784ecce5c5e958f4ceb7f0b9878ee",
+            "sha256": "4f8563870d0fca38bbc3e00b6f670cb7fa9f380ba9f26a7f7d1184a6b18b1653",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/design-kit/vendor/axe-core/LICENSE-3RD-PARTY.txt",
+            "bytes": 3766
+          },
+          {
+            "path": "plugins/taskmaster/vendor/axe-core/LICENSE-3RD-PARTY.txt",
+            "blob_sha": "368c293bef3784ecce5c5e958f4ceb7f0b9878ee",
+            "sha256": "4f8563870d0fca38bbc3e00b6f670cb7fa9f380ba9f26a7f7d1184a6b18b1653",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/taskmaster/vendor/axe-core/LICENSE-3RD-PARTY.txt",
+            "bytes": 3766
+          },
+          {
+            "path": "plugins/plugin-updater/scripts/update-all.sh",
+            "blob_sha": "94aaa71b38503cb2b05b4e3820acfc7003a85643",
+            "sha256": "03278a6fa07766f9e59e5590ec258fe4a01741706ea78e07e1eee99d62b18f0a",
+            "url": "https://github.com/galaykos/cc-marketplace/blob/966935ebc34b5d20bcbf3cbacbea5b24f4888c4c/plugins/plugin-updater/scripts/update-all.sh",
+            "bytes": 802
+          }
+        ],
+        "api_license_spdx": "MIT"
+      }
+    },
+    {
+      "full_name": "SashaMarchuk/marketplace-base",
+      "source_review": "quality-science-cross-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "skill_count": "4 installable example skills; no production-leaf claim",
+        "count_basis": "14 regular definitions: four explicitly marketplace-distributed example skills sharing one source tree across Claude/Codex, one unexpanded {{skill}} authoring template and nine generator input/expected-output fixtures. The repository is admitted for marketplace generation/configuration infrastructure; the four examples are not represented as four new production business leaves.",
+        "additional_evidence": [
+          {
+            "path": ".agents/plugins/marketplace.json",
+            "blob_sha": "fd85e349b000a50eaae58aa8a463232df9920acb",
+            "sha256": "59c6d9e930deb391bac1895257a3c948a1b4c82b7fb61f9fc234dac89beec45f",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/.agents/plugins/marketplace.json",
+            "bytes": 1254
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "2e43b4e6f7c68d62b05872437c0ff818e8808029",
+            "sha256": "49a3b8921ad9d05ac88f215aea7ec83f2f9b76cbb8577d4e06ae6aae74da21e1",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/.claude-plugin/marketplace.json",
+            "bytes": 1544
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "48b0972173e175a010845f0c3ca61aa38ca2ea99",
+            "sha256": "7a85bb05852c76c5c5cc30894bcccdcc27f360172b5b508968a11f2c9e99b969",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/LICENSE",
+            "bytes": 1086
+          },
+          {
+            "path": "tools/templates/seeds/LICENSE",
+            "blob_sha": "09c50e0c205ede9960e97ce8f7ef239f2efcc14c",
+            "sha256": "c8e247145e297bc69fa96690fc5f870bea6fc40e892b144b2cfa0cc9878e8117",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/tools/templates/seeds/LICENSE",
+            "bytes": 1119
+          },
+          {
+            "path": "tools/lib/gen/manifests.mjs",
+            "blob_sha": "aef837ea07f63d11976a90a8599a854c73099713",
+            "sha256": "c5b95bcfb25bbe78a2f620415bbd33faa0f3a8e89f70bb1a5f2fabda121dbf18",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/tools/lib/gen/manifests.mjs",
+            "bytes": 1109
+          },
+          {
+            "path": "tools/schemas/codex-plugin.schema.json",
+            "blob_sha": "b49a52091d73c49ce00f8e0ce0c4ef34339a2b42",
+            "sha256": "7924f167abef705405e7205e24968d4a66de35b1e57274676148d78bfb89b6e2",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/tools/schemas/codex-plugin.schema.json",
+            "bytes": 1221
+          },
+          {
+            "path": "examples/plugins/code-review/skills/code-review-checklist/SKILL.md",
+            "blob_sha": "3d3bf06c151d4f9872b018ac8db1e11d1e6bd7c7",
+            "sha256": "dfef948f0285737d6215e5ec3241a03e7c441fb7776cd67159fc895e644c97d6",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/examples/plugins/code-review/skills/code-review-checklist/SKILL.md",
+            "bytes": 4754
+          },
+          {
+            "path": "tools/lib/gen/build.mjs",
+            "blob_sha": "6d9ee5db160cb54785263c1f2d8900e501dc5ef7",
+            "sha256": "a81e5e893051c4de33601baf0fe1572da4637bda46f8695859416af9fdaa42b9",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/tools/lib/gen/build.mjs",
+            "bytes": 5571
+          },
+          {
+            "path": "tools/lib/gen/catalog.mjs",
+            "blob_sha": "00189f2704dc4430453700898051f6bcf618f703",
+            "sha256": "0dd03ccde7e8501c92124df070e20a837a15c9623e92aba0b5c5240553288419",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/tools/lib/gen/catalog.mjs",
+            "bytes": 5085
+          },
+          {
+            "path": "tools/templates/skill/SKILL.md",
+            "blob_sha": "ecfcf7239f203799e2979e224b82a48f9c8d8ad9",
+            "sha256": "a6bf7e44e36a8fa89e64f5a0db7f12f731a668bc7eadbd2f4f194908de9e3cd5",
+            "url": "https://github.com/SashaMarchuk/marketplace-base/blob/cacd3581c84f195d507dacc63f0ffcad021d71d3/tools/templates/skill/SKILL.md",
+            "bytes": 366
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "znlgis/dsh-opengis-skill",
+      "source_review": "quality-breadth-cross-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "summary_en": "A native DeepSeek Harness distribution of 44 upstream OpenGIS topical skills and one workflow index, adding a separately maintained provider and per-skill execution adaptations.",
+        "summary_zh": "面向 DeepSeek Harness 的 OpenGIS 原生分发，沿用 44 个上游专题技能及 1 个流程索引，并加入独立维护的 provider 与逐技能执行适配。",
+        "license_spdx": "MIT",
+        "license_scope": "Root MIT covers this repository-owned provider, packaging and DSH adaptations. THIRD_PARTY_NOTICES separately preserves the complete MIT grant and copyright (2024-2026 znlgis) for the vendored opengis-skills instructions; the pinned upstream root LICENSE independently confirms it and neither complete fixed tree contains nearer grant files. BruTile representative frontmatter licenses the instruction MIT, while its project-license paragraph identifies the external BruTile implementation as Apache-2.0. Referenced GIS software, basemap/data assets, services, credentials and proprietary Mapbox products retain their own terms; this index does not relicense those projects under either root MIT grant.",
+        "skill_count": 44,
+        "count_basis": "45 distributed, byte-preserved upstream SKILL assets: 44 topical consumer definitions plus 1 opengis-all workflow index/router. The DSH provider and 46 adaptation Markdown files are a distinct distribution/integration layer, not 45 newly authored skills; no extra client mirror or generated SKILL export is counted.",
+        "public_skill_paths": [
+          "assets/brutile/SKILL.md",
+          "assets/cesiumjs/SKILL.md",
+          "assets/deck-gl/SKILL.md",
+          "assets/duckdb-spatial/SKILL.md",
+          "assets/gdal-api/SKILL.md",
+          "assets/gdal/SKILL.md",
+          "assets/geolibre/SKILL.md",
+          "assets/geometry-api-java/SKILL.md",
+          "assets/geometry-api-net/SKILL.md",
+          "assets/geonode/SKILL.md",
+          "assets/geopandas/SKILL.md",
+          "assets/geopipe-agent/SKILL.md",
+          "assets/geos/SKILL.md",
+          "assets/geoserver-cloud/SKILL.md",
+          "assets/geoserver-rest-api/SKILL.md",
+          "assets/geoserver/SKILL.md",
+          "assets/geotools/SKILL.md",
+          "assets/grass-gis/SKILL.md",
+          "assets/jts/SKILL.md",
+          "assets/kepler-gl/SKILL.md",
+          "assets/leaflet/SKILL.md",
+          "assets/mapbox-gl-js/SKILL.md",
+          "assets/maplibre-gl-js/SKILL.md",
+          "assets/maplibre-native/SKILL.md",
+          "assets/mapserver/SKILL.md",
+          "assets/mapsui/SKILL.md",
+          "assets/nettopologysuite/SKILL.md",
+          "assets/opendronemap/SKILL.md",
+          "assets/opengis-daf/SKILL.md",
+          "assets/opengis-utils-for-java/SKILL.md",
+          "assets/opengis-utils-for-net/SKILL.md",
+          "assets/openlayers/SKILL.md",
+          "assets/pdal/SKILL.md",
+          "assets/postgis/SKILL.md",
+          "assets/proj/SKILL.md",
+          "assets/projnet4geoapi/SKILL.md",
+          "assets/pyqgis/SKILL.md",
+          "assets/qgis-process/SKILL.md",
+          "assets/qgis-server/SKILL.md",
+          "assets/shapely/SKILL.md",
+          "assets/sharpmap/SKILL.md",
+          "assets/spatialite/SKILL.md",
+          "assets/stac-cog-titiler/SKILL.md",
+          "assets/whitebox-tools/SKILL.md"
+        ],
+        "distribution_evidence": "README publishes local/npm DSH installation; package.json includes lib/assets/adaptations/cordis.patch.yml and selects lib/index.js, while the bundle patch mounts the plugin. Complete provider get() and composeSkillContent implementations load one canonical upstream asset then append its distinct DSH and shared guidance; representative BruTile adaptation is substantive, not a renamed copy.",
+        "review_scope": "Fully read assets/brutile/SKILL.md (14,050 bytes), adaptations/brutile.md (2,654 bytes), adaptations/common.md (6,939 bytes), lib/index.js (5,944 bytes), lib/adaptations.js (16,361 bytes), and opengis-all body for router classification; read README purpose/install/adaptation/licensing sections, complete package/patch/manifest, complete local and pinned upstream MIT grants and THIRD_PARTY_NOTICES. Mechanical fixed-tree/byte equality is separate from substantive body coverage.",
+        "limitations": "Static representative admission review only. Complete BruTile consumer, its per-skill adaptation, common adaptation, provider and adaptation-composition module were read; the remaining 43 topical consumers and 44 other per-skill adaptations were not fully reviewed. Both complete trees prove all 71 vendored files share upstream Git blob identities, but only BruTile and opengis-all had their SHA-256 manifest entries independently recomputed in this focused review. README acknowledges tolerant handling of malformed inner quotes in some other upstream frontmatter; this does not certify all 45 as portable standard YAML. No candidate installation, helper/provider execution, DSH integration, GIS command, NuGet/network tile request or model call occurred; npm published tarball and claimed runtime/version compatibility were not exercised.",
+        "additional_evidence": [
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "0c3e9ffb1d351098f67171f222edd945fe7f7e23",
+            "sha256": "7315b9a148bef3ed36fd5f80b8adb0e6123b0a8e8e5cd54e6fd6856d74105782",
+            "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/THIRD_PARTY_NOTICES.md",
+            "bytes": 3186
+          },
+          {
+            "path": "adaptations/brutile.md",
+            "blob_sha": "824b0cf5a3ba2299639ad7716f2a730d7dadcb60",
+            "sha256": "e675271af3e9bc47aad3a25a68f40218bfc08a0302f0b234507b81aaa7355980",
+            "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/adaptations/brutile.md",
+            "bytes": 2654
+          },
+          {
+            "path": "adaptations/common.md",
+            "blob_sha": "ea1c5b0b1a488bed4e7fd86bbe91a0dd6bf12815",
+            "sha256": "2683174bd5305f9955b7bf304fe881163e145226db208611a2825f78b48bde20",
+            "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/adaptations/common.md",
+            "bytes": 6939
+          },
+          {
+            "path": "upstream.json",
+            "blob_sha": "e3389102d59718b108c67d23a84acf7b3b16b481",
+            "sha256": "651032bc0481564a6b625f54fda5e987aa57295f98f84cd90a6b26fda697e15a",
+            "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/upstream.json",
+            "bytes": 8370
+          },
+          {
+            "path": "lib/index.js",
+            "blob_sha": "9c328303c41ed9b1db81adb7e90e6eb409dcefac",
+            "sha256": "63d1a247ef442aca5e6d91b8aa461ac35d202ed5dbe93d1d8c67cda52bff8f14",
+            "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/lib/index.js",
+            "bytes": 5944
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "57c1fba6d733655ce9aec2d77b5a0d3e1cf60323",
+            "sha256": "b5e7cba7e59d519f795409487e2a41a43b5467912f709cb131de67e9abffb1cd",
+            "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/package.json",
+            "bytes": 2667
+          },
+          {
+            "path": "cordis.patch.yml",
+            "blob_sha": "7f62e4365fe423dc0c6c25d753e65f049717db29",
+            "sha256": "72e380730b53708078f61f04438ff42226214c9e4a4cff0324f95ac6e7eb0701",
+            "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/cordis.patch.yml",
+            "bytes": 589,
+            "repository": "znlgis/dsh-opengis-skill",
+            "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+            "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+          },
+          {
+            "path": "lib/adaptations.js",
+            "blob_sha": "6f8aee2a55d9df5096c8d551717e1356af4092ca",
+            "sha256": "f6ea9698ce29c337681958e1b53e717f495277dd50440cef324a0d286974ed9f",
+            "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/lib/adaptations.js",
+            "bytes": 16361,
+            "repository": "znlgis/dsh-opengis-skill",
+            "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+            "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+          },
+          {
+            "path": "assets/opengis-all/SKILL.md",
+            "blob_sha": "81f7f5c57543d86d5f47310f8630036b46f1328e",
+            "sha256": "db520f77272754244d4b64f1fe4d4a68e0aee7ddb06c6434ec59c7bb496e72d3",
+            "url": "https://github.com/znlgis/dsh-opengis-skill/blob/b6fab8518093cfe6f44a5a246c5b103e16e1332d/assets/opengis-all/SKILL.md",
+            "bytes": 14191,
+            "repository": "znlgis/dsh-opengis-skill",
+            "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+            "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856"
+          }
+        ]
+      }
+    }
+  ],
+  "application_note": "Reviewer correction.applied flags describe pre-integration delivery; integration_application binds the fields actually applied to the published records."
+}

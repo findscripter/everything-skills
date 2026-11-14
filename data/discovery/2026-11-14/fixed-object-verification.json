@@ -1,0 +1,833 @@
+{
+  "date": "2026-11-14",
+  "accepted_new_repository_ids": 82,
+  "verified_file_references": 559,
+  "baseline_git_objects_preserved": 104,
+  "failed_accepted_identities": 0,
+  "method": "Fresh official public visibility, repository ID/canonical name and pinned commit/true-tree checks; every recorded path bound to its tree Git blob, raw byte Git SHA-1, SHA-256, size and immutable URL. Identical blobs may share one byte fetch. Supporting symlink blobs are hashed as Git metadata only and never followed; README/license/representative sources must remain regular files.",
+  "results": [
+    {
+      "full_name": "6022-labs/agentic-skills",
+      "repository_id": 1311120670,
+      "commit": "16ade82c0d1c5e049a7308f9b33993747b293afd",
+      "tree": "35d31c1b6effac9acddff9dad84bcf780f567bdd",
+      "refs_sha256": "b64f13deed006671860ab515f50474d3406ad804669040886036f0d819c1dd1b",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "abdumateen/skill-diag",
+      "repository_id": 1456662938,
+      "commit": "56f914e536dd572a028ad7b1b63f12112ff4296f",
+      "tree": "0ae49de31fefd6a1f54a1df85009e5dc835861cc",
+      "refs_sha256": "d2f7b50478ac28591430e052d876ece93a4eb05181609be1642ed239c7ee0a4c",
+      "reference_count": 6,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "abhishekrai43/electron-msstore",
+      "repository_id": 1457758610,
+      "commit": "acabc512ec1f04d803690272e782a3ab1e73a7fe",
+      "tree": "2b7b9fe908f229e2339c945a5359ef045f5915ab",
+      "refs_sha256": "3bc211d516c1965baa195e83896acfc3b4729ae3d62162e1dd7b2cf537a36bfb",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "adrianTroop/VibeSecSkill",
+      "repository_id": 1457724934,
+      "commit": "1086feab4262f5c574eb0374df1720ac437d788f",
+      "tree": "25fe79211f5f06f8a4005847312a413c492d5ef5",
+      "refs_sha256": "a3bd15ab53eed9a86595e200efeb757f8599a586787ba46bf9b7f2b68f0506e7",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "alikarami76/keygraph",
+      "repository_id": 1444451174,
+      "commit": "814064b3b9e27d5535a64758eed7263eedeb14b3",
+      "tree": "1dae8ece1cb1b852f1ef26f6c5fdab4cfc7ed081",
+      "refs_sha256": "77121cad620e4fba597b4586e6511ce5d64919e9e1bc4d0a72205b9a71f5890c",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "amankaushik481/minidev-ui",
+      "repository_id": 1370113280,
+      "commit": "e5483b07d4f54fe522918218028fa409fdc440bc",
+      "tree": "92636953820973f43760059cd373ef10c37f58e7",
+      "refs_sha256": "2bbf44a9af0e4e8cffc54bba3c692f745c321168edd1e6f2cd75531bbf4321c1",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "ams-builds/responsible-agent-kit",
+      "repository_id": 1409887300,
+      "commit": "a746d7c7a1a4dc9abd83afdc69b77dda9f143d61",
+      "tree": "912347241b67771d2b1e1319c9e7fc9304ff7177",
+      "refs_sha256": "080ed807bb949e18759e3292f9d8dae99988d12075ad8a014fa75092b4243098",
+      "reference_count": 21,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "AndrewBrown-USDA/aigb-skills-usda",
+      "repository_id": 1376220680,
+      "commit": "dabdec3285006290eb8ee32d45db7b44b5e794b2",
+      "tree": "3db3ca5f53036474399e24255215fa4378f1b78d",
+      "refs_sha256": "9b6cde301918c31934cb41a87f8b346ba4ebafff89fae71fad88fdea4524315d",
+      "reference_count": 47,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "ArtemKorchunov/lidocaine",
+      "repository_id": 1407892466,
+      "commit": "ba44c47ac42bdd053f284dfc982decc3392d1004",
+      "tree": "2d6bf081c8594062fbc95c1d88716594b9b9c3be",
+      "refs_sha256": "9bb17fa75e0fc3e6da1b37933a29e0a2ee077f1d80a1a717ef429ffdbc5e179d",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "Aryalmilan-max/dharma-os-nepal",
+      "repository_id": 1454964493,
+      "commit": "7794fdcfb71ad5d8f0e448a1a94fdcd8dbfa2f51",
+      "tree": "a729265d57cdf431408574212d87f82df7812cb2",
+      "refs_sha256": "32c439367577bb384292b44014f847a133b98dc19fecf07cfc3d2fa9c9a997ca",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "baryonlabs/elixir-security-audit",
+      "repository_id": 1430807359,
+      "commit": "c4e4831023bf71ef49dd3cf4cb9b0c9d260f668a",
+      "tree": "972f48b4b0efbdf2fac58925d610ad4b3a1e8ddc",
+      "refs_sha256": "8bdd7f7d6ee422aadcdbd5de238b749eb1989cb4d46e446e83127c2d95693e99",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "beiryu/vn-skills",
+      "repository_id": 1420485285,
+      "commit": "82ac81e4a107ea5121b9d5493f87fa31a2efc668",
+      "tree": "09599b069432535e98063f4d7bd8484d64fcb6ca",
+      "refs_sha256": "b48c63c1c6f393592a62263e304b36a282a91a4a6dc13eb59591a45553fa17c5",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "bilus/skills",
+      "repository_id": 1240938196,
+      "commit": "5bb1ab46346cfd5bdee6b58770e56dc74b112e81",
+      "tree": "e6776a93f1b76d9ec0cf9a703d895b5b7f118edf",
+      "refs_sha256": "82e10b6bef3235d60e3166ea3c69e55486d3754bc34adc9f3f6f0895a748b293",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "boan-anbo/daihum-workspace",
+      "repository_id": 1110251052,
+      "commit": "4f4a897d2539aa907e7a9d8deceea57e1d6d3c6c",
+      "tree": "2eef5909bb5e3b115a3bdbfb7f3bbae188e0d905",
+      "refs_sha256": "4674659dc30d78012fcf3ac2bdea2f4e84f10d45893df013b00e1a4536300b77",
+      "reference_count": 8,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "borealBytes/my-farm-advisor-skills",
+      "repository_id": 1226916101,
+      "commit": "2b3349c75c0d3255715b91a7ee99af73318d14a3",
+      "tree": "8f0dab4e2cdba8fb16fc8e2dd730c0a626e0c027",
+      "refs_sha256": "57617a3136c72ee2c98a1b6d2a4aae37cb1751fd0dd8d5efd2e8d55dd47f79c5",
+      "reference_count": 6,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "brilliantdirectories/brilliant-directories-mcp",
+      "repository_id": 1213958077,
+      "commit": "725fe1f3e6417d91412a1b52251cc47c53b83039",
+      "tree": "a07c33dc0ef8038718f02cac628c05ee9e649e2a",
+      "refs_sha256": "f3b9e773faa7b251682d1ff3b2bd9fa56c9479cbdfd18ffeb8b435e4c2e173c3",
+      "reference_count": 6,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "brunosouzas/agent-skills",
+      "repository_id": 1457727013,
+      "commit": "39f915a8abd6df5d7634f68f5e7c0b69fb678e09",
+      "tree": "5e29802faf121414bc69f0afb42b86b8419be87f",
+      "refs_sha256": "961518cb09c208a316020d6349b139aca1e56922b49c947154e737e437954a80",
+      "reference_count": 8,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "cardene777/agent-shuriken",
+      "repository_id": 1452825541,
+      "commit": "f3c9b5560297a3ea6510f81639a639879b1ee8a0",
+      "tree": "268ab21a02e62649c78cc294a0084a3b1e8bf492",
+      "refs_sha256": "74ca7d3540a40010b2361c6268d20fb08736f85bc76a777e7823c135435e60ad",
+      "reference_count": 21,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "ccromp/marcora-mcp",
+      "repository_id": 1206292554,
+      "commit": "14089fa9252baa3246087b245992f5b7f30df4f2",
+      "tree": "f244547f30040954f6177eb88bd6cee5e6589f17",
+      "refs_sha256": "25f5be11ce0c515f4696ff0693a094ce78f5bdbbbd5c3c1e315020d83ccdc41b",
+      "reference_count": 10,
+      "public_source_verified": true,
+      "supporting_symlink_paths": [
+        "plugin/skills/marcora-mcp"
+      ]
+    },
+    {
+      "full_name": "cdeust/ai-architect-mcp-spec",
+      "repository_id": 1208915722,
+      "commit": "5fe8d945f11fd6bd14b33595eaf27c74dda5a24b",
+      "tree": "2383dbcb5f8295713800583555b0b9e292bb55d9",
+      "refs_sha256": "588c0bd3cf5b132589a5421bf62b27f258fe60409fda25877e0662efb2e2b3f5",
+      "reference_count": 9,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "cmudrc/engineering-design-skills",
+      "repository_id": 1456736913,
+      "commit": "2e61d5fa67d92e2ce7fb6148428523282822a115",
+      "tree": "902bc9e17574c78f8d8e853d067fd6324f277520",
+      "refs_sha256": "f41e0984f180685c669687ba176cf6d83fdab579e845e180a547bf2e94914c91",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "coderaidershaun/super-rex",
+      "repository_id": 1451881222,
+      "commit": "225c09e3f5923816ab2260265e1d3b06acc318a6",
+      "tree": "0b703c654de10a866d33bbb55a9d6aa323b131c5",
+      "refs_sha256": "900cb8ec9cb5e79dc1a271fd67d692382d11bc822a1655862c0c13de8e05a51b",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "cyberuni/cyber-asana",
+      "repository_id": 1247289692,
+      "commit": "7ae2a0844ed94211c75afe7f0429f1558b0014f5",
+      "tree": "b80de4b3f2c146316616d33adb8c50a1369c6092",
+      "refs_sha256": "1e96d7ccdc3cdda064d7f526e9f5d10d9f1b7b7b656ce9f70ce5e12a70205783",
+      "reference_count": 13,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "dexter826/codebase-setup",
+      "repository_id": 1457694585,
+      "commit": "3c7e3069e2f972bff7c1af41fc9f1f6c91f67503",
+      "tree": "663358a9d4706ffc03e03fbcf369a8c0ce60f50f",
+      "refs_sha256": "b3ede5d9e2224e4361d0a6ecdf43baa4773f21de9d6607d4685b106f4ad5d65c",
+      "reference_count": 7,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "DigitalHumanitiesCraft/agentic-governance-vault",
+      "repository_id": 1447298011,
+      "commit": "869d84674166aefea67328e030e4fa3a2b74f87c",
+      "tree": "23b7366401de93567666d0154c4469d23d0d8910",
+      "refs_sha256": "2b113cc1876b60cf4c8045d67578bf7903aa47a0ec799eabe3d477632d57bfff",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "DigitalHumanitiesCraft/knowledge-context-agentic-engineering",
+      "repository_id": 1340895967,
+      "commit": "ec0240110e58828aad96c9370e4f1a23785e2632",
+      "tree": "1104a76bcef78fc31959be10ed4a25bad1d6f73b",
+      "refs_sha256": "c13b09f71da72f009382e8c82ea071a628c240516b60b2dcd09d13af8eab8418",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "DigitalHumanitiesCraft/promptotyping-skill",
+      "repository_id": 1144950955,
+      "commit": "04797998095cc2da982c87b3d7af4067cbf44315",
+      "tree": "cd445078256ee507da15bc2f3e69e456300e5781",
+      "refs_sha256": "9ec58b28290aaa3736558e76cf11b77eed15cd120b409093ae4e52faa7520071",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "dongshu710/doc-qa-assistant",
+      "repository_id": 1424410743,
+      "commit": "803719b04ce8246f300872b8fd5cb85bdf1eceda",
+      "tree": "0f8877693c44d32da0ca4924a7d47189172f7e1d",
+      "refs_sha256": "ceea48b6f02ee880fc67e88cce00174f9d6f46025451aa9e7292b437c639e318",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "duy211099/layered-phoenix-skills",
+      "repository_id": 1457428882,
+      "commit": "e281bc3f1d79c9602a262a7322f2beda799095a2",
+      "tree": "ed026f10f1b2fbb9f7fe2af5ae091969cbb99a50",
+      "refs_sha256": "866a148a41ffa2664545b955577b9050941b7d09248898630a0e557af02ad95a",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "dweekly/rcsd-meetings",
+      "repository_id": 1172891833,
+      "commit": "fba5b5c61033d6f98b571b6bda71eb787246907d",
+      "tree": "a91db0d945a8f8191ea2046625dac4ab5cc1784f",
+      "refs_sha256": "3e2daa2a10c2b8652cdb1b3ac5dc636158e936738e89ef9dca42332269cb9a75",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "edgible-org/card-kit",
+      "repository_id": 1411473605,
+      "commit": "1fe30a3ea380bcc3811990c4c287171630016322",
+      "tree": "79592e8ded479ab02e4bcd69ee86b233d4103ae4",
+      "refs_sha256": "1753ebc5deaa9172c08cfe8f9e539e44afdb2785368453dc710d9c546e0efafc",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "Emirhan-1111/technical-drawing",
+      "repository_id": 1457219916,
+      "commit": "a24722e59f541c4826c66bfbc92950281376fc09",
+      "tree": "5556bb31d56cba7eb6be78aa6b2b969af8278bc1",
+      "refs_sha256": "b56da43d0cf0a69f851cd1c8c49a3de8016e50f990a2174e9ed7e7697b4fc962",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "fulcrumapp/fulcrum-ai-toolkit",
+      "repository_id": 1280490012,
+      "commit": "6fa4068961e7136ea361e92a505799d62f9a7a1a",
+      "tree": "d3920870cf7ebfcc7858b9dec4c9e5c0684a6ba9",
+      "refs_sha256": "7818066919a9179052b28a950f3ac80e92943a19ed26e2628513a36f08cb9e2f",
+      "reference_count": 6,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "Funz/fz",
+      "repository_id": 934795771,
+      "commit": "0ef8cd0612a98fac23ba77c44425faa3150a6cd2",
+      "tree": "1699fb4718ca5187d356752be835fd95a145fe3a",
+      "refs_sha256": "e0992ff33724753c43b1a8ca62cf539cdd5ed3928f2daeaf3caf0f9efcb7966a",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "galaykos/cc-marketplace",
+      "repository_id": 1289764199,
+      "commit": "966935ebc34b5d20bcbf3cbacbea5b24f4888c4c",
+      "tree": "f2c323740a5b8ff78d58cdc5197631c685533156",
+      "refs_sha256": "cb7829eb73e93d9f8315f7c8ee449043e11ea780f9c91d55470b6ebff819f8ad",
+      "reference_count": 19,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "gxxk-dev/ZaaS",
+      "repository_id": 1432903307,
+      "commit": "356ac935a6332c782f0b70f73e44c409e7e246d9",
+      "tree": "d3e63485222cfff876b861ee769de04e787d6c2d",
+      "refs_sha256": "388d8726cbb8e82723b37b7ec456134a49692858c9268842b460500536f152df",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "haidrrrry/claude-remotion-skill",
+      "repository_id": 1268250339,
+      "commit": "1dcbe5e3fc6cf970bd10d3cc05f0a8a5d19d0383",
+      "tree": "087713347fb7ea2eb6dae446a71204b1ec8e522f",
+      "refs_sha256": "43ac220bf31996e10bd70f36537f053e20f390de3ff6a870d9273515f3fb0f04",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "haqaliz/assay",
+      "repository_id": 1429035869,
+      "commit": "cdbad034da402718882c63a15d51c57ff13bc345",
+      "tree": "b94dc4c7701522509aaceb1720243cb093594cd7",
+      "refs_sha256": "dd9ac96c185cb0b305a561340f20b47ebb5c89bddf35ed875fad2078ac99f8f1",
+      "reference_count": 7,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "hengshu-credit/hscredit",
+      "repository_id": 1183904920,
+      "commit": "aa9e073b64fb7f6e991453562d48580dc410258e",
+      "tree": "286536e887424e0cd42cde43defc919a9601e0b9",
+      "refs_sha256": "6694143ced777e4e233c0cf63d2b1d08f978f2528287443cfbb4228fb00619c2",
+      "reference_count": 11,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "husams/clang-tracer",
+      "repository_id": 1440048639,
+      "commit": "4f38a48648a7229f3654dc4f7dfd1701c17fac48",
+      "tree": "27df7b2b4ec7ebd3015bacb55eede7ff97afd472",
+      "refs_sha256": "ade7f553aed3bb07ca42e098d38a9fdb4d9def752481266a33cd0f1021886d6c",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "hypurr-inc/hyperliquid-cli",
+      "repository_id": 1230872088,
+      "commit": "4db707a4621e483c5292ffe0ed2e60a88fa16fe2",
+      "tree": "c80ce309009a6a42d5fd0270a15eac1291c5478f",
+      "refs_sha256": "be1af00e9f85dfa906babff6bd22d33bc7da8fd6181fb837f4be76ddaacf7edd",
+      "reference_count": 11,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "jangtrinh/design-os-studio",
+      "repository_id": 1420402787,
+      "commit": "ac9147dedbd2295b663733568ed526548eed7764",
+      "tree": "d594c1a9ba3eea62b03fd01c54c38c016c787a6a",
+      "refs_sha256": "118a36d4b2f42dff05ee910f16b1f267d7cbbe36b03b03d7f3dee7aa2005821d",
+      "reference_count": 10,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "JITx-Inc/jitx-skills",
+      "repository_id": 1145560424,
+      "commit": "0102baf823a1c43fa0e6099c1dedb1434d023dbb",
+      "tree": "9241dfc41978e9c91ac05c94b9f7e49a9d7a0204",
+      "refs_sha256": "b6fc2b532f64d9cee345aaf5ce60f45577a80b9a727845f2d3d9f1a0c4ebb740",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "jkitchin/knowhow",
+      "repository_id": 1106599324,
+      "commit": "4775feec8c945ab6337103ff1606e46c533de14c",
+      "tree": "28f6829dc1a687945b68e89128601b9cd67487da",
+      "refs_sha256": "9b4d243ef88ef970cb126e78469edbc33d5141a8917898444aeab14db5c4cf93",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "kevinlin/skills",
+      "repository_id": 1304079943,
+      "commit": "acbedc5c076be17e50599a8a81559c1f90a905fc",
+      "tree": "ebc522d586889f4a0869501f4e9c3d15d18255e5",
+      "refs_sha256": "771be621f379743de644ef3b39835186a788d5345240cbcd5611c6ef35412efa",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "kulminaator/taskman",
+      "repository_id": 1456134794,
+      "commit": "e7a1f61c78d541d75d6c7b9ad5829fe336916a24",
+      "tree": "ba40916c36a44a6080fc88a99627539912c6bbf8",
+      "refs_sha256": "bc0a09011777fb686bc03bc164947fc6aff4ce243ffb690e106b6d27abbfd06d",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "LawrenceHua/skills-log",
+      "repository_id": 1291583969,
+      "commit": "8e7fbcf508e25c9512d9357dbaede3b8a21f2adc",
+      "tree": "48947c67b03df6986ec5305991758f82f782b674",
+      "refs_sha256": "9e8f23c125dcb6e26d9a42ffd53e8b512e41c1619fece5be3786c418bb61f5a8",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "lillycham/skillx",
+      "repository_id": 1456668214,
+      "commit": "ef900bf973ce84c1468fab79ced926c34ea4d078",
+      "tree": "5b6b022c372adeafdf5cb423779b42a3591c4f3f",
+      "refs_sha256": "44e0f88d45593a052edaf6c19c8ebe99da8a19db7b85f388e4ec3a03f3f423e8",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "lionelee/scifig",
+      "repository_id": 1457529454,
+      "commit": "b94a33842584acb3148a057a3ac5e129c72ba65f",
+      "tree": "8d8ba0621d8feef53acc6b77c0d75de042b78429",
+      "refs_sha256": "6bdae127eff8ccfe9beb8eaa2d73c69255e374e92f03c6fa623bc5fc682ca37d",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "lql341/workbuddy-skill-pack",
+      "repository_id": 1457655920,
+      "commit": "82e038d09291a5f57f3a05f2c57e8e0a0c899e9f",
+      "tree": "38a2dcc4635e51bf818cc5524fb0ff7daee8019b",
+      "refs_sha256": "4e388836ed6c0444842be7ee01b66c43c341c019ca0dc9c0b7da85b517e6163f",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "LucaKaufmann/keyloom",
+      "repository_id": 1457752574,
+      "commit": "d8ba92f76e392fa010b34c56d9748d90d395bdee",
+      "tree": "05ac3af50608c2e5b0ee2592b3e1658ab929caf4",
+      "refs_sha256": "0709b6d1a802a00047910ce815ccc704f8fe1873ca0292cc1894ffa7a144d48b",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "maptiler/maptiler-skills",
+      "repository_id": 1167749573,
+      "commit": "cba6dc657495a0c2b28f7c542b09f1ed3bb28795",
+      "tree": "6434749571722c31af68d3b9b62acb5c8cded5d4",
+      "refs_sha256": "94fbee5f2783a2b7bafb8ea6a1db73809357f25c61d70bc5f47b19866ed66e64",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "marlonsonsamulesson888/packaging-3d-proofread",
+      "repository_id": 1457326409,
+      "commit": "9708e4f8cbb115560c18ed549196489e0f3fb792",
+      "tree": "9fa8fd80f4231cec6ffe941eec7d9a37383e3457",
+      "refs_sha256": "b54ed6825bc7c3ae23a30811373fe8f36a2aa3f2a8ef1904b7eec09b4477f551",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "marlonsonsamulesson888/packaging-design-workflow",
+      "repository_id": 1446584120,
+      "commit": "1dd87b5b54dba52a8a159a4ca2c79e74a1389b95",
+      "tree": "cd5873e119f47376d34d9fdeb4a96108b04a9255",
+      "refs_sha256": "677e9cbaadb57cffa68eac6d22ec78d787460ee4d5cd1c7e37bd32cb27511c25",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "marlonsonsamulesson888/product-lighting-library",
+      "repository_id": 1457346957,
+      "commit": "dcd0610002d02e2f44245d459015da82b8f03745",
+      "tree": "29cb7feb0e324af1ce31bddd7d83560b4736b7ae",
+      "refs_sha256": "ece25d945af86dc71e15b00b2d9ba4d999203afc8b8b0a1727bf5cb6a7da3598",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "Nevysha/design-system",
+      "repository_id": 1457697124,
+      "commit": "e81477d5ec6752a8197e2e1ef9443be3e891ac90",
+      "tree": "ffa0f26ad2244104fb0660b27b180fb5fdfbad97",
+      "refs_sha256": "0f9d20794b8345ec2aa0393c0a4f82e9463fd6a837337d80f7ab3366737eb61e",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "nievesjesus/distill",
+      "repository_id": 1448492488,
+      "commit": "6d92deb16c43397e7fd01c1bc0eedadf84ee3804",
+      "tree": "ba98f78933744f73ce3c11cd5afaed4258cf6258",
+      "refs_sha256": "0a47f7f49de75334597308123eaf18cbee5d34dacb958917050015fcff69e814",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "OleksiyPenkov/aps-operator-skill",
+      "repository_id": 1456346135,
+      "commit": "59fe312db05a4e54aa33076a020804f98918f4b4",
+      "tree": "c4ef5c44bb510d353fe7bdb6043c58e90a286eca",
+      "refs_sha256": "139b9afbfff0c3f2480e03de0f53179b366532bc501fcfa8e9779515e62a1baa",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "opencue/cuecards",
+      "repository_id": 1246459813,
+      "commit": "23e5f32a2ac6d4becebdcca8184606e6eb675f4c",
+      "tree": "983569e5707da145a4e69dfd6d0fd3bcf04951cf",
+      "refs_sha256": "8562d888ba71a15c4bc139f66d3ce3b93b0d55a2b0cde16a8781d9a2c68e78bd",
+      "reference_count": 34,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "PiniShv/MergeStory",
+      "repository_id": 1446989635,
+      "commit": "30e87e07616d99325369d4de534484f662d4c616",
+      "tree": "52b7178f47181c68291ffd51fe4dc0312a874c07",
+      "refs_sha256": "c20661f1e2f9f85292bcea99a94c7c9de437f56d5f9e019480e12f9f52b2609e",
+      "reference_count": 6,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "qiakai/air-chart",
+      "repository_id": 1456428045,
+      "commit": "0bcd00e41317ceb991be8648e8af9fcced7e25bd",
+      "tree": "5d091f15035ab1f5c13cb6b2f18072b8f71f2233",
+      "refs_sha256": "7b53318669c4af81aa7a743e73030a4b74025489838792b4017f02ee68d6daf6",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "quark-sri/qestack",
+      "repository_id": 1431845492,
+      "commit": "36eec28abbde73f955b11c5410c18de57a36c3c9",
+      "tree": "c2ebaa946f0baa964bef6758874515498468ec8d",
+      "refs_sha256": "52f10b9aa88a21c6af116172f3ac238140cf3fad7db7bdf0e2826c0039e7e67a",
+      "reference_count": 9,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "rezzminator/tool-visibility-controller",
+      "repository_id": 1412018627,
+      "commit": "36b7854b41e85ffe021fbb821b83fe653c500cc3",
+      "tree": "c32082739e8c8a44db2b6ea8aec8f78fbf19f780",
+      "refs_sha256": "77551e82da49fb7df33cf9749d6e83a64ddba1c97958090fed3a764a3b6b6fc9",
+      "reference_count": 7,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "Ryan9438/Deterline",
+      "repository_id": 1298034257,
+      "commit": "95b2c3e6cdb86212015646af3a10caac014aa9a5",
+      "tree": "de6abf2742077f478313e29a3b05b95b298dd15a",
+      "refs_sha256": "4ec885ca8763020f01d3b7439bd04956638fc947a9a52260a1baefdc7fe924ce",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "sallaumen/elixir-agent-kit",
+      "repository_id": 1447372711,
+      "commit": "ee67cd33bd28cc38eba86c943e0b134f84bc5112",
+      "tree": "18318440da3eb9b4c2352caa6e63c7e0816e52ce",
+      "refs_sha256": "e99faf7ef587fd2ddfb26049349c71d6879545a9dd8ae7bece93393f1e922eec",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "sandstream/kit",
+      "repository_id": 1265325789,
+      "commit": "b872374162332420bdc1f567a5cb2fa705616328",
+      "tree": "173078fd2e589806619b5e4758c5cd00420c128f",
+      "refs_sha256": "7b2941d947ad603c5895b78d6ec8332229d6b40806a5b45f63b91f0484f57cdd",
+      "reference_count": 6,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "SashaMarchuk/marketplace-base",
+      "repository_id": 1457695345,
+      "commit": "cacd3581c84f195d507dacc63f0ffcad021d71d3",
+      "tree": "3371da79fcef6a91f3b20741264bea61829b3097",
+      "refs_sha256": "f2058c58990bc0f2dc57c7260f693723c4bcb5ca04f15972aeee6864180d2336",
+      "reference_count": 11,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "shardpilot/shardpilot-go",
+      "repository_id": 1239033952,
+      "commit": "d19c000883418b4644cc54198c533e5d5537a750",
+      "tree": "7514e945a94526a1ddb473cc1b4e34d54ea4c6cb",
+      "refs_sha256": "82f7c4d4a938e99fd0d6942d3ab49934fd2e165c5e4e34fa006b41968a34d4cc",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "SimantaDH/skill",
+      "repository_id": 1443462939,
+      "commit": "99375a6e123c1225df18347c9f2bb46a72555cdd",
+      "tree": "83832d14f5e8cd41050253ea2ee79d719fc6af5c",
+      "refs_sha256": "992e7ca25e4a8efe07f9d4979832bbada51db0f08ebd03c9017a7dd1c55b6568",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "skadauke/redlines",
+      "repository_id": 1420080081,
+      "commit": "9e01161f2de42a54d1674ac39d51b5980bfcd864",
+      "tree": "fa7f829b2a750ae64e9a6e9025980c551979fadd",
+      "refs_sha256": "2dff9221b618e0fb7a61daa1fb9c0814ea1e6d8e886fc843ac929b11f989d3de",
+      "reference_count": 7,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "starceas/knuaf-doc",
+      "repository_id": 1375357345,
+      "commit": "1ba89297343493c2906c3164d0e0b56d0aeb23fe",
+      "tree": "cece13c95cba52ad758119213f385795737eccb5",
+      "refs_sha256": "f214fa9d27c1ef32c078d00aa2130bbfc7518f4c764378d67ef4052344ea4f5a",
+      "reference_count": 6,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "tazbirs/talking-head-editor",
+      "repository_id": 1457745960,
+      "commit": "30148f6c331c40181ac732d88062a1f71cd036e8",
+      "tree": "408fc3f0c89c796e9d913c1ad2a5fef825f41435",
+      "refs_sha256": "248f25631411c88e32fed85ee619e234e3e17ab886ddd61fe46b43c4321e3358",
+      "reference_count": 6,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "technobasant/evalproof",
+      "repository_id": 1416438277,
+      "commit": "b38a26452f588fbe90127eb828c2e66767e2d857",
+      "tree": "913aa8ba480b5afd147eb9e0e8c796cb9019b920",
+      "refs_sha256": "69cd7813f5a51f22b5217f790e586442b7e5f82d7796d7836fc736c01c9c2d39",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "theboyknowsclass/claude-skills",
+      "repository_id": 1457648768,
+      "commit": "729dc07c769080e4cacb4a11c6414263dcaee0a6",
+      "tree": "4f464ded15a851a0d80ddd2646d90c3c6d9f6637",
+      "refs_sha256": "5020cbbd7588f37c00a64a2faa861eef71e19812d9b4c848254937a977e7cd16",
+      "reference_count": 5,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "TMLlaboratory/cite-resolve",
+      "repository_id": 1457571586,
+      "commit": "ac2ca19e691b2d5c1587fbf34c562169eddd1dc0",
+      "tree": "8810f4d10114f8fc775fa9b3adb76a8a7687a839",
+      "refs_sha256": "ad41586ab5eeab77f9ae6dbc7c898307ab74c966767ccbf5302ba16884f46359",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "treflebonbon/skills",
+      "repository_id": 1438004515,
+      "commit": "9506fa42ed59d0902b2172a1015364bc8ebb8778",
+      "tree": "813636e5f065b149112648587b83d77120072098",
+      "refs_sha256": "237edbff9752c05c5bfecd390a92c4c0e16a3f0da75bde0baa48f4cdee1f2cca",
+      "reference_count": 11,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "Vivswan/poplin",
+      "repository_id": 1457227509,
+      "commit": "e46d10606898c46080c796366585e421e3157fad",
+      "tree": "fcbb0c5719bff895aa1cdf2057607b5b4209ce3a",
+      "refs_sha256": "c4b621cb7ec465163d1cf42984500966db06832b9b6a23718ae9634c3f5ff012",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "vlv-code/meta-project",
+      "repository_id": 1452413211,
+      "commit": "724c7e31d8ead1e047f5b0bcda046c81ec0e5f84",
+      "tree": "e46f687af6254d08442f9fde6dd8d0b25baddbb8",
+      "refs_sha256": "5637445db121d525c691544bcb42dfc250ff2ab17ebbf0028bff4d51ef259587",
+      "reference_count": 3,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "w1ne/kernelCAD-web",
+      "repository_id": 1141953809,
+      "commit": "cd3eac75621555df314f5b6ff0ccb5bfbff6b9c5",
+      "tree": "2eaa4495cfc794deae8fbbc2d7ce563cb9080964",
+      "refs_sha256": "c0de8033c66cc822ae8bc4497713c17fab1885ded86c7e8067d615dab531bb38",
+      "reference_count": 17,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "yuvrajangadsingh/brand-skills",
+      "repository_id": 1251178788,
+      "commit": "42799a5e601ed021c6470bf50782e67f47175c72",
+      "tree": "0e0060866a2b61eea0146a5957b98c8f2022316f",
+      "refs_sha256": "802dbacb8f2e8a8119e576e0364031754b07fbffae084e17b1043132aba29e19",
+      "reference_count": 7,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "yuvrajangadsingh/brandmd",
+      "repository_id": 1191491499,
+      "commit": "12595eb8c7e059c345979653e16860caec059151",
+      "tree": "ac0b6ba848c460886eee93ed0a17fc4a311d8c31",
+      "refs_sha256": "7397bfebd453092ab1f624565211a4d03eb94877e53c904d0a870309af664b95",
+      "reference_count": 4,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    },
+    {
+      "full_name": "znlgis/dsh-opengis-skill",
+      "repository_id": 1425030216,
+      "commit": "b6fab8518093cfe6f44a5a246c5b103e16e1332d",
+      "tree": "f18924d6ed11e577eac52ba15ed8b46cdd86f856",
+      "refs_sha256": "d5816beaa8297e686eb71ab8764eb43b1256ac52c34c58595aa3ca6455121abb",
+      "reference_count": 12,
+      "public_source_verified": true,
+      "supporting_symlink_paths": []
+    }
+  ],
+  "limits": "Fixed-object verification is not origin certification, installation, runtime execution, legal clearance or exhaustive skill-body review."
+}
