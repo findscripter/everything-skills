@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { search, githubPath, commands } from '../site/search.mjs';
 
 const rows = JSON.parse(await readFile(new URL('../INDEX/search.json', import.meta.url), 'utf8'));
@@ -32,6 +33,15 @@ test('published catalog preserves upstream status and keeps historical/unavailab
   assert.deepEqual(search([knownHistorical], 'general-readme', { mode:'repos' }), []);
   assert.deepEqual(search([{ full_name:'example/missing', upstream_state:'unavailable' }], '', { mode:'repos' }), []);
   assert.equal(published.stats.repositories, published.repositories.length);
+  assert.equal(published.outcome.after, published.outcome.active + published.outcome.archived + published.outcome.templates);
+  const html = await readFile(new URL('../_site/index.html', import.meta.url), 'utf8');
+  const app = await readFile(new URL('../_site/app.mjs', import.meta.url), 'utf8');
+  // Every cached dependency URL must identify the bytes served by this build.
+  for (const [parent, filename] of [[html, 'app.mjs'], [html, 'styles.css'], [app, 'search.mjs'], [app, 'catalog.json']]) {
+    const bytes = await readFile(new URL(`../_site/${filename}`, import.meta.url));
+    const fingerprint = createHash('sha256').update(bytes).digest('hex').slice(0, 12);
+    assert.ok(parent.includes(`${filename}?v=${fingerprint}`), `Unversioned or stale ${filename}`);
+  }
 });
 test('links and install commands reject traversal and command injection', () => {
   assert.equal(githubPath('02-engineering/api-design-reviewer/SKILL.md'), 'https://github.com/findscripter/everything-skills/blob/main/02-engineering/api-design-reviewer/SKILL.md');
@@ -39,10 +49,10 @@ test('links and install commands reject traversal and command injection', () => 
   assert.match(commands('02-engineering'), /02-engineering@everything-skills$/);
   for (const volume of ['02-engineering\nrun bad', '../../x', '$(bad)']) assert.throws(() => commands(volume));
 });
-test('page links to three reproducible workflows and renders metadata without HTML injection', async () => {
+test('page links to the real outcome and teaching cases without HTML injection', async () => {
   const html = await readFile(new URL('../site/index.html', import.meta.url), 'utf8');
   const app = await readFile(new URL('../site/app.mjs', import.meta.url), 'utf8');
-  for (const name of ['repository-onboarding', 'paper-reading', 'api-review']) assert.ok(html.includes(`/examples/${name}`));
+  for (const name of ['nix-discovery', 'repository-onboarding', 'paper-reading', 'api-review']) assert.ok(html.includes(`/examples/${name}`));
   assert.ok(html.includes('role="search"'));
   assert.ok(html.includes('aria-live="polite"'));
   assert.ok(!app.includes('.innerHTML'));

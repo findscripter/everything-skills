@@ -77,7 +77,7 @@ function hero(animated = true) {
   <text x="62" y="155" class="sans" font-size="70" font-weight="700" letter-spacing="-3" fill="#f3eddc">EVERYTHING</text>
   <text x="62" y="233" class="serif" font-size="78" font-style="italic" letter-spacing="1" fill="#deb46c">Skills.</text>
   <path d="M66 259H649" stroke="#385348"/>
-  <text x="66" y="290" class="sans" font-size="15" fill="#b6c8bc" letter-spacing=".4">Find a skill. Connect steps. Build a workflow.</text>
+  <text x="66" y="290" class="sans" font-size="15" fill="#b6c8bc" letter-spacing=".4">Focused skills. Inspectable results.</text>
   <text x="66" y="316" class="mono" font-size="10" fill="#819b8e" letter-spacing="1.5">OPEN SOURCE  /  NATIVE LANGUAGES  /  ONE SHARED MAP</text>
   <path d="M755 52V308" stroke="#2b4338"/>
   <g>${spokes}${edges}</g>
@@ -106,7 +106,7 @@ function mobileHero(animated = true) {
   <text x="29" y="216" class="serif" font-size="80" font-style="italic" fill="#deb46c">Skills.</text>
   ${logoAt(433, 138, 108, animated)}
   <path d="M32 254H568" stroke="#385348"/>
-  <text x="32" y="288" class="sans" font-size="19" fill="#b6c8bc">Find a skill. Connect steps. Build a workflow.</text>
+  <text x="32" y="288" class="sans" font-size="19" fill="#b6c8bc">Focused skills. Inspectable results.</text>
   <text x="32" y="325" class="mono" font-size="11" letter-spacing="1.2" fill="#819b8e">${stats.volumes} VOLUMES / ONE LIVING LIBRARY</text>`;
   return wrap(600, 360, 'Everything Skills', 'A compact book-inspired identity for the Agent Skills atlas.', body, animated);
 }
@@ -145,7 +145,7 @@ let readme = await fs.readFile(path.join(ROOT, 'README.md'), 'utf8');
 const start = readme.indexOf(BEGIN), end = readme.indexOf(END);
 if (start < 0 || end < start || readme.indexOf(BEGIN, start + BEGIN.length) >= 0 || readme.indexOf(END, end + END.length) >= 0)
   throw new Error('README needs exactly one ordered pair of brand markers.');
-const tagline = lang === 'zh' ? '从任务出发找技能，沿关系组合工作流，按领域安装。' : 'Find skills by task. Connect them into workflows. Install by volume.';
+const tagline = lang === 'zh' ? '按任务组合技能，用输入、交付物和检查记录说明结果。' : 'Combine focused skills for a task. Inspect the inputs, deliverables and checks.';
 const nav = lang === 'zh' ? ['技能总目', '关系图谱', '外部技能库', '贡献指南'] : ['Skill catalog', 'Knowledge graph', 'Skill repositories', 'Contributing'];
 const block = `${BEGIN}
 <p align="center">
@@ -158,9 +158,13 @@ const block = `${BEGIN}
   <a href="INDEX/catalog.md">${nav[0]}</a> · <a href="INDEX/graph.md">${nav[1]}</a> · <a href="INDEX/skill-repos.md">${nav[2]}</a> · <a href="CONTRIBUTING.md">${nav[3]}</a>
 </p>
 
+<details>
+<summary>${lang === 'zh' ? '查看技能库规模' : 'Library coverage'}</summary>
+
 <p align="center">
   <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="${stats.skills} skills · ${stats.volumes} volumes · ${stats.edges} relation edges · ${stats.repos} indexed entries" width="1200" /></picture>
 </p>
+</details>
 ${END}`;
 readme = readme.slice(0, start) + block + readme.slice(end + END.length);
 await fs.mkdir(OUT, { recursive: true });

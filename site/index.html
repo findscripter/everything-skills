@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Find agent skills by task, follow their relationships, and install the volumes you need. Browse Everything Skills with examples for codebase onboarding, papers, and API reviews.">
+  <meta name="description" content="Task-focused agent skills with inspectable reports, patches and reproduction evidence. Start with a real Nix distribution repair, then choose a workflow for your task.">
   <meta name="theme-color" content="#123b32">
-  <meta property="og:title" content="Everything Skills — Start with a task">
-  <meta property="og:description" content="Find a skill. Follow its connections. Put a workflow to work.">
+  <meta property="og:title" content="Everything Skills — Inspect the result">
+  <meta property="og:description" content="See a real repair, inspect the evidence, then install focused task skills.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://findscripter.github.io/everything-skills/">
   <meta property="og:image" content="https://findscripter.github.io/everything-skills/social-card.png">
@@ -14,7 +14,7 @@
   <link rel="canonical" href="https://findscripter.github.io/everything-skills/">
   <link rel="icon" href="logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <title>Everything Skills — Start with a task</title>
+  <title>Everything Skills — Inspect the result</title>
   <script type="module" src="app.mjs"></script>
 </head>
 <body>
@@ -30,21 +30,31 @@
   <main>
     <section class="hero wrap" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span><span data-i18n="eyebrow">AN OPEN LIBRARY FOR AGENT WORKFLOWS</span></p>
-        <h1 id="hero-title"><span data-i18n="heroOne">Start with a task.</span><br><span class="hero-accent" data-i18n="heroTwo">Find your next skill.</span></h1>
-        <p class="hero-description" data-i18n="heroDescription">Find instructions for the job at hand, follow their connections, and install only the volumes you need.</p>
-        <div class="hero-actions"><a class="button primary" href="#explore" data-i18n="explore">Explore the library ↓</a><a class="text-link" href="#examples" data-i18n="seeExamples">See worked examples ↗</a></div>
+        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span><span data-i18n="eyebrow">TASK SKILLS WITH INSPECTABLE OUTCOMES</span></p>
+        <h1 id="hero-title"><span data-i18n="heroOne">Start with a task.</span><br><span class="hero-accent" data-i18n="heroTwo">Inspect the result.</span></h1>
+        <p class="hero-description" data-i18n="heroDescription">Use focused instructions for a report, patch or working document. See real inputs, outputs and checks before choosing your skills.</p>
+        <div class="hero-actions"><a class="button primary" href="#case-evidence" data-i18n="explore">Inspect a real repair ↓</a><a class="text-link" href="#explore" data-i18n="seeExamples">Find a task skill ↗</a></div>
       </div>
-      <aside class="workflow-preview" aria-label="Example skill workflow">
-        <div class="preview-heading"><span class="tiny-label" data-i18n="oneTask">ONE TASK, CONNECTED STEPS</span><span class="preview-index">01 / 03</span></div>
-        <p class="preview-task" data-i18n="previewTask">“Help me understand this codebase.”</p>
+      <aside class="workflow-preview outcome-preview" aria-label="Recorded real-project outcome">
+        <div class="preview-heading"><span class="tiny-label" data-i18n="oneTask">ONE REAL REPAIR</span><span class="preview-index">01</span></div>
+        <p class="preview-task" data-i18n="previewTask">An empty Nix skill package.</p>
+        <div class="outcome-counts" aria-label="Observed exported path counts"><div><strong id="outcome-before">—</strong><span data-i18n="outcomeBefore">before</span></div><span class="outcome-arrow" aria-hidden="true">→</span><div><strong id="outcome-after">—</strong><span data-i18n="outcomeAfter">exported paths after</span></div></div>
+        <p class="outcome-breakdown" id="outcome-breakdown"></p>
         <ol class="workflow-steps">
-          <li><span class="step-number">01</span><div><strong data-i18n="stepOne">Map the repository</strong><code>codebase-onboarding-doc</code></div><span class="step-arrow" aria-hidden="true">↗</span></li>
-          <li><span class="step-number">02</span><div><strong data-i18n="stepTwo">Trace the important paths</strong><code>monorepo-navigator</code></div><span class="step-arrow" aria-hidden="true">↗</span></li>
-          <li><span class="step-number">03</span><div><strong data-i18n="stepThree">Verify the handoff</strong><code>3 tests · 1 onboarding guide</code></div><span class="step-arrow" aria-hidden="true">↗</span></li>
+          <li><span class="step-number">01</span><div><strong data-i18n="stepOne">Reproduce and repair</strong><code>systematic-debugger</code></div></li>
+          <li><span class="step-number">02</span><div><strong data-i18n="stepTwo">Review the exact patch</strong><code>code-reviewer</code></div></li>
         </ol>
-        <a class="preview-footer" href="https://github.com/findscripter/everything-skills/tree/main/examples/repository-onboarding"><span data-i18n="openExample">Open the input, prompts, and walkthrough</span><span aria-hidden="true">→</span></a>
+        <p class="outcome-limit" data-i18n="outcomeScope">Pinned-source replay and real Nix checks. One package built; package checks did not run skill tools.</p>
+        <a class="preview-footer" href="https://github.com/findscripter/everything-skills/tree/main/examples/nix-discovery"><span data-i18n="openExample">Inspect inputs, patch and checks</span><span aria-hidden="true">→</span></a>
       </aside>
+    </section>
+    <section class="case-evidence wrap" id="case-evidence" aria-labelledby="case-title">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="caseLabel">CHECK THE DELIVERABLE</p><h2 id="case-title" data-i18n="caseTitle">A result with a reproduction trail.</h2></div><a class="text-link" href="https://github.com/sudosubin/agents.nix/pull/137800" data-i18n="casePatch">Proposed upstream patch ↗</a></div>
+      <p data-i18n="caseBody">The scanner's mirror heuristic hid this collection. An existing source override restored its path map. Inspect the fixed revisions, full inventory and static review.</p>
+      <div class="case-links"><a href="https://github.com/findscripter/everything-skills/blob/main/examples/nix-discovery/output/result.json" data-i18n="caseResult">Measured result ↗</a><a href="https://github.com/findscripter/everything-skills/blob/main/examples/nix-discovery/output/nix-snapshot.json" data-i18n="caseInventory">Complete path map ↗</a><a href="https://github.com/findscripter/everything-skills/blob/main/examples/nix-discovery/output/review.md" data-i18n="caseReview">Static review ↗</a></div>
+      <details><summary data-i18n="caseReplay">Replay, scope and limitations</summary><pre><code>node examples/nix-discovery/check.mjs
+node bin/everything-skills.mjs compose skill-distribution-audit --json</code></pre><p data-i18n="caseLimits">The first command verifies saved evidence offline; a fresh scanner/Nix replay needs the separate case setup. Counts include archived entries and a template. This maintainer case is not a user study or a model-success benchmark.</p><a class="text-link" href="https://github.com/findscripter/everything-skills/tree/main/examples/nix-discovery" data-i18n="caseGuide">Read the full reproduction guide ↗</a></details>
+      <a class="text-link case-feedback" href="https://github.com/findscripter/everything-skills/issues/new?template=workflow-result.yml" data-i18n="caseFeedback">Share a result from your own task ↗</a>
     </section>
     <section class="stats-strip wrap" aria-label="Library statistics">
       <div><strong id="active-count">—</strong><span data-i18n="activeSkills">current skill entries</span></div>
@@ -69,15 +79,15 @@
       <noscript><p>JavaScript is needed for interactive search. <a href="https://github.com/findscripter/everything-skills/blob/main/INDEX/catalog.md">Browse the full Markdown catalog instead.</a></p></noscript>
     </section>
     <section class="examples-section" id="examples" aria-labelledby="examples-title">
-      <div class="wrap"><div class="section-heading"><div><p class="eyebrow" data-i18n="examplesLabel">FROM INPUT TO OUTPUT</p><h2 id="examples-title" data-i18n="examplesTitle">Try a small, reproducible workflow.</h2></div><a class="text-link" href="https://github.com/findscripter/everything-skills/tree/main/examples" data-i18n="allExamples">All example files ↗</a></div>
+      <div class="wrap"><div class="section-heading"><div><p class="eyebrow" data-i18n="examplesLabel">BOUNDED TEACHING CASES</p><h2 id="examples-title" data-i18n="examplesTitle">Explore three smaller teaching examples.</h2></div><a class="text-link" href="https://github.com/findscripter/everything-skills/tree/main/examples" data-i18n="allExamples">All example files ↗</a></div>
       <div class="example-cards">
         <a class="example-card" href="https://github.com/findscripter/everything-skills/tree/main/examples/repository-onboarding"><span class="example-number">01 / ENGINEERING</span><h3 data-i18n="exampleOneTitle">Get oriented in a codebase</h3><p data-i18n="exampleOneBody">A small repository, a map of its boundaries, and an onboarding report you can inspect.</p><span class="example-cta" data-i18n="tryExample">Explore the example →</span></a>
         <a class="example-card" href="https://github.com/findscripter/everything-skills/tree/main/examples/paper-reading"><span class="example-number">02 / RESEARCH</span><h3 data-i18n="exampleTwoTitle">Read a paper with its sources</h3><p data-i18n="exampleTwoBody">Follow the paper’s claims and bibliography, with explicit limits on what was checked.</p><span class="example-cta" data-i18n="tryExample">Explore the example →</span></a>
         <a class="example-card" href="https://github.com/findscripter/everything-skills/tree/main/examples/api-review"><span class="example-number">03 / API DESIGN</span><h3 data-i18n="exampleThreeTitle">Review an API before delivery</h3><p data-i18n="exampleThreeBody">Inspect a compact API fixture, trace concrete findings, and compare a revised design.</p><span class="example-cta" data-i18n="tryExample">Explore the example →</span></a>
       </div></div>
     </section>
-    <section class="install-section wrap" id="install" aria-labelledby="install-title"><div><p class="eyebrow" data-i18n="installLabel">TAKE WHAT YOU NEED</p><h2 id="install-title" data-i18n="installTitle">One library. Eleven volumes.</h2><p data-i18n="installBody">In Claude Code, add the marketplace and install a domain volume. For Codex and other agents, start from the repository guide and open the skill’s instructions.</p><a class="text-link" href="https://github.com/findscripter/everything-skills#2-install-and-try-a-task" data-i18n="installGuide">Read the installation guide ↗</a></div><div class="install-code"><span class="tiny-label">CLAUDE CODE</span><pre><code>/plugin marketplace add findscripter/everything-skills
-/plugin install 02-engineering@everything-skills</code></pre><button class="copy-button" id="copy-install" type="button" data-i18n="copyCommands">Copy commands</button></div></section>
+    <section class="install-section wrap" id="install" aria-labelledby="install-title"><div><p class="eyebrow" data-i18n="installLabel">TAKE WHAT YOU NEED</p><h2 id="install-title" data-i18n="installTitle">Start with two focused skills.</h2><p data-i18n="installBody">Install the debugging and static-review pair for Codex, then supply your own repository and failure. Claude Code volume installation and other paths remain in the full guide.</p><a class="text-link" href="https://github.com/findscripter/everything-skills#2-install-and-try-a-task" data-i18n="installGuide">Read the installation guide ↗</a></div><div class="install-code"><span class="tiny-label">CODEX · NODE.JS 22.20+</span><pre><code id="default-install-command">npx skills@1.7.4 add findscripter/everything-skills --skill systematic-debugger --agent codex --copy
+npx skills@1.7.4 add findscripter/everything-skills --skill code-reviewer --agent codex --copy</code></pre><button class="copy-button" id="copy-install" type="button" data-i18n="copyCommands">Copy commands</button></div></section>
   </main>
   <footer class="wrap site-footer"><p>Everything Skills <span>·</span> <span data-i18n="footer">A connected library, maintained in the open.</span></p><div><a href="https://github.com/findscripter/everything-skills/blob/main/CONTRIBUTING.md" data-i18n="contribute">Contribute</a><a href="https://github.com/findscripter/everything-skills/blob/main/INDEX/sources.md" data-i18n="sources">Sources & licenses</a></div></footer>
   <dialog id="install-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form><h2 data-i18n="volumeInstall">Install this volume</h2><p data-i18n="volumeInstallBody">Run these commands inside Claude Code. For other agents, open the linked SKILL.md and check its runtime requirements.</p><textarea id="volume-command" readonly aria-label="Claude Code install commands" rows="3"></textarea><button type="button" id="copy-volume" class="button primary" data-i18n="copyCommands">Copy commands</button></dialog>

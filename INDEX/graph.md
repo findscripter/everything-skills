@@ -2,7 +2,7 @@
 
 > 本文件由 scripts/build-index.mjs 自动生成，请勿手改。
 
-全库 **1115** 节点、**6795** 条互见边（含方向重复前的原始边）。
+全库 **1115** 节点、**6797** 条互见边（含方向重复前的原始边）。
 
 图例：`-->` 依赖(requires) · `-.-` 互见(related) · `===` 组合(combines_with)。
 
@@ -109,7 +109,7 @@ graph LR
 
 <details><summary>卷二 · 研发（枢纽 10 / 边 9）（枢纽截断至 10）</summary>
 
-**Hubs (by degree):** `error-handling-patterns`(24), `react-state-management`(24), `rest-api-endpoint-builder`(23), `typescript-advanced-types`(22), `ci-cd-pipeline-builder`(20), `microservices-patterns`(19), `code-reviewer`(18), `shadcn-ui-components`(18), `distributed-tracing`(17), `legacy-codebase-modernizer`(17)
+**Hubs (by degree):** `error-handling-patterns`(24), `react-state-management`(24), `rest-api-endpoint-builder`(23), `typescript-advanced-types`(22), `ci-cd-pipeline-builder`(20), `code-reviewer`(19), `microservices-patterns`(19), `shadcn-ui-components`(18), `distributed-tracing`(17), `legacy-codebase-modernizer`(17)
 
 | from | type | to |
 | --- | --- | --- |
