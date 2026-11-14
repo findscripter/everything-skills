@@ -11,7 +11,7 @@ agents: [claude-code, codex, cursor, gemini-cli]
 tools: []
 requires: []
 related: [dependency-auditor]
-combines_with: []
+combines_with: [systematic-debugger]
 license: CC-BY-SA-4.0
 ---
 ## 何时使用
@@ -111,4 +111,4 @@ git show <sha>                # 某次提交
 
 - requires：无。
 - related：`dependency-auditor`（依赖/许可证/已知漏洞专项体检；本技能聚焦改动代码本身的正确性与质量，依赖层面的风险转交它）。
-- combines_with：无。
+- combines_with：`systematic-debugger`（先复现、修复并验证，再将精确补丁交给本技能静态审查；本技能本身不执行测试）。

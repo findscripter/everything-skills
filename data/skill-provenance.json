@@ -3670,7 +3670,7 @@
     {
       "name": "code-reviewer",
       "local_path": "02-engineering/code-reviewer/SKILL.md",
-      "local_sha256": "d631b306cc88292c06892067fffe2039d79e93d2c915b0af3ab13324b36ed777",
+      "local_sha256": "211efa327e2ff2bb815c0bc1209deae392109f4b8c62cd6cba92338a07f2cd6b",
       "kind": "native",
       "declared_license": "CC-BY-SA-4.0",
       "origin_revision_status": "native-repository-history"
@@ -8472,7 +8472,7 @@
     {
       "name": "systematic-debugger",
       "local_path": "02-engineering/systematic-debugger/SKILL.md",
-      "local_sha256": "e252605cdc89c78621bd7d0fff6d3ab5d23331796c2bb724b1c46a58718bafd9",
+      "local_sha256": "4581a545437f4ae18ef78aa49a8c127729f99164e0df1849152c532a512f7573",
       "kind": "curated",
       "declared_license": "MIT",
       "source_repository": "wshobson/agents",
@@ -37915,5 +37915,5 @@
       }
     }
   ],
-  "refreshed_at": "2026-11-12T14:01:21.565Z"
+  "refreshed_at": "2026-11-14T16:40:33.313Z"
 }
