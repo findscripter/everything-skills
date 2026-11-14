@@ -5,11 +5,17 @@ import assert from 'node:assert/strict';
 import { reproduce as onboarding } from '../examples/repository-onboarding/reproduce.mjs';
 import { reproduce as api, review } from '../examples/api-review/reproduce.mjs';
 import { reproduce as paper } from '../examples/paper-reading/reproduce.mjs';
+import { check as realDistribution } from '../examples/nix-discovery/check.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 assert.ok(Number(process.versions.node.split('.')[0]) >= 22, 'Examples require Node.js >=22');
 const read = relative => JSON.parse(fs.readFileSync(path.join(root, relative), 'utf8'));
 const text = relative => fs.readFileSync(path.join(root, relative), 'utf8');
+
+const distribution = realDistribution();
+assert.equal(distribution.before, 0);
+assert.equal(distribution.after, distribution.active + distribution.archived + distribution.templates);
+console.log(`PASS nix-discovery: stored real-project evidence, ${distribution.before} -> ${distribution.after} exported paths; fresh scanner/Nix replay is separate`);
 
 // This reruns the tiny application and its behavior tests in a clean directory.
 const repo = onboarding();
@@ -85,4 +91,4 @@ for (const file of walk(path.join(root, 'examples')).filter(file => file.endsWit
   }
 }
 console.log(`PASS example documentation: ${localLinks} local links resolve; Markdown uses LF`);
-console.log('All 3 worked examples passed. Offline artifact/fixture checks; no model calls or client-installation claims.');
+console.log('All 4 workflow evidence checks passed. Offline artifact/fixture checks; no model calls or fresh client-installation claims.');

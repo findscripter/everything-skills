@@ -5,9 +5,34 @@
 <!-- BEGIN GENERATED:brand -->
 <!-- END GENERATED:brand -->
 
-Find skills for a task, combine them into a workflow, and install the volumes you need.
+Start with a deliverable you can inspect: a diagnosis, a reviewed patch, or a checked report. Use focused agent skills, with inputs, evidence and limits visible.
 
 **[Search skills online](https://findscripter.github.io/everything-skills/)** · **[Try a worked example](examples/README.md)** · [Full catalog](INDEX/catalog.md) · [Relationships](INDEX/graph.md)
+
+## Start with a real result
+
+**An empty Nix skill package: 0 → 1,116 exported paths.** The same fixed source was replayed before and after an existing source-rule override. Real Nix evaluation passed, and one representative package built with byte-identical instructions. The total includes **1,094 active entries, 21 archived and one template**.
+
+[![Real distribution repair and its verification scope](assets/demos/nix-discovery-result.svg)](examples/nix-discovery/README.md)
+
+**[Inspect inputs, patch and checks](examples/nix-discovery/README.md)** · [Proposed upstream fix](https://github.com/sudosubin/agents.nix/pull/137800) · [Share your task result](https://github.com/findscripter/everything-skills/issues/new?template=workflow-result.yml)
+
+Use `systematic-debugger` → `code-reviewer`: reproduce and verify a repair, then statically review the exact patch. This is a real maintainer case with disclosed skill-use timing, not an external-user study or a model-success benchmark. Check the linked proposal for current upstream status.
+
+```sh
+node bin/everything-skills.mjs compose skill-distribution-audit --json
+```
+
+The command returns a plan. Give your agent the repository, failure and allowed test scope. The [case guide](examples/nix-discovery/README.md) includes the prompt, actual scanner replay and offline evidence check.
+
+<details>
+<summary>Watch the actual result page: evidence, replay scope and skill search</summary>
+
+![Captured result page, evidence links, replay limits and skill search](assets/demos/nix-discovery-walkthrough.gif)
+
+[Recording scope](assets/demos/README.md) · This page walkthrough does not show the scanner or Nix running.
+
+</details>
 
 <details>
 <summary>Watch the 33-second catalog walkthrough</summary>
@@ -18,7 +43,7 @@ Find skills for a task, combine them into a workflow, and install the volumes yo
 
 </details>
 
-## 1. Pick a task and a skill combination
+## 1. Explore other task combinations
 
 | Your task | Start with | Then add |
 | --- | --- | --- |
@@ -46,15 +71,16 @@ Then supply your OpenAPI file or API specification and start with:
 
 Each volume below is a separate plugin; install several when your task needs them.
 
-### Install one skill for Codex with the skills CLI
+### Install the debugging/review pair for Codex
 
 With Node.js **22.20.0 or later**, run this from the project where you want the skill available:
 
 ```sh
-npx skills@1.7.4 add findscripter/everything-skills --skill codebase-onboarding-doc --agent codex --copy
+npx skills@1.7.4 add findscripter/everything-skills --skill systematic-debugger --agent codex --copy
+npx skills@1.7.4 add findscripter/everything-skills --skill code-reviewer --agent codex --copy
 ```
 
-This installs the selected skill files at project scope. Read their runtime prerequisites before using them for a task. To discover the default public set without installing, use a separate command:
+These commands install the two selected skills at project scope. Read their runtime prerequisites before using them for a task. To discover the default public set without installing, use a separate command:
 
 ```sh
 npx skills@1.7.4 add findscripter/everything-skills --list

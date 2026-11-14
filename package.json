@@ -21,7 +21,7 @@
     "build:repos:zh": "node scripts/build-skill-repos.mjs --lang=zh",
     "build:brand": "node scripts/build-brand.mjs --lang=en",
     "build:brand:zh": "node scripts/build-brand.mjs --lang=zh",
-    "test": "node --test tests/brand.test.mjs tests/index-pipeline.test.mjs tests/skill-cli.test.mjs tests/engineering-regressions.test.mjs tests/skill-assets.test.mjs tests/skill-provenance.test.mjs tests/odoo-backup-example.test.mjs tests/site.test.mjs tests/skill-distribution.test.mjs",
+    "test": "node --test tests/brand.test.mjs tests/index-pipeline.test.mjs tests/skill-cli.test.mjs tests/engineering-regressions.test.mjs tests/skill-assets.test.mjs tests/skill-provenance.test.mjs tests/odoo-backup-example.test.mjs tests/site.test.mjs tests/skill-distribution.test.mjs tests/outcome-case.test.mjs",
     "build:site": "node scripts/build-site.mjs",
     "examples:check": "node scripts/check-examples.mjs",
     "skill": "node scripts/everything-skills.mjs"

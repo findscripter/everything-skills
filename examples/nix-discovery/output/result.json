@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-14T16:46:39.748Z",
+  "problem": "The existing mirror heuristic suppressed all discovered Everything Skills paths.",
+  "upstream": {
+    "repository": "sudosubin/agents.nix",
+    "base_commit": "8c19a05c76327e7e92360763dc5fd5fc3b558925",
+    "updater_path": "ci/scripts/agent-skills-update.py",
+    "updater_blob": "b10da5713d4404facc859ea0206e2066c8adc76c",
+    "updater_sha256": "f5d0b9905b4c1dd4e1c63c7df961fe8125564626d24ab615d86c0b670906e774",
+    "initial_snapshot_pr": "https://github.com/sudosubin/agents.nix/pull/133322",
+    "fix_pr": "https://github.com/sudosubin/agents.nix/pull/137800",
+    "fix_commit": "bd3994822d8045100392edb01aae51b3b2982f0e",
+    "status_at_recording": "proposed; maintainer review pending"
+  },
+  "fixed_source": {
+    "repository": "findscripter/everything-skills",
+    "commit": "3a1f21dfc6eba47733fdae6a5f17b9c27f55834a",
+    "tree": "491f62e95c05d5b6dac151ddefd3a00680374ab0",
+    "nar_sha256_base64": "0Dldhe7z/6unYmNO+oSXiQJ3Axv9mukugX9DrSS67NI=",
+    "regular_files": 1840,
+    "symlinks": 0,
+    "canonical_paths": 1116,
+    "volume_skill_files": 1115,
+    "active_entries": 1094,
+    "internal_deprecated_entries": 21,
+    "internal_draft_template_entries": 1,
+    "yaml_parse_failures": 0
+  },
+  "change": {
+    "mechanism": "Existing source.skip:false override; no discovery logic changes",
+    "changed_files": [
+      "data/agent-skills/sources.json",
+      "data/agent-skills/github.com/findscripter/everything-skills.json"
+    ],
+    "insertions": 18,
+    "deletions": 5,
+    "generated_by": [
+      "skills_in",
+      "group_paths",
+      "Snapshots.write"
+    ]
+  },
+  "validation": {
+    "python_version": "3.15.2",
+    "nix_version": "2.35.6",
+    "scanner_command": "uv run --python 3.15 --with /path/to/agents.nix/ci/lib --with pyyaml python examples/nix-discovery/replay.py --consumer /path/to/agents.nix --archive /path/to/fixed-library.tar.gz",
+    "red_exit_code": 1,
+    "red_reason": "AssertionError: source configuration still suppresses discovery, after real before=0/override=1116 observation",
+    "green_exit_code": 0,
+    "same_current_source_default_paths": 0,
+    "same_current_source_configured_paths": 1116,
+    "old_source_commit": "08a9dfaa8ad2b2de2ade1db8c9b192b8202796f6",
+    "old_source_published_nar_hash_verified": "HV3Db9OcjxRojRP0dhfg3sludsV7XNkmUhjlyEuZtHA=",
+    "old_source_default_paths": 0,
+    "old_source_override_paths": 1115,
+    "source_schema_validation": "passed",
+    "nix_system": "x86_64-linux",
+    "nix_eval_before": 0,
+    "nix_eval_after": 1116,
+    "nix_package_command": "nix build --impure --no-link --print-out-paths --print-build-logs --expr '(import ./default.nix).agent-skills.x86_64-linux.github.findscripter.everything-skills.systematic-debugger'",
+    "nix_package_exit_code": 0,
+    "built_package": "systematic-debugger",
+    "packaged_skill_sha256": "e252605cdc89c78621bd7d0fff6d3ab5d23331796c2bb724b1c46a58718bafd9",
+    "packaged_skill_matches_fixed_source": true,
+    "git_diff_check": "passed",
+    "nix_evaluated_derivations": 1116,
+    "nix_source_roots_match_snapshot": true
+  },
+  "method_scope": {
+    "systematic_debugger": "Read and applied after the initial source-code diagnosis, starting with isolated replay and hypothesis verification; no retroactive claim about earlier work.",
+    "code_reviewer": "Static review of the two-file diff and direct scanner, update-flow and Nix packaging consumers."
+  },
+  "limits": [
+    "1116 is a discovered package-path count; the active entry count is 1094.",
+    "The existing upstream policy keeps templates and does not filter metadata.internal.",
+    "Only one representative package was built; all 1116 attributes were evaluated.",
+    "Nix package checks did not run packaged skill workflows or bundled tools; the debugging/review guides were applied as working methods.",
+    "Full upstream CI and maintainer approval remain pending."
+  ],
+  "publication": {
+    "published_commit": "bd3994822d8045100392edb01aae51b3b2982f0e",
+    "tree": "c4f4705f66dd1e8ec8708babd7f227127608942f",
+    "blobs": {
+      "data/agent-skills/sources.json": "8d5cd9eef29e4ffd40e2c1e068e0324e854c5287",
+      "data/agent-skills/github.com/findscripter/everything-skills.json": "1ede9c420a8db8cad8bcd2cda222448c4c26af0b"
+    },
+    "pull_request": "https://github.com/sudosubin/agents.nix/pull/137800",
+    "state_at_recording": "OPEN",
+    "merged_at_recording": false,
+    "ci_run": "https://github.com/sudosubin/agents.nix/actions/runs/43613989417",
+    "ci_conclusion_at_recording": "action_required",
+    "ci_check_runs_at_recording": 0
+  },
+  "scope": "Real maintainer integration repair; not an external-user study, blind A/B model trial or all-library effectiveness benchmark.",
+  "public_scanner_replay": {
+    "entry": "examples/nix-discovery/replay.py",
+    "entry_sha256": "2a08d3411490742219e79486a3e556dc52cad3b2a440e5c7f8cf3c5806ac6023",
+    "python": "3.15.2",
+    "uv": "0.11.28",
+    "base": {
+      "exit": 1,
+      "stdout": {
+        "default": 0,
+        "configured": 0,
+        "override": 1116
+      },
+      "error": "AssertionError: Configured-source regression: missing skip:false override"
+    },
+    "fixed": {
+      "exit": 0,
+      "stdout": {
+        "default": 0,
+        "configured": 1116,
+        "override": 1116
+      }
+    }
+  },
+  "initial_measurement_at": "2026-11-14T16:03:25Z"
+}
