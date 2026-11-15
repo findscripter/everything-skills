@@ -12,6 +12,7 @@ const GENERATED = [
   'INDEX/catalog.md', 'INDEX/tags.md', 'INDEX/tools.md', 'INDEX/graph.md',
   'INDEX/graph.json', 'INDEX/search.json', 'INDEX/sources.md',
   'INDEX/quality.json',
+  'INDEX/task-rankings.md',
   '.claude-plugin/marketplace.json', 'AGENTS.md', 'CLAUDE.md', 'GEMINI.md',
   'gemini-extension.json',
 ];
@@ -86,6 +87,44 @@ test('task rankings bind reviewed bodies and reject stale, ambiguous or unknown 
     assert.match(result.stderr, /skill-rankings/);
     assert.deepEqual(await fs.readFile(path.join(root, 'INDEX/search.json')), previous);
   }
+});
+
+test('library ranking review requires complete current/archive coverage and truthful group membership', async t => {
+  const root = await fixture(t);
+  const hashes = {};
+  for (const name of ['alpha', 'beta', 'unique', 'retired']) {
+    const file = await addSkill(root, name, name === 'retired' ? {status:'deprecated', deprecate_reason:'Historical fixture'} : {});
+    hashes[name] = createHash('sha256').update(await fs.readFile(file)).digest('hex');
+  }
+  await fs.mkdir(path.join(root, 'data'));
+  const group = {id:'compare-task', title:'比较任务', title_en:'Compare task', reviewed_at:'2026-11-15', triggers:['compare task'], entries:['alpha','beta'].map(skill => ({skill,sha256:hashes[skill],reason:'任务适配',reason_en:'Task fit'}))};
+  await fs.writeFile(path.join(root, 'data/skill-rankings.json'), JSON.stringify([group]));
+  const record = name => ({name,sha256:hashes[name],task:'任务与产物',decision:name === 'unique' ? 'distinct' : 'ranked',review_scope:name === 'unique' ? 'metadata-and-usage-section' : 'full-body-comparison',reason:'已比较任务范围与交付物',compared_with:[]});
+  const review = {schema_version:1,baseline_commit:'a'.repeat(40),completed_at:'2026-11-15T05:00:00Z',method:'Static task boundaries; full bodies for ranked alternatives.',skills:['alpha','beta','unique'].map(record),archived:[{name:'retired',sha256:hashes.retired,reason:'归档不参与推荐'}]};
+  const write = data => fs.writeFile(path.join(root, 'data/skill-ranking-review.json'), JSON.stringify(data));
+  await write(review);
+  assert.equal(generate(root).status, 0);
+  const previous = await fs.readFile(path.join(root, 'INDEX/search.json'));
+  for (const mutate of [
+    data => data.skills.pop(),
+    data => {data.skills[2].sha256 = '0'.repeat(64);},
+    data => {data.skills[0].decision = 'distinct';},
+    data => {data.archived = [];},
+    data => {data.skills[2].decision = 'ranked';},
+    data => {data.skills[0].review_scope = 'metadata-and-usage-section';},
+    data => {data.skills[2].compared_with = ['missing'];},
+  ]) {
+    const invalid = structuredClone(review); mutate(invalid); await write(invalid);
+    const result = generate(root);
+    assert.equal(result.status, 1, 'Incomplete or contradictory library review must fail');
+    assert.match(result.stderr, /skill-ranking-review/);
+    assert.deepEqual(await fs.readFile(path.join(root, 'INDEX/search.json')), previous);
+  }
+  await write(review);
+  assert.equal(generate(root).status, 0);
+  const index = await fs.readFile(path.join(root, 'INDEX/task-rankings.md'), 'utf8');
+  assert.match(index, /3.*现行|现行.*3/);
+  assert.ok(index.includes('alpha') && index.includes('beta'));
 });
 
 test('explicit triggers retain English phrases and override description fallback', async t => {
