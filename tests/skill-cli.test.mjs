@@ -87,6 +87,20 @@ function catalogFixture(t) {
   return { dir, rows, write, invoke };
 }
 
+test('task recommendations rank alternatives, explain the choice and preserve exact IDs', t => {
+  const { rows, write, invoke } = catalogFixture(t);
+  for (const [index, row] of rows.entries()) row.task_rankings = [{ task: 'fixture-task', title: 'Fixture task', title_en: 'Fixture task', triggers: ['fixture task'], rank: index === 0 ? 2 : 1, reason: 'Reviewed scope', reason_en: 'Reviewed scope' }];
+  rows[0].triggers = ['fixture task'];
+  write('INDEX/search.json', rows);
+  const found = JSON.parse(invoke('search', 'fixture task', '--json').stdout);
+  assert.deepEqual(found.map(row => row.name), ['beta', 'alpha']);
+  assert.equal(found[0].recommendation.rank, 1);
+  assert.equal(found[0].recommendation.reason, 'Reviewed scope');
+  assert.ok(invoke('search', 'fixture task').stdout.includes('fixture-task #1'));
+  assert.equal(JSON.parse(invoke('search', 'alpha', '--json').stdout)[0].name, 'alpha');
+  assert.ok(!JSON.parse(invoke('search', 'fixture', '--json').stdout)[0].recommendation);
+});
+
 test('compose deduplicates reverse declarations, excludes archives and invents no order', t => {
   const { invoke } = catalogFixture(t);
   const result = invoke('compose', 'alpha', '--json');

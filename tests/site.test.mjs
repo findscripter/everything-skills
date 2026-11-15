@@ -6,6 +6,15 @@ import { createHash } from 'node:crypto';
 import { search, githubPath, commands } from '../site/search.mjs';
 
 const rows = JSON.parse(await readFile(new URL('../INDEX/search.json', import.meta.url), 'utf8'));
+
+test('site task recommendations preserve filters, exact IDs and unrelated searches', () => {
+  const fixtures = ['alpha', 'beta', 'retired'].map((name, index) => ({ name, description: 'fixture task', vol: index === 0 ? '00-meta' : '01-documents', status: name === 'retired' ? 'deprecated' : 'stable', task_rankings: [{ task:'fixture-task', title:'任务', title_en:'Task', triggers:['fixture task'], rank:index === 0 ? 2 : 1, reason:'范围', reason_en:'Scope' }] }));
+  assert.deepEqual(search(fixtures, 'fixture task').map(row => row.name), ['beta', 'alpha']);
+  assert.equal(search(fixtures, 'fixture task')[0].recommendation.rank, 1);
+  assert.deepEqual(search(fixtures, 'fixture task', {category:'00-meta'}).map(row => row.name), ['alpha']);
+  assert.equal(search(fixtures, 'alpha')[0].name, 'alpha');
+  assert.ok(search(fixtures, 'fixture').every(row => !row.recommendation));
+});
 test('site search finds the actual API review skill from English and Chinese tasks', () => {
   for (const query of ['api review', 'API 设计评审']) assert.equal(search(rows, query)[0].name, 'api-design-reviewer');
 });
