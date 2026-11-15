@@ -80,6 +80,12 @@ function card(row) {
   article.append(top, title);
   if (isSkill) article.append(element('div', 'skill-name', row.name));
   article.append(element('p', 'card-description', description || ''));
+  if (isSkill && row.recommendation) {
+    const pick = row.recommendation;
+    article.append(element('p', 'task-recommendation', lang === 'zh'
+      ? `${pick.title} · 推荐 #${pick.rank}：${pick.reason}`
+      : `${pick.title_en} · Pick #${pick.rank}: ${pick.reason_en}`));
+  }
   const actions = element('div', 'card-actions');
   const url = isSkill ? githubPath(row.path) : `https://github.com/${row.full_name.split('/').map(encodeURIComponent).join('/')}`;
   actions.append(link(isSkill ? w().openSkill : w().openRepo, url));

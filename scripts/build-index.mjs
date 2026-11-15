@@ -9,6 +9,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // 注：历史英文镜像树位于 en/，当前主索引仍跳过该目录以免重名误报。
@@ -435,6 +436,46 @@ const stamp = '> 本文件由 scripts/build-index.mjs 自动生成，请勿手�
 const linkOf = s => relOf(s.file);
 const sorted = [...skills].sort((a, b) => (a.fm.name || '').localeCompare(b.fm.name || ''));
 
+// Only explicitly reviewed task groups get an order; body changes invalidate it.
+const taskRankings = new Map();
+const rankingFile = path.join(ROOT, 'data/skill-rankings.json');
+try {
+  const groups = JSON.parse(await fs.readFile(rankingFile, 'utf8'));
+  if (!Array.isArray(groups)) throw new Error('顶层须为数组');
+  const ids = new Set(), aliases = new Set();
+  const text = value => typeof value === 'string' && Boolean(value.trim());
+  const normalize = value => value.trim().toLowerCase().replace(/\s+/g, ' ');
+  for (const group of groups) {
+    if (!group || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(group.id || '') || ids.has(group.id)) throw new Error('无效或重复任务 id');
+    ids.add(group.id);
+    if (Object.keys(group).some(key => !['id','title','title_en','reviewed_at','triggers','entries'].includes(key)) ||
+        !text(group.title) || !text(group.title_en) || !/^\d{4}-\d{2}-\d{2}$/.test(group.reviewed_at || '') ||
+        !Array.isArray(group.triggers) || !group.triggers.length || !group.triggers.every(text) ||
+        !Array.isArray(group.entries) || !group.entries.length) throw new Error(`任务字段无效: ${group.id}`);
+    for (const trigger of group.triggers) {
+      const alias = normalize(trigger);
+      if (aliases.has(alias)) throw new Error(`重复任务触发词: ${trigger}`);
+      aliases.add(alias);
+    }
+    const names = new Set();
+    for (const [index, entry] of group.entries.entries()) {
+      if (!entry || Object.keys(entry).some(key => !['skill','sha256','reason','reason_en'].includes(key)) ||
+          !text(entry.skill) || names.has(entry.skill) || !text(entry.reason) || !text(entry.reason_en) || !/^[a-f0-9]{64}$/.test(entry.sha256 || '')) throw new Error(`条目无效或重复: ${group.id}`);
+      names.add(entry.skill);
+      const skill = byName.get(entry.skill);
+      if (!skill || skill.fm.status !== 'stable') throw new Error(`引用未知或非 stable 技能: ${entry.skill}`);
+      const digest = createHash('sha256').update(await fs.readFile(skill.file)).digest('hex');
+      if (digest !== entry.sha256) throw new Error(`技能正文已变化，需重新审阅排名: ${entry.skill}`);
+      const ranking = {task:group.id, title:group.title, title_en:group.title_en, triggers:group.triggers, rank:index + 1, reason:entry.reason, reason_en:entry.reason_en, reviewed_at:group.reviewed_at};
+      if (!taskRankings.has(entry.skill)) taskRankings.set(entry.skill, []);
+      taskRankings.get(entry.skill).push(ranking);
+    }
+  }
+} catch (error) {
+  if (error.code !== 'ENOENT' || error.path !== rankingFile) errors.push(`data/skill-rankings.json: ${error.message}`);
+}
+exitOnErrors();
+
 // 质量覆盖是可选的：空文件或不存在时，所有条目使用保守默认值。
 // 只接受针对现有技能的显式覆盖，避免拼写错误悄悄产生“孤儿”元数据。
 let qualityOverrides = {};
@@ -663,6 +704,7 @@ for (const [field, fname, title] of [['tags', 'tags.md', '标签索引 · Tags']
     tags: s.fm.tags || [], triggers: s.fm.triggers ?? parseTriggers(s.fm.description),
     description: s.fm.description || '', path: linkOf(s),
     quality: qualityFor(s),
+    ...(taskRankings.has(s.fm.name) ? {task_rankings:taskRankings.get(s.fm.name)} : {}),
     ...(s.fm.deprecate_reason ? { deprecate_reason: s.fm.deprecate_reason } : {}),
   }));
   stageWrite(path.join(INDEX, 'search.json'), JSON.stringify(records, null, 2));
@@ -744,6 +786,7 @@ Before collection, auditing, fixes, or publication, read [sop.md](sop.md) and ap
 - Agents match each skill's \`description\` field at runtime; they do not browse the directory tree.
 - Human indexes: \`INDEX/catalog.md\`, \`INDEX/tags.md\`, and \`INDEX/graph.md\`.
 - Machine-readable recall: \`INDEX/search.json\` (name/description/triggers/domain for two-stage retrieval).
+- Reviewed overlapping tasks expose \`task_rankings\`; CLI/site searches show the matched task's recommendation and reason. Exact skill IDs remain first. See \`docs/skill-ranking.md\` for scope.
 
 ## Using a skill
 Open its folder and follow the \`SKILL.md\` instructions. Skills include their instructions and declared packaged helpers; check each skill's explicit runtime dependencies before use. Missing required tools or inputs must stop that workflow.
@@ -772,6 +815,7 @@ See per-skill \`source_license\` and \`INDEX/sources.md\`, plus \`LICENSE\` and 
 - Agent 按每条技能 frontmatter 的 \`description\` 字段匹配是否加载——不靠浏览目录。
 - 人工浏览：\`INDEX/catalog.md\`（按卷/类总目）、\`INDEX/tags.md\`（标签）、\`INDEX/graph.md\`（互见关系图）。
 - 机读召回：\`INDEX/search.json\`（name/description/triggers/domain 扁平记录，供"先粗筛域/标签、再按 description 精排"的两段式发现）。
+- 已审阅的同类任务内嵌 \`task_rankings\`；CLI/网站搜索会显示命中任务的推荐顺序和理由，精确技能 ID 优先。范围见 \`docs/skill-ranking.md\`。
 
 ## 如何使用一条技能
 进入该技能文件夹，读取其 \`SKILL.md\` 并遵循「## 步骤 / 指令」。使用前核对已声明的随包资源、外部运行时和输入；缺少必需工具或数据时停止对应流程。

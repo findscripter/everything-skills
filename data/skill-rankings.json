@@ -1,0 +1,35 @@
+[
+  {
+    "id": "create-pptx",
+    "title": "制作可编辑 PPTX",
+    "title_en": "Create an editable PPTX",
+    "reviewed_at": "2026-11-15",
+    "triggers": ["做PPT", "生成PPT", "制作PPT", "PPT", "PPTX", "PowerPoint", "create powerpoint"],
+    "entries": [
+      {"skill": "pptx-document-processing", "sha256": "cb696dde24f36ac16829667bae82afb4663ae1b6c23d68adbde9e10a2b75e13c", "reason": "直接交付可编辑 PPTX，涵盖新建、模板编辑、结构和视觉验收；先核对可用工具。", "reason_en": "Delivers editable PPTX files with creation, template editing and structural/visual checks; verify available tools first."},
+      {"skill": "python-pptx-deck-generator", "sha256": "eb0432b8819d61d2d90e172ad90001c4113c376f4ce456f89ff2b4439ae7843f", "reason": "适合希望保留 Python 生成脚本的简单演示；不负责编辑已有文件或精细视觉验收。", "reason_en": "An alternative for simple decks when a reusable Python script is wanted; excludes existing-file editing and detailed visual validation."}
+    ]
+  },
+  {
+    "id": "pptx-python-script",
+    "title": "生成 PPT 的 Python 脚本",
+    "title_en": "Generate a Python PPTX script",
+    "reviewed_at": "2026-11-15",
+    "triggers": ["python-pptx", "用Python生成PPT", "生成PPT脚本", "做PPT脚本", "python pptx script"],
+    "entries": [
+      {"skill": "python-pptx-deck-generator", "sha256": "eb0432b8819d61d2d90e172ad90001c4113c376f4ce456f89ff2b4439ae7843f", "reason": "明确以完整、可运行、含保存步骤的 python-pptx 脚本为交付物。", "reason_en": "Explicitly delivers a complete runnable python-pptx script, including the save step."},
+      {"skill": "pptx-document-processing", "sha256": "cb696dde24f36ac16829667bae82afb4663ae1b6c23d68adbde9e10a2b75e13c", "reason": "需要读取或修改现有 PPTX、检查包结构和渲染时采用的通用入口。", "reason_en": "Use the general workflow when existing-file editing, package inspection or rendering checks are also needed."}
+    ]
+  },
+  {
+    "id": "ib-template-fill",
+    "title": "投行 PPT 模板填充",
+    "title_en": "Populate an investment-banking template",
+    "reviewed_at": "2026-11-15",
+    "triggers": ["投行模板填充", "PPT模板填充", "投行路演", "pitch deck", "pitch deck template", "populate slides", "季度数据刷新"],
+    "entries": [
+      {"skill": "ib-pitch-deck-builder", "sha256": "1fb25c65a7e69340b1b46dbf95efeacb62833a099cfa6e0a4a1cc004947fd076", "reason": "正文集中给出抽数、映射、排版、财务校验与有限修复循环；使用前核对演示与渲染工具。", "reason_en": "The body includes extraction, mapping, formatting, financial checks and a bounded repair loop; verify presentation/rendering tools first."},
+      {"skill": "pitch-deck-refresh", "sha256": "738effc9e32dc2782e890f478138840fdc472ba36253f6c98a4c55b09d820696", "reason": "同类英文详细流程；要求先读的四份 reference 文件未随目录提供，补齐后才可采用。", "reason_en": "A detailed English alternative; four required reference files are absent from its directory and must be supplied before use."}
+    ]
+  }
+]

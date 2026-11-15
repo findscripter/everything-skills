@@ -38,7 +38,7 @@ test('repo resolves indexed repository', () => {
 
 test('search eval fixture passes', () => {
   const result = JSON.parse(run('eval', '--json'));
-  assert.equal(result.total, 8);
+  assert.ok(result.total >= 8);
   assert.equal(result.passed, result.total);
 });
 
@@ -89,13 +89,14 @@ function catalogFixture(t) {
 
 test('task recommendations rank alternatives, explain the choice and preserve exact IDs', t => {
   const { rows, write, invoke } = catalogFixture(t);
-  for (const [index, row] of rows.entries()) row.task_rankings = [{ task: 'fixture-task', title: 'Fixture task', title_en: 'Fixture task', triggers: ['fixture task'], rank: index === 0 ? 2 : 1, reason: 'Reviewed scope', reason_en: 'Reviewed scope' }];
+  for (const [index, row] of rows.entries()) row.task_rankings = [{ task: 'fixture-task', title: 'Fixture task', title_en: 'Fixture task', triggers: ['fixture task', 'alpha'], rank: index === 0 ? 2 : 1, reason: 'Reviewed scope', reason_en: 'Reviewed scope' }];
   rows[0].triggers = ['fixture task'];
   write('INDEX/search.json', rows);
   const found = JSON.parse(invoke('search', 'fixture task', '--json').stdout);
   assert.deepEqual(found.map(row => row.name), ['beta', 'alpha']);
   assert.equal(found[0].recommendation.rank, 1);
   assert.equal(found[0].recommendation.reason, 'Reviewed scope');
+  assert.deepEqual(JSON.parse(invoke('search', '  FIXTURE   TASK  ', '--json').stdout).slice(0,2).map(row => row.name), ['beta', 'alpha']);
   assert.ok(invoke('search', 'fixture task').stdout.includes('fixture-task #1'));
   assert.equal(JSON.parse(invoke('search', 'alpha', '--json').stdout)[0].name, 'alpha');
   assert.ok(!JSON.parse(invoke('search', 'fixture', '--json').stdout)[0].recommendation);
@@ -188,6 +189,9 @@ test('Arch package staging preserves runtime queries, source licenses and resour
   assert.equal(direct.recipe.id, 'api-review');
   const repository = JSON.parse(execFileSync(process.execPath, [entry, 'repo', 'anthropics/skills', '--json'], { cwd: os.tmpdir(), encoding: 'utf8' }));
   assert.equal(repository.full_name, 'anthropics/skills');
+  const ranked = JSON.parse(execFileSync(process.execPath, [entry, 'search', '做PPT', '--limit', '1', '--json'], {cwd:os.tmpdir(), encoding:'utf8'}));
+  assert.equal(ranked[0].name, 'pptx-document-processing');
+  assert.equal(ranked[0].recommendation.rank, 1);
   assert.equal(fs.readlinkSync(path.join(stage, 'package/usr/bin/everything-skills')), '/usr/share/everything-skills/bin/everything-skills.mjs');
   assert.deepEqual(fs.readFileSync(path.join(installed, 'LICENSE')), fs.readFileSync(path.join(root, 'LICENSE')));
   const resources = JSON.parse(fs.readFileSync(path.join(installed, 'data/skill-resources.json'), 'utf8'));

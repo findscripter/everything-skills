@@ -1,4 +1,5 @@
 // Browser-safe search: source metadata is data, never HTML or executable instructions.
+import { rankedResult, compareResults } from '../scripts/skill-ranking.mjs';
 export const FEATURED = ['codebase-onboarding-doc', 'api-design-reviewer', 'academic-paper-explainer', 'api-test-suite-builder', 'citation-management', 'monorepo-navigator', 'accessibility-wcag-audit', 'spec-driven-workflow', 'agent-skill-security-scanner'];
 
 export function tokens(value) {
@@ -18,8 +19,8 @@ export function search(rows, query, { category = '', mode = 'skills' } = {}) {
     for (const [value, weight] of weighted) for (const term of terms) if (String(value || '').toLowerCase().includes(term)) score += weight;
     if ((row.triggers || []).some(t => t.toLowerCase() === String(query).trim().toLowerCase())) score += 24;
     const featured = FEATURED.indexOf(row.name);
-    return { row, score: terms.length ? score : (featured < 0 ? 0 : FEATURED.length - featured) };
-  }).filter(item => !terms.length || item.score > 0).sort((a, b) => b.score - a.score || String(a.row.name || a.row.full_name).localeCompare(String(b.row.name || b.row.full_name))).map(item => item.row);
+    return rankedResult(row, terms.length ? score : (featured < 0 ? 0 : FEATURED.length - featured), mode === 'skills' ? query : '');
+  }).filter(item => !terms.length || item.score > 0 || item.recommendation).sort(compareResults).map(({row, recommendation}) => recommendation ? {...row, recommendation} : row);
 }
 
 export function githubPath(relative) {
