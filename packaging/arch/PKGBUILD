@@ -25,8 +25,8 @@ package() {
   # Use the declared system runtime, not a project's unrelated mise Node.
   sed -i '1c#!/usr/bin/node' "$runtime/bin/everything-skills.mjs"
   install -m644 scripts/everything-skills.mjs scripts/load-skill-repos.mjs scripts/skill-ranking.mjs "$runtime/scripts/"
-  install -m644 INDEX/search.json INDEX/graph.json INDEX/quality.json INDEX/sources.md "$runtime/INDEX/"
-  install -m644 data/skill-repos*.jsonl data/workflows.json data/search-eval.json data/skill-provenance.json data/skill-resources.json "$runtime/data/"
+  install -m644 INDEX/search.json INDEX/graph.json INDEX/quality.json INDEX/sources.md INDEX/task-rankings.md "$runtime/INDEX/"
+  install -m644 data/skill-repos*.jsonl data/workflows.json data/search-eval.json data/skill-provenance.json data/skill-resources.json data/skill-rankings.json data/skill-ranking-review.json "$runtime/data/"
   local directory
   for directory in 00-meta 01-documents 02-engineering 03-data 04-ai 05-business 06-creative 07-productivity 08-security 09-verticals 10-platform examples docs; do
     cp -a "$directory" "$runtime/"

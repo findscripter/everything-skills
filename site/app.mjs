@@ -19,6 +19,8 @@ const words = {
 
   }
 };
+words.en.rankingsLink = 'Compare same-task skills and recommendation reasons ↗';
+words.zh.rankingsLink = '查看全库同类任务、推荐顺序与理由 ↗';
 const w = () => words[lang];
 const element = (tag, className, text) => { const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el; };
 const link = (text, url) => { const el = element('a', '', text); el.href = url; return el; };
