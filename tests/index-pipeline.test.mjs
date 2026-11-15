@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const GENERATED = [
@@ -57,6 +58,35 @@ function generate(root) {
 async function json(root, relativePath) {
   return JSON.parse(await fs.readFile(path.join(root, relativePath), 'utf8'));
 }
+
+test('task rankings bind reviewed bodies and reject stale, ambiguous or unknown entries without writes', async t => {
+  const root = await fixture(t);
+  const filename = await addSkill(root, 'alpha');
+  await addSkill(root, 'retired', {status:'deprecated', deprecate_reason:'Historical test entry'});
+  await fs.mkdir(path.join(root, 'data'));
+  const entry = {skill:'alpha', sha256:createHash('sha256').update(await fs.readFile(filename)).digest('hex'), reason:'适用范围', reason_en:'Task fit'};
+  const group = {id:'fixture-task', title:'任务', title_en:'Task', reviewed_at:'2026-11-15', triggers:['make slides'], entries:[entry]};
+  const write = value => fs.writeFile(path.join(root, 'data/skill-rankings.json'), JSON.stringify(value));
+  await write([group]);
+  assert.equal(generate(root).status, 0);
+  const stored = (await json(root, 'INDEX/search.json')).find(row => row.name === 'alpha');
+  assert.equal(stored.task_rankings[0].rank, 1);
+  const previous = await fs.readFile(path.join(root, 'INDEX/search.json'));
+  for (const bad of [
+    [{...group, entries:[{...entry, sha256:'0'.repeat(64)}]}],
+    [{...group, entries:[{...entry, skill:'missing'}]}],
+    [{...group, entries:[{...entry, skill:'retired'}]}],
+    [{...group, entries:[entry, entry]}],
+    [group, {...group, id:'other-task'}],
+    [{...group, triggers:[]}],
+  ]) {
+    await write(bad);
+    const result = generate(root);
+    assert.equal(result.status, 1, result.stdout);
+    assert.match(result.stderr, /skill-rankings/);
+    assert.deepEqual(await fs.readFile(path.join(root, 'INDEX/search.json')), previous);
+  }
+});
 
 test('explicit triggers retain English phrases and override description fallback', async t => {
   const root = await fixture(t);

@@ -513,7 +513,7 @@
     {
       "name": "everything-skills-catalog",
       "local_path": "00-meta/everything-skills-catalog/SKILL.md",
-      "local_sha256": "678026bbe08cf7b2189aea0fbd49d522b6148a3262cb04e4f52e358bec6ffe8f",
+      "local_sha256": "cefc3c6c3d7fca4b74d4c7aba7d1f806d4f97eb2e525540257d4edad9718bcac",
       "kind": "native",
       "declared_license": "CC-BY-4.0",
       "origin_revision_status": "native-repository-history"
@@ -37915,5 +37915,5 @@
       }
     }
   ],
-  "refreshed_at": "2026-11-14T16:40:33.313Z"
+  "refreshed_at": "2026-11-15T04:57:26.919Z"
 }

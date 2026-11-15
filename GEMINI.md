@@ -10,6 +10,7 @@ Before collection, auditing, fixes, or publication, read [sop.md](sop.md) and ap
 - Agents match each skill's `description` field at runtime; they do not browse the directory tree.
 - Human indexes: `INDEX/catalog.md`, `INDEX/tags.md`, and `INDEX/graph.md`.
 - Machine-readable recall: `INDEX/search.json` (name/description/triggers/domain for two-stage retrieval).
+- Reviewed overlapping tasks expose `task_rankings`; CLI/site searches show the matched task's recommendation and reason. Exact skill IDs remain first. See `docs/skill-ranking.md` for scope.
 
 ## Using a skill
 Open its folder and follow the `SKILL.md` instructions. Skills include their instructions and declared packaged helpers; check each skill's explicit runtime dependencies before use. Missing required tools or inputs must stop that workflow.

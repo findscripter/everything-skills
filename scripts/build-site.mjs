@@ -12,9 +12,11 @@ const OUT = path.join(ROOT, '_site');
 await fs.mkdir(OUT, { recursive: true });
 for (const filename of ['index.html', 'styles.css', 'app.mjs', 'search.mjs']) await fs.copyFile(path.join(ROOT, 'site', filename), path.join(OUT, filename));
 await fs.copyFile(path.join(ROOT, 'assets/brand/logo-static.svg'), path.join(OUT, 'logo.svg'));
+await fs.copyFile(path.join(ROOT, 'scripts/skill-ranking.mjs'), path.join(OUT, 'skill-ranking.mjs'));
+const rankingSource = await fs.readFile(path.join(OUT, 'skill-ranking.mjs'), 'utf8');
 const rows = JSON.parse(await fs.readFile(path.join(ROOT, 'INDEX/search.json'), 'utf8'));
 const repos = await loadSkillRepos();
-const skills = rows.map(row => ({ name: row.name, title: row.title, description: row.description, tags: row.tags, triggers: row.triggers, path: row.path, vol: row.vol, status: row.status, review_status: row.quality?.review_status || 'unreviewed' }));
+const skills = rows.map(row => ({ name: row.name, title: row.title, description: row.description, tags: row.tags, triggers: row.triggers, task_rankings:row.task_rankings, path: row.path, vol: row.vol, status: row.status, review_status: row.quality?.review_status || 'unreviewed' }));
 const catalog = {
   outcome: checkOutcome(),
   stats: { total: rows.length, active: rows.filter(row => row.status !== 'deprecated').length, archived: rows.filter(row => row.status === 'deprecated').length, volumes: new Set(rows.map(row => row.vol)).size, repositories: repos.length },
@@ -25,7 +27,8 @@ const catalogJson = JSON.stringify(catalog) + '\n';
 await fs.writeFile(path.join(OUT, 'catalog.json'), catalogJson);
 // Keep cached scripts, styles and data from mixing across a Pages deployment.
 const version = text => createHash('sha256').update(text).digest('hex').slice(0, 12);
-const searchSource = await fs.readFile(path.join(OUT, 'search.mjs'), 'utf8');
+const searchSource = (await fs.readFile(path.join(OUT, 'search.mjs'), 'utf8')).replace("'../scripts/skill-ranking.mjs'", `'./skill-ranking.mjs?v=${version(rankingSource)}'`);
+await fs.writeFile(path.join(OUT, 'search.mjs'), searchSource);
 let appSource = await fs.readFile(path.join(OUT, 'app.mjs'), 'utf8');
 appSource = appSource.replace("'./search.mjs'", `'./search.mjs?v=${version(searchSource)}'`).replace("'./catalog.json'", `'./catalog.json?v=${version(catalogJson)}'`);
 await fs.writeFile(path.join(OUT, 'app.mjs'), appSource);

@@ -23,7 +23,7 @@ license: CC-BY-4.0
 ## 步骤
 
 1. 确认系统有 `everything-skills` 命令。缺失时说明需要安装本机目录工具，停止该流程；不要自行下载安装第三方技能或改变全局配置。
-2. 运行 `everything-skills search "任务关键词" --limit 3 --json`。阅读候选 description 的适用及不适用范围；分数是字段匹配结果，不是运行效果或安全认证。
+2. 运行 `everything-skills search "任务关键词" --limit 3 --json`。阅读候选 description 的适用及不适用范围。若含 `recommendation`，先看它的任务、组内名次和理由，再核对自身输入与工具；这是对已登记同类任务的静态推荐。精确技能 ID 优先；`score` 仍是字段匹配分，不是运行效果或安全认证。
 3. 对主技能运行 `everything-skills why <name> --json`。`requires` 是前置技能声明，`related` 是相关入口，`combines_with` 是搭配候选。无向组合声明不规定执行顺序。
 4. 运行 `everything-skills compose "任务或工作流 id" --json`。`kind=workflow` 提供登记案例的有序步骤、输入输出和验收条件；`kind=suggestions` 只提供候选，需结合任务与正文判断顺序和交接。两者均为 plan-only。
 5. 对当前阶段运行 `everything-skills show <name> --json`，读取完整 content。脚本、参考和模板以返回的 skill_dir 为基准定位，任务的工作目录仍是用户项目；不要把相对路径误拼到用户项目里。
