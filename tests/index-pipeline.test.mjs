@@ -113,6 +113,9 @@ test('library ranking review requires complete current/archive coverage and trut
     data => {data.skills[2].decision = 'ranked';},
     data => {data.skills[0].review_scope = 'metadata-and-usage-section';},
     data => {data.skills[2].compared_with = ['missing'];},
+    data => {data.completed_at = '2026-11-15T05:00:00';},
+    data => {data.completed_at = '2026-11-15T13:00:00+08:00';},
+    data => {data.completed_at = '2026-02-31T05:00:00Z';},
   ]) {
     const invalid = structuredClone(review); mutate(invalid); await write(invalid);
     const result = generate(root);
