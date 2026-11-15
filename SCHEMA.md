@@ -104,6 +104,8 @@ Agent 发现技能靠 `description` 语义匹配，不浏览目录。规模化�
 
 `INDEX/search.json` 为成员内嵌 `task_rankings`，CLI 和网站只在整句触发词匹配时应用顺序；精确技能 ID 优先于任务排名，原关键词分仍独立保留。它是有理由的静态推荐，不是效果或安全认证。维护规则与首批范围见 [任务排名说明](docs/skill-ranking.md)。
 
+全库覆盖文件 `data/skill-ranking-review.json` 包含 `schema_version:1`、固定 `baseline_commit`、实际 UTC 完成时间 `completed_at`、`method`，以及与实际集合精确对应的 `skills` 和 `archived`。现行记录包括 `name/sha256/task/decision/review_scope/reason/compared_with`：`decision` 为 `ranked` 或 `distinct`，须与组员身份一致；入组项须为 `full-body-comparison`，独立项按实际范围可为 `metadata` 或 `metadata-and-usage-section`。归档保留 `name/sha256/reason`。遗漏、重复、未知名称、正文变化或分类矛盾会在写入前失败。总目生成于 `INDEX/task-rankings.md`。
+
 ## 有序案例配方（`data/workflows.json`）
 
 配方将已有教学案例的技能顺序与交接单独登记，供 `compose` 查询。每项有唯一 `id`、`title`、`triggers`、本库内的 `source` 文档、`inputs`、`outputs`、`limits` 及非空 `steps`。每个步骤引用现行技能 `skill`，给出非空输入/输出列表及 `check` 验收说明。CLI 读取时校验字段、技能存在性与源文件路径边界，错误不能静默退回空配方。
