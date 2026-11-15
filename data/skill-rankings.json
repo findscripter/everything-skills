@@ -1,24 +1,1727 @@
 [
   {
+    "id": "ab-experiment-plan",
+    "title": "设计产品 A/B 实验方案",
+    "title_en": "Design a product A/B experiment",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "A/B实验方案",
+      "增长实验设计",
+      "product ab experiment plan"
+    ],
+    "entries": [
+      {
+        "skill": "ab-test-setup-gates",
+        "sha256": "2fd5d034e45c80ebd16951688d93a6c10b83b5ada3a4c9714e02db348e2dd04c",
+        "reason": "先冻结假设、主指标、样本量与护栏，再过就绪门控，任务输入和禁止开测条件明确。",
+        "reason_en": "Freezes hypothesis, primary metric, sample size and guardrails before an explicit readiness gate."
+      },
+      {
+        "skill": "ab-test-designer",
+        "sha256": "d836b2953dd8c94945d375d36a58ad48b82556c63a34cdfd64380bc89b65457a",
+        "reason": "同类方案备选，补充ICE排期和复盘；统计表述及平台参数使用时另核。",
+        "reason_en": "An alternative with ICE backlog and review routines; verify statistical wording and platform settings before use."
+      }
+    ]
+  },
+  {
+    "id": "adversarial-board-prep",
+    "title": "筹备董事会对抗问答",
+    "title_en": "Prepare for adversarial board questions",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "董事会对抗备会",
+      "董事会问答演练",
+      "adversarial board preparation"
+    ],
+    "entries": [
+      {
+        "skill": "board-prep-orchestrator",
+        "sha256": "6855a4b74ab428684c4e52785eab62ce012642571bc110981d98d6070d968136",
+        "reason": "五相位形成数字、问题库、逐董事预案和48小时清单，可检查产物更明确。",
+        "reason_en": "Defines five phases with checkable numbers, question sets, per-director preparation and a 48-hour checklist."
+      },
+      {
+        "skill": "board-meeting-prep",
+        "sha256": "33a1eece8b6352d3fb72e75a943cdf419e33c2facefad1b1a7481ce8f48c5ef0",
+        "reason": "同类演练备选，覆盖脱稿数字、五段叙事与会后行动，适合已有议程自测。",
+        "reason_en": "Covers the same rehearsal, numbers, narrative and follow-up for preparation from an existing agenda."
+      }
+    ]
+  },
+  {
+    "id": "ai-search-citation",
+    "title": "优化 AI 搜索内容引用",
+    "title_en": "Optimize content for AI citations",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "AI搜索引用优化",
+      "GEO内容优化",
+      "ai citation optimization"
+    ],
+    "entries": [
+      {
+        "skill": "ai-answer-engine-seo",
+        "sha256": "2d3e050ff89a047c6f286f166fdbeb4c5473fbc7bdd5526548db86afb5930e15",
+        "reason": "审计、答案块改写、监控闭环明确，并区分验证与推测；平台爬虫声明仍需另核。",
+        "reason_en": "Provides audit, answer-block revision and monitoring with confidence labels; verify crawler claims separately."
+      },
+      {
+        "skill": "ai-search-seo",
+        "sha256": "47d89214938bfed86c5babcd2b5fd2f6bb96fab403eba2f11fffd5bd615b0ccb",
+        "reason": "同类备选，增加第三方露出与查询集；正文效果数字未验证，不作为本排名效果依据。",
+        "reason_en": "Adds third-party presence and query sets; unverified performance figures do not establish ranking efficacy."
+      }
+    ]
+  },
+  {
+    "id": "amm-contract-review",
+    "title": "AMM智能合约安全检查",
+    "title_en": "Review AMM smart-contract security",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "AMM合约安全检查",
+      "自动做市商安全审查",
+      "review AMM contract security"
+    ],
+    "entries": [
+      {
+        "skill": "defi-amm-security-audit",
+        "sha256": "33a56f7bc8821c42d02be4c4eed076f8856da7fe8b84a086c0d56a4ca43d77db",
+        "reason": "专门检查做市/兑换合约的不变量、储备与经济安全，并给分级发现；本轮仅比较指令，未对合约实施审计。",
+        "reason_en": "Specifically checks AMM invariants, reserves and economic security with graded findings; this review compared instructions and did not audit a contract."
+      },
+      {
+        "skill": "solidity-security-auditor",
+        "sha256": "a6ef0324aea121471fdbf1d7f1525a486d8b52f4b5b091fa0a09de75485d0460",
+        "reason": "可提供EVM权限、状态顺序和外部调用的通用基础检查及测试思路；AMM经济模型仍需专项流程和专家复核。",
+        "reason_en": "Provides general EVM access/state-order/external-call checks and test guidance; AMM economic models still need the specialist workflow and expert review."
+      }
+    ]
+  },
+  {
+    "id": "bam-sort-index",
+    "title": "整理已比对 BAM 并建立索引",
+    "title_en": "Sort and index an aligned BAM",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "BAM排序建索引",
+      "已比对BAM整理",
+      "bam sort and index"
+    ],
+    "entries": [
+      {
+        "skill": "samtools-bam-processing",
+        "sha256": "2a24af54bc2ff93789f86e4726a1dbfc4ed32cbd3c8fea6b79a9c07257aed1da",
+        "reason": "专门按排序、索引、QC准备下游文件，并给索引与格式失败处理。",
+        "reason_en": "Directly prepares downstream BAMs through sorting, indexing and QC with relevant failure handling."
+      },
+      {
+        "skill": "genomic-file-toolkit",
+        "sha256": "8287c46fd0ea197c201afddc43b4621b632180ab6a4f8bb5c87a529ee65c3723",
+        "reason": "需要Python脚本内完成相同排序索引时采用，有pysam绑定与异常类型。",
+        "reason_en": "Use when the same sorting/indexing is needed inside Python with pysam bindings."
+      }
+    ]
+  },
+  {
+    "id": "build-airflow-data-dag",
+    "title": "编写并测试 Airflow 数据 DAG",
+    "title_en": "Write and test an Airflow data DAG",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "编写Airflow DAG",
+      "Airflow DAG",
+      "Airflow数据编排",
+      "build airflow dag",
+      "airflow data pipeline"
+    ],
+    "entries": [
+      {
+        "skill": "airflow-dag-builder",
+        "sha256": "b234299d18ed2cfbaaac93199e7b8fe23370896658b549597c41385e42ec7a58",
+        "reason": "先定幂等、原子、增量和可观测，再给 DAG、sensor、重试与 DagBag 校验；数据调度边界明确。",
+        "reason_en": "Defines idempotency, atomicity, increments and observability before DAG, sensor, retry and DagBag checks, with clear data-scheduling boundaries."
+      },
+      {
+        "skill": "airflow-dag-patterns",
+        "sha256": "df136ff4981c5b3caf23e994f86d0451145668fbdc1e595deb6396cdd53baf3d",
+        "reason": "覆盖相同 TaskFlow、分支、sensor 和测试，另有回填 runbook；日期字符串与 datetime.now 示例需先核对模板和幂等性。",
+        "reason_en": "Covers the same TaskFlow, branching, sensors and tests plus a backfill runbook; check date-string templating and datetime.now for idempotency first."
+      }
+    ]
+  },
+  {
+    "id": "build-conversation-memory",
+    "title": "构建跨会话对话记忆",
+    "title_en": "Build cross-session conversation memory",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "构建对话记忆",
+      "跨会话记住用户",
+      "长期对话记忆",
+      "build conversation memory",
+      "cross-session memory"
+    ],
+    "entries": [
+      {
+        "skill": "agent-memory-systems",
+        "sha256": "3ad9a29541a5e0c00478149f3172990733ccba5062babda5b36d6e29f458be02",
+        "reason": "提供记忆类型、元数据、用户隔离、预算、冲突版本与召回评测，适合一般长期对话记忆方案。",
+        "reason_en": "Covers memory types, metadata, user isolation, budgets, conflict versioning and recall evaluation for general persistent conversation memory."
+      },
+      {
+        "skill": "llm-conversation-memory",
+        "sha256": "385d369c539489a034e6e88bc2544c61209dede6cb26caba6d53d77aa5c843fa",
+        "reason": "四层 TS 骨架贴近对话存取与巩固；接口需补全，示例还需落实正文要求的用户命名空间。",
+        "reason_en": "Its four-layer TypeScript skeleton focuses on storage and consolidation; complete interfaces and enforce the user namespaces required by the body."
+      }
+    ]
+  },
+  {
+    "id": "build-data-quality-gates",
+    "title": "搭建数据管道质量校验与契约",
+    "title_en": "Build data-pipeline quality checks and contracts",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "数据管道质量校验",
+      "搭建数据质量闸门",
+      "Great Expectations校验",
+      "build data quality checks",
+      "data quality contract"
+    ],
+    "entries": [
+      {
+        "skill": "data-quality-validator",
+        "sha256": "7cab8946823e1e8804d9b6a4f6668fe1d904d61014e60a8a2a80c916930da5c0",
+        "reason": "工具选择、测试分层、新鲜度、自定义断言及带 schema 的契约均在正文，适合建立可重复校验。",
+        "reason_en": "Tool selection, layered testing, freshness, custom assertions and a schema-bearing contract are inline for repeatable checks."
+      },
+      {
+        "skill": "data-quality-frameworks",
+        "sha256": "f059c032416f67d72c48d1e85195efd9e9185bb8c59c0462b78ffeb37a824a84",
+        "reason": "覆盖相同期望、dbt 测试和 SodaCL 契约，另提醒 owner、修复与阻断前回退，可作较简洁方案入口。",
+        "reason_en": "Covers the same expectations, dbt tests and SodaCL contracts, adding ownership, remediation and rollback before blocking; a concise planning alternative."
+      }
+    ]
+  },
+  {
+    "id": "build-dbt-layered-models",
+    "title": "搭建 dbt 分层转换模型",
+    "title_en": "Build layered dbt transformation models",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "dbt分层建模",
+      "dbt建模",
+      "dbt增量模型",
+      "build dbt models",
+      "dbt transformation pipeline"
+    ],
+    "entries": [
+      {
+        "skill": "dbt-transformation-patterns",
+        "sha256": "aecf8122b89dfed88ad58595b2e35b738f13c5f1bf541fbab74b61ed3688878b",
+        "reason": "内联串起 source 新鲜度、staging、mart、代理键、模型测试与增量策略，示例和工程文件关系清楚。",
+        "reason_en": "Connects source freshness, staging, marts, surrogate keys, tests and incremental strategies inline with clear project-file relationships."
+      },
+      {
+        "skill": "dbt-transformation-modeler",
+        "sha256": "718e107bbc75f7ca378911fe6377bee137c5c2aeaf47d36fef65a16d9b24e255",
+        "reason": "七步流程可快速组织工程；模型测试片段重复 customer_key 列定义，落地前应整理并由 dbt 校验。",
+        "reason_en": "Its seven steps quickly organize a project; consolidate the duplicated customer_key test column before validating with dbt."
+      }
+    ]
+  },
+  {
+    "id": "build-trading-backtest",
+    "title": "构建历史交易策略回测",
+    "title_en": "Build a historical strategy backtest",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "构建策略回测",
+      "搭建回测框架",
+      "build trading backtest"
+    ],
+    "entries": [
+      {
+        "skill": "backtesting-frameworks",
+        "sha256": "cbebc4e3333fccb99d3345539c157296f94ef421ff1c13fac059df9ab4d14715",
+        "reason": "含向量化回测、指标函数、窗口与重采样示例，适合作实现起点；本轮未运行代码或验证收益。",
+        "reason_en": "Includes vectorized backtesting, a metrics function, windows and resampling as an implementation starting point; no execution or return validation here."
+      },
+      {
+        "skill": "trading-strategy-backtester",
+        "sha256": "24ee81eb323037389e012267e3f2e49b0aa7f388ead21f994e9bb98e914c918c",
+        "reason": "覆盖同类成本/偏差及事件驱动边界；_calculate_metrics等示例片段需补实现，适合作已有引擎检查清单。",
+        "reason_en": "Covers similar costs/biases and event-driven boundaries; fragments such as _calculate_metrics need implementation, fitting an existing-engine checklist."
+      }
+    ]
+  },
+  {
+    "id": "company-culture-system",
+    "title": "构建企业文化行为体系",
+    "title_en": "Build a company culture system",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "企业文化体系",
+      "文化行为锚点",
+      "company culture system"
+    ],
+    "entries": [
+      {
+        "skill": "company-culture-builder",
+        "sha256": "2978a5a99bd8419ded1880b84263ef0237bbb6e06181c4ca5db01f84145fc7c5",
+        "reason": "价值观、行为锚点、准则、匿名测评与规模仪式闭环自包含，不强制外部模板。",
+        "reason_en": "A self-contained workflow for values, behavior anchors, culture code, anonymous assessment and rituals."
+      },
+      {
+        "skill": "team-culture-architect",
+        "sha256": "0b779ffa9cf13d4a49ea617f27c7411bbca24dcba614ac9702d1769217121879",
+        "reason": "同类备选，含第30天行为检验与领导诊断，源模板需按实际补充。",
+        "reason_en": "Adds a day-30 behavior check and leadership diagnostics; source templates need separate provision if used."
+      },
+      {
+        "skill": "company-culture-architect",
+        "sha256": "af5a6f7b6a9416502e522e6f1c15ef7f02a93bec092d24c76c35e5a9a4221e3f",
+        "reason": "更细工作坊问卷，但1–5量表接9–10的eNPS算法，使用前须统一评分口径。",
+        "reason_en": "Adds detailed workshops and surveys but mixes a 1–5 scale with 9–10 eNPS scoring; correct the scale first."
+      }
+    ]
+  },
+  {
+    "id": "company-operating-cadence",
+    "title": "设计公司运营会议节奏",
+    "title_en": "Design a company operating cadence",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "公司会议节奏",
+      "运营节奏设计",
+      "company operating cadence"
+    ],
+    "entries": [
+      {
+        "skill": "company-operating-system",
+        "sha256": "5ffc893c325f42bb51ff7bd211523fe1a7d767d3ce9af4add325ef046551dbe9",
+        "reason": "责权图、周记分卡、L10议程、IDS与季度Rocks在正文可直接组成节奏模板。",
+        "reason_en": "Provides accountability, weekly scorecards, L10 agenda, IDS and quarterly Rocks as an inline cadence template."
+      },
+      {
+        "skill": "coo-operations-advisor",
+        "sha256": "adaa9c28967b29019bd1c14e6fcd0afd7f68dece63d553c91b901249b5a14262",
+        "reason": "战略级联和流程诊断并行时采用；必跑ops与OKR脚本缺失，补齐后按全流程使用。",
+        "reason_en": "Use when cadence also needs strategy cascading and process diagnosis; required ops and OKR scripts are absent."
+      }
+    ]
+  },
+  {
+    "id": "compress-long-agent-session",
+    "title": "压缩长会话并保留续作状态",
+    "title_en": "Compress a long agent session while preserving continuation",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "压缩长会话",
+      "保留文件状态的对话压缩",
+      "长会话摘要",
+      "compress agent session",
+      "conversation summary for continuation"
+    ],
+    "entries": [
+      {
+        "skill": "context-compression",
+        "sha256": "7861f36864344530c01eae39d6f24e82f5111c84b78d184397f1eafe0afe0cb6",
+        "reason": "围绕意图、文件、决策、状态和下一步做增量合并，并用续作/文件探针评估信息损失。",
+        "reason_en": "Incrementally merges intent, files, decisions, state and next steps, using continuation and artifact probes to assess information loss."
+      },
+      {
+        "skill": "context-window-management",
+        "sha256": "02055072275ff61bc0a28d279eda8cbffc9827acaf9e8957e2a75b573d7978e7",
+        "reason": "还需 token 预算、响应预留、重要性裁剪与序位时采用；文件轨迹和多次摘要漂移验收不如专门流程明确。",
+        "reason_en": "Use when token budgets, response reserves, importance trimming and ordering are also needed; file trails and repeated-summary drift checks are less explicit."
+      }
+    ]
+  },
+  {
+    "id": "confluence-reusable-template",
+    "title": "规划Confluence模板内容与样例页",
+    "title_en": "Plan Confluence template content and sample pages",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "Confluence模板内容",
+      "Confluence样例页规范",
+      "plan Confluence template content"
+    ],
+    "entries": [
+      {
+        "skill": "atlassian-template-builder",
+        "sha256": "d2ef87e195594cd6c655354f5d25e76ab0e55ae83b4685e1b714f12b4124abb7",
+        "reason": "专门给样例渲染、逐次发布拉回校验及失败回滚；先核对MCP与storage格式。 当前confluence_create_page路径交付普通样例页；原生模板或Blueprint注册需另有API/UI流程，不能按样例页验收原生模板。",
+        "reason_en": "Includes sample rendering, per-publish read-back and rollback; verify MCP and storage format first. Its confluence_create_page path produces an ordinary sample page; native template/Blueprint registration requires a separate API or UI flow and is not established by sample-page checks."
+      },
+      {
+        "skill": "confluence-space-architect",
+        "sha256": "5e59499e45d720425a5feb9fb49c4d6d789e608527f8fe1130e21b2865d83f42",
+        "reason": "同时规划空间层级与权限时的模板备选，建测试页验收后再共享。",
+        "reason_en": "An alternative when hierarchy and permissions are also needed, with a test-page check."
+      }
+    ]
+  },
+  {
+    "id": "content-editorial-strategy",
+    "title": "规划内容支柱与编辑路线图",
+    "title_en": "Plan content pillars and an editorial roadmap",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "内容支柱规划",
+      "主题集群路线图",
+      "content editorial roadmap"
+    ],
+    "entries": [
+      {
+        "skill": "content-strategy-planner",
+        "sha256": "277d1a292c8558c88d9b7eb219575f48d6d2f4b3861f3bac22e24927602c36a4",
+        "reason": "输入、买家旅程和四维排序清楚，固定交付支柱、优先选题与集群地图。",
+        "reason_en": "Defines inputs, buyer stages, scoring and fixed pillar, topic and cluster-map outputs."
+      },
+      {
+        "skill": "content-engine-strategist",
+        "sha256": "308105d00b8c5ee5d99c1d3b2bf0660d3d0467e7338a43214d947a28d476ab73",
+        "reason": "同类备选，适合把库存审计、简报和30/60/90日历一起规划。",
+        "reason_en": "Use when the roadmap also needs inventory audit, briefs and a publishing calendar."
+      },
+      {
+        "skill": "content-marketing-strategist",
+        "sha256": "30d70e458a829faad8e0e52c6b672e150fad42d0213430f254fa5beed599162e",
+        "reason": "同类支柱日历备选，偏全渠道分发与指标；优先级契约较少。",
+        "reason_en": "An alternative emphasizing cross-channel distribution and metrics with less explicit prioritization."
+      }
+    ]
+  },
+  {
     "id": "create-pptx",
     "title": "制作可编辑 PPTX",
     "title_en": "Create an editable PPTX",
     "reviewed_at": "2026-11-15",
-    "triggers": ["做PPT", "生成PPT", "制作PPT", "PPT", "PPTX", "PowerPoint", "create powerpoint"],
+    "triggers": [
+      "做PPT",
+      "生成PPT",
+      "制作PPT",
+      "PPT",
+      "PPTX",
+      "PowerPoint",
+      "create powerpoint"
+    ],
     "entries": [
-      {"skill": "pptx-document-processing", "sha256": "cb696dde24f36ac16829667bae82afb4663ae1b6c23d68adbde9e10a2b75e13c", "reason": "直接交付可编辑 PPTX，涵盖新建、模板编辑、结构和视觉验收；先核对可用工具。", "reason_en": "Delivers editable PPTX files with creation, template editing and structural/visual checks; verify available tools first."},
-      {"skill": "python-pptx-deck-generator", "sha256": "eb0432b8819d61d2d90e172ad90001c4113c376f4ce456f89ff2b4439ae7843f", "reason": "适合希望保留 Python 生成脚本的简单演示；不负责编辑已有文件或精细视觉验收。", "reason_en": "An alternative for simple decks when a reusable Python script is wanted; excludes existing-file editing and detailed visual validation."}
+      {
+        "skill": "pptx-document-processing",
+        "sha256": "cb696dde24f36ac16829667bae82afb4663ae1b6c23d68adbde9e10a2b75e13c",
+        "reason": "直接交付可编辑 PPTX，涵盖新建、模板编辑、结构和视觉验收；先核对可用工具。",
+        "reason_en": "Delivers editable PPTX files with creation, template editing and structural/visual checks; verify available tools first."
+      },
+      {
+        "skill": "python-pptx-deck-generator",
+        "sha256": "eb0432b8819d61d2d90e172ad90001c4113c376f4ce456f89ff2b4439ae7843f",
+        "reason": "适合希望保留 Python 生成脚本的简单演示；不负责编辑已有文件或精细视觉验收。",
+        "reason_en": "An alternative for simple decks when a reusable Python script is wanted; excludes existing-file editing and detailed visual validation."
+      }
     ]
   },
   {
-    "id": "pptx-python-script",
-    "title": "生成 PPT 的 Python 脚本",
-    "title_en": "Generate a Python PPTX script",
+    "id": "cross-functional-decision-routing",
+    "title": "协调跨职能顾问决策",
+    "title_en": "Coordinate cross-functional adviser decisions",
     "reviewed_at": "2026-11-15",
-    "triggers": ["python-pptx", "用Python生成PPT", "生成PPT脚本", "做PPT脚本", "python pptx script"],
+    "triggers": [
+      "跨职能决策协调",
+      "幕僚长顾问编排",
+      "cross functional decision routing"
+    ],
     "entries": [
-      {"skill": "python-pptx-deck-generator", "sha256": "eb0432b8819d61d2d90e172ad90001c4113c376f4ce456f89ff2b4439ae7843f", "reason": "明确以完整、可运行、含保存步骤的 python-pptx 脚本为交付物。", "reason_en": "Explicitly delivers a complete runnable python-pptx script, including the save step."},
-      {"skill": "pptx-document-processing", "sha256": "cb696dde24f36ac16829667bae82afb4663ae1b6c23d68adbde9e10a2b75e13c", "reason": "需要读取或修改现有 PPTX、检查包结构和渲染时采用的通用入口。", "reason_en": "Use the general workflow when existing-file editing, package inspection or rendering checks are also needed."}
+      {
+        "skill": "chief-of-staff-orchestrator",
+        "sha256": "005f157e04f0b45378f9ab9a5a6e203d3bc8a632a047ffcd968d5ddbe6a54b5b",
+        "reason": "评分、路由、防环、单轮评议、四步综合与日志格式齐全，交付一个带取舍的决策点。",
+        "reason_en": "Defines scoring, routing, loop prevention, bounded deliberation, synthesis and a decision log."
+      },
+      {
+        "skill": "chief-of-staff-ops",
+        "sha256": "2fd452c6f3332219f1212ee3b1e6282a6d9b864fad59bc85bb015a0862943af1",
+        "reason": "同机制备选，含到期复盘提醒；完整路由与综合文件属于源参考。",
+        "reason_en": "An equivalent alternative with review-date reminders; detailed routing and synthesis files are source references."
+      }
+    ]
+  },
+  {
+    "id": "deal-milestone-workbook",
+    "title": "维护投行交易里程碑台账",
+    "title_en": "Maintain a deal milestone workbook",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "投行交易台账",
+      "交易里程碑跟踪",
+      "deal milestone workbook"
+    ],
+    "entries": [
+      {
+        "skill": "ib-deal-tracker",
+        "sha256": "257a6fd4cdea2db58111a42f9f157a2a91fc34f197a0d5846fb1a3f65b8289c1",
+        "reason": "投行字段、完整里程碑、临近14天和逾期判据明确，固定Excel分页交付。",
+        "reason_en": "Defines investment-banking fields, milestones, upcoming/overdue rules and workbook sheets."
+      },
+      {
+        "skill": "deal-pipeline-tracker",
+        "sha256": "07cb292cf90ad3d419253c933ae0e7fd585ab5b3a12a68da742512b93c5e863f",
+        "reason": "轻量同产物备选，阶段可按业务改写，不承担重型关键路径管理。",
+        "reason_en": "A lighter equivalent with adaptable stages; heavy critical-path management is out of scope."
+      }
+    ]
+  },
+  {
+    "id": "design-agent-tool-contracts",
+    "title": "设计或重构 Agent 工具契约",
+    "title_en": "Design or refactor agent tool contracts",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "Agent工具设计",
+      "Agent工具契约",
+      "工具集精简",
+      "design agent tools",
+      "agent tool contract"
+    ],
+    "entries": [
+      {
+        "skill": "agent-tool-design",
+        "sha256": "e18446d78c2d5885c9b2deb9549be16434181c65849b9c6ff6eada7b3a9d3a4e",
+        "reason": "先定工作流粒度与合并例外，再定义输入输出、可恢复错误和代表请求回测，边界完整。",
+        "reason_en": "Starts with workflow granularity and merge exceptions, then defines inputs, outputs, recoverable errors and representative-request retesting."
+      },
+      {
+        "skill": "agent-tool-design-patterns",
+        "sha256": "0cdd296d0a0809f074e2734b4a7303ae4a045eae43a5808072a1764fb9048d55",
+        "reason": "相同整合原则与八步流程可替代，适合紧凑检查；架构精简例外较少。",
+        "reason_en": "The same consolidation principle and eight-step flow offer a compact alternative, with fewer exceptions to architecture reduction."
+      },
+      {
+        "skill": "agent-tool-builder",
+        "sha256": "0ef7e200269927c75e63894ada9487887733effd7ac211e57d067a0e59df36ba",
+        "reason": "需要 JSON Schema、SDK/MCP 片段时采用；字符串返回和错误格式等假设需按宿主协议核对。",
+        "reason_en": "Use for JSON Schema and SDK/MCP fragments; check string-return and error-shape assumptions against the host protocol."
+      }
+    ]
+  },
+  {
+    "id": "design-agent-workflow-json",
+    "title": "设计多智能体工作流 JSON 骨架",
+    "title_en": "Design a multi-agent workflow JSON skeleton",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "多智能体工作流设计",
+      "生成Agent工作流骨架",
+      "Agent交接契约",
+      "multi-agent workflow design",
+      "agent workflow skeleton"
+    ],
+    "entries": [
+      {
+        "skill": "multi-agent-workflow-designer",
+        "sha256": "f45e92caba2acf393c10ba303af32d3f3b23ff858ccd999f3136065e2fd5423f",
+        "reason": "五种模式、命令默认值、输出参数与交接字段明确，内联 JSON 可对照；脚手架和参考文件已随包。",
+        "reason_en": "Five patterns, command defaults, output options and handoff fields are explicit with inline JSON examples; scaffolder and references are packaged."
+      },
+      {
+        "skill": "agent-workflow-pattern-designer",
+        "sha256": "72dc44768838bc7c93faa3328736be50d155e63f5857b952be2e1d7655a2dd77",
+        "reason": "采用相同五模式与脚手架，交接和预算约束等价，可作相同 JSON 工作流任务的紧凑备选。",
+        "reason_en": "Uses the same five patterns and scaffolder with equivalent handoff and budget constraints, providing a compact alternative."
+      }
+    ]
+  },
+  {
+    "id": "design-relational-schema",
+    "title": "设计关系数据库 Schema 与约束",
+    "title_en": "Design a relational database schema and constraints",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "关系数据库Schema设计",
+      "关系表结构设计",
+      "关系数据库建模",
+      "design relational schema",
+      "relational database modeling"
+    ],
+    "entries": [
+      {
+        "skill": "database-design-advisor",
+        "sha256": "b99998231b467781ea16263fdc836716afca0bdcf42a1196e55a2202994e5225",
+        "reason": "按真实约束定义 schema、索引与可逆迁移并要求执行计划验证，适合作关系建模的通用入口。",
+        "reason_en": "Defines schema, indexes and reversible migrations from actual constraints and requires query-plan verification, fitting general relational modeling."
+      },
+      {
+        "skill": "erd-schema-designer",
+        "sha256": "a983ef0e1055f9dc5c97bfddc7737f933e5471d43f31a0dddb867fbfe23a64ec",
+        "reason": "实体→基数→3NF→Mermaid 流程更专门；但 RLS 默认 permissive 策略把租户与软删除条件按 OR 放行，存在跨租户风险；Prisma 索引引用未定义 dueDate，采用前须修正。",
+        "reason_en": "Its entity-to-cardinality-to-3NF-to-Mermaid flow is specialized; default permissive RLS policies OR tenant and soft-delete conditions, risking cross-tenant access, and its Prisma index references undefined dueDate. Correct these before use."
+      }
+    ]
+  },
+  {
+    "id": "design-reusable-prompt",
+    "title": "设计并优化可复用提示词",
+    "title_en": "Design and optimize a reusable prompt",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "设计可复用提示词",
+      "提示词模板",
+      "优化提示词模板",
+      "reusable prompt template",
+      "design a prompt template"
+    ],
+    "entries": [
+      {
+        "skill": "prompt-template-designer",
+        "sha256": "f5d87d762d2946e4b424085c2d3096f836b603efdbba1c0b84bed72fbfe37197",
+        "reason": "先定义变量、输出 schema 和验收点，再分离数据指令、覆盖边界 few-shot 并逐变量迭代，交付可回归模板。",
+        "reason_en": "Defines variables, output schema and acceptance criteria before separating data from instructions, covering edge examples and iterating one variable at a time."
+      },
+      {
+        "skill": "llm-prompt-optimizer",
+        "sha256": "4bd11fb7672df88b58f99e6d3a352f1a6cb5464e45d1918df765f3d2be9b3228",
+        "reason": "适合从含糊、格式漂移或冗长症状按 RSCIT 改写；变量契约、防注入和版本冻结不如模板入口完整。",
+        "reason_en": "Uses RSCIT to rewrite vague, format-drifting or verbose prompts; variable contracts, injection boundaries and version freezing are less complete."
+      }
+    ]
+  },
+  {
+    "id": "dispatch-independent-agent-tasks",
+    "title": "并行分派并整合独立子任务",
+    "title_en": "Dispatch and integrate independent agent tasks",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "并行分派独立任务",
+      "独立测试失败并行修复",
+      "独立子任务派发",
+      "dispatch independent tasks",
+      "parallel independent agent tasks"
+    ],
+    "entries": [
+      {
+        "skill": "parallel-agent-dispatch",
+        "sha256": "71fb57a30f78d98b432db1722ec708ba9e6e0dabf8817d2e90cd9bc41edcedde",
+        "reason": "先核实根因独立和无共享状态，再定义范围/目标/约束并回收冲突检查和真实全量测试，直接覆盖独立问题分派。",
+        "reason_en": "Checks independent causes and no shared state before scoped briefs, conflict review and an actual full test run, directly covering independent-problem dispatch."
+      },
+      {
+        "skill": "quota-aware-subagent-orchestrator",
+        "sha256": "dd9f61092893c90962c64cd55e6d26b23a2e6c3e57da034043e6c98bdc6b6ccf",
+        "reason": "大型多文件且需成本分轮控制时采用；配额仅人工估算，集成清单的心算 build 不能替代真实构建。",
+        "reason_en": "Use for larger multi-file work needing cost-aware rounds; quotas are manual estimates, and its imagined build check cannot replace an actual build."
+      }
+    ]
+  },
+  {
+    "id": "draft-ip-cease-desist",
+    "title": "起草知识产权停止侵权函",
+    "title_en": "Draft an IP cease-and-desist letter",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "起草停止侵权函",
+      "知识产权维权函",
+      "draft IP cease and desist"
+    ],
+    "entries": [
+      {
+        "skill": "cease-and-desist-letter",
+        "sha256": "43b50b72aabd0a70d1544211eb8c390d8677f0d3ce3d06a4cd7e780381fcd945",
+        "reason": "send分支专门核对权利、证据、对方尽调与审批姿态；交付待律师审阅草稿，需案件配置。",
+        "reason_en": "Its send branch addresses rights, evidence, counterparty diligence and approvals; produces a counsel-review draft requiring matter configuration."
+      },
+      {
+        "skill": "demand-letter-drafter",
+        "sha256": "2c405a640823e4e6d3b813dd35cda7a970b516796f8c3c57ef708b10a1d06237",
+        "reason": "已有索赔intake时可采用通用C&D模板及特权/自认检查；不代替权利调查或实际发函。",
+        "reason_en": "An alternative with a C&D template and privilege/admission checks when intake is already complete; does not investigate rights or send letters."
+      }
+    ]
+  },
+  {
+    "id": "earnings-analyst-concerns",
+    "title": "分析财报问答中的分析师关切",
+    "title_en": "Analyze analyst concerns in earnings Q&A",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "财报分析师关切",
+      "电话会提问归因",
+      "analyze earnings analyst concerns"
+    ],
+    "entries": [
+      {
+        "skill": "octagon-earnings-analyst-questions",
+        "sha256": "1d9248f0b6ca29ca77f05dacc24871546c4295f3d8916de17795ab1f2a5a8a26",
+        "reason": "按主题、提问人/机构、回答状态及热度归档，直接覆盖关切归因；需Octagon来源页码。",
+        "reason_en": "Organizes themes, analyst/firm attribution, answer status and attention for concern attribution; requires Octagon page references."
+      },
+      {
+        "skill": "octagon-earnings-qa-analysis",
+        "sha256": "115d94d4e1c2999cb87a2786450dc6a2b886851ffc170494d21fe69f940c3a1f",
+        "reason": "同样覆盖关切与回应质量，适合将问答放回竞争、利润率和资本配置语境；读数不是交易信号。",
+        "reason_en": "Also covers concerns/response quality within competitive, margin and allocation context; these readings are not trading signals."
+      }
+    ]
+  },
+  {
+    "id": "earnings-forward-guidance",
+    "title": "提取财报电话会前瞻指引",
+    "title_en": "Extract forward guidance from earnings calls",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "提取财报指引",
+      "财报前瞻指引",
+      "extract earnings guidance"
+    ],
+    "entries": [
+      {
+        "skill": "octagon-earnings-financial-guidance",
+        "sha256": "d4e9adbcfd573e7f241156fc476a02bc3e7c1a5aa2a64157775112a6a03bd906",
+        "reason": "专门输出定量区间、分部指引、风险口径和指引/实际跟踪表；需Octagon逐字稿及页码证据。",
+        "reason_en": "Specifically outputs ranges, segment guidance, caveats and guidance/actual tracking; requires Octagon transcripts with page evidence."
+      },
+      {
+        "skill": "octagon-earnings-call-analysis",
+        "sha256": "a7f63e53d6a8199d8fd1fbd3312a1a12ee8b6e29e70a9b237de669a567697136",
+        "reason": "整场纪要流程也抽取指引，适合同时要战略、供应链和运营挑战全貌；不负责交易执行。",
+        "reason_en": "Whole-call analysis also extracts guidance, with broader strategy, supply-chain and operational context; does not execute trades."
+      }
+    ]
+  },
+  {
+    "id": "engineering-ai-static-signature-review",
+    "title": "规划 AI 系统输入的静态签名评估",
+    "title_en": "Plan static signature assessment of AI system inputs",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "AI静态签名评估",
+      "LLM输入签名审计",
+      "plan ai signature assessment"
+    ],
+    "entries": [
+      {
+        "skill": "ai-system-security-audit",
+        "sha256": "a36580d309036e4395068c35093a7e5e69f6d1da8e4d17c8f73008598f87c521",
+        "reason": "直接列出输入格式、覆盖与护栏输出，适合规划静态签名评估；核心 scripts/ai_threat_scanner.py 缺失，不能执行或据其静态分数宣称抗攻击能力。",
+        "reason_en": "Lists input format, coverage and guardrail outputs directly for planning; ai_threat_scanner.py is missing, and static scores cannot establish attack resistance."
+      },
+      {
+        "skill": "ai-ml-security-assessor",
+        "sha256": "9d65b29df83973598f994e3289c6a80a580ade161c08bece0b6198b67335cbb0",
+        "reason": "覆盖相同评估与审批门，但扫描器和 references/atlas-coverage.md 均缺失，须补齐才可执行所述扫描与覆盖核对。",
+        "reason_en": "Covers the same assessment and approval gates, but both the scanner and atlas-coverage.md are absent and required for the documented scan and coverage check."
+      }
+    ]
+  },
+  {
+    "id": "engineering-authorized-aws-assessment",
+    "title": "规划授权 AWS 攻击路径评估",
+    "title_en": "Plan an authorized AWS attack-path assessment",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "授权AWS攻击路径评估",
+      "AWS渗透评估方案",
+      "plan authorized aws assessment"
+    ],
+    "entries": [
+      {
+        "skill": "cloud-penetration-testing",
+        "sha256": "3731a5c98aad1667c9f0c18b3e8b4a178b0740414888cfb558ee5dc7d44848e1",
+        "reason": "明确scope/ROE、账号边界与禁止生产客户数据，AWS资源枚举可作为评估计划起点；所有修改/提取示例必须逐动作限定授权，不能视为默认操作。",
+        "reason_en": "Explicit scope/ROE, account boundaries and a production-customer-data prohibition frame AWS inventory planning; modification/extraction examples require action-specific authorization."
+      },
+      {
+        "skill": "aws-penetration-testing",
+        "sha256": "7ce57c73046a3facf3caaa7e4801570ac98466e896da61102ebc3b6b38b294e2",
+        "reason": "IAM与AWS路径更细，但包含删除/收窄审计轨迹示例，与保留审计证据目标冲突；需先剔除这类步骤并限定隔离测试资源，不能整篇照跑。",
+        "reason_en": "Details IAM/AWS paths, but audit-trail deletion/reduction examples conflict with evidence preservation; remove those steps and constrain isolated test resources before use."
+      }
+    ]
+  },
+  {
+    "id": "engineering-availability-incident-response",
+    "title": "组织可用性事故响应与服务恢复",
+    "title_en": "Coordinate an availability incident and restore service",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "线上可用性事故响应",
+      "服务中断应急响应",
+      "respond to availability incident"
+    ],
+    "entries": [
+      {
+        "skill": "sre-incident-responder",
+        "sha256": "35934ed9f1263045ccfad4ecc774edf891887be313b7ac056dc8c8bca44f9f0a",
+        "reason": "按影响定级、IC/沟通/技术分工、立即止损、可观测排查和SLI恢复校验组织闭环，不依赖缺失的本地分类器。",
+        "reason_en": "Sequences impact triage, command/comms/technical roles, immediate mitigation, evidence-driven diagnosis and SLI recovery checks without missing local classifiers."
+      },
+      {
+        "skill": "incident-commander-framework",
+        "sha256": "169437706260f2759d22a099d54fa306613ff90b1e366eecb57538c807288289",
+        "reason": "指挥与沟通模板较全，但自动分类、时间线和PIR三个脚本及声明参考缺失；采用手工模板时仍需按组织权限与事故类型调整。",
+        "reason_en": "Contains command and communication templates, but three classification/timeline/PIR scripts and a declared reference are absent; adapt manual templates to organizational authority and incident type."
+      }
+    ]
+  },
+  {
+    "id": "engineering-aws-cost-analysis",
+    "title": "分析 AWS 账单并形成降本建议",
+    "title_en": "Analyze AWS spend and recommend cost reductions",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "分析AWS成本",
+      "AWS账单降本",
+      "analyze aws cost"
+    ],
+    "entries": [
+      {
+        "skill": "aws-cost-optimizer",
+        "sha256": "3f64f27a29921f25df898f17fe0089882b07e59a3d29cbcb2730c65003c98604",
+        "reason": "直接从Cost Explorer与CloudWatch取支出/利用率并盘点闲置资源，明确删除与生产变更需逐项确认，适合AWS分析报告。",
+        "reason_en": "Directly uses Cost Explorer/CloudWatch spend and utilization data and inventories idle resources, separating analysis from resource deletion and production changes."
+      },
+      {
+        "skill": "cloud-cost-optimization",
+        "sha256": "b3cbf3ec60d9eacec01419b04c6492d9a7bfd0132da525ad145ac6580b68c8e5",
+        "reason": "适合还需多云标签、预算、定价和架构治理时，AWS账单取数流程较少；折扣量级与具体留存删除配置需另按实际核验。",
+        "reason_en": "Useful when broader multi-cloud tagging, budgets, pricing and architecture governance are needed; AWS data collection is lighter, and discount figures/retention settings need contextual verification."
+      }
+    ]
+  },
+  {
+    "id": "engineering-backend-api-hardening",
+    "title": "为后端 API 实施安全控制",
+    "title_en": "Implement backend API security controls",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "后端API安全加固",
+      "接口安全控制实现",
+      "implement backend api security"
+    ],
+    "entries": [
+      {
+        "skill": "backend-security-coder",
+        "sha256": "da4bb342459f725988b46f4b68ffdaca71d3df7fa730ab3d4b29d89a55a9462d",
+        "reason": "按输入、查询、会话、cookie/CSRF、权限、外部URL/超时和日志逐层实施，并要求自动/人工回归，适合已有后端补防护。",
+        "reason_en": "Sequences input, queries, sessions, cookie/CSRF, authorization, outbound URLs/timeouts and logs with automated/manual regression checks for existing backends."
+      },
+      {
+        "skill": "api-security-best-practices",
+        "sha256": "d92446c5177c9718a60aadbe3c51fc5493cb28522213d5a1d1e0756701574af0",
+        "reason": "提供JWT、对象授权、参数化查询和限流代码实例；固定阈值须按环境调整，密码长度正文与示例不一致需先统一。",
+        "reason_en": "Provides JWT, object authorization, parameterized-query and rate-limit snippets; adapt fixed thresholds and reconcile inconsistent prose/example password lengths."
+      }
+    ]
+  },
+  {
+    "id": "engineering-choose-zoom-surface",
+    "title": "选择 Zoom 集成产品与 API 面",
+    "title_en": "Choose Zoom integration products and API surfaces",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "Zoom接口面选型",
+      "选择Zoom SDK",
+      "choose zoom integration surface"
+    ],
+    "entries": [
+      {
+        "skill": "zoom-product-surface-selector",
+        "sha256": "7809f39a86181675c39badf828c831438be6be9e15629d328944bfd419deefae",
+        "reason": "直接交付一条推荐路线、最小支撑件、被否方案与下一步，专门解决Meeting/Video/REST/MCP等构建面歧义。",
+        "reason_en": "Directly delivers a recommended route, minimal supporting pieces, rejected alternatives and next steps for Meeting/Video/REST/MCP surface ambiguity."
+      },
+      {
+        "skill": "zoom-integration-planner",
+        "sha256": "7b4931d46923e0d37c9cc4d18ed25957151f329b28bf6b6bb9d593e8f385a6dc",
+        "reason": "包含同样的接口面决策表，适合还需要认证scope、分阶段交付、风险与最小验证切片的完整实施计划。",
+        "reason_en": "Includes the same surface-decision table when a complete plan with authentication/scopes, delivery stages, risks and a minimal validation slice is also needed."
+      }
+    ]
+  },
+  {
+    "id": "engineering-chrome-mv3-extension",
+    "title": "开发 Chrome Manifest V3 扩展",
+    "title_en": "Build a Chrome Manifest V3 extension",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "开发Chrome扩展",
+      "Manifest V3扩展",
+      "build chrome mv3 extension"
+    ],
+    "entries": [
+      {
+        "skill": "chrome-extension-mv3",
+        "sha256": "06dcaa98e187d9b8a3bca880bcab0d33c909b0f934270ca38ea5f6847f060c29",
+        "reason": "聚焦三上下文边界、消息、权限、存储和加载调试，并指出 Worker 失活与 alarms 约束，适合 Chrome MV3 实现。",
+        "reason_en": "Focuses on context boundaries, messaging, permissions, storage and loading/debugging, including worker lifetime and alarms constraints."
+      },
+      {
+        "skill": "browser-extension-builder",
+        "sha256": "1bc58504fc49c38ef17a528dcaade0735705d08e841dd2e39ed8332a7d12642c",
+        "reason": "提供工程目录、弹窗/内容脚本/后台和商店检查，适合还需变现与发布规划时；Chrome 实现约束不如首选集中。",
+        "reason_en": "Provides project structure, UI/content/background components and store checks, useful when monetization and release planning are needed; Chrome implementation constraints are less concentrated."
+      }
+    ]
+  },
+  {
+    "id": "engineering-cloudflare-worker",
+    "title": "实现 Cloudflare Worker 与存储绑定",
+    "title_en": "Implement a Cloudflare Worker and storage bindings",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "部署Cloudflare Worker",
+      "Cloudflare Worker开发",
+      "implement cloudflare worker"
+    ],
+    "entries": [
+      {
+        "skill": "cloudflare-workers-expert",
+        "sha256": "ab161f55bb82a3f1fb101d4547462b3986ff83d345a16c3952049af9afb11aad",
+        "reason": "把配置、绑定、存储选型、处理器和部署观测列成完整顺序，适合新建 Worker；正文限额与性能数字仍需按目标账户核验。",
+        "reason_en": "Sequences configuration, bindings, storage choice, handler implementation and deployment observation; verify stated limits and performance figures for the target account."
+      },
+      {
+        "skill": "cloudflare-workers-edge",
+        "sha256": "e3c7ad4866112f37803785f1be64bd8e84591c9514145467bfc3bea510d7b49c",
+        "reason": "提供相同 Fetch/KV 与响应改写示例，适合已有 Worker 的简明参考；不增加平台运行验证证据。",
+        "reason_en": "Offers the same Fetch/KV and response-rewriting examples as a concise reference for an existing Worker; it adds no runtime validation evidence."
+      }
+    ]
+  },
+  {
+    "id": "engineering-cqrs-read-write",
+    "title": "实现 CQRS 命令查询分离与读模型",
+    "title_en": "Implement CQRS command/query separation and read models",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "实现CQRS",
+      "CQRS读写分离",
+      "implement cqrs read models"
+    ],
+    "entries": [
+      {
+        "skill": "cqrs-implementation",
+        "sha256": "acbddf01e916400a21a359e587967bdd9d804c1c5f0c52d4599c97762a0f2a6a",
+        "reason": "集中命令/查询总线、投影checkpoint、读己之写与滞后SLA，适合将读写模型分离后实施和恢复验证。",
+        "reason_en": "Concentrates on command/query buses, projection checkpoints, read-your-writes and lag SLAs for implementation and recovery checks."
+      },
+      {
+        "skill": "event-sourcing-cqrs",
+        "sha256": "a678239fb34590cf09ba9cd5cba38f83c9cc5bc9351ded3244bac6a4e5b923cc",
+        "reason": "同样覆盖命令和投影，但重点是事件事实、快照与版本；当读写分离还需事件历史回放时采用。",
+        "reason_en": "Also covers commands and projections but emphasizes immutable events, snapshots and versions; use when separation also needs event-history replay."
+      }
+    ]
+  },
+  {
+    "id": "engineering-create-adr",
+    "title": "编写架构决策记录并维护索引",
+    "title_en": "Write an architecture decision record and index",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "编写ADR",
+      "架构决策记录",
+      "write architecture decision record"
+    ],
+    "entries": [
+      {
+        "skill": "adr-management-patterns",
+        "sha256": "6ef405990c2ac51eb6d83ef203ad2b9162200ff53950df67d010f04c93125701",
+        "reason": "模板、决策驱动因素、评审清单与取代治理集中在正文，适合主动编写正式 ADR；adr-tools 是可选自动化。",
+        "reason_en": "Provides templates, decision drivers, review checks and supersession governance directly in the body; adr-tools is optional."
+      },
+      {
+        "skill": "adr-auto-capture",
+        "sha256": "adf1c12433f98edfa5dc3eaf4df84c788694e0d1c11ca1700f7af25641a65b5d",
+        "reason": "同样给出完整 ADR 模板和索引；更适合从正在进行的对话捕获决策，包含草稿批准与回读已有记录步骤。",
+        "reason_en": "Also includes a full ADR template and index; prefer it when capturing a decision from a live conversation, with draft approval and retrieval steps."
+      }
+    ]
+  },
+  {
+    "id": "engineering-dockerfile-optimization",
+    "title": "优化 Dockerfile 镜像与构建缓存",
+    "title_en": "Optimize a Dockerfile image and build cache",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "优化Dockerfile",
+      "Docker镜像瘦身",
+      "optimize dockerfile"
+    ],
+    "entries": [
+      {
+        "skill": "docker-expert",
+        "sha256": "2f7f794811d3b843367a2c7a875a7dafc83b32e370b9c1ebbd2aed22f77decec",
+        "reason": "包含环境勘察、沿用现有约定及构建/运行验证路径，不依赖缺失的本地分析器；示例 target、健康检查工具与基础镜像须按项目校正。",
+        "reason_en": "Includes environment inspection, existing conventions and build/runtime checks without missing local analyzers; adapt example targets, health-check utilities and base images."
+      },
+      {
+        "skill": "docker-development-optimizer",
+        "sha256": "3d84ba622a08901c72c93601b97459046ab87cf1ed7dc4d61108cae63f31f19f",
+        "reason": "四类优化清单和多语言模板清楚，但强制校验引用的 scripts/dockerfile_analyzer.py 与 compose_validator.py 未随目录提供，补齐后使用该路径。",
+        "reason_en": "Has clear optimization checklists and language examples, but required dockerfile_analyzer.py and compose_validator.py are absent from its directory and must be supplied for that path."
+      },
+      {
+        "skill": "docker-container-optimizer",
+        "sha256": "c502f6fd9b6e0e0298abdfda3d224706fa791e940347f7f08865af8931820d82",
+        "reason": "提供同类构建缓存与多阶段决策，适合紧凑参考；同样缺少两份声明的校验脚本，不能按文中命令直接完成验收。",
+        "reason_en": "Provides a compact reference for caching and multi-stage decisions; the same two declared validation scripts are absent, so the documented checks cannot run as packaged."
+      }
+    ]
+  },
+  {
+    "id": "engineering-fix-reproducible-bug",
+    "title": "定位并修复已有软件缺陷",
+    "title_en": "Diagnose and fix an existing software defect",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "修复软件bug",
+      "定位bug根因",
+      "diagnose and fix bug"
+    ],
+    "entries": [
+      {
+        "skill": "bug-hunter",
+        "sha256": "50429726fb55ce2dc64bb77d68a42016e27e8739a3b988de5d6bb4881d9e9ddd",
+        "reason": "从复现、证据到最小根因修复、原路径回归和新增用例闭环，并给出含变更文件的交付模板。",
+        "reason_en": "Closes the loop from reproduction and evidence to root-cause repair, original-path regression and a new test, with a changed-file report template."
+      },
+      {
+        "skill": "systematic-debugger",
+        "sha256": "4581a545437f4ae18ef78aa49a8c127729f99164e0df1849152c532a512f7573",
+        "reason": "覆盖同样的证据假设循环，并有多语言断点、差分表和生产取证限制；补回归用例的要求不如首选集中。",
+        "reason_en": "Covers the evidence/hypothesis loop with multi-language debugging, differential tables and production investigation boundaries; regression-test delivery is less explicit."
+      },
+      {
+        "skill": "systematic-debugging-strategies",
+        "sha256": "3ffdd94c50f6002a02053efd01074d0aa1ddb8301fceffa4927b00964429bad5",
+        "reason": "同类调查步骤与 git bisect、内存和性能工具参考齐备，适合排查复杂症状；仍须自行补具体修复与防回归交付。",
+        "reason_en": "Includes comparable investigation steps and bisect, memory and profiling references for complex symptoms; concrete fixes and regression deliverables still need to be added."
+      }
+    ]
+  },
+  {
+    "id": "engineering-fp-ts-migration",
+    "title": "将命令式 TypeScript 渐进重构为 fp-ts",
+    "title_en": "Incrementally refactor imperative TypeScript to fp-ts",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "迁移fp-ts",
+      "fp-ts重构",
+      "refactor imperative typescript to fp-ts"
+    ],
+    "entries": [
+      {
+        "skill": "fp-ts-refactor",
+        "sha256": "5bc3ce9aa565554315778f519271f4c8383e76ba763c4391e8f2272a624aff8d",
+        "reason": "逐步修改错误类型、函数签名、返回值与边界桥接，涵盖 Either/TaskEither/Reader 的模块化迁移与测试约束。",
+        "reason_en": "Steps through error types, signatures, return values and boundary bridges, with modular Either/TaskEither/Reader migration and testing guidance."
+      },
+      {
+        "skill": "fp-ts-pragmatic-guide",
+        "sha256": "ea358afd3edd2b5490267bec826d85afe70e8707380836b5e0ead85a83ada79b",
+        "reason": "提供最小模式决策树与可读性回退边界，适合先改少数链式流程；大范围签名与调用方迁移策略较少。",
+        "reason_en": "Provides a minimal-pattern decision tree and readability fallback for a few pipelines; signature and caller migration strategy is lighter."
+      }
+    ]
+  },
+  {
+    "id": "engineering-github-ci-workflow",
+    "title": "编写 GitHub Actions 测试构建流水线",
+    "title_en": "Write a GitHub Actions test/build workflow",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "编写GitHub CI",
+      "GitHub Actions测试构建",
+      "write github actions ci"
+    ],
+    "entries": [
+      {
+        "skill": "github-actions-author",
+        "sha256": "c08d0f8a9fdcb48c7a6e00fea205b27827f6ac70246242bf083a85d9be461934",
+        "reason": "按触发器、runner、jobs、permissions、缓存和环境门禁组织YAML，并直接给测试/镜像/复用实例。",
+        "reason_en": "Organizes YAML by triggers, runners, jobs, permissions, cache and environment gates, with direct test, image and reusable-workflow examples."
+      },
+      {
+        "skill": "ci-cd-pipeline-builder",
+        "sha256": "632c76d30de47625cdbb944432b822726b76a9bc47723ee8f6c124c539b8cdcb",
+        "reason": "先检测真实脚本再产出跨平台基线的思路贴合起步CI，但stack_detector.py与pipeline_generator.py缺失，自动生成路径须补齐。",
+        "reason_en": "Its stack-first approach fits starter CI across platforms, but stack_detector.py and pipeline_generator.py are absent and required for generation."
+      }
+    ]
+  },
+  {
+    "id": "engineering-go-cancellable-pool",
+    "title": "实现可取消的 Go Worker Pool",
+    "title_en": "Implement a cancellable Go worker pool",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "Go可取消工作池",
+      "goroutine优雅关闭",
+      "implement cancellable go worker pool"
+    ],
+    "entries": [
+      {
+        "skill": "golang-pro",
+        "sha256": "34c14ac35916cb326b1353699f4d6b73d6630216344266364d0cf3c7c00f778f",
+        "reason": "工作池示例把ctx.Done与jobs接收放在同一select，处理通道关闭和job错误，并要求race与基准；适合先交付基本可取消池。",
+        "reason_en": "The pool example selects cancellation alongside job reception, handles channel closure and job errors, and requires race/benchmark checks for a basic cancellable pool."
+      },
+      {
+        "skill": "go-concurrency-patterns",
+        "sha256": "3c9ffa2d18c220c31181ccd52c62a963277ba3b9829e94bcf6ee7856fca304f6",
+        "reason": "给出更多pool/pipeline/errgroup策略，但pool示例的range接收和results发送未同时监听取消，与正文阻塞点要求不一致，须修正后使用。",
+        "reason_en": "Adds pool/pipeline/errgroup strategies, but its pool range receive and result send do not select cancellation as the prose requires and must be corrected."
+      }
+    ]
+  },
+  {
+    "id": "engineering-go-chromium-automation",
+    "title": "用 Go 实现 Chromium 页面提取与交互",
+    "title_en": "Automate Chromium extraction and interaction in Go",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "Go浏览器页面提取",
+      "Go Chromium自动化",
+      "go chromium automation"
+    ],
+    "entries": [
+      {
+        "skill": "go-rod-browser-automation",
+        "sha256": "42f530d1933eba95dd0fd3e33c62e31af40e3abc7b4df2d881045a38cc6520e8",
+        "reason": "对 Chromium 场景提供等待、返回error、超时、请求拦截、页面池和文件产物的直接示例；需按目标版本验证，未测反检测效果。",
+        "reason_en": "For Chromium, includes direct examples for waits, errors, timeouts, request interception, page pools and output files; verify versions, and no anti-detection effectiveness was tested."
+      },
+      {
+        "skill": "go-playwright-automation",
+        "sha256": "f0490991ca1e093fb505fb1b0a84719addec4c81171e8da8d14d85cf07343d84",
+        "reason": "适合已有 playwright-go 的项目，突出多Context会话隔离与日志；示例存在忽略error和未给出的SafeAction/BezierMouse，需补齐后使用。",
+        "reason_en": "Fits an existing playwright-go project and emphasizes context isolation and logging; examples ignore some errors and reference undefined SafeAction/BezierMouse helpers that need implementation."
+      }
+    ]
+  },
+  {
+    "id": "engineering-grafana-operations-dashboard",
+    "title": "生成 Grafana 运维看板配置",
+    "title_en": "Create Grafana operations dashboard configuration",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "生成Grafana运维看板",
+      "Grafana监控面板配置",
+      "create grafana operations dashboard"
+    ],
+    "entries": [
+      {
+        "skill": "grafana-dashboards",
+        "sha256": "aa0dcef53f09bd896355fa3959cb55517d05cafe9848fadb79c136d93f5527b9",
+        "reason": "明确从RED/USE到PromQL、模板变量、JSON和Provisioning的配置产物；示例面板/告警schema须对齐目标Grafana版本。",
+        "reason_en": "Explicitly covers RED/USE, PromQL, variables, JSON and provisioning outputs; align example panel/alert schemas with the target Grafana version."
+      },
+      {
+        "skill": "observability-dashboard-builder",
+        "sha256": "0f9a18fc368777c58c750b79debd4f11fc279eaa57be5d80bf6ccc96c8c240fd",
+        "reason": "先检查现有schema并围绕排障问题设计最小看板，适合已有平台和查询数据；提供验收清单而非完整配置实例。",
+        "reason_en": "Inspects existing schemas and designs minimal dashboards around operational questions for an existing platform; supplies acceptance checks rather than a complete config example."
+      },
+      {
+        "skill": "observability-strategy-designer",
+        "sha256": "1a7c1480bb94726e1de713d815ca5df40584160e42e5d9fb58ddb483312a5ab6",
+        "reason": "支持角色化看板并连接SLI/SLO体系，但依赖的dashboard_generator.py及样例输入缺失，须补齐才可运行生成路径。",
+        "reason_en": "Connects role-specific dashboards with SLI/SLO strategy, but dashboard_generator.py and sample inputs are absent and required for its generation path."
+      }
+    ]
+  },
+  {
+    "id": "engineering-legacy-framework-migration",
+    "title": "渐进迁移遗留框架并保留旧行为",
+    "title_en": "Migrate a legacy framework while preserving behavior",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "遗留框架迁移",
+      "渐进迁移旧系统",
+      "migrate legacy framework"
+    ],
+    "entries": [
+      {
+        "skill": "legacy-framework-modernizer",
+        "sha256": "82cd51a8e86bd2edda74e65138d75da65fa8fd67414bca8519625d649f6210f6",
+        "reason": "先盘点版本差距、依赖与调用面，再用特征测试、绞杀切流和逐阶段验证/回滚表组织迁移，贴合框架迁移交付。",
+        "reason_en": "Begins with version gaps, dependencies and callers, then organizes characterization tests, strangler routing and stage-specific validation/rollback."
+      },
+      {
+        "skill": "legacy-codebase-modernizer",
+        "sha256": "e74f417334c783fe9f656e111fddfeeb23eff57c5c70d31c7a73886cd15a7ea8",
+        "reason": "同样交付迁移计划、兼容层、回归套件和弃用表，适合更广的代码库现代化；强调将既有 bug 修正与迁移分开。",
+        "reason_en": "Delivers the same plan, adapters, regression suite and deprecation schedule for broader codebase modernization, explicitly separating existing-bug fixes from migration."
+      }
+    ]
+  },
+  {
+    "id": "engineering-ports-adapters",
+    "title": "建立后端端口与适配器架构",
+    "title_en": "Build backend ports and adapters boundaries",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "端口适配器架构",
+      "六边形架构实现",
+      "implement ports and adapters"
+    ],
+    "entries": [
+      {
+        "skill": "hexagonal-architecture",
+        "sha256": "a664300ca87a10d87117a7b8897e1ed2bf87b12a32ea212f4aa5b2247d6f85f4",
+        "reason": "从显式用例I/O、出站端口、适配器到组合根和分层测试逐步落地，并给渐进迁移与行为等价检查。",
+        "reason_en": "Implements explicit use-case I/O, outbound ports, adapters, composition roots and boundary tests, including gradual migration and behavior-equivalence checks."
+      },
+      {
+        "skill": "backend-architecture-patterns",
+        "sha256": "eeea766c223a3b711d2337f05fec2ea778d25bbacc57747e1bc302762331ea1d",
+        "reason": "提供整洁/六边形/DDD 的取舍和目录及端口示例，适合尚未确定架构模式时；具体装配和测试边界较简略。",
+        "reason_en": "Offers Clean/Hexagonal/DDD tradeoffs and directory/port examples when the architecture pattern is undecided; composition and test boundaries are briefer."
+      }
+    ]
+  },
+  {
+    "id": "engineering-public-page-markdown",
+    "title": "提取已知公开网页的干净正文",
+    "title_en": "Extract clean content from a known public webpage",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "提取网页正文",
+      "公开网页转Markdown",
+      "extract webpage main content"
+    ],
+    "entries": [
+      {
+        "skill": "defuddle-web-extract",
+        "sha256": "14e49b77d5ee72f38250d10d1a4def4323df02072f150a00a1bcf7ba70cd9857",
+        "reason": "针对常规公开单页直接给出Markdown/JSON/元数据与落盘命令，不需托管API凭据；不适用强动态或登录页。",
+        "reason_en": "Provides direct Markdown/JSON/metadata and file-output commands for ordinary public pages without a hosted API key; excludes heavily dynamic or authenticated pages."
+      },
+      {
+        "skill": "firecrawl-web-scraper",
+        "sha256": "e302ed9e42878239d2af6683417ca9a49ef948cf9b4c99f8daf29ce70b40d989",
+        "reason": "适合动态渲染、交互后取正文或批量/整站任务，提供onlyMainContent与格式参数；需API Key、额度及返回完整性检查。",
+        "reason_en": "Fits dynamic rendering, interaction-dependent content or batch/crawl work with main-content/format parameters; requires an API key, quota and completeness checks."
+      },
+      {
+        "skill": "tavily-web-research",
+        "sha256": "634319c8aa4049014ccf2850aae84f8f05399cec50fa1dd8332f7b09591a354a",
+        "reason": "已知URL列表可用extract取正文，并与后续搜索调研共用服务；单页清洗格式和交互控制较少。",
+        "reason_en": "Can extract known URL lists using the same service as later research; single-page format and interaction controls are lighter."
+      }
+    ]
+  },
+  {
+    "id": "engineering-public-web-research",
+    "title": "检索公开网页并整理来源线索",
+    "title_en": "Search public webpages and collect source leads",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "公开网页资料检索",
+      "带来源网页调研",
+      "search public web sources"
+    ],
+    "entries": [
+      {
+        "skill": "tavily-web-research",
+        "sha256": "634319c8aa4049014ccf2850aae84f8f05399cec50fa1dd8332f7b09591a354a",
+        "reason": "明确search/extract/crawl分工、时间/域名收敛与原始来源复核，适合问题驱动且需引用线索的调研；本轮未核验实时搜索效果。",
+        "reason_en": "Clearly separates search/extract/crawl, time/domain scope and original-source checks for question-driven research; live search effectiveness was not evaluated."
+      },
+      {
+        "skill": "exa-semantic-search",
+        "sha256": "4a1d9f806fce3ebc1b082bb0ae3f7688f7f414450fbcddb665ebe4c5d03b43b9",
+        "reason": "适合语义相近、类别或给定URL找相似资料；公开问题检索也可用，但正文对extract/crawl工作流覆盖较少。",
+        "reason_en": "Fits semantic, category and similar-page discovery from a reference URL; also supports public questions but covers extraction/crawl workflows less."
+      }
+    ]
+  },
+  {
+    "id": "engineering-rest-contract-review",
+    "title": "评审 REST API 契约与一致性",
+    "title_en": "Review a REST API contract and consistency",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "评审REST接口",
+      "REST接口规范审查",
+      "review rest api contract"
+    ],
+    "entries": [
+      {
+        "skill": "api-design-principles",
+        "sha256": "5354e602b0f24c84be111dfaa4dae0cd9131800ead724e651f3450feffa17d10",
+        "reason": "资源、方法、错误、分页与版本规则及示例直接在正文，能够据现有规格进行静态契约评审，不依赖本地专用脚本。",
+        "reason_en": "Inlines resource, method, error, pagination and versioning rules/examples for static contract review without local custom scripts."
+      },
+      {
+        "skill": "api-design-reviewer",
+        "sha256": "1f0b65b7a590370c468b346240de7e598ec078362553d21e1d8fbd22e03a7491",
+        "reason": "更聚焦新旧 OpenAPI 对比与评分报告，但 CI 路径依赖的 api_linter.py、breaking_change_detector.py、api_scorecard.py 均缺失，补齐后才能完成该自动化交付。",
+        "reason_en": "Focuses on old/new OpenAPI comparison and a scorecard, but api_linter.py, breaking_change_detector.py and api_scorecard.py are absent and required for its automated deliverable."
+      }
+    ]
+  },
+  {
+    "id": "engineering-review-code-diff",
+    "title": "静态评审代码改动并给出证据化发现",
+    "title_en": "Statically review a code diff with evidence",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "静态代码评审",
+      "评审代码改动",
+      "review code diff"
+    ],
+    "entries": [
+      {
+        "skill": "code-reviewer",
+        "sha256": "211efa327e2ff2bb815c0bc1209deae392109f4b8c62cd6cba92338a07f2cd6b",
+        "reason": "限定改动及直接调用契约，按文件行号、触发条件和具体改法给证据，允许无发现或标注待确认。",
+        "reason_en": "Scopes review to changes and directly affected contracts, requiring file/line evidence, triggers and fixes while allowing no findings or uncertainty."
+      },
+      {
+        "skill": "adversarial-code-reviewer",
+        "sha256": "cc6d700dbf24c552a7ba4bc75e5549a0240b1606f4687b408811e3d4b3b7ee1e",
+        "reason": "多角色清单适合作为补充挑刺视角；强制每角色至少一条且重复命中自动升级严重度，可能把假设推成发现，必须独立核实后采用。",
+        "reason_en": "Multi-role checklists can add review perspectives, but mandatory findings per role and severity escalation by repeated detection require independent evidence checks."
+      }
+    ]
+  },
+  {
+    "id": "engineering-secrets-backend",
+    "title": "在 CI 或运行时接入密钥库与轮换",
+    "title_en": "Integrate a secrets backend and rotation",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "接入密钥库",
+      "CI密钥管理",
+      "integrate secrets backend"
+    ],
+    "entries": [
+      {
+        "skill": "secrets-management",
+        "sha256": "592af8ef0d0dbec3b81c4fae2d7bffd0f6ff3d11cdc9e10a87a3bc86e771bba1",
+        "reason": "先梳理 owner、轮转要求与后端访问模型，再拉取、验证轮转和审计；示例仍是需补业务函数和权限配置的模板。",
+        "reason_en": "Starts with ownership, rotation requirements and backend access before retrieval and audit/rotation checks; examples remain templates needing application functions and permissions."
+      },
+      {
+        "skill": "secrets-manager",
+        "sha256": "e351df383d6a319c5c5e58f0e7e7e825847a97cc164e2c4bda597731dead418f",
+        "reason": "覆盖相同 Vault/云密钥库、External Secrets 和扫描注入路径，适合已有后端的配置参考；轮换骨架及 Terraform 敏感 state 仍需环境复核。",
+        "reason_en": "Covers the same Vault/cloud stores, External Secrets and scanning/injection paths for an existing backend; review rotation scaffolding and Terraform sensitive state in context."
+      }
+    ]
+  },
+  {
+    "id": "engineering-skill-install-security",
+    "title": "安装前静态审查第三方 Agent 技能",
+    "title_en": "Statically review a third-party Agent skill before installation",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "技能安装前安全审查",
+      "审查第三方技能安全",
+      "review skill before installation"
+    ],
+    "entries": [
+      {
+        "skill": "agent-skill-security-scanner-v2",
+        "sha256": "049dd88423ff15f44448a4fcbe851b129d359978dc67e2fbfd0c17bd2e01a4ca",
+        "reason": "模式、行为、权限和误报研判已内联，使用现成 rg/读取即可完成报告，不依赖自动扫描器；结论仍是离线静态判断。",
+        "reason_en": "Inlines patterns, behavior, permissions and false-positive review, allowing a report with existing search/read tools without an automatic scanner; conclusions remain offline and static."
+      },
+      {
+        "skill": "agent-skill-security-scanner",
+        "sha256": "c2059340193bad06304feedf52a2c38f92fbabd7491f51818f0997d3a95da098",
+        "reason": "四维扫描、退出码和整改契约明确，但核心 scripts/skill_security_auditor.py 缺失，须补齐后采用自动扫描流程。",
+        "reason_en": "Defines four scan dimensions, exit codes and fixes, but its core skill_security_auditor.py is missing and must be supplied before the automatic workflow."
+      }
+    ]
+  },
+  {
+    "id": "engineering-slo-budget",
+    "title": "定义 SLI/SLO 与错误预算告警",
+    "title_en": "Define SLI/SLO and error-budget alerts",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "定义SLO错误预算",
+      "SLI SLO告警",
+      "define slo error budget"
+    ],
+    "entries": [
+      {
+        "skill": "slo-sli-implementation",
+        "sha256": "4f95ef6429a18f8d25c221e2abcd91d61030d19512816b539d1a2c0a0743cd2a",
+        "reason": "围绕好事件比率、目标、预算与多窗口告警给出规则；剩余天数示例把分母燃尽率写成错误率乘积，可严重高估可用天数，须先修正公式并补齐记录规则，不能直接采用示例结果。",
+        "reason_en": "Provides ratios, targets, budgets and multi-window alerts; its remaining-days example incorrectly multiplies error rates in the denominator and can severely overestimate time. Correct the formula and supply recording rules before using its results."
+      },
+      {
+        "skill": "observability-strategy-designer",
+        "sha256": "1a7c1480bb94726e1de713d815ca5df40584160e42e5d9fb58ddb483312a5ab6",
+        "reason": "将SLO与服务画像、角色看板和告警治理衔接，适合体系规划；slo_designer.py及输入样例缺失，不能按命令完成生成。",
+        "reason_en": "Connects SLOs with service profiles, role dashboards and alert governance for strategy work; slo_designer.py and sample inputs are absent, blocking the documented generation commands."
+      }
+    ]
+  },
+  {
+    "id": "engineering-static-skill-library-audit",
+    "title": "静态审计技能库质量与重复",
+    "title_en": "Statically audit skill-library quality and overlap",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "静态审计技能库",
+      "技能库质量重复审计",
+      "static skill library audit"
+    ],
+    "entries": [
+      {
+        "skill": "skill-ecosystem-auditor",
+        "sha256": "1628064bae54c0d2fbe14310da72596435f59c72309430d708e158bb8961ec8b",
+        "reason": "针对整库逐项质量、安全、治理、依赖、成本与跨技能重复给出报告骨架，自动工具链缺失时正文明确允许手工等价审查；无会话记录也可开展静态任务。",
+        "reason_en": "Specifies library-wide quality, security, governance, dependency, cost and overlap reporting, with an explicit manual fallback when its automation is absent; session logs are not required for static work."
+      },
+      {
+        "skill": "skill-optimizer",
+        "sha256": "0da41f9e83cf4facb340137cd6765739e9072836c70b06252416078c647c2594",
+        "reason": "同样包含静态质检、冲突和Token诊断，但重心是会话触发、反应与完成证据；无会话数据时这些维度必须N/A，适合后续解释实际技能使用问题。 静态规则含固定frontmatter/篇幅/小节假设，须先适配目标Schema，不能把不同格式直接判为缺陷。",
+        "reason_en": "Also includes static checks, conflicts and token diagnosis, but centers on session activation, reactions and completion evidence; without logs these dimensions must be N/A, making it useful for later usage diagnosis. Its static rules assume fixed frontmatter, length and headings; adapt them to the target schema before treating format differences as defects."
+      }
+    ]
+  },
+  {
+    "id": "engineering-terraform-module",
+    "title": "编写可复用 Terraform 模块",
+    "title_en": "Build a reusable Terraform module",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "编写Terraform模块",
+      "可复用Terraform模块",
+      "build reusable terraform module"
+    ],
+    "entries": [
+      {
+        "skill": "terraform-module-builder",
+        "sha256": "46fa71dbe1648e001223beb1325b6d2fe8dafba6f469353723fa0267b3737915",
+        "reason": "直接规定变量/输出/版本/示例/测试目录与Terratest验收，贴合模块交付；示例CIDR正则只验形状，需改用实际CIDR解析校验。",
+        "reason_en": "Specifies variables, outputs, versions, examples and Terratest acceptance for module delivery; its CIDR regex checks shape only and needs real CIDR parsing."
+      },
+      {
+        "skill": "terraform-specialist",
+        "sha256": "83881e0eb363b483abe297240642f6a293bc1ab2f609c57bf93d74a59dede2a9",
+        "reason": "覆盖模块组合、远程state和固定plan审批，适合模块还需多环境运维时；模块接口和完整用例模板较少。",
+        "reason_en": "Covers composition, remote state and fixed-plan review for modules needing multi-environment operations; interface and complete-example templates are lighter."
+      }
+    ]
+  },
+  {
+    "id": "engineering-turborepo-cache",
+    "title": "配置 Turborepo 任务与远程缓存",
+    "title_en": "Configure Turborepo tasks and remote caching",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "配置Turborepo缓存",
+      "Turborepo远程缓存",
+      "configure turborepo cache"
+    ],
+    "entries": [
+      {
+        "skill": "turborepo-caching",
+        "sha256": "4c2d1e1830e5fb2c855771eca418804c06fe996fcce110dc1813557f13b957c1",
+        "reason": "从 workspace 与根脚本到任务键、远程后端和冷/增量命中检查形成闭环；采用前核对目标 Turbo 版本的配置字段。",
+        "reason_en": "Covers workspace scripts, cache-key fields, remote backends and cold/incremental hit checks; verify configuration fields against the target Turbo version."
+      },
+      {
+        "skill": "turborepo-build-caching",
+        "sha256": "9859ae34f441675bd204c3b99d78360ccce0ea80b45788c01571f3056646d848",
+        "reason": "同样提供包级覆盖、filter 和 CI 示例，适合已有项目直接调整缓存；起步 workspace 与基线检查较少。",
+        "reason_en": "Also supplies package overrides, filters and CI examples, useful for adjusting an existing cache setup; workspace bootstrap and baseline checks are less developed."
+      }
+    ]
+  },
+  {
+    "id": "engineering-vexor-setup-search",
+    "title": "配置 Vexor 并按语义定位文件",
+    "title_en": "Configure Vexor and locate files semantically",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "配置Vexor语义检索",
+      "Vexor文件搜索",
+      "configure vexor semantic search"
+    ],
+    "entries": [
+      {
+        "skill": "vexor-vector-cli-setup",
+        "sha256": "b1a5bf0ced673237d047a9030b8e15ca04b1465da032b7f3ba9d0740a0a7c347",
+        "reason": "安装、嵌入提供方/本地模型、索引、搜索和Agent接入均内联，并明确远程片段外发的隐私边界。",
+        "reason_en": "Inlines installation, embedding providers/local models, indexing, search and agent integration, with explicit privacy boundaries for remote content fragments."
+      },
+      {
+        "skill": "vexor-semantic-file-search",
+        "sha256": "f8b4d5fd249b3f7e282f5397e34cdfe23db0cd829bcb29eb537734da80cf25e5",
+        "reason": "对已安装工具给出更细搜索模式、路径过滤和机读输出参考；初装转向未随目录提供的install-vexor参考，需要额外补齐。",
+        "reason_en": "Gives detailed search modes, filters and machine-readable formats for an installed tool; initial setup points to an install-vexor reference absent from its directory."
+      }
+    ]
+  },
+  {
+    "id": "engineering-visual-frontend-component",
+    "title": "实现有明确视觉方向的前端组件",
+    "title_en": "Implement a frontend component with a clear visual direction",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "设计前端视觉组件",
+      "美化UI组件",
+      "build visual frontend component"
+    ],
+    "entries": [
+      {
+        "skill": "frontend-design",
+        "sha256": "1b5adb16e3a725afcec3ee444e1530ca9012d9d3485aef5ebc1c83bf7552fab6",
+        "reason": "从用户目标和约束确定视觉方向，直接交付框架适配的可运行代码，并列出对比度、焦点和键盘要求；不依赖专用生成服务。",
+        "reason_en": "Starts from users and constraints, then directly delivers framework-appropriate runnable code with contrast, focus and keyboard requirements, without a specialized generation service."
+      },
+      {
+        "skill": "magic-ui-component-generator",
+        "sha256": "d1ab871f76c8d6733a4f1d679a5065074edc714a30924875a421c34434d003ce",
+        "reason": "适合先比较多个视觉方案再集成的组件任务；须具备 Magic MCP 或浏览器服务路径和相关依赖，且强制选择步骤增加交互前提。",
+        "reason_en": "Fits component work requiring multiple visual alternatives before integration; requires a Magic MCP/browser service path and dependencies, with a mandatory selection step."
+      }
+    ]
+  },
+  {
+    "id": "engineering-wcag-aa-audit",
+    "title": "审计 Web 无障碍并给出 WCAG AA 整改",
+    "title_en": "Audit Web accessibility and recommend WCAG AA remediation",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "WCAG无障碍审计",
+      "Web无障碍整改",
+      "audit web accessibility"
+    ],
+    "entries": [
+      {
+        "skill": "wcag-22-audit-patterns",
+        "sha256": "708e6d67b0ead6b4541c5e13aa9f59f22e6791d8c63c9949e3692e2d77baf753",
+        "reason": "明确 WCAG2.2 准则、自动/人工核验、问题映射与复测留痕，适合网页 AA 审计；不能据此宣称法律合规。",
+        "reason_en": "Explicitly covers WCAG 2.2 criteria, automated/manual checks, issue mapping and retest evidence for Web AA audits; it does not establish legal compliance."
+      },
+      {
+        "skill": "accessibility-wcag-audit",
+        "sha256": "f8ad0b258c058f10c4dd535abbb9abc9594e578140809f3405d426df0ce535d4",
+        "reason": "同样给出扫描、键盘读屏与整改流程，并有组件/CI示例；示例扫描标签集中2.0/2.1，2.2目标需补核，自动补alt/label仍需人工语义审查。",
+        "reason_en": "Offers scanning, keyboard/screen-reader checks and component/CI examples; scan tags focus on 2.0/2.1, so add 2.2 coverage and manually review generated labels and alt text."
+      }
+    ]
+  },
+  {
+    "id": "engineering-zero-downtime-db-plan",
+    "title": "规划零停机数据库结构迁移",
+    "title_en": "Plan a zero-downtime database schema migration",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "规划零停机数据库迁移",
+      "数据库Expand Contract迁移",
+      "plan zero downtime database migration"
+    ],
+    "entries": [
+      {
+        "skill": "zero-downtime-migration-architect",
+        "sha256": "df4955f129ae1077e165ee56886a5f65d2b377eefa789143332eac635365fd88",
+        "reason": "风险、Expand-Contract、双写/CDC、回滚触发、预演与割接对账集中成计划；CI示例的两份脚本未随包，自动化校验需另备。",
+        "reason_en": "Organizes risk, expand-contract, dual-write/CDC, rollback triggers, rehearsal and reconciliation into a plan; its two CI example scripts are absent and must be supplied for automation."
+      },
+      {
+        "skill": "database-migration-strategies",
+        "sha256": "17d2491de47e19d2a05572213d992d10cdc680abbfbbf0b4e3d5d256df6f0621",
+        "reason": "适合已有 ORM 的Schema演进与up/down脚本，包含双写回填切读阶段；跨库割接的持续同步与业务对账没有首选集中。",
+        "reason_en": "Fits schema evolution and up/down scripts with an existing ORM, including dual-write/backfill/read-cutover stages; cross-database synchronization and business reconciliation are less concentrated."
+      }
+    ]
+  },
+  {
+    "id": "evidence-based-user-persona",
+    "title": "从用户数据构建研究画像",
+    "title_en": "Build a research persona from user data",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "数据驱动用户画像",
+      "客户证据画像",
+      "evidence based user persona"
+    ],
+    "entries": [
+      {
+        "skill": "customer-research-synthesizer",
+        "sha256": "7aadeef913d58bcaa43c116dbcd6aeab4d85523427ca1bb325186dd35ceac3db",
+        "reason": "逐素材原话、分段综合、置信度和完整画像模板均在正文，无必需生成脚本。",
+        "reason_en": "Includes source quotes, segmented synthesis, confidence and a complete inline persona template without a required generator."
+      },
+      {
+        "skill": "buyer-persona-builder",
+        "sha256": "9c321a240a62ce5feaf937b1b24d8693fef2d1701729c9051cbbd44bf32a023c",
+        "reason": "营销买家画像备选，有同类数据与原型规则；必跑 persona_generator.py 缺失，须补齐并接真实数据。",
+        "reason_en": "A marketing-persona alternative; its required persona generator is absent and must use real data."
+      },
+      {
+        "skill": "ux-research-design-toolkit",
+        "sha256": "0b350513badb343dcdf834134c3dce787da007a0bd658fc4d06885a1a3d38644",
+        "reason": "同类画像可服务设计决策并接旅程与测试；必跑 scripts/persona_generator.py 缺失，须先补齐。",
+        "reason_en": "Its persona can support design decisions and follow-on journeys/tests; the required generator is absent."
+      }
+    ]
+  },
+  {
+    "id": "expression-grn-table",
+    "title": "从表达矩阵生成调控网络表",
+    "title_en": "Generate a regulatory-network table from expression data",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "表达矩阵GRN表",
+      "Arboreto调控网络",
+      "expression grn table"
+    ],
+    "entries": [
+      {
+        "skill": "arboreto-grn-inference",
+        "sha256": "4f2d0041e3c603be29741f1e4377401d569583431af1a9c2e6b761e7216693cc",
+        "reason": "同推断阶段输入输出、可复现性、落盘产物与失败处理更明确，不代表因果或实验验证。",
+        "reason_en": "More explicit inputs, outputs, reproducibility and failure handling for the same inference stage; no causal or experimental validation is implied."
+      },
+      {
+        "skill": "arboreto-gene-regulatory-networks",
+        "sha256": "f26839a014b7e3f3111eef933ac26c29f83869d594dc9cce3e2203c2be716a9f",
+        "reason": "同工具网络表的模块化备选，明确上游预处理与下游调控子分析边界。",
+        "reason_en": "A modular alternative with clear preprocessing and downstream-analysis boundaries."
+      }
+    ]
+  },
+  {
+    "id": "feature-prd-document",
+    "title": "撰写功能 PRD 与验收标准",
+    "title_en": "Write a feature PRD and acceptance criteria",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "功能PRD",
+      "需求规格与验收",
+      "feature prd document"
+    ],
+    "entries": [
+      {
+        "skill": "prd-spec-writer",
+        "sha256": "213f98a4a5bc5eaccb8fe7fd312cbcaf27372f5274b25e3581645185020d7d29",
+        "reason": "完整章节、非目标、优先级、正负边界验收在正文，适合从想法到评审稿。",
+        "reason_en": "Contains complete sections, non-goals, priorities and positive/negative acceptance criteria."
+      },
+      {
+        "skill": "product-manager-toolkit",
+        "sha256": "f1396f7272c7cb5f40536ee5cd06ff04610c93c73b0b970e7e32a340fd8dc0cf",
+        "reason": "排序访谈后的PRD备选；所引 references/prd_templates.md 与 assets/prd_template.md 均未提供。",
+        "reason_en": "A PRD alternative after prioritization/interviews, but its cited PRD reference and asset templates are absent."
+      }
+    ]
+  },
+  {
+    "id": "ga4-gtm-tracking-plan",
+    "title": "设计 GA4/GTM 追踪计划",
+    "title_en": "Design a GA4/GTM tracking plan",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "GA4埋点计划",
+      "GTM追踪审计",
+      "ga4 gtm tracking plan"
+    ],
+    "entries": [
+      {
+        "skill": "marketing-analytics-tracker",
+        "sha256": "acc3ee9de44a5cb9615e85764dff7594bd6ddcfa065536d796d39542559392ff",
+        "reason": "从决策反推事件，固定追踪表及无PII、无重复校验，边界清楚。",
+        "reason_en": "Works backward from decisions to a tracking table with explicit PII and duplicate checks."
+      },
+      {
+        "skill": "analytics-tracking-setup",
+        "sha256": "8e5b135e0750ccb69513af8349a722766d7a3195fe590ac44549d9f0f6320731",
+        "reason": "同类配置调试备选；平台额度、追溯和同意模式的具体声明须使用时核验。",
+        "reason_en": "Emphasizes configuration/debugging; verify platform limits, retroactivity and consent claims before use."
+      }
+    ]
+  },
+  {
+    "id": "gdpr-engineering-controls",
+    "title": "GDPR工程控制与同意管理",
+    "title_en": "Implement GDPR engineering controls",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "GDPR工程落地",
+      "GDPR同意管理",
+      "GDPR engineering controls"
+    ],
+    "entries": [
+      {
+        "skill": "gdpr-data-handler",
+        "sha256": "62bb65981595828b99174a014c437ad765c78a85fbe771b4a1a63f1c8f6b7b28",
+        "reason": "正文给出同意审计、删除例外、最小化及通知骨架；法定规则和时限仍须当前辖区法务核验。",
+        "reason_en": "The body includes consent auditing, erasure exceptions, minimization and notification skeletons; legal rules/deadlines need current jurisdiction-specific review."
+      },
+      {
+        "skill": "gdpr-data-handling",
+        "sha256": "18367552fc5e9c1b0105894cef71197fd999df3ebd70944551756bcca990d461",
+        "reason": "同类工程流程的短入口；完整代码分支引用未随包的implementation-playbook，补齐后采用，同样须法务核验。",
+        "reason_en": "A shorter alternative whose full-code branch refers to an unbundled implementation playbook; supply it before using that branch and verify law."
+      }
+    ]
+  },
+  {
+    "id": "hard-call-with-communication",
+    "title": "推演艰难抉择并制定沟通方案",
+    "title_en": "Work through a hard decision and its communication",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "艰难抉择",
+      "艰难决定沟通",
+      "hard call",
+      "hard decision communication"
+    ],
+    "entries": [
+      {
+        "skill": "hard-call-advisor",
+        "sha256": "522fa47f3250b723c584876fd0b140f858d674458bbe940317a3a8978c6c2e91",
+        "reason": "六步覆盖可逆性、时间视角、外部 CEO 视角、相关者、预公告与通知顺序，直接交付决策及沟通计划。",
+        "reason_en": "Six steps cover reversibility, time horizons, an outside-CEO view, stakeholders, pre-announcement and notification order, producing a decision and communication plan."
+      },
+      {
+        "skill": "executive-adversarial-mentor",
+        "sha256": "fb0a374508ed4b13a9a3b4644cb4b273662f93dc239d6e9f9fce539b7bad8389",
+        "reason": "hard-call 动作保留核心判断框架，但沟通对象、顺序和后续安排较简；还需其他高管挑战时采用。",
+        "reason_en": "Its hard-call action retains the core framework with lighter audience, order and follow-up guidance; use when other executive challenges are also needed."
+      }
+    ]
+  },
+  {
+    "id": "humanize-chinese-prose",
+    "title": "对中文文稿去 AI 腔并保留语域",
+    "title_en": "Humanize Chinese prose while preserving register",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "中文去AI味",
+      "中文去 AI 味",
+      "中文文稿降痕",
+      "humanize Chinese text",
+      "Chinese prose cleanup"
+    ],
+    "entries": [
+      {
+        "skill": "humanize-chinese-text",
+        "sha256": "95748ccc43783c4781d24e640e34c4f85d67beac7c27d4bbcb4eb9d7c1de2561",
+        "reason": "直接限定中文，优先定点改写并保留事实、术语、引用和学术语域；脚本缺失时可手动完成。",
+        "reason_en": "Directly targets Chinese with local edits preserving facts, terminology, citations and academic register; a manual path is provided."
+      },
+      {
+        "skill": "avoid-ai-writing-patterns",
+        "sha256": "1ae4cf99d7af7eecc6e14df3e094846ec1313cff538d0f984a6f1d1176016ac1",
+        "reason": "中文等价清单与二次复检可作通用备选；特定学术或平台语域需补充目标约束。",
+        "reason_en": "Its Chinese-equivalent checklist and second pass provide a general alternative; add constraints for academic or platform-specific register."
+      }
     ]
   },
   {
@@ -26,10 +1729,841 @@
     "title": "投行 PPT 模板填充",
     "title_en": "Populate an investment-banking template",
     "reviewed_at": "2026-11-15",
-    "triggers": ["投行模板填充", "PPT模板填充", "投行路演", "pitch deck", "pitch deck template", "populate slides", "季度数据刷新"],
+    "triggers": [
+      "投行模板填充",
+      "PPT模板填充",
+      "投行路演",
+      "pitch deck",
+      "pitch deck template",
+      "populate slides",
+      "季度数据刷新"
+    ],
     "entries": [
-      {"skill": "ib-pitch-deck-builder", "sha256": "1fb25c65a7e69340b1b46dbf95efeacb62833a099cfa6e0a4a1cc004947fd076", "reason": "正文集中给出抽数、映射、排版、财务校验与有限修复循环；使用前核对演示与渲染工具。", "reason_en": "The body includes extraction, mapping, formatting, financial checks and a bounded repair loop; verify presentation/rendering tools first."},
-      {"skill": "pitch-deck-refresh", "sha256": "738effc9e32dc2782e890f478138840fdc472ba36253f6c98a4c55b09d820696", "reason": "同类英文详细流程；要求先读的四份 reference 文件未随目录提供，补齐后才可采用。", "reason_en": "A detailed English alternative; four required reference files are absent from its directory and must be supplied before use."}
+      {
+        "skill": "ib-pitch-deck-builder",
+        "sha256": "1fb25c65a7e69340b1b46dbf95efeacb62833a099cfa6e0a4a1cc004947fd076",
+        "reason": "正文集中给出抽数、映射、排版、财务校验与有限修复循环；使用前核对演示与渲染工具。",
+        "reason_en": "The body includes extraction, mapping, formatting, financial checks and a bounded repair loop; verify presentation/rendering tools first."
+      },
+      {
+        "skill": "pitch-deck-refresh",
+        "sha256": "738effc9e32dc2782e890f478138840fdc472ba36253f6c98a4c55b09d820696",
+        "reason": "同类英文详细流程；要求先读的四份 reference 文件未随目录提供，补齐后才可采用。",
+        "reason_en": "A detailed English alternative; four required reference files are absent from its directory and must be supplied before use."
+      }
+    ]
+  },
+  {
+    "id": "income-statement-yoy",
+    "title": "利润表同比增长分析",
+    "title_en": "Analyze income-statement year-over-year growth",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "利润表同比增长",
+      "利润表增速分析",
+      "income statement growth analysis"
+    ],
+    "entries": [
+      {
+        "skill": "octagon-financial-metrics-analysis",
+        "sha256": "f63d985ab6d35e2c18e75eff175870301b81fbff04bcd9aae86a1ffedc9c198d",
+        "reason": "按Ticker/周期输出收入、成本与各层利润同比，直接分析成本侵蚀和经营杠杆；需Octagon及凭据。",
+        "reason_en": "Returns revenue, cost and profit-layer growth for a ticker/period to examine cost pressure and leverage; requires Octagon and credentials."
+      },
+      {
+        "skill": "octagon-income-statement-growth",
+        "sha256": "0df287aa97196de3e9ae6e988df940c4f8c0a0d951d1ec6f0cd23c8d40e90b90",
+        "reason": "同任务的EPS聚焦变体，需要摊薄EPS/净利背离时更适合；两套示例字段并不证明接口完全相同。",
+        "reason_en": "An EPS-focused variant, useful for diluted-EPS/net-income divergence; the differing example fields do not establish an identical API contract."
+      }
+    ]
+  },
+  {
+    "id": "internal-link-opportunity-plan",
+    "title": "规划站内链接与锚文本",
+    "title_en": "Plan internal links and anchor text",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "内链优化方案",
+      "站内链接机会",
+      "internal linking plan"
+    ],
+    "entries": [
+      {
+        "skill": "internal-linking-optimizer",
+        "sha256": "e50c246a6c56a8f4a7fbb4165f4fd55206ea17496c7021366633b5a389633638",
+        "reason": "架构已定时交付来源位置、目标页、锚文本和优先级，含孤儿页与监测检查。",
+        "reason_en": "For an established architecture, gives source locations, targets, anchors, priorities and orphan/monitoring checks."
+      },
+      {
+        "skill": "seo-site-architecture",
+        "sha256": "eab1a03bee4386811d472a1821c9a9403cfb97d9f7e0ed17950260297e6d2f3e",
+        "reason": "模式三交付同类内链方案；还需改URL和导航骨架时采用。",
+        "reason_en": "Its third mode delivers equivalent internal-link plans; use when URL/navigation design is also needed."
+      }
+    ]
+  },
+  {
+    "id": "interview-question-scorecard",
+    "title": "设计岗位面试题库与评分卡",
+    "title_en": "Design interview questions and a scorecard",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "岗位面试包",
+      "面试题库评分卡",
+      "interview questions scorecard"
+    ],
+    "entries": [
+      {
+        "skill": "interview-plan-builder",
+        "sha256": "aa9adb7d7c6df80dcd191929b3719015c20ba62dab5e91c8d18622e467381246",
+        "reason": "岗位职级JD到胜任力、分工、题库追问、1–4量规及debrief完整自包含。",
+        "reason_en": "Delivers competencies, interviewer ownership, questions, probes, a 1–4 rubric and debrief from role/level/JD."
+      },
+      {
+        "skill": "hr-partner-pro",
+        "sha256": "60d0147edb23784a50e3875e0c0f2846ccb3c0f0688e9841a54a40c7b74cfc74",
+        "reason": "含候选人沟通和属地检查的通用HR备选；其1–5量规须与现有制度对齐。",
+        "reason_en": "A broader alternative with candidate communication and jurisdiction checks; align its 1–5 rubric to existing policy."
+      },
+      {
+        "skill": "interview-system-designer",
+        "sha256": "0e4f1933b5a532097c7441d2892278c50e0053581e78037b304e601db8b11301",
+        "reason": "需多轮loop与历史校准时采用；所需三个根目录Python脚本均缺失，先补齐。",
+        "reason_en": "Use for multi-round loops and historical calibration; its three required root-level helpers are absent."
+      }
+    ]
+  },
+  {
+    "id": "lifecycle-email-flow",
+    "title": "设计生命周期邮件序列",
+    "title_en": "Design a lifecycle email sequence",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "生命周期邮件序列",
+      "欢迎培育邮件流",
+      "lifecycle email flow"
+    ],
+    "entries": [
+      {
+        "skill": "email-sequence-designer",
+        "sha256": "7cb5bc858d471f7ee36711c7dfb209cd8a1f23b37f9e96da11d2391514e58221",
+        "reason": "逐封稿、分支退出、再进入、抑制、流程图与平台映射完整，无必需本地评分脚本。",
+        "reason_en": "Delivers drafts, branches, exits, re-entry, suppression, a flowchart and platform mapping without a required local scorer."
+      },
+      {
+        "skill": "lifecycle-email-sequence",
+        "sha256": "c749273786bc7736a725275f1ceaeab759ecc9cc7b140d40d24596392f404b98",
+        "reason": "轻量欢迎培育召回备选，有完整草稿和主题变体，先备产品营销上下文。",
+        "reason_en": "A lighter welcome, nurture or win-back alternative with full drafts and subject variants; supply marketing context first."
+      },
+      {
+        "skill": "email-drip-sequence",
+        "sha256": "9d830dc2275afda41bea48237b23d49367b96b2401044400b055aa27ca05c9b0",
+        "reason": "同类备选；必跑 sequence_analyzer.py 缺失，补齐才可按正文完成评分。",
+        "reason_en": "The required sequence_analyzer.py is absent and must be supplied before scoring."
+      }
+    ]
+  },
+  {
+    "id": "multi-perspective-decision",
+    "title": "对模糊决策做多视角权衡",
+    "title_en": "Weigh an ambiguous decision from multiple perspectives",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "多视角决策",
+      "多方权衡",
+      "second opinion decision",
+      "weigh decision options"
+    ],
+    "entries": [
+      {
+        "skill": "four-voice-decision-council",
+        "sha256": "d7678b86047dde5691d50ee567caa471d190ddb7a1b0a42982a31ae681e5c278",
+        "reason": "独立初始立场、三个隔离声音与综合偏置护栏均有模板，适合一轮精简权衡。 宿主须能以干净上下文启动三个隔离子智能体，单会话角色扮演不能替代。",
+        "reason_en": "Templates cover an independent initial position, three isolated voices and synthesis bias guards for a concise one-round decision. The host must start three isolated agents with clean contexts; role-playing within one conversation is not equivalent."
+      },
+      {
+        "skill": "boardroom-deliberation",
+        "sha256": "9967e5bbbc359970fb574aad2ed1d0c9a562c8be215cf83d6dfa72d0a8d6d87c",
+        "reason": "需要 C 级角色投票、交叉质询和归档备忘录时采用；六阶段流程较重，须具备隔离角色调用能力。",
+        "reason_en": "Use for C-level votes, cross-examination and an archived memo; its heavier six stages require isolated role calls."
+      }
+    ]
+  },
+  {
+    "id": "new-hire-30-60-90-plan",
+    "title": "制定新员工入职计划",
+    "title_en": "Create a new-hire onboarding plan",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "新员工入职计划",
+      "30 60 90入职",
+      "new hire onboarding plan"
+    ],
+    "entries": [
+      {
+        "skill": "new-hire-onboarding-plan",
+        "sha256": "5303c3f6b7b5ad4abd3a0f5579d8699cc407ae4b3c22fe50dc34be81a5940a83",
+        "reason": "五项明确输入到入职前、首日首周、30/60/90、联系人及权限表，交付直接。",
+        "reason_en": "Defines five inputs and pre-arrival, first-day/week, 30/60/90-day, contact and access checklists."
+      },
+      {
+        "skill": "hr-partner-pro",
+        "sha256": "60d0147edb23784a50e3875e0c0f2846ccb3c0f0688e9841a54a40c7b74cfc74",
+        "reason": "需要入职计划连同HR政策、沟通草稿和度量交付时采用的宽入口。",
+        "reason_en": "Use when onboarding also needs HR policy context, communication drafts and metrics."
+      }
+    ]
+  },
+  {
+    "id": "organization-adoption-plan",
+    "title": "制定组织变革采用计划",
+    "title_en": "Plan organizational change adoption",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "组织变革采用计划",
+      "ADKAR落地计划",
+      "organizational adoption plan"
+    ],
+    "entries": [
+      {
+        "skill": "org-change-management-adkar",
+        "sha256": "fce9cc2c2e2372fb7e027dab6c916b41aad2e36ed0af01b83089ab25f0d98530",
+        "reason": "ADKAR诊断、知识传递选型、四类变革时序、沟通模板与采用判据完整。",
+        "reason_en": "Maps ADKAR gaps to training choices, change-specific timing, communication templates and adoption checks."
+      },
+      {
+        "skill": "org-change-management",
+        "sha256": "cdca4e0e376ccadad999a20ed2ea28e96f1b9d44b6103e5fcd355368c649b84b",
+        "reason": "同模型时间线备选，覆盖阻力话术、疲劳与变革自查。",
+        "reason_en": "An alternative with the same model and timelines, resistance scripts and change-fatigue handling."
+      }
+    ]
+  },
+  {
+    "id": "paid-ad-copy",
+    "title": "生成付费广告文案变体",
+    "title_en": "Generate paid ad copy variants",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "付费广告文案",
+      "广告创意矩阵",
+      "paid ad copy variants"
+    ],
+    "entries": [
+      {
+        "skill": "paid-ad-creative",
+        "sha256": "69dcc7c90c6bbd7265bee7e61d67039dcbb949f570ed95346b53f6a82ad38b94",
+        "reason": "按角度平台交付带字符数的上传矩阵，可消费用户给的数据；示例拉数CLI另备。",
+        "reason_en": "Creates upload-oriented variants by angle and platform from supplied data; reporting CLIs require separate provision."
+      },
+      {
+        "skill": "ad-creative-generator",
+        "sha256": "80adb781e4c4c92fb322cdd6614bf069dc0135b824cee318ca494a4f94e55806",
+        "reason": "同类备选；强制 scripts/ad_copy_validator.py 未随目录提供，须补齐后使用。",
+        "reason_en": "Its mandatory scripts/ad_copy_validator.py is absent and must be supplied."
+      }
+    ]
+  },
+  {
+    "id": "plan-premortem-review",
+    "title": "在投入前对计划做事前验尸",
+    "title_en": "Run a premortem before committing resources",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "计划事前验尸",
+      "事前验尸",
+      "计划挑战",
+      "premortem plan",
+      "challenge this plan"
+    ],
+    "entries": [
+      {
+        "skill": "premortem-plan-challenger",
+        "sha256": "44cb683a6d1640d3805f090a64542a71ebfdb9d98018d00e8ef95c3a4695a734",
+        "reason": "直接交付假设评级、脆弱点地图、依赖链、可逆性与 30/60/90 天止损阀。",
+        "reason_en": "Directly delivers rated assumptions, a vulnerability map, dependencies, reversibility and 30/60/90-day kill switches."
+      },
+      {
+        "skill": "executive-adversarial-mentor",
+        "sha256": "fb0a374508ed4b13a9a3b4644cb4b273662f93dc239d6e9f9fce539b7bad8389",
+        "reason": "challenge 动作覆盖同一失败倒推与止损框架；还需董事会问答或复盘时采用这个总入口。",
+        "reason_en": "Its challenge action covers the same failure-backtracking and kill switches; use the broader entry when board questioning or postmortems are also needed."
+      }
+    ]
+  },
+  {
+    "id": "project-periodic-status-report",
+    "title": "撰写项目周期状态报告",
+    "title_en": "Write a periodic project status report",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "项目状态周报",
+      "团队月度状态报告",
+      "periodic project status report"
+    ],
+    "entries": [
+      {
+        "skill": "status-report-generator",
+        "sha256": "a53df6bc79cd53f6933f0348a5aedc05c04270c5bce64f2115dee16a88c326f1",
+        "reason": "项目周期KPI、成果、风险、决策及下期优先级表固定，省略无数据空节。",
+        "reason_en": "Defines period-specific KPI, progress, risk, decision and priority tables and omits empty sections."
+      },
+      {
+        "skill": "stakeholder-update-writer",
+        "sha256": "bf141896b5eb4c9efbed45b3a55de5c177f26e0fbee2d6f50e2f5775529127bb",
+        "reason": "同类备选，适合同一进展改成高管、工程和跨职能多受众版本。",
+        "reason_en": "Use when the same progress needs executive, engineering and cross-functional versions."
+      }
+    ]
+  },
+  {
+    "id": "pytdc-dataset-benchmark",
+    "title": "获取PyTDC数据集与标准划分",
+    "title_en": "Load PyTDC datasets and standard splits",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "PyTDC数据集基准",
+      "治疗学标准数据集",
+      "load PyTDC datasets"
+    ],
+    "entries": [
+      {
+        "skill": "pytdc-therapeutics-datasets",
+        "sha256": "c417d4aa8ced7bf21c16665b720a64911557043e988e96ec243d6d78a4dc9da5",
+        "reason": "区分数据、划分、评测与模型训练，适合作数据入口；需真实预测与当前库协议，本轮未跑基准。",
+        "reason_en": "Separates data, splitting and evaluation from model training; requires real predictions and current library protocols, not benchmarked here."
+      },
+      {
+        "skill": "pytdc-therapeutics-data-commons",
+        "sha256": "243c0dc89a235a454c29ae0b5599419d0a5fad5ccd8601f443f11f9902e2e3fd",
+        "reason": "补充缓存和格式转换；测试标签充当预测的示例占位必须替换，不能据其报告模型效果。",
+        "reason_en": "Adds caching and conversion notes; placeholders using test labels as predictions must be replaced and cannot substantiate model quality."
+      }
+    ]
+  },
+  {
+    "id": "rdkit-library-profile",
+    "title": "用 RDKit 分析化合物库",
+    "title_en": "Profile a compound library with RDKit",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "RDKit库画像",
+      "RDKit库筛选分析",
+      "rdkit library profile"
+    ],
+    "entries": [
+      {
+        "skill": "rdkit-cheminformatics",
+        "sha256": "4c1cc9828210db87633132518fd54500170a404709b584f8d47ff4fcb2605727",
+        "reason": "导入校验到标准化、属性表和导出形成闭环库工作流，不替代实验验证。",
+        "reason_en": "Provides an import-to-export library workflow with validation, standardization and property tables; no experimental validation is implied."
+      },
+      {
+        "skill": "cheminformatics-toolkit",
+        "sha256": "baf71848fad7f756c6344af5c857738d205428d27b7e4310e52a6e1119808b29",
+        "reason": "同类属性相似性产物的模块化备选，适合底层定制，批处理流程需按任务组装。",
+        "reason_en": "A modular alternative for property/similarity outputs when low-level customization is needed."
+      }
+    ]
+  },
+  {
+    "id": "read-public-x-post",
+    "title": "读取公开X单帖为结构化数据",
+    "title_en": "Read a public X post as structured data",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "公开推文转JSON",
+      "读取X单帖正文",
+      "read public X post JSON"
+    ],
+    "entries": [
+      {
+        "skill": "x-post-to-json-fetcher",
+        "sha256": "c7692de90d54c8eabdb03ef178bdc73c6ca31f6b3b3549d5e950a976c2759265",
+        "reason": "当前正文以curl调用免认证ADHX入口读取单帖/长文，适合只有公开链接时；本轮未验证外部服务可用性。",
+        "reason_en": "The instructions use curl and an unauthenticated ADHX endpoint for public posts/articles; external-service availability was not tested here."
+      },
+      {
+        "skill": "x-twitter-scraper-toolkit",
+        "sha256": "0bc4deebd270e8a0b5560cb18aa22eef8c9cf1d48e4839528419b0b129dc1c4a",
+        "reason": "已有XQUIK_API_KEY时可用托管只读端点取单帖及指标；须核对配额，本组不授权发布、监控或写操作。",
+        "reason_en": "With an existing XQUIK_API_KEY, a hosted read endpoint returns post/engagement data; verify quotas, and this group does not authorize posting, monitoring or writes."
+      }
+    ]
+  },
+  {
+    "id": "record-approved-high-risk-decision",
+    "title": "登记已批准的高风险决策",
+    "title_en": "Record an approved high-risk decision",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "登记高风险决策",
+      "登记已批准决策",
+      "保留决策异议",
+      "record approved decision",
+      "log high-risk decision"
+    ],
+    "entries": [
+      {
+        "skill": "structured-decision-framework",
+        "sha256": "f25002b23de2ffaa55bcfb114853f03d205da267372c4cd4043863d7fbf8b593",
+        "reason": "批准检查、成功/终止阈值、逐字异议、双层记录与 90 天复盘均在正文，适合登记可追溯结论。",
+        "reason_en": "Approval checks, success/termination thresholds, verbatim dissent, two-layer records and a 90-day review are all inline for traceable decisions."
+      },
+      {
+        "skill": "decision-log-recorder",
+        "sha256": "af068c399ed3f46da74898e42601d622c3a0deb2595ebe5acb0dba76ad135e0b",
+        "reason": "需要跨会冲突、负责人和行动项治理时采用；手动记录流程自含，但 decision_tracker.py 未随目录提供。",
+        "reason_en": "Use for cross-meeting conflicts, owners and action governance; the manual workflow is inline, but decision_tracker.py is absent."
+      }
+    ]
+  },
+  {
+    "id": "remove-ai-prose-patterns",
+    "title": "去除现有文稿的 AI 腔调",
+    "title_en": "Remove AI-like patterns from an existing draft",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "去AI味",
+      "去 AI 味",
+      "去除AI腔",
+      "remove AI writing patterns",
+      "humanize a draft"
+    ],
+    "entries": [
+      {
+        "skill": "avoid-ai-writing-patterns",
+        "sha256": "1ae4cf99d7af7eecc6e14df3e094846ec1313cff538d0f984a6f1d1176016ac1",
+        "reason": "21 类检查、保留原意的改写与强制二次复检均在正文，无需外部脚本即可完成通用去腔调。",
+        "reason_en": "The body includes 21 checks, meaning-preserving rewriting and a mandatory second pass, without external scripts."
+      },
+      {
+        "skill": "humanize-chinese-text",
+        "sha256": "95748ccc43783c4781d24e640e34c4f85d67beac7c27d4bbcb4eb9d7c1de2561",
+        "reason": "中文稿件可用最小改动、术语/引用保留与语域复核，有手动路径；仅适用中文。",
+        "reason_en": "Chinese drafts can use minimal edits, retained terminology/citations and register checks through its manual path; Chinese only."
+      },
+      {
+        "skill": "content-humanizer",
+        "sha256": "e7dd67f78a300f942bae04849d67548c0ec82a884cf3b4b042c1cb322c86c9a3",
+        "reason": "品牌声音重建时采用，先提供声音范例；评分脚本和两份引用清单未随包提供，不能声称完成其校验。",
+        "reason_en": "Use for brand-voice rebuilding after supplying a voice example; its scorer and two referenced checklists are absent, so their checks cannot be claimed."
+      }
+    ]
+  },
+  {
+    "id": "research-manuscript-writing",
+    "title": "撰写与修订科研论文",
+    "title_en": "Write and revise a research manuscript",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "科研论文写作",
+      "研究手稿修订",
+      "research manuscript writing"
+    ],
+    "entries": [
+      {
+        "skill": "scientific-manuscript-writing",
+        "sha256": "27eafbab67927a1279c02892ccf97980a735deec90452ec0bf2ba5f66e06d5fb",
+        "reason": "从目标期刊报告规范组织IMRAD、图表、引用和投稿声明，适合通用科研稿。",
+        "reason_en": "Organizes IMRAD, figures, citations and submission statements around journal/reporting requirements."
+      },
+      {
+        "skill": "academic-paper-writer",
+        "sha256": "94ecc948cb6e53c479b44e9f953e8b1ce13c11cf59f6a040dc13fcfe50a2f42f",
+        "reason": "适合CS ML顶会章节与rebuttal，固定中文自审和英文LaTeX；评分只是模拟。",
+        "reason_en": "Use for CS/ML revision or rebuttals with Chinese review and English LaTeX; acceptance scores are simulations."
+      }
+    ]
+  },
+  {
+    "id": "review-existing-interface-design",
+    "title": "评审现有界面设计",
+    "title_en": "Review an existing interface design",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "评审现有界面",
+      "界面设计评审",
+      "设计稿反馈",
+      "review interface design",
+      "critique a mockup"
+    ],
+    "entries": [
+      {
+        "skill": "design-critique",
+        "sha256": "3a7daece58093150dbce038349e3d855a3abea33faa3d87240a67beae18461fd",
+        "reason": "先确认阶段和用户目标，再用五维检查给严重度、原因与替代方案；截图/Figma/描述均有自含流程。",
+        "reason_en": "Confirms stage and user goals, then applies five dimensions with severity, rationale and alternatives to screenshots, Figma or descriptions."
+      },
+      {
+        "skill": "ux-ui-principles-audit",
+        "sha256": "15eac83585aebad9c93b3779b60da64ee6c8f9bf7740357536d4147bcd599894",
+        "reason": "需要反模式、用户流或 AI 信任专项时采用；内联结构化规则可用，但完整 168/44 条原原则清单未列出。",
+        "reason_en": "Use for anti-patterns, user flows or AI-trust concerns; inline structured rules are usable, but the full 168/44-principle lists are absent."
+      }
+    ]
+  },
+  {
+    "id": "rss-sentiment-briefing",
+    "title": "生成多源科技新闻情感简报",
+    "title_en": "Create a multi-source technology news sentiment briefing",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "RSS情感简报",
+      "新闻情感简报",
+      "多源科技新闻简报",
+      "news sentiment briefing",
+      "RSS sentiment digest"
+    ],
+    "entries": [
+      {
+        "skill": "rss-news-sentiment-engine",
+        "sha256": "c277ad872975a8b7371740eda73fb8735206633a8d7fed40e82cde94f77bacb8",
+        "reason": "采集、同源去重、排序与核对流程自含，明确 JSON 字段和独立信源约束，便于结构化交付。",
+        "reason_en": "Includes collection, source deduplication, ranking and verification with explicit JSON fields and independent-source constraints."
+      },
+      {
+        "skill": "news-sentiment-briefing",
+        "sha256": "cbf6d2dedc5a9149dd3e2a236db65caac1db7de2382a28a4623c3a18eee9d92b",
+        "reason": "相同六步可产出面向阅读的简报卡，偏研究语境；JSON 消费路径不如数据管道版明确。",
+        "reason_en": "The same six steps produce reader-facing cards for research; JSON consumption is less explicit than in the pipeline version."
+      }
+    ]
+  },
+  {
+    "id": "saas-unit-economics-cohorts",
+    "title": "分析订阅企业单位经济与队列",
+    "title_en": "Analyze subscription unit economics and cohorts",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "SaaS单位经济分析",
+      "订阅队列LTV CAC",
+      "subscription unit economics cohorts"
+    ],
+    "entries": [
+      {
+        "skill": "unit-economics-analyzer",
+        "sha256": "451396f18f0501a3eaec1fb0df2a1d1485c8af35a0b4bb9d08adffde87d14e30",
+        "reason": "客户级输入、ARR桥、GRR NDR、队列矩阵与Excel固定产物清楚。",
+        "reason_en": "Defines customer-level inputs, ARR bridge, GRR/NDR, cohort matrices and workbook outputs."
+      },
+      {
+        "skill": "cfo-financial-advisor",
+        "sha256": "c89b59bc9c83d264b2c03e08a724c7e03e0aef9925e6fb067f2d9e403acaf2eb",
+        "reason": "战略备选；要求运行的单位经济、burn、融资三个脚本均缺失，须补齐。",
+        "reason_en": "A strategic alternative, but its required unit-economics, burn and fundraising scripts are absent."
+      }
+    ]
+  },
+  {
+    "id": "sales-weighted-forecast",
+    "title": "编制销售管线加权预测",
+    "title_en": "Build a weighted sales pipeline forecast",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "销售加权预测",
+      "管线预测commit",
+      "weighted sales pipeline forecast"
+    ],
+    "entries": [
+      {
+        "skill": "sales-forecast-builder",
+        "sha256": "9adf6b345f87e62db4f868b0c72e3c4cd780c9a50483b76572368f11a4e649f4",
+        "reason": "最小CRM字段到概率、三情景、commit upside、风险和配额缺口表，契约完整。",
+        "reason_en": "Defines minimum CRM fields, probabilities, scenarios, commit/upside, risk and gap-to-quota outputs."
+      },
+      {
+        "skill": "cro-revenue-advisor",
+        "sha256": "1a9c34a056c0363425ed9e6e97b5e2b753ee33f84d414943af25e616add45dd5",
+        "reason": "B2B SaaS董事会营收预测备选；必跑forecast与churn两个脚本缺失。",
+        "reason_en": "A strategic B2B SaaS board-forecast alternative; its required forecast and churn helpers are absent."
+      }
+    ]
+  },
+  {
+    "id": "select-production-llm-patterns",
+    "title": "选择 LLM 应用模式与生产护栏",
+    "title_en": "Select LLM application patterns and production guardrails",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "LLM应用模式选型",
+      "生产LLM模式",
+      "LLM架构决策矩阵",
+      "select LLM architecture pattern",
+      "production LLM patterns"
+    ],
+    "entries": [
+      {
+        "skill": "llm-app-production-patterns",
+        "sha256": "adbdb9a6ff3c1e7bfd8a47091e04287c0520a75a3d8207dbf883c823f513fce2",
+        "reason": "决策矩阵将 RAG、函数调用、ReAct 和计划执行映射到任务，给有界循环及缓存/限流/回退骨架；重试示例异常过滤需补正。",
+        "reason_en": "Maps RAG, function calling, ReAct and plan-execute to tasks, with bounded loops and cache/rate-limit/fallback skeletons; correct exception filtering in the retry example."
+      },
+      {
+        "skill": "production-llm-app-builder",
+        "sha256": "e7101d4e0bda14a9b59ee46c922f4590cc5d94df4abb944714f112e0b155b377",
+        "reason": "适合架构、检索、隐私与观测总览；具体模式选择和实现骨架须补充专门细节。",
+        "reason_en": "Fits an architecture, retrieval, privacy and observability overview; add details for concrete pattern choice and implementation skeletons."
+      }
+    ]
+  },
+  {
+    "id": "seo-periodic-performance-report",
+    "title": "编写 SEO 周期绩效报告",
+    "title_en": "Write a periodic SEO performance report",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "SEO绩效月报",
+      "SEO GEO汇报",
+      "periodic seo performance report"
+    ],
+    "entries": [
+      {
+        "skill": "seo-performance-reporter",
+        "sha256": "4cffd027854b5c1b733afdd012a73c95142c928fb57f9f3309525b10ea406a9d",
+        "reason": "SEO GEO专用指标、来源周期、品牌拆分和缺数据标记齐全，行动有负责人。",
+        "reason_en": "Defines focused SEO/GEO metrics, source/period, brand splits, missing-data labels and action ownership."
+      },
+      {
+        "skill": "marketing-performance-report",
+        "sha256": "3a7fb4fb310a379f051e0630d2d1a6fa057ba6f99793422249f5c84c53ed64b9",
+        "reason": "同类自然渠道报告备选，需连同其他营销渠道或预算QBR汇报时采用。",
+        "reason_en": "Use for the same natural-channel report when other marketing channels or budget QBR context is also needed."
+      }
+    ]
+  },
+  {
+    "id": "social-source-repurposing",
+    "title": "把已有素材改编为多平台内容",
+    "title_en": "Repurpose source material across platforms",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "多平台素材改编",
+      "文章改社媒内容",
+      "social source repurposing"
+    ],
+    "entries": [
+      {
+        "skill": "social-media-content-creator",
+        "sha256": "03008a6d68002561ada54a38daa26d5fea79dad696e0ca5ca7ab5adfd4cdfecb",
+        "reason": "有完整平台改编、周月排期和指标流程，可在用户提供品牌上下文时完成，无额外必需技能。",
+        "reason_en": "Provides platform adaptation, calendars and metrics from supplied brand context without an additional required skill."
+      },
+      {
+        "skill": "platform-native-content-engine",
+        "sha256": "bac3246410db7181aad4e9cdc0ee9c3003d422e0855072e69868199c5571de85",
+        "reason": "适合真实素材与作者声音保真；正文要求的brand-voice未在现行库找到，须先补齐该前置或提供经确认的VOICE PROFILE。",
+        "reason_en": "Use for source and author-voice fidelity; the required brand-voice skill is absent from the current inventory, so supply it or an approved voice profile first."
+      }
+    ]
+  },
+  {
+    "id": "startup-financial-scenarios",
+    "title": "搭建初创财务与跑道情景模型",
+    "title_en": "Build startup financial and runway scenarios",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "初创财务情景模型",
+      "创业现金跑道建模",
+      "startup financial scenarios"
+    ],
+    "entries": [
+      {
+        "skill": "startup-financial-modeler",
+        "sha256": "3c6f1ee136eeba1ff23779a97ec7f03118ff0b212adc2a98d7d46976eb1ba862",
+        "reason": "队列收入、成本招聘现金融资输入较清楚；使用前须修正净烧钱写作收入减支出的跑道符号矛盾。",
+        "reason_en": "Defines revenue, cost, hiring, cash and funding inputs; first correct the net-burn sign inconsistency in its runway formula."
+      },
+      {
+        "skill": "cfo-financial-advisor",
+        "sha256": "c89b59bc9c83d264b2c03e08a724c7e03e0aef9925e6fb067f2d9e403acaf2eb",
+        "reason": "同类base bull bear战略模型备选；必跑burn、单位经济和融资脚本均缺失，先补齐。",
+        "reason_en": "A strategic scenario alternative; mandatory burn, unit-economics and fundraising helpers must be supplied."
+      }
+    ]
+  },
+  {
+    "id": "stress-test-business-assumption",
+    "title": "压力测试可证伪的商业假设",
+    "title_en": "Stress-test a falsifiable business assumption",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "商业假设压力测试",
+      "假设压力测试",
+      "stress-test business assumption",
+      "business assumption test"
+    ],
+    "entries": [
+      {
+        "skill": "business-assumption-stress-test",
+        "sha256": "b933767bd606c5859623c30226a4d13112f72914a71c579f17e2cccf8a83a6c7",
+        "reason": "围绕单条假设提供反证、定量/定性分流、下行情景、敏感度和三类对冲，报告模板完整。",
+        "reason_en": "Provides counter-evidence, quantitative/qualitative branching, downside scenarios, sensitivity and three hedge types for one assumption, with a complete report template."
+      },
+      {
+        "skill": "executive-adversarial-mentor",
+        "sha256": "fb0a374508ed4b13a9a3b4644cb4b273662f93dc239d6e9f9fce539b7bad8389",
+        "reason": "stress-test 段能完成基本检验；还需计划挑战或艰难决策时可采用较宽的五动作入口。",
+        "reason_en": "Its stress-test section covers the basic test; the broader five-action entry also supports plan challenges and hard decisions."
+      }
+    ]
+  },
+  {
+    "id": "stripe-subscription-integration",
+    "title": "接入 Stripe 订阅支付",
+    "title_en": "Integrate Stripe subscription payments",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "Stripe订阅接入",
+      "Stripe Checkout订阅",
+      "stripe subscription integration"
+    ],
+    "entries": [
+      {
+        "skill": "stripe-integration",
+        "sha256": "d85a654f825586eb234eab9e3adaeedfe02570ceda5503e8031e7c48d49d6721",
+        "reason": "覆盖Checkout、门户、Webhook验签和重试测试骨架；采用前须补并发安全的幂等认领/副作用处理和周期末降级排程，不能把分离的查标记/写标记或proration:none当作完整保证，并需适配当前SDK联调。",
+        "reason_en": "Covers Checkout, portal, webhook verification and retry-test skeletons; add concurrency-safe idempotent claiming/effects and period-end downgrade scheduling. Separate read/write markers and proration:none do not establish those guarantees; adapt and integration-test the current SDK."
+      },
+      {
+        "skill": "digital-product-monetization",
+        "sha256": "a70d5c65d811a6071c63a78190a12add18c1cd48f3126dd1890ff337d48af402",
+        "reason": "Python接入连同套餐留存方案交付时采用；需补齐持久化幂等实现和支付联调。",
+        "reason_en": "Use when Python entry points accompany packaging and retention strategy; add persistent idempotency and integration tests."
+      }
+    ]
+  },
+  {
+    "id": "technical-seo-health-audit",
+    "title": "审计技术 SEO 健康度",
+    "title_en": "Audit technical SEO health",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "技术SEO体检",
+      "抓取索引SEO检查",
+      "technical seo health audit"
+    ],
+    "entries": [
+      {
+        "skill": "technical-seo-checker",
+        "sha256": "77a96a36c0e2d9e5ccf8ef791c244915be9ab8279ad8fca419f4668c4ba87ef7",
+        "reason": "基础设施九步证据报告，含迁移、批量URL及不可信页面内容边界。",
+        "reason_en": "A focused nine-step evidence audit with migration, bulk-URL and untrusted-page boundaries."
+      },
+      {
+        "skill": "seo-audit",
+        "sha256": "57fa5d47269a71501d80d2d09c80f9f4b8bdf36f7ec4eac94b9d469d18c826e4",
+        "reason": "同技术基础加页面、内容与权威诊断，适合根因尚不明的综合问题。",
+        "reason_en": "Covers the same technical foundation plus page, content and authority diagnostics."
+      }
+    ]
+  },
+  {
+    "id": "triage-inbound-ip-letter",
+    "title": "分诊收到的知识产权律师函",
+    "title_en": "Triage an incoming IP demand letter",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "收到停止侵权函",
+      "侵权来函分诊",
+      "triage incoming cease and desist"
+    ],
+    "entries": [
+      {
+        "skill": "cease-and-desist-letter",
+        "sha256": "43b50b72aabd0a70d1544211eb8c390d8677f0d3ce3d06a4cd7e780381fcd945",
+        "reason": "receive分支专门处理商标/版权主张、权利状态、回应选项和期限，保留律师复核与升级边界。",
+        "reason_en": "Its receive branch focuses on trademark/copyright assertions, rights status, options and deadlines, retaining counsel review and escalation."
+      },
+      {
+        "skill": "inbound-demand-letter-triage",
+        "sha256": "43094ef72d6e4ec090e3a7bfb864599954f0285e378c759d184b384c9b4b458b",
+        "reason": "先抽来函字段、对事务台账和初步分流；不核验法律、不起草回复，深入IP判断另交律师。",
+        "reason_en": "For initial field extraction, matter-register checks and routing; does not verify law or draft replies, leaving deeper IP judgments to counsel."
+      }
+    ]
+  },
+  {
+    "id": "vcf-quality-before-statistics",
+    "title": "为 VCF 汇总统计做质量检查",
+    "title_en": "Check VCF quality before summary statistics",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "VCF统计前质控",
+      "VCF过滤状态核查",
+      "vcf quality before statistics"
+    ],
+    "entries": [
+      {
+        "skill": "vcf-variant-filtering",
+        "sha256": "48f8b9cde1099f61a3f6a8aed389c2f2f7eff9320dadb8b4019b7d5aa00ac3f1",
+        "reason": "围绕既有过滤状态、原始文件保留及统计口径声明组织报告，阈值须按数据来源复核。",
+        "reason_en": "Structures the report around filtering state, raw-file preservation and declared statistics; validate data-specific thresholds."
+      },
+      {
+        "skill": "bcftools-variant-manipulation",
+        "sha256": "d2f126e0a5bdc5a05d6e23e0df37b7adb13ca83b2796945a604f2a060e710ae9",
+        "reason": "同过滤QC备选，需要同时规范化、合并或ID注释时更合适。",
+        "reason_en": "An alternative for the same QC when normalization, merging or ID annotation is also needed."
+      }
+    ]
+  },
+  {
+    "id": "vendor-contract-redlines",
+    "title": "供应商合同逐条红线审查",
+    "title_en": "Review vendor contracts against a playbook",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "供应商合同红线审查",
+      "供应商协议审查",
+      "vendor contract redline review"
+    ],
+    "entries": [
+      {
+        "skill": "vendor-agreement-redline-review",
+        "sha256": "86f7f981c7510b44d682bee44910bf86da88fe3b690c257dcfc48e626fa6b6dc",
+        "reason": "明确区分采购/销售方向、致命条款、双轴严重度和具名升级；需团队playbook及法务复核。",
+        "reason_en": "Distinguishes purchasing/sales direction, deal-breakers, two severity axes and named escalation; requires a team playbook and counsel review."
+      },
+      {
+        "skill": "contract-playbook-review",
+        "sha256": "1ce276a5793f596e5a8f81ba77f013416f9436f65b8dca9da6283cc1b8346321",
+        "reason": "同样输出逐条偏离和可插入红线；更适合兼顾客户合同及通用谈判优先级，不替代律师批准。",
+        "reason_en": "Also outputs clause deviations and insertable redlines; broader coverage of customer contracts and negotiation priorities, without replacing counsel approval."
+      }
+    ]
+  },
+  {
+    "id": "website-conversion-copy",
+    "title": "撰写网站转化营销文案",
+    "title_en": "Write website conversion copy",
+    "reviewed_at": "2026-11-15",
+    "triggers": [
+      "网站转化文案",
+      "落地页营销文案",
+      "website conversion copy"
+    ],
+    "entries": [
+      {
+        "skill": "conversion-copywriter",
+        "sha256": "55f2412486ef3ea1f5a5fc283048827925f9102350caff71395dc528a6f654f1",
+        "reason": "输入、分页面结构、区块稿、关键注释与标题CTA备选均在正文。",
+        "reason_en": "Contains intake, page structures, full sections, annotations and headline/CTA alternatives."
+      },
+      {
+        "skill": "landing-page-copywriting",
+        "sha256": "e3996c4b2ac82fbc5979d2133dd032067de261c2071d85023947ca30571c98b0",
+        "reason": "同类成稿备选，标题角度更多；可选 headline_scorer.py 缺失，不能声称跑过评分。",
+        "reason_en": "Adds headline angles; its optional scorer is absent, so scoring must not be claimed."
+      },
+      {
+        "skill": "psychology-conversion-copy",
+        "sha256": "40cd6dffc3310af03be4c58ba44e6be07dcfe91cac343b527b19bb30986d31a9",
+        "reason": "适合需按认知和信任阻力定制的同类稿件，强调心理任务标注，页型结构需按任务补齐。",
+        "reason_en": "Use for awareness and trust objections with annotated psychological tasks and a task-specific page structure."
+      }
     ]
   }
 ]
