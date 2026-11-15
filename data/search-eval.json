@@ -6,7 +6,10 @@
   {"query":"解释论文", "expected":["academic-paper-explainer"]},
   {"query":"Python 性能优化", "expected":["python-performance-optimization"]},
   {"query":"SQL 注入防护", "expected":["api-security-best-practices"]},
-  {"query":"React 组件测试", "expected":["javascript-testing-patterns"]}
+  {"query":"React 组件测试", "expected":["javascript-testing-patterns"]},
+  {"query":"做PPT", "expected":["pptx-document-processing"]},
+  {"query":"用Python生成PPT", "expected":["python-pptx-deck-generator"]},
+  {"query":"投行模板填充", "expected":["ib-pitch-deck-builder"]}
 ]
 
 

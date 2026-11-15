@@ -13,6 +13,8 @@ Open `http://127.0.0.1:8765/`. `_site/` is ignored build output. Edit `site/` an
 
 The site provides English/Chinese interface controls, skill/repository search, volume/category filters, install commands, and shareable query URLs. Skill bodies keep their original language. Archived skills and historical-only/unavailable upstream repositories stay out of default discovery; the complete Markdown indexes preserve the historical records. An archived upstream can still be listed with its state shown. Review status is metadata, not a runtime or security certification.
 
+Registered tasks also show [task-specific skill picks](../docs/skill-ranking.md) with reasons. The generated catalog carries reviewed groups; the site and CLI share `scripts/skill-ranking.mjs`. Exact task aliases activate a group order, exact skill IDs stay first, and volume filters still apply. Other queries keep lexical ranking.
+
 `.github/workflows/pages.yml` builds and verifies PRs, then deploys only pushes to `main` through GitHub Pages Actions. Repository Settings → Pages must select **GitHub Actions**. The `zh` branch shares the same site source; the published site switches interface language in the browser.
 
 `social-card.svg` is the editable, original source of `social-card.png` (1200×630). It intentionally contains no changing catalog counts. When updating it, render the SVG in a browser and export a PNG at its native size, then inspect the result. The page's Open Graph and Twitter metadata use the PNG.

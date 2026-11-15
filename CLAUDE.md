@@ -10,6 +10,7 @@
 - Agent 按每条技能 frontmatter 的 `description` 字段匹配是否加载——不靠浏览目录。
 - 人工浏览：`INDEX/catalog.md`（按卷/类总目）、`INDEX/tags.md`（标签）、`INDEX/graph.md`（互见关系图）。
 - 机读召回：`INDEX/search.json`（name/description/triggers/domain 扁平记录，供"先粗筛域/标签、再按 description 精排"的两段式发现）。
+- 已审阅的同类任务内嵌 `task_rankings`；CLI/网站搜索会显示命中任务的推荐顺序和理由，精确技能 ID 优先。范围见 `docs/skill-ranking.md`。
 
 ## 如何使用一条技能
 进入该技能文件夹，读取其 `SKILL.md` 并遵循「## 步骤 / 指令」。使用前核对已声明的随包资源、外部运行时和输入；缺少必需工具或数据时停止对应流程。
