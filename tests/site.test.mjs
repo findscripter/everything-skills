@@ -17,7 +17,7 @@ test('site task recommendations preserve filters, exact IDs and unrelated search
   assert.ok(search(fixtures, 'fixture').every(row => !row.recommendation));
 });
 
-test('reviewed PPT tasks have the same first choice in the CLI and published site', async () => {
+test('PPT search preserves file recommendations and the independent Python-script deliverable', async () => {
   const build = spawnSync(process.execPath, ['scripts/build-site.mjs'], {cwd:new URL('..', import.meta.url), encoding:'utf8', windowsHide:true});
   assert.equal(build.status, 0, build.stderr);
   const published = JSON.parse(await readFile(new URL('../_site/catalog.json', import.meta.url), 'utf8')).skills;
@@ -25,13 +25,36 @@ test('reviewed PPT tasks have the same first choice in the CLI and published sit
     const cli = searchRows(rows, query, 2), site = search(published, query).slice(0, 2);
     assert.equal(cli[0].row.name, expected);
     assert.equal(site[0].name, expected);
-    assert.deepEqual(site.map(row => row.name), cli.map(item => item.row.name));
-    assert.equal(site[0].recommendation.rank, 1);
+    if (query === '用Python生成PPT') {
+      assert.ok(!site[0].recommendation && !cli[0].recommendation);
+    } else {
+      assert.deepEqual(site.map(row => row.name), cli.map(item => item.row.name));
+      assert.equal(site[0].recommendation.rank, 1);
+    }
   }
   const html = search(published, 'HTML幻灯片')[0];
   assert.equal(html.name, 'html-animated-slides');
   assert.ok(!html.recommendation);
   assert.equal(searchRows(rows, 'pitch-deck-refresh', 1)[0].row.name, 'pitch-deck-refresh');
+});
+
+test('every registered task group reaches its declared first choice in both search consumers', async () => {
+  const groups = JSON.parse(await readFile(new URL('../data/skill-rankings.json', import.meta.url), 'utf8'));
+  const review = JSON.parse(await readFile(new URL('../data/skill-ranking-review.json', import.meta.url), 'utf8'));
+  const current = rows.filter(row => row.status !== 'deprecated');
+  assert.deepEqual(review.skills.map(row => row.name).sort(), current.map(row => row.name).sort());
+  for (const group of groups) {
+    const query = group.triggers[0];
+    const exact = current.find(row => row.name.toLowerCase() === query.trim().toLowerCase());
+    const expected = exact?.name || group.entries[0].skill;
+    const cli = searchRows(rows, query, 1)[0];
+    const site = search(rows, query)[0];
+    assert.equal(cli.row.name, expected, `${group.id}: CLI`);
+    assert.equal(site.name, expected, `${group.id}: site`);
+    assert.equal(cli.recommendation.task, group.id);
+    assert.equal(site.recommendation.task, group.id);
+    for (const entry of group.entries) assert.ok(review.skills.some(row => row.name === entry.skill && row.decision === 'ranked' && row.review_scope === 'full-body-comparison'));
+  }
 });
 test('site search finds the actual API review skill from English and Chinese tasks', () => {
   for (const query of ['api review', 'API 设计评审']) assert.equal(search(rows, query)[0].name, 'api-design-reviewer');

@@ -102,7 +102,7 @@ npm run skill -- why api-design-reviewer
 
 CLI 无第三方依赖，不需要 `npm install`。它检索已随仓库提供的索引，`why` 展示技能关系。打开返回路径中的 `SKILL.md`，再让 Agent 按它处理任务。Codex、Cursor、Gemini CLI 可通过 [AGENTS.md](AGENTS.md)、[CLAUDE.md](CLAUDE.md)、[GEMINI.md](GEMINI.md) 熟悉本仓库的导航方式。
 
-同类技能支持[按任务推荐顺序](docs/skill-ranking.md)，并显示理由。例如 `search "做PPT" --json` 与 `search "python-pptx" --json` 会按交付物选择不同首选。这是已审阅的范围判断；精确技能 ID 仍优先，关键词分数单独保留。
+查看全库[同类任务推荐总目](INDEX/task-rankings.md)，检查首选、备选和理由。可搜索 `优化Dockerfile`、`编写ADR` 或 `做PPT`。覆盖清单区分独立任务与全文比较；这是静态范围判断，精确技能 ID 仍优先，关键词分数单独保留。
 
 ### 系统入口与组合方案
 

@@ -9,7 +9,15 @@
   {"query":"React 组件测试", "expected":["javascript-testing-patterns"]},
   {"query":"做PPT", "expected":["pptx-document-processing"]},
   {"query":"用Python生成PPT", "expected":["python-pptx-deck-generator"]},
-  {"query":"投行模板填充", "expected":["ib-pitch-deck-builder"]}
+  {"query":"投行模板填充", "expected":["ib-pitch-deck-builder"]},
+  {"query":"编写ADR", "expected":["adr-management-patterns"]},
+  {"query":"优化Dockerfile", "expected":["docker-expert"]},
+  {"query":"静态代码评审", "expected":["code-reviewer"]},
+  {"query":"供应商合同红线审查", "expected":["vendor-agreement-redline-review"]},
+  {"query":"GDPR工程落地", "expected":["gdpr-data-handler"]},
+  {"query":"财报前瞻指引", "expected":["octagon-earnings-financial-guidance"]},
+  {"query":"利润表同比增长", "expected":["octagon-financial-metrics-analysis"]},
+  {"query":"构建策略回测", "expected":["backtesting-frameworks"]}
 ]
 
 

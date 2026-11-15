@@ -192,6 +192,8 @@ test('Arch package staging preserves runtime queries, source licenses and resour
   const ranked = JSON.parse(execFileSync(process.execPath, [entry, 'search', '做PPT', '--limit', '1', '--json'], {cwd:os.tmpdir(), encoding:'utf8'}));
   assert.equal(ranked[0].name, 'pptx-document-processing');
   assert.equal(ranked[0].recommendation.rank, 1);
+  for (const file of ['INDEX/task-rankings.md','data/skill-rankings.json','data/skill-ranking-review.json'])
+    assert.deepEqual(fs.readFileSync(path.join(installed, file)), fs.readFileSync(path.join(root, file)));
   assert.equal(fs.readlinkSync(path.join(stage, 'package/usr/bin/everything-skills')), '/usr/share/everything-skills/bin/everything-skills.mjs');
   assert.deepEqual(fs.readFileSync(path.join(installed, 'LICENSE')), fs.readFileSync(path.join(root, 'LICENSE')));
   const resources = JSON.parse(fs.readFileSync(path.join(installed, 'data/skill-resources.json'), 'utf8'));

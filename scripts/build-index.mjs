@@ -311,10 +311,11 @@ for (const { dir } of VOLS) {
 }
 const skills = [];
 for (const file of files) {
-  const fm = parseFrontmatter(await fs.readFile(file, 'utf8'), relOf(file));
+  const raw = await fs.readFile(file);
+  const fm = parseFrontmatter(raw.toString('utf8'), relOf(file));
   if (!fm) continue;
   const parts = relOf(file).split('/');
-  skills.push({ fm, file, vol: parts[0], folder: parts[parts.length - 2] || '' });
+  skills.push({ fm, file, sha256:createHash('sha256').update(raw).digest('hex'), vol: parts[0], folder: parts[parts.length - 2] || '' });
 }
 
 const byName = new Map();
@@ -438,10 +439,12 @@ const sorted = [...skills].sort((a, b) => (a.fm.name || '').localeCompare(b.fm.n
 
 // Only explicitly reviewed task groups get an order; body changes invalidate it.
 const taskRankings = new Map();
+let rankingGroups = [];
 const rankingFile = path.join(ROOT, 'data/skill-rankings.json');
 try {
   const groups = JSON.parse(await fs.readFile(rankingFile, 'utf8'));
   if (!Array.isArray(groups)) throw new Error('顶层须为数组');
+  rankingGroups = groups;
   const ids = new Set(), aliases = new Set();
   const text = value => typeof value === 'string' && Boolean(value.trim());
   const normalize = value => value.trim().toLowerCase().replace(/\s+/g, ' ');
@@ -464,8 +467,7 @@ try {
       names.add(entry.skill);
       const skill = byName.get(entry.skill);
       if (!skill || skill.fm.status !== 'stable') throw new Error(`引用未知或非 stable 技能: ${entry.skill}`);
-      const digest = createHash('sha256').update(await fs.readFile(skill.file)).digest('hex');
-      if (digest !== entry.sha256) throw new Error(`技能正文已变化，需重新审阅排名: ${entry.skill}`);
+      if (skill.sha256 !== entry.sha256) throw new Error(`技能正文已变化，需重新审阅排名: ${entry.skill}`);
       const ranking = {task:group.id, title:group.title, title_en:group.title_en, triggers:group.triggers, rank:index + 1, reason:entry.reason, reason_en:entry.reason_en, reviewed_at:group.reviewed_at};
       if (!taskRankings.has(entry.skill)) taskRankings.set(entry.skill, []);
       taskRankings.get(entry.skill).push(ranking);
@@ -475,6 +477,58 @@ try {
   if (error.code !== 'ENOENT' || error.path !== rankingFile) errors.push(`data/skill-rankings.json: ${error.message}`);
 }
 exitOnErrors();
+
+// A full-library claim requires a current disposition for every actual skill.
+let rankingReview = null;
+const rankingReviewFile = path.join(ROOT, 'data/skill-ranking-review.json');
+try {
+  const review = JSON.parse(await fs.readFile(rankingReviewFile, 'utf8'));
+  const text = value => typeof value === 'string' && Boolean(value.trim());
+  const completedAt = review?.completed_at;
+  const utcTime = typeof completedAt === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(completedAt)
+    && Number.isFinite(Date.parse(completedAt)) && new Date(completedAt).toISOString().replace('.000Z', 'Z') === completedAt.replace('.000Z', 'Z');
+  if (review?.schema_version !== 1 || !/^[a-f0-9]{40}$/.test(review.baseline_commit || '') ||
+      !utcTime || !text(review.method)) throw new Error('无效的版本、基线或UTC完成时间');
+  for (const [key, archived] of [['skills', false], ['archived', true]]) {
+    if (!Array.isArray(review[key])) throw new Error(`${key} 须为数组`);
+    const expected = new Set(skills.filter(skill => (skill.fm.status === 'deprecated') === archived).map(skill => skill.fm.name));
+    const seen = new Set();
+    for (const record of review[key]) {
+      if (!record || !expected.has(record.name) || seen.has(record.name) || !text(record.reason)) throw new Error(`${key} 含未知、重复或无理由条目`);
+      seen.add(record.name);
+      if (record.sha256 !== byName.get(record.name).sha256) throw new Error(`需重新审阅变化后的任务边界: ${record.name}`);
+      if (archived) continue;
+      const ranked = taskRankings.has(record.name);
+      if (record.decision !== (ranked ? 'ranked' : 'distinct') || !text(record.task) ||
+          !['metadata','metadata-and-usage-section','full-body-comparison'].includes(record.review_scope) ||
+          (ranked && record.review_scope !== 'full-body-comparison') ||
+          !Array.isArray(record.compared_with) || record.compared_with.some(name => !byName.has(name) || name === record.name)) throw new Error(`任务分类或比较范围与排名矛盾: ${record.name}`);
+    }
+    if (seen.size !== expected.size) throw new Error(`${key} 覆盖不完整: ${seen.size}/${expected.size}`);
+  }
+  if (rankingGroups.some(group => group.entries.length < 2)) throw new Error('全库同类任务组至少需要两个替代技能');
+  rankingReview = review;
+} catch (error) {
+  if (error.code !== 'ENOENT' || error.path !== rankingReviewFile) errors.push(`data/skill-ranking-review.json: ${error.message}`);
+}
+exitOnErrors();
+
+{
+  const cell = value => String(value).replaceAll('|', '\\|').replace(/[\r\n]+/g, ' ');
+  let md = `# 同类任务推荐顺序 · Task-specific skill picks\n\n${stamp}\n这是静态任务适配顺序，不是运行效果或安全评分。精确技能 ID 优先；任务别名整句匹配才应用组内顺序。\n\n`;
+  if (rankingReview) {
+    const distinct = rankingReview.skills.filter(record => record.decision === 'distinct').length;
+    md += `已覆盖 **${rankingReview.skills.length} 条现行技能**：${taskRankings.size} 条进入 ${rankingGroups.length} 个同类任务组，${distinct} 条保持独立；${rankingReview.archived.length} 条归档不参与推荐。\n\n`;
+    md += `逐条范围、区别与正文哈希见[覆盖清单](../data/skill-ranking-review.json)。任务边界初筛与入组全文比较分开记录；未执行技能或测量任务成功率。\n\n`;
+  } else md += '当前只登记了部分已审阅任务，不代表全库覆盖。\n\n';
+  if (rankingGroups.length) md += `<details><summary>同任务组目录（${rankingGroups.length}）</summary>\n\n${rankingGroups.map(group => `- [${cell(group.title)}](#${group.id})`).join('\n')}\n\n</details>\n\n`;
+  for (const group of rankingGroups) {
+    md += `<a id="${group.id}"></a>\n\n## ${cell(group.title)} · ${group.id}\n\n${cell(group.title_en)} · ${group.reviewed_at}\n\n检索任务：${group.triggers.map(trigger => '`' + cell(trigger).replaceAll('`', '') + '`').join('、')}\n\n| 顺序 | 技能 | 推荐理由与条件 |\n| --- | --- | --- |\n`;
+    for (const [index, entry] of group.entries.entries()) md += `| ${index + 1} | [\`${entry.skill}\`](../${linkOf(byName.get(entry.skill))}) | ${cell(entry.reason)} |\n`;
+    md += '\n';
+  }
+  stageWrite(path.join(INDEX, 'task-rankings.md'), md.trimEnd() + '\n');
+}
 
 // 质量覆盖是可选的：空文件或不存在时，所有条目使用保守默认值。
 // 只接受针对现有技能的显式覆盖，避免拼写错误悄悄产生“孤儿”元数据。
