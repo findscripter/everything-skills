@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadSkillRepos } from './load-skill-repos.mjs';
+import { rankedResult, compareResults } from './skill-ranking.mjs';
 
 const BOOLEAN_OPTIONS = new Set(['json', 'include-deprecated', 'help']);
 
@@ -170,21 +171,21 @@ export function searchRows(rows, query, limit = 10, { includeDeprecated = false 
     // match (for example, "React" in ReactFlow). Give exact trigger phrases
     // a small deterministic boost for task-oriented queries.
     if ((row.triggers || []).some(trigger => String(trigger).trim().toLocaleLowerCase() === normalizedQuery)) value += 24;
-    return { row, score: value };
+    return rankedResult(row, value, query);
   })
-    .filter(item => item.score > 0)
-    .sort((a, b) => b.score - a.score || String(a.row.name).localeCompare(String(b.row.name)))
+    .filter(item => item.score > 0 || item.recommendation)
+    .sort(compareResults)
     .slice(0, limit);
 }
 
 function printRows(results, json, { showScore = true } = {}) {
   if (json) {
-    console.log(JSON.stringify(results.map(({ row, score }) => showScore ? ({ ...row, score }) : row)));
+    console.log(JSON.stringify(results.map(({ row, score, recommendation }) => showScore ? ({ ...row, score, ...(recommendation ? {recommendation} : {}) }) : row)));
     return;
   }
   if (!results.length) { console.log('没有匹配的技能。'); return; }
-  for (const { row, score } of results) {
-    const suffix = showScore ? `\t${score}` : '';
+  for (const { row, score, recommendation } of results) {
+    const suffix = showScore ? `\t${score}${recommendation ? `\t${recommendation.task} #${recommendation.rank}: ${recommendation.reason}` : ''}` : '';
     console.log(`${row.name}\t${row.title || ''}\t${row.domain || row.vol || ''}${suffix}`);
   }
 }
@@ -199,6 +200,7 @@ function findRepo(repos, query) {
 function commandHelp() {
   console.log('用法: everything-skills <command> [options]');
   console.log('  search <关键词> [--limit N] [--json]   搜索技能');
+  console.log('  已登记任务显示推荐顺序与理由；精确技能 ID 优先，score 仍为关键词匹配分。');
   console.log('  list [--domain D|--vol V|--tag T]       浏览技能');
   console.log('  why <skill-name> [--json]               查看关系图邻居');
   console.log('  show <skill-name> [--json]              读取正文及资源目录');

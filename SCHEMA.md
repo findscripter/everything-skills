@@ -98,6 +98,12 @@ Agent 发现技能靠 `description` 语义匹配，不浏览目录。规模化�
 
 因此 `description` 必须含**负边界**（不适用于…）降误召、含**触发词**提召回。`INDEX/search.json` 是这套召回的机读底座，由生成器维护。完整的发现-治理路线见 [ROADMAP.md](ROADMAP.md)。
 
+## 同类任务排名（`data/skill-rankings.json`）
+
+独立维护数组，每组包含唯一 `id`、`title`、`title_en`、`reviewed_at`（YYYY-MM-DD）、非空 `triggers` 与有序 `entries`。每个条目包含现行 stable 技能 `skill`、已审阅正文 `sha256`、`reason` 与 `reason_en`。组内数组位置生成 `rank`，同一技能可在不同任务中有不同名次；重复触发词、重复成员、未知/非 stable 技能或正文哈希变化都会使生成器在写入前失败。
+
+`INDEX/search.json` 为成员内嵌 `task_rankings`，CLI 和网站只在整句触发词匹配时应用顺序；精确技能 ID 优先于任务排名，原关键词分仍独立保留。它是有理由的静态推荐，不是效果或安全认证。维护规则与首批范围见 [任务排名说明](docs/skill-ranking.md)。
+
 ## 有序案例配方（`data/workflows.json`）
 
 配方将已有教学案例的技能顺序与交接单独登记，供 `compose` 查询。每项有唯一 `id`、`title`、`triggers`、本库内的 `source` 文档、`inputs`、`outputs`、`limits` 及非空 `steps`。每个步骤引用现行技能 `skill`，给出非空输入/输出列表及 `check` 验收说明。CLI 读取时校验字段、技能存在性与源文件路径边界，错误不能静默退回空配方。
