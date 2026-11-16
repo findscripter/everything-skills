@@ -1,0 +1,2293 @@
+{
+  "quality-parent.json": {
+    "stage": "complete",
+    "date": "2026-11-16",
+    "records": [
+      {
+        "full_name": "Laitangtang-lab-workflows/openfoam-research-init",
+        "commit": "e1d04298648aa58a7f65419241f5c26519c79ba8",
+        "tree": "d44f8a60208f755de6ffc87a30a418c0ebf762de",
+        "read_scope": "Root maintainer read the complete fixed README, selected root SKILL.md and CC0 license, without running engines.",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "652ccac232a6b4d7ce7daf0e1ec5e2158fa39f05",
+            "sha256": "77a18ec5804a55fe68b8f5b5d6a69335bd0792330646055c2da1d74782909d8b",
+            "url": "https://github.com/Laitangtang-lab-workflows/openfoam-research-init/blob/e1d04298648aa58a7f65419241f5c26519c79ba8/README.md",
+            "bytes": 4931
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "21d03ea2591addf35326eca9ccc097e4433484e6",
+            "sha256": "dd057a1cc2fbfadd2e10d12bd8d93feec62f887d12cc63b401ba94e4f21f6328",
+            "url": "https://github.com/Laitangtang-lab-workflows/openfoam-research-init/blob/e1d04298648aa58a7f65419241f5c26519c79ba8/SKILL.md",
+            "bytes": 6946
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "0e259d42c996742e9e3cba14c677129b2c1b6311",
+            "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+            "url": "https://github.com/Laitangtang-lab-workflows/openfoam-research-init/blob/e1d04298648aa58a7f65419241f5c26519c79ba8/LICENSE",
+            "bytes": 7048
+          }
+        ],
+        "conclusion": "README explicitly publishes a root SKILL.md via whole-repository clone into a skill directory; one canonical entry plus Chinese companion, not two independent skills. CC0 is explicit for repository-owned materials; third-party tool, software and data rights remain separate.",
+        "limits": "The index --init path writes configuration and --apply-sort reorders topic directories; replica/structure audits and project engines were not executed. Content-map references were listed but not independently read by this parent check."
+      },
+      {
+        "full_name": "hypit-ai/hypit",
+        "commit": "9a6f688c39829857d50dc596fa1218565585a9da",
+        "tree": "ff563108bac8c07b192cafed393f8ea93287705b",
+        "read_scope": "Parent read complete custom root license and complete docs/guide/skill.md installation/use page. The actual skills/hypit/SKILL.md was read by the product owner and byte-verified separately, not independently reread by this parent license check.",
+        "read_refs": [
+          {
+            "path": "LICENSE",
+            "blob_sha": "65d9981230b9c6668784f80a3d2830ab0a148788",
+            "sha256": "ed7bd598743c93dd27349eab6921e4e86884c785a33aef8ea2caeb541df8b912",
+            "url": "https://github.com/hypit-ai/hypit/blob/9a6f688c39829857d50dc596fa1218565585a9da/LICENSE",
+            "bytes": 3299
+          },
+          {
+            "path": "docs/guide/skill.md",
+            "blob_sha": "c70621a50e8e39a74e3338caa5c12147ea4ffb9b",
+            "sha256": "9d27cf5e8146df7242f1a7b549f0fedf926ceb2c83f73d504ad55de6b7d16f28",
+            "url": "https://github.com/hypit-ai/hypit/blob/9a6f688c39829857d50dc596fa1218565585a9da/docs/guide/skill.md",
+            "bytes": 4247
+          }
+        ],
+        "conclusion": "Root license modifies Apache-2.0 with multi-tenant/hosted-service, commercial redistribution and visible-branding restrictions. Current custom LicenseRef and separate output/model-service scope are required; plain Apache-2.0 would be inaccurate.",
+        "limits": "No legal opinion, installation, video generation or provider calls; this check does not certify all product code, skills or outcomes."
+      }
+    ],
+    "corrections": [],
+    "objections": [],
+    "limits": "Independent representative spot review; not all-body or runtime certification.",
+    "evaluated_at": "2026-11-16T13:14:25.175696+00:00"
+  },
+  "quality-science.json": {
+    "stage": "complete",
+    "date": "2026-11-16",
+    "records": [
+      {
+        "full_name": "hypit-ai/hypit",
+        "commit": "9a6f688c39829857d50dc596fa1218565585a9da",
+        "tree": "ff563108bac8c07b192cafed393f8ea93287705b",
+        "read_scope": {
+          "full": [
+            "skills/hypit/SKILL.md",
+            "LICENSE"
+          ],
+          "sampled": {
+            "README.md": [
+              "49-74: product purpose and skills installation",
+              "143-158: /hypit use",
+              "338-342: license/output rights"
+            ]
+          },
+          "not_read": "Examples, partner lists and linked runtime/craft references; no execution."
+        },
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "e1c6a36a448b48687b4a77a39080bc2b3b536bed",
+            "sha256": "5b59df4b0a67486b773235732c9dff0769d794a34ea1fdf8a9d955a25142ccd1",
+            "url": "https://github.com/hypit-ai/hypit/blob/9a6f688c39829857d50dc596fa1218565585a9da/README.md",
+            "bytes": 21383,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "65d9981230b9c6668784f80a3d2830ab0a148788",
+            "sha256": "ed7bd598743c93dd27349eab6921e4e86884c785a33aef8ea2caeb541df8b912",
+            "url": "https://github.com/hypit-ai/hypit/blob/9a6f688c39829857d50dc596fa1218565585a9da/LICENSE",
+            "bytes": 3299,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "docs/guide/skill.md",
+            "blob_sha": "c70621a50e8e39a74e3338caa5c12147ea4ffb9b",
+            "sha256": "9d27cf5e8146df7242f1a7b549f0fedf926ceb2c83f73d504ad55de6b7d16f28",
+            "url": "https://github.com/hypit-ai/hypit/blob/9a6f688c39829857d50dc596fa1218565585a9da/docs/guide/skill.md",
+            "bytes": 4247,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "skills/hypit/SKILL.md",
+            "blob_sha": "99e1f054c0088f772d2ed9d41d4339c8250a3ef0",
+            "sha256": "4525dddfb6acd7d5e3b642f783c0b806605a9465d555175d0cb4148a387ba6c8",
+            "url": "https://github.com/hypit-ai/hypit/blob/9a6f688c39829857d50dc596fa1218565585a9da/skills/hypit/SKILL.md",
+            "bytes": 29364,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          }
+        ],
+        "conclusion": "通过静态交叉复核。被准入的29,364字节skills/hypit/SKILL.md来自extra缓存，正确替换了初筛缓存中的docs/guide/skill.md；这不是引用漂移。1项公开生产技能、2项文档页排除有树和README支持。LicenseRef及许可范围保留了多租户、商业再分发与品牌保留限制，并区分生成输出和第三方服务，未误称普通Apache-2.0。"
+      },
+      {
+        "full_name": "ryanduguid/australian-accounting-skills",
+        "commit": "5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d",
+        "tree": "cfee463bc510457c85c858e6dd9c5e4019eee0c9",
+        "read_scope": {
+          "full": [
+            ".claude/skills/au-aml-ctf-client-coverage/SKILL.md",
+            "LICENSE",
+            "NOTICE",
+            ".claude-plugin/marketplace.json"
+          ],
+          "sampled": {
+            "README.md": [
+              "1-132: purpose, published/development installation and privacy",
+              "163-230: validation limits, release distinction and custom license"
+            ]
+          },
+          "not_read": "Other 106 skill bodies, linked catalogue, legal authority and helper/MCP implementations."
+        },
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "f36a3451720a15ea27ad86a2bb7e5a8fe58b3b3a",
+            "sha256": "59ff75870b24e4cad9831a586deb33566ebb8059a245257febf89ed067eff5d6",
+            "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/README.md",
+            "bytes": 26074,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "eb400691ec0377ab019b5f3c6fd3eb4a0901587c",
+            "sha256": "6946e69096721eb4a9024a20a40182c8505fe440d40c46e64d7ce5ce13dc6f5a",
+            "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/LICENSE",
+            "bytes": 6167,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": ".claude/skills/au-aml-ctf-client-coverage/SKILL.md",
+            "blob_sha": "7849d7d8e22c2bdaf58e6cc0d9999ebb67dc3265",
+            "sha256": "d9d2b74d8bb546b3133f6271f16fc6ec10c9aacb378602375079701e5685b088",
+            "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/.claude/skills/au-aml-ctf-client-coverage/SKILL.md",
+            "bytes": 20767,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "7bf6470f21b9b3caa3b3efd3885ed02a780f4d41",
+            "sha256": "829b057801b7bdd2aaf05a957df83b153ac88c20ee260d3ac07ed738970540d0",
+            "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/NOTICE",
+            "bytes": 8814,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "6edc291f060500e138f4af73b8a6e440560aadcd",
+            "sha256": "3f5a8dd91ad756d4cadb8c55bcba8db466c981a61e2297dd93142a8207fb6b43",
+            "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/.claude-plugin/marketplace.json",
+            "bytes": 6139,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          }
+        ],
+        "conclusion": "通过静态交叉复核。marketplace明确枚举107个消费路径，规范化后与树及public_skill_paths逐项相等；不能因目录在.claude中就当作内部文件。自定义许可标识与LICENSE逐字声明一致，非竞争限制、公开署名、每版本两年后的Apache授权边界描述准确。README的main开发快照与v0.7.0发布版本区分也得到保留；法律与专业有效性未复核。"
+      },
+      {
+        "full_name": "adobe/skills",
+        "commit": "33eb52cc9a74ecae1452db92a08f6978cf60bd1d",
+        "tree": "85fe384a963ef476a8027d6cc3d9c7e6ba5f9a52",
+        "read_scope": {
+          "full": [
+            "README.md",
+            "plugins/adobe-analytics/skills/aa-conversion-funnel-analysis/SKILL.md",
+            ".claude-plugin/marketplace.json",
+            "plugins/adobe-analytics/.claude-plugin/plugin.json"
+          ],
+          "license": "Root Apache-2.0 text compared in full with a previously fully read standard; only leading newline differs.",
+          "not_read": "Other 200 source skill bodies, client installations, hooks and MCP behavior."
+        },
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "10960c96d48dd36d9d9e1047ed47e03acd1cb410",
+            "sha256": "4b4ed402cdffc287e16ce4e768d5f27e12ebc18820854dc5253ba5916ed17249",
+            "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/README.md",
+            "bytes": 13316,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+            "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/LICENSE",
+            "bytes": 11357,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "plugins/adobe-analytics/skills/aa-conversion-funnel-analysis/SKILL.md",
+            "blob_sha": "0fe5150a7bb6752d970762393fff9de12fd7f22e",
+            "sha256": "f6622b4641cc5da00187e957460a060533279129c20a5ada97f15e5668de3a75",
+            "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/plugins/adobe-analytics/skills/aa-conversion-funnel-analysis/SKILL.md",
+            "bytes": 20299,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "a3f66cc4469ac442a12941560255354e0d752e6c",
+            "sha256": "0121a9452fcc04e1cda13f52f9889c64cd3d0cddf0a1b69e3411f1ce92a64e44",
+            "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/.claude-plugin/marketplace.json",
+            "bytes": 10214,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "plugins/adobe-analytics/.claude-plugin/plugin.json",
+            "blob_sha": "9cc21bda82bd8af5e48b9185f418a43ea88d85ec",
+            "sha256": "41d1dfebf7f08ed92c08eb6e54118848452be65dd264c5cff6e0a18c5e2167e8",
+            "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/plugins/adobe-analytics/.claude-plugin/plugin.json",
+            "bytes": 479,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          }
+        ],
+        "conclusion": "准入用途和公开分发成立；当前至少1个已读公开叶技能的计数口径保守成立，201只能作为源文件数，不能换成独立叶技能数。marketplace有19个插件且排除adobe-for-creativity，README另说明它的桌面渠道及嵌套路由/客户端差异。代表不是内部模板，但其漏斗指标只比较独立visit片段，不是严格顺序fallout，需要补入具体限制。"
+      },
+      {
+        "full_name": "widelab-co/wideset",
+        "commit": "d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4",
+        "tree": "01168a363d495a463ac57eee215de54137ffa020",
+        "read_scope": {
+          "full": [
+            "README.md",
+            "packages/skills/README.md",
+            "packages/skills/skills/wideset-build/SKILL.md",
+            "packages/skills/.claude-plugin/plugin.json",
+            "NOTICE",
+            "packages/skills/NOTICE"
+          ],
+          "license": "Root and package LICENSE are identical to the previously fully read Apache-2.0 bytes.",
+          "not_read": "Other three consumer skill bodies, six contributor skill bodies, generated component references and live package/registry installation."
+        },
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "61ea13335f830fdaeeed120e277d40f3984b2d8a",
+            "sha256": "8b4410752fcf2420fbe09cea3284b8cd2b6b8c1528ebd8d0b79acfd0c7208b38",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/README.md",
+            "bytes": 7956,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/LICENSE",
+            "bytes": 11358,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "packages/skills/skills/wideset-build/SKILL.md",
+            "blob_sha": "62a0977121abcd2b51966e98ed803c628cf11aee",
+            "sha256": "43d63fb74d401a80c0d2c9ce4910b8992924fc3be6b20da962c46d8eb42e167a",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/skills/wideset-build/SKILL.md",
+            "bytes": 8149,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "packages/skills/README.md",
+            "blob_sha": "72d5c6899995572ea45156792784e2f503fb190b",
+            "sha256": "5840bef462080a611e9ba1804d32e2a9415fe11fce03b6c909580815dfe960ce",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/README.md",
+            "bytes": 4200,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "packages/skills/.claude-plugin/plugin.json",
+            "blob_sha": "f46ea1b94a080c90323086d732c942ab2b3f4444",
+            "sha256": "6e87cd77623ddb05e2187dcfae90517d73abfe5db21af035b0a8ed85a71a468c",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/.claude-plugin/plugin.json",
+            "bytes": 551,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "834503378b0f86206f638a9715bc8ea4ef1e366d",
+            "sha256": "379c16167d7749fe29b717cdf10794d26cba763882fbf642c06ee1181c749443",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/NOTICE",
+            "bytes": 241,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "packages/skills/LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/LICENSE",
+            "bytes": 11358,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "packages/skills/NOTICE",
+            "blob_sha": "834503378b0f86206f638a9715bc8ea4ef1e366d",
+            "sha256": "379c16167d7749fe29b717cdf10794d26cba763882fbf642c06ee1181c749443",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/NOTICE",
+            "bytes": 241,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          }
+        ],
+        "conclusion": "通过静态交叉复核。README明确安装4项消费技能，package manifest指向./skills，树中4条消费路径完全吻合；另6条.agents技能被README直接标为contributors，排除正确。生成引用/组件规范和两名reviewer agents未被当成技能。Apache-2.0及root/package NOTICE一致。npm渠道尚未发布的限制在根README中明确，现记录使用skills CLI路径，不依赖npm发布。"
+      },
+      {
+        "full_name": "vectorize-io/hindsight",
+        "commit": "937216ffb7eed86df2088842b67dd3c4bc2ec3b1",
+        "tree": "57ced058120d4eb4090625732e972343ddf559fe",
+        "read_scope": {
+          "full": [
+            "skills/hindsight-cloud/SKILL.md",
+            "LICENSE"
+          ],
+          "sampled": {
+            "README.md": [
+              "22-40: product purpose",
+              "58-66: explicit hindsight-docs install",
+              "252-272: coding-agent installer and MCP entry",
+              "455-end: MIT license"
+            ],
+            "skills/hindsight-architect/SKILL.md": "First 6,000 characters only, to establish planning/preamble purpose; not a complete review."
+          },
+          "not_read": "Remaining root skill bodies, integration-channel deduplication, cloud API and installer implementation."
+        },
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "04ade06523a762e63affa7f54e1b5899d87dcca6",
+            "sha256": "0ec1aec042c5159b3022f5d6258562088386a8735be874bca16d932bed32f6af",
+            "url": "https://github.com/vectorize-io/hindsight/blob/937216ffb7eed86df2088842b67dd3c4bc2ec3b1/README.md",
+            "bytes": 26595,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "8dce7b4d4c2632990bdf8b4101694ea19ba6ad46",
+            "sha256": "01fde0bedf83bdc185065d7af524a61690efe576a67f922eaff3a1280c17b63a",
+            "url": "https://github.com/vectorize-io/hindsight/blob/937216ffb7eed86df2088842b67dd3c4bc2ec3b1/LICENSE",
+            "bytes": 1075,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "skills/hindsight-architect/SKILL.md",
+            "blob_sha": "ffd3c543651d701e26a8799f14016ffabda3910a",
+            "sha256": "02863c500c9eb808e887f2118ce500a4d464fd03c2c6ef2f9e731684a97223ce",
+            "url": "https://github.com/vectorize-io/hindsight/blob/937216ffb7eed86df2088842b67dd3c4bc2ec3b1/skills/hindsight-architect/SKILL.md",
+            "bytes": 40917,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          },
+          {
+            "path": "skills/hindsight-cloud/SKILL.md",
+            "blob_sha": "91852810c9a3450199d1cbd505764968b79ecfb7",
+            "sha256": "9c5238859de5d0d7431d5b8aaf61a965a4b6c18ecac3ae21d4601f347c811759",
+            "url": "https://github.com/vectorize-io/hindsight/blob/937216ffb7eed86df2088842b67dd3c4bc2ec3b1/skills/hindsight-cloud/SKILL.md",
+            "bytes": 6524,
+            "verification": "Git blob SHA-1, original UTF-8 bytes SHA-256, byte length, fixed URL and frozen tree node match"
+          }
+        ],
+        "conclusion": "产品与公开技能用途成立，选定cloud代表及MIT引用有效。README直接证明hindsight-docs的skills CLI安装及独立coding-agents包；5个根路径的存在已核实，但没有逐一认证另4项的发布契约/全部正文，因此建议把5项consumer总数改写成5项root source entries。内部5项和额外10条集成/文档入口分开处理是合理的，不能把后者统一认证为副本或新增叶技能。cloud正文确实要求cat凭据配置、向用户索取API key并主动留存完整团队上下文，需补充具体敏感信息限制。"
+      },
+      {
+        "full_name": "Copperpour/Copperpour",
+        "commit": "1250e1b62b5e9f731f3b6e3592aa0b59745fbca3",
+        "tree": "de5c8f2b48b37a8f99114fdfaa10b9628247aff6",
+        "read_scope": {
+          "full": [
+            "crates/copperpour-core/src/guidance/bundle.rs",
+            "crates/copperpour-core/src/guidance.rs",
+            "crates/copperpour/src/portable_skills.rs",
+            "crates/copperpour/src/manifest.rs"
+          ],
+          "sampled": {
+            "crates/copperpour/assets/skills/copperpour/SKILL.md": "Standard Workflow reliability-reference requirement, lines 40-45."
+          },
+          "not_read": "Reliability contract prose, other skill bodies, complete legacy native installer and runtime execution. Only generated-path mapping was in scope."
+        },
+        "checked_refs": [
+          {
+            "path": "crates/copperpour-core/src/guidance/bundle.rs",
+            "blob_sha": "6f9efe60fd412d3764a9f68cba6e5e2d5dad4247",
+            "sha256": "1ba819e8ec904a5b5eb05fa4124fd444f61d8a89cbccf6f3c72d9d476791b788",
+            "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour-core/src/guidance/bundle.rs",
+            "bytes": 3513
+          },
+          {
+            "path": "crates/copperpour-core/src/guidance.rs",
+            "blob_sha": "da99abd992a39a699f16367d3a2d6146f124dfb6",
+            "sha256": "b573302d8659ff002241eac4a9676d8ccf63bb1ace605ff56c6667e0c12ab940",
+            "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour-core/src/guidance.rs",
+            "bytes": 17570
+          },
+          {
+            "path": "crates/copperpour/src/portable_skills.rs",
+            "blob_sha": "f2cf762dc19ac92841dacf824e3214e2d2c69eed",
+            "sha256": "6d290027a733c3ef150fcd585bed1fecf4e87c273edd3c3cb8b9718e077c3990",
+            "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour/src/portable_skills.rs",
+            "bytes": 16152
+          },
+          {
+            "path": "crates/copperpour/src/manifest.rs",
+            "blob_sha": "4e87caf7ef1e0ed9c4d60f7168fdd67556bb8658",
+            "sha256": "a1da64cf7b6b4ea5860a9fce4dfe184083efea3c0c42cc5ca3254b35958172e3",
+            "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour/src/manifest.rs",
+            "bytes": 3634
+          },
+          {
+            "path": "crates/copperpour/assets/skills/copperpour/SKILL.md",
+            "blob_sha": "b9b2f95c73153ad96f5a62ed553f54fe7b7d5267",
+            "sha256": "ce8f29b5a173373989530fc9cce0f22e0a8160acb7d8a44290cdab56e497dead",
+            "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour/assets/skills/copperpour/SKILL.md",
+            "bytes": 8870
+          }
+        ],
+        "conclusion": "该相对引用不是源树缺失资源。bundle.rs把docs/RELIABILITY_CONTRACT.md嵌入到copperpour条目的reliability-contract.md引用；guidance.rs的documents()明确服务copperpour/references/reliability-contract.md虚拟路径，manifest.rs重导出同一SKILLS，portable_skills.rs的bundled()/run_at(init)按<skill>/references/<name>写出。原始路径不存在与分发后路径成立并不矛盾。仅直接复制源SKILL.md不会获得该生成引用；此复核未运行安装器，也未认证合同规则或原生旧安装分支。"
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "ryanduguid/australian-accounting-skills",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "NOTICE",
+              "blob_sha": "7bf6470f21b9b3caa3b3efd3885ed02a780f4d41",
+              "sha256": "829b057801b7bdd2aaf05a957df83b153ac88c20ee260d3ac07ed738970540d0",
+              "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/NOTICE",
+              "bytes": 8814
+            },
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "6edc291f060500e138f4af73b8a6e440560aadcd",
+              "sha256": "3f5a8dd91ad756d4cadb8c55bcba8db466c981a61e2297dd93142a8207fb6b43",
+              "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/.claude-plugin/marketplace.json",
+              "bytes": 6139
+            }
+          ],
+          "count_basis": "Root README states 107 workflows; the fixed marketplace explicitly lists 107 .claude/skills folders and that exact normalized set equals the frozen tree and public_skill_paths. The separately linked full catalogue was not independently reread in this cross-check. Validation cards and external calculators are excluded."
+        }
+      },
+      {
+        "full_name": "adobe/skills",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "a3f66cc4469ac442a12941560255354e0d752e6c",
+              "sha256": "0121a9452fcc04e1cda13f52f9889c64cd3d0cddf0a1b69e3411f1ce92a64e44",
+              "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/.claude-plugin/marketplace.json",
+              "bytes": 10214
+            },
+            {
+              "path": "plugins/adobe-analytics/.claude-plugin/plugin.json",
+              "blob_sha": "9cc21bda82bd8af5e48b9185f418a43ea88d85ec",
+              "sha256": "41d1dfebf7f08ed92c08eb6e54118848452be65dd264c5cff6e0a18c5e2167e8",
+              "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/plugins/adobe-analytics/.claude-plugin/plugin.json",
+              "bytes": 479
+            }
+          ],
+          "limitations": [
+            "Static metadata admission only; no candidate installation, helper execution, external service calls, runtime compatibility or outcome verification.",
+            "Representative-body review is sampling, not an audit of every skill and bundled resource.",
+            "The reviewed aa-conversion-funnel-analysis compares independent visit-level step segments and explicitly approximates fallout; it does not establish event order or strict sequential conversion. Step-to-step ratios need not be true conditional funnel rates.",
+            "The 201 SKILL.md paths are a source inventory including nested routes; no full unique public-leaf count or 201-body audit was established. Skills-only copying does not install required MCP servers, hooks or dependencies."
+          ]
+        }
+      },
+      {
+        "full_name": "widelab-co/wideset",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "packages/skills/README.md",
+              "blob_sha": "72d5c6899995572ea45156792784e2f503fb190b",
+              "sha256": "5840bef462080a611e9ba1804d32e2a9415fe11fce03b6c909580815dfe960ce",
+              "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/README.md",
+              "bytes": 4200
+            },
+            {
+              "path": "packages/skills/.claude-plugin/plugin.json",
+              "blob_sha": "f46ea1b94a080c90323086d732c942ab2b3f4444",
+              "sha256": "6e87cd77623ddb05e2187dcfae90517d73abfe5db21af035b0a8ed85a71a468c",
+              "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/.claude-plugin/plugin.json",
+              "bytes": 551
+            },
+            {
+              "path": "NOTICE",
+              "blob_sha": "834503378b0f86206f638a9715bc8ea4ef1e366d",
+              "sha256": "379c16167d7749fe29b717cdf10794d26cba763882fbf642c06ee1181c749443",
+              "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/NOTICE",
+              "bytes": 241
+            },
+            {
+              "path": "packages/skills/LICENSE",
+              "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+              "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+              "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/LICENSE",
+              "bytes": 11358
+            },
+            {
+              "path": "packages/skills/NOTICE",
+              "blob_sha": "834503378b0f86206f638a9715bc8ea4ef1e366d",
+              "sha256": "379c16167d7749fe29b717cdf10794d26cba763882fbf642c06ee1181c749443",
+              "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/NOTICE",
+              "bytes": 241
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "vectorize-io/hindsight",
+        "field_updates": {
+          "skill_count": "5 root source skill entries; docs installation verified; integration channels counted separately",
+          "count_basis": "Five skills/hindsight-* source paths are present. README explicitly installs hindsight-docs and separately documents the coding-agents integration package; the cloud body was reviewed as the consumer representative. Five .claude/skills maintenance entries are excluded. The other ten integration/doc paths are not added to a verified unique-leaf total and have not all been proved to be copies.",
+          "limitations": [
+            "Static metadata admission only; no candidate installation, helper execution, external service calls, runtime compatibility or outcome verification.",
+            "Representative-body review is sampling, not an audit of every skill and bundled resource.",
+            "Cloud representative instructs retention of rich team context and transcripts; host configuration and authorization govern what may be sent to the hosted service.",
+            "The reviewed cloud skill tells the agent to cat ~/.hindsight/config and ask the user for an API key during setup; following that literally can expose stored credentials in tool/chat output. Its rich-context/transcript retention reaches a hosted shared team bank. These are observed instructions, not actions performed during intake.",
+            "Five root source entries were identified; this representative cross-check does not certify the remaining four root bodies or all integration-channel distribution contracts."
+          ]
+        }
+      },
+      {
+        "full_name": "Copperpour/Copperpour",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "crates/copperpour-core/src/guidance/bundle.rs",
+              "blob_sha": "6f9efe60fd412d3764a9f68cba6e5e2d5dad4247",
+              "sha256": "1ba819e8ec904a5b5eb05fa4124fd444f61d8a89cbccf6f3c72d9d476791b788",
+              "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour-core/src/guidance/bundle.rs",
+              "bytes": 3513
+            },
+            {
+              "path": "crates/copperpour-core/src/guidance.rs",
+              "blob_sha": "da99abd992a39a699f16367d3a2d6146f124dfb6",
+              "sha256": "b573302d8659ff002241eac4a9676d8ccf63bb1ace605ff56c6667e0c12ab940",
+              "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour-core/src/guidance.rs",
+              "bytes": 17570
+            },
+            {
+              "path": "crates/copperpour/src/portable_skills.rs",
+              "blob_sha": "f2cf762dc19ac92841dacf824e3214e2d2c69eed",
+              "sha256": "6d290027a733c3ef150fcd585bed1fecf4e87c273edd3c3cb8b9718e077c3990",
+              "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour/src/portable_skills.rs",
+              "bytes": 16152
+            },
+            {
+              "path": "crates/copperpour/src/manifest.rs",
+              "blob_sha": "4e87caf7ef1e0ed9c4d60f7168fdd67556bb8658",
+              "sha256": "a1da64cf7b6b4ea5860a9fce4dfe184083efea3c0c42cc5ca3254b35958172e3",
+              "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour/src/manifest.rs",
+              "bytes": 3634
+            }
+          ]
+        }
+      }
+    ],
+    "objections": [
+      {
+        "full_name": "adobe/skills",
+        "reason": "Nonblocking metadata clarification: the representative labels independent-visit segment comparisons as a funnel approximation. Preserve that limitation and do not promote 201 source files to 201 independent public leaves.",
+        "blocking": false
+      },
+      {
+        "full_name": "vectorize-io/hindsight",
+        "reason": "Nonblocking clarification: the root 5-item source inventory is stronger evidence than a verified 5-item consumer-release total; cloud setup and retention text also has concrete credential/context exposure implications. Add the proposed count wording and limitations.",
+        "blocking": false
+      }
+    ],
+    "limits": "Read-only static cross-review of five selected product admissions plus Copperpour generated-reference mapping. All cached bytes used were rehashed and tied to owner-fixed commit/tree nodes; selected representatives were parsed with standard js-yaml without execution. README reading was full only where explicitly stated and otherwise limited to recorded ranges. No candidate was installed/executed; no runtime, scientific, legal or full-library certification. Three necessary GitHub official blob reads were made sequentially for Copperpour implementation; all other evidence reused existing caches. Owner results and repository were not changed."
+  },
+  "quality-product.json": {
+    "stage": "complete",
+    "date": "2026-11-16",
+    "records": [
+      {
+        "full_name": "decimal-labs/decimalai-python",
+        "commit": "5a80427fb659600290d100e08ba80ae4a1e8f47f",
+        "tree": "19c44bd0daabbd15b7fac5f7c637efdcfc7b6440",
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "dc59da3369ef6f8c3944a976d116086f7aa1c431",
+            "sha256": "efd1ac579bcee6026711630f9bd9eade2e165a84696d1997c421538426973c53",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/README.md",
+            "bytes": 56267
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "ccd8ae220bce340a25d1f3fbab4f3b3d742b79d4",
+            "sha256": "e9c067b58e40bf8f44d32b126787eeef2a79b5e073e9ba8cbf1488751a4cf562",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/LICENSE",
+            "bytes": 1066
+          },
+          {
+            "path": "decimalai/skillpkg/manifest.py",
+            "blob_sha": "89be83504ea95d530924c42b175d150ae5cc4264",
+            "sha256": "2b6b6eded9b68aa15624da4f67d2ea0944dae09d8e79cb3d68e710fedfda865f",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/skillpkg/manifest.py",
+            "bytes": 20296
+          },
+          {
+            "path": "decimalai/_install.py",
+            "blob_sha": "f67b52e9dd5ec3d35257e7a15d42c29b9d909789",
+            "sha256": "dd256450a8127790e98d3e2141bf99c7c8ecaea28bef17dd9cafc2695f640388",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/_install.py",
+            "bytes": 6413
+          },
+          {
+            "path": "decimalai/_registry_resolve.py",
+            "blob_sha": "9363596152ac6bdc1868fbf0946d44bcebe37a52",
+            "sha256": "93fd8fde12b805229078e084c03928e3041eb9c52a75e1714463ef04ecffd822",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/_registry_resolve.py",
+            "bytes": 2976
+          },
+          {
+            "path": "decimalai/skillpkg/ops.py",
+            "blob_sha": "18c29e41d63e480b760d5d4fb22e2debc33562d3",
+            "sha256": "5ddc5989d351c444f3b6d2b8611f1811c6c497b2149629a3674675ae4030ecae",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/skillpkg/ops.py",
+            "bytes": 70545
+          }
+        ],
+        "commit_tree_verified": true,
+        "read_scope": {
+          "full": [
+            "LICENSE",
+            "decimalai/skillpkg/manifest.py",
+            "decimalai/_registry_resolve.py",
+            "decimalai/_install.py"
+          ],
+          "partial": {
+            "README.md": "lines 1-120,430-465,550-565,746-759,781-784",
+            "pyproject.toml": "characters 0-3000",
+            "decimalai/skillpkg/ops.py": "install(279-323), _resolve(939-956), _sync(1026-1085), _execute(1148-1192), _fetch_all(1195-1212), _fetch_locked(1215-1229), _finish(1259-1271), _install_frozen(1297-1367), _place(1370-1393)"
+          },
+          "not_read": "SDK adapters, full verifier/client/filesystem engine and hosted implementation; no execution"
+        },
+        "conclusion": "准入成立。实际源码是MIT Python SDK及技能包客户端，包含清单、精确解析和受锁安装路径；不是开源托管注册表或扫描平台。43个SKILL路径不应成为正式技能库存。"
+      },
+      {
+        "full_name": "777genius/universal-agent-plugins",
+        "commit": "eb4d8fc7e3635272863f1c40f65639356845422e",
+        "tree": "c966356afd64db896c91816adf720871194fb155",
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "c6a14d19f629d5328839faa59c5dfd7dd33e1f26",
+            "sha256": "00d24a5d364897ca022b93068d55a14c8b2e59f85e0b44c339dc198be3ad1742",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/README.md",
+            "bytes": 26328
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "cmd/skills-catalog-api/main.go",
+            "blob_sha": "8ef265fb537715d33b9a8c505008f8735a90b3a6",
+            "sha256": "30f0776c342508696484563699b48d6b0e1433b82f69183dd788e93e64a70d8f",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cmd/skills-catalog-api/main.go",
+            "bytes": 3532
+          },
+          {
+            "path": "docs/SKILLS.md",
+            "blob_sha": "13e879abee8d954394afd13faabe9835b36f29df",
+            "sha256": "70c9403c2d5913d219d92f9b0ebab1490b76b9fae31c8102b884d590fa19a245",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/docs/SKILLS.md",
+            "bytes": 5955
+          },
+          {
+            "path": "docs/AGENT_SKILLS_INSTALLER.md",
+            "blob_sha": "3399117fcd1da9d2a2e10860ddbe4cfd7b3a9fe4",
+            "sha256": "441d590fe0018fb91256c6dda2742150c02fcaa3513ca05f2cd767d5da307274",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/docs/AGENT_SKILLS_INSTALLER.md",
+            "bytes": 10160
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "dd4c7ea205427f22c867894d41551f41ff24d01b",
+            "sha256": "dc03193fba10f502cf83673ff42b33fd138e684d55fbe9556de38603ca9eb87a",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/NOTICE",
+            "bytes": 355
+          },
+          {
+            "path": "cli/internal/agentpluginscli/skills.go",
+            "blob_sha": "f591697e3780f2bcb39094ae3148086a897453cc",
+            "sha256": "41a78dc0214d0d809524d2e93596bdb0f0e85f4399cb071e747bb1eacf02cb03",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cli/internal/agentpluginscli/skills.go",
+            "bytes": 7932
+          },
+          {
+            "path": "cli/internal/skills/app/service_generate.go",
+            "blob_sha": "d6d8b57f76b637b5271b87a20446f1c2337a631a",
+            "sha256": "567b0ef3b3a600186c7d56479caf393c2234f4c647f7c69491e872ae4746769f",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cli/internal/skills/app/service_generate.go",
+            "bytes": 4720
+          }
+        ],
+        "commit_tree_verified": true,
+        "read_scope": {
+          "full": [
+            "cmd/skills-catalog-api/main.go",
+            "cli/internal/agentpluginscli/skills.go",
+            "cli/internal/skills/app/service_generate.go",
+            "docs/SKILLS.md",
+            "docs/AGENT_SKILLS_INSTALLER.md",
+            "NOTICE"
+          ],
+          "partial": {
+            "README.md": "characters 0-6500",
+            "LICENSE": "Apache-2.0 grant/declaration and fixed-byte verification"
+          },
+          "not_read": "all native adapters, full CLI transaction/normalizer/hosted catalog implementations; no execution"
+        },
+        "conclusion": "准入成立。当前原生CLI有真实skills add与Git/HTTPS来源流程；旧plugin-kit-ai authoring/generate为单独的实验边界。示例、生成视图、测试fixture和9种文档语言页面不可算成45个叶技能。"
+      },
+      {
+        "full_name": "org-quicko/skillset",
+        "commit": "237ce2c7964364d2884395baf35488df860ca60c",
+        "tree": "0d3e89d3dbcdf81ee268ea09ffa0c67903657779",
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "f6c5eea4ebb39719418b2166fad41da6ffb4abb5",
+            "sha256": "c38bee870e97cf7ad2ebee090ce5e697c5949466f1492b98b1eae3fa3e0c9d1a",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/README.md",
+            "bytes": 6742
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "0ad25db4bd1d86c452db3f9602ccdbe172438f52",
+            "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/LICENSE",
+            "bytes": 34523
+          },
+          {
+            "path": "apps/mcp/src/tools/search-skills.ts",
+            "blob_sha": "cd47fe3918426602a74c7cea5408f160f72f0273",
+            "sha256": "b9052bd23a21047ec82feaa5ed25019ab24cc6d879f7643e3be6165d695d0e6c",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/src/tools/search-skills.ts",
+            "bytes": 7351
+          },
+          {
+            "path": "apps/mcp/package.json",
+            "blob_sha": "25096c6c2f9ed110c4e3e302441800c29bbd4c22",
+            "sha256": "e28a47d99ed8423c18c84d8047e9a9f128d98d1e6a9629cbde5fe11767c6b2cb",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/package.json",
+            "bytes": 1044
+          },
+          {
+            "path": "packages/installer/src/index.ts",
+            "blob_sha": "4e245133e94a9191baccfe92f6ca5454ee41f74f",
+            "sha256": "5bcd174a3315954356e82fb88dff046652a22ae7cd7872f7f463dedaa9efa06e",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/packages/installer/src/index.ts",
+            "bytes": 17095
+          },
+          {
+            "path": "apps/mcp/src/tools/read-skill.ts",
+            "blob_sha": "af22ef8c99fd2d8452332260eabe6d55580353f1",
+            "sha256": "7f9b68286ffc95fab8b45367b36883ac4ef78bdbe19f47a4ecc5ad26dcf30cbf",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/src/tools/read-skill.ts",
+            "bytes": 3547
+          },
+          {
+            "path": "docs/LICENSE",
+            "blob_sha": "ca0fa5f2e3f7c74b94b8ba9fecc09a156fef6a8b",
+            "sha256": "61adbc1e91a6904474b392500c16d9bfb0ea30744fba8627b0258906b654b9de",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/docs/LICENSE",
+            "bytes": 1064
+          }
+        ],
+        "commit_tree_verified": true,
+        "read_scope": {
+          "full": [
+            "README.md",
+            "apps/mcp/package.json",
+            "apps/mcp/src/tools/search-skills.ts",
+            "apps/mcp/src/tools/read-skill.ts",
+            "packages/installer/src/index.ts",
+            "docs/LICENSE"
+          ],
+          "partial": {
+            "LICENSE": "root AGPLv3 declaration, package SPDX and fixed-byte verification"
+          },
+          "not_read": "API persistence/publish handlers, lockfile and artifact extraction implementation; no execution"
+        },
+        "conclusion": "准入成立。search/read与实际installer代码支持自托管技能注册表/客户端用途；固定树无SKILL.md。AGPL代码与docs/MIT、第三方上传内容须分开。"
+      },
+      {
+        "full_name": "changeroa/skillar",
+        "commit": "e1efd32229e967eab951535fd5094dcb357ef097",
+        "tree": "ff5042e781e453a5786514a82d6684a8b4beb4ce",
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "c7887aed14e13e55cb80dd0f5ea3afe657ed1406",
+            "sha256": "c31b8ed78fdffdfb809aa120ae57552188fa05a3aefaaa97a15d7639c9673eac",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/README.md",
+            "bytes": 9333
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "36eeb094c77a823798c8abd57fc746dff3f83085",
+            "sha256": "1cd71bf477c04d7c611a2df0aa4d3801b8a8241b5797e0fc328e961c24b40844",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/LICENSE",
+            "bytes": 1418
+          },
+          {
+            "path": "clients/codex/skillar/SKILL.md",
+            "blob_sha": "737d6ff792763bf1228666ef434f38e9a84e36d4",
+            "sha256": "b79a837d6d4680740c335e54a99eec29b0be3faefc6b196da8be0e9a3446e896",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/clients/codex/skillar/SKILL.md",
+            "bytes": 6040
+          },
+          {
+            "path": "LICENSING.md",
+            "blob_sha": "5ee29f0a4690fb938bd9d7debf30d9e6ccf3c7d9",
+            "sha256": "d0c3594862a40e17d29d60e6becdc45e0d30ffc9989c0e4d07b22eb4205a3879",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/LICENSING.md",
+            "bytes": 1733
+          },
+          {
+            "path": "clients/codex/README.md",
+            "blob_sha": "f703f15a2d2d2096026df41590140d5cea322235",
+            "sha256": "69070cc22e7062b94cc71d4af905c82e61e83e443e39789b95075cb8930f7705",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/clients/codex/README.md",
+            "bytes": 14961
+          },
+          {
+            "path": "clients/LICENSE",
+            "blob_sha": "444a3894f4852d9fcb28b1c956a2e9e7eb2d67d9",
+            "sha256": "d77fc5130149afb9affdb5d593c5139828c0117f7f2d32d99089fcce3844ba7e",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/clients/LICENSE",
+            "bytes": 1066
+          },
+          {
+            "path": "local/src/mcp/skills-extension.ts",
+            "blob_sha": "963f67486e57e20010488077917ae138b6b4c352",
+            "sha256": "50370371ae66c056127850f75492fd0731d822ff18a8f84c37a7022d533d00ce",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/local/src/mcp/skills-extension.ts",
+            "bytes": 6177
+          },
+          {
+            "path": "local/src/skills/apply.ts",
+            "blob_sha": "3240c8c4c9a2e4f1a174f6ac9e7c61a13e6f0a80",
+            "sha256": "dfba7bd2085e4d7df47e5d36536531deee49ad77dae64e4478404446f60bf20e",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/local/src/skills/apply.ts",
+            "bytes": 7022
+          }
+        ],
+        "commit_tree_verified": true,
+        "read_scope": {
+          "full": [
+            "README.md",
+            "LICENSE",
+            "clients/LICENSE",
+            "LICENSING.md",
+            "clients/codex/skillar/SKILL.md",
+            "local/src/mcp/skills-extension.ts",
+            "local/src/skills/apply.ts"
+          ],
+          "partial": {},
+          "not_read": "clients/codex/README.md independently hash-checked only; remaining client bodies and remote server/Worker implementation not read in this cross-check; no execution"
+        },
+        "conclusion": "准入成立。已读本地MCP资源服务与包应用实现；Codex代表是发现/加载路由，非远程技能叶库存。根/客户端/本地MIT，server和worker AGPL-3.0-only范围划分成立。"
+      },
+      {
+        "full_name": "hbelmiro/striatum",
+        "commit": "437a40af8b58323fa40b9cf8759c50384ace188b",
+        "tree": "6730730c15822f3fb62e9f2c6df74db5ed382d54",
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "10de817b67d08aa4ab1d11d70e12757a43fa4bcd",
+            "sha256": "8af59832df79833df20a1818266f15759415ea904f84f1252c4e268dc4abbe37",
+            "url": "https://github.com/hbelmiro/striatum/blob/437a40af8b58323fa40b9cf8759c50384ace188b/README.md",
+            "bytes": 17746
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "1defea9bef6e1ef7e566eae96042a41e7c52f713",
+            "sha256": "f14eff54b6641e0169c62d8616cfc7fcf87464d24bbaa49f558bd9cf17c7c05c",
+            "url": "https://github.com/hbelmiro/striatum/blob/437a40af8b58323fa40b9cf8759c50384ace188b/LICENSE",
+            "bytes": 11325
+          },
+          {
+            "path": "pkg/artifact/manifest.go",
+            "blob_sha": "dda67e189d8a616f622ae36d6f106b5ac467bdf8",
+            "sha256": "9297cc4184df870bc6a2fcd7f0837ddea03c5a13d325e9792d8023c7c4a725f0",
+            "url": "https://github.com/hbelmiro/striatum/blob/437a40af8b58323fa40b9cf8759c50384ace188b/pkg/artifact/manifest.go",
+            "bytes": 12738
+          },
+          {
+            "path": "go.mod",
+            "blob_sha": "b17c771f1985846b1d6a573fc0477c1f1b37dde5",
+            "sha256": "63d38a6554e124887c56f13cf494875f6acab1fb3c036bb7f3c7e45d5a5059ac",
+            "url": "https://github.com/hbelmiro/striatum/blob/437a40af8b58323fa40b9cf8759c50384ace188b/go.mod",
+            "bytes": 1451
+          },
+          {
+            "path": "pkg/oci/registry.go",
+            "blob_sha": "34605e4b259d2c651a3f6c1484eaad9de5e12838",
+            "sha256": "11caf9beff1b89ab29e1468247f87fbe62575b1a6b3740f8c40f9fe4d3bd0dd8",
+            "url": "https://github.com/hbelmiro/striatum/blob/437a40af8b58323fa40b9cf8759c50384ace188b/pkg/oci/registry.go",
+            "bytes": 3559
+          },
+          {
+            "path": "pkg/installer/targets.go",
+            "blob_sha": "64bec8cc215ddf0fd0143dbe64c4af8d6f7b8a87",
+            "sha256": "8f531aa636241b0180c6f1145f29fe9783a024a7ad6fd2f9d2bbfaaf75e019c9",
+            "url": "https://github.com/hbelmiro/striatum/blob/437a40af8b58323fa40b9cf8759c50384ace188b/pkg/installer/targets.go",
+            "bytes": 4540
+          }
+        ],
+        "commit_tree_verified": true,
+        "read_scope": {
+          "full": [
+            "README.md",
+            "go.mod",
+            "pkg/artifact/manifest.go",
+            "pkg/oci/registry.go",
+            "pkg/installer/targets.go"
+          ],
+          "partial": {
+            "LICENSE": "Apache-2.0 declaration and fixed-byte verification"
+          },
+          "not_read": "full pack/push/pull/CLI install dependency resolver and remote registries; no execution"
+        },
+        "conclusion": "准入成立。实际manifest、OCI访问和安装目标代码建立技能分发基础设施用途；5个demo文件不是正式叶技能。Apache-2.0不扩展到远程工件。"
+      },
+      {
+        "full_name": "dakotacolorado/honed",
+        "commit": "ed9a4270beeb7e5a0babf8cf7698db64bf23b16b",
+        "tree": "68781181561dec6815c1131db124f5c5966d96d5",
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "10c473bc138170a1f9b33dc898711169042f3a94",
+            "sha256": "ad7917928715d55fcea36fa1aec616bbd52efdc6df74b0ad607aee40b5bdf87c",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/README.md",
+            "bytes": 5390
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "5cf36e28fc0bd294d38e8d10abe19c82f1dc6c98",
+            "sha256": "35de0a3d1f59d77e8407d4340a061b5e7813fe3e95d022b1f4b62d36f1932376",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/LICENSE",
+            "bytes": 1070
+          },
+          {
+            "path": "src/starters/honed/honer/SKILL.md",
+            "blob_sha": "9586259e1b92411f04c997cf7337398e2b8f0872",
+            "sha256": "2bbe2ccee34fc0c690f201e1913f6c7551f4de3f8a27f36b1f206c2346a0c869",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/starters/honed/honer/SKILL.md",
+            "bytes": 2717
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "0d6e638a2a3e1cebe4eb27e5c06d5b6cd04e76e0",
+            "sha256": "73a8951d994ce78df8ad4de685440817de7449a643295a0e23406bc463226004",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/package.json",
+            "bytes": 1866
+          },
+          {
+            "path": "mcp.json",
+            "blob_sha": "972bf6097f07fdd1a4e44e6de422cb4ff32efa07",
+            "sha256": "e017b4779deb093177ea0459d4f94bf6824a6f1ea084ddf894fdba1bcaf8bf85",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/mcp.json",
+            "bytes": 7549
+          },
+          {
+            "path": "src/mcp.ts",
+            "blob_sha": "c8c83d16862d43c09b2915407310e3bfee5f8544",
+            "sha256": "3e7ee05b3eb97115e1ea8cb7537a8e71889c41df90df29e2d343adfc8a681e90",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/mcp.ts",
+            "bytes": 10105
+          },
+          {
+            "path": "src/library.ts",
+            "blob_sha": "adeb58e64052bb5faf3a95e0fe4af5f25e1cb5cc",
+            "sha256": "8ba149dbbfc10e245bd9eac76d8b93c74e47edc1fd6fb31cc79ab2920f9a5853",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/library.ts",
+            "bytes": 5329
+          },
+          {
+            "path": "src/cli.ts",
+            "blob_sha": "0e6848571d488aadcc46eee86731899c60bc514a",
+            "sha256": "9c0099e4e0684c51562bf7f4bf6e499b35048a527d7c1d5f130cefbc52f6b5bb",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/cli.ts",
+            "bytes": 6764
+          }
+        ],
+        "commit_tree_verified": true,
+        "read_scope": {
+          "full": [
+            "README.md",
+            "LICENSE",
+            "package.json",
+            "src/mcp.ts",
+            "src/library.ts",
+            "src/cli.ts"
+          ],
+          "partial": {},
+          "not_read": "mcp.json and existing starter representative independently hash-checked only; complete Hub/judge/store implementation and model revision behavior not reviewed; no execution"
+        },
+        "conclusion": "准入成立。实际MCP实现列举/搜索/读取/反馈，Library保存Git版本；starter不能代替实现证明。Node24+git为基础要求，模型修订可关闭。"
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "decimal-labs/decimalai-python",
+        "field_updates": {
+          "skill_count": "0 independently reviewed public leaf skills; 1 reference-app example and 42 test-fixture SKILL.md files excluded",
+          "count_basis": "Exact fixed-tree path classification: examples/reference-app has 1 SKILL.md; tests/native_loaders and tests/skillpkg contain 42 fixture SKILL.md paths, including deliberately invalid/nested cases. Actual infrastructure proof is the complete manifest parser and exact resolver plus the selected install/resolve/sync/fetch/frozen-placement paths of decimalai/skillpkg/ops.py; _install.py is install identity bookkeeping, not the installer.",
+          "additional_evidence": [
+            {
+              "path": "decimalai/_install.py",
+              "blob_sha": "f67b52e9dd5ec3d35257e7a15d42c29b9d909789",
+              "sha256": "dd256450a8127790e98d3e2141bf99c7c8ecaea28bef17dd9cafc2695f640388",
+              "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/_install.py",
+              "bytes": 6413
+            },
+            {
+              "path": "decimalai/_registry_resolve.py",
+              "blob_sha": "9363596152ac6bdc1868fbf0946d44bcebe37a52",
+              "sha256": "93fd8fde12b805229078e084c03928e3041eb9c52a75e1714463ef04ecffd822",
+              "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/_registry_resolve.py",
+              "bytes": 2976
+            },
+            {
+              "path": "decimalai/skillpkg/manifest.py",
+              "blob_sha": "89be83504ea95d530924c42b175d150ae5cc4264",
+              "sha256": "2b6b6eded9b68aa15624da4f67d2ea0944dae09d8e79cb3d68e710fedfda865f",
+              "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/skillpkg/manifest.py",
+              "bytes": 20296
+            },
+            {
+              "path": "decimalai/skillpkg/ops.py",
+              "blob_sha": "18c29e41d63e480b760d5d4fb22e2debc33562d3",
+              "sha256": "5ddc5989d351c444f3b6d2b8611f1811c6c497b2149629a3674675ae4030ecae",
+              "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/skillpkg/ops.py",
+              "bytes": 70545
+            }
+          ],
+          "distribution_evidence": "Public PyPI package decimalai provides manifest/lock-driven registry skill installation into .agents/skills, including exact-version fetch and frozen placement paths. This repository is the MIT SDK/client; README explicitly excludes the hosted trace store, registry and scanning platform from open-source scope."
+        }
+      },
+      {
+        "full_name": "777genius/universal-agent-plugins",
+        "field_updates": {
+          "representative": {
+            "path": "cli/internal/agentpluginscli/skills.go",
+            "blob_sha": "f591697e3780f2bcb39094ae3148086a897453cc",
+            "sha256": "41a78dc0214d0d809524d2e93596bdb0f0e85f4399cb071e747bb1eacf02cb03",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cli/internal/agentpluginscli/skills.go",
+            "bytes": 7932
+          },
+          "skill_count": "Skill infrastructure; 13 example sources, 15 generated example views, 8 test fixtures and 9 translated documentation pages excluded from leaf inventory",
+          "count_basis": "All 45 raw case-insensitive skill.md paths reconcile exactly: 13 canonical example/starter source paths, 15 generated client/plugin example views, 8 tests/repotests fixture paths, and 9 website build/skill.md language pages. cli/internal/agentpluginscli/skills.go implements current skills add; service_generate.go belongs to the separately documented retired/public-experimental plugin-kit-ai authoring subsystem and proves the derived-view relationship, not current native installer qualification.",
+          "additional_evidence": [
+            {
+              "path": "cmd/skills-catalog-api/main.go",
+              "blob_sha": "8ef265fb537715d33b9a8c505008f8735a90b3a6",
+              "sha256": "30f0776c342508696484563699b48d6b0e1433b82f69183dd788e93e64a70d8f",
+              "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cmd/skills-catalog-api/main.go",
+              "bytes": 3532
+            },
+            {
+              "path": "docs/SKILLS.md",
+              "blob_sha": "13e879abee8d954394afd13faabe9835b36f29df",
+              "sha256": "70c9403c2d5913d219d92f9b0ebab1490b76b9fae31c8102b884d590fa19a245",
+              "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/docs/SKILLS.md",
+              "bytes": 5955
+            },
+            {
+              "path": "docs/AGENT_SKILLS_INSTALLER.md",
+              "blob_sha": "3399117fcd1da9d2a2e10860ddbe4cfd7b3a9fe4",
+              "sha256": "441d590fe0018fb91256c6dda2742150c02fcaa3513ca05f2cd767d5da307274",
+              "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/docs/AGENT_SKILLS_INSTALLER.md",
+              "bytes": 10160
+            },
+            {
+              "path": "NOTICE",
+              "blob_sha": "dd4c7ea205427f22c867894d41551f41ff24d01b",
+              "sha256": "dc03193fba10f502cf83673ff42b33fd138e684d55fbe9556de38603ca9eb87a",
+              "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/NOTICE",
+              "bytes": 355
+            },
+            {
+              "path": "cli/internal/agentpluginscli/skills.go",
+              "blob_sha": "f591697e3780f2bcb39094ae3148086a897453cc",
+              "sha256": "41a78dc0214d0d809524d2e93596bdb0f0e85f4399cb071e747bb1eacf02cb03",
+              "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cli/internal/agentpluginscli/skills.go",
+              "bytes": 7932
+            },
+            {
+              "path": "cli/internal/skills/app/service_generate.go",
+              "blob_sha": "d6d8b57f76b637b5271b87a20446f1c2337a631a",
+              "sha256": "567b0ef3b3a600186c7d56479caf393c2234f4c647f7c69491e872ae4746769f",
+              "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cli/internal/skills/app/service_generate.go",
+              "bytes": 4720
+            }
+          ],
+          "distribution_evidence": "Current agentplugins skills add handles GitHub/HTTPS skill sources with exact selections, target scope, reviewed application and dry-run paths. docs/AGENT_SKILLS_INSTALLER.md defines the released CLI baseline and source-only differences; docs/SKILLS.md marks the old plugin-kit-ai authoring/generate surface as retired experimental documentation."
+        }
+      },
+      {
+        "full_name": "org-quicko/skillset",
+        "field_updates": {
+          "license_spdx": "AGPL-3.0-only AND MIT",
+          "license_scope": "Root and reviewed MCP/application code use AGPL-3.0-only, explicitly confirmed by apps/mcp/package.json. docs/LICENSE separately grants MIT for Mintlify documentation/template material; that exception does not relicense application/installer code. Uploaded/downloaded third-party skill artifacts retain their own rights.",
+          "additional_evidence": [
+            {
+              "path": "apps/mcp/src/tools/search-skills.ts",
+              "blob_sha": "cd47fe3918426602a74c7cea5408f160f72f0273",
+              "sha256": "b9052bd23a21047ec82feaa5ed25019ab24cc6d879f7643e3be6165d695d0e6c",
+              "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/src/tools/search-skills.ts",
+              "bytes": 7351
+            },
+            {
+              "path": "apps/mcp/package.json",
+              "blob_sha": "25096c6c2f9ed110c4e3e302441800c29bbd4c22",
+              "sha256": "e28a47d99ed8423c18c84d8047e9a9f128d98d1e6a9629cbde5fe11767c6b2cb",
+              "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/package.json",
+              "bytes": 1044
+            },
+            {
+              "path": "packages/installer/src/index.ts",
+              "blob_sha": "4e245133e94a9191baccfe92f6ca5454ee41f74f",
+              "sha256": "5bcd174a3315954356e82fb88dff046652a22ae7cd7872f7f463dedaa9efa06e",
+              "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/packages/installer/src/index.ts",
+              "bytes": 17095
+            },
+            {
+              "path": "apps/mcp/src/tools/read-skill.ts",
+              "blob_sha": "af22ef8c99fd2d8452332260eabe6d55580353f1",
+              "sha256": "7f9b68286ffc95fab8b45367b36883ac4ef78bdbe19f47a4ecc5ad26dcf30cbf",
+              "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/src/tools/read-skill.ts",
+              "bytes": 3547
+            },
+            {
+              "path": "docs/LICENSE",
+              "blob_sha": "ca0fa5f2e3f7c74b94b8ba9fecc09a156fef6a8b",
+              "sha256": "61adbc1e91a6904474b392500c16d9bfb0ea30744fba8627b0258906b654b9de",
+              "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/docs/LICENSE",
+              "bytes": 1064
+            }
+          ],
+          "distribution_evidence": "Self-hosted registry with publicly packaged MCP/CLI clients: actual search-skills.ts and read-skill.ts query registry metadata/body/files, while packages/installer/src/index.ts writes canonical .agents/skills copies and client symlink/copy targets. The fixed tree contains no bundled SKILL.md inventory.",
+          "limitations": "Requires Bun/Postgres deployment and separate authorization for writes; package AGPL terms do not cover third-party uploaded artifacts. Static installer risk: writeSkillFiles suppresses failure to rename trashDir back after a failed staged swap, then its finally block deletes trashDir; if both swap and restoration fail, prior bytes may be lost. This is a conditional source finding, not a reproduced runtime failure."
+        }
+      },
+      {
+        "full_name": "changeroa/skillar",
+        "field_updates": {
+          "skill_count": "1 reviewed public discovery/loading router; 4 other client/subskill paths are not a certified remote leaf inventory",
+          "count_basis": "The five raw paths are clients/codex/skillar, clients/oh-my-openagent/skillar, clients/openclaw/plugin/skills/skillar, plugins/skillar/skills/skillar, and clients/gajae-code/plugin/subskills/interview. Only the complete Codex entrypoint was body-reviewed here and it explicitly routes discovery/loading. Do not present the five paths or externally served catalogs as five independently reviewed task leaves. Actual local MCP skills-extension and skill-application code were also read.",
+          "additional_evidence": [
+            {
+              "path": "LICENSING.md",
+              "blob_sha": "5ee29f0a4690fb938bd9d7debf30d9e6ccf3c7d9",
+              "sha256": "d0c3594862a40e17d29d60e6becdc45e0d30ffc9989c0e4d07b22eb4205a3879",
+              "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/LICENSING.md",
+              "bytes": 1733
+            },
+            {
+              "path": "clients/codex/README.md",
+              "blob_sha": "f703f15a2d2d2096026df41590140d5cea322235",
+              "sha256": "69070cc22e7062b94cc71d4af905c82e61e83e443e39789b95075cb8930f7705",
+              "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/clients/codex/README.md",
+              "bytes": 14961
+            },
+            {
+              "path": "local/src/mcp/skills-extension.ts",
+              "blob_sha": "963f67486e57e20010488077917ae138b6b4c352",
+              "sha256": "50370371ae66c056127850f75492fd0731d822ff18a8f84c37a7022d533d00ce",
+              "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/local/src/mcp/skills-extension.ts",
+              "bytes": 6177
+            },
+            {
+              "path": "local/src/skills/apply.ts",
+              "blob_sha": "3240c8c4c9a2e4f1a174f6ac9e7c61a13e6f0a80",
+              "sha256": "dfba7bd2085e4d7df47e5d36536531deee49ad77dae64e4478404446f60bf20e",
+              "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/local/src/skills/apply.ts",
+              "bytes": 7022
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "dakotacolorado/honed",
+        "field_updates": {
+          "representative": {
+            "path": "src/mcp.ts",
+            "blob_sha": "c8c83d16862d43c09b2915407310e3bfee5f8544",
+            "sha256": "3e7ee05b3eb97115e1ea8cb7537a8e71889c41df90df29e2d343adfc8a681e90",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/mcp.ts",
+            "bytes": 10105
+          },
+          "skill_count": "Skill-serving infrastructure with 6 packaged starter SKILL.md files; 1 internal test workflow excluded",
+          "count_basis": "Six src/starters SKILL.md files are packaged through the build copy into dist/starters: three honed revision/authoring helpers and three team starter examples. .claude/skills/test/SKILL.md is an internal test-running workflow. These do not establish a separate mature skill catalog. The complete actual src/mcp.ts, src/library.ts and src/cli.ts implementations establish namespaced skill retrieval/feedback, Git-backed versions and public server startup.",
+          "additional_evidence": [
+            {
+              "path": "package.json",
+              "blob_sha": "0d6e638a2a3e1cebe4eb27e5c06d5b6cd04e76e0",
+              "sha256": "73a8951d994ce78df8ad4de685440817de7449a643295a0e23406bc463226004",
+              "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/package.json",
+              "bytes": 1866
+            },
+            {
+              "path": "mcp.json",
+              "blob_sha": "972bf6097f07fdd1a4e44e6de422cb4ff32efa07",
+              "sha256": "e017b4779deb093177ea0459d4f94bf6824a6f1ea084ddf894fdba1bcaf8bf85",
+              "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/mcp.json",
+              "bytes": 7549
+            },
+            {
+              "path": "src/mcp.ts",
+              "blob_sha": "c8c83d16862d43c09b2915407310e3bfee5f8544",
+              "sha256": "3e7ee05b3eb97115e1ea8cb7537a8e71889c41df90df29e2d343adfc8a681e90",
+              "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/mcp.ts",
+              "bytes": 10105
+            },
+            {
+              "path": "src/library.ts",
+              "blob_sha": "adeb58e64052bb5faf3a95e0fe4af5f25e1cb5cc",
+              "sha256": "8ba149dbbfc10e245bd9eac76d8b93c74e47edc1fd6fb31cc79ab2920f9a5853",
+              "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/library.ts",
+              "bytes": 5329
+            },
+            {
+              "path": "src/cli.ts",
+              "blob_sha": "0e6848571d488aadcc46eee86731899c60bc514a",
+              "sha256": "9c0099e4e0684c51562bf7f4bf6e499b35048a527d7c1d5f130cefbc52f6b5bb",
+              "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/cli.ts",
+              "bytes": 6764
+            }
+          ],
+          "limitations": "Node 24+ and git are needed for the base service. A Claude/Anthropic revision provider is optional: --judge off / --no-judge runs without model revision, and auto can fall back to off. No server/authentication/namespace isolation, revision provider or client behavior was executed or certified."
+        }
+      }
+    ],
+    "objections": [
+      {
+        "full_name": "org-quicko/skillset",
+        "reason": "Nonblocking for a metadata-only infrastructure index: the reviewed installer source has a conditional recovery/data-retention hazard if both the staged swap and old-directory restoration fail; the old directory is then removed in finally. Carry the precise static limitation; do not claim transactional recovery was runtime-verified.",
+        "blocking": false
+      }
+    ],
+    "limits": [
+      "只读静态交叉复核；不安装、不执行候选，不认证模型或宿主运行。",
+      "没有通读全库；各项完整/部分/仅哈希检查范围分别记录。",
+      "Existing fixed refs were rehashed and checked against frozen tree nodes; all six commit/tree bindings were independently rechecked through the official GitHub Git Commit API. New implementation refs were also byte/hash/tree checked.",
+      "标准许可证仅按源文件声明、组件边界及固定字节核对；未执行全仓第三方许可清扫、法律意见或宿主/模型兼容性认证。",
+      "Skillset条件性数据保留问题来自已读代码控制流；未运行故障注入或复现。"
+    ]
+  },
+  "quality-breadth.json": {
+    "stage": "complete",
+    "date": "2026-11-16",
+    "records": [
+      {
+        "full_name": "weihao-fang/foodsci-research-assistant",
+        "commit": "2fcf86e845fdbb4eb51cc305ef157b1f5c768ffa",
+        "tree": "4d1434e8a1fc6853d1c27beaf4cfc177f79eafd0",
+        "read_scope": {
+          "read_full": [
+            "README.md",
+            "LICENSE",
+            "skills/foodsci-data-analysis/SKILL.md",
+            "THIRD_PARTY_NOTICES.md",
+            "skills/foodsci-research-assistant/SKILL.md",
+            "skills/foodsci-research-assistant/references/data-analysis.md",
+            "skills/foodsci-research-assistant/references/analysis-workflow.md"
+          ],
+          "tree": "Independent official nontruncated tree lookup; public entrypoint set/count compared with README and recorded paths.",
+          "not_read": "Other collection bodies, nested scientific resources and helper implementation beyond the explicitly listed read_full scope were not fully re-audited.",
+          "runtime": "Not run or installed."
+        },
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "02590d351e5e514b8dc37a07028eee1fb56c0760",
+            "sha256": "d93df6f3e562bf7525d9cd7055045a4266e85512af027c124e670eb9efc96119",
+            "url": "https://github.com/weihao-fang/foodsci-research-assistant/blob/2fcf86e845fdbb4eb51cc305ef157b1f5c768ffa/README.md",
+            "bytes": 9619,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "9c72bf2dc9f7268e0c20d650faa95a70b8c938c6",
+            "sha256": "3f0e3c1304d0a97f635cea10b92d39acb8604f2de144c3acf76df6f90e35d96e",
+            "url": "https://github.com/weihao-fang/foodsci-research-assistant/blob/2fcf86e845fdbb4eb51cc305ef157b1f5c768ffa/LICENSE",
+            "bytes": 1588,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "skills/foodsci-data-analysis/SKILL.md",
+            "blob_sha": "9b65ee37b69a29b5d91b3e148229d3494b589ed1",
+            "sha256": "436165460dd60bc92bc354b4e7513c7f03f0ff137b69e1f70942ce7876169257",
+            "url": "https://github.com/weihao-fang/foodsci-research-assistant/blob/2fcf86e845fdbb4eb51cc305ef157b1f5c768ffa/skills/foodsci-data-analysis/SKILL.md",
+            "bytes": 1481,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "761048d4794837c76ffa883acb2451f80170ad97",
+            "sha256": "8a287c4448a20277c21ce1cab8c34c6eef8229fa2dd174cbef92b65d2c7a1ae8",
+            "url": "https://github.com/weihao-fang/foodsci-research-assistant/blob/2fcf86e845fdbb4eb51cc305ef157b1f5c768ffa/THIRD_PARTY_NOTICES.md",
+            "bytes": 1581,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "skills/foodsci-research-assistant/SKILL.md",
+            "blob_sha": "37b307d30be71a4b150e171f88aa98682185b666",
+            "sha256": "1f4ccfc0248eb910abb79ec787bbd63c2ae9da9c7ed0783cab72bd1263072fac",
+            "url": "https://github.com/weihao-fang/foodsci-research-assistant/blob/2fcf86e845fdbb4eb51cc305ef157b1f5c768ffa/skills/foodsci-research-assistant/SKILL.md",
+            "bytes": 10470,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "skills/foodsci-research-assistant/references/data-analysis.md",
+            "blob_sha": "fede1b2b7c02942a1a54a8ca5b29f1f17ac43e8d",
+            "sha256": "29aa77112b90491f07103cfb11e9c846fffe943185da35c79b11c14e1b05ebb0",
+            "url": "https://github.com/weihao-fang/foodsci-research-assistant/blob/2fcf86e845fdbb4eb51cc305ef157b1f5c768ffa/skills/foodsci-research-assistant/references/data-analysis.md",
+            "bytes": 1656,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "skills/foodsci-research-assistant/references/analysis-workflow.md",
+            "blob_sha": "b74af85f72cf10058888827cc7149cb3e79399e3",
+            "sha256": "d443f967e76d477e5d19186b5976850ee79673da7cee9fc245b320f0d850af72",
+            "url": "https://github.com/weihao-fang/foodsci-research-assistant/blob/2fcf86e845fdbb4eb51cc305ef157b1f5c768ffa/skills/foodsci-research-assistant/references/analysis-workflow.md",
+            "bytes": 7922,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          }
+        ],
+        "conclusion": "PASS for metadata admission under the declared noncommercial source-visible license. Six public source entrypoints are supported by README/tree: one standalone core plus five same-version dependent entrypoints. Root license expressly applies only to author-owned originals and excludes changing existing third-party rights; THIRD_PARTY_NOTICES retains MIT grants/notices for adapted K-Dense and Siqi Chen portions. It must not be described as a wholly MIT or OSI-open-source collection. No blocking licensing/count error found in the existing scoped record."
+      },
+      {
+        "full_name": "jonfunk21/co-scientist",
+        "commit": "c530d7b79b169d59658edb0b39b79fb7bbd11722",
+        "tree": "05d47e5faed3bc380b6cebea43e69d57cc911f69",
+        "read_scope": {
+          "read_full": [
+            "README.md",
+            "LICENSE",
+            "co-scientist-update/SKILL.md",
+            "co-scientist/SKILL.md"
+          ],
+          "tree": "Independent official nontruncated tree lookup; public entrypoint set/count compared with README and recorded paths.",
+          "not_read": "Other collection bodies, nested scientific resources and helper implementation beyond the explicitly listed read_full scope were not fully re-audited.",
+          "runtime": "Not run or installed."
+        },
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "f5689276f7caa76ab2ab9721c78f0ff5cc71a0b8",
+            "sha256": "90b1ab9aafd9652d9ca02c12cb3e29bb07f3edd1a90e536ec8106c6cc84bf298",
+            "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/README.md",
+            "bytes": 11090,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "eb031313ccdbceae10b34df63d03ef9ef03e1077",
+            "sha256": "794439a837e47ec55ec0261989329332d28635ac5be95b160e64944b98b1b3d2",
+            "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/LICENSE",
+            "bytes": 1070,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "co-scientist-update/SKILL.md",
+            "blob_sha": "fb271a02d4a703f21b833ae38dcb0728598982e9",
+            "sha256": "9fe1ed0895eda00c98d7101545dbff548e19d6c3eba2ef901bd59def31095add",
+            "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/co-scientist-update/SKILL.md",
+            "bytes": 4958,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "co-scientist/SKILL.md",
+            "blob_sha": "f904cf187b05f47313202a0c5a03240473214a60",
+            "sha256": "1c79ce1f17d9bafbaf82950757b92d4a60b34d4c1fc601e8402ce8dc512bc6f4",
+            "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/co-scientist/SKILL.md",
+            "bytes": 10176,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          }
+        ],
+        "conclusion": "PASS with nonblocking metadata corrections. README explicitly distributes all ten top-level folders together and explicitly lists co-scientist-update as a requested/scheduled maintenance skill. Nine counted research entrypoints equal eight task workflows plus the coordinator; excluding the update command is accurate. The updater requires agreement before installation, uses fast-forward pull, protects created_with and refuses to report success for sync-managed downstream writes. Its copy/state/retro side effects should be visible, and the fully read research coordinator is a better primary representative for the research summary."
+      },
+      {
+        "full_name": "newfie-stack/survey-cad-skills",
+        "commit": "bacbf60677744533864cffcbdbe9d7dea4998ae3",
+        "tree": "a0a6efc242cb6fedbb81376a43a557bb2e82d878",
+        "read_scope": {
+          "read_full": [
+            "README.md",
+            "LICENSE",
+            "skills/aer-onestop-guide/SKILL.md",
+            ".claude-plugin/marketplace.json",
+            ".claude-plugin/plugin.json"
+          ],
+          "tree": "Independent official nontruncated tree lookup; public entrypoint set/count compared with README and recorded paths.",
+          "not_read": "Other collection bodies, nested scientific resources and helper implementation beyond the explicitly listed read_full scope were not fully re-audited.",
+          "runtime": "Not run or installed."
+        },
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "72f807c766611e052f74ff3a3a383bfe882cf271",
+            "sha256": "bb14848b32427241ab0eb2dd7142970e96a77264ca524f01d83acd46af6ca36e",
+            "url": "https://github.com/newfie-stack/survey-cad-skills/blob/bacbf60677744533864cffcbdbe9d7dea4998ae3/README.md",
+            "bytes": 3490,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "99b227baa034bd0924dc35d4fb806329437f388b",
+            "sha256": "97a1468cacdf9ff8b6a9e1b74276bb749c8e518996d8b59bb14a6fe3d00b6c7b",
+            "url": "https://github.com/newfie-stack/survey-cad-skills/blob/bacbf60677744533864cffcbdbe9d7dea4998ae3/LICENSE",
+            "bytes": 1069,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "skills/aer-onestop-guide/SKILL.md",
+            "blob_sha": "4f37bb167be44588669578afd36b08fde31e971d",
+            "sha256": "ef1f1a21150b9127f53951533729680e17212267b6c7c2a0228a54c728bbf79a",
+            "url": "https://github.com/newfie-stack/survey-cad-skills/blob/bacbf60677744533864cffcbdbe9d7dea4998ae3/skills/aer-onestop-guide/SKILL.md",
+            "bytes": 959,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "85dccb0c4f337f4b3bbc5f7ebcd5dbbfdeee4788",
+            "sha256": "297a0a8135df023aa01e0abb42841d209aa2af06bc7d6c56d64b22ee8281fa5b",
+            "url": "https://github.com/newfie-stack/survey-cad-skills/blob/bacbf60677744533864cffcbdbe9d7dea4998ae3/.claude-plugin/marketplace.json",
+            "bytes": 258,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "b9b31af73351a00bd16ee9cf7d40867c67d2905a",
+            "sha256": "5465fe416b1e780ed538dc2c70d63c169b272eb190dca75fde9b0c74fc8e3fd5",
+            "url": "https://github.com/newfie-stack/survey-cad-skills/blob/bacbf60677744533864cffcbdbe9d7dea4998ae3/.claude-plugin/plugin.json",
+            "bytes": 194,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          }
+        ],
+        "conclusion": "PASS. README directly links exactly eighteen distinct skills/…/SKILL.md source entrypoints, equal to the complete frozen tree and public_skill_paths. Marketplace source ./ and plugin skills:[./skills/] establish public distribution; these are public entries rather than hidden fixtures. Root MIT is scoped to original contributions, while README separately retains PyMuPDF and external Octopus/provider terms. The AER representative is explicitly use-time public-source regulatory research, not evidence of regulator approval."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "weihao-fang/foodsci-research-assistant",
+        "field_updates": {
+          "summary_en": "Noncommercial food and life-science research assistant with a standalone core and five dependent task entrypoints.",
+          "summary_zh": "面向非商业学习与科研、由独立核心与五个依赖任务入口组成的食品和生命科学科研助手。"
+        }
+      },
+      {
+        "full_name": "jonfunk21/co-scientist",
+        "field_updates": {
+          "representative": {
+            "path": "co-scientist/SKILL.md",
+            "blob_sha": "f904cf187b05f47313202a0c5a03240473214a60",
+            "sha256": "1c79ce1f17d9bafbaf82950757b92d4a60b34d4c1fc601e8402ce8dc512bc6f4",
+            "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/co-scientist/SKILL.md",
+            "bytes": 10176
+          },
+          "additional_evidence": [
+            {
+              "path": "co-scientist-update/SKILL.md",
+              "blob_sha": "fb271a02d4a703f21b833ae38dcb0728598982e9",
+              "sha256": "9fe1ed0895eda00c98d7101545dbff548e19d6c3eba2ef901bd59def31095add",
+              "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/co-scientist-update/SKILL.md",
+              "bytes": 4958
+            }
+          ],
+          "distribution_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "f5689276f7caa76ab2ab9721c78f0ff5cc71a0b8",
+              "sha256": "90b1ab9aafd9652d9ca02c12cb3e29bb07f3edd1a90e536ec8106c6cc84bf298",
+              "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/README.md",
+              "bytes": 11090
+            }
+          ],
+          "skill_count": "9 research entrypoints (8 workflows + 1 coordinator); 1 maintenance command excluded",
+          "count_basis": "README and official frozen tree distribute ten top-level SKILL.md folders together. Nine research entrypoints are counted; the publicly distributed co-scientist-update maintenance command is excluded from that number.",
+          "limitations": "Static intake only: no candidate installed or executed and no collection-wide scientific/body audit. Coordinator and update-command representatives fully read. Update checks fetch GitHub; applying needs user agreement, fast-forward pulls the suite and copies changed skill directories, writes update state and may append an affected ledger retro. It preserves created_with and requires re-upload for sync-managed downstream installs. Local-edit collision/backup handling for the manual copy step is not specified. No update, schedule or research action executed.",
+          "yaml_validation": {
+            "parser": "js-yaml JSON_SCHEMA",
+            "frontmatter_valid": true,
+            "name": "co-scientist",
+            "internal": false,
+            "scope": "Replacement research coordinator frontmatter parsed with js-yaml JSON_SCHEMA; both coordinator and update-command bodies read statically, with no runtime actions."
+          }
+        }
+      }
+    ],
+    "objections": [
+      {
+        "full_name": "jonfunk21/co-scientist",
+        "reason": "Nonblocking runtime limitation: the update workflow names user consent, ff-only and synced-copy boundaries, but does not specify collision checks or backups before its manual copy step. Keep those side effects visible and do not treat static intake as safe-update execution verification.",
+        "blocking": false
+      }
+    ],
+    "limits": [
+      "Static cross-review of the three agreed repository snapshots only; no scientific correctness, legal validity/current legal effect, full-library body audit or native client compatibility assessment.",
+      "No candidate installation, helper execution, model calls, credentials, scheduling, research processing or external messages. Standard YAML parsing of the already-reviewed replacement representative is not candidate execution.",
+      "Cached original UTF-8 bytes were independently re-hashed without newline normalization; official GitHub repository identities, fixed commits and real trees were re-queried serially."
+    ]
+  },
+  "integration_application": [
+    {
+      "full_name": "ryanduguid/australian-accounting-skills",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "ref": {
+              "path": "NOTICE",
+              "blob_sha": "7bf6470f21b9b3caa3b3efd3885ed02a780f4d41",
+              "sha256": "829b057801b7bdd2aaf05a957df83b153ac88c20ee260d3ac07ed738970540d0",
+              "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/NOTICE",
+              "bytes": 8814
+            },
+            "read_scope": "complete"
+          },
+          {
+            "ref": {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "6edc291f060500e138f4af73b8a6e440560aadcd",
+              "sha256": "3f5a8dd91ad756d4cadb8c55bcba8db466c981a61e2297dd93142a8207fb6b43",
+              "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/.claude-plugin/marketplace.json",
+              "bytes": 6139
+            },
+            "read_scope": "complete"
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "7bf6470f21b9b3caa3b3efd3885ed02a780f4d41",
+            "sha256": "829b057801b7bdd2aaf05a957df83b153ac88c20ee260d3ac07ed738970540d0",
+            "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/NOTICE",
+            "bytes": 8814
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "6edc291f060500e138f4af73b8a6e440560aadcd",
+            "sha256": "3f5a8dd91ad756d4cadb8c55bcba8db466c981a61e2297dd93142a8207fb6b43",
+            "url": "https://github.com/ryanduguid/australian-accounting-skills/blob/5ee22fc4f53b7ac3a8d27d34f836823f3d7e8a6d/.claude-plugin/marketplace.json",
+            "bytes": 6139
+          }
+        ],
+        "count_basis": "Root README states 107 workflows; the fixed marketplace explicitly lists 107 .claude/skills folders and that exact normalized set equals the frozen tree and public_skill_paths. The separately linked full catalogue was not independently reread in this cross-check. Validation cards and external calculators are excluded."
+      }
+    },
+    {
+      "full_name": "adobe/skills",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "ref": {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "a3f66cc4469ac442a12941560255354e0d752e6c",
+              "sha256": "0121a9452fcc04e1cda13f52f9889c64cd3d0cddf0a1b69e3411f1ce92a64e44",
+              "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/.claude-plugin/marketplace.json",
+              "bytes": 10214
+            },
+            "read_scope": "complete"
+          },
+          {
+            "ref": {
+              "path": "plugins/adobe-analytics/.claude-plugin/plugin.json",
+              "blob_sha": "9cc21bda82bd8af5e48b9185f418a43ea88d85ec",
+              "sha256": "41d1dfebf7f08ed92c08eb6e54118848452be65dd264c5cff6e0a18c5e2167e8",
+              "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/plugins/adobe-analytics/.claude-plugin/plugin.json",
+              "bytes": 479
+            },
+            "read_scope": "complete"
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "a3f66cc4469ac442a12941560255354e0d752e6c",
+            "sha256": "0121a9452fcc04e1cda13f52f9889c64cd3d0cddf0a1b69e3411f1ce92a64e44",
+            "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/.claude-plugin/marketplace.json",
+            "bytes": 10214
+          },
+          {
+            "path": "plugins/adobe-analytics/.claude-plugin/plugin.json",
+            "blob_sha": "9cc21bda82bd8af5e48b9185f418a43ea88d85ec",
+            "sha256": "41d1dfebf7f08ed92c08eb6e54118848452be65dd264c5cff6e0a18c5e2167e8",
+            "url": "https://github.com/adobe/skills/blob/33eb52cc9a74ecae1452db92a08f6978cf60bd1d/plugins/adobe-analytics/.claude-plugin/plugin.json",
+            "bytes": 479
+          }
+        ],
+        "limitations": [
+          "Static metadata admission only; no candidate installation, helper execution, external service calls, runtime compatibility or outcome verification.",
+          "Representative-body review is sampling, not an audit of every skill and bundled resource.",
+          "The reviewed aa-conversion-funnel-analysis compares independent visit-level step segments and explicitly approximates fallout; it does not establish event order or strict sequential conversion. Step-to-step ratios need not be true conditional funnel rates.",
+          "The 201 SKILL.md paths are a source inventory including nested routes; no full unique public-leaf count or 201-body audit was established. Skills-only copying does not install required MCP servers, hooks or dependencies."
+        ]
+      }
+    },
+    {
+      "full_name": "widelab-co/wideset",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "ref": {
+              "path": "packages/skills/README.md",
+              "blob_sha": "72d5c6899995572ea45156792784e2f503fb190b",
+              "sha256": "5840bef462080a611e9ba1804d32e2a9415fe11fce03b6c909580815dfe960ce",
+              "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/README.md",
+              "bytes": 4200
+            },
+            "read_scope": "complete"
+          },
+          {
+            "ref": {
+              "path": "packages/skills/.claude-plugin/plugin.json",
+              "blob_sha": "f46ea1b94a080c90323086d732c942ab2b3f4444",
+              "sha256": "6e87cd77623ddb05e2187dcfae90517d73abfe5db21af035b0a8ed85a71a468c",
+              "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/.claude-plugin/plugin.json",
+              "bytes": 551
+            },
+            "read_scope": "complete"
+          },
+          {
+            "ref": {
+              "path": "NOTICE",
+              "blob_sha": "834503378b0f86206f638a9715bc8ea4ef1e366d",
+              "sha256": "379c16167d7749fe29b717cdf10794d26cba763882fbf642c06ee1181c749443",
+              "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/NOTICE",
+              "bytes": 241
+            },
+            "read_scope": "complete"
+          },
+          {
+            "path": "packages/skills/README.md",
+            "blob_sha": "72d5c6899995572ea45156792784e2f503fb190b",
+            "sha256": "5840bef462080a611e9ba1804d32e2a9415fe11fce03b6c909580815dfe960ce",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/README.md",
+            "bytes": 4200
+          },
+          {
+            "path": "packages/skills/.claude-plugin/plugin.json",
+            "blob_sha": "f46ea1b94a080c90323086d732c942ab2b3f4444",
+            "sha256": "6e87cd77623ddb05e2187dcfae90517d73abfe5db21af035b0a8ed85a71a468c",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/.claude-plugin/plugin.json",
+            "bytes": 551
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "834503378b0f86206f638a9715bc8ea4ef1e366d",
+            "sha256": "379c16167d7749fe29b717cdf10794d26cba763882fbf642c06ee1181c749443",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/NOTICE",
+            "bytes": 241
+          },
+          {
+            "path": "packages/skills/LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "packages/skills/NOTICE",
+            "blob_sha": "834503378b0f86206f638a9715bc8ea4ef1e366d",
+            "sha256": "379c16167d7749fe29b717cdf10794d26cba763882fbf642c06ee1181c749443",
+            "url": "https://github.com/widelab-co/wideset/blob/d47e05fd81874d1de5bc1e1e7ef7082beda7c1d4/packages/skills/NOTICE",
+            "bytes": 241
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "vectorize-io/hindsight",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "skill_count": "5 root source skill entries; docs installation verified; integration channels counted separately",
+        "count_basis": "Five skills/hindsight-* source paths are present. README explicitly installs hindsight-docs and separately documents the coding-agents integration package; the cloud body was reviewed as the consumer representative. Five .claude/skills maintenance entries are excluded. The other ten integration/doc paths are not added to a verified unique-leaf total and have not all been proved to be copies.",
+        "limitations": [
+          "Static metadata admission only; no candidate installation, helper execution, external service calls, runtime compatibility or outcome verification.",
+          "Representative-body review is sampling, not an audit of every skill and bundled resource.",
+          "Cloud representative instructs retention of rich team context and transcripts; host configuration and authorization govern what may be sent to the hosted service.",
+          "The reviewed cloud skill tells the agent to cat ~/.hindsight/config and ask the user for an API key during setup; following that literally can expose stored credentials in tool/chat output. Its rich-context/transcript retention reaches a hosted shared team bank. These are observed instructions, not actions performed during intake.",
+          "Five root source entries were identified; this representative cross-check does not certify the remaining four root bodies or all integration-channel distribution contracts."
+        ]
+      }
+    },
+    {
+      "full_name": "Copperpour/Copperpour",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "ref": {
+              "path": "Cargo.toml",
+              "blob_sha": "17a6630338f71bdee41a8cf1af3da931ea46d8e1",
+              "sha256": "8416c44d7d9e750c61c815ec99c82a57759974181eb32b1e8f6fb59152c78fae",
+              "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/Cargo.toml",
+              "bytes": 3781
+            },
+            "read_scope": "complete"
+          },
+          {
+            "ref": {
+              "path": "plugin/plugin.json",
+              "blob_sha": "7e476965deafec79561198199e48976018770457",
+              "sha256": "dcb3b28e9bd0d5bbad32b3a1b8a951a584d0cdaf50e9dbe3d54f3882ef6781e1",
+              "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/plugin/plugin.json",
+              "bytes": 536
+            },
+            "read_scope": "complete"
+          },
+          {
+            "ref": {
+              "path": "crates/copperpour-core/src/guidance/bundle.rs",
+              "blob_sha": "6f9efe60fd412d3764a9f68cba6e5e2d5dad4247",
+              "sha256": "1ba819e8ec904a5b5eb05fa4124fd444f61d8a89cbccf6f3c72d9d476791b788",
+              "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour-core/src/guidance/bundle.rs",
+              "bytes": 3513
+            },
+            "read_scope": "complete"
+          },
+          {
+            "ref": {
+              "path": "docs/RELIABILITY_CONTRACT.md",
+              "blob_sha": "33d0a6f2707e34eec6d09398f4aa4d1895dc2cd4",
+              "sha256": "db41243acbc14a077d921fb73640dafa2727e93f423c3fa139a873f53b3cab69",
+              "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/docs/RELIABILITY_CONTRACT.md",
+              "bytes": 8952
+            },
+            "read_scope": "complete"
+          },
+          {
+            "path": "crates/copperpour-core/src/guidance/bundle.rs",
+            "blob_sha": "6f9efe60fd412d3764a9f68cba6e5e2d5dad4247",
+            "sha256": "1ba819e8ec904a5b5eb05fa4124fd444f61d8a89cbccf6f3c72d9d476791b788",
+            "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour-core/src/guidance/bundle.rs",
+            "bytes": 3513
+          },
+          {
+            "path": "crates/copperpour-core/src/guidance.rs",
+            "blob_sha": "da99abd992a39a699f16367d3a2d6146f124dfb6",
+            "sha256": "b573302d8659ff002241eac4a9676d8ccf63bb1ace605ff56c6667e0c12ab940",
+            "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour-core/src/guidance.rs",
+            "bytes": 17570
+          },
+          {
+            "path": "crates/copperpour/src/portable_skills.rs",
+            "blob_sha": "f2cf762dc19ac92841dacf824e3214e2d2c69eed",
+            "sha256": "6d290027a733c3ef150fcd585bed1fecf4e87c273edd3c3cb8b9718e077c3990",
+            "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour/src/portable_skills.rs",
+            "bytes": 16152
+          },
+          {
+            "path": "crates/copperpour/src/manifest.rs",
+            "blob_sha": "4e87caf7ef1e0ed9c4d60f7168fdd67556bb8658",
+            "sha256": "a1da64cf7b6b4ea5860a9fce4dfe184083efea3c0c42cc5ca3254b35958172e3",
+            "url": "https://github.com/Copperpour/Copperpour/blob/1250e1b62b5e9f731f3b6e3592aa0b59745fbca3/crates/copperpour/src/manifest.rs",
+            "bytes": 3634
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "decimal-labs/decimalai-python",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "skill_count": "0 independently reviewed public leaf skills; 1 reference-app example and 42 test-fixture SKILL.md files excluded",
+        "count_basis": "Exact fixed-tree path classification: examples/reference-app has 1 SKILL.md; tests/native_loaders and tests/skillpkg contain 42 fixture SKILL.md paths, including deliberately invalid/nested cases. Actual infrastructure proof is the complete manifest parser and exact resolver plus the selected install/resolve/sync/fetch/frozen-placement paths of decimalai/skillpkg/ops.py; _install.py is install identity bookkeeping, not the installer.",
+        "additional_evidence": [
+          {
+            "path": "decimalai/_install.py",
+            "blob_sha": "f67b52e9dd5ec3d35257e7a15d42c29b9d909789",
+            "sha256": "dd256450a8127790e98d3e2141bf99c7c8ecaea28bef17dd9cafc2695f640388",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/_install.py",
+            "bytes": 6413
+          },
+          {
+            "path": "decimalai/_registry_resolve.py",
+            "blob_sha": "9363596152ac6bdc1868fbf0946d44bcebe37a52",
+            "sha256": "93fd8fde12b805229078e084c03928e3041eb9c52a75e1714463ef04ecffd822",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/_registry_resolve.py",
+            "bytes": 2976
+          },
+          {
+            "path": "decimalai/skillpkg/manifest.py",
+            "blob_sha": "89be83504ea95d530924c42b175d150ae5cc4264",
+            "sha256": "2b6b6eded9b68aa15624da4f67d2ea0944dae09d8e79cb3d68e710fedfda865f",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/skillpkg/manifest.py",
+            "bytes": 20296
+          },
+          {
+            "path": "decimalai/_install.py",
+            "blob_sha": "f67b52e9dd5ec3d35257e7a15d42c29b9d909789",
+            "sha256": "dd256450a8127790e98d3e2141bf99c7c8ecaea28bef17dd9cafc2695f640388",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/_install.py",
+            "bytes": 6413
+          },
+          {
+            "path": "decimalai/_registry_resolve.py",
+            "blob_sha": "9363596152ac6bdc1868fbf0946d44bcebe37a52",
+            "sha256": "93fd8fde12b805229078e084c03928e3041eb9c52a75e1714463ef04ecffd822",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/_registry_resolve.py",
+            "bytes": 2976
+          },
+          {
+            "path": "decimalai/skillpkg/manifest.py",
+            "blob_sha": "89be83504ea95d530924c42b175d150ae5cc4264",
+            "sha256": "2b6b6eded9b68aa15624da4f67d2ea0944dae09d8e79cb3d68e710fedfda865f",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/skillpkg/manifest.py",
+            "bytes": 20296
+          },
+          {
+            "path": "decimalai/skillpkg/ops.py",
+            "blob_sha": "18c29e41d63e480b760d5d4fb22e2debc33562d3",
+            "sha256": "5ddc5989d351c444f3b6d2b8611f1811c6c497b2149629a3674675ae4030ecae",
+            "url": "https://github.com/decimal-labs/decimalai-python/blob/5a80427fb659600290d100e08ba80ae4a1e8f47f/decimalai/skillpkg/ops.py",
+            "bytes": 70545
+          }
+        ],
+        "distribution_evidence": "Public PyPI package decimalai provides manifest/lock-driven registry skill installation into .agents/skills, including exact-version fetch and frozen placement paths. This repository is the MIT SDK/client; README explicitly excludes the hosted trace store, registry and scanning platform from open-source scope."
+      }
+    },
+    {
+      "full_name": "777genius/universal-agent-plugins",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "representative": {
+          "path": "cli/internal/agentpluginscli/skills.go",
+          "blob_sha": "f591697e3780f2bcb39094ae3148086a897453cc",
+          "sha256": "41a78dc0214d0d809524d2e93596bdb0f0e85f4399cb071e747bb1eacf02cb03",
+          "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cli/internal/agentpluginscli/skills.go",
+          "bytes": 7932
+        },
+        "skill_count": "Skill infrastructure; 13 example sources, 15 generated example views, 8 test fixtures and 9 translated documentation pages excluded from leaf inventory",
+        "count_basis": "All 45 raw case-insensitive skill.md paths reconcile exactly: 13 canonical example/starter source paths, 15 generated client/plugin example views, 8 tests/repotests fixture paths, and 9 website build/skill.md language pages. cli/internal/agentpluginscli/skills.go implements current skills add; service_generate.go belongs to the separately documented retired/public-experimental plugin-kit-ai authoring subsystem and proves the derived-view relationship, not current native installer qualification.",
+        "additional_evidence": [
+          {
+            "path": "cmd/skills-catalog-api/main.go",
+            "blob_sha": "8ef265fb537715d33b9a8c505008f8735a90b3a6",
+            "sha256": "30f0776c342508696484563699b48d6b0e1433b82f69183dd788e93e64a70d8f",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cmd/skills-catalog-api/main.go",
+            "bytes": 3532
+          },
+          {
+            "path": "docs/SKILLS.md",
+            "blob_sha": "13e879abee8d954394afd13faabe9835b36f29df",
+            "sha256": "70c9403c2d5913d219d92f9b0ebab1490b76b9fae31c8102b884d590fa19a245",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/docs/SKILLS.md",
+            "bytes": 5955
+          },
+          {
+            "path": "docs/AGENT_SKILLS_INSTALLER.md",
+            "blob_sha": "3399117fcd1da9d2a2e10860ddbe4cfd7b3a9fe4",
+            "sha256": "441d590fe0018fb91256c6dda2742150c02fcaa3513ca05f2cd767d5da307274",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/docs/AGENT_SKILLS_INSTALLER.md",
+            "bytes": 10160
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "dd4c7ea205427f22c867894d41551f41ff24d01b",
+            "sha256": "dc03193fba10f502cf83673ff42b33fd138e684d55fbe9556de38603ca9eb87a",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/NOTICE",
+            "bytes": 355
+          },
+          {
+            "path": "cmd/skills-catalog-api/main.go",
+            "blob_sha": "8ef265fb537715d33b9a8c505008f8735a90b3a6",
+            "sha256": "30f0776c342508696484563699b48d6b0e1433b82f69183dd788e93e64a70d8f",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cmd/skills-catalog-api/main.go",
+            "bytes": 3532
+          },
+          {
+            "path": "docs/SKILLS.md",
+            "blob_sha": "13e879abee8d954394afd13faabe9835b36f29df",
+            "sha256": "70c9403c2d5913d219d92f9b0ebab1490b76b9fae31c8102b884d590fa19a245",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/docs/SKILLS.md",
+            "bytes": 5955
+          },
+          {
+            "path": "docs/AGENT_SKILLS_INSTALLER.md",
+            "blob_sha": "3399117fcd1da9d2a2e10860ddbe4cfd7b3a9fe4",
+            "sha256": "441d590fe0018fb91256c6dda2742150c02fcaa3513ca05f2cd767d5da307274",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/docs/AGENT_SKILLS_INSTALLER.md",
+            "bytes": 10160
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "dd4c7ea205427f22c867894d41551f41ff24d01b",
+            "sha256": "dc03193fba10f502cf83673ff42b33fd138e684d55fbe9556de38603ca9eb87a",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/NOTICE",
+            "bytes": 355
+          },
+          {
+            "path": "cli/internal/agentpluginscli/skills.go",
+            "blob_sha": "f591697e3780f2bcb39094ae3148086a897453cc",
+            "sha256": "41a78dc0214d0d809524d2e93596bdb0f0e85f4399cb071e747bb1eacf02cb03",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cli/internal/agentpluginscli/skills.go",
+            "bytes": 7932
+          },
+          {
+            "path": "cli/internal/skills/app/service_generate.go",
+            "blob_sha": "d6d8b57f76b637b5271b87a20446f1c2337a631a",
+            "sha256": "567b0ef3b3a600186c7d56479caf393c2234f4c647f7c69491e872ae4746769f",
+            "url": "https://github.com/777genius/universal-agent-plugins/blob/eb4d8fc7e3635272863f1c40f65639356845422e/cli/internal/skills/app/service_generate.go",
+            "bytes": 4720
+          }
+        ],
+        "distribution_evidence": "Current agentplugins skills add handles GitHub/HTTPS skill sources with exact selections, target scope, reviewed application and dry-run paths. docs/AGENT_SKILLS_INSTALLER.md defines the released CLI baseline and source-only differences; docs/SKILLS.md marks the old plugin-kit-ai authoring/generate surface as retired experimental documentation."
+      }
+    },
+    {
+      "full_name": "org-quicko/skillset",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_spdx": "AGPL-3.0-only AND MIT",
+        "license_scope": "Root and reviewed MCP/application code use AGPL-3.0-only, explicitly confirmed by apps/mcp/package.json. docs/LICENSE separately grants MIT for Mintlify documentation/template material; that exception does not relicense application/installer code. Uploaded/downloaded third-party skill artifacts retain their own rights.",
+        "additional_evidence": [
+          {
+            "path": "apps/mcp/src/tools/search-skills.ts",
+            "blob_sha": "cd47fe3918426602a74c7cea5408f160f72f0273",
+            "sha256": "b9052bd23a21047ec82feaa5ed25019ab24cc6d879f7643e3be6165d695d0e6c",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/src/tools/search-skills.ts",
+            "bytes": 7351
+          },
+          {
+            "path": "apps/mcp/package.json",
+            "blob_sha": "25096c6c2f9ed110c4e3e302441800c29bbd4c22",
+            "sha256": "e28a47d99ed8423c18c84d8047e9a9f128d98d1e6a9629cbde5fe11767c6b2cb",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/package.json",
+            "bytes": 1044
+          },
+          {
+            "path": "apps/mcp/src/tools/search-skills.ts",
+            "blob_sha": "cd47fe3918426602a74c7cea5408f160f72f0273",
+            "sha256": "b9052bd23a21047ec82feaa5ed25019ab24cc6d879f7643e3be6165d695d0e6c",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/src/tools/search-skills.ts",
+            "bytes": 7351
+          },
+          {
+            "path": "apps/mcp/package.json",
+            "blob_sha": "25096c6c2f9ed110c4e3e302441800c29bbd4c22",
+            "sha256": "e28a47d99ed8423c18c84d8047e9a9f128d98d1e6a9629cbde5fe11767c6b2cb",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/package.json",
+            "bytes": 1044
+          },
+          {
+            "path": "packages/installer/src/index.ts",
+            "blob_sha": "4e245133e94a9191baccfe92f6ca5454ee41f74f",
+            "sha256": "5bcd174a3315954356e82fb88dff046652a22ae7cd7872f7f463dedaa9efa06e",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/packages/installer/src/index.ts",
+            "bytes": 17095
+          },
+          {
+            "path": "apps/mcp/src/tools/read-skill.ts",
+            "blob_sha": "af22ef8c99fd2d8452332260eabe6d55580353f1",
+            "sha256": "7f9b68286ffc95fab8b45367b36883ac4ef78bdbe19f47a4ecc5ad26dcf30cbf",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/apps/mcp/src/tools/read-skill.ts",
+            "bytes": 3547
+          },
+          {
+            "path": "docs/LICENSE",
+            "blob_sha": "ca0fa5f2e3f7c74b94b8ba9fecc09a156fef6a8b",
+            "sha256": "61adbc1e91a6904474b392500c16d9bfb0ea30744fba8627b0258906b654b9de",
+            "url": "https://github.com/org-quicko/skillset/blob/237ce2c7964364d2884395baf35488df860ca60c/docs/LICENSE",
+            "bytes": 1064
+          }
+        ],
+        "distribution_evidence": "Self-hosted registry with publicly packaged MCP/CLI clients: actual search-skills.ts and read-skill.ts query registry metadata/body/files, while packages/installer/src/index.ts writes canonical .agents/skills copies and client symlink/copy targets. The fixed tree contains no bundled SKILL.md inventory.",
+        "limitations": "Requires Bun/Postgres deployment and separate authorization for writes; package AGPL terms do not cover third-party uploaded artifacts. Static installer risk: writeSkillFiles suppresses failure to rename trashDir back after a failed staged swap, then its finally block deletes trashDir; if both swap and restoration fail, prior bytes may be lost. This is a conditional source finding, not a reproduced runtime failure."
+      }
+    },
+    {
+      "full_name": "changeroa/skillar",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "skill_count": "1 reviewed public discovery/loading router; 4 other client/subskill paths are not a certified remote leaf inventory",
+        "count_basis": "The five raw paths are clients/codex/skillar, clients/oh-my-openagent/skillar, clients/openclaw/plugin/skills/skillar, plugins/skillar/skills/skillar, and clients/gajae-code/plugin/subskills/interview. Only the complete Codex entrypoint was body-reviewed here and it explicitly routes discovery/loading. Do not present the five paths or externally served catalogs as five independently reviewed task leaves. Actual local MCP skills-extension and skill-application code were also read.",
+        "additional_evidence": [
+          {
+            "path": "LICENSING.md",
+            "blob_sha": "5ee29f0a4690fb938bd9d7debf30d9e6ccf3c7d9",
+            "sha256": "d0c3594862a40e17d29d60e6becdc45e0d30ffc9989c0e4d07b22eb4205a3879",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/LICENSING.md",
+            "bytes": 1733
+          },
+          {
+            "path": "clients/codex/README.md",
+            "blob_sha": "f703f15a2d2d2096026df41590140d5cea322235",
+            "sha256": "69070cc22e7062b94cc71d4af905c82e61e83e443e39789b95075cb8930f7705",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/clients/codex/README.md",
+            "bytes": 14961
+          },
+          {
+            "path": "LICENSING.md",
+            "blob_sha": "5ee29f0a4690fb938bd9d7debf30d9e6ccf3c7d9",
+            "sha256": "d0c3594862a40e17d29d60e6becdc45e0d30ffc9989c0e4d07b22eb4205a3879",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/LICENSING.md",
+            "bytes": 1733
+          },
+          {
+            "path": "clients/codex/README.md",
+            "blob_sha": "f703f15a2d2d2096026df41590140d5cea322235",
+            "sha256": "69070cc22e7062b94cc71d4af905c82e61e83e443e39789b95075cb8930f7705",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/clients/codex/README.md",
+            "bytes": 14961
+          },
+          {
+            "path": "local/src/mcp/skills-extension.ts",
+            "blob_sha": "963f67486e57e20010488077917ae138b6b4c352",
+            "sha256": "50370371ae66c056127850f75492fd0731d822ff18a8f84c37a7022d533d00ce",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/local/src/mcp/skills-extension.ts",
+            "bytes": 6177
+          },
+          {
+            "path": "local/src/skills/apply.ts",
+            "blob_sha": "3240c8c4c9a2e4f1a174f6ac9e7c61a13e6f0a80",
+            "sha256": "dfba7bd2085e4d7df47e5d36536531deee49ad77dae64e4478404446f60bf20e",
+            "url": "https://github.com/changeroa/skillar/blob/e1efd32229e967eab951535fd5094dcb357ef097/local/src/skills/apply.ts",
+            "bytes": 7022
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "dakotacolorado/honed",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "representative": {
+          "path": "src/mcp.ts",
+          "blob_sha": "c8c83d16862d43c09b2915407310e3bfee5f8544",
+          "sha256": "3e7ee05b3eb97115e1ea8cb7537a8e71889c41df90df29e2d343adfc8a681e90",
+          "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/mcp.ts",
+          "bytes": 10105
+        },
+        "skill_count": "Skill-serving infrastructure with 6 packaged starter SKILL.md files; 1 internal test workflow excluded",
+        "count_basis": "Six src/starters SKILL.md files are packaged through the build copy into dist/starters: three honed revision/authoring helpers and three team starter examples. .claude/skills/test/SKILL.md is an internal test-running workflow. These do not establish a separate mature skill catalog. The complete actual src/mcp.ts, src/library.ts and src/cli.ts implementations establish namespaced skill retrieval/feedback, Git-backed versions and public server startup.",
+        "additional_evidence": [
+          {
+            "path": "package.json",
+            "blob_sha": "0d6e638a2a3e1cebe4eb27e5c06d5b6cd04e76e0",
+            "sha256": "73a8951d994ce78df8ad4de685440817de7449a643295a0e23406bc463226004",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/package.json",
+            "bytes": 1866
+          },
+          {
+            "path": "mcp.json",
+            "blob_sha": "972bf6097f07fdd1a4e44e6de422cb4ff32efa07",
+            "sha256": "e017b4779deb093177ea0459d4f94bf6824a6f1ea084ddf894fdba1bcaf8bf85",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/mcp.json",
+            "bytes": 7549
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "0d6e638a2a3e1cebe4eb27e5c06d5b6cd04e76e0",
+            "sha256": "73a8951d994ce78df8ad4de685440817de7449a643295a0e23406bc463226004",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/package.json",
+            "bytes": 1866
+          },
+          {
+            "path": "mcp.json",
+            "blob_sha": "972bf6097f07fdd1a4e44e6de422cb4ff32efa07",
+            "sha256": "e017b4779deb093177ea0459d4f94bf6824a6f1ea084ddf894fdba1bcaf8bf85",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/mcp.json",
+            "bytes": 7549
+          },
+          {
+            "path": "src/mcp.ts",
+            "blob_sha": "c8c83d16862d43c09b2915407310e3bfee5f8544",
+            "sha256": "3e7ee05b3eb97115e1ea8cb7537a8e71889c41df90df29e2d343adfc8a681e90",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/mcp.ts",
+            "bytes": 10105
+          },
+          {
+            "path": "src/library.ts",
+            "blob_sha": "adeb58e64052bb5faf3a95e0fe4af5f25e1cb5cc",
+            "sha256": "8ba149dbbfc10e245bd9eac76d8b93c74e47edc1fd6fb31cc79ab2920f9a5853",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/library.ts",
+            "bytes": 5329
+          },
+          {
+            "path": "src/cli.ts",
+            "blob_sha": "0e6848571d488aadcc46eee86731899c60bc514a",
+            "sha256": "9c0099e4e0684c51562bf7f4bf6e499b35048a527d7c1d5f130cefbc52f6b5bb",
+            "url": "https://github.com/dakotacolorado/honed/blob/ed9a4270beeb7e5a0babf8cf7698db64bf23b16b/src/cli.ts",
+            "bytes": 6764
+          }
+        ],
+        "limitations": "Node 24+ and git are needed for the base service. A Claude/Anthropic revision provider is optional: --judge off / --no-judge runs without model revision, and auto can fall back to off. No server/authentication/namespace isolation, revision provider or client behavior was executed or certified."
+      }
+    },
+    {
+      "full_name": "weihao-fang/foodsci-research-assistant",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "summary_en": "Noncommercial food and life-science research assistant with a standalone core and five dependent task entrypoints.",
+        "summary_zh": "面向非商业学习与科研、由独立核心与五个依赖任务入口组成的食品和生命科学科研助手。"
+      }
+    },
+    {
+      "full_name": "jonfunk21/co-scientist",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "representative": {
+          "path": "co-scientist/SKILL.md",
+          "blob_sha": "f904cf187b05f47313202a0c5a03240473214a60",
+          "sha256": "1c79ce1f17d9bafbaf82950757b92d4a60b34d4c1fc601e8402ce8dc512bc6f4",
+          "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/co-scientist/SKILL.md",
+          "bytes": 10176
+        },
+        "additional_evidence": [
+          {
+            "path": "co-scientist/SKILL.md",
+            "blob_sha": "f904cf187b05f47313202a0c5a03240473214a60",
+            "sha256": "1c79ce1f17d9bafbaf82950757b92d4a60b34d4c1fc601e8402ce8dc512bc6f4",
+            "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/co-scientist/SKILL.md",
+            "bytes": 10176
+          },
+          {
+            "path": "co-scientist-update/SKILL.md",
+            "blob_sha": "fb271a02d4a703f21b833ae38dcb0728598982e9",
+            "sha256": "9fe1ed0895eda00c98d7101545dbff548e19d6c3eba2ef901bd59def31095add",
+            "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/co-scientist-update/SKILL.md",
+            "bytes": 4958
+          }
+        ],
+        "distribution_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "f5689276f7caa76ab2ab9721c78f0ff5cc71a0b8",
+            "sha256": "90b1ab9aafd9652d9ca02c12cb3e29bb07f3edd1a90e536ec8106c6cc84bf298",
+            "url": "https://github.com/jonfunk21/co-scientist/blob/c530d7b79b169d59658edb0b39b79fb7bbd11722/README.md",
+            "bytes": 11090
+          }
+        ],
+        "skill_count": "9 research entrypoints (8 workflows + 1 coordinator); 1 maintenance command excluded",
+        "count_basis": "README and official frozen tree distribute ten top-level SKILL.md folders together. Nine research entrypoints are counted; the publicly distributed co-scientist-update maintenance command is excluded from that number.",
+        "limitations": "Static intake only: no candidate installed or executed and no collection-wide scientific/body audit. Coordinator and update-command representatives fully read. Update checks fetch GitHub; applying needs user agreement, fast-forward pulls the suite and copies changed skill directories, writes update state and may append an affected ledger retro. It preserves created_with and requires re-upload for sync-managed downstream installs. Local-edit collision/backup handling for the manual copy step is not specified. No update, schedule or research action executed.",
+        "yaml_validation": {
+          "parser": "js-yaml JSON_SCHEMA",
+          "frontmatter_valid": true,
+          "name": "co-scientist",
+          "internal": false,
+          "scope": "Replacement research coordinator frontmatter parsed with js-yaml JSON_SCHEMA; both coordinator and update-command bodies read statically, with no runtime actions."
+        }
+      }
+    }
+  ]
+}
