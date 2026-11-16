@@ -1,0 +1,345 @@
+{
+  "date": "2026-11-16",
+  "backend": "agent-reach GitHub route via official gh API",
+  "search_windows": {
+    "science": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" in:readme research",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 94739,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" in:readme geospatial",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 919,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" in:readme GIS",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 908,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" in:readme bioinformatics",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 842,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" in:readme laboratory",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 911,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" in:readme CAD",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 2542,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" in:readme education",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 6640,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" in:readme climate",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 1496,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "topic:agent-skills science",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 145,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "topic:claude-skills research",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 806,
+          "retrieved": 100,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 719,
+      "baseline_duplicate_hits": 143
+    },
+    "product": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" \"SDK\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 47962,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"CLI\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 214470,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" \"official\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 54544,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"npx skills add\" \"product\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 17518,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"marketing\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 20584,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"finance\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 11921,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"design\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 175711,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"video\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 60691,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"manufacturing\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 3322,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"commerce\" in:readme",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 7407,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"figma\" in:readme",
+          "page": 1,
+          "error": "gh: You have exceeded a secondary rate limit. Please wait a few minutes before you try again. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) If you reach out to GitHub Sup"
+        },
+        {
+          "query": "\"SKILL.md\" \"engineering\" in:readme",
+          "page": 1,
+          "error": "gh: You have exceeded a secondary rate limit. Please wait a few minutes before you try again. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) If you reach out to GitHub Sup"
+        }
+      ],
+      "retrieved_new_unique_candidates": 676,
+      "baseline_duplicate_hits": 112
+    },
+    "breadth": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" \"registry\" in:readme fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 55673,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"search_skills\" in:readme fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 2441,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"get_skill\" in:readme fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 2834,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"validation\" in:readme fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 159153,
+          "retrieved": 100,
+          "incomplete_results": false
+        },
+        {
+          "query": "topic:agent-skills cli fork:false",
+          "page": 1,
+          "error": "gh: You have exceeded a secondary rate limit. Please wait a few minutes before you try again. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) If you reach out to GitHub Sup"
+        },
+        {
+          "query": "\"SKILL.md\" \"Tauri\" in:readme fork:false",
+          "page": 1,
+          "error": "gh: You have exceeded a secondary rate limit. Please wait a few minutes before you try again. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) If you reach out to GitHub Sup"
+        },
+        {
+          "query": "\"SKILL.md\" \"Kotlin\" in:readme fork:false",
+          "page": 1,
+          "error": "gh: You have exceeded a secondary rate limit. Please wait a few minutes before you try again. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) If you reach out to GitHub Sup"
+        },
+        {
+          "query": "\"SKILL.md\" \"Elixir\" in:readme fork:false",
+          "page": 1,
+          "error": "gh: You have exceeded a secondary rate limit. Please wait a few minutes before you try again. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) If you reach out to GitHub Sup"
+        },
+        {
+          "query": "\"SKILL.md\" \"Clojure\" in:readme fork:false",
+          "page": 1,
+          "error": "gh: You have exceeded a secondary rate limit. Please wait a few minutes before you try again. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) If you reach out to GitHub Sup"
+        },
+        {
+          "query": "\"SKILL.md\" \"Raku\" in:readme fork:false",
+          "page": 1,
+          "error": "gh: You have exceeded a secondary rate limit. Please wait a few minutes before you try again. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) If you reach out to GitHub Sup"
+        },
+        {
+          "query": "\"skills\" \"MCP\" \"registry\" in:description fork:false",
+          "page": 1,
+          "error": "gh: You have exceeded a secondary rate limit. Please wait a few minutes before you try again. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) If you reach out to GitHub Sup"
+        },
+        {
+          "query": "\"SKILL.md\" \"agent skills\" in:readme created:>=2026-09-01 fork:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-16",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 100,
+          "total": 75581,
+          "retrieved": 100,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 376,
+      "baseline_duplicate_hits": 30
+    }
+  },
+  "policy": "No success-count early stop or numeric acceptance cap. Selected review sets and unreviewed query results are separate."
+}
