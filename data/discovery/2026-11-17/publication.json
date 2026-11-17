@@ -1,0 +1,476 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-17",
+  "timezone": "Asia/Shanghai",
+  "recorded_at": "2026-11-17T01:59:46.602524+00:00",
+  "status": "published",
+  "target_minimum": 50,
+  "acceptance_cap": null,
+  "added_new_repository_ids": 86,
+  "baseline_catalog_rows": 4614,
+  "final_catalog_rows": 4700,
+  "formal_skill_files": 1115,
+  "selected_review_items": 103,
+  "held": 13,
+  "rejected": 4,
+  "unreviewed_reserve": 1449,
+  "new_identities": [
+    {
+      "full_name": "13winged/arkha",
+      "repository_id": 1416849920
+    },
+    {
+      "full_name": "1llum1n4t1s/Skilvella",
+      "repository_id": 1443192712
+    },
+    {
+      "full_name": "Adam-S-Daniel/skills-evals",
+      "repository_id": 1288301683
+    },
+    {
+      "full_name": "aizaloapp/aeorank",
+      "repository_id": 1429224248
+    },
+    {
+      "full_name": "AmrDab/clawdcursor",
+      "repository_id": 1161723599
+    },
+    {
+      "full_name": "ansonli-dev/rigup",
+      "repository_id": 1442623145
+    },
+    {
+      "full_name": "apiotrowski-afk/commercial-legal-pl",
+      "repository_id": 1250569639
+    },
+    {
+      "full_name": "Arivex-ca/mascotforge",
+      "repository_id": 1443341867
+    },
+    {
+      "full_name": "ashik1291/bhashabid",
+      "repository_id": 1453895754
+    },
+    {
+      "full_name": "Ayan-Jain-737/install-anything-skill",
+      "repository_id": 1444853402
+    },
+    {
+      "full_name": "azrianobr/dramazing",
+      "repository_id": 1405305233
+    },
+    {
+      "full_name": "BBriW/origin-science-figure-skill",
+      "repository_id": 1455073890
+    },
+    {
+      "full_name": "belajarbareng437/claude-education-skill",
+      "repository_id": 1460021873
+    },
+    {
+      "full_name": "bhavya-gx/video-skills",
+      "repository_id": 1452291728
+    },
+    {
+      "full_name": "botinfo-ai/botinfo",
+      "repository_id": 1423634816
+    },
+    {
+      "full_name": "bradheitmann/model-tier-drop",
+      "repository_id": 1426125980
+    },
+    {
+      "full_name": "bsayres/heronhex-highered",
+      "repository_id": 1453277147
+    },
+    {
+      "full_name": "buildkite/skills",
+      "repository_id": 1192083473
+    },
+    {
+      "full_name": "codelady-ship/facade-and-garden",
+      "repository_id": 1458596734
+    },
+    {
+      "full_name": "d-zero-dev/BurgerEditor",
+      "repository_id": 802023600
+    },
+    {
+      "full_name": "diaryofamademan/skills",
+      "repository_id": 1446128620
+    },
+    {
+      "full_name": "dungnotnull/Climate-Change-Forecasting-Solutions-Advisor-agent-skill",
+      "repository_id": 1330675452
+    },
+    {
+      "full_name": "genkit-ai/genkit-dart",
+      "repository_id": 983118442
+    },
+    {
+      "full_name": "Getty/skills",
+      "repository_id": 1338001892
+    },
+    {
+      "full_name": "ghbalf/freecad-ai",
+      "repository_id": 1162985117
+    },
+    {
+      "full_name": "hanzhcn/laohan-skillsdoctor",
+      "repository_id": 1268701084
+    },
+    {
+      "full_name": "harnessprotocol/harness-kit",
+      "repository_id": 1175316790
+    },
+    {
+      "full_name": "Hissal/agent-skills-sync-unity",
+      "repository_id": 1389323629
+    },
+    {
+      "full_name": "iemejia/fabio",
+      "repository_id": 1236033849
+    },
+    {
+      "full_name": "imboard-ai/ai-dossier",
+      "repository_id": 1090158845
+    },
+    {
+      "full_name": "irfanalimd/explainer",
+      "repository_id": 1421594654
+    },
+    {
+      "full_name": "jasondouglascox-coder/claude-cad",
+      "repository_id": 1419242544
+    },
+    {
+      "full_name": "jersonboydmilan/Agent-Skills-Compendium",
+      "repository_id": 1353172536
+    },
+    {
+      "full_name": "jfarcand/mirroir-mcp",
+      "repository_id": 1151752366
+    },
+    {
+      "full_name": "jjfroehlich/agent-handbook-for-life-science-research",
+      "repository_id": 1234726073
+    },
+    {
+      "full_name": "justincrich/agentic-rosetta",
+      "repository_id": 1256601545
+    },
+    {
+      "full_name": "lia-arch/las-freecad-skill",
+      "repository_id": 1451088656
+    },
+    {
+      "full_name": "maiani/figworks",
+      "repository_id": 1353335968
+    },
+    {
+      "full_name": "majiayu000/claude-skill-registry-core",
+      "repository_id": 1149879065
+    },
+    {
+      "full_name": "manuaudio/macos-cli",
+      "repository_id": 1240929464
+    },
+    {
+      "full_name": "Megatron-HQ/Megatron",
+      "repository_id": 1327287871
+    },
+    {
+      "full_name": "metabase/metabase-cli",
+      "repository_id": 1229138009
+    },
+    {
+      "full_name": "michaelkeithlewis/show-file-skills",
+      "repository_id": 1427220963
+    },
+    {
+      "full_name": "microsoft/coreai-design-system",
+      "repository_id": 1386129926
+    },
+    {
+      "full_name": "Migeking/industrial-dashboard-studio",
+      "repository_id": 1379939857
+    },
+    {
+      "full_name": "mnesarco/freecad-skills",
+      "repository_id": 1459224935
+    },
+    {
+      "full_name": "modal-labs/modal-client",
+      "repository_id": 553878560
+    },
+    {
+      "full_name": "morrimoz/webflow-to-clean-code",
+      "repository_id": 1241068038
+    },
+    {
+      "full_name": "mtfuller/the-one-skill",
+      "repository_id": 1459996440
+    },
+    {
+      "full_name": "mujakayadan/cursor-ops-plugins",
+      "repository_id": 1458107654
+    },
+    {
+      "full_name": "nickthelegend/loom",
+      "repository_id": 1300966190
+    },
+    {
+      "full_name": "niuyupeng/CNS-Skills",
+      "repository_id": 1351102093
+    },
+    {
+      "full_name": "nixwai/gu-mcp",
+      "repository_id": 1271102067
+    },
+    {
+      "full_name": "nrmeyers/agentalloy",
+      "repository_id": 1247757658
+    },
+    {
+      "full_name": "nutdnuy/404-data-science-not-found",
+      "repository_id": 1366253587
+    },
+    {
+      "full_name": "NVIDIA/elements",
+      "repository_id": 1170974915
+    },
+    {
+      "full_name": "oacerxone/skillxone",
+      "repository_id": 1460258184
+    },
+    {
+      "full_name": "omdsh-dev/dsh-mnemon",
+      "repository_id": 1329424520
+    },
+    {
+      "full_name": "peterbamuhigire/business-plan-skills",
+      "repository_id": 1174937723
+    },
+    {
+      "full_name": "peterbamuhigire/social-media-skills",
+      "repository_id": 1186074191
+    },
+    {
+      "full_name": "petermaginot/AI_Piping_Design",
+      "repository_id": 1379842429
+    },
+    {
+      "full_name": "photostructure/coding-skills",
+      "repository_id": 1265785242
+    },
+    {
+      "full_name": "rafaelherik/agent-marketplace",
+      "repository_id": 1457056545
+    },
+    {
+      "full_name": "Randalix/freecad-cli",
+      "repository_id": 1457676302
+    },
+    {
+      "full_name": "ro-rbl/plm-orchestrator",
+      "repository_id": 1433529316
+    },
+    {
+      "full_name": "robertoatila/jarvis-skill-registry",
+      "repository_id": 1363307249
+    },
+    {
+      "full_name": "robukh/figma-suite",
+      "repository_id": 1192094660
+    },
+    {
+      "full_name": "rogerwu188/qingshan-short-drama-production-line",
+      "repository_id": 1334422511
+    },
+    {
+      "full_name": "samuhs/mad-science",
+      "repository_id": 1440081639
+    },
+    {
+      "full_name": "sanchezrobertodev/kitkeeper",
+      "repository_id": 1422757780
+    },
+    {
+      "full_name": "sehoon787/my-codex",
+      "repository_id": 1189282140
+    },
+    {
+      "full_name": "sergical/skill-studio",
+      "repository_id": 1136617909
+    },
+    {
+      "full_name": "ShaunPrice/robot-builder-skill",
+      "repository_id": 1310040336
+    },
+    {
+      "full_name": "sigistry/mcp-server",
+      "repository_id": 1299749412
+    },
+    {
+      "full_name": "sreedhararolla/enterprise-data-science-skill",
+      "repository_id": 1396144937
+    },
+    {
+      "full_name": "supaqwestil/scientific-editorial-skill",
+      "repository_id": 1422353110
+    },
+    {
+      "full_name": "sustainable-finance-partners/skills",
+      "repository_id": 1241538159
+    },
+    {
+      "full_name": "thedavidweng/sukiru",
+      "repository_id": 1322255904
+    },
+    {
+      "full_name": "trustabl/agent-reliability-analyzer",
+      "repository_id": 1246292540
+    },
+    {
+      "full_name": "uk-agents/uk-legal-plugins",
+      "repository_id": 1242797963
+    },
+    {
+      "full_name": "vercel-labs/agent-desktop",
+      "repository_id": 1161958643
+    },
+    {
+      "full_name": "weapp-vite/weapp-vite",
+      "repository_id": 859420855
+    },
+    {
+      "full_name": "whyihaveyou/dsh-suite",
+      "repository_id": 1333152408
+    },
+    {
+      "full_name": "xano-inc/xano-developer-mcp",
+      "repository_id": 1150815020
+    },
+    {
+      "full_name": "yjmtmtk/pixi-effects",
+      "repository_id": 1233701388
+    },
+    {
+      "full_name": "zumerlab/snapdom",
+      "repository_id": 973606777
+    }
+  ],
+  "verification": {
+    "fixed_object_references": 421,
+    "baseline_directory_data_blobs_preserved": 106,
+    "windows_tests_each_language": {
+      "passed": 126,
+      "failed": 0,
+      "skipped": 1
+    },
+    "linux_pr_tests_each_language": {
+      "passed": 127,
+      "failed": 0,
+      "skipped": 0
+    },
+    "offline_example_checks": 4,
+    "english_and_chinese_build_site_generated_checks": "passed"
+  },
+  "publication": {
+    "main": {
+      "pr": 109,
+      "url": "https://github.com/findscripter/everything-skills/pull/109",
+      "data_commit": "ad03d273d20502381776cdc23e02e488e30926f4",
+      "merge_commit": "45b881d4176a9d6c697257da3ee2125bbb188dba"
+    },
+    "zh": {
+      "pr": 110,
+      "url": "https://github.com/findscripter/everything-skills/pull/110",
+      "data_commit": "b1c13e0e8bc475834fd62c9162114be87c6620f4",
+      "merge_commit": "205764b5516dd5af62217051f4f44fada52ddc69"
+    }
+  },
+  "successful_ci": [
+    {
+      "surface": "main_pr",
+      "workflow": "generated-index",
+      "run_id": 43999079668,
+      "head_sha": "ad03d273d20502381776cdc23e02e488e30926f4",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/43999079668"
+    },
+    {
+      "surface": "main_pr",
+      "workflow": "publish-site",
+      "run_id": 43999079743,
+      "head_sha": "ad03d273d20502381776cdc23e02e488e30926f4",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/43999079743"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "publish-site",
+      "run_id": 43999192849,
+      "head_sha": "45b881d4176a9d6c697257da3ee2125bbb188dba",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/43999192849"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "generated-index",
+      "run_id": 43999192788,
+      "head_sha": "45b881d4176a9d6c697257da3ee2125bbb188dba",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/43999192788"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "generated-index",
+      "run_id": 43999459713,
+      "head_sha": "b1c13e0e8bc475834fd62c9162114be87c6620f4",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/43999459713"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "publish-site",
+      "run_id": 43999459458,
+      "head_sha": "b1c13e0e8bc475834fd62c9162114be87c6620f4",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/43999459458"
+    },
+    {
+      "surface": "zh_merge",
+      "workflow": "generated-index",
+      "run_id": 43999591601,
+      "head_sha": "205764b5516dd5af62217051f4f44fada52ddc69",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/43999591601"
+    }
+  ],
+  "language_only_differences": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "INDEX/skill-repos.md",
+    "README.md"
+  ],
+  "automation": {
+    "existing_daily_automation_configuration_verified": true,
+    "schedule": "Every day at 09:00 Asia/Shanghai",
+    "scheduled_heartbeat_received_at": "2026-11-17T01:03:07.423Z",
+    "configuration_changed_this_run": false
+  },
+  "evidence": {
+    "audit": "../../skill-repos.part111.audit.md",
+    "coverage": "coverage.json",
+    "fixed_objects": "fixed-object-verification.json",
+    "quality": "quality-review.json"
+  },
+  "limits": [
+    "Only admitted and published independent repository IDs count as daily additions; this does not add 1115 new local skill bodies.",
+    "Metadata-only representative/static infrastructure review; no candidate installed or executed.",
+    "Finite search windows and unreviewed retrieval reserves remain separate; no exhaustive all-body, runtime, safety, scientific/financial or reuse-right certification.",
+    "CI references bind the data and merge commits. Receipt-commit checks are observed separately and are not self-referenced."
+  ]
+}
