@@ -1,0 +1,3734 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-18",
+  "repositories": [
+    {
+      "passed": true,
+      "full_name": "AagamS06/sku-snap",
+      "repository_id": 1446563826,
+      "commit": "f7a1e85b9029d76febc17314ed75988930414011",
+      "tree": "caa786f241c5ff337feaad91247c64e13cb95651",
+      "public_source_verified": true,
+      "refs_sha256": "e9793330cba7c2f624601a417b3b3e8d59919e5565a4281d70828c157ce90000",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "741a7918df0bc3459340073d3ec448d5642f2df5",
+          "sha256": "5be22186f3d5bd420317d4842403ed84db1e534d3cc0007f597504adec59b4c3",
+          "url": "https://github.com/AagamS06/sku-snap/blob/f7a1e85b9029d76febc17314ed75988930414011/README.md",
+          "bytes": 9214
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "96cd07a4fd0ec0ebd04d17a0bd628ef63c50a136",
+          "sha256": "9a6a637367afbea9aa982293eb0d9955a57a2b9f48b4c2bef27b8a67496d1340",
+          "url": "https://github.com/AagamS06/sku-snap/blob/f7a1e85b9029d76febc17314ed75988930414011/LICENSE",
+          "bytes": 1067
+        },
+        {
+          "path": "skills/sku-snap/SKILL.md",
+          "blob_sha": "47b94eb0d921752be1e2564d79efdd6e77fcfd8a",
+          "sha256": "e3866a653cf3b9909112c7af229c85c9159c1e9e7730998dcc77b55674d20260",
+          "url": "https://github.com/AagamS06/sku-snap/blob/f7a1e85b9029d76febc17314ed75988930414011/skills/sku-snap/SKILL.md",
+          "bytes": 8496
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "abhisri2090/aipm",
+      "repository_id": 1244454448,
+      "commit": "4b5e86f42c835d07d1fd19f97aa313cbe501f39c",
+      "tree": "b29acd0674cdd0dd62cd929e340d8467b6c1ea3c",
+      "public_source_verified": true,
+      "refs_sha256": "507af679f8e5fc8d10cf0184e198eb47fa051dd4eb4dcdb8322f4446794bf841",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "4e5eb4dc1fd9848f2f8b50092b33af2658dcf3cc",
+          "sha256": "6074c4db9b87d80832907b9b6addfb5a74631033f1cd71adf6c4aa4c6cbd522c",
+          "url": "https://github.com/abhisri2090/aipm/blob/4b5e86f42c835d07d1fd19f97aa313cbe501f39c/README.md",
+          "bytes": 9624
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "url": "https://github.com/abhisri2090/aipm/blob/4b5e86f42c835d07d1fd19f97aa313cbe501f39c/LICENSE",
+          "bytes": 11357
+        },
+        {
+          "path": "packages/engine/src/install-skill.ts",
+          "blob_sha": "53cb49d38a15fda6b158cb61a51c73db7aed83f4",
+          "sha256": "9ffd00f0ff84341013d38ca1cff9744d443e552becea71f7ef7757611eb125f1",
+          "url": "https://github.com/abhisri2090/aipm/blob/4b5e86f42c835d07d1fd19f97aa313cbe501f39c/packages/engine/src/install-skill.ts",
+          "bytes": 1952
+        },
+        {
+          "path": "apps/cli/README.md",
+          "blob_sha": "940ea5cc4042d76a771952424d093d93c6dacf73",
+          "sha256": "8f179dcbf1cd7524a813fbd9038e18bf965572367719e7090fdb1fe4e5c20ba5",
+          "url": "https://github.com/abhisri2090/aipm/blob/4b5e86f42c835d07d1fd19f97aa313cbe501f39c/apps/cli/README.md",
+          "bytes": 7175
+        },
+        {
+          "path": "packages/engine/src/install-shared.ts",
+          "blob_sha": "22fbaac89dfa1f3ddfed65f9c59dc6647e169485",
+          "sha256": "ce3a333d690b8727a7c992a17b47b6307a65fbe43e295d57fc997b3fa9444829",
+          "url": "https://github.com/abhisri2090/aipm/blob/4b5e86f42c835d07d1fd19f97aa313cbe501f39c/packages/engine/src/install-shared.ts",
+          "bytes": 3187
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "agentwik-labs/skillhawk",
+      "repository_id": 1438856203,
+      "commit": "d31ab9cbbb6bb3123bea15dc8459a205e001e8a3",
+      "tree": "308ba3658de17920c15df34e16ff09aafc9ea098",
+      "public_source_verified": true,
+      "refs_sha256": "d7508b29fe1517897b565a68aa5f0b837286d27d18c125cc3a6cf1f4daa97d20",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "7382ea82a20cc066d5bdd478474f69695e2dc3ee",
+          "sha256": "e21650ee534efacfcae3a74de769cda73db028b369d44cdbaadfb9b9007a3518",
+          "url": "https://github.com/agentwik-labs/skillhawk/blob/d31ab9cbbb6bb3123bea15dc8459a205e001e8a3/README.md",
+          "bytes": 16686
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "a39bfdfbd728863caa74f368572427044073b095",
+          "sha256": "71265989a8c50a8afbc4cfd8d9bd4c7602c7a5d47dd6d15e67d2efcf4132d4b9",
+          "url": "https://github.com/agentwik-labs/skillhawk/blob/d31ab9cbbb6bb3123bea15dc8459a205e001e8a3/LICENSE",
+          "bytes": 1079
+        },
+        {
+          "path": "registry/public/architecture-decision-records/SKILL.md",
+          "blob_sha": "788d8259993fbd5ed1591939ddf3754e4c8de6f6",
+          "sha256": "51b4879154f5365611f367288b869d386aa49bd01e7e39775f9640464e71cc02",
+          "url": "https://github.com/agentwik-labs/skillhawk/blob/d31ab9cbbb6bb3123bea15dc8459a205e001e8a3/registry/public/architecture-decision-records/SKILL.md",
+          "bytes": 5038
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "a429f5525ad38fed7ae5cba4a266865a83e1e10a",
+          "sha256": "d7449c40d90f87fb7f7006d4292d7ae1f3271b531fe0f5c50fa14b916b989775",
+          "url": "https://github.com/agentwik-labs/skillhawk/blob/d31ab9cbbb6bb3123bea15dc8459a205e001e8a3/package.json",
+          "bytes": 1528
+        },
+        {
+          "path": "src/skill.js",
+          "blob_sha": "a7cc95c37fef25a5784bee1402a9c9c39531a97d",
+          "sha256": "e6abd7b551f6fe310258a5b39f14a7c332db70906107518dbdedd114000aea01",
+          "url": "https://github.com/agentwik-labs/skillhawk/blob/d31ab9cbbb6bb3123bea15dc8459a205e001e8a3/src/skill.js",
+          "bytes": 10400
+        },
+        {
+          "path": "plugins/docs/.claude-plugin/plugin.json",
+          "blob_sha": "98a1986c1ef0a227677aa2d728a5662ae972746c",
+          "sha256": "ea031df4027fb625f629cac91279b18017826d7299db7ca875f35bdab721d1d8",
+          "url": "https://github.com/agentwik-labs/skillhawk/blob/d31ab9cbbb6bb3123bea15dc8459a205e001e8a3/plugins/docs/.claude-plugin/plugin.json",
+          "bytes": 233
+        }
+      ],
+      "reference_count": 6,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "akontadakis/paper-skills",
+      "repository_id": 1461756319,
+      "commit": "a077ff32998ba02d0fd2a6eeb47db5287a75ce70",
+      "tree": "1988f00ba1a86a3046e87d81857512a054536399",
+      "public_source_verified": true,
+      "refs_sha256": "58cda7ca14fb6cbee64890ff87c3152160643164ab89dbf1fc2ae777afd88256",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "803ab32ef89a5a06bce848bf740e2208902a4694",
+          "sha256": "6ba887e137737166f430748554503ab5080ddcd99ca80915d93ee3b72bf6cc55",
+          "url": "https://github.com/akontadakis/paper-skills/blob/a077ff32998ba02d0fd2a6eeb47db5287a75ce70/README.md",
+          "bytes": 30679
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "dea9db1d1b5c8a239f9ac6cd6217b43e49517dda",
+          "sha256": "57b9061fca60037aa0c6cbbe9e2235a15e5ffa85ef4eb5f7315cbcad6c1aa0d5",
+          "url": "https://github.com/akontadakis/paper-skills/blob/a077ff32998ba02d0fd2a6eeb47db5287a75ce70/LICENSE",
+          "bytes": 1075
+        },
+        {
+          "path": "research-study-design/SKILL.md",
+          "blob_sha": "41b1a07c4c0ca63615e7cd5352dd9de8cbedef97",
+          "sha256": "a725c19750fee58d7a4558e53666d3ebf2880da2581d4fd8b43c23785a2d8dbb",
+          "url": "https://github.com/akontadakis/paper-skills/blob/a077ff32998ba02d0fd2a6eeb47db5287a75ce70/research-study-design/SKILL.md",
+          "bytes": 5616
+        },
+        {
+          "path": "THIRD_PARTY.md",
+          "blob_sha": "952fe551e03d9e1ff38019bad4bf61d4ad5f7226",
+          "sha256": "3670a92adc923f08f21c5800adc91d075d23b76f7cefc8247fc45d47b6ce5d65",
+          "url": "https://github.com/akontadakis/paper-skills/blob/a077ff32998ba02d0fd2a6eeb47db5287a75ce70/THIRD_PARTY.md",
+          "bytes": 8500
+        },
+        {
+          "path": ".claude-plugin/marketplace.json",
+          "blob_sha": "38c485f66b181c9db5df8630c50d5951d95bddc9",
+          "sha256": "e8713623b45c819ce50db11415de2452184987dcf5f99f136b6338a89409ed3b",
+          "url": "https://github.com/akontadakis/paper-skills/blob/a077ff32998ba02d0fd2a6eeb47db5287a75ce70/.claude-plugin/marketplace.json",
+          "bytes": 455
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "blob_sha": "92802afbb00231462f7c67e702305873051e5fea",
+          "sha256": "691ba04506814ab91ddb71f5f72a7ea664763e67d911a1b9d4389e065131e807",
+          "url": "https://github.com/akontadakis/paper-skills/blob/a077ff32998ba02d0fd2a6eeb47db5287a75ce70/.claude-plugin/plugin.json",
+          "bytes": 522
+        }
+      ],
+      "reference_count": 6,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "AkshatNaruka/aidentity",
+      "repository_id": 1436639869,
+      "commit": "edc98a9fd9c1ac3294f2135d81d76f276c5277d7",
+      "tree": "63c69e97e8369358419c37bf6f3d985fc3e2b60e",
+      "public_source_verified": true,
+      "refs_sha256": "2a9e906afc39bc8b81aa6ea4fe426cfa05c2bddb11940283b149b81beac27d0a",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "6fe781eb1f5a3d119b915119c1c4b9080b7f5641",
+          "sha256": "0d7695a8a2558211e45265295acbba87e80252ec801882d82f672e704e7dc542",
+          "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/README.md",
+          "bytes": 15233
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "5c170b985c641fff717efb8b2a0710819d34386b",
+          "sha256": "153167d15117f03e9865910e0882cec70c79a95adbe8dc0fb3d5b43c96482172",
+          "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/LICENSE",
+          "bytes": 1418
+        },
+        {
+          "path": "scripts/install.js",
+          "blob_sha": "80a655a4d5eaccdb6676c852a8a9a0c8dcbba78d",
+          "sha256": "40b57b78cb15582366890d4e2a421c6bbe37cf2dc8c0fa6ae5f3a3d524216bf0",
+          "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/scripts/install.js",
+          "bytes": 4387
+        },
+        {
+          "path": "LICENSE-DATA",
+          "blob_sha": "b59a6fccf9b7b4f9e4eff070fd3a4efee32711ad",
+          "sha256": "46ae47b59267d066b9be2b9743e6639020471f11073982eb11c813ad258028b5",
+          "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/LICENSE-DATA",
+          "bytes": 814
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "65cbe51979dfaff2203b5b299a0596feebfc2908",
+          "sha256": "7d448225f0a6d385f56a535714c7b0e499abb85f6300bfb0e2c9a462f6866228",
+          "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/NOTICE",
+          "bytes": 672
+        },
+        {
+          "path": "bundles/README.md",
+          "blob_sha": "4a8b3095ffef9b7dc5df2e27f06bd6d55d4b2d34",
+          "sha256": "7ca5e129b9840856ec99355a7f09519ab7acb450b055663ba7ead01e11f2d38a",
+          "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/bundles/README.md",
+          "bytes": 1807
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "814fb2655be9bb04e6a623011096d3633ca43236",
+          "sha256": "ebd250be4c0b3047dfd4e3eb225668ad6a289a3b4b8d266962cefbae1e571c41",
+          "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/package.json",
+          "bytes": 1902
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "blob_sha": "2ff86bba2d35a2d61ea922d76e912139819fecc8",
+          "sha256": "f975c170402e6e6ad8e30dc4b9a95e0506972f565b5513ea1f611a762c938d79",
+          "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/THIRD_PARTY_NOTICES.md",
+          "bytes": 82160
+        }
+      ],
+      "reference_count": 8,
+      "distinct_blob_fetches": 8,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "amdahlco/landing-site-reposition",
+      "repository_id": 1436308751,
+      "commit": "e63613b8a8b01fae2c83cb2dae18dddcdd5a9ae8",
+      "tree": "2c37b8f983d2c224b0eb72715f36294236829300",
+      "public_source_verified": true,
+      "refs_sha256": "1970d762709b8e4c81070de6d81edfd9fe470e1ed8256f852487d0a7745b5513",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "b197a61c96035029045e1b66615dbffbf8ace124",
+          "sha256": "41e180f2eb91b59df1ae4ad2643f7cb2695931aef9bcbc26709ccb0de07b5d05",
+          "url": "https://github.com/amdahlco/landing-site-reposition/blob/e63613b8a8b01fae2c83cb2dae18dddcdd5a9ae8/README.md",
+          "bytes": 6274
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "cc31c090ed0b478363cd3cc7457cdecbb12ffed3",
+          "sha256": "e28f5d4e2fc57be5824077ef8992f86ef86843a116779910aa55d42fa97d18ca",
+          "url": "https://github.com/amdahlco/landing-site-reposition/blob/e63613b8a8b01fae2c83cb2dae18dddcdd5a9ae8/LICENSE",
+          "bytes": 1069
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "3174b17608c370bbfb6b5d74bf9e5901ccc327ff",
+          "sha256": "a91cae1b26082f429bc4cd4835a9ba6bed9926001718f8b8736446e9f0e1659e",
+          "url": "https://github.com/amdahlco/landing-site-reposition/blob/e63613b8a8b01fae2c83cb2dae18dddcdd5a9ae8/SKILL.md",
+          "bytes": 16662
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "aniruddhaadak80/skillforge",
+      "repository_id": 1379996076,
+      "commit": "4c660d1876c75688c7e81b612e234c13a79fa8aa",
+      "tree": "dfbfc415819c463faa3b531fba02c1934e43c5e1",
+      "public_source_verified": true,
+      "refs_sha256": "c658f759ef182c0aa6cd74189d09ba9498d0603ad02b52967b3e58434c17d9cd",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "379fd24b5c8613017790a4d5f9b45cb71bfe6303",
+          "sha256": "2694e2cc9110d0f0224511d35810af20b67deb133d3e23b8eef98cb6933d251c",
+          "url": "https://github.com/aniruddhaadak80/skillforge/blob/4c660d1876c75688c7e81b612e234c13a79fa8aa/README.md",
+          "bytes": 14227
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "200d2057723ce29cdbcf88ec33ab56edc775fcbf",
+          "sha256": "a91257f7059cce0b142b8a1a44d3b38af4a98c71160d0a0d79cc6a59616a3f6c",
+          "url": "https://github.com/aniruddhaadak80/skillforge/blob/4c660d1876c75688c7e81b612e234c13a79fa8aa/LICENSE",
+          "bytes": 1072
+        },
+        {
+          "path": "src/lib/engine.ts",
+          "blob_sha": "3a642c0daf3ec9f50bbc5d9f6310a87d068b8673",
+          "sha256": "0cc8bfeca0fb4721cc03c9fb91fd429f09b7ecfa2ec9a280dd6abb1d146dbe90",
+          "url": "https://github.com/aniruddhaadak80/skillforge/blob/4c660d1876c75688c7e81b612e234c13a79fa8aa/src/lib/engine.ts",
+          "bytes": 8784
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "cd6e0d7c93c227f3f1a18cd20e2e666aa02049a3",
+          "sha256": "3eaeab0e93a5bb1f19b382fcfe2759d2f62790d2188b708129a7019c6bb384c4",
+          "url": "https://github.com/aniruddhaadak80/skillforge/blob/4c660d1876c75688c7e81b612e234c13a79fa8aa/package.json",
+          "bytes": 645
+        },
+        {
+          "path": "src/app/api/skills/[id]/skill.md/route.ts",
+          "blob_sha": "0205452afbbe463bbb02b6924f1b471c36b402c1",
+          "sha256": "30de8ee0059fe9dff5ee3fe7f8091cac9364c16ef76ef0c088627425e979b1c8",
+          "url": "https://github.com/aniruddhaadak80/skillforge/blob/4c660d1876c75688c7e81b612e234c13a79fa8aa/src/app/api/skills/[id]/skill.md/route.ts",
+          "bytes": 605
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "ArrowsHQ/arrows-sales-skills",
+      "repository_id": 1216431471,
+      "commit": "a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac",
+      "tree": "164e5582660d36c25ad371d811c49e55b912d80d",
+      "public_source_verified": true,
+      "refs_sha256": "5d6172e481cb09c9a4f31d058c8f1a248f4ddc1f345d7d3ec9c495061f0422c0",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "4c6d21a6df49ed465d2f5f165d87179452e860af",
+          "sha256": "2e9528b8459b2e8de1c07f34b8f1802a23dbd9e8ae4033c40163feed728cc9b7",
+          "url": "https://github.com/ArrowsHQ/arrows-sales-skills/blob/a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac/README.md",
+          "bytes": 14095
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "url": "https://github.com/ArrowsHQ/arrows-sales-skills/blob/a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac/LICENSE",
+          "bytes": 11358
+        },
+        {
+          "path": "arrows-deal-nudge/SKILL.md",
+          "blob_sha": "64c7a1dc86066a9616ebf4fff88723b5a2000d9f",
+          "sha256": "eea9464bba3952d15e5409e660d9b1e5c5d201d1c348f16feafcdc64aa99ce15",
+          "url": "https://github.com/ArrowsHQ/arrows-sales-skills/blob/a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac/arrows-deal-nudge/SKILL.md",
+          "bytes": 20955
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "8353fc5027db0b7360e9adcc7bbfae0959aba78a",
+          "sha256": "9e56775fcb478a99e4a0f0c6134218136a1d76dbec42b6c56ed94a61e13fe291",
+          "url": "https://github.com/ArrowsHQ/arrows-sales-skills/blob/a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac/NOTICE",
+          "bytes": 214
+        },
+        {
+          "path": "plugins/arrows-sales-skills/README.md",
+          "blob_sha": "2c9cdccddaf3ca354685ad26447ac9f11795c678",
+          "sha256": "99db85cc19d8b69fc8fc0fb3da18f2641765b61779f1b0db3998a982c14a3536",
+          "url": "https://github.com/ArrowsHQ/arrows-sales-skills/blob/a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac/plugins/arrows-sales-skills/README.md",
+          "bytes": 3916
+        },
+        {
+          "path": "plugins/arrows-sales-skills/.claude-plugin/plugin.json",
+          "blob_sha": "d12d749edc56d9c2c4b530daa58b4de7697f357a",
+          "sha256": "92b2aec25610654bddd64cc7856f283d833bbc0538c09bfb97b58f1a441c67d0",
+          "url": "https://github.com/ArrowsHQ/arrows-sales-skills/blob/a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac/plugins/arrows-sales-skills/.claude-plugin/plugin.json",
+          "bytes": 1409
+        },
+        {
+          "path": "plugins/arrows-sales-skills/LICENSE",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "url": "https://github.com/ArrowsHQ/arrows-sales-skills/blob/a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac/plugins/arrows-sales-skills/LICENSE",
+          "bytes": 11358
+        },
+        {
+          "path": "plugins/arrows-sales-skills/NOTICE",
+          "blob_sha": "8353fc5027db0b7360e9adcc7bbfae0959aba78a",
+          "sha256": "9e56775fcb478a99e4a0f0c6134218136a1d76dbec42b6c56ed94a61e13fe291",
+          "url": "https://github.com/ArrowsHQ/arrows-sales-skills/blob/a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac/plugins/arrows-sales-skills/NOTICE",
+          "bytes": 214
+        },
+        {
+          "path": ".claude-plugin/marketplace.json",
+          "blob_sha": "4a466e90fbe1038f1c513cb6bb1705f17b18aa1c",
+          "sha256": "cbe5c2a1efc32b37730949dde0f4d0c86ce8b3a4d28426ee1d9f8a620a768218",
+          "url": "https://github.com/ArrowsHQ/arrows-sales-skills/blob/a8b5746149c54c4a21110d6f2ba3a52c1f22f7ac/.claude-plugin/marketplace.json",
+          "bytes": 694
+        }
+      ],
+      "reference_count": 9,
+      "distinct_blob_fetches": 7,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "atlanai/ai-registry",
+      "repository_id": 1409959388,
+      "commit": "e4a8f9963d87b557c040d8711b99d9d097697ebb",
+      "tree": "c3c1b3098f43272f5184e31081bedc29d87784df",
+      "public_source_verified": true,
+      "refs_sha256": "a9c752c44637df1379f66068e6bf95a24710c55a330b682ba42b9e69fa25df91",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "43832c89bc4406d1c3b056a475bc5771fca168aa",
+          "sha256": "e24ec093275db8653dce7da4261642a704b99f524fe370d3d7f2d0a37b5ac263",
+          "url": "https://github.com/atlanai/ai-registry/blob/e4a8f9963d87b557c040d8711b99d9d097697ebb/README.md",
+          "bytes": 5973
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "57bc88a15a0ee8266c259b2667e64608d3f7e292",
+          "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+          "url": "https://github.com/atlanai/ai-registry/blob/e4a8f9963d87b557c040d8711b99d9d097697ebb/LICENSE",
+          "bytes": 11358
+        },
+        {
+          "path": "skills/ai-registry/SKILL.md",
+          "blob_sha": "3eba273c9ca692487459fbb59988a2855113e3f7",
+          "sha256": "195734d8bea1ed9f12ba3adbe4bcc3bba899ef4a84e182572804721488579348",
+          "url": "https://github.com/atlanai/ai-registry/blob/e4a8f9963d87b557c040d8711b99d9d097697ebb/skills/ai-registry/SKILL.md",
+          "bytes": 4863
+        },
+        {
+          "path": "cli/README.md",
+          "blob_sha": "ec2899419f4f91aad5dfcc4b82628c10acb3e008",
+          "sha256": "de8b1d4b9d28c949b3004ca4025196b2378aac3174bcef279719f33bd24f4b01",
+          "url": "https://github.com/atlanai/ai-registry/blob/e4a8f9963d87b557c040d8711b99d9d097697ebb/cli/README.md",
+          "bytes": 6373
+        },
+        {
+          "path": "cli/src/engine/install/pipeline.ts",
+          "blob_sha": "a0b17cb91fe94359536ca95a557f0481a53992d4",
+          "sha256": "b841155a3d5743470cc6a135a6cd322ac5e6a90cd97538db26911095c748e97d",
+          "url": "https://github.com/atlanai/ai-registry/blob/e4a8f9963d87b557c040d8711b99d9d097697ebb/cli/src/engine/install/pipeline.ts",
+          "bytes": 7236
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "2b6073594bfca6315f4bcfe3a72a17eb875c6fbd",
+          "sha256": "f8620a64e18c56313b21df46f7ac043ba6a9224b534086026bdf3dda16402620",
+          "url": "https://github.com/atlanai/ai-registry/blob/e4a8f9963d87b557c040d8711b99d9d097697ebb/NOTICE",
+          "bytes": 43
+        }
+      ],
+      "reference_count": 6,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Azure/documentdb-agent-kit",
+      "repository_id": 1229129166,
+      "commit": "9ace43f6607aa517c988f9d811e09f1788fbc4a8",
+      "tree": "731f1a52350e272369f6a1146b47e52177ab1985",
+      "public_source_verified": true,
+      "refs_sha256": "f2a3447cb85ef33e7bf1e6125b534b5e91e88dc6e492f6c0906b3f7788c38707",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "c626d46f2961c2f1fae7973468a9bd263fbbbcbd",
+          "sha256": "98164af11611dbae2a2995ae01c98fa13a9ffa74a2381d67932a9d1f09d44925",
+          "url": "https://github.com/Azure/documentdb-agent-kit/blob/9ace43f6607aa517c988f9d811e09f1788fbc4a8/README.md",
+          "bytes": 9882
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "14fac913ccf80234b1848540089a3bbcb6e5283d",
+          "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+          "url": "https://github.com/Azure/documentdb-agent-kit/blob/9ace43f6607aa517c988f9d811e09f1788fbc4a8/LICENSE",
+          "bytes": 1056
+        },
+        {
+          "path": "skills/monitoring/SKILL.md",
+          "blob_sha": "7beb2e4f7a9c8d4bb25420027b2329706ef84ae4",
+          "sha256": "6addf39e534e600e48d425e14ac9ec48fd2120cc79cb46a6e4302acf6befa958",
+          "url": "https://github.com/Azure/documentdb-agent-kit/blob/9ace43f6607aa517c988f9d811e09f1788fbc4a8/skills/monitoring/SKILL.md",
+          "bytes": 758
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "blob_sha": "badc24e6bdedca32fd3a455b82286d26e1c24864",
+          "sha256": "8ba0a42f63254124cacf676fc66327f0c657f1894b106465e37440e9586ffd41",
+          "url": "https://github.com/Azure/documentdb-agent-kit/blob/9ace43f6607aa517c988f9d811e09f1788fbc4a8/.claude-plugin/plugin.json",
+          "bytes": 756
+        },
+        {
+          "path": "docs/installation/README.md",
+          "blob_sha": "3492babad40e4f015e9c912f51a7587a43c67a2e",
+          "sha256": "e50ab876a9dceb529f7a2b9e52d47d2c79cd80dffe33a955f6fffc942be4c757",
+          "url": "https://github.com/Azure/documentdb-agent-kit/blob/9ace43f6607aa517c988f9d811e09f1788fbc4a8/docs/installation/README.md",
+          "bytes": 1227
+        },
+        {
+          "path": "skills/monitoring/monitoring-metrics-alerts.md",
+          "blob_sha": "9bde4675370261dfe6ca15406f0cf794ec24b723",
+          "sha256": "8a6916edd7b5c9c186fd151a5b5b1e5b156eb2bd1fb9fbb55a0d7b9b5a821fb4",
+          "url": "https://github.com/Azure/documentdb-agent-kit/blob/9ace43f6607aa517c988f9d811e09f1788fbc4a8/skills/monitoring/monitoring-metrics-alerts.md",
+          "bytes": 1926
+        }
+      ],
+      "reference_count": 6,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "bitscoid/bits-motion",
+      "repository_id": 1462265657,
+      "commit": "f3424437d81a1997186f4cb55de9910b6119b327",
+      "tree": "e0e7856f7ab262f893a5127a28d009a3815e30ec",
+      "public_source_verified": true,
+      "refs_sha256": "8f64c784a47eac022dc468bad4a226aace4d6115f3a9285c8667456d4bc76ba4",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "05120479f6357d48da31e34fd06825342fa2075d",
+          "sha256": "468d6dd25f8febb312485b81db6a86624ac73d78189a379d6d1683d6e15f90b9",
+          "url": "https://github.com/bitscoid/bits-motion/blob/f3424437d81a1997186f4cb55de9910b6119b327/README.md",
+          "bytes": 10474
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "fab514359eb61d41d1a10101800a8fa4e08e68b5",
+          "sha256": "f46965592d8792d547b8973a5d7cdb8ea924bd6b6a7c52053516d7f6d63a0442",
+          "url": "https://github.com/bitscoid/bits-motion/blob/f3424437d81a1997186f4cb55de9910b6119b327/LICENSE",
+          "bytes": 1069
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "afbd5656fd999275dec061f635f29d9d896fc30e",
+          "sha256": "77a741f6aabb4ac6a737180b007032793622111329c977f12eb241ac8af0894f",
+          "url": "https://github.com/bitscoid/bits-motion/blob/f3424437d81a1997186f4cb55de9910b6119b327/SKILL.md",
+          "bytes": 31527
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "canva-sdks/canva-skills",
+      "repository_id": 1114822980,
+      "commit": "863414fa070e383ad38f4cd77cd691a2cb08fcd6",
+      "tree": "b847f993abfcb5026d419652d4c4d6e992385021",
+      "public_source_verified": true,
+      "refs_sha256": "82a405cf84f09f2bf46809a853220e425bd899a152dc7b6830135ab651b49119",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "4ee51c53f294f3adeecd33979845038ad58e4eff",
+          "sha256": "0664c78b0f42eb5ac45d7a8d5f0121b36fb8db5fd5084d6cfc41609b33bd6d49",
+          "url": "https://github.com/canva-sdks/canva-skills/blob/863414fa070e383ad38f4cd77cd691a2cb08fcd6/README.md",
+          "bytes": 11154
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "url": "https://github.com/canva-sdks/canva-skills/blob/863414fa070e383ad38f4cd77cd691a2cb08fcd6/LICENSE",
+          "bytes": 11357
+        },
+        {
+          "path": "plugins/canva/skills/canva-brand-check/SKILL.md",
+          "blob_sha": "7392e054bac38ee93c01ae6e0ce62b1e2140e072",
+          "sha256": "b292189744392db22b9e72481056a0db94781bd64892480abe2ce50c76efbb73",
+          "url": "https://github.com/canva-sdks/canva-skills/blob/863414fa070e383ad38f4cd77cd691a2cb08fcd6/plugins/canva/skills/canva-brand-check/SKILL.md",
+          "bytes": 5147
+        },
+        {
+          "path": "plugins/canva/README.md",
+          "blob_sha": "4d92b7484af16a9a9ef499482d936128607efd1d",
+          "sha256": "80887c6ac7e15c6cd277cb79c195c9131f95301f5d48221359d9ed464ba72041",
+          "url": "https://github.com/canva-sdks/canva-skills/blob/863414fa070e383ad38f4cd77cd691a2cb08fcd6/plugins/canva/README.md",
+          "bytes": 301
+        },
+        {
+          "path": "plugins/canva/.claude-plugin/plugin.json",
+          "blob_sha": "d96cbb58c6d43f8e7d0f3fc016addc2a45d756a9",
+          "sha256": "3dbf88b0bf509d2cdc597c8dc26f1d9546da899f350e66ed14c076b3e41afb5a",
+          "url": "https://github.com/canva-sdks/canva-skills/blob/863414fa070e383ad38f4cd77cd691a2cb08fcd6/plugins/canva/.claude-plugin/plugin.json",
+          "bytes": 657
+        },
+        {
+          "path": ".claude-plugin/marketplace.json",
+          "blob_sha": "8a9ef55118738bcb350f3ed0f66d650911f35f39",
+          "sha256": "c0a7f45bcde437f8eb7dcdd0e41be575e4a3b1e630f03cd2a1d080748ebb873a",
+          "url": "https://github.com/canva-sdks/canva-skills/blob/863414fa070e383ad38f4cd77cd691a2cb08fcd6/.claude-plugin/marketplace.json",
+          "bytes": 360
+        }
+      ],
+      "reference_count": 6,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "cgiar/ask-cgiar-research",
+      "repository_id": 1456689858,
+      "commit": "8b4aecb1cfce642387352d3cfeb74c4f6bc91bc5",
+      "tree": "931b33c74608cbd05bda835336d454df7f4b31fd",
+      "public_source_verified": true,
+      "refs_sha256": "071099891d2c701de8c01692729c584f0a1d1eac4b836af92a1351f9e8072207",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "e6f06dab77eeb1b0ff404572410bc3d18bfcaf1d",
+          "sha256": "f5bd4ad162dbb3342d72ed803981679ba36bcbd33774bba4b210657c24042f9f",
+          "url": "https://github.com/cgiar/ask-cgiar-research/blob/8b4aecb1cfce642387352d3cfeb74c4f6bc91bc5/README.md",
+          "bytes": 4834
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "57bc88a15a0ee8266c259b2667e64608d3f7e292",
+          "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+          "url": "https://github.com/cgiar/ask-cgiar-research/blob/8b4aecb1cfce642387352d3cfeb74c4f6bc91bc5/LICENSE",
+          "bytes": 11358
+        },
+        {
+          "path": "plugin/ask-cgiar-research/skills/ask/SKILL.md",
+          "blob_sha": "300413af3ffe9b129e8b260bb7f92f4f65d42fd1",
+          "sha256": "f841e43539e8fff8f138f2c338ec2a3241997906eaccb2dd816b54b4c0697570",
+          "url": "https://github.com/cgiar/ask-cgiar-research/blob/8b4aecb1cfce642387352d3cfeb74c4f6bc91bc5/plugin/ask-cgiar-research/skills/ask/SKILL.md",
+          "bytes": 4861
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "chuonglife/lesson-content-writer-skill",
+      "repository_id": 1455484706,
+      "commit": "47cdf60202dfff3b21402f2a67a6a8917a3fd8bf",
+      "tree": "15d51f928f6aa2f2eb7b1880edb386b2a7e93b1c",
+      "public_source_verified": true,
+      "refs_sha256": "2e331ab433630af1c52c67e19f7facf623d75963b7dceb7ad1f7ab10d843cc60",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "c93ad303be3b8032701eb4af065266251eabe81a",
+          "sha256": "795ed9587c25093ff2eaa28cfe32edad2d1842ae5fec5d3b7eeb1dd2cedbfb45",
+          "url": "https://github.com/chuonglife/lesson-content-writer-skill/blob/47cdf60202dfff3b21402f2a67a6a8917a3fd8bf/README.md",
+          "bytes": 19571
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "ef859e44217c986a48c5bab257357f4707e804bf",
+          "sha256": "47f0479d482974cc01f812e12b0069a8afcc7b246271a5fb501faddb8e4a2da2",
+          "url": "https://github.com/chuonglife/lesson-content-writer-skill/blob/47cdf60202dfff3b21402f2a67a6a8917a3fd8bf/LICENSE",
+          "bytes": 1063
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "2b175384ea859a0c072d18362c3ac4deac722a82",
+          "sha256": "ce7025e076fc483da501f948e01c9e2565c506c8b136c4cc984dcac603b5f16b",
+          "url": "https://github.com/chuonglife/lesson-content-writer-skill/blob/47cdf60202dfff3b21402f2a67a6a8917a3fd8bf/SKILL.md",
+          "bytes": 25813
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "chuonglife/lesson-slide-designer-skill",
+      "repository_id": 1455506145,
+      "commit": "0aa5a582e168963b39f1754b23a73649404b7fef",
+      "tree": "e5b6e182bb20dabef66f9d1e703c87e759b89750",
+      "public_source_verified": true,
+      "refs_sha256": "0620511acff67bb881e99cd53f25c14a369cccf22a5df6428090113929dd00a2",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "6e7b176af48718e5a6081b954ca72533d7e4cba3",
+          "sha256": "6e487c51ddf56bc527f455b066d93b97a468baa51eeaa62304a1675a74a99d51",
+          "url": "https://github.com/chuonglife/lesson-slide-designer-skill/blob/0aa5a582e168963b39f1754b23a73649404b7fef/README.md",
+          "bytes": 20516
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "ef859e44217c986a48c5bab257357f4707e804bf",
+          "sha256": "47f0479d482974cc01f812e12b0069a8afcc7b246271a5fb501faddb8e4a2da2",
+          "url": "https://github.com/chuonglife/lesson-slide-designer-skill/blob/0aa5a582e168963b39f1754b23a73649404b7fef/LICENSE",
+          "bytes": 1063
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "162314d8e943ae53f5da14831b8cf756386a7deb",
+          "sha256": "7993b4cc2ee14355c31f5985a21bd60872b2ab568adb672907f4e7650a201f6a",
+          "url": "https://github.com/chuonglife/lesson-slide-designer-skill/blob/0aa5a582e168963b39f1754b23a73649404b7fef/SKILL.md",
+          "bytes": 11856
+        },
+        {
+          "path": "assets/icons/LICENSE-lucide.txt",
+          "blob_sha": "718bb3f0e44153809972abed31839375804bf652",
+          "sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57",
+          "url": "https://github.com/chuonglife/lesson-slide-designer-skill/blob/0aa5a582e168963b39f1754b23a73649404b7fef/assets/icons/LICENSE-lucide.txt",
+          "bytes": 3208
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "chuonglife/lesson-video-producer-skill",
+      "repository_id": 1455544235,
+      "commit": "ff184c7ddd01d432f7f132f098a29d5e786c4cbf",
+      "tree": "a5fb30a7bacba2ff50fffdad04b9e6bceca70889",
+      "public_source_verified": true,
+      "refs_sha256": "efdfdf067192ea1195955d7a13a533d4ac8edd1b311c1fe4f3156dc471d073f4",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "37c600c67912609d6e4220a79d035898e1d5ca5c",
+          "sha256": "3863397eab9785c3f0a231705947785b9698cab5f71a742c0f5f92e40132186e",
+          "url": "https://github.com/chuonglife/lesson-video-producer-skill/blob/ff184c7ddd01d432f7f132f098a29d5e786c4cbf/README.md",
+          "bytes": 24564
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "ef859e44217c986a48c5bab257357f4707e804bf",
+          "sha256": "47f0479d482974cc01f812e12b0069a8afcc7b246271a5fb501faddb8e4a2da2",
+          "url": "https://github.com/chuonglife/lesson-video-producer-skill/blob/ff184c7ddd01d432f7f132f098a29d5e786c4cbf/LICENSE",
+          "bytes": 1063
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "9bf12625ed592285871f7b48d096dc8461c765fa",
+          "sha256": "9a9badce295146fe43b523c174e330dad31255c1f631d8885c92af115b3c91f8",
+          "url": "https://github.com/chuonglife/lesson-video-producer-skill/blob/ff184c7ddd01d432f7f132f098a29d5e786c4cbf/SKILL.md",
+          "bytes": 19306
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "clipzi-app/clipzi-agent",
+      "repository_id": 1462317243,
+      "commit": "372298947e3a2a9324e87d79147cfa32a866addf",
+      "tree": "037b7cff6f53f1004fa7e2c29bed7833d66f6eb7",
+      "public_source_verified": true,
+      "refs_sha256": "1a60e85154f135ed44cf70fb7cdb81f81f27e2f555cfdcc04842cf9e06b1eb52",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "0b856c8972e774cf240ac27b2546480c79f6f51d",
+          "sha256": "34dee0ead09f68281c769fa0d05c8375327859c7868f17e3bf1c03788c0f622b",
+          "url": "https://github.com/clipzi-app/clipzi-agent/blob/372298947e3a2a9324e87d79147cfa32a866addf/README.md",
+          "bytes": 2975
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "514fa727b0c23d3a8a31b23acb1a648cad92b168",
+          "sha256": "e7f1ab7d3cb2dd682802c339f31a87870f64549364a6194e6b0c17254d3ef319",
+          "url": "https://github.com/clipzi-app/clipzi-agent/blob/372298947e3a2a9324e87d79147cfa32a866addf/LICENSE",
+          "bytes": 1068
+        },
+        {
+          "path": "skills/clipzi/SKILL.md",
+          "blob_sha": "a1397bf0083a8d065bf7a0e2a5f10abc6ae1bf95",
+          "sha256": "d85c9f7625bd2fbb7c2de753eb400dce180521ac940239374b3c6ace0a8fda4f",
+          "url": "https://github.com/clipzi-app/clipzi-agent/blob/372298947e3a2a9324e87d79147cfa32a866addf/skills/clipzi/SKILL.md",
+          "bytes": 4414
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "blob_sha": "33bfd06b03a1d632f5aad3c48ebc333a2f0b8a4a",
+          "sha256": "74718730f0b89dd3a66a22f78d4c2e1a5304cca5096415ca9c7e248c69cec9f3",
+          "url": "https://github.com/clipzi-app/clipzi-agent/blob/372298947e3a2a9324e87d79147cfa32a866addf/.claude-plugin/plugin.json",
+          "bytes": 520
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "CompleteTech-Skills/creative-studio",
+      "repository_id": 1425032192,
+      "commit": "89fdab6a61ce51fcb0f39b0e390b500f2a84b791",
+      "tree": "c4fc696ada395ff653e94c1220c4f09f67cca1fe",
+      "public_source_verified": true,
+      "refs_sha256": "ed8a04a5be9568577893368d561c2af7fefb3b2c4115b13cfb246bc9dc726cb7",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "a90706f6e8ebc3a819df6a01aae2503375feaffe",
+          "sha256": "061a47c4640c1d3c257ef762c102479e0529e004535f8901ea5b2a906637cc5a",
+          "url": "https://github.com/CompleteTech-Skills/creative-studio/blob/89fdab6a61ce51fcb0f39b0e390b500f2a84b791/README.md",
+          "bytes": 34110
+        },
+        {
+          "path": "LICENSE.txt",
+          "blob_sha": "13e25df86ce06eb6488e6a6bc5c5847f5dedc352",
+          "sha256": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9",
+          "url": "https://github.com/CompleteTech-Skills/creative-studio/blob/89fdab6a61ce51fcb0f39b0e390b500f2a84b791/LICENSE.txt",
+          "bytes": 10776
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "0b56e26d0319e9f2ed1cecf743a4d603cc8e1406",
+          "sha256": "59d68b16953a5103bc1484716503239c44b0707b28d03fa215dca0b876bf84fe",
+          "url": "https://github.com/CompleteTech-Skills/creative-studio/blob/89fdab6a61ce51fcb0f39b0e390b500f2a84b791/SKILL.md",
+          "bytes": 22048
+        },
+        {
+          "path": "assets/rig-viewer/vendor/LICENSE",
+          "blob_sha": "cf781430404b0ae0ba7d8dea3457a3515dd7c9b9",
+          "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+          "url": "https://github.com/CompleteTech-Skills/creative-studio/blob/89fdab6a61ce51fcb0f39b0e390b500f2a84b791/assets/rig-viewer/vendor/LICENSE",
+          "bytes": 1081
+        },
+        {
+          "path": "examples/asset-library-foundation/source/license.txt",
+          "blob_sha": "ee1738f6e6a0445ae4db400e947db56158179f17",
+          "sha256": "a984165690a05e694a9affcdaaa457ed48efad956069f5ae23cb151262c64380",
+          "url": "https://github.com/CompleteTech-Skills/creative-studio/blob/89fdab6a61ce51fcb0f39b0e390b500f2a84b791/examples/asset-library-foundation/source/license.txt",
+          "bytes": 48
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "danieldeusing/seedr",
+      "repository_id": 1145970759,
+      "commit": "890c61128cfbffd1424d306acc04d8dcc89cf250",
+      "tree": "de071231d70754dc50a2e62cfda0778c40dc7302",
+      "public_source_verified": true,
+      "refs_sha256": "785659a0b30b6e2152f75583e9f90c5627c806cedf8e42418ca5ebab8e1bf350",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "c0c4dd535a95100b124da8ab15943f7ac735be6a",
+          "sha256": "65c6e7674f75adcadc0ff3cc0fe1102f4d175125f77fc5f9efc915e40ed57f27",
+          "url": "https://github.com/danieldeusing/seedr/blob/890c61128cfbffd1424d306acc04d8dcc89cf250/README.md",
+          "bytes": 11256
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "ae035e8a0e8c29934d4cb98017d0abbabb5a4d26",
+          "sha256": "4d257b7861e45db95079e8ce9edd2a3de2cc17cf94abbee53466b4b05fb2c90f",
+          "url": "https://github.com/danieldeusing/seedr/blob/890c61128cfbffd1424d306acc04d8dcc89cf250/LICENSE",
+          "bytes": 1071
+        },
+        {
+          "path": "registry/skills/agent-creator/SKILL.md",
+          "blob_sha": "f1284fe49b5a7b6b85be0b2c16f0394c7d206be6",
+          "sha256": "8600a24074ea0ca3bfe8082382c765c51928eb4146335ec7bfcbc77e0be4668e",
+          "url": "https://github.com/danieldeusing/seedr/blob/890c61128cfbffd1424d306acc04d8dcc89cf250/registry/skills/agent-creator/SKILL.md",
+          "bytes": 13886
+        },
+        {
+          "path": "packages/cli/README.md",
+          "blob_sha": "e57f10dd7ccf4cef5919ed45b9205a2054beaa70",
+          "sha256": "65f9324a451bfcb35d23ee92eb06231fe551a1156688e414010b0f395dc4a6f6",
+          "url": "https://github.com/danieldeusing/seedr/blob/890c61128cfbffd1424d306acc04d8dcc89cf250/packages/cli/README.md",
+          "bytes": 2205
+        },
+        {
+          "path": "packages/cli/src/handlers/skill.ts",
+          "blob_sha": "2bf583922d6b0c1edcdb7e72642be884088e7c36",
+          "sha256": "dc1aaa0c34ba15680be9e2d20efca5f119f4c16c2521ae5fec7655c1a0914138",
+          "url": "https://github.com/danieldeusing/seedr/blob/890c61128cfbffd1424d306acc04d8dcc89cf250/packages/cli/src/handlers/skill.ts",
+          "bytes": 14536
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "EduardMock/research-skills",
+      "repository_id": 1245774109,
+      "commit": "f9a49742685a72e865373695d1df0684bc29adb3",
+      "tree": "3b1646d682feb4a5e3da415cdab4a209bb62be2a",
+      "public_source_verified": true,
+      "refs_sha256": "674a87b1375cdc3da60e4448b8ae9ef129dc2b180b4cd596a359dc597639538e",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "9c581bc212964bc11795b5cc10c72e924e51e0c6",
+          "sha256": "0213dd1b79b722445ddd798f64e6e477c193ac54e0487eb7d5f84cb59043c9bf",
+          "url": "https://github.com/EduardMock/research-skills/blob/f9a49742685a72e865373695d1df0684bc29adb3/README.md",
+          "bytes": 8414
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "3c9d2dec56473b98fdfdd8bbc1d57ea87316b0eb",
+          "sha256": "c4938f39f34c2614e471ab943510c5a19109819e14b77c2692f1a97c01d32ae8",
+          "url": "https://github.com/EduardMock/research-skills/blob/f9a49742685a72e865373695d1df0684bc29adb3/LICENSE",
+          "bytes": 1068
+        },
+        {
+          "path": "skills/authoring-smiles/SKILL.md",
+          "blob_sha": "893d7073ccc7b6a534dd387dc47f77052ff57623",
+          "sha256": "538da4f096f1072243058a27eff36774158de6fc986aba6ffe2556db7328aaab",
+          "url": "https://github.com/EduardMock/research-skills/blob/f9a49742685a72e865373695d1df0684bc29adb3/skills/authoring-smiles/SKILL.md",
+          "bytes": 7387
+        },
+        {
+          "path": "skills/opentikz/LICENSE-CODE",
+          "blob_sha": "1cc7f3479e370768a42b258b77b6cf132b176d95",
+          "sha256": "688eceb49eabf68975df68b0e492c7ba1cfbea0517d7985dd48325884ebf736d",
+          "url": "https://github.com/EduardMock/research-skills/blob/f9a49742685a72e865373695d1df0684bc29adb3/skills/opentikz/LICENSE-CODE",
+          "bytes": 1423
+        },
+        {
+          "path": "skills/opentikz/LICENSE-CONTENT",
+          "blob_sha": "fa913b8803c1e2c04f72b55b38e4a3c7308e5fb8",
+          "sha256": "d568fb9b6874beda86ac2c2276c9f36889690a146d782ccd1229e2268b3dac96",
+          "url": "https://github.com/EduardMock/research-skills/blob/f9a49742685a72e865373695d1df0684bc29adb3/skills/opentikz/LICENSE-CONTENT",
+          "bytes": 7422
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "feimacode/open-design-agent-kit",
+      "repository_id": 1377707120,
+      "commit": "1b3832c3452720f028a96b1bdab805ecc1aa3213",
+      "tree": "d47ab695972d9090468c7d0a4186b39b1f09ccab",
+      "public_source_verified": true,
+      "refs_sha256": "27c7cb05251e7e00585c1f50914706029680891de45899e891867da2dfb49eb6",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "e9dc39bc0280f03650b717c857749c5b2ad1b28f",
+          "sha256": "04151a399d769bffbd971890f65ccdc716e0e84d5711f59e23a3eebdd56ba871",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/README.md",
+          "bytes": 16264
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "5377b2c9fae1d35ecaab452982568e21ea310fe0",
+          "sha256": "6dd7352a4368f2d39410164c21759111df7855d4fc21ab0b92f89e8a7f38246f",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/LICENSE",
+          "bytes": 1064
+        },
+        {
+          "path": "packages/claude-plugin-local/skills/od-deck-deck-guizang-editorial/SKILL.md",
+          "blob_sha": "bb383e934ce22d5e0fcb0150a17c1aa4c5914367",
+          "sha256": "e8abbc5308d9fbc531bbec5313900257f42604f9e95151828b720a807f6e6583",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/claude-plugin-local/skills/od-deck-deck-guizang-editorial/SKILL.md",
+          "bytes": 1159
+        },
+        {
+          "path": "packages/content/README.md",
+          "blob_sha": "18d992d07705812b4e7e447f2c3630772ff1d115",
+          "sha256": "b844a5f0a71788bfcaa6b95198d15aa1a652015ffc9e46c014cbbac541f273d4",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/README.md",
+          "bytes": 1787
+        },
+        {
+          "path": "docs/getting-started/claude-code.md",
+          "blob_sha": "442d3c848dbe968228175407f8712e13992db78a",
+          "sha256": "caee2bb33dd078c9182b8a129df0da28a463a07e158177ac309771f6decce9dc",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/docs/getting-started/claude-code.md",
+          "bytes": 5766
+        },
+        {
+          "path": ".claude-plugin/marketplace.json",
+          "blob_sha": "c91d808f58775a7a4ffa2bbb5d23e5e8d2f7bab0",
+          "sha256": "fab9824f6a1afa391b0f2629f9b78842384cd1dc2974843abb380dae834c5cc3",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/.claude-plugin/marketplace.json",
+          "bytes": 1868
+        },
+        {
+          "path": "packages/core/src/vendored/SOURCE.md",
+          "blob_sha": "7c041e46f5cb533f653a61243f8638c70756e2d3",
+          "sha256": "2de54148e6e47e5d07ecb4f8cce65194acbe0ac73f5c10e96eb6dad6794cc577",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/core/src/vendored/SOURCE.md",
+          "bytes": 22214
+        },
+        {
+          "path": "packages/content/assets/open-design/notices/LICENSE-awesome-ios-design-md.txt",
+          "blob_sha": "49c30f560eca3eec5745b8383745dc84d1091be8",
+          "sha256": "ecdf03526d74525a46df5a4fc7cd9881036113267813a57eadaa1259c453ef53",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/notices/LICENSE-awesome-ios-design-md.txt",
+          "bytes": 1072
+        },
+        {
+          "path": "packages/content/assets/open-design/notices/LICENSE-ux-ui-agent-skills.txt",
+          "blob_sha": "4803b932d79c14a86e3b639e4d59bf1326e57dfc",
+          "sha256": "c8f168486c91894115315055a08e017cedb41189b331196f879c74b985a51f81",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/notices/LICENSE-ux-ui-agent-skills.txt",
+          "bytes": 1073
+        },
+        {
+          "path": "packages/claude-plugin-local/.claude-plugin/plugin.json",
+          "blob_sha": "844ab79273585c553e3b239d523fea25a477620c",
+          "sha256": "ee54138402f86e6c445719ff55860ae65ea97fe501e492827f1a9c268f8660e0",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/claude-plugin-local/.claude-plugin/plugin.json",
+          "bytes": 585
+        },
+        {
+          "path": "packages/content/assets/open-design/MANIFEST.json",
+          "blob_sha": "5692de4365d810ffd53c4e975bf472a39bd3cbe6",
+          "sha256": "2cdd4c30ae4c8f8165691ff7558926a2b42b3aa89a2a3c59ba1462b578848fde",
+          "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/MANIFEST.json",
+          "bytes": 562
+        }
+      ],
+      "reference_count": 11,
+      "distinct_blob_fetches": 11,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Felix-owo/Rigorous-Reviewer",
+      "repository_id": 1243323009,
+      "commit": "6367dc0b1eb874bae034658966f80005b419b9b5",
+      "tree": "daac52e1d0707399ad5ddd0ce25d37a8a164c145",
+      "public_source_verified": true,
+      "refs_sha256": "1e57c56510da3c613ad009d7cbede4fc99235e60594869c5dc0dff18445f0bd9",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "f28e911b306d63e9e8ea2e857d26be78eaf1c416",
+          "sha256": "5dd3afc093642653904cc5365c1af1af901e2c7b1190e060e21df9b04eb70920",
+          "url": "https://github.com/Felix-owo/Rigorous-Reviewer/blob/6367dc0b1eb874bae034658966f80005b419b9b5/README.md",
+          "bytes": 25537
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "14e2f777f6c395e7e04ab4aa306bbcc4b0c1120e",
+          "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85",
+          "url": "https://github.com/Felix-owo/Rigorous-Reviewer/blob/6367dc0b1eb874bae034658966f80005b419b9b5/LICENSE",
+          "bytes": 16726
+        },
+        {
+          "path": "rigorous-reviewer/SKILL.md",
+          "blob_sha": "6600cb6df93226b466d82dd89694347a0e488efa",
+          "sha256": "f2bdfa8e01ab2deb66c3a252ddc5adba0319ec59c54fadb04f2344f04fb82a65",
+          "url": "https://github.com/Felix-owo/Rigorous-Reviewer/blob/6367dc0b1eb874bae034658966f80005b419b9b5/rigorous-reviewer/SKILL.md",
+          "bytes": 24937
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "gburd/postgres-agent-skills",
+      "repository_id": 1411877531,
+      "commit": "f786c26ceeb152f36208e469ce7c840091f60e70",
+      "tree": "ed259cc87593044a9481a49ec93373f0ca83bba2",
+      "public_source_verified": true,
+      "refs_sha256": "b7dd167ff81594a6e9552a6073bfa9ffc843b69c2ceb7b56f2fc5c2422c97070",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "28a05aae74648c98cad9ca66b9356e037a30a744",
+          "sha256": "99dcbef2dc29949dd2c9bf601f25ca6fbbc49d163ca2292a9132200e1b9124a2",
+          "url": "https://github.com/gburd/postgres-agent-skills/blob/f786c26ceeb152f36208e469ce7c840091f60e70/README.md",
+          "bytes": 5877
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "0e259d42c996742e9e3cba14c677129b2c1b6311",
+          "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+          "url": "https://github.com/gburd/postgres-agent-skills/blob/f786c26ceeb152f36208e469ce7c840091f60e70/LICENSE",
+          "bytes": 7048
+        },
+        {
+          "path": "postgres/dba/SKILL.md",
+          "blob_sha": "59145315290d3ef4549f4797615792c937b816b9",
+          "sha256": "85063f80e17515d9c3c6bd3bdbb24e4d771d2b70166fdbeb15cdbad52d8d6c49",
+          "url": "https://github.com/gburd/postgres-agent-skills/blob/f786c26ceeb152f36208e469ce7c840091f60e70/postgres/dba/SKILL.md",
+          "bytes": 4196
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "GeoZcx/geoharness",
+      "repository_id": 1460544994,
+      "commit": "b6b871a9d60e04d6cf494e430a60380c14e282bb",
+      "tree": "798fcdce6d7ce70071a43d0d7a072738a7559700",
+      "public_source_verified": true,
+      "refs_sha256": "bc3963b3572fa16f436ea93a789f9791242e91fcd492f6fad82771ab4687413d",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "f003d2f31e0a2672949fc28726ce40bdd8410278",
+          "sha256": "946eeddcff1532da349018f0580fa59bce77e600b927fb67f2578473f798e896",
+          "url": "https://github.com/GeoZcx/geoharness/blob/b6b871a9d60e04d6cf494e430a60380c14e282bb/README.md",
+          "bytes": 9584
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "f433b1a53f5b830a205fd2df78e2b34974656c7b",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+          "url": "https://github.com/GeoZcx/geoharness/blob/b6b871a9d60e04d6cf494e430a60380c14e282bb/LICENSE",
+          "bytes": 10174
+        },
+        {
+          "path": "plugins/pi/skills/geoharness-workflow/SKILL.md",
+          "blob_sha": "85ceaa0afb868beceaa9261ba57fa711852a69fd",
+          "sha256": "a96e4502cfe2c336c6d2707dc3ef8629176dc4b59554e9e7351cde4d760b6984",
+          "url": "https://github.com/GeoZcx/geoharness/blob/b6b871a9d60e04d6cf494e430a60380c14e282bb/plugins/pi/skills/geoharness-workflow/SKILL.md",
+          "bytes": 4092
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "5a15121eaeaeee3f3ebf16c0f3aa942421e9f555",
+          "sha256": "4cd0b281f33e9641b1c2d1acf55313fe2ba2d2f3499c0cb7e1c851a3e26cab54",
+          "url": "https://github.com/GeoZcx/geoharness/blob/b6b871a9d60e04d6cf494e430a60380c14e282bb/NOTICE",
+          "bytes": 325
+        },
+        {
+          "path": "plugins/pi/README.md",
+          "blob_sha": "324401a7647c3b1ba89b2c3bb498898b6b2d245c",
+          "sha256": "b7db79a5b0f4f3dd82374a72300b0ec52070145b9b968be229cc2a731236b0f2",
+          "url": "https://github.com/GeoZcx/geoharness/blob/b6b871a9d60e04d6cf494e430a60380c14e282bb/plugins/pi/README.md",
+          "bytes": 659
+        },
+        {
+          "path": "plugins/claude-code/geoharness/README.md",
+          "blob_sha": "9098f3fbb4067fbff06949d5ee262716e41468a3",
+          "sha256": "e964b21c82b0da39e09c7963b5ad44a5ddc30475d0f7dff7bd34f47212475037",
+          "url": "https://github.com/GeoZcx/geoharness/blob/b6b871a9d60e04d6cf494e430a60380c14e282bb/plugins/claude-code/geoharness/README.md",
+          "bytes": 3266
+        }
+      ],
+      "reference_count": 6,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Goodsmileduck/claude-registry",
+      "repository_id": 1127281003,
+      "commit": "2d2cc1714b322a302dd52aad73bd528851e7efaa",
+      "tree": "b2ff6b01e6356687dec11c770a3534a8dfc5d95b",
+      "public_source_verified": true,
+      "refs_sha256": "2205410a602c4ed9d0e9ed4d530e34b41a03860aae0fbc3ad8b26ce95853f194",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "60fb0a2d4e6b1cddd99b1dfab30a027195616c4b",
+          "sha256": "4186c7d6a0ed9134654017f82e447f18547b1a6f2c2b0ef12d6d92bdbe58993f",
+          "url": "https://github.com/Goodsmileduck/claude-registry/blob/2d2cc1714b322a302dd52aad73bd528851e7efaa/README.md",
+          "bytes": 14009
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "9302106390b41a4bdf785459c3343931b457fc31",
+          "sha256": "6b7d601e5c76786e8c725cce62f49c16d0ef6156af72e5d1839f99a5b0d71325",
+          "url": "https://github.com/Goodsmileduck/claude-registry/blob/2d2cc1714b322a302dd52aad73bd528851e7efaa/LICENSE",
+          "bytes": 1070
+        },
+        {
+          "path": "plugins/secrets-skills/skills/onepassword-secrets/SKILL.md",
+          "blob_sha": "966671180bd6c46f61d3aec9556837c5064a50fd",
+          "sha256": "0831c100cd16a5f239e20917f69c7fe1328f4f817118456f7384c57371987e29",
+          "url": "https://github.com/Goodsmileduck/claude-registry/blob/2d2cc1714b322a302dd52aad73bd528851e7efaa/plugins/secrets-skills/skills/onepassword-secrets/SKILL.md",
+          "bytes": 10486
+        },
+        {
+          "path": ".claude-plugin/marketplace.json",
+          "blob_sha": "2a2694550e8dd00419a16140bd5a7c7a2ac4a18f",
+          "sha256": "a51a8965f143e80ef3e13cd25bd6717b359bf0b96c4c703eb3f4a7022f418a36",
+          "url": "https://github.com/Goodsmileduck/claude-registry/blob/2d2cc1714b322a302dd52aad73bd528851e7efaa/.claude-plugin/marketplace.json",
+          "bytes": 14835
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "grimoire-rs/grimoire",
+      "repository_id": 1239848793,
+      "commit": "1972e3b9329c9b5e55736002e3a9ab4fb9a34102",
+      "tree": "9ef3289f83a5decc1b0d05c90282393a7ddd9c79",
+      "public_source_verified": true,
+      "refs_sha256": "6f557daae04da3e1f7ade02a6556ad9591f321fb2895eb9675da125a86810743",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "76e85aa663a534b4e2e11f8044511dd90b7a3a9f",
+          "sha256": "bb10fdba27e555429adf05c0bd97319886c87a66b6315657a19f4dca08144505",
+          "url": "https://github.com/grimoire-rs/grimoire/blob/1972e3b9329c9b5e55736002e3a9ab4fb9a34102/README.md",
+          "bytes": 3918
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "7efd052f60f76e1788fc28378a59cabc95940b8e",
+          "sha256": "6fcdfefa06ae4e80a1ea2c37e92e86f8aa1dd17415b4b108462ed4ca17b30b1b",
+          "url": "https://github.com/grimoire-rs/grimoire/blob/1972e3b9329c9b5e55736002e3a9ab4fb9a34102/LICENSE",
+          "bytes": 11317
+        },
+        {
+          "path": "catalog/skills/ai-config-authoring/SKILL.md",
+          "blob_sha": "f23b1c41cfd8a47172c28117d9c576a17d8fe83e",
+          "sha256": "ad78da1dbae71251e4c2698da471516347c51e526c153b1c826eaa9d8c940205",
+          "url": "https://github.com/grimoire-rs/grimoire/blob/1972e3b9329c9b5e55736002e3a9ab4fb9a34102/catalog/skills/ai-config-authoring/SKILL.md",
+          "bytes": 7469
+        },
+        {
+          "path": "catalog/README.md",
+          "blob_sha": "42b837dc87e21576fc3deb970dfa412492b6ac03",
+          "sha256": "7d74c66778b10bb2e4c71a08ce790c10ad9ff3141c79467d0bbd3b3228becd3e",
+          "url": "https://github.com/grimoire-rs/grimoire/blob/1972e3b9329c9b5e55736002e3a9ab4fb9a34102/catalog/README.md",
+          "bytes": 8273
+        },
+        {
+          "path": "src/skill/skill_description.rs",
+          "blob_sha": "79d89b5a0c868bbd5d826cc41ed4d503af03ba17",
+          "sha256": "0e2290482d734f69f8995b8bf3d2c10478930c1f0b982a251c7a36844983fe92",
+          "url": "https://github.com/grimoire-rs/grimoire/blob/1972e3b9329c9b5e55736002e3a9ab4fb9a34102/src/skill/skill_description.rs",
+          "bytes": 3154
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "gudrodur/icelandic-data",
+      "repository_id": 1457059075,
+      "commit": "2839cfe09c3e4c1749ed8e8d12926d2d7286abc5",
+      "tree": "64faf66cf72a3a1fe59b9da89fee641b55185152",
+      "public_source_verified": true,
+      "refs_sha256": "6ee170dafc31c711fa6177c72575af165dc504273eaefb27f2fc4af752e71dce",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "e00ddb9ea6a606ada3d7b49f8f4cddb7a312076e",
+          "sha256": "4bfe6f9911d14e9b57142e648aee5b5f2e8a8bda5d6578bafd1e69e3a3811b87",
+          "url": "https://github.com/gudrodur/icelandic-data/blob/2839cfe09c3e4c1749ed8e8d12926d2d7286abc5/README.md",
+          "bytes": 16183
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "ec993bd9f9a7810ede1468a42f8822cdb2f833a2",
+          "sha256": "a4f965081d0fa8012b5e80a81d7f9b18237cded4bd9059f90b18922daae47cdf",
+          "url": "https://github.com/gudrodur/icelandic-data/blob/2839cfe09c3e4c1749ed8e8d12926d2d7286abc5/LICENSE",
+          "bytes": 1084
+        },
+        {
+          "path": ".agents/skills/energy/SKILL.md",
+          "blob_sha": "4adc5bc19e9cafbbb89cb1a323dfc992805b97f6",
+          "sha256": "05d4d65d8cc5641df9e9bd83d518adfb7d8bdb2f2026bb4afabed2d2e6462c8d",
+          "url": "https://github.com/gudrodur/icelandic-data/blob/2839cfe09c3e4c1749ed8e8d12926d2d7286abc5/.agents/skills/energy/SKILL.md",
+          "bytes": 1237
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "hermoso-ai/hermoso",
+      "repository_id": 1291037165,
+      "commit": "e3a826136415f5c3ef2231864b1a1b495d38ce4d",
+      "tree": "b38317a63965884cd98b0e60e8401eaa72b569e4",
+      "public_source_verified": true,
+      "refs_sha256": "1b777c8ac86fc1125397cf5f68ca52e42820979f518f190064601cf1efb60910",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "aa6c7135a8e4cb1d128fcd4bc976a259f7ebe865",
+          "sha256": "3fd3862d5bb92fdbaa602d060a8627acfa2059700c2f8cfc7cfefaa9f9b98270",
+          "url": "https://github.com/hermoso-ai/hermoso/blob/e3a826136415f5c3ef2231864b1a1b495d38ce4d/README.md",
+          "bytes": 40950
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "dae04dd13fd5adbf55470df379b1087ecb0c9504",
+          "sha256": "887fdb8c2d0643b749495cbd6082852d32ee0c0976376e9965f1365f66c1b086",
+          "url": "https://github.com/hermoso-ai/hermoso/blob/e3a826136415f5c3ef2231864b1a1b495d38ce4d/LICENSE",
+          "bytes": 1077
+        },
+        {
+          "path": "skills/hermoso-ad-from-brand/SKILL.md",
+          "blob_sha": "c3a7e939960f755a9e7e685a7e52699bb0c396fa",
+          "sha256": "e34c66f5dd9fd03fe5c213800fb3a686ca8a31716ed68926d5994a0397ecdc65",
+          "url": "https://github.com/hermoso-ai/hermoso/blob/e3a826136415f5c3ef2231864b1a1b495d38ce4d/skills/hermoso-ad-from-brand/SKILL.md",
+          "bytes": 3962
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "048a21ae49cd210cbf206bef253447ffeec1775a",
+          "sha256": "7dd99bc941248536c07030c66ae4cab770bb645bf5f56adf5999ae497acbf0d5",
+          "url": "https://github.com/hermoso-ai/hermoso/blob/e3a826136415f5c3ef2231864b1a1b495d38ce4d/package.json",
+          "bytes": 2648
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "f7928c8bdd02d3ad5a81daa38681f3f4869bca35",
+          "sha256": "6e8e16d03f11890d03395865ab0ac66b747037dc43292798ca64cf21bce8b609",
+          "url": "https://github.com/hermoso-ai/hermoso/blob/e3a826136415f5c3ef2231864b1a1b495d38ce4d/NOTICE",
+          "bytes": 810
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "HolobiomicsLab/asb-skills-agentic-ai",
+      "repository_id": 1376505297,
+      "commit": "c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5",
+      "tree": "edd1b20d487da35c22ea735572a2225144461223",
+      "public_source_verified": true,
+      "refs_sha256": "bf3f252a42bcf79e275077882d911900c140c881749d23d523cea1d8c1f60c7f",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "2e0a6ebb1ba9a7abd5e391f3f63adc473fa24965",
+          "sha256": "f2da8ac219cdcc65b572dbca13fb14cfe881545c1ed276f65ee80a899831270b",
+          "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/README.md",
+          "bytes": 8928
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "29d65063076228179850d1aff9b46d41b3e5bfa1",
+          "sha256": "9d8f93c935f8af81a6e2e365c0d004997eaf06ba5f110e6aec4470ee633fe605",
+          "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/LICENSE",
+          "bytes": 11393
+        },
+        {
+          "path": "collections/agentic-ai/v1/leaves/abcdef-protocol-concept-categorization/SKILL.md",
+          "blob_sha": "c6dc5bec82647b094e5135b5967ebbbc3e3d9f5a",
+          "sha256": "71601a3b374a85230a08b8b75b7c6b4804039fa4243e4da33cd75917b92b0471",
+          "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/leaves/abcdef-protocol-concept-categorization/SKILL.md",
+          "bytes": 9316
+        },
+        {
+          "path": "LICENSING.md",
+          "blob_sha": "38f74b4497dd5ec648a82413bb862a4272ae30b0",
+          "sha256": "e1fcfd283c30704a65843a3330494e2693176c200fe703f3ab85fa3d6d19f393",
+          "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/LICENSING.md",
+          "bytes": 2363
+        },
+        {
+          "path": ".claude-plugin/marketplace.json",
+          "blob_sha": "8cd0cf3ffb517bc7273b4d81895ae5faf2fd8519",
+          "sha256": "068bfdca2320deb8a28394bdaa3fc8a97713e560f939d200818329faf87de1fb",
+          "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/.claude-plugin/marketplace.json",
+          "bytes": 923
+        },
+        {
+          "path": "collections/agentic-ai/v1/.claude-plugin/plugin.json",
+          "blob_sha": "4abd3e00e1d011ee0a58ca0c9be13ea23fe40fba",
+          "sha256": "5c37f673f1a456af21e056b5ec3ba0b3e25fb6c468d4a228c94897c25dc2edbd",
+          "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/.claude-plugin/plugin.json",
+          "bytes": 515
+        },
+        {
+          "path": "collections/agentic-ai/v1/skills/_router/SKILL.md",
+          "blob_sha": "f556a3645329354456b3f186bd41b7a6410e420a",
+          "sha256": "c6997a731262774c4f505678cf0745988ae34b1ac03cfc37898ac9c30da24e04",
+          "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/skills/_router/SKILL.md",
+          "bytes": 4281
+        },
+        {
+          "path": "collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+          "blob_sha": "b4fdc2be22cc48891b00c45e751fe6b28c43e3a1",
+          "sha256": "3f842d299b0989c9c0d949f363f85a38e0ec637c4dea0752932ead1b488c2ddf",
+          "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+          "bytes": 4725
+        },
+        {
+          "path": "collections/agentic-ai/v1/tool_licenses.json",
+          "blob_sha": "06b293371728aa8147cb99f4268bf26fdc4d2185",
+          "sha256": "6fedab2ed2faf59e4ccd643c11c40403c5d991195947684345c8cde748359862",
+          "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/tool_licenses.json",
+          "bytes": 6709
+        }
+      ],
+      "reference_count": 9,
+      "distinct_blob_fetches": 9,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "IgniteUI/igniteui-webcomponents",
+      "repository_id": 366715251,
+      "commit": "f854da05506e2b34c6453cec59b24cfbcbc41b10",
+      "tree": "cc1f06d5a5d93f25ae0cff480a08cb7fd539c1d0",
+      "public_source_verified": true,
+      "refs_sha256": "9269a993c7d2023e6a53b782d876632140cb29c02eb03dbf89895c91d6feb7c6",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "2d9a1f7feea8d0fd05de53c4a2db195048af32f6",
+          "sha256": "6a2b81eb6cc325cccf747c67a2392efd7c33ec24f962bc7d972e12f2baa5866c",
+          "url": "https://github.com/IgniteUI/igniteui-webcomponents/blob/f854da05506e2b34c6453cec59b24cfbcbc41b10/README.md",
+          "bytes": 34306
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "035e35e889aa07152ddae8443084bfd5b969ca24",
+          "sha256": "d7472d18c36bb4230cb2a950ba04585c22f7739693a1a121444d8fee09a92a63",
+          "url": "https://github.com/IgniteUI/igniteui-webcomponents/blob/f854da05506e2b34c6453cec59b24cfbcbc41b10/LICENSE",
+          "bytes": 1069
+        },
+        {
+          "path": "skills/igniteui-wc-integrate-with-framework/SKILL.md",
+          "blob_sha": "8eecd3c8eb708c742480c53536afd5202ebb589c",
+          "sha256": "b432648458a7d50a544a56ec2b499db2fb0ebbe7dde3414b5d7d68bde870ac53",
+          "url": "https://github.com/IgniteUI/igniteui-webcomponents/blob/f854da05506e2b34c6453cec59b24cfbcbc41b10/skills/igniteui-wc-integrate-with-framework/SKILL.md",
+          "bytes": 5519
+        },
+        {
+          "path": "skills/README.md",
+          "blob_sha": "c01f4203f394437af927344d6dddb501846dacfa",
+          "sha256": "b919983edaab873cb5d77b9a29de5a1a915902e8eefb1f9a60401cc3fb1ae730",
+          "url": "https://github.com/IgniteUI/igniteui-webcomponents/blob/f854da05506e2b34c6453cec59b24cfbcbc41b10/skills/README.md",
+          "bytes": 4598
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "270e64c7e6aec077b5880c5449f885e4d94caf58",
+          "sha256": "8eba6084ebf42e2f5ca7c9b66e3f46de40d2c956187c5f379493f103ce17730d",
+          "url": "https://github.com/IgniteUI/igniteui-webcomponents/blob/f854da05506e2b34c6453cec59b24cfbcbc41b10/package.json",
+          "bytes": 5899
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "iperdomo/platform-independence-analyzer",
+      "repository_id": 1315892187,
+      "commit": "b239dc291da1236df72b9df22756b16e625486d6",
+      "tree": "577b034b3e4fe5470743fafa7b6ca25d3cac30ba",
+      "public_source_verified": true,
+      "refs_sha256": "23f1a0d74172cfd8bc1a03ac44066c8996bd9196ba375c9242aaa73659f69357",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "540dc1142a497cd50e2966a1c7eccf0ae3a679a2",
+          "sha256": "33de555634944ab8a909be93d0496133c37b162f2e9f9a8fdebf553fb9baed01",
+          "url": "https://github.com/iperdomo/platform-independence-analyzer/blob/b239dc291da1236df72b9df22756b16e625486d6/README.md",
+          "bytes": 16608
+        },
+        {
+          "path": "LICENSE.md",
+          "blob_sha": "1431c3da9a69290b5e1ae186f7e1f11e1a1d6fb9",
+          "sha256": "0ab98ae648be7514a704d92845aa74752e50785a70f81a87ea58184ddba38200",
+          "url": "https://github.com/iperdomo/platform-independence-analyzer/blob/b239dc291da1236df72b9df22756b16e625486d6/LICENSE.md",
+          "bytes": 647
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "266a5be984ed0cf62398023e94379eeca32f2250",
+          "sha256": "0fecafb4925a06a95dd4092c7d2384129acf3e9811d0cf8eab6278d0489b1e32",
+          "url": "https://github.com/iperdomo/platform-independence-analyzer/blob/b239dc291da1236df72b9df22756b16e625486d6/SKILL.md",
+          "bytes": 12812
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "JasmyLab-JANCTION/janction-render",
+      "repository_id": 1397617439,
+      "commit": "2409f63178b58508bb67dd04c00472b3c1886914",
+      "tree": "290e83b9b8fe2f7c0be29acc8132c0751cd2d666",
+      "public_source_verified": true,
+      "refs_sha256": "7bd7ee5ba3c65837c2f064bac3eb8bd5c145dffe5bfe2f2b9b238dfe3c812c07",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "4611a7ad5458d44db33887cb62710e244e6c3d24",
+          "sha256": "13fb3b627a81f53d183e420796c8ef5a43d460909f22161a0453221537af6aaa",
+          "url": "https://github.com/JasmyLab-JANCTION/janction-render/blob/2409f63178b58508bb67dd04c00472b3c1886914/README.md",
+          "bytes": 40346
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "af3c2154bc21a6f3b3a17a3d93141bf21d9edf62",
+          "sha256": "080da141a6389fbb20e82277c3defac02aecc34669622160408f715139e6359b",
+          "url": "https://github.com/JasmyLab-JANCTION/janction-render/blob/2409f63178b58508bb67dd04c00472b3c1886914/LICENSE",
+          "bytes": 1106
+        },
+        {
+          "path": "plugins/render-skills/skills/blender-render-settings/SKILL.md",
+          "blob_sha": "c23a947f59ff54490777b8c3e1fd069a756293b5",
+          "sha256": "357f8a0508050ec71f3d4668bcca00b27036c786936f18f359ef69f4b0941145",
+          "url": "https://github.com/JasmyLab-JANCTION/janction-render/blob/2409f63178b58508bb67dd04c00472b3c1886914/plugins/render-skills/skills/blender-render-settings/SKILL.md",
+          "bytes": 4287
+        },
+        {
+          "path": "plugins/render-skills/README.md",
+          "blob_sha": "6f566ea59a552e14f7f6dd5e9c8cdbb084162424",
+          "sha256": "4fbe5729656cd45cc0a31a7f6a33635a7af1dc8b10f3307d9cfd023fe00a8a0f",
+          "url": "https://github.com/JasmyLab-JANCTION/janction-render/blob/2409f63178b58508bb67dd04c00472b3c1886914/plugins/render-skills/README.md",
+          "bytes": 3264
+        },
+        {
+          "path": "plugins/render-skills/.claude-plugin/plugin.json",
+          "blob_sha": "a86d6f78f7c253095d5526d287f50571e240a0c5",
+          "sha256": "e41ab139192509c2ddc62c9cfa4652afc3c3f07ff61a51f6a705bf106fccea24",
+          "url": "https://github.com/JasmyLab-JANCTION/janction-render/blob/2409f63178b58508bb67dd04c00472b3c1886914/plugins/render-skills/.claude-plugin/plugin.json",
+          "bytes": 1339
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "jianzushen/Computational-chemistry-skill",
+      "repository_id": 1305527469,
+      "commit": "4ea66ea8633e4a65d5b9041928b363b0375bb81b",
+      "tree": "fc6299532ee0b621c164a12011895cdf60762368",
+      "public_source_verified": true,
+      "refs_sha256": "efe68d9f80b4a62b5fe66e93e2ef32c39ef247da063a70299e32485d55181168",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "9eb05ba0a423a7cd7320062f39b43e252cbd5f3a",
+          "sha256": "939c422ed32644c55b4443cd45868f56e250cf363b29b492a468c36fa847ba7b",
+          "url": "https://github.com/jianzushen/Computational-chemistry-skill/blob/4ea66ea8633e4a65d5b9041928b363b0375bb81b/README.md",
+          "bytes": 17193
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "17379510cb90b3ec0731cccf5031f7abd960de21",
+          "sha256": "ca37f3a47bc3d8730d88a5439a3acf99cc0f9b73cdf7c226eeaf8d338577da3f",
+          "url": "https://github.com/jianzushen/Computational-chemistry-skill/blob/4ea66ea8633e4a65d5b9041928b363b0375bb81b/LICENSE",
+          "bytes": 1068
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "3f67dfa43a7ae90e63f485910222cead3985700b",
+          "sha256": "d53403cc17e5a354848bbd64cf0b333c57ea25a99f0a9a4e0b14e138efc84778",
+          "url": "https://github.com/jianzushen/Computational-chemistry-skill/blob/4ea66ea8633e4a65d5b9041928b363b0375bb81b/SKILL.md",
+          "bytes": 22637
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "blob_sha": "b043846ec60819b9473e8731aa9965599b12fef6",
+          "sha256": "f0eef1f944b2a3ab6a9da340c0fe9e6a48f05218d426e7c2fd18d693161c56c1",
+          "url": "https://github.com/jianzushen/Computational-chemistry-skill/blob/4ea66ea8633e4a65d5b9041928b363b0375bb81b/THIRD_PARTY_NOTICES.md",
+          "bytes": 2472
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Katta041/asitis-agent-tools",
+      "repository_id": 1399206924,
+      "commit": "535555177f84ebfa4ce8e2bb63a5af72947eb13b",
+      "tree": "4f3122303da55b293838316d6748b8b6b4f9bb48",
+      "public_source_verified": true,
+      "refs_sha256": "5f0977e0a88c6b459e6ef7bf8a701d10b30663b4eb96b89911abfa0e81cd268b",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "f798b94e9f62e67b298309e2a130c9b6b8fce4c6",
+          "sha256": "c7bd42a57c13b8c754e6b3cdb580497cbc5db22fb2617a5d6ad21abd7fe22365",
+          "url": "https://github.com/Katta041/asitis-agent-tools/blob/535555177f84ebfa4ce8e2bb63a5af72947eb13b/README.md",
+          "bytes": 48961
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "f12bcb8c16a6d62ba7f8498bc935f3c0e0ffe6a0",
+          "sha256": "5b9d548f7f5f4d24da7c04de3b7f7494304b3b0fd3b2a0f4ea4ab3ab05c66479",
+          "url": "https://github.com/Katta041/asitis-agent-tools/blob/535555177f84ebfa4ce8e2bb63a5af72947eb13b/LICENSE",
+          "bytes": 1063
+        },
+        {
+          "path": "plugins/asitis/skills/steering-check/SKILL.md",
+          "blob_sha": "5ca788b9614f5ebfd1eaf2d4c02095f6ccf331a7",
+          "sha256": "5b67d8c90f570387da44df581ccb61d5d6d8457ea49b5e279c9e94376881496b",
+          "url": "https://github.com/Katta041/asitis-agent-tools/blob/535555177f84ebfa4ce8e2bb63a5af72947eb13b/plugins/asitis/skills/steering-check/SKILL.md",
+          "bytes": 2031
+        },
+        {
+          "path": "plugins/asitis/README.md",
+          "blob_sha": "2485ea86aea0963c073466444de9ed440d8e71cd",
+          "sha256": "1595addf702940c58a9b333ed01d8b2437ce299319d1805b272a0d5464cf9367",
+          "url": "https://github.com/Katta041/asitis-agent-tools/blob/535555177f84ebfa4ce8e2bb63a5af72947eb13b/plugins/asitis/README.md",
+          "bytes": 11820
+        },
+        {
+          "path": "packages/mcp/src/fixes/skill-name.ts",
+          "blob_sha": "579972841e20f9dd8ddb2095a964efe2e212fb33",
+          "sha256": "612296247416e8ad3e8cffeaa98b405fbb963be520181a5bb8d538c11b553028",
+          "url": "https://github.com/Katta041/asitis-agent-tools/blob/535555177f84ebfa4ce8e2bb63a5af72947eb13b/packages/mcp/src/fixes/skill-name.ts",
+          "bytes": 924
+        },
+        {
+          "path": "packages/mcp/package.json",
+          "blob_sha": "98c4bfd994063e6310e5b033141bec7db694f136",
+          "sha256": "4ab6ee65149afc85393b97e0a56ff91f234c83c98ab132ea24212756339ac00f",
+          "url": "https://github.com/Katta041/asitis-agent-tools/blob/535555177f84ebfa4ce8e2bb63a5af72947eb13b/packages/mcp/package.json",
+          "bytes": 2069
+        },
+        {
+          "path": "plugins/asitis/LICENSE",
+          "blob_sha": "f12bcb8c16a6d62ba7f8498bc935f3c0e0ffe6a0",
+          "sha256": "5b9d548f7f5f4d24da7c04de3b7f7494304b3b0fd3b2a0f4ea4ab3ab05c66479",
+          "url": "https://github.com/Katta041/asitis-agent-tools/blob/535555177f84ebfa4ce8e2bb63a5af72947eb13b/plugins/asitis/LICENSE",
+          "bytes": 1063
+        }
+      ],
+      "reference_count": 7,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Keith-CY/idx.md",
+      "repository_id": 1146514482,
+      "commit": "cddc93b9bbff2203873038bc01ff37990ea36405",
+      "tree": "8402e7e714c6edc5d0392078c211acee9069d304",
+      "public_source_verified": true,
+      "refs_sha256": "36523f6eff38733cb0d927ab878063b667ddb967c46b7e78721afde1a80e35b2",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "165d35be1042bfb731766dc6e30f1a029f01bc12",
+          "sha256": "b6d7a5c157a1234432f392bf1a21769f886f4920a39828cdb1603f2ff1ce5050",
+          "url": "https://github.com/Keith-CY/idx.md/blob/cddc93b9bbff2203873038bc01ff37990ea36405/README.md",
+          "bytes": 2889
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "url": "https://github.com/Keith-CY/idx.md/blob/cddc93b9bbff2203873038bc01ff37990ea36405/LICENSE",
+          "bytes": 11357
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "e16e4df2740ec47d2fb242c06e2d96c86c995deb",
+          "sha256": "d036756df00d0296c216104205266e1d2bc7798496f4f9e2da4e8e854309f6bf",
+          "url": "https://github.com/Keith-CY/idx.md/blob/cddc93b9bbff2203873038bc01ff37990ea36405/SKILL.md",
+          "bytes": 4898
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "862769b442f96b0fc15e2530dc414a4e6a84de63",
+          "sha256": "fdc03645444e7c57b2f5ec65f6a7857067f001b5e446b761adc05ec076df2377",
+          "url": "https://github.com/Keith-CY/idx.md/blob/cddc93b9bbff2203873038bc01ff37990ea36405/NOTICE",
+          "bytes": 479
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "KyleshierArt/cobalt-technical-illustration",
+      "repository_id": 1462271154,
+      "commit": "066e4b3babdaac0ef89abe96b7844f454bdec05c",
+      "tree": "2065510eb546baa8da65bedfe06603eaacbf09f2",
+      "public_source_verified": true,
+      "refs_sha256": "2a5e69c011c73ec251bcd56cb20e01890656a5f058f4ed2bac9501910e0216ad",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "3f1f87c4215018b57382b9c3d987793726b2eca4",
+          "sha256": "31745ebe685698058e63f91388f295478be40d17a5656175cb664f292d56885a",
+          "url": "https://github.com/KyleshierArt/cobalt-technical-illustration/blob/066e4b3babdaac0ef89abe96b7844f454bdec05c/README.md",
+          "bytes": 5066
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "684f4b6079683a28b86f4d27a703062b114414cb",
+          "sha256": "cff1ec9381903968561cad1a3da0d0cfea2debe3c23e1509a99db69786c184c5",
+          "url": "https://github.com/KyleshierArt/cobalt-technical-illustration/blob/066e4b3babdaac0ef89abe96b7844f454bdec05c/LICENSE",
+          "bytes": 1069
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "afd95ba2d57fb1519c58b50f6aa949ee6901202c",
+          "sha256": "de6a1669ac757efb755977b0d2640fd2de12288359a76f4d5e9f410b00b1e7c8",
+          "url": "https://github.com/KyleshierArt/cobalt-technical-illustration/blob/066e4b3babdaac0ef89abe96b7844f454bdec05c/SKILL.md",
+          "bytes": 5685
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "blob_sha": "876fd2d59af864f7d5db27f11acad39f13f4e8fc",
+          "sha256": "fffe60dfbd647f117c59733d8e3a652e1863bde9034a903c6b4de09285bd3623",
+          "url": "https://github.com/KyleshierArt/cobalt-technical-illustration/blob/066e4b3babdaac0ef89abe96b7844f454bdec05c/THIRD_PARTY_NOTICES.md",
+          "bytes": 1845
+        },
+        {
+          "path": "LICENSES/Anatomy-MIT.txt",
+          "blob_sha": "aa20733917ffc919b6b04834e6a6e22909df7c76",
+          "sha256": "87c078ab9d90a3044f359e6b563d4e6afea7aa060897cf4f21618687b3856796",
+          "url": "https://github.com/KyleshierArt/cobalt-technical-illustration/blob/066e4b3babdaac0ef89abe96b7844f454bdec05c/LICENSES/Anatomy-MIT.txt",
+          "bytes": 1061
+        },
+        {
+          "path": "LICENSES/Hairline-MIT.txt",
+          "blob_sha": "dec068515ec56cbd7f56555cebc9d64818072e64",
+          "sha256": "948d56f0bc8c383c04c453136dcfb78407f97de65ff8bb4fabff2b79ddd17f59",
+          "url": "https://github.com/KyleshierArt/cobalt-technical-illustration/blob/066e4b3babdaac0ef89abe96b7844f454bdec05c/LICENSES/Hairline-MIT.txt",
+          "bytes": 1070
+        }
+      ],
+      "reference_count": 6,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "lanbass869-cell/canari",
+      "repository_id": 1449954855,
+      "commit": "97d949bae736f574b927c4fb9b4444b42b34fd1e",
+      "tree": "8d8c006e2170f68f420707a4e69bb3446cfe3e44",
+      "public_source_verified": true,
+      "refs_sha256": "d9a8cee53bb147b363316c336841d89f05fa6d0fd52601fe3c2625c7215fffb0",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "18736ec8305c9be168eb16189368641e1af17782",
+          "sha256": "bff8fc8c13b5eba6cfe14d9211ab49513012671677e40f30dcb8ac56df47236c",
+          "url": "https://github.com/lanbass869-cell/canari/blob/97d949bae736f574b927c4fb9b4444b42b34fd1e/README.md",
+          "bytes": 19057
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "url": "https://github.com/lanbass869-cell/canari/blob/97d949bae736f574b927c4fb9b4444b42b34fd1e/LICENSE",
+          "bytes": 11358
+        },
+        {
+          "path": "canari/gate.py",
+          "blob_sha": "f4152b654886a3e37e9ebbd8e6cfee53d4584e16",
+          "sha256": "043adfa731e5aaa5a5bb4d973a6ab2c82cb904a5c0adc438fcfbf555416fe30f",
+          "url": "https://github.com/lanbass869-cell/canari/blob/97d949bae736f574b927c4fb9b4444b42b34fd1e/canari/gate.py",
+          "bytes": 16686
+        },
+        {
+          "path": "pyproject.toml",
+          "blob_sha": "3afd27ba5e7ede6611261543d41393ae0d7b1c4c",
+          "sha256": "533ab474e98d32ce641c888a0429e8178f5a9c4354e3e07c3b6fe5da695c8d0b",
+          "url": "https://github.com/lanbass869-cell/canari/blob/97d949bae736f574b927c4fb9b4444b42b34fd1e/pyproject.toml",
+          "bytes": 1738
+        },
+        {
+          "path": "canari/gate_cli.py",
+          "blob_sha": "2e5956d5a47cb3fc52332c878fed86117e7eb5ec",
+          "sha256": "66ee56f3d26fd6b2f3edf8d23c14753665c5306a2da8e0fe35e22516997e52f9",
+          "url": "https://github.com/lanbass869-cell/canari/blob/97d949bae736f574b927c4fb9b4444b42b34fd1e/canari/gate_cli.py",
+          "bytes": 2916
+        },
+        {
+          "path": "dataset/LICENSE",
+          "blob_sha": "1d1c517e0a2330cb825b2ff6e2f28544475b539e",
+          "sha256": "d5a566d32dab994848df121f420d90e5a742de796bd8b3ffb41abd922eaf5f4e",
+          "url": "https://github.com/lanbass869-cell/canari/blob/97d949bae736f574b927c4fb9b4444b42b34fd1e/dataset/LICENSE",
+          "bytes": 59
+        }
+      ],
+      "reference_count": 6,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "lennylabs/podium",
+      "repository_id": 1229504802,
+      "commit": "497eccd1f719060707cc696133991600f6edc41b",
+      "tree": "e2f2d46a2114fed6e4b6b522bedb53dac2895cb6",
+      "public_source_verified": true,
+      "refs_sha256": "e4f6ed06b0a40e0ff13476949510ba57cedf777a33cd23827d44f5208dbdbd23",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "7d90f0878f562ff07eb4e8274a479f700ac0189d",
+          "sha256": "793cbffa9f4295d2810e4a81261ce961815110465dd8e94b914da82d32a450d8",
+          "url": "https://github.com/lennylabs/podium/blob/497eccd1f719060707cc696133991600f6edc41b/README.md",
+          "bytes": 19108
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "a2aa630cc4ab30640e7c6dd6f46fbd555f932def",
+          "sha256": "baefe5c0fe69b31370a0bfc78d74aaf35b645896f2d00964e6c3b9c2a5888829",
+          "url": "https://github.com/lennylabs/podium/blob/497eccd1f719060707cc696133991600f6edc41b/LICENSE",
+          "bytes": 1076
+        },
+        {
+          "path": "pkg/manifest/skill_frontmatter.go",
+          "blob_sha": "eb554dacbd1fbfc6e1649d7d23d1939c7a193d1e",
+          "sha256": "0fd082f51b7cb8227625efaab24131fd90329a753ccaaa65a0e289aa2efb0be9",
+          "url": "https://github.com/lennylabs/podium/blob/497eccd1f719060707cc696133991600f6edc41b/pkg/manifest/skill_frontmatter.go",
+          "bytes": 5838
+        },
+        {
+          "path": "go.mod",
+          "blob_sha": "99a8be1fdeb04b895c2aad9ec058b6b6bd90a9b7",
+          "sha256": "4a169be5394ff0faeaee0632de3c2febc3e702bac5a0eedb0638aca9a212e3e3",
+          "url": "https://github.com/lennylabs/podium/blob/497eccd1f719060707cc696133991600f6edc41b/go.mod",
+          "bytes": 3667
+        },
+        {
+          "path": "pkg/registry/filesystem/discovery.go",
+          "blob_sha": "bdd0563a491e1bb168671e71e43ca81b1e8a986f",
+          "sha256": "4f1a7be258ac1cdc912fc23b0565f8bd8f127b507fe07442722644e13128cfdc",
+          "url": "https://github.com/lennylabs/podium/blob/497eccd1f719060707cc696133991600f6edc41b/pkg/registry/filesystem/discovery.go",
+          "bytes": 2381
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "lukapiskorec/craftbot",
+      "repository_id": 1338323174,
+      "commit": "2d52c09288c34f8b0e95157c213c4ed883ef59eb",
+      "tree": "2054443379b49b0f78778a4fb50c5849719f8c72",
+      "public_source_verified": true,
+      "refs_sha256": "529f66217866a2f69933b26cb999e9aeec5f2dd9c4333135611fe040581de62c",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "5300c090a4aa6ad2e50f05f23b6b383a73e753eb",
+          "sha256": "95176e1a45b1a3fb4ec3af92672d96e97ba793121323eb69ded7ecfa6c311f20",
+          "url": "https://github.com/lukapiskorec/craftbot/blob/2d52c09288c34f8b0e95157c213c4ed883ef59eb/README.md",
+          "bytes": 28900
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "b3350260b760a71ba677155f44f1d2c966dc5a67",
+          "sha256": "a6389850229de697743298adbd1b731927eced2a041778d1ee9ffad75bca1a02",
+          "url": "https://github.com/lukapiskorec/craftbot/blob/2d52c09288c34f8b0e95157c213c4ed883ef59eb/LICENSE",
+          "bytes": 1501
+        },
+        {
+          "path": "skills/extending-previous-models/SKILL.md",
+          "blob_sha": "0f9305419929734cc6e969cc734e37f7654563fe",
+          "sha256": "46402fcd392f8aad866e3e08fea04546e97008499d0db2a5506fef1eebc79021",
+          "url": "https://github.com/lukapiskorec/craftbot/blob/2d52c09288c34f8b0e95157c213c4ed883ef59eb/skills/extending-previous-models/SKILL.md",
+          "bytes": 2997
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "marin-ai-tech/skillforge",
+      "repository_id": 1451785059,
+      "commit": "13a85ebfa21b4af61fdf1a3919f28183a2525b15",
+      "tree": "8a4586e8a5d52543d3fa2e18fe457dcd1e4ac0d0",
+      "public_source_verified": true,
+      "refs_sha256": "393bae7fbb35f2fa0323a45c78d93977cc0a3e944fd6cbcabf65c215fa6bd841",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "9bba0d0e5cb0732d3ee11a08e061f07e5041595b",
+          "sha256": "394efb7558f86a66ef26478be85f676832544b5ce2c0fefa4b335981bf978e9a",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/README.md",
+          "bytes": 10426
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "1a08cc8d9686a80cebba4150025313cab949f4ba",
+          "sha256": "09628ef16a89f47999b039b972aa7b3fd1efc062fc0af5751c6302f8ecbae886",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/LICENSE",
+          "bytes": 2275
+        },
+        {
+          "path": "packages/core/src/artifact/skill.ts",
+          "blob_sha": "662d5b868d798d678bc9d70385095c71f55daac2",
+          "sha256": "db3018e960584d2ea8102b002b78ab6cb1eac8fb8d7115b2c9b1c5c9ac0f457e",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/src/artifact/skill.ts",
+          "bytes": 9159
+        },
+        {
+          "path": "packages/server/starter-packs/codealive/LICENSE",
+          "blob_sha": "de030a535d33d526d6e8cc85493ff12dd25572d8",
+          "sha256": "713e25e1d4175e464cf9c68b8238ac76a53b31f5cd754dbfcd60474b48b7b8f1",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/codealive/LICENSE",
+          "bytes": 1068
+        },
+        {
+          "path": "packages/server/starter-packs/codealive/NOTICE.md",
+          "blob_sha": "9acc7b0cf20a027b8c6bd19c94686f7dfeda1e90",
+          "sha256": "b1c135d22dea0a1282ade072e8618479a9c784033c7b69b30760ba3f654e8829",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/codealive/NOTICE.md",
+          "bytes": 2885
+        },
+        {
+          "path": "NOTICE.md",
+          "blob_sha": "5e4165e3845d44cf756c2397e290772d1a972285",
+          "sha256": "9e4f744dfee5282aee1dc3f62754eee93f04ea68f536608dcabca5b628db7645",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/NOTICE.md",
+          "bytes": 1329
+        },
+        {
+          "path": "LICENSES/PolyForm-Noncommercial-1.0.0.md",
+          "blob_sha": "5ecc88cfc4b1cff608ed640efe913c9dd97935c3",
+          "sha256": "c0ea4a896d2c8c394b29f9427589996db826cd501c512279ff0ed3ef48fabbe5",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/LICENSES/PolyForm-Noncommercial-1.0.0.md",
+          "bytes": 4563
+        },
+        {
+          "path": "LICENSES/SkillForge-Additional-Permissions.md",
+          "blob_sha": "32f4831dbbf9a6857ece5ebe49518050660010ef",
+          "sha256": "9e16287a50df594d1999726b0896ee2053196e018cd2b8de5a6826be4affcc0e",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/LICENSES/SkillForge-Additional-Permissions.md",
+          "bytes": 2773
+        },
+        {
+          "path": "packages/server/starter-packs/ecc-essentials/LICENSE",
+          "blob_sha": "b832b6f642312312367c07688dc7426db40a82ed",
+          "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/ecc-essentials/LICENSE",
+          "bytes": 1071
+        },
+        {
+          "path": "packages/server/starter-packs/ecc-essentials/NOTICE.md",
+          "blob_sha": "3ccbb2289681a80ef2565d6eb2891463a8c19fcf",
+          "sha256": "9e82737f8927abcee3301cbcda1cbe1c8f50c7de0ff8f01e5a6cb8b5ba6c24c2",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/ecc-essentials/NOTICE.md",
+          "bytes": 2591
+        },
+        {
+          "path": "packages/core/package.json",
+          "blob_sha": "75c1bf82d0c777b5b731a36df253e51b5570f1eb",
+          "sha256": "4fe163fb12dcc69c4c4af2ce02f179870cd265ec0a4bcf4316c1e174b8e422ad",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/package.json",
+          "bytes": 531
+        },
+        {
+          "path": "packages/core/src/artifact/index.ts",
+          "blob_sha": "48b8a2216ac2cd5f72051b6d05916039a8a5bff2",
+          "sha256": "f3eeac35817810d7c6ae8676eb2851f0ba7e103a02c0f44fc27cd73f3af244a6",
+          "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/src/artifact/index.ts",
+          "bytes": 7087
+        }
+      ],
+      "reference_count": 12,
+      "distinct_blob_fetches": 12,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "mars-tw/open-seo-advisor-skill",
+      "repository_id": 1285921905,
+      "commit": "1c9363dec74becc918a742d38d946e45199a09b1",
+      "tree": "cfa792eb27d746b139dd630128cd4930f325f65d",
+      "public_source_verified": true,
+      "refs_sha256": "73e25d08d778328737309dcf4a45d96ae61b4cd719f1324ad798295ec08334ce",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "5d9b59b3f8a1d4f82b57fd4f86d612385aaa83f1",
+          "sha256": "d17c465fd7b9129b1407b68b87a503dc7e8db8eb567362337bad512ad21fd3b7",
+          "url": "https://github.com/mars-tw/open-seo-advisor-skill/blob/1c9363dec74becc918a742d38d946e45199a09b1/README.md",
+          "bytes": 13770
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "url": "https://github.com/mars-tw/open-seo-advisor-skill/blob/1c9363dec74becc918a742d38d946e45199a09b1/LICENSE",
+          "bytes": 11358
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "796f3d1e89357cf4f188ce174d006748b4ad2906",
+          "sha256": "ceb0163c1a31938788f24f000cd15ec8308cf77e31fed54fea2838e8feb17fe6",
+          "url": "https://github.com/mars-tw/open-seo-advisor-skill/blob/1c9363dec74becc918a742d38d946e45199a09b1/SKILL.md",
+          "bytes": 9051
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Maryland-State-Innovation-Team/Maryland-Agent-Skills",
+      "repository_id": 1077677299,
+      "commit": "1f8fa60fdc60c9897fad8ddf97d87740167c67ba",
+      "tree": "c51ed4167d056f44065b53fd22e0c7c18a68b443",
+      "public_source_verified": true,
+      "refs_sha256": "a5bc75b6e244dce126c5f7c4801a125dafa21fdd3a091700e8f080ce6af93aae",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "3487cb8213bd9a8a80cce8b1c10134cf4b4fc648",
+          "sha256": "73159c23121b8eb4ca0fb8879a6252b376546a526793f88e52202e6a9a14ef35",
+          "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/README.md",
+          "bytes": 6236
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "7ee6dce8904905d8cd4f85d1cf34371408aa0763",
+          "sha256": "1c5da1028ff6b2d99274325d289abbf3914a60988f42f606aa5c6941bb8765e7",
+          "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/LICENSE",
+          "bytes": 1087
+        },
+        {
+          "path": "maryland-imap/SKILL.md",
+          "blob_sha": "18481b21ae4da0221e36a4a8532f2ffcf6ac9949",
+          "sha256": "c688362b12c882a125df569f45889c47eeb7dff11e5765cfc25c48f34430850a",
+          "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/maryland-imap/SKILL.md",
+          "bytes": 4513
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "matthewlewin01-wq/problem-to-place",
+      "repository_id": 1437822859,
+      "commit": "3611b59e303ce94c48b047c42d72810c1f86e91f",
+      "tree": "2654e42dedb24537dd2675292e7f87200cc5f318",
+      "public_source_verified": true,
+      "refs_sha256": "02af0cff01811b36bd3fd9c0aaa5fd0148552a60d2e3f243022b1bed1e74d468",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "61078541676e09c5a4298c98c481897a33e9aa25",
+          "sha256": "f769b7d7ff1093f72814d970bf99685942980db0c567b6cb86b4368487e6d0c0",
+          "url": "https://github.com/matthewlewin01-wq/problem-to-place/blob/3611b59e303ce94c48b047c42d72810c1f86e91f/README.md",
+          "bytes": 4833
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "26d339be285266a49093c6202727f38091a43ac4",
+          "sha256": "0c8f13fc27733e2d63b42ce1634464753a706801a545014a8e4bcabf88d871a9",
+          "url": "https://github.com/matthewlewin01-wq/problem-to-place/blob/3611b59e303ce94c48b047c42d72810c1f86e91f/LICENSE",
+          "bytes": 1070
+        },
+        {
+          "path": "problem-to-place.zip",
+          "blob_sha": "b2a2f0fe47025297b725945d16b82a69194b1e88",
+          "sha256": "d9ca8d16bcf4834f92ed638261e9bf2a7e5e8b1689971726de6f5d2698780b43",
+          "url": "https://github.com/matthewlewin01-wq/problem-to-place/blob/3611b59e303ce94c48b047c42d72810c1f86e91f/problem-to-place.zip",
+          "bytes": 14219
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree",
+      "archive_member_verification": {
+        "path": "problem-to-place/SKILL.md",
+        "sha256": "38fa3b44becf5b00ccec4e338c87e8751616ca1fdfe0682fba3d10630b5c5a1d",
+        "bytes": 10273,
+        "container_path": "problem-to-place.zip",
+        "passed": true
+      }
+    },
+    {
+      "passed": true,
+      "full_name": "meetstream-ai/meetstream-cursor-plugin",
+      "repository_id": 1344539768,
+      "commit": "9c0c050777224aa4bfe3925ce738815ce99afb07",
+      "tree": "b041c9c7a2a7a6c237c0b919da09ed34865aced0",
+      "public_source_verified": true,
+      "refs_sha256": "9855d0ad2fbaec4a89a387a9c426ca204cb1c806f616e13b700fc19ac8bec9f2",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "2e0e2cf393587d535be8e6016f73d0d03e74e756",
+          "sha256": "a0f85cca1d9d481970c6669f997f10148105e7aaaf67e5431adcbefa4ea39319",
+          "url": "https://github.com/meetstream-ai/meetstream-cursor-plugin/blob/9c0c050777224aa4bfe3925ce738815ce99afb07/README.md",
+          "bytes": 17406
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "879bf477140a4b17f68baef0bdaa275ef10c4cbb",
+          "sha256": "b632098e529b7ab5f3bd3bb376d6040d1b78de4050b280d66dfde4989b9b7ef7",
+          "url": "https://github.com/meetstream-ai/meetstream-cursor-plugin/blob/9c0c050777224aa4bfe3925ce738815ce99afb07/LICENSE",
+          "bytes": 1070
+        },
+        {
+          "path": "skills/build-notetaker/SKILL.md",
+          "blob_sha": "36da1f23316f2a1ddf95221b8762cd3ef3d09d1b",
+          "sha256": "864cd09f7db08c94dcea5c282de24441615e3070037c71ad4a89cabddb7b286c",
+          "url": "https://github.com/meetstream-ai/meetstream-cursor-plugin/blob/9c0c050777224aa4bfe3925ce738815ce99afb07/skills/build-notetaker/SKILL.md",
+          "bytes": 5218
+        },
+        {
+          "path": ".cursor-plugin/plugin.json",
+          "blob_sha": "a3e00afbd7e997be121f5ef74f026e0c4eb26687",
+          "sha256": "6954469240fd419ed2f52b071e34537f8156538b9c5e86307ae331e948f4a3b1",
+          "url": "https://github.com/meetstream-ai/meetstream-cursor-plugin/blob/9c0c050777224aa4bfe3925ce738815ce99afb07/.cursor-plugin/plugin.json",
+          "bytes": 1141
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "mengfanchun2017/ccconfig",
+      "repository_id": 1175254180,
+      "commit": "771f34300394259a6877c42861f1794e7751cb55",
+      "tree": "8398927cca51907fbdb05459775337d48df2ad05",
+      "public_source_verified": true,
+      "refs_sha256": "24680aeea275fadac8f23292601773871000a019bca4f32bf47a213d6e0de42b",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "6ba499018f39d0cb41a9e42dc09d90f5002f7cb1",
+          "sha256": "ece3b84b3bd2cbc0c34e2e76c28d6a0634d3ef89a71aa8944a515baca8038ad0",
+          "url": "https://github.com/mengfanchun2017/ccconfig/blob/771f34300394259a6877c42861f1794e7751cb55/README.md",
+          "bytes": 18379
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "a67315a632092f33c8fb540cc205a1681fbd2dc0",
+          "sha256": "5161c55f9123de1b4341a714236e339504d42c72eacc3b289c5be115ba6e6295",
+          "url": "https://github.com/mengfanchun2017/ccconfig/blob/771f34300394259a6877c42861f1794e7751cb55/LICENSE",
+          "bytes": 1069
+        },
+        {
+          "path": "option-skill/init.sh",
+          "blob_sha": "ca0a4446425fbef6b4a88f3b5f6090e9abead4c8",
+          "sha256": "2963b5f0594f271624dbb7d8f1b01778cd52c335d1bca7a2e8bba03839c7b1f5",
+          "url": "https://github.com/mengfanchun2017/ccconfig/blob/771f34300394259a6877c42861f1794e7751cb55/option-skill/init.sh",
+          "bytes": 4284
+        },
+        {
+          "path": "lib/README.md",
+          "blob_sha": "f4983e80a6ca5e2b6442d3a14cce7faa9a852536",
+          "sha256": "fcb585f9d89486d28373972c99a929355a5669bf55f31747796d32e471b6ce23",
+          "url": "https://github.com/mengfanchun2017/ccconfig/blob/771f34300394259a6877c42861f1794e7751cb55/lib/README.md",
+          "bytes": 2964
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Moksa1123/taiwan-ecommerce-toolkit",
+      "repository_id": 1144263691,
+      "commit": "23622ba85b675d59e5c9419daa00dc421fafb3f0",
+      "tree": "e1eb8354358894ea50217a3617cd205194375954",
+      "public_source_verified": true,
+      "refs_sha256": "26c3c33d1ac8ab56ba7cc2a77ec46639acdedf67771334236e943589fe33ad88",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "32adf67cc9383e843796123f0b382a3810a28891",
+          "sha256": "9529281f578c4bada496863d9397002545c4d21707d0c9c0f1cb00a11d723112",
+          "url": "https://github.com/Moksa1123/taiwan-ecommerce-toolkit/blob/23622ba85b675d59e5c9419daa00dc421fafb3f0/README.md",
+          "bytes": 13098
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "8a3ee95ebcf8c46c48bcdc9fd41dde4be048e176",
+          "sha256": "10a297fbf72ecd80c23009a54677089081e697218d4d1fe88fbf433e750cc71a",
+          "url": "https://github.com/Moksa1123/taiwan-ecommerce-toolkit/blob/23622ba85b675d59e5c9419daa00dc421fafb3f0/LICENSE",
+          "bytes": 1091
+        },
+        {
+          "path": "taiwan-invoice/SKILL.md",
+          "blob_sha": "8febde38acd94dd3f3ab4502e144aef8db7adc3c",
+          "sha256": "1a7005c0957ed49b155462a84666914a42f12eea56c49f58bb30410aa5ad52f2",
+          "url": "https://github.com/Moksa1123/taiwan-ecommerce-toolkit/blob/23622ba85b675d59e5c9419daa00dc421fafb3f0/taiwan-invoice/SKILL.md",
+          "bytes": 9556
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "blob_sha": "99b3b5b996f930f50e52c90c8b04d93cd85340a4",
+          "sha256": "f449fe5c4f2c1f01ef0901ac49b49096106c29fb8a244b42ea4db171ea1b8320",
+          "url": "https://github.com/Moksa1123/taiwan-ecommerce-toolkit/blob/23622ba85b675d59e5c9419daa00dc421fafb3f0/.claude-plugin/plugin.json",
+          "bytes": 1169
+        },
+        {
+          "path": "taiwan-invoice/README.md",
+          "blob_sha": "bca29cf877cb207369479827e87333b0e12b8936",
+          "sha256": "3fc180d38112df47331efe1e7f0d610ee0450257400bee13f88866d7f73f0994",
+          "url": "https://github.com/Moksa1123/taiwan-ecommerce-toolkit/blob/23622ba85b675d59e5c9419daa00dc421fafb3f0/taiwan-invoice/README.md",
+          "bytes": 12821
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "mortezashafiei/paper-review-and-revise",
+      "repository_id": 1461859273,
+      "commit": "cdf83b97224d67cf3251ab7c2d4de36d9d5efb38",
+      "tree": "d1079da6cd35de180e2f2664ba3ad245a8eede28",
+      "public_source_verified": true,
+      "refs_sha256": "a20dc56230c5e6d65f88e9054d805d7b1f779470e144bc112d7b15a46d72daa3",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "3fe00362fb985999188a0779db2ec81d0f827680",
+          "sha256": "59a46d7ca9581a277b4b397cd4ad508cb97d6945f069493e516b00071a6244fd",
+          "url": "https://github.com/mortezashafiei/paper-review-and-revise/blob/cdf83b97224d67cf3251ab7c2d4de36d9d5efb38/README.md",
+          "bytes": 8438
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "2f19d176d49545db35bafa00670e2cacc88d7916",
+          "sha256": "2851612f4ec41e2d3f3fbe5a3093aa31c20e9dd17cc872dfb2371d75e1704c17",
+          "url": "https://github.com/mortezashafiei/paper-review-and-revise/blob/cdf83b97224d67cf3251ab7c2d4de36d9d5efb38/LICENSE",
+          "bytes": 1089
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "5626ea52b8eef3ed04124cb39dd51176e6f3ce86",
+          "sha256": "ef88201ec2c47b1845854a42e04b3159e09db603a89494f64b9b2d8e8ad9f634",
+          "url": "https://github.com/mortezashafiei/paper-review-and-revise/blob/cdf83b97224d67cf3251ab7c2d4de36d9d5efb38/SKILL.md",
+          "bytes": 41538
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "nmg-002/steam-sel-lesson-designer",
+      "repository_id": 1461378214,
+      "commit": "98917ac1abfb8927f44c89585f9864dc2f851aea",
+      "tree": "12dcce97599ae4257a27d4d9b021bf55004facb3",
+      "public_source_verified": true,
+      "refs_sha256": "f6c297c552adac6a7d92cad32a7c47291cf4b260f97685f4c63d9342313b0614",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "00bc8dfdcd9e8bdc93f4facaa7032a36dfc26025",
+          "sha256": "12b49ba3110b084dce3b1f16a68013f1815f31eba189778ee6fbb0585085cf68",
+          "url": "https://github.com/nmg-002/steam-sel-lesson-designer/blob/98917ac1abfb8927f44c89585f9864dc2f851aea/README.md",
+          "bytes": 11142
+        },
+        {
+          "path": "LICENSE.md",
+          "blob_sha": "e6d45686fc525aecbfd8cf22986ccf4af02826d6",
+          "sha256": "60e1a1cf9544bedbf475a6ecf8b5ee0dc2951f95f832ae370af264e1916cd8f6",
+          "url": "https://github.com/nmg-002/steam-sel-lesson-designer/blob/98917ac1abfb8927f44c89585f9864dc2f851aea/LICENSE.md",
+          "bytes": 1768
+        },
+        {
+          "path": "steam-sel-lesson-designer/SKILL.md",
+          "blob_sha": "6f8fa71239e93ae6cb301457f8588e6120dc4fa8",
+          "sha256": "b2eb0345b73b6f13a760df8ed85ec98fac430d88385986880790d3136a52302d",
+          "url": "https://github.com/nmg-002/steam-sel-lesson-designer/blob/98917ac1abfb8927f44c89585f9864dc2f851aea/steam-sel-lesson-designer/SKILL.md",
+          "bytes": 18514
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "OpenLinker-ai/openlinker-registry",
+      "repository_id": 1452422745,
+      "commit": "faee2eb095198be20c15542f5a249e03805572b6",
+      "tree": "5f8251a5ff621da193c3319fdeb1fce7e71f7e94",
+      "public_source_verified": true,
+      "refs_sha256": "f69b2d07fd6ed3f856778f5b40556e9099e0a829f02afb12134a4db67f730021",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "e4d5897146642411f916084462113ee7ea8392ac",
+          "sha256": "eb03247d9acdb22a1c3e66f8974895b040a2ed5a5f242771198374aedb200e65",
+          "url": "https://github.com/OpenLinker-ai/openlinker-registry/blob/faee2eb095198be20c15542f5a249e03805572b6/README.md",
+          "bytes": 27693
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "758a6758a5d5b50fdba7cc1f82dca21558c80841",
+          "sha256": "b3b341839dbbbbbe32a8664d9aac72a78270a8986d40f7065082b37bbce4b301",
+          "url": "https://github.com/OpenLinker-ai/openlinker-registry/blob/faee2eb095198be20c15542f5a249e03805572b6/LICENSE",
+          "bytes": 11360
+        },
+        {
+          "path": "internal/skill/frontmatter.go",
+          "blob_sha": "451c959d0c0862269f758d417c486324e0e9bc75",
+          "sha256": "c40c76febee51f0db849c8a7910958ee6edc60a5307200ba11e36773f3e81967",
+          "url": "https://github.com/OpenLinker-ai/openlinker-registry/blob/faee2eb095198be20c15542f5a249e03805572b6/internal/skill/frontmatter.go",
+          "bytes": 3953
+        },
+        {
+          "path": "go.mod",
+          "blob_sha": "539bfd6d33e3f32b03fdcbe894afaaebcd223662",
+          "sha256": "c199fea43134027227aa5ce20b67da5a4cb74e52d96b72f5846d1c8c073f1780",
+          "url": "https://github.com/OpenLinker-ai/openlinker-registry/blob/faee2eb095198be20c15542f5a249e03805572b6/go.mod",
+          "bytes": 489
+        },
+        {
+          "path": "internal/upstream/wellknown.go",
+          "blob_sha": "848714cbf501f98c741fe96aba40e04cba78dfc6",
+          "sha256": "2e89ce5dce406aff7ffbde6b0091baf14bcdc4ce5ed0bcc4c09351153a91f3ba",
+          "url": "https://github.com/OpenLinker-ai/openlinker-registry/blob/faee2eb095198be20c15542f5a249e03805572b6/internal/upstream/wellknown.go",
+          "bytes": 2994
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "openmaxai/om-marketplace-client",
+      "repository_id": 1418480876,
+      "commit": "6e914f5f93d2124b36cc2f0001762d25b082d08f",
+      "tree": "17229fba41ea1593a207255f524be3e6e5916565",
+      "public_source_verified": true,
+      "refs_sha256": "7820ce02943b48c308f36d2b0ab4aecb0de588db0d43528ede4572294b11545a",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "4f230be47a55b2fa1ad3d326651ac9a254959629",
+          "sha256": "19de22c2c035f174e088aa532cfd4a86157e820839a3e0f4e09ec6f3caab27dd",
+          "url": "https://github.com/openmaxai/om-marketplace-client/blob/6e914f5f93d2124b36cc2f0001762d25b082d08f/README.md",
+          "bytes": 38242
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "47e3893cb285b5138ec71d2977090b77493d556e",
+          "sha256": "6913710b231a0c21aa19af2a4357d9340f9bc5fff552614187510760053b2e70",
+          "url": "https://github.com/openmaxai/om-marketplace-client/blob/6e914f5f93d2124b36cc2f0001762d25b082d08f/LICENSE",
+          "bytes": 1064
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "edd9670e40b6c66767da64cc8831a092aa65ba43",
+          "sha256": "d8fc84716688b532663d839d26d61ed371ec0694f8cb5c69c84c96718865e42b",
+          "url": "https://github.com/openmaxai/om-marketplace-client/blob/6e914f5f93d2124b36cc2f0001762d25b082d08f/SKILL.md",
+          "bytes": 21445
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "patkusch/askwell",
+      "repository_id": 1422644113,
+      "commit": "8639f30f948b97c504c080f64bee7e9177fb7cf5",
+      "tree": "68e62c9830d5806819bc9f583d431f4d48005d23",
+      "public_source_verified": true,
+      "refs_sha256": "6657b4dd3c0b2cfad716e4a51c854daa7db432e149be73667a848194a1835be8",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "bff80523749ef0c4f3828e22f194738ac11338e5",
+          "sha256": "ce355de2922cbcb4f95cfc7c0d076fe37285cf413408330f62f031d4380a6ed2",
+          "url": "https://github.com/patkusch/askwell/blob/8639f30f948b97c504c080f64bee7e9177fb7cf5/README.md",
+          "bytes": 9493
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "c6ed00237ee12c1c915c3e816b6d71eee124d1ad",
+          "sha256": "787e38caebdf1a0faf7960bb98b8b249df53ddc46d3bb0a0df4d853a0387a848",
+          "url": "https://github.com/patkusch/askwell/blob/8639f30f948b97c504c080f64bee7e9177fb7cf5/LICENSE",
+          "bytes": 1065
+        },
+        {
+          "path": "skills/acceptance-criteria/SKILL.md",
+          "blob_sha": "c532cda7d38adc06b52008fb590a66cc8bce9682",
+          "sha256": "e3ac8aab315196e646ff21365bae3da07d06a0e0711349a1ec22880c09008307",
+          "url": "https://github.com/patkusch/askwell/blob/8639f30f948b97c504c080f64bee7e9177fb7cf5/skills/acceptance-criteria/SKILL.md",
+          "bytes": 2282
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "PeterWar/Agentic-Eclipse-Library",
+      "repository_id": 1396819968,
+      "commit": "9ea4844adc341c4db70d439e04d4e5de6a2aa7cf",
+      "tree": "871abae1066575599f5a8b344047dd84564e19c4",
+      "public_source_verified": true,
+      "refs_sha256": "5df65daa23dc0a627e2b2eca7495c5112a4615cd1439fffb9aab2ff171a66024",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "9e385fa280e82523a3e38db17cdb18794ae9a7d0",
+          "sha256": "0be390f5c67883d3f258f59a119ab8a356214dfcef625bff532b8b0e13820845",
+          "url": "https://github.com/PeterWar/Agentic-Eclipse-Library/blob/9ea4844adc341c4db70d439e04d4e5de6a2aa7cf/README.md",
+          "bytes": 32224
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "7ebf49cf595840fad08fc0f8c99aa0d0f9bb2f79",
+          "sha256": "82d9e805b85e5df3a3b181e8a09eefb5e2c7f02d955b51be443eacaf419d1702",
+          "url": "https://github.com/PeterWar/Agentic-Eclipse-Library/blob/9ea4844adc341c4db70d439e04d4e5de6a2aa7cf/LICENSE",
+          "bytes": 1074
+        },
+        {
+          "path": "plugins/codex-ael/skills/eclipse-first-steps/SKILL.md",
+          "blob_sha": "9321bef0790f39834d5a9b6e5abebaa1879a870e",
+          "sha256": "fd2e28ed31db881e731b9828f745a511a4716b8fc50f9272de387abeac6d1718",
+          "url": "https://github.com/PeterWar/Agentic-Eclipse-Library/blob/9ea4844adc341c4db70d439e04d4e5de6a2aa7cf/plugins/codex-ael/skills/eclipse-first-steps/SKILL.md",
+          "bytes": 2684
+        },
+        {
+          "path": "plugins/codex-ael/README.md",
+          "blob_sha": "3193a85e0d02855af3a41a51b6f96eac20dceb67",
+          "sha256": "36e8950fb5f9d3f23b1c012f4ea6b29a69083e32519207c36a762143e188d6b8",
+          "url": "https://github.com/PeterWar/Agentic-Eclipse-Library/blob/9ea4844adc341c4db70d439e04d4e5de6a2aa7cf/plugins/codex-ael/README.md",
+          "bytes": 4337
+        },
+        {
+          "path": "plugins/claude-ael/README.md",
+          "blob_sha": "c14d7fe7684e510d7a5d4eb185fb79d1ba5ea1ec",
+          "sha256": "7e742dc3e9001fccb62239b7eb4e5491921982df9f50416aad808917c1a03c69",
+          "url": "https://github.com/PeterWar/Agentic-Eclipse-Library/blob/9ea4844adc341c4db70d439e04d4e5de6a2aa7cf/plugins/claude-ael/README.md",
+          "bytes": 5242
+        },
+        {
+          "path": "plugins/codex-ael/LICENSE",
+          "blob_sha": "7ebf49cf595840fad08fc0f8c99aa0d0f9bb2f79",
+          "sha256": "82d9e805b85e5df3a3b181e8a09eefb5e2c7f02d955b51be443eacaf419d1702",
+          "url": "https://github.com/PeterWar/Agentic-Eclipse-Library/blob/9ea4844adc341c4db70d439e04d4e5de6a2aa7cf/plugins/codex-ael/LICENSE",
+          "bytes": 1074
+        },
+        {
+          "path": ".agents/plugins/marketplace.json",
+          "blob_sha": "7e8126baec6a1147dfa5b94e80d7b47292cfe797",
+          "sha256": "bc872bae04a790b9d9b8e1cfe3ddac4a7c1eced2ae77332b7ba83b82694b678a",
+          "url": "https://github.com/PeterWar/Agentic-Eclipse-Library/blob/9ea4844adc341c4db70d439e04d4e5de6a2aa7cf/.agents/plugins/marketplace.json",
+          "bytes": 403
+        },
+        {
+          "path": ".claude-plugin/marketplace.json",
+          "blob_sha": "cdc531c8213ba8493ddd09a30cc50c65b4f81b11",
+          "sha256": "9d5caf68ef150af763967a588f3ce007475995eb09dabacc88d9909d201b7ebe",
+          "url": "https://github.com/PeterWar/Agentic-Eclipse-Library/blob/9ea4844adc341c4db70d439e04d4e5de6a2aa7cf/.claude-plugin/marketplace.json",
+          "bytes": 898
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "blob_sha": "1983956439cfc513aa297384979943d28d492bdb",
+          "sha256": "46a7630153f88b3e2b6ca07f894a13c8c6f8d872a7772d8b8278e4da92cc8c10",
+          "url": "https://github.com/PeterWar/Agentic-Eclipse-Library/blob/9ea4844adc341c4db70d439e04d4e5de6a2aa7cf/.claude-plugin/plugin.json",
+          "bytes": 1379
+        }
+      ],
+      "reference_count": 9,
+      "distinct_blob_fetches": 8,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "product-metrics/skills",
+      "repository_id": 1461273075,
+      "commit": "985fcc473a6485772059ba4001a2b8041dac2381",
+      "tree": "b1c8322ecefb4a32c85bd9950dbdbd26f5f80432",
+      "public_source_verified": true,
+      "refs_sha256": "8f4fa8e336e599362643d780eb9887e2a63c7ecb70ee74e2dea139a8f56fab5e",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "a0f541fc925fb6ce8035a723ab473d8c65a0211b",
+          "sha256": "1c3a5bb6e434c1fe2fa5f3c024e96428bb49e9f5fa020a33545d783c04dd7935",
+          "url": "https://github.com/product-metrics/skills/blob/985fcc473a6485772059ba4001a2b8041dac2381/README.md",
+          "bytes": 31813
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "8b392c0656e4b54f0850dfa49aea87dcbf766f56",
+          "sha256": "a98cde67faf7f58cb74900d5bdd58d73e2c95e277a99424329aa7cce484fa35d",
+          "url": "https://github.com/product-metrics/skills/blob/985fcc473a6485772059ba4001a2b8041dac2381/LICENSE",
+          "bytes": 1072
+        },
+        {
+          "path": "plugins/product-metrics/skills/bid-on-profit/SKILL.md",
+          "blob_sha": "75ee4e6b6a60c1fa7ec2c677d412b9585f63c8bb",
+          "sha256": "2d8382f84c6f0e6f2c421ddd58feb666b91b86566790790cec586ed8b3f6278a",
+          "url": "https://github.com/product-metrics/skills/blob/985fcc473a6485772059ba4001a2b8041dac2381/plugins/product-metrics/skills/bid-on-profit/SKILL.md",
+          "bytes": 6097
+        },
+        {
+          "path": "plugins/product-metrics/LICENSE",
+          "blob_sha": "8b392c0656e4b54f0850dfa49aea87dcbf766f56",
+          "sha256": "a98cde67faf7f58cb74900d5bdd58d73e2c95e277a99424329aa7cce484fa35d",
+          "url": "https://github.com/product-metrics/skills/blob/985fcc473a6485772059ba4001a2b8041dac2381/plugins/product-metrics/LICENSE",
+          "bytes": 1072
+        },
+        {
+          "path": "plugins/product-metrics/README.md",
+          "blob_sha": "65990e212217464d9eab49adeccba5d8d0789faa",
+          "sha256": "35fd7e1671a0f0b3c640903b505eb15fc746793224497fd80df45696a6840468",
+          "url": "https://github.com/product-metrics/skills/blob/985fcc473a6485772059ba4001a2b8041dac2381/plugins/product-metrics/README.md",
+          "bytes": 28156
+        },
+        {
+          "path": "plugins/product-metrics/.claude-plugin/plugin.json",
+          "blob_sha": "85df2096ce9c60fc2bfaa6d16c75a3a1f3bc37c0",
+          "sha256": "97b10ca7a5e31431deaf8778bc6a0a874db020867f17bfeafaaec6d86b952ae4",
+          "url": "https://github.com/product-metrics/skills/blob/985fcc473a6485772059ba4001a2b8041dac2381/plugins/product-metrics/.claude-plugin/plugin.json",
+          "bytes": 1698
+        }
+      ],
+      "reference_count": 6,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "rachelhong-marketing/b2b-campaign-test-planner",
+      "repository_id": 1444857582,
+      "commit": "8a3421a81fa8395dc07bc6c01f0d087c964c9360",
+      "tree": "99f644224a549ee715a5742f726509f06d497ce5",
+      "public_source_verified": true,
+      "refs_sha256": "597f39f4fc243f6e528ef532cfacd3e04ee6fc4b09e1a0ecbdd283879175b385",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "7e1e12889bdfe1af2794254ed707b508922673ca",
+          "sha256": "1101271dd965f836a40b8eb2c779a3a47f7daa2f1d2242a03e146e1fb80aebf8",
+          "url": "https://github.com/rachelhong-marketing/b2b-campaign-test-planner/blob/8a3421a81fa8395dc07bc6c01f0d087c964c9360/README.md",
+          "bytes": 8965
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "0f11c361a18ea2a8290169e0ad3f4663186772ed",
+          "sha256": "439a053a19fca1ad87a9a1f29f35c8eabc23ada014a0caf66f4b044f1e02a6c9",
+          "url": "https://github.com/rachelhong-marketing/b2b-campaign-test-planner/blob/8a3421a81fa8395dc07bc6c01f0d087c964c9360/LICENSE",
+          "bytes": 1068
+        },
+        {
+          "path": ".claude/skills/b2b-test-planner/SKILL.md",
+          "blob_sha": "3d325f1ddf4fde6a7959e3d1637d3150bff870e1",
+          "sha256": "21ad8e438df979d05f608dca561419cd6d5d3d133a1eaa9c444dd06ff8da0af2",
+          "url": "https://github.com/rachelhong-marketing/b2b-campaign-test-planner/blob/8a3421a81fa8395dc07bc6c01f0d087c964c9360/.claude/skills/b2b-test-planner/SKILL.md",
+          "bytes": 4560
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Rigjite/Scientific-Editor-AI-Protocol",
+      "repository_id": 1422964926,
+      "commit": "f0aebe86e46b719b5c91f283d96a13ff94617198",
+      "tree": "358a9aeef19895aaf5bda44de30db84affb7664b",
+      "public_source_verified": true,
+      "refs_sha256": "61deb6423c12eb9b7b8c6e388c51d99363371eae09e15aaf6b28bf5cb8c02817",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "79b6f69e8faaacfa951bcfc35abfb127e32f392f",
+          "sha256": "348dc58f2afc951988186c32820f00b6baecf642852aa6197870506630c5555c",
+          "url": "https://github.com/Rigjite/Scientific-Editor-AI-Protocol/blob/f0aebe86e46b719b5c91f283d96a13ff94617198/README.md",
+          "bytes": 19994
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "4ea99c213c5c0c005ae4e80df8e52169d06896ec",
+          "sha256": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94",
+          "url": "https://github.com/Rigjite/Scientific-Editor-AI-Protocol/blob/f0aebe86e46b719b5c91f283d96a13ff94617198/LICENSE",
+          "bytes": 18656
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "f7290fdbabedb4fcd96d7c8972956ad7b740c2b8",
+          "sha256": "f4bf00ea1e1a28c554e98d4801ad56a2da4e293ce5fed757fab5ea0467abf5d8",
+          "url": "https://github.com/Rigjite/Scientific-Editor-AI-Protocol/blob/f0aebe86e46b719b5c91f283d96a13ff94617198/SKILL.md",
+          "bytes": 22047
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Rollstack/skills",
+      "repository_id": 1446811132,
+      "commit": "0b76e74b1a02a7953d85f32711422109513a6400",
+      "tree": "4dadc06870ebf5977492331cdbcf4c5c83981410",
+      "public_source_verified": true,
+      "refs_sha256": "6025ec00f54bfc5e229ab3b8808887096ff7a64672bc7b692846c8c373129ba2",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "bcfc3c4c29cae8ab13fe52a4ca1727e455dcc9b3",
+          "sha256": "ff44226c7126c5e6ba39f9370972124e8e7148780fc2e9022c26c7dd13f062b1",
+          "url": "https://github.com/Rollstack/skills/blob/0b76e74b1a02a7953d85f32711422109513a6400/README.md",
+          "bytes": 6004
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "7b698c1aad7546b7ea2a960072ba7975e7f82f3c",
+          "sha256": "4ae93c5e1a8c719b4886ce2a123332fcbc5396869120cc75332569e0916f9f9a",
+          "url": "https://github.com/Rollstack/skills/blob/0b76e74b1a02a7953d85f32711422109513a6400/LICENSE",
+          "bytes": 1071
+        },
+        {
+          "path": "skills/rollstack-brand-deck/SKILL.md",
+          "blob_sha": "58b52209a71b1b4055438e7abea280dfa9c023b6",
+          "sha256": "bfdf1aac036dc5536a7b3f91fcb77f73e87bb0fbe72bbb10aeefa69c93437ca4",
+          "url": "https://github.com/Rollstack/skills/blob/0b76e74b1a02a7953d85f32711422109513a6400/skills/rollstack-brand-deck/SKILL.md",
+          "bytes": 1915
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "blob_sha": "e58b723dfc7bc7e4f4309e0b406f3a41d4835b4b",
+          "sha256": "35aed237c54ac8f94532491bfb2e00cb2fc603bb4eaccc88c3bafaa8c70d3404",
+          "url": "https://github.com/Rollstack/skills/blob/0b76e74b1a02a7953d85f32711422109513a6400/.claude-plugin/plugin.json",
+          "bytes": 742
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "3b76f3bc4a69071e814d9456a1d40310789e2bdc",
+          "sha256": "51a3662a971e4ac7a580b53ae8d45a3418115e5d5ae779853c52e560c3689449",
+          "url": "https://github.com/Rollstack/skills/blob/0b76e74b1a02a7953d85f32711422109513a6400/package.json",
+          "bytes": 963
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "RolnickLab/lab-starter-skills",
+      "repository_id": 1401998359,
+      "commit": "30cde20127dae180466bf977f6305e1dd2eadea5",
+      "tree": "3e87f99996a3140bcd549461c5670d813c5eebc7",
+      "public_source_verified": true,
+      "refs_sha256": "2eff7d81c1da5b30937c36d4dcbe3dd20c5aa62f95aade700288c15936d9dc22",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "e5c75c9da44a4464dfe58f8dc1ca1f18495f476d",
+          "sha256": "f761e14bbfcfabad1a444e567a39d70b9bc2faca4a6866965c264a61f86251b5",
+          "url": "https://github.com/RolnickLab/lab-starter-skills/blob/30cde20127dae180466bf977f6305e1dd2eadea5/README.md",
+          "bytes": 9176
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "2deb30d9c118c1ffc06f2352f5e301dfd930a11b",
+          "sha256": "1fe6bce93119ea734f8cdbc226dfc19dc7340565ae2739da3686f63eaad474af",
+          "url": "https://github.com/RolnickLab/lab-starter-skills/blob/30cde20127dae180466bf977f6305e1dd2eadea5/LICENSE",
+          "bytes": 1074
+        },
+        {
+          "path": "skills/code-review/SKILL.md",
+          "blob_sha": "c0d20bea99a5260f0b1e80649c7aae8ed557d5bb",
+          "sha256": "67ec8d3c8e5568aab686dffa78caec2a611dac6d5518e05f37c607ec6b3a35f6",
+          "url": "https://github.com/RolnickLab/lab-starter-skills/blob/30cde20127dae180466bf977f6305e1dd2eadea5/skills/code-review/SKILL.md",
+          "bytes": 5858
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "ruihe774/pubmed-literature-search-skill",
+      "repository_id": 1412594815,
+      "commit": "4c79e103cca118ef7df84bf5c55f92237d23e265",
+      "tree": "96eabba7bb804985b9bddaa3777e101fe8c3a316",
+      "public_source_verified": true,
+      "refs_sha256": "b15b57c2001daa4cd22db4443d85d1e8ff6eeaf9c243a1fc4a3132978fac0d44",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "24f9e0440d07cc68db5799f400f7b594738c418d",
+          "sha256": "11eec4f9ce358aafd85a39986f13d300d33cc45f9d0a944595d7c04eb66ddcbd",
+          "url": "https://github.com/ruihe774/pubmed-literature-search-skill/blob/4c79e103cca118ef7df84bf5c55f92237d23e265/README.md",
+          "bytes": 4339
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "fdddb29aa445bf3d6a5d843d6dd77e10a9f99657",
+          "sha256": "6b0382b16279f26ff69014300541967a356a666eb0b91b422f6862f6b7dad17e",
+          "url": "https://github.com/ruihe774/pubmed-literature-search-skill/blob/4c79e103cca118ef7df84bf5c55f92237d23e265/LICENSE",
+          "bytes": 1211
+        },
+        {
+          "path": "skills/pubmed-literature-search/SKILL.md",
+          "blob_sha": "d74ac1bb83a2c28cffacb810d3e8b4e53b4bb839",
+          "sha256": "3630d2ed66ee1ebe6c9a1be3ea165bea7cb62a6f1e1d1ccfde1b32c1713a4e0a",
+          "url": "https://github.com/ruihe774/pubmed-literature-search-skill/blob/4c79e103cca118ef7df84bf5c55f92237d23e265/skills/pubmed-literature-search/SKILL.md",
+          "bytes": 13366
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "SalesforceLabs/lsc-for-claude",
+      "repository_id": 1327137030,
+      "commit": "34815cb489dc4fbca59c22ad317530f46806b408",
+      "tree": "707e07a8136b46652918619f9937f2ee09a7425a",
+      "public_source_verified": true,
+      "refs_sha256": "f1a3f1ff1abe04ea0bf531ad27e8be185bc9d8368fe6924756830b5dfd916494",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "609a64f78c215d03347913d7269a01592d6f1a06",
+          "sha256": "ddc9e3627dadb8efdca4ac7f5e89db480ad152eda71e1640bc6c84fb54b8e006",
+          "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/README.md",
+          "bytes": 40707
+        },
+        {
+          "path": "LICENSE.txt",
+          "blob_sha": "1a67589f069766095235245a98ef8aef76e30421",
+          "sha256": "7f32b32434490332df34d81b4b91f310f5885920ecb9890774b38b772f08c660",
+          "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/LICENSE.txt",
+          "bytes": 11444
+        },
+        {
+          "path": "skills/lsc-account-management/SKILL.md",
+          "blob_sha": "f7a1a45e0939fc4efc4bf4c444d7784ccb708a79",
+          "sha256": "f2595c1e7a5eff671a1e712cebdf62b39e742b3579d2f3660aaf230e4597330c",
+          "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/skills/lsc-account-management/SKILL.md",
+          "bytes": 4534
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "blob_sha": "9dcc10c664b7fbf679868cafb0379a8f7ec5c35b",
+          "sha256": "b9588296d446e51aea98aa001ed7e0621680cf91f44aa7e3d390821aaf94c999",
+          "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/.claude-plugin/plugin.json",
+          "bytes": 414
+        },
+        {
+          "path": ".claude/skills/roz-ui/SKILL.md",
+          "blob_sha": "0d0e7d032a1a6b39f8735d3e19a9fc18abbdd8d3",
+          "sha256": "20d553be3cfb021984bb9dde80ef272638c9938ee31a7bfa03842a39e116db61",
+          "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/.claude/skills/roz-ui/SKILL.md",
+          "bytes": 6611
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "sebastienrousseau/agtmls",
+      "repository_id": 1293243728,
+      "commit": "e5f040d0714a3e21748ab076002ffad46f42b9bc",
+      "tree": "bc162b9c172785780ac8badb1b7260e724c8454b",
+      "public_source_verified": true,
+      "refs_sha256": "4c73d24cbaad232f36aeb1fc3ecefe1cdaef1b96b84be0e71fe99135b57df716",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "a5351642536746c3acadb6cec6325efc6ad749ef",
+          "sha256": "de88ce46f2d57a9ee0ce73d66f52bf397cd9854f9d6b6da35839912d5afa6edf",
+          "url": "https://github.com/sebastienrousseau/agtmls/blob/e5f040d0714a3e21748ab076002ffad46f42b9bc/README.md",
+          "bytes": 31940
+        },
+        {
+          "path": "LICENSE-MIT",
+          "blob_sha": "02ef99a5e5b5665318c31f6f790f701862117461",
+          "sha256": "0bbbd45c3890a3dbdc4614f1dac05de29053165039aedf71ffc7adb85e2ad810",
+          "url": "https://github.com/sebastienrousseau/agtmls/blob/e5f040d0714a3e21748ab076002ffad46f42b9bc/LICENSE-MIT",
+          "bytes": 1075
+        },
+        {
+          "path": "skills/authoring-portable-skills/SKILL.md",
+          "blob_sha": "3853e658ecb2ca9646717198cba1176f1fbf9917",
+          "sha256": "de3804141be9d041232ded2642bad2219effb80f955e95443e643bfcdab165ff",
+          "url": "https://github.com/sebastienrousseau/agtmls/blob/e5f040d0714a3e21748ab076002ffad46f42b9bc/skills/authoring-portable-skills/SKILL.md",
+          "bytes": 5340
+        },
+        {
+          "path": "pyproject.toml",
+          "blob_sha": "ebb5a0337e04e29908ad3cbed0df4b2afd5adb58",
+          "sha256": "47efbc1e818be3acbc62596f8583007bf885d8cb7d8d2c1cab6ed1dad219bf54",
+          "url": "https://github.com/sebastienrousseau/agtmls/blob/e5f040d0714a3e21748ab076002ffad46f42b9bc/pyproject.toml",
+          "bytes": 4894
+        },
+        {
+          "path": "LICENSE-APACHE",
+          "blob_sha": "3d9a3a61633928402aed87160ac0d7d044a1b8bf",
+          "sha256": "96bd8666cb191d86e4108d674120391148d050afaaed373dbcca29d41af310e4",
+          "url": "https://github.com/sebastienrousseau/agtmls/blob/e5f040d0714a3e21748ab076002ffad46f42b9bc/LICENSE-APACHE",
+          "bytes": 10287
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "sebastienrousseau/agtmls-core",
+      "repository_id": 1377233728,
+      "commit": "bfaaea0f9985227a307cedb0a8dab5290c4b5b0a",
+      "tree": "1c9ec87e49f004c8e0291b6e64cc2b3eb12ae1ed",
+      "public_source_verified": true,
+      "refs_sha256": "953b0e20548418de71ffa3077ec512b7754b2855d67af00db7f7627b49be6df8",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "48ccdf0f92b0f65afbf3e81abd5a745cb1238185",
+          "sha256": "b0e7a8985481050ab54222f7fbe77176006104ea3a2aa28c44e12c2a663055ad",
+          "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/README.md",
+          "bytes": 6738
+        },
+        {
+          "path": "LICENSE-MIT",
+          "blob_sha": "02ef99a5e5b5665318c31f6f790f701862117461",
+          "sha256": "0bbbd45c3890a3dbdc4614f1dac05de29053165039aedf71ffc7adb85e2ad810",
+          "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/LICENSE-MIT",
+          "bytes": 1075
+        },
+        {
+          "path": "crates/agtmls-core/src/skill.rs",
+          "blob_sha": "e6203fa66df86fdc7311c993f859a77a4e5aa909",
+          "sha256": "3cf33a76412a983a5bcceedf57109c661c924db22e6388fa669fe8dcda093aec",
+          "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/src/skill.rs",
+          "bytes": 21648
+        },
+        {
+          "path": "crates/agtmls-core/Cargo.toml",
+          "blob_sha": "956f5bbf594bbd78fc1b9e27be0c264032fccc9d",
+          "sha256": "ca5f7a86f6b426c186c432e4d509b4e068ced6acc42206d727576aec073cdb4d",
+          "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/Cargo.toml",
+          "bytes": 814
+        },
+        {
+          "path": "LICENSE-APACHE",
+          "blob_sha": "3d9a3a61633928402aed87160ac0d7d044a1b8bf",
+          "sha256": "96bd8666cb191d86e4108d674120391148d050afaaed373dbcca29d41af310e4",
+          "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/LICENSE-APACHE",
+          "bytes": 10287
+        },
+        {
+          "path": "crates/agtmls-core/src/lib.rs",
+          "blob_sha": "2c4ec86ba084ab1142b91ad9d2b1973452231d32",
+          "sha256": "4413b19ce1e8cd56b5d055f06a9863e89c0d9204405f8b796df2f00f38e59794",
+          "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/src/lib.rs",
+          "bytes": 2039
+        },
+        {
+          "path": "Cargo.toml",
+          "blob_sha": "1fc329be0ef62f72b84c895ff504eb43bfa6ff85",
+          "sha256": "43f0ca6ad7740eeecf6d789237572ba42734fbaf83c3d6a11ca0912f2222a5c3",
+          "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/Cargo.toml",
+          "bytes": 1024
+        }
+      ],
+      "reference_count": 7,
+      "distinct_blob_fetches": 7,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "Sequenzy/skills",
+      "repository_id": 1187635501,
+      "commit": "b2644b5b8c3953f8353ae825e634cdf77fe7124b",
+      "tree": "4d67d08b414563056a363059277d63d767d240d0",
+      "public_source_verified": true,
+      "refs_sha256": "9cb2d3e223613718bd27cfcec15eecdfce230836fadd505293eac01339fd6664",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "30d81f7f8884462d6528e7a4198860fa3243ef1b",
+          "sha256": "a4717f4767a13be780be4f16ffc3d7d8aede472a2780a832b536ae7b1f3b2e46",
+          "url": "https://github.com/Sequenzy/skills/blob/b2644b5b8c3953f8353ae825e634cdf77fe7124b/README.md",
+          "bytes": 11093
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "5dfff7ea4ad3b1c26713aa9581280adf6b30244d",
+          "sha256": "99bd1963926dad3a1fb9bf84e6e8194363af9df844ed83bec89975325994bbb2",
+          "url": "https://github.com/Sequenzy/skills/blob/b2644b5b8c3953f8353ae825e634cdf77fe7124b/LICENSE",
+          "bytes": 1065
+        },
+        {
+          "path": "plugins/sequenzy/skills/sequenzy-email-marketing/SKILL.md",
+          "blob_sha": "3fbdd98870dad079e220ab053da13413b4943c11",
+          "sha256": "647bd5b20a0241ea1ac9c311207d0013c782552add642f0e504b29c72a7e39e1",
+          "url": "https://github.com/Sequenzy/skills/blob/b2644b5b8c3953f8353ae825e634cdf77fe7124b/plugins/sequenzy/skills/sequenzy-email-marketing/SKILL.md",
+          "bytes": 8994
+        },
+        {
+          "path": "plugins/sequenzy/README.md",
+          "blob_sha": "ad5e3d7cc005f7bac555140a86fbb7fe964f4b1a",
+          "sha256": "c5467206173ef994b43226aee2fd238ef64eb1f68a5a47805c5c901038983ba9",
+          "url": "https://github.com/Sequenzy/skills/blob/b2644b5b8c3953f8353ae825e634cdf77fe7124b/plugins/sequenzy/README.md",
+          "bytes": 6889
+        },
+        {
+          "path": "plugins/sequenzy/.claude-plugin/plugin.json",
+          "blob_sha": "7af5299951d1f03ca0d0e94420a4085bac950221",
+          "sha256": "fecd2399bcdc53c9202bea848973e4c0b8adc9c41fcda3c90b13da231b702d2f",
+          "url": "https://github.com/Sequenzy/skills/blob/b2644b5b8c3953f8353ae825e634cdf77fe7124b/plugins/sequenzy/.claude-plugin/plugin.json",
+          "bytes": 844
+        },
+        {
+          "path": "plugins/sequenzy/LICENSE",
+          "blob_sha": "5dfff7ea4ad3b1c26713aa9581280adf6b30244d",
+          "sha256": "99bd1963926dad3a1fb9bf84e6e8194363af9df844ed83bec89975325994bbb2",
+          "url": "https://github.com/Sequenzy/skills/blob/b2644b5b8c3953f8353ae825e634cdf77fe7124b/plugins/sequenzy/LICENSE",
+          "bytes": 1065
+        },
+        {
+          "path": "skills/claudeemailmarketing/SKILL.md",
+          "blob_sha": "1b9c2c3462f3299491abbcffde319ccc4968422f",
+          "sha256": "e14fc45d1ff008aed6c4962f66ebf282c68142a42d636a8588502a3a7c6bf281",
+          "url": "https://github.com/Sequenzy/skills/blob/b2644b5b8c3953f8353ae825e634cdf77fe7124b/skills/claudeemailmarketing/SKILL.md",
+          "bytes": 3042
+        }
+      ],
+      "reference_count": 7,
+      "distinct_blob_fetches": 6,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "shimo4228/search-first",
+      "repository_id": 1164278373,
+      "commit": "2d49527a72bd1b2eb86d910c125b12883ddca775",
+      "tree": "ab3b0dd1b48b22076f39a7a6d3361a0ec8316ae2",
+      "public_source_verified": true,
+      "refs_sha256": "a6e22aca5199b40242ccf77f353d1bb74714de1b23219c687d1a7fabafbf442c",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "d2290c3ccc21e01d63ed5591d9478c5c6a70ae36",
+          "sha256": "4bf55397a2e0e256585793aadea563a32b159d1ae010d0fb9c49757be8736b40",
+          "url": "https://github.com/shimo4228/search-first/blob/2d49527a72bd1b2eb86d910c125b12883ddca775/README.md",
+          "bytes": 12412
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "475970f63217450315a1e7962b2de38a82c40ffd",
+          "sha256": "f464dfbb835d3a90ca3fb3d1bcc0b6c5a6472ebaacb1ce99d93b73e97a28104c",
+          "url": "https://github.com/shimo4228/search-first/blob/2d49527a72bd1b2eb86d910c125b12883ddca775/LICENSE",
+          "bytes": 1066
+        },
+        {
+          "path": "skills/search-first/SKILL.md",
+          "blob_sha": "3af1f0660d4cfa4f2b9aa7644809605edc7a0d68",
+          "sha256": "41d55313a3ff6cce216fe8149dd64929c296199be053fabcad2ab87936812cdd",
+          "url": "https://github.com/shimo4228/search-first/blob/2d49527a72bd1b2eb86d910c125b12883ddca775/skills/search-first/SKILL.md",
+          "bytes": 11346
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "skilletmd/skillet",
+      "repository_id": 1340788648,
+      "commit": "4673cd5eefaa176452ee4e8c162dfa98e95cf26b",
+      "tree": "4e5575fab18d0ffa8ff613422647f4db4dc4e1b9",
+      "public_source_verified": true,
+      "refs_sha256": "f4b498018d9685eb11e26dc1a9cab25baceb8769eba4151537877c5e1ec2d210",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "8f774787e13f80f627fc0bd25cb0d059a0aec6dd",
+          "sha256": "79332b8d8bdf36a55bea7ac21e999ffedecd8190d4023a400d7e72efd9aa3a5f",
+          "url": "https://github.com/skilletmd/skillet/blob/4673cd5eefaa176452ee4e8c162dfa98e95cf26b/README.md",
+          "bytes": 6471
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "url": "https://github.com/skilletmd/skillet/blob/4673cd5eefaa176452ee4e8c162dfa98e95cf26b/LICENSE",
+          "bytes": 11358
+        },
+        {
+          "path": "skills/changelog-draft/SKILL.md",
+          "blob_sha": "57a810549659140fb03c92877503b9115b28a12e",
+          "sha256": "a73e7baf1a4377a785a0b3309d26fdd7511bd7f5b801b2296089f51e5b2e748e",
+          "url": "https://github.com/skilletmd/skillet/blob/4673cd5eefaa176452ee4e8c162dfa98e95cf26b/skills/changelog-draft/SKILL.md",
+          "bytes": 2838
+        },
+        {
+          "path": "packages/core/src/commands/bundled-route-skill.ts",
+          "blob_sha": "a77e94ee4b09916956ecbfb492cc69337cf48d46",
+          "sha256": "344edd9478bc0fe59cb6c23bc3cba629dac7732a0367665376863e3ad1e0b3d7",
+          "url": "https://github.com/skilletmd/skillet/blob/4673cd5eefaa176452ee4e8c162dfa98e95cf26b/packages/core/src/commands/bundled-route-skill.ts",
+          "bytes": 3538
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "7a1f44b1952f26f28948d2e604076f561af15874",
+          "sha256": "62796fcc4ae3e88fd1e68e568c47769f864e5d40648af5bbbda04fe6d6ce395e",
+          "url": "https://github.com/skilletmd/skillet/blob/4673cd5eefaa176452ee4e8c162dfa98e95cf26b/NOTICE",
+          "bytes": 122
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "softprobe/softprobe-plugin",
+      "repository_id": 1388413761,
+      "commit": "23a76de6770e282aa73634949106d42d2611a1ce",
+      "tree": "769734d3beac5d7acdf87d14de79c791cc353254",
+      "public_source_verified": true,
+      "refs_sha256": "b6faada1a962c3dc88a6ea72b3b43ca5bfef4e1eb61354019bc061f4643a1c8f",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "af2b92d5b41378bec51143a83e1b8f9039355324",
+          "sha256": "e911bba4a11c4a6dc1adf43647eb02d02d68dee6f07a33a3b9c24b269bed2df1",
+          "url": "https://github.com/softprobe/softprobe-plugin/blob/23a76de6770e282aa73634949106d42d2611a1ce/README.md",
+          "bytes": 3985
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "b20151f32960a869d43e3d82bd127140dd159d50",
+          "sha256": "1863fb0294f8567fdba897792c9fe82c4015c09591372d2a8f2ea3f868485349",
+          "url": "https://github.com/softprobe/softprobe-plugin/blob/23a76de6770e282aa73634949106d42d2611a1ce/LICENSE",
+          "bytes": 11390
+        },
+        {
+          "path": "plugins/softprobe-blackbox/skills/blackbox/SKILL.md",
+          "blob_sha": "efc1718a7aa01e3f1c40647683390c784498913c",
+          "sha256": "9fcca5c9092ef18883239c03e7185669d7d76456b9b18cd9eca9115dfe2fd2de",
+          "url": "https://github.com/softprobe/softprobe-plugin/blob/23a76de6770e282aa73634949106d42d2611a1ce/plugins/softprobe-blackbox/skills/blackbox/SKILL.md",
+          "bytes": 3219
+        },
+        {
+          "path": "NOTICE",
+          "blob_sha": "8a5a63d0dce5526f3516c319065fbf49be5b3b46",
+          "sha256": "4a26a4c8fab5514eb9ed5e7e4f6be9ae734020bccee40599b9ff9608990cda5c",
+          "url": "https://github.com/softprobe/softprobe-plugin/blob/23a76de6770e282aa73634949106d42d2611a1ce/NOTICE",
+          "bytes": 157
+        },
+        {
+          "path": "plugins/softprobe-blackbox/.claude-plugin/plugin.json",
+          "blob_sha": "a8fbb3587a1266b91ef22d9d99a578147e068c90",
+          "sha256": "52dd0c125dc57992aa247d710229b81037fd43f17250f9b2a210b333e26cfc3c",
+          "url": "https://github.com/softprobe/softprobe-plugin/blob/23a76de6770e282aa73634949106d42d2611a1ce/plugins/softprobe-blackbox/.claude-plugin/plugin.json",
+          "bytes": 716
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "stefanoskarakasis/Product-Marketing-Skills",
+      "repository_id": 1195297408,
+      "commit": "5f268c6d32c051c458b671508f53593589a6679f",
+      "tree": "96729f762d162522ad1afa5a1a3ab5f4ce8c44dd",
+      "public_source_verified": true,
+      "refs_sha256": "9975bac37c6661c36be075a3b266135f44a13c243dda391df6fedc6c9f6f081e",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "8fce9a1fca610225d224113df932f5b9da209e03",
+          "sha256": "fa35098fd1d6d9a9ccfedd468c0b4bd30bbf2df16363fa6121244b7444f1e62e",
+          "url": "https://github.com/stefanoskarakasis/Product-Marketing-Skills/blob/5f268c6d32c051c458b671508f53593589a6679f/README.md",
+          "bytes": 18100
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "3c93cce2cd1f4d0691b02f4b666e237c34350804",
+          "sha256": "8799d9af03912e53bbefe44d63d77485d77195136496229d6d2a8cf7fac63d44",
+          "url": "https://github.com/stefanoskarakasis/Product-Marketing-Skills/blob/5f268c6d32c051c458b671508f53593589a6679f/LICENSE",
+          "bytes": 1075
+        },
+        {
+          "path": "pmm-sales/skills/sales-research-digest/SKILL.md",
+          "blob_sha": "23c7728fa198a5c209341fa5b7a0f727319c5381",
+          "sha256": "95a975d0f71476fd783671b1416762bc27947eb8a43d91d2e498fa5bf379f99b",
+          "url": "https://github.com/stefanoskarakasis/Product-Marketing-Skills/blob/5f268c6d32c051c458b671508f53593589a6679f/pmm-sales/skills/sales-research-digest/SKILL.md",
+          "bytes": 6094
+        },
+        {
+          "path": "pmm-sales/README.md",
+          "blob_sha": "0764ae4ec931f8c0b1b51556255c949d6f402c14",
+          "sha256": "4b467d8de747a55dc84a1362c8da2f8e3983621e95e43709df72c68e42f43cc1",
+          "url": "https://github.com/stefanoskarakasis/Product-Marketing-Skills/blob/5f268c6d32c051c458b671508f53593589a6679f/pmm-sales/README.md",
+          "bytes": 5641
+        },
+        {
+          "path": "pmm-sales/.claude-plugin/plugin.json",
+          "blob_sha": "d05aab7b627ea00c58313c316dc711e08c29d75c",
+          "sha256": "7512da7ab93e8a1b0efd0d509e0e04e205332f104fa815899d3ed492dc062f9d",
+          "url": "https://github.com/stefanoskarakasis/Product-Marketing-Skills/blob/5f268c6d32c051c458b671508f53593589a6679f/pmm-sales/.claude-plugin/plugin.json",
+          "bytes": 920
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "szt2006/DeepMol-WorkBuddy-skill",
+      "repository_id": 1227171497,
+      "commit": "fde689c82f58cb7ec4b28309aac8bd6a51311904",
+      "tree": "f8196b4a0e0214fe587abe6b5f8429341e21b17d",
+      "public_source_verified": true,
+      "refs_sha256": "a1939b3df89dd4b7fd140dcd7224f2bfc6e3674677b66c63d3e307e94e559eaa",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "a685b9e4ae484d7567d8500826a892f68ad4690d",
+          "sha256": "6e6df8363260f72ae6bf320331de2b1db4de9c878fcc2f4b705b14360a26b579",
+          "url": "https://github.com/szt2006/DeepMol-WorkBuddy-skill/blob/fde689c82f58cb7ec4b28309aac8bd6a51311904/README.md",
+          "bytes": 5682
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "14fac913ccf80234b1848540089a3bbcb6e5283d",
+          "sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685",
+          "url": "https://github.com/szt2006/DeepMol-WorkBuddy-skill/blob/fde689c82f58cb7ec4b28309aac8bd6a51311904/LICENSE",
+          "bytes": 1056
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "032c8598bc0792dc47803812f4f3272cf866a168",
+          "sha256": "241657fa06ff80150ae40959505818b7663636c6b49d58cdb65b787e396b9c1e",
+          "url": "https://github.com/szt2006/DeepMol-WorkBuddy-skill/blob/fde689c82f58cb7ec4b28309aac8bd6a51311904/SKILL.md",
+          "bytes": 12417
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "taccardoso/autoresearchprimitives",
+      "repository_id": 1462147102,
+      "commit": "63ab5b3b843276b91f6fbee9a60f05131f73b623",
+      "tree": "ac0df25a021af461f9a129b97a1bdeaafb6b267a",
+      "public_source_verified": true,
+      "refs_sha256": "2c28c712762eaa262211ae34c42b582ea2103165cf6e5fe382935e217531fc07",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "d4fd9f86c4b56ea65eddf33a33aba94df7c839fa",
+          "sha256": "367fac9f27a56f78cd53782bfd53aacb87af54459532537093dc1db4feb65d98",
+          "url": "https://github.com/taccardoso/autoresearchprimitives/blob/63ab5b3b843276b91f6fbee9a60f05131f73b623/README.md",
+          "bytes": 4027
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "78982641f350eee13b14fd6e1f9b936b8b2fa454",
+          "sha256": "556cf38782d2f23e185c246823b0fa27b9c31610d3873f4c874399331ba6a2fd",
+          "url": "https://github.com/taccardoso/autoresearchprimitives/blob/63ab5b3b843276b91f6fbee9a60f05131f73b623/LICENSE",
+          "bytes": 1092
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "892edffbc131e859e9cc4c26ae72aae8a2a8e8ac",
+          "sha256": "be1637838f88848751ce372cd83d552a74338d447d399ea75773a82adf8ac2ed",
+          "url": "https://github.com/taccardoso/autoresearchprimitives/blob/63ab5b3b843276b91f6fbee9a60f05131f73b623/SKILL.md",
+          "bytes": 4026
+        },
+        {
+          "path": "primitives/derive.py",
+          "blob_sha": "98abb8ef8e63044c7863614af2f5b174b63ee6d3",
+          "sha256": "d8e70774a39e41e3b9041e03719c3085e95fa848597e2f260d7bfe6d769f84b0",
+          "url": "https://github.com/taccardoso/autoresearchprimitives/blob/63ab5b3b843276b91f6fbee9a60f05131f73b623/primitives/derive.py",
+          "bytes": 7197
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "The-General-Data-Company/tgdc-skills",
+      "repository_id": 1416627413,
+      "commit": "3f8d1b72d35937d0dd01bbe4ccf84fbb2774eeaf",
+      "tree": "876b7f0bbf96dd3674de4dd5c3f89239119a7cc7",
+      "public_source_verified": true,
+      "refs_sha256": "ab37cd03165457c8110793c82a14bee302ea755ffa43fae08acde6a3ca400d1a",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "54d73e2d32f4221177fa031d1ee9bc9376270621",
+          "sha256": "10fd685fb91aee8c49c31a9ec84d5351e1cdd8fbd30e628fa32c8596fe383b83",
+          "url": "https://github.com/The-General-Data-Company/tgdc-skills/blob/3f8d1b72d35937d0dd01bbe4ccf84fbb2774eeaf/README.md",
+          "bytes": 18849
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "29ca4a12a1ecb621d153ed8ddc9eefa5c17e5e8e",
+          "sha256": "fd3b1aaee959db6905ffc8a47cd97375918fdad28caef12b864cb81b37615a1f",
+          "url": "https://github.com/The-General-Data-Company/tgdc-skills/blob/3f8d1b72d35937d0dd01bbe4ccf84fbb2774eeaf/LICENSE",
+          "bytes": 11355
+        },
+        {
+          "path": "skills/tgdc-clean-copy/SKILL.md",
+          "blob_sha": "eaadcf8743595773eacb5565eceef52c884b1305",
+          "sha256": "46421a4766fc47765d6e6a0136f9e1f48a902574dbd6f6b321849bc13a5b65fd",
+          "url": "https://github.com/The-General-Data-Company/tgdc-skills/blob/3f8d1b72d35937d0dd01bbe4ccf84fbb2774eeaf/skills/tgdc-clean-copy/SKILL.md",
+          "bytes": 10218
+        },
+        {
+          "path": "skills/tgdc-clean-copy/LICENSE.txt",
+          "blob_sha": "29ca4a12a1ecb621d153ed8ddc9eefa5c17e5e8e",
+          "sha256": "fd3b1aaee959db6905ffc8a47cd97375918fdad28caef12b864cb81b37615a1f",
+          "url": "https://github.com/The-General-Data-Company/tgdc-skills/blob/3f8d1b72d35937d0dd01bbe4ccf84fbb2774eeaf/skills/tgdc-clean-copy/LICENSE.txt",
+          "bytes": 11355
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "tomc98/claude-code-codex-skill",
+      "repository_id": 1162200228,
+      "commit": "0b36e4324794ad627104327a68419b349c7d7bb0",
+      "tree": "58dd1825f628fd63d4749f33633de8ee81c1a573",
+      "public_source_verified": true,
+      "refs_sha256": "dd0ee5ff76c19f45663bdf17d732c72a73e3a04d1c47ee08b770e7566d17c3ba",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "558cdbaa303cea3d3f5215c7d355436a22fbbfa5",
+          "sha256": "625677c6b10e4d9194f5515abb59a61215c3b36cc2363cad87d87cde4f71ce30",
+          "url": "https://github.com/tomc98/claude-code-codex-skill/blob/0b36e4324794ad627104327a68419b349c7d7bb0/README.md",
+          "bytes": 4930
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "e423771d15e305ab5e94ec0e610abcc09f6d1d96",
+          "sha256": "794fa3d0f9474537dc12551208c7af36095d022001779ee8e698a9dfb64fc036",
+          "url": "https://github.com/tomc98/claude-code-codex-skill/blob/0b36e4324794ad627104327a68419b349c7d7bb0/LICENSE",
+          "bytes": 1069
+        },
+        {
+          "path": "SKILL.md",
+          "blob_sha": "311d1480666b01fb6ec875dda09552902fba1507",
+          "sha256": "9136c700918507809e6f8be20124fc20dc0f472d70396740fbeee9c22f15c72d",
+          "url": "https://github.com/tomc98/claude-code-codex-skill/blob/0b36e4324794ad627104327a68419b349c7d7bb0/SKILL.md",
+          "bytes": 23991
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "trikko/hackerscad",
+      "repository_id": 1414774485,
+      "commit": "c73f18f4839cfbe4f0f6fa16116e815de78d4411",
+      "tree": "f400a171b2003750ee85b6a9b9b915ab19d8e55c",
+      "public_source_verified": true,
+      "refs_sha256": "748e67056db0139aeabe9b87f1373e8aadef191ce7e2c9231bcdf3004524b2f8",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "c9f51e14a88e2df6d9810531d449d623b5dda4d8",
+          "sha256": "f0d13f63e057009e0488a9481706b3417037da877f824a919e4753252806a6ae",
+          "url": "https://github.com/trikko/hackerscad/blob/c73f18f4839cfbe4f0f6fa16116e815de78d4411/README.md",
+          "bytes": 15973
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+          "url": "https://github.com/trikko/hackerscad/blob/c73f18f4839cfbe4f0f6fa16116e815de78d4411/LICENSE",
+          "bytes": 35149
+        },
+        {
+          "path": "docs/SKILL.md",
+          "blob_sha": "fad86f9ef8acc274e4472ef70f8498a800a940bc",
+          "sha256": "4ca270ba1037192e2d3175d094733231ae7009ea70f5c2dc5c12ceb56fe6fab0",
+          "url": "https://github.com/trikko/hackerscad/blob/c73f18f4839cfbe4f0f6fa16116e815de78d4411/docs/SKILL.md",
+          "bytes": 38875
+        },
+        {
+          "path": "MODEL-EXCEPTION.md",
+          "blob_sha": "cd7e9bfda3c45a47de4973451b2cbe171d2fd3e2",
+          "sha256": "8678c467e21ff06b4ab63bf59273653d022a4ab81354a94f53004955e9df01d2",
+          "url": "https://github.com/trikko/hackerscad/blob/c73f18f4839cfbe4f0f6fa16116e815de78d4411/MODEL-EXCEPTION.md",
+          "bytes": 2206
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "ucam-eo/geotessera",
+      "repository_id": 1012433978,
+      "commit": "3cef6c20eebb59608115523ecea3127aaceef86d",
+      "tree": "1ebfca322af5a624dc7f880754c1169f0f6ebf8d",
+      "public_source_verified": true,
+      "refs_sha256": "173980f77ebe0f5daf7386875e1854e2e55343cb9f4a9d039a235f586073a548",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "304c77e8cca18a48afe890ec6e525b1aedc56807",
+          "sha256": "332c321eefd0d04881fa9639cfcb916c8035756f8ea7c2bc9175a5bc6132e21f",
+          "url": "https://github.com/ucam-eo/geotessera/blob/3cef6c20eebb59608115523ecea3127aaceef86d/README.md",
+          "bytes": 31023
+        },
+        {
+          "path": "LICENSE.md",
+          "blob_sha": "6268771c58d76deabf63bc83f061cc1f66cdd381",
+          "sha256": "9e51cdd164a40dda3c8f268baf8cb057f5b9ae56af3caae2d1f57de65010bcee",
+          "url": "https://github.com/ucam-eo/geotessera/blob/3cef6c20eebb59608115523ecea3127aaceef86d/LICENSE.md",
+          "bytes": 1124
+        },
+        {
+          "path": "skills/geotessera/SKILL.md",
+          "blob_sha": "5b818e00ccdecd9a7d76588640c344ce1e535a5f",
+          "sha256": "927e004fa8e449cfbbd73e7d75b95dfc4379c17fed51f656f8e037246cee04e1",
+          "url": "https://github.com/ucam-eo/geotessera/blob/3cef6c20eebb59608115523ecea3127aaceef86d/skills/geotessera/SKILL.md",
+          "bytes": 6469
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "vstaln/gray-skills",
+      "repository_id": 1411310885,
+      "commit": "dfd646015633f9ee9b02243384d2e73fdefa8044",
+      "tree": "9ed13cb2cde51333cca31cbc9d1f902ba79468b6",
+      "public_source_verified": true,
+      "refs_sha256": "f432287c266d552cabb34a06eaf493179831551dc30d7ab6649902bd80cecfd9",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "4520348e05c611b280bf10fa8f9b46510ff4842e",
+          "sha256": "967669704c735330e3d55f0d418e4c46979969715d390911a50de2c89f226bcd",
+          "url": "https://github.com/vstaln/gray-skills/blob/dfd646015633f9ee9b02243384d2e73fdefa8044/README.md",
+          "bytes": 2459
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "0bc4f1c4516c69bb06d61b150f986af20655cac7",
+          "sha256": "d62946abb43262794b4a5c7bc60153322bdf68fbc414801ad5d07a10d098e49d",
+          "url": "https://github.com/vstaln/gray-skills/blob/dfd646015633f9ee9b02243384d2e73fdefa8044/LICENSE",
+          "bytes": 1070
+        },
+        {
+          "path": "src/catalog.rs",
+          "blob_sha": "aecfc4c6b4e56a5a8043f3a5354c55f903e28e7d",
+          "sha256": "d66d77be475d018f47c36aeabe80b93902d1ba0d4b18b5eef08255b2d71e0f08",
+          "url": "https://github.com/vstaln/gray-skills/blob/dfd646015633f9ee9b02243384d2e73fdefa8044/src/catalog.rs",
+          "bytes": 18914
+        },
+        {
+          "path": "Cargo.toml",
+          "blob_sha": "caab72e5fc3d8c7d84a3592fad13fc60e65f3ab4",
+          "sha256": "07aa8b11dc098bfae21e2dc3ceca63b4020d86c4bb20d35771c2e18e030deafa",
+          "url": "https://github.com/vstaln/gray-skills/blob/dfd646015633f9ee9b02243384d2e73fdefa8044/Cargo.toml",
+          "bytes": 661
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "WellApp-ai/skills",
+      "repository_id": 1297676672,
+      "commit": "05a251518cf2e1dee3f54c88e6368a7aaef31e67",
+      "tree": "dd351d26fe08f3c67585cce7f8f63abb499ee4c9",
+      "public_source_verified": true,
+      "refs_sha256": "f3e51a28b1fc2096608aac0573bb40adefa9d776fb1afcaee420d87f81c8d655",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "c2cb4e72cd692362d04567d24cb59630db399d59",
+          "sha256": "189bbbdc4573ba1f4372babf823b5a22a6656e93455c26afde1339daf0e2c6cb",
+          "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/README.md",
+          "bytes": 44168
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "78c7525c42ea4e24cd3d7ba4acf25a1b32251267",
+          "sha256": "c7bfdcd9689d708913b2cdfc9a49f49ea0fb1503019391d3e9262e3e82cda438",
+          "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/LICENSE",
+          "bytes": 4720
+        },
+        {
+          "path": "skills/accounting-reports/SKILL.md",
+          "blob_sha": "7d7b3717a544a755770efc288b9bed33079c0413",
+          "sha256": "2025adc7424df36978bf5658289c445e602d2b3d7e42cddbc359f9952ada3366",
+          "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/skills/accounting-reports/SKILL.md",
+          "bytes": 1167
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "blob_sha": "93f9a2bbe61afd1e04539a070ba8e48fa2b5ad13",
+          "sha256": "2c229daeb844ddeb3190bec309e9c6b223e1ad5f76e9f8d50c43b0e0b12075fd",
+          "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/.claude-plugin/plugin.json",
+          "bytes": 3815
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "wufei-png/AgentRepoRouter",
+      "repository_id": 1274327106,
+      "commit": "ac1cf0754b51761278c28b4f9909555663274fd8",
+      "tree": "18a10513133e7adbda0b9b51352c9c85260b837b",
+      "public_source_verified": true,
+      "refs_sha256": "b7cf8aa3adb462786c7a68d929b443dd393c486c115c64cbdacb08ba0411a4f7",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "d07ffa65e498cd21a26278a8519562dc626325fe",
+          "sha256": "f015881a84fe778dd23ff9712c33ad5d44d21ad16d99f50e8e1d6d9d7ace0df7",
+          "url": "https://github.com/wufei-png/AgentRepoRouter/blob/ac1cf0754b51761278c28b4f9909555663274fd8/README.md",
+          "bytes": 17658
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "4360a394b755ee6df80cffb06d4e7a31b8b87bfd",
+          "sha256": "53738bb94efed1d83948b42cf7d0d6da287ffb84bd2d8e459ca1566096f8985f",
+          "url": "https://github.com/wufei-png/AgentRepoRouter/blob/ac1cf0754b51761278c28b4f9909555663274fd8/LICENSE",
+          "bytes": 1066
+        },
+        {
+          "path": "skills/agent-repo-router/SKILL.md",
+          "blob_sha": "8c59bd635bb3d3b65fb80ef8ef1963dde2fb3e8a",
+          "sha256": "26a303e3f96055b3398f98148a6d16059844f62742f67d7eb8b2496956e47fea",
+          "url": "https://github.com/wufei-png/AgentRepoRouter/blob/ac1cf0754b51761278c28b4f9909555663274fd8/skills/agent-repo-router/SKILL.md",
+          "bytes": 3633
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "yusing/skills-mgr",
+      "repository_id": 1310098906,
+      "commit": "55e57941a058a6580a1950d58465ed5957c6f4f6",
+      "tree": "2c899401fcf42c28378cfb8435fcb8e8f9b084ab",
+      "public_source_verified": true,
+      "refs_sha256": "74ad89c5568bbe8e53bd427b49204d45c98e3ed5a1fcf818521f576fd29cfe05",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "9b3bafb040159c8b30a5598b38f0d0e21ab2067e",
+          "sha256": "37ad8ecd40805e74b00e1e729e30f6c5eb737b9b54e18c720b8b71e0280ca699",
+          "url": "https://github.com/yusing/skills-mgr/blob/55e57941a058a6580a1950d58465ed5957c6f4f6/README.md",
+          "bytes": 28226
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "696649d41174f41752249c8aac2e2bab6451e16b",
+          "sha256": "0d6baa9948df59e712569edbbb6a9063011a6479cca115076f4b5606979cba8b",
+          "url": "https://github.com/yusing/skills-mgr/blob/55e57941a058a6580a1950d58465ed5957c6f4f6/LICENSE",
+          "bytes": 1073
+        },
+        {
+          "path": "src/content.rs",
+          "blob_sha": "81c2518271eeca7d60c7d4327428b88ce66f5f53",
+          "sha256": "0501b4b98282cd916c3c17c948b1fd295bfcb1053a051b927e7ca548648fc870",
+          "url": "https://github.com/yusing/skills-mgr/blob/55e57941a058a6580a1950d58465ed5957c6f4f6/src/content.rs",
+          "bytes": 8918
+        },
+        {
+          "path": "Cargo.toml",
+          "blob_sha": "fd17343fb08c7d77c738dd979f28d200c3751dc4",
+          "sha256": "5cb88f01ecbe429c4e8a82269afd1c1cc03d289aff6bae86197f15902d586460",
+          "url": "https://github.com/yusing/skills-mgr/blob/55e57941a058a6580a1950d58465ed5957c6f4f6/Cargo.toml",
+          "bytes": 881
+        }
+      ],
+      "reference_count": 4,
+      "distinct_blob_fetches": 4,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "yyliucha/dsh-skill-switcher",
+      "repository_id": 1456437864,
+      "commit": "62c58a6f9566fffb8b08ee6c3649293929e0c163",
+      "tree": "5b6b7c2169af09978b4aba91dbcfd341b7f1307d",
+      "public_source_verified": true,
+      "refs_sha256": "256e364bce6cebb06c93e0ac9c2813fdba723217f6f4c39f1007baaa8d86a3eb",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "ad699963ab7288a5b436f220c0a16bd802719a5f",
+          "sha256": "133ef71fe8c4dddfc664b23b5296938ba300258a88e1a8de18b5652790f7fe42",
+          "url": "https://github.com/yyliucha/dsh-skill-switcher/blob/62c58a6f9566fffb8b08ee6c3649293929e0c163/README.md",
+          "bytes": 10823
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "e5c92e38cde783df5a16863b6a17f91982c1216c",
+          "sha256": "6e3eff0c691d2aaea249e606aa376147559754ab77299af76da0ca91be776465",
+          "url": "https://github.com/yyliucha/dsh-skill-switcher/blob/62c58a6f9566fffb8b08ee6c3649293929e0c163/LICENSE",
+          "bytes": 1065
+        },
+        {
+          "path": "lib/skills.js",
+          "blob_sha": "269f94785c93b2b9cfcefc7f9c2dd4b5ebb8c4be",
+          "sha256": "c55127c89face59be55e40c7c6d42da23a750c3675163fd738cc6af21d86be16",
+          "url": "https://github.com/yyliucha/dsh-skill-switcher/blob/62c58a6f9566fffb8b08ee6c3649293929e0c163/lib/skills.js",
+          "bytes": 6180
+        },
+        {
+          "path": "package.json",
+          "blob_sha": "979e5f2f8506e0f2a212e8bbee3501e0cadcb425",
+          "sha256": "458854a99a29b864fa6e41c1117e2fa5a527a4bd0cd3bc8eda7f3d1702160504",
+          "url": "https://github.com/yyliucha/dsh-skill-switcher/blob/62c58a6f9566fffb8b08ee6c3649293929e0c163/package.json",
+          "bytes": 1454
+        },
+        {
+          "path": "lib/scan.js",
+          "blob_sha": "b68736658f6df718e9963a7cd1f9cbaf3ad620ae",
+          "sha256": "664d5b1674a238c4e3d40bc44ba4b1f751d42abbc7073ef24831f9a55a9551d3",
+          "url": "https://github.com/yyliucha/dsh-skill-switcher/blob/62c58a6f9566fffb8b08ee6c3649293929e0c163/lib/scan.js",
+          "bytes": 3714
+        }
+      ],
+      "reference_count": 5,
+      "distinct_blob_fetches": 5,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    },
+    {
+      "passed": true,
+      "full_name": "zzhenglab/COFdraw",
+      "repository_id": 1461838404,
+      "commit": "8f71339c98ef00526386524481c583aeba0a33ba",
+      "tree": "164d2acd3a5111403983eb97f1ea7f2a51cd886e",
+      "public_source_verified": true,
+      "refs_sha256": "246ef905ea6f2ef3f06881971e4e016af19f6f10e4a0212c1ea48f42366673fb",
+      "verified_refs": [
+        {
+          "path": "README.md",
+          "blob_sha": "e9c83d253649c0bba2fa85b1997ae9642ca2ccd2",
+          "sha256": "579deb314de6d85caca5c731a9edf143efc8ba39a0e395a997121691994028a1",
+          "url": "https://github.com/zzhenglab/COFdraw/blob/8f71339c98ef00526386524481c583aeba0a33ba/README.md",
+          "bytes": 14581
+        },
+        {
+          "path": "LICENSE",
+          "blob_sha": "f3b5075a4f0d6927711e9d8809f16c16c4a5f947",
+          "sha256": "e68a149009c1bc19e25f633e95b6adf4c40d21d7181153821ca9c91c37339f2b",
+          "url": "https://github.com/zzhenglab/COFdraw/blob/8f71339c98ef00526386524481c583aeba0a33ba/LICENSE",
+          "bytes": 1275
+        },
+        {
+          "path": "skills/cofdraw/SKILL.md",
+          "blob_sha": "002a8060bda5dc93156d5469794a3c12ae4cc894",
+          "sha256": "cb67daea5a46ce788767a93823ab05fd0172a9193039f406f212ae4d3b9f2a52",
+          "url": "https://github.com/zzhenglab/COFdraw/blob/8f71339c98ef00526386524481c583aeba0a33ba/skills/cofdraw/SKILL.md",
+          "bytes": 12405
+        }
+      ],
+      "reference_count": 3,
+      "distinct_blob_fetches": 3,
+      "supporting_symlink_paths": [],
+      "tree_reference_method": "complete recursive tree"
+    }
+  ],
+  "verified_repositories": 78,
+  "verified_reference_count": 364,
+  "failures": []
+}
