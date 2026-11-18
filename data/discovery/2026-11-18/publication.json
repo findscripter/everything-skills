@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-18",
+  "timezone": "Asia/Shanghai",
+  "recorded_at": "2026-11-18T06:37:17.243563+00:00",
+  "status": "published",
+  "target_minimum": 50,
+  "acceptance_cap": null,
+  "added_new_repository_ids": 78,
+  "baseline_catalog_rows": 4700,
+  "final_catalog_rows": 4778,
+  "formal_skill_files": 1115,
+  "selected_review_items": 110,
+  "held": 26,
+  "rejected": 6,
+  "unreviewed_reserve": 1404,
+  "new_identities": [
+    {
+      "full_name": "AagamS06/sku-snap",
+      "repository_id": 1446563826
+    },
+    {
+      "full_name": "abhisri2090/aipm",
+      "repository_id": 1244454448
+    },
+    {
+      "full_name": "agentwik-labs/skillhawk",
+      "repository_id": 1438856203
+    },
+    {
+      "full_name": "akontadakis/paper-skills",
+      "repository_id": 1461756319
+    },
+    {
+      "full_name": "AkshatNaruka/aidentity",
+      "repository_id": 1436639869
+    },
+    {
+      "full_name": "amdahlco/landing-site-reposition",
+      "repository_id": 1436308751
+    },
+    {
+      "full_name": "aniruddhaadak80/skillforge",
+      "repository_id": 1379996076
+    },
+    {
+      "full_name": "ArrowsHQ/arrows-sales-skills",
+      "repository_id": 1216431471
+    },
+    {
+      "full_name": "atlanai/ai-registry",
+      "repository_id": 1409959388
+    },
+    {
+      "full_name": "Azure/documentdb-agent-kit",
+      "repository_id": 1229129166
+    },
+    {
+      "full_name": "bitscoid/bits-motion",
+      "repository_id": 1462265657
+    },
+    {
+      "full_name": "canva-sdks/canva-skills",
+      "repository_id": 1114822980
+    },
+    {
+      "full_name": "cgiar/ask-cgiar-research",
+      "repository_id": 1456689858
+    },
+    {
+      "full_name": "chuonglife/lesson-content-writer-skill",
+      "repository_id": 1455484706
+    },
+    {
+      "full_name": "chuonglife/lesson-slide-designer-skill",
+      "repository_id": 1455506145
+    },
+    {
+      "full_name": "chuonglife/lesson-video-producer-skill",
+      "repository_id": 1455544235
+    },
+    {
+      "full_name": "clipzi-app/clipzi-agent",
+      "repository_id": 1462317243
+    },
+    {
+      "full_name": "CompleteTech-Skills/creative-studio",
+      "repository_id": 1425032192
+    },
+    {
+      "full_name": "danieldeusing/seedr",
+      "repository_id": 1145970759
+    },
+    {
+      "full_name": "EduardMock/research-skills",
+      "repository_id": 1245774109
+    },
+    {
+      "full_name": "feimacode/open-design-agent-kit",
+      "repository_id": 1377707120
+    },
+    {
+      "full_name": "Felix-owo/Rigorous-Reviewer",
+      "repository_id": 1243323009
+    },
+    {
+      "full_name": "gburd/postgres-agent-skills",
+      "repository_id": 1411877531
+    },
+    {
+      "full_name": "GeoZcx/geoharness",
+      "repository_id": 1460544994
+    },
+    {
+      "full_name": "Goodsmileduck/claude-registry",
+      "repository_id": 1127281003
+    },
+    {
+      "full_name": "grimoire-rs/grimoire",
+      "repository_id": 1239848793
+    },
+    {
+      "full_name": "gudrodur/icelandic-data",
+      "repository_id": 1457059075
+    },
+    {
+      "full_name": "hermoso-ai/hermoso",
+      "repository_id": 1291037165
+    },
+    {
+      "full_name": "HolobiomicsLab/asb-skills-agentic-ai",
+      "repository_id": 1376505297
+    },
+    {
+      "full_name": "IgniteUI/igniteui-webcomponents",
+      "repository_id": 366715251
+    },
+    {
+      "full_name": "iperdomo/platform-independence-analyzer",
+      "repository_id": 1315892187
+    },
+    {
+      "full_name": "JasmyLab-JANCTION/janction-render",
+      "repository_id": 1397617439
+    },
+    {
+      "full_name": "jianzushen/Computational-chemistry-skill",
+      "repository_id": 1305527469
+    },
+    {
+      "full_name": "Katta041/asitis-agent-tools",
+      "repository_id": 1399206924
+    },
+    {
+      "full_name": "Keith-CY/idx.md",
+      "repository_id": 1146514482
+    },
+    {
+      "full_name": "KyleshierArt/cobalt-technical-illustration",
+      "repository_id": 1462271154
+    },
+    {
+      "full_name": "lanbass869-cell/canari",
+      "repository_id": 1449954855
+    },
+    {
+      "full_name": "lennylabs/podium",
+      "repository_id": 1229504802
+    },
+    {
+      "full_name": "lukapiskorec/craftbot",
+      "repository_id": 1338323174
+    },
+    {
+      "full_name": "marin-ai-tech/skillforge",
+      "repository_id": 1451785059
+    },
+    {
+      "full_name": "mars-tw/open-seo-advisor-skill",
+      "repository_id": 1285921905
+    },
+    {
+      "full_name": "Maryland-State-Innovation-Team/Maryland-Agent-Skills",
+      "repository_id": 1077677299
+    },
+    {
+      "full_name": "matthewlewin01-wq/problem-to-place",
+      "repository_id": 1437822859
+    },
+    {
+      "full_name": "meetstream-ai/meetstream-cursor-plugin",
+      "repository_id": 1344539768
+    },
+    {
+      "full_name": "mengfanchun2017/ccconfig",
+      "repository_id": 1175254180
+    },
+    {
+      "full_name": "Moksa1123/taiwan-ecommerce-toolkit",
+      "repository_id": 1144263691
+    },
+    {
+      "full_name": "mortezashafiei/paper-review-and-revise",
+      "repository_id": 1461859273
+    },
+    {
+      "full_name": "nmg-002/steam-sel-lesson-designer",
+      "repository_id": 1461378214
+    },
+    {
+      "full_name": "OpenLinker-ai/openlinker-registry",
+      "repository_id": 1452422745
+    },
+    {
+      "full_name": "openmaxai/om-marketplace-client",
+      "repository_id": 1418480876
+    },
+    {
+      "full_name": "patkusch/askwell",
+      "repository_id": 1422644113
+    },
+    {
+      "full_name": "PeterWar/Agentic-Eclipse-Library",
+      "repository_id": 1396819968
+    },
+    {
+      "full_name": "product-metrics/skills",
+      "repository_id": 1461273075
+    },
+    {
+      "full_name": "rachelhong-marketing/b2b-campaign-test-planner",
+      "repository_id": 1444857582
+    },
+    {
+      "full_name": "Rigjite/Scientific-Editor-AI-Protocol",
+      "repository_id": 1422964926
+    },
+    {
+      "full_name": "Rollstack/skills",
+      "repository_id": 1446811132
+    },
+    {
+      "full_name": "RolnickLab/lab-starter-skills",
+      "repository_id": 1401998359
+    },
+    {
+      "full_name": "ruihe774/pubmed-literature-search-skill",
+      "repository_id": 1412594815
+    },
+    {
+      "full_name": "SalesforceLabs/lsc-for-claude",
+      "repository_id": 1327137030
+    },
+    {
+      "full_name": "sebastienrousseau/agtmls",
+      "repository_id": 1293243728
+    },
+    {
+      "full_name": "sebastienrousseau/agtmls-core",
+      "repository_id": 1377233728
+    },
+    {
+      "full_name": "Sequenzy/skills",
+      "repository_id": 1187635501
+    },
+    {
+      "full_name": "shimo4228/search-first",
+      "repository_id": 1164278373
+    },
+    {
+      "full_name": "skilletmd/skillet",
+      "repository_id": 1340788648
+    },
+    {
+      "full_name": "softprobe/softprobe-plugin",
+      "repository_id": 1388413761
+    },
+    {
+      "full_name": "stefanoskarakasis/Product-Marketing-Skills",
+      "repository_id": 1195297408
+    },
+    {
+      "full_name": "szt2006/DeepMol-WorkBuddy-skill",
+      "repository_id": 1227171497
+    },
+    {
+      "full_name": "taccardoso/autoresearchprimitives",
+      "repository_id": 1462147102
+    },
+    {
+      "full_name": "The-General-Data-Company/tgdc-skills",
+      "repository_id": 1416627413
+    },
+    {
+      "full_name": "tomc98/claude-code-codex-skill",
+      "repository_id": 1162200228
+    },
+    {
+      "full_name": "trikko/hackerscad",
+      "repository_id": 1414774485
+    },
+    {
+      "full_name": "ucam-eo/geotessera",
+      "repository_id": 1012433978
+    },
+    {
+      "full_name": "vstaln/gray-skills",
+      "repository_id": 1411310885
+    },
+    {
+      "full_name": "WellApp-ai/skills",
+      "repository_id": 1297676672
+    },
+    {
+      "full_name": "wufei-png/AgentRepoRouter",
+      "repository_id": 1274327106
+    },
+    {
+      "full_name": "yusing/skills-mgr",
+      "repository_id": 1310098906
+    },
+    {
+      "full_name": "yyliucha/dsh-skill-switcher",
+      "repository_id": 1456437864
+    },
+    {
+      "full_name": "zzhenglab/COFdraw",
+      "repository_id": 1461838404
+    }
+  ],
+  "verification": {
+    "fixed_object_references": 364,
+    "baseline_directory_data_blobs_preserved": 107,
+    "windows_tests_each_language": {
+      "passed": 126,
+      "failed": 0,
+      "skipped": 1
+    },
+    "linux_pr_tests_each_language": {
+      "passed": 127,
+      "failed": 0,
+      "skipped": 0
+    },
+    "offline_example_checks": 4,
+    "english_and_chinese_build_site_generated_checks": "passed",
+    "archive_skill_members_verified": 1
+  },
+  "publication": {
+    "main": {
+      "pr": 111,
+      "url": "https://github.com/findscripter/everything-skills/pull/111",
+      "data_commit": "0ac8b220e124376eb5be62b2d10517e2c27a6155",
+      "merge_commit": "1bfaf87ff519fae558b229c7cecf412f53be4a4f"
+    },
+    "zh": {
+      "pr": 112,
+      "url": "https://github.com/findscripter/everything-skills/pull/112",
+      "data_commit": "3720eaee66940c5f7e604623f238684cee0d6a98",
+      "merge_commit": "a4b88748713fc3e78aa3576bef0a833612e51640"
+    }
+  },
+  "successful_ci": [
+    {
+      "surface": "main_pr",
+      "workflow": "publish-site",
+      "run_id": 44251627178,
+      "head_sha": "0ac8b220e124376eb5be62b2d10517e2c27a6155",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/44251627178"
+    },
+    {
+      "surface": "main_pr",
+      "workflow": "generated-index",
+      "run_id": 44251627196,
+      "head_sha": "0ac8b220e124376eb5be62b2d10517e2c27a6155",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/44251627196"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "generated-index",
+      "run_id": 44251861083,
+      "head_sha": "1bfaf87ff519fae558b229c7cecf412f53be4a4f",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/44251861083"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "publish-site",
+      "run_id": 44251861200,
+      "head_sha": "1bfaf87ff519fae558b229c7cecf412f53be4a4f",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/44251861200"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "publish-site",
+      "run_id": 44252287507,
+      "head_sha": "3720eaee66940c5f7e604623f238684cee0d6a98",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/44252287507"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "generated-index",
+      "run_id": 44252287609,
+      "head_sha": "3720eaee66940c5f7e604623f238684cee0d6a98",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/44252287609"
+    },
+    {
+      "surface": "zh_merge",
+      "workflow": "generated-index",
+      "run_id": 44252561590,
+      "head_sha": "a4b88748713fc3e78aa3576bef0a833612e51640",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/44252561590"
+    }
+  ],
+  "language_only_differences": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "INDEX/skill-repos.md",
+    "README.md"
+  ],
+  "automation": {
+    "existing_daily_automation_configuration_verified": true,
+    "schedule": "Every day at 09:00 Asia/Shanghai",
+    "scheduled_heartbeat_received_at": "2026-11-18T01:05:03.889Z",
+    "configuration_changed_this_run": false
+  },
+  "evidence": {
+    "audit": "../../skill-repos.part112.audit.md",
+    "coverage": "coverage.json",
+    "fixed_objects": "fixed-object-verification.json",
+    "quality": "quality-review.json"
+  },
+  "limits": [
+    "Only admitted and published independent repository IDs count as daily additions; this does not add 1115 new local skill bodies.",
+    "Metadata-only representative/static infrastructure review; no candidate installed or executed.",
+    "Finite search windows and unreviewed retrieval reserves remain separate; no exhaustive all-body, runtime, safety, scientific/financial or reuse-right certification.",
+    "CI references bind the data and merge commits. Receipt-commit checks are observed separately and are not self-referenced."
+  ]
+}
