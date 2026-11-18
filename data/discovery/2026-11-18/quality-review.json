@@ -1,0 +1,1948 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-18",
+    "stage": "complete",
+    "evaluated_at": "2026-11-18T05:51:20.786073+00:00",
+    "records": [
+      {
+        "full_name": "Maryland-State-Innovation-Team/Maryland-Agent-Skills",
+        "commit": "1f8fa60fdc60c9897fad8ddf97d87740167c67ba",
+        "tree": "c51ed4167d056f44065b53fd22e0c7c18a68b443",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "3487cb8213bd9a8a80cce8b1c10134cf4b4fc648",
+            "sha256": "73159c23121b8eb4ca0fb8879a6252b376546a526793f88e52202e6a9a14ef35",
+            "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/README.md",
+            "bytes": 6236
+          },
+          {
+            "path": "maryland-imap/SKILL.md",
+            "blob_sha": "18481b21ae4da0221e36a4a8532f2ffcf6ac9949",
+            "sha256": "c688362b12c882a125df569f45889c47eeb7dff11e5765cfc25c48f34430850a",
+            "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/maryland-imap/SKILL.md",
+            "bytes": 4513
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "7ee6dce8904905d8cd4f85d1cf34371408aa0763",
+            "sha256": "1c5da1028ff6b2d99274325d289abbf3914a60988f42f606aa5c6941bb8765e7",
+            "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/LICENSE",
+            "bytes": 1087
+          }
+        ],
+        "read_scope": "Parent read complete fixed README, maryland-imap SKILL.md and root MIT license. The four source paths were compared with the four README consumer entries. Other three bodies, the two iMap references, scripts and data-service contracts were not independently reviewed in this parent sample.",
+        "conclusion": "Four explicitly independently installable consumer entries are published through copy/symlink and compatible skills-directory discovery. The representative distinguishes boundary queries and geocoding and routes to task-conditioned references. MIT applies to repository-owned instructions; remote geospatial/open data, MDWDS assets and PDF pipeline tools retain separate scope.",
+        "limits": "No installation, ArcGIS/Socrata request, geocoding, reprojection, PDF remediation or UI task was executed. API/CRS/authentication, correctness and PDF/UA or tested-reports claims were read as upstream statements, not results of this review."
+      },
+      {
+        "full_name": "ucam-eo/geotessera",
+        "commit": "3cef6c20eebb59608115523ecea3127aaceef86d",
+        "tree": "1ebfca322af5a624dc7f880754c1169f0f6ebf8d",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "304c77e8cca18a48afe890ec6e525b1aedc56807",
+            "sha256": "332c321eefd0d04881fa9639cfcb916c8035756f8ea7c2bc9175a5bc6132e21f",
+            "url": "https://github.com/ucam-eo/geotessera/blob/3cef6c20eebb59608115523ecea3127aaceef86d/README.md",
+            "bytes": 31023
+          },
+          {
+            "path": "skills/geotessera/SKILL.md",
+            "blob_sha": "5b818e00ccdecd9a7d76588640c344ce1e535a5f",
+            "sha256": "927e004fa8e449cfbbd73e7d75b95dfc4379c17fed51f656f8e037246cee04e1",
+            "url": "https://github.com/ucam-eo/geotessera/blob/3cef6c20eebb59608115523ecea3127aaceef86d/skills/geotessera/SKILL.md",
+            "bytes": 6469
+          },
+          {
+            "path": "LICENSE.md",
+            "blob_sha": "6268771c58d76deabf63bc83f061cc1f66cdd381",
+            "sha256": "9e51cdd164a40dda3c8f268baf8cb057f5b9ae56af3caae2d1f57de65010bcee",
+            "url": "https://github.com/ucam-eo/geotessera/blob/3cef6c20eebb59608115523ecea3127aaceef86d/LICENSE.md",
+            "bytes": 1124
+          }
+        ],
+        "read_scope": "Parent read the complete 30k-character root README in two contiguous segments, the complete unique geotessera SKILL.md and root MIT license. Package implementation, external model/embedding datasets and linked papers/services were not audited.",
+        "conclusion": "README explicitly publishes one zarr-interface consumer skill through a Claude marketplace/plugin and direct skills-directory copy. Python >=3.12 is required. Source instructions distinguish datasets/variants and native UTM analysis, and the README distinguishes conditional ETag/MD5 checks from multipart files checked only by length. MIT does not automatically re-license models, embeddings or satellite inputs.",
+        "limits": "No package, CLI, download/export, cache, local HTTP server, model, classification, external API or source paper was executed/validated. Exports can replace completed output files; v2 coverage/early availability, chunk-dependent byte savings, integrity and compatibility claims remain upstream statements."
+      }
+    ],
+    "corrections": [],
+    "objections": [],
+    "limits": "Parent representative source review only. Byte/identity verification is recorded separately; this is not an all-body, runtime, scientific, data-right or host-compatibility certification."
+  },
+  "quality-science.json": {
+    "date": "2026-11-18",
+    "stage": "complete",
+    "scope": {
+      "review_stream": "science",
+      "target_stream": "product",
+      "input_names": [
+        "WellApp-ai/skills",
+        "SalesforceLabs/lsc-for-claude",
+        "feimacode/open-design-agent-kit"
+      ],
+      "policy": "Independent static scope/count/license QA of three assigned product admissions; no candidate installation, execution, service use, external publication or source-body import."
+    },
+    "records": [
+      {
+        "full_name": "WellApp-ai/skills",
+        "repository_id": 1297676672,
+        "commit": "05a251518cf2e1dee3f54c88e6368a7aaef31e67",
+        "tree": "dd351d26fe08f3c67585cce7f8f63abb499ee4c9",
+        "snapshot": {
+          "commit": "05a251518cf2e1dee3f54c88e6368a7aaef31e67",
+          "tree": "dd351d26fe08f3c67585cce7f8f63abb499ee4c9"
+        },
+        "decision": "supports_metadata_admission_with_scope_preserved",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "c2cb4e72cd692362d04567d24cb59630db399d59",
+            "sha256": "189bbbdc4573ba1f4372babf823b5a22a6656e93455c26afde1339daf0e2c6cb",
+            "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/README.md",
+            "bytes": 44168
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "78c7525c42ea4e24cd3d7ba4acf25a1b32251267",
+            "sha256": "c7bfdcd9689d708913b2cdfc9a49f49ea0fb1503019391d3e9262e3e82cda438",
+            "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/LICENSE",
+            "bytes": 4720
+          },
+          {
+            "path": "skills/accounting-reports/SKILL.md",
+            "blob_sha": "7d7b3717a544a755770efc288b9bed33079c0413",
+            "sha256": "2025adc7424df36978bf5658289c445e602d2b3d7e42cddbc359f9952ada3366",
+            "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/skills/accounting-reports/SKILL.md",
+            "bytes": 1167
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "93f9a2bbe61afd1e04539a070ba8e48fa2b5ad13",
+            "sha256": "2c229daeb844ddeb3190bec309e9c6b223e1ad5f76e9f8d50c43b0e0b12075fd",
+            "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/.claude-plugin/plugin.json",
+            "bytes": 3815
+          }
+        ],
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "c2cb4e72cd692362d04567d24cb59630db399d59",
+            "sha256": "189bbbdc4573ba1f4372babf823b5a22a6656e93455c26afde1339daf0e2c6cb",
+            "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/README.md",
+            "bytes": 44168
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "78c7525c42ea4e24cd3d7ba4acf25a1b32251267",
+            "sha256": "c7bfdcd9689d708913b2cdfc9a49f49ea0fb1503019391d3e9262e3e82cda438",
+            "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/LICENSE",
+            "bytes": 4720
+          },
+          {
+            "path": "skills/accounting-reports/SKILL.md",
+            "blob_sha": "7d7b3717a544a755770efc288b9bed33079c0413",
+            "sha256": "2025adc7424df36978bf5658289c445e602d2b3d7e42cddbc359f9952ada3366",
+            "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/skills/accounting-reports/SKILL.md",
+            "bytes": 1167
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "93f9a2bbe61afd1e04539a070ba8e48fa2b5ad13",
+            "sha256": "2c229daeb844ddeb3190bec309e9c6b223e1ad5f76e9f8d50c43b0e0b12075fd",
+            "url": "https://github.com/WellApp-ai/skills/blob/05a251518cf2e1dee3f54c88e6368a7aaef31e67/.claude-plugin/plugin.json",
+            "bytes": 3815
+          }
+        ],
+        "fixed_refs_verified": 4,
+        "read_scope": {
+          "read_full": [
+            "skills/accounting-reports/SKILL.md",
+            "LICENSE",
+            ".claude-plugin/plugin.json"
+          ],
+          "read_sections": {
+            "README.md": [
+              "lines 1-48 (overview and live-update contract)",
+              "lines 157-end (installation, FAQ, licensing and security claims)"
+            ]
+          },
+          "not_read": "97-row marketing catalog descriptions and other 96 loader bodies not exhaustively read; no live well_get_skill document or platform terms fetched."
+        },
+        "source_counts": {
+          "tree": 97,
+          "explicit_manifest": 97,
+          "same_set": true
+        },
+        "findings": "Independent full loader read confirms it checks for well_* tools, calls well_get_skill and requires the live returned instructions; the fixed repository never contains that financial workflow body. Frozen plugin manifest enumerates exactly the 97 tree paths. Full PolyForm Perimeter text permits purposes other than competing products, includes commercial use subject to terms, requires notices, and separately references platform terms. No blanket open-source, finance accuracy or SOC2/GDPR certification follows."
+      },
+      {
+        "full_name": "SalesforceLabs/lsc-for-claude",
+        "repository_id": 1327137030,
+        "commit": "34815cb489dc4fbca59c22ad317530f46806b408",
+        "tree": "707e07a8136b46652918619f9937f2ee09a7425a",
+        "snapshot": {
+          "commit": "34815cb489dc4fbca59c22ad317530f46806b408",
+          "tree": "707e07a8136b46652918619f9937f2ee09a7425a"
+        },
+        "decision": "supports_metadata_admission_with_scope_preserved",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "609a64f78c215d03347913d7269a01592d6f1a06",
+            "sha256": "ddc9e3627dadb8efdca4ac7f5e89db480ad152eda71e1640bc6c84fb54b8e006",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/README.md",
+            "bytes": 40707
+          },
+          {
+            "path": "LICENSE.txt",
+            "blob_sha": "1a67589f069766095235245a98ef8aef76e30421",
+            "sha256": "7f32b32434490332df34d81b4b91f310f5885920ecb9890774b38b772f08c660",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/LICENSE.txt",
+            "bytes": 11444
+          },
+          {
+            "path": "skills/lsc-account-management/SKILL.md",
+            "blob_sha": "f7a1a45e0939fc4efc4bf4c444d7784ccb708a79",
+            "sha256": "f2595c1e7a5eff671a1e712cebdf62b39e742b3579d2f3660aaf230e4597330c",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/skills/lsc-account-management/SKILL.md",
+            "bytes": 4534
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "9dcc10c664b7fbf679868cafb0379a8f7ec5c35b",
+            "sha256": "b9588296d446e51aea98aa001ed7e0621680cf91f44aa7e3d390821aaf94c999",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/.claude-plugin/plugin.json",
+            "bytes": 414
+          },
+          {
+            "path": ".claude/skills/roz-ui/SKILL.md",
+            "blob_sha": "0d0e7d032a1a6b39f8735d3e19a9fc18abbdd8d3",
+            "sha256": "20d553be3cfb021984bb9dde80ef272638c9938ee31a7bfa03842a39e116db61",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/.claude/skills/roz-ui/SKILL.md",
+            "bytes": 6611
+          }
+        ],
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "609a64f78c215d03347913d7269a01592d6f1a06",
+            "sha256": "ddc9e3627dadb8efdca4ac7f5e89db480ad152eda71e1640bc6c84fb54b8e006",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/README.md",
+            "bytes": 40707
+          },
+          {
+            "path": "LICENSE.txt",
+            "blob_sha": "1a67589f069766095235245a98ef8aef76e30421",
+            "sha256": "7f32b32434490332df34d81b4b91f310f5885920ecb9890774b38b772f08c660",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/LICENSE.txt",
+            "bytes": 11444
+          },
+          {
+            "path": "skills/lsc-account-management/SKILL.md",
+            "blob_sha": "f7a1a45e0939fc4efc4bf4c444d7784ccb708a79",
+            "sha256": "f2595c1e7a5eff671a1e712cebdf62b39e742b3579d2f3660aaf230e4597330c",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/skills/lsc-account-management/SKILL.md",
+            "bytes": 4534
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "9dcc10c664b7fbf679868cafb0379a8f7ec5c35b",
+            "sha256": "b9588296d446e51aea98aa001ed7e0621680cf91f44aa7e3d390821aaf94c999",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/.claude-plugin/plugin.json",
+            "bytes": 414
+          },
+          {
+            "path": ".claude/skills/roz-ui/SKILL.md",
+            "blob_sha": "0d0e7d032a1a6b39f8735d3e19a9fc18abbdd8d3",
+            "sha256": "20d553be3cfb021984bb9dde80ef272638c9938ee31a7bfa03842a39e116db61",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/.claude/skills/roz-ui/SKILL.md",
+            "bytes": 6611
+          }
+        ],
+        "fixed_refs_verified": 5,
+        "read_scope": {
+          "read_full": [
+            "skills/lsc-account-management/SKILL.md",
+            "LICENSE.txt",
+            ".claude-plugin/plugin.json"
+          ],
+          "read_sections": {
+            "README.md": [
+              "lines 1-130 (purpose, prerequisite, installation and host scope)",
+              "lines 234-271 (public skill table and routing contract)",
+              "lines 818-end (architecture, source/citation scope, tree, development and license)"
+            ],
+            ".claude/skills/roz-ui/SKILL.md": [
+              "frontmatter and first 1800 characters, classification only"
+            ]
+          },
+          "not_read": "Desktop-release details, long example outputs, other 37 public skill bodies, MCP implementation, live help and org state."
+        },
+        "source_counts": {
+          "public_source": 38,
+          "other_skill_paths": [
+            ".claude/skills/roz-ui/SKILL.md"
+          ]
+        },
+        "findings": "Independent full representative read confirms sourced MCP routing, current-state checks, proposed org writes and explicit confirmation before trigger/admin-setting changes. There are 38 skills/ entries, not the stale README 30/36; the excluded roz-ui frontmatter explicitly targets this repository Electron UI. README and manifest state MIT while actual LICENSE.txt contains Salesforce Apache2 grant; this is an unresolved upstream declaration conflict, not evidence of a dual-license option. No clinical/compliance or org correctness guarantee."
+      },
+      {
+        "full_name": "feimacode/open-design-agent-kit",
+        "repository_id": 1377707120,
+        "commit": "1b3832c3452720f028a96b1bdab805ecc1aa3213",
+        "tree": "d47ab695972d9090468c7d0a4186b39b1f09ccab",
+        "snapshot": {
+          "commit": "1b3832c3452720f028a96b1bdab805ecc1aa3213",
+          "tree": "d47ab695972d9090468c7d0a4186b39b1f09ccab"
+        },
+        "decision": "supports_metadata_admission_with_scope_preserved",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "e9dc39bc0280f03650b717c857749c5b2ad1b28f",
+            "sha256": "04151a399d769bffbd971890f65ccdc716e0e84d5711f59e23a3eebdd56ba871",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/README.md",
+            "bytes": 16264
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "5377b2c9fae1d35ecaab452982568e21ea310fe0",
+            "sha256": "6dd7352a4368f2d39410164c21759111df7855d4fc21ab0b92f89e8a7f38246f",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "packages/claude-plugin-local/skills/od-deck-deck-guizang-editorial/SKILL.md",
+            "blob_sha": "bb383e934ce22d5e0fcb0150a17c1aa4c5914367",
+            "sha256": "e8abbc5308d9fbc531bbec5313900257f42604f9e95151828b720a807f6e6583",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/claude-plugin-local/skills/od-deck-deck-guizang-editorial/SKILL.md",
+            "bytes": 1159
+          },
+          {
+            "path": "packages/content/README.md",
+            "blob_sha": "18d992d07705812b4e7e447f2c3630772ff1d115",
+            "sha256": "b844a5f0a71788bfcaa6b95198d15aa1a652015ffc9e46c014cbbac541f273d4",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/README.md",
+            "bytes": 1787
+          },
+          {
+            "path": "docs/getting-started/claude-code.md",
+            "blob_sha": "442d3c848dbe968228175407f8712e13992db78a",
+            "sha256": "caee2bb33dd078c9182b8a129df0da28a463a07e158177ac309771f6decce9dc",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/docs/getting-started/claude-code.md",
+            "bytes": 5766
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "c91d808f58775a7a4ffa2bbb5d23e5e8d2f7bab0",
+            "sha256": "fab9824f6a1afa391b0f2629f9b78842384cd1dc2974843abb380dae834c5cc3",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/.claude-plugin/marketplace.json",
+            "bytes": 1868
+          },
+          {
+            "path": "packages/core/src/vendored/SOURCE.md",
+            "blob_sha": "7c041e46f5cb533f653a61243f8638c70756e2d3",
+            "sha256": "2de54148e6e47e5d07ecb4f8cce65194acbe0ac73f5c10e96eb6dad6794cc577",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/core/src/vendored/SOURCE.md",
+            "bytes": 22214
+          },
+          {
+            "path": "packages/content/assets/open-design/notices/LICENSE-awesome-ios-design-md.txt",
+            "blob_sha": "49c30f560eca3eec5745b8383745dc84d1091be8",
+            "sha256": "ecdf03526d74525a46df5a4fc7cd9881036113267813a57eadaa1259c453ef53",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/notices/LICENSE-awesome-ios-design-md.txt",
+            "bytes": 1072
+          },
+          {
+            "path": "packages/content/assets/open-design/notices/LICENSE-ux-ui-agent-skills.txt",
+            "blob_sha": "4803b932d79c14a86e3b639e4d59bf1326e57dfc",
+            "sha256": "c8f168486c91894115315055a08e017cedb41189b331196f879c74b985a51f81",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/notices/LICENSE-ux-ui-agent-skills.txt",
+            "bytes": 1073
+          },
+          {
+            "path": "packages/claude-plugin-local/.claude-plugin/plugin.json",
+            "blob_sha": "844ab79273585c553e3b239d523fea25a477620c",
+            "sha256": "ee54138402f86e6c445719ff55860ae65ea97fe501e492827f1a9c268f8660e0",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/claude-plugin-local/.claude-plugin/plugin.json",
+            "bytes": 585
+          },
+          {
+            "path": "packages/content/assets/open-design/MANIFEST.json",
+            "blob_sha": "5692de4365d810ffd53c4e975bf472a39bd3cbe6",
+            "sha256": "2cdd4c30ae4c8f8165691ff7558926a2b42b3aa89a2a3c59ba1462b578848fde",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/MANIFEST.json",
+            "bytes": 562
+          }
+        ],
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "e9dc39bc0280f03650b717c857749c5b2ad1b28f",
+            "sha256": "04151a399d769bffbd971890f65ccdc716e0e84d5711f59e23a3eebdd56ba871",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/README.md",
+            "bytes": 16264
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "5377b2c9fae1d35ecaab452982568e21ea310fe0",
+            "sha256": "6dd7352a4368f2d39410164c21759111df7855d4fc21ab0b92f89e8a7f38246f",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "packages/claude-plugin-local/skills/od-deck-deck-guizang-editorial/SKILL.md",
+            "blob_sha": "bb383e934ce22d5e0fcb0150a17c1aa4c5914367",
+            "sha256": "e8abbc5308d9fbc531bbec5313900257f42604f9e95151828b720a807f6e6583",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/claude-plugin-local/skills/od-deck-deck-guizang-editorial/SKILL.md",
+            "bytes": 1159
+          },
+          {
+            "path": "packages/content/README.md",
+            "blob_sha": "18d992d07705812b4e7e447f2c3630772ff1d115",
+            "sha256": "b844a5f0a71788bfcaa6b95198d15aa1a652015ffc9e46c014cbbac541f273d4",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/README.md",
+            "bytes": 1787
+          },
+          {
+            "path": "docs/getting-started/claude-code.md",
+            "blob_sha": "442d3c848dbe968228175407f8712e13992db78a",
+            "sha256": "caee2bb33dd078c9182b8a129df0da28a463a07e158177ac309771f6decce9dc",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/docs/getting-started/claude-code.md",
+            "bytes": 5766
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "c91d808f58775a7a4ffa2bbb5d23e5e8d2f7bab0",
+            "sha256": "fab9824f6a1afa391b0f2629f9b78842384cd1dc2974843abb380dae834c5cc3",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/.claude-plugin/marketplace.json",
+            "bytes": 1868
+          },
+          {
+            "path": "packages/core/src/vendored/SOURCE.md",
+            "blob_sha": "7c041e46f5cb533f653a61243f8638c70756e2d3",
+            "sha256": "2de54148e6e47e5d07ecb4f8cce65194acbe0ac73f5c10e96eb6dad6794cc577",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/core/src/vendored/SOURCE.md",
+            "bytes": 22214
+          },
+          {
+            "path": "packages/content/assets/open-design/notices/LICENSE-awesome-ios-design-md.txt",
+            "blob_sha": "49c30f560eca3eec5745b8383745dc84d1091be8",
+            "sha256": "ecdf03526d74525a46df5a4fc7cd9881036113267813a57eadaa1259c453ef53",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/notices/LICENSE-awesome-ios-design-md.txt",
+            "bytes": 1072
+          },
+          {
+            "path": "packages/content/assets/open-design/notices/LICENSE-ux-ui-agent-skills.txt",
+            "blob_sha": "4803b932d79c14a86e3b639e4d59bf1326e57dfc",
+            "sha256": "c8f168486c91894115315055a08e017cedb41189b331196f879c74b985a51f81",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/notices/LICENSE-ux-ui-agent-skills.txt",
+            "bytes": 1073
+          },
+          {
+            "path": "packages/claude-plugin-local/.claude-plugin/plugin.json",
+            "blob_sha": "844ab79273585c553e3b239d523fea25a477620c",
+            "sha256": "ee54138402f86e6c445719ff55860ae65ea97fe501e492827f1a9c268f8660e0",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/claude-plugin-local/.claude-plugin/plugin.json",
+            "bytes": 585
+          },
+          {
+            "path": "packages/content/assets/open-design/MANIFEST.json",
+            "blob_sha": "5692de4365d810ffd53c4e975bf472a39bd3cbe6",
+            "sha256": "2cdd4c30ae4c8f8165691ff7558926a2b42b3aa89a2a3c59ba1462b578848fde",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/MANIFEST.json",
+            "bytes": 562
+          }
+        ],
+        "fixed_refs_verified": 11,
+        "read_scope": {
+          "read_full": [
+            "README.md",
+            "LICENSE",
+            "packages/claude-plugin-local/skills/od-deck-deck-guizang-editorial/SKILL.md",
+            "packages/content/README.md",
+            "docs/getting-started/claude-code.md",
+            ".claude-plugin/marketplace.json",
+            "packages/claude-plugin-local/.claude-plugin/plugin.json",
+            "packages/core/src/vendored/SOURCE.md",
+            "packages/content/assets/open-design/notices/LICENSE-awesome-ios-design-md.txt",
+            "packages/content/assets/open-design/notices/LICENSE-ux-ui-agent-skills.txt",
+            "packages/content/assets/open-design/MANIFEST.json"
+          ],
+          "not_read": "Other route, vendor recipe/template/example bodies and general implementation were not exhaustively audited. Actual upstream pinned license was fully compared with already fully read Apache2 text and every difference read; source legal equivalence is not certified."
+        },
+        "source_counts": {
+          "raw": 1300,
+          "local_plugin": 45,
+          "hosted_plugin": 45,
+          "same_entry_names": true,
+          "curated_explicit_wrappers": 27,
+          "workflow_routes": 18,
+          "vscode_catalog_mirrors": 504,
+          "vscode_catalog_same_blob": 504,
+          "local_overlay_copied_into_assets": 60,
+          "local_overlay_same_blob": 60
+        },
+        "findings": "Distinct public stable ID 1377707120 is not a fork; baseline already contains upstream ID 1223170290. Full public docs and provenance show independent native Copilot/Claude/Codex/MCP integration, local/hosted distribution, workspace outputs and adapted code, supporting metadata intake rather than a mirror-only count. The complete representative is a generated explicit-only router to prepare_open_design_brief, not the underlying deck recipe. 45 local plugin paths =18 workflows+27 wrappers; hosted counterpart has same 45 entry names. All 504 catalog SKILL copies in VSCode have identical Git blobs to content assets, and all 60 local-overlay copies match their installed-asset counterparts. Manifest explains 197 recipes as 163 synced+34 local overlay, not 197 wholly upstream or globally new skills. Root MIT does not relicense upstream Apache-labelled recipes/code or scoped MIT/OFL/source assets; exact pinned upstream license has small wording deviations in sections6/9 that remain disclosed rather than legally normalized.",
+        "upstream_snapshot": {
+          "full_name": "nexu-io/open-design",
+          "repository_id": 1223170290,
+          "commit": "89e64d813bb1c7a11519b3f668f011f7017637d7",
+          "tree": "4cbd544ca0c7055bd54793359c8af1713ac69dab",
+          "license": {
+            "path": "LICENSE",
+            "blob_sha": "eb79c35bd865477e525b18e56f35d56fbe0f7110",
+            "sha256": "9d95806a26532623360eb84bb17d298f394b55ef73fb4c0796d99b4319b2b0da",
+            "url": "https://github.com/nexu-io/open-design/blob/89e64d813bb1c7a11519b3f668f011f7017637d7/LICENSE",
+            "bytes": 11296
+          },
+          "read_scope": "Entire license compared with fully read Apache2 body; all differences inspected."
+        },
+        "upstream_read_refs": [
+          {
+            "path": "LICENSE",
+            "blob_sha": "eb79c35bd865477e525b18e56f35d56fbe0f7110",
+            "sha256": "9d95806a26532623360eb84bb17d298f394b55ef73fb4c0796d99b4319b2b0da",
+            "url": "https://github.com/nexu-io/open-design/blob/89e64d813bb1c7a11519b3f668f011f7017637d7/LICENSE",
+            "bytes": 11296
+          }
+        ]
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "WellApp-ai/skills",
+        "field_updates": {
+          "license_scope": "PolyForm-Perimeter-1.0.0 for the distributed local loader files, with Required Notice copyright Well App, Inc.; commercial use is not categorically prohibited, but competing-product purposes are restricted. This is metadata-only indexing, not an unrestricted open-source classification. Well platform terms, live remote instruction rights, customer/bank/accounting data and third-party connections remain separate."
+        },
+        "reason": "Full actual license read confirms noncompete restriction and required notice; do not conflate it with a noncommercial license or claim frozen-loader hashes bind remote task instructions."
+      },
+      {
+        "full_name": "SalesforceLabs/lsc-for-claude",
+        "field_updates": {
+          "license_scope": "Actual LICENSE.txt contains the Salesforce Apache-2.0 grant. README and plugin manifest instead declare MIT; preserve this unresolved declaration conflict and do not infer MIT OR Apache, a dual-license election, or a blanket right to copy external knowledge. Directory metadata records the reviewed LICENSE.txt label only. Salesforce platform/org data, live help and third-party source documentation retain separate terms.",
+          "additional_evidence": [
+            {
+              "path": ".claude/skills/roz-ui/SKILL.md",
+              "blob_sha": "0d0e7d032a1a6b39f8735d3e19a9fc18abbdd8d3",
+              "sha256": "20d553be3cfb021984bb9dde80ef272638c9938ee31a7bfa03842a39e116db61",
+              "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/.claude/skills/roz-ui/SKILL.md",
+              "bytes": 6611
+            }
+          ]
+        },
+        "reason": "Independent full README license section, manifest and complete LICENSE.txt comparison confirms conflict. Excluded contributor roz-ui role was independently read in its frontmatter/intro, not inferred solely from its hidden-directory path."
+      },
+      {
+        "full_name": "feimacode/open-design-agent-kit",
+        "field_updates": {
+          "skill_count": "45 plugin routing entries (18 workflow routes + 27 explicit-only wrappers); mirrored/catalog copies excluded",
+          "count_basis": "Complete tree has 1300 raw SKILL.md paths. Canonical local plugin contains 45 routes (18 workflows+27 explicit-only curated wrappers); hosted plugin repeats the same 45 names, CLI assets have 90 client views and .agents has 45. Content assets contain 197 recipe entries (manifest:163 synced upstream+34 local overlays), 114 templates and 193 examples; all 504 are identical Git-blob copies in VSCode assets. The 34 local recipes+26 local examples also occur in installed assets with identical blobs. Seven OpenSpec contributor entries are excluded. No global distinct task or originality total is asserted.",
+          "license_scope": "Root MIT applies to reviewed integration wrapper/adapter authorship, not the whole imported library. Root/content documentation and exact pinned nexu-io/open-design source declare Apache-2.0 for upstream content/adaptations, with actual pinned LICENSE wording deviations in sections6/9 disclosed in independent QA rather than treated as a legal equivalence determination. Scoped MIT notices and SOURCE.md identify further third-party code/content and an OFL1.1 font. Local overlays, imported recipes/examples, brand assets and fonts need their applicable attribution/rights review; this metadata intake does not relicense them under MIT.",
+          "additional_evidence": [
+            {
+              "path": "packages/content/assets/open-design/MANIFEST.json",
+              "blob_sha": "5692de4365d810ffd53c4e975bf472a39bd3cbe6",
+              "sha256": "2cdd4c30ae4c8f8165691ff7558926a2b42b3aa89a2a3c59ba1462b578848fde",
+              "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/MANIFEST.json",
+              "bytes": 562
+            }
+          ],
+          "limitations": [
+            "Own integration has independent public multi-host distribution, but reviewed representative routes to a library/MCP tool rather than containing a standalone deck recipe.",
+            "Root/content README vendor counts differ (181 versus 163; actual vendor recipe tree 197), so no global leaf count is asserted.",
+            "Third-party recipe/example/font rights and all vendor bodies were not exhaustively audited; fixed wrapper hashes do not certify hosted service content.",
+            "Hosted designs are stored remotely and have retention/download limits; local Node/browser/FFmpeg dependencies and automatic MCP registration were not executed.",
+            "Metadata-only review; no candidate installation, helper/service execution, host compatibility or business/legal/financial/security outcome certification.",
+            "Representative sampling does not constitute an exhaustive audit of other skill bodies and resources.",
+            "Frozen content MANIFEST pins nexu-io/open-design 89e64d813bb1c7a11519b3f668f011f7017637d7; its 163 synced recipes and 34 local overlays are separate. Native integration/distribution value does not imply 45 original design recipes or new global task identities. Upstream Apache-labelled legal text differs from canonical Apache2 wording in sections6/9; legal effect and whole-library rights were not adjudicated."
+          ]
+        },
+        "reason": "Independent full documentation/representative/provenance/license reading plus tree/blob comparison separates original integration, 45 route entries, upstream163/local34 recipe provenance and hundreds of exact mirrors. New fixed content MANIFEST adds reproducible source pin and count evidence."
+      }
+    ],
+    "objections": [],
+    "coverage": {
+      "expected": 3,
+      "reviewed": 3,
+      "missing": [],
+      "fixed_reference_checks": 20,
+      "additional_upstream_fixed_license_refs": 1
+    },
+    "limits": [
+      "README read ranges are explicit; omitted marketing/desktop/example sections were not represented as fully read.",
+      "Only the complete representative body per repository was read; all additional paths have explicit scope. A frozen hash is content identity, not runtime, financial, clinical, policy or security assurance.",
+      "Scoped source licenses and conflicting/deviating declarations remain evidence, not a legal opinion or blanket permission to redistribute third-party bodies.",
+      "No credentials, accounts, candidate helpers, MCP server or installation commands were executed."
+    ]
+  },
+  "quality-product.json": {
+    "stage": "complete",
+    "date": "2026-11-18",
+    "records": [
+      {
+        "full_name": "AkshatNaruka/aidentity",
+        "snapshot": {
+          "repository_id": 1436639869,
+          "commit": "edc98a9fd9c1ac3294f2135d81d76f276c5277d7",
+          "tree": "63c69e97e8369358419c37bf6f3d985fc3e2b60e"
+        },
+        "commit": "edc98a9fd9c1ac3294f2135d81d76f276c5277d7",
+        "tree": "63c69e97e8369358419c37bf6f3d985fc3e2b60e",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "6fe781eb1f5a3d119b915119c1c4b9080b7f5641",
+            "sha256": "0d7695a8a2558211e45265295acbba87e80252ec801882d82f672e704e7dc542",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/README.md",
+            "bytes": 15233
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "5c170b985c641fff717efb8b2a0710819d34386b",
+            "sha256": "153167d15117f03e9865910e0882cec70c79a95adbe8dc0fb3d5b43c96482172",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/LICENSE",
+            "bytes": 1418
+          },
+          {
+            "path": "scripts/install.js",
+            "blob_sha": "80a655a4d5eaccdb6676c852a8a9a0c8dcbba78d",
+            "sha256": "40b57b78cb15582366890d4e2a421c6bbe37cf2dc8c0fa6ae5f3a3d524216bf0",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/scripts/install.js",
+            "bytes": 4387
+          },
+          {
+            "path": "LICENSE-DATA",
+            "blob_sha": "b59a6fccf9b7b4f9e4eff070fd3a4efee32711ad",
+            "sha256": "46ae47b59267d066b9be2b9743e6639020471f11073982eb11c813ad258028b5",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/LICENSE-DATA",
+            "bytes": 814
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "65cbe51979dfaff2203b5b299a0596feebfc2908",
+            "sha256": "7d448225f0a6d385f56a535714c7b0e499abb85f6300bfb0e2c9a462f6866228",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/NOTICE",
+            "bytes": 672
+          },
+          {
+            "path": "bundles/README.md",
+            "blob_sha": "4a8b3095ffef9b7dc5df2e27f06bd6d55d4b2d34",
+            "sha256": "7ca5e129b9840856ec99355a7f09519ab7acb450b055663ba7ead01e11f2d38a",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/bundles/README.md",
+            "bytes": 1807
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "814fb2655be9bb04e6a623011096d3633ca43236",
+            "sha256": "ebd250be4c0b3047dfd4e3eb225668ad6a289a3b4b8d266962cefbae1e571c41",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/package.json",
+            "bytes": 1902
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "2ff86bba2d35a2d61ea922d76e912139819fecc8",
+            "sha256": "f975c170402e6e6ad8e30dc4b9a95e0506972f565b5513ea1f611a762c938d79",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/THIRD_PARTY_NOTICES.md",
+            "bytes": 82160
+          }
+        ],
+        "commit_tree_verified": true,
+        "read_scope": {
+          "full": [
+            "README.md",
+            "LICENSE",
+            "LICENSE-DATA",
+            "NOTICE",
+            "scripts/install.js",
+            "bundles/README.md",
+            "package.json"
+          ],
+          "partial": {
+            "THIRD_PARTY_NOTICES.md": "characters [0,5500), including ownership/generated-file statement and representative source grants; complete file bytes verified but remaining notices not read"
+          },
+          "not_read": "Most vendored skills, registry content/provenance records, CLI/MCP implementations, security scanner and weekly verification implementation; no execution or rights-wide audit."
+        },
+        "conclusion": "基础设施准入成立：真实安装脚本按registry/bundle解析并复制本地技能包，分发入口有完整README。代码MIT、registry数据CC0、原创文案CC-BY与vendor来源授权分别保留；524文件库存不是524原创公开叶技能。"
+      },
+      {
+        "full_name": "marin-ai-tech/skillforge",
+        "snapshot": {
+          "repository_id": 1451785059,
+          "commit": "13a85ebfa21b4af61fdf1a3919f28183a2525b15",
+          "tree": "8a4586e8a5d52543d3fa2e18fe457dcd1e4ac0d0"
+        },
+        "commit": "13a85ebfa21b4af61fdf1a3919f28183a2525b15",
+        "tree": "8a4586e8a5d52543d3fa2e18fe457dcd1e4ac0d0",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "9bba0d0e5cb0732d3ee11a08e061f07e5041595b",
+            "sha256": "394efb7558f86a66ef26478be85f676832544b5ce2c0fefa4b335981bf978e9a",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/README.md",
+            "bytes": 10426
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "1a08cc8d9686a80cebba4150025313cab949f4ba",
+            "sha256": "09628ef16a89f47999b039b972aa7b3fd1efc062fc0af5751c6302f8ecbae886",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/LICENSE",
+            "bytes": 2275
+          },
+          {
+            "path": "packages/core/src/artifact/skill.ts",
+            "blob_sha": "662d5b868d798d678bc9d70385095c71f55daac2",
+            "sha256": "db3018e960584d2ea8102b002b78ab6cb1eac8fb8d7115b2c9b1c5c9ac0f457e",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/src/artifact/skill.ts",
+            "bytes": 9159
+          },
+          {
+            "path": "packages/server/starter-packs/codealive/LICENSE",
+            "blob_sha": "de030a535d33d526d6e8cc85493ff12dd25572d8",
+            "sha256": "713e25e1d4175e464cf9c68b8238ac76a53b31f5cd754dbfcd60474b48b7b8f1",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/codealive/LICENSE",
+            "bytes": 1068
+          },
+          {
+            "path": "packages/server/starter-packs/codealive/NOTICE.md",
+            "blob_sha": "9acc7b0cf20a027b8c6bd19c94686f7dfeda1e90",
+            "sha256": "b1c135d22dea0a1282ade072e8618479a9c784033c7b69b30760ba3f654e8829",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/codealive/NOTICE.md",
+            "bytes": 2885
+          },
+          {
+            "path": "NOTICE.md",
+            "blob_sha": "5e4165e3845d44cf756c2397e290772d1a972285",
+            "sha256": "9e4f744dfee5282aee1dc3f62754eee93f04ea68f536608dcabca5b628db7645",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/NOTICE.md",
+            "bytes": 1329
+          },
+          {
+            "path": "LICENSES/PolyForm-Noncommercial-1.0.0.md",
+            "blob_sha": "5ecc88cfc4b1cff608ed640efe913c9dd97935c3",
+            "sha256": "c0ea4a896d2c8c394b29f9427589996db826cd501c512279ff0ed3ef48fabbe5",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/LICENSES/PolyForm-Noncommercial-1.0.0.md",
+            "bytes": 4563
+          },
+          {
+            "path": "LICENSES/SkillForge-Additional-Permissions.md",
+            "blob_sha": "32f4831dbbf9a6857ece5ebe49518050660010ef",
+            "sha256": "9e16287a50df594d1999726b0896ee2053196e018cd2b8de5a6826be4affcc0e",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/LICENSES/SkillForge-Additional-Permissions.md",
+            "bytes": 2773
+          },
+          {
+            "path": "packages/server/starter-packs/ecc-essentials/LICENSE",
+            "blob_sha": "b832b6f642312312367c07688dc7426db40a82ed",
+            "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/ecc-essentials/LICENSE",
+            "bytes": 1071
+          },
+          {
+            "path": "packages/server/starter-packs/ecc-essentials/NOTICE.md",
+            "blob_sha": "3ccbb2289681a80ef2565d6eb2891463a8c19fcf",
+            "sha256": "9e82737f8927abcee3301cbcda1cbe1c8f50c7de0ff8f01e5a6cb8b5ba6c24c2",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/ecc-essentials/NOTICE.md",
+            "bytes": 2591
+          },
+          {
+            "path": "packages/core/package.json",
+            "blob_sha": "75c1bf82d0c777b5b731a36df253e51b5570f1eb",
+            "sha256": "4fe163fb12dcc69c4c4af2ce02f179870cd265ec0a4bcf4316c1e174b8e422ad",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/package.json",
+            "bytes": 531
+          },
+          {
+            "path": "packages/core/src/artifact/index.ts",
+            "blob_sha": "48b8a2216ac2cd5f72051b6d05916039a8a5bff2",
+            "sha256": "f3eeac35817810d7c6ae8676eb2851f0ba7e103a02c0f44fc27cd73f3af244a6",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/src/artifact/index.ts",
+            "bytes": 7087
+          }
+        ],
+        "commit_tree_verified": true,
+        "read_scope": {
+          "full": [
+            "README.md",
+            "LICENSE",
+            "NOTICE.md",
+            "LICENSES/PolyForm-Noncommercial-1.0.0.md",
+            "LICENSES/SkillForge-Additional-Permissions.md",
+            "packages/core/src/artifact/skill.ts",
+            "packages/core/src/artifact/index.ts",
+            "packages/core/package.json",
+            "packages/server/starter-packs/codealive/LICENSE",
+            "packages/server/starter-packs/codealive/NOTICE.md",
+            "packages/server/starter-packs/ecc-essentials/LICENSE",
+            "packages/server/starter-packs/ecc-essentials/NOTICE.md"
+          ],
+          "partial": {},
+          "not_read": "Starter-pack task bodies, security scanner, lifecycle/promotion, authentication, install, signing and server runtime implementations; no execution or commercial-agreement interpretation."
+        },
+        "conclusion": "基础设施准入成立：parseSkill与parseArtifact真实生产实现完成结构检查、规范路径输出及摘要绑定，并在errors存在时返回ok:false；不是仅有营销安全文案。15第三方starter-pack入口与12fixture分开；PolyForm及额外权限/商业边界必须保留。"
+      },
+      {
+        "full_name": "sebastienrousseau/agtmls-core",
+        "snapshot": {
+          "repository_id": 1377233728,
+          "commit": "bfaaea0f9985227a307cedb0a8dab5290c4b5b0a",
+          "tree": "1c9ec87e49f004c8e0291b6e64cc2b3eb12ae1ed"
+        },
+        "commit": "bfaaea0f9985227a307cedb0a8dab5290c4b5b0a",
+        "tree": "1c9ec87e49f004c8e0291b6e64cc2b3eb12ae1ed",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "48ccdf0f92b0f65afbf3e81abd5a745cb1238185",
+            "sha256": "b0e7a8985481050ab54222f7fbe77176006104ea3a2aa28c44e12c2a663055ad",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/README.md",
+            "bytes": 6738
+          },
+          {
+            "path": "LICENSE-MIT",
+            "blob_sha": "02ef99a5e5b5665318c31f6f790f701862117461",
+            "sha256": "0bbbd45c3890a3dbdc4614f1dac05de29053165039aedf71ffc7adb85e2ad810",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/LICENSE-MIT",
+            "bytes": 1075
+          },
+          {
+            "path": "crates/agtmls-core/src/skill.rs",
+            "blob_sha": "e6203fa66df86fdc7311c993f859a77a4e5aa909",
+            "sha256": "3cf33a76412a983a5bcceedf57109c661c924db22e6388fa669fe8dcda093aec",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/src/skill.rs",
+            "bytes": 21648
+          },
+          {
+            "path": "crates/agtmls-core/Cargo.toml",
+            "blob_sha": "956f5bbf594bbd78fc1b9e27be0c264032fccc9d",
+            "sha256": "ca5f7a86f6b426c186c432e4d509b4e068ced6acc42206d727576aec073cdb4d",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/Cargo.toml",
+            "bytes": 814
+          },
+          {
+            "path": "LICENSE-APACHE",
+            "blob_sha": "3d9a3a61633928402aed87160ac0d7d044a1b8bf",
+            "sha256": "96bd8666cb191d86e4108d674120391148d050afaaed373dbcca29d41af310e4",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/LICENSE-APACHE",
+            "bytes": 10287
+          },
+          {
+            "path": "crates/agtmls-core/src/lib.rs",
+            "blob_sha": "2c4ec86ba084ab1142b91ad9d2b1973452231d32",
+            "sha256": "4413b19ce1e8cd56b5d055f06a9863e89c0d9204405f8b796df2f00f38e59794",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/src/lib.rs",
+            "bytes": 2039
+          },
+          {
+            "path": "Cargo.toml",
+            "blob_sha": "1fc329be0ef62f72b84c895ff504eb43bfa6ff85",
+            "sha256": "43f0ca6ad7740eeecf6d789237572ba42734fbaf83c3d6a11ca0912f2222a5c3",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/Cargo.toml",
+            "bytes": 1024
+          }
+        ],
+        "commit_tree_verified": true,
+        "read_scope": {
+          "full": [
+            "README.md",
+            "LICENSE-MIT",
+            "LICENSE-APACHE",
+            "Cargo.toml",
+            "crates/agtmls-core/Cargo.toml",
+            "crates/agtmls-core/src/skill.rs",
+            "crates/agtmls-core/src/lib.rs"
+          ],
+          "partial": {},
+          "not_read": "Other analyzer/digest/signature/attestation/CLI modules and external agtmls-spec rule/corpus content; no compilation, execution or conformance replay."
+        },
+        "conclusion": "基础设施准入成立：真实Rust skill.rs实现Unicode、工具能力、policy跨文件规则；lib.rs公开导出，workspace声明MIT OR Apache-2.0且两授权均在树中。0个SKILL文件，不把测试字符串/fixtures当公开叶；不认证完整YAML解析或安全效果。"
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "AkshatNaruka/aidentity",
+        "reason": "补读完整根README、bundle README、package manifest并核对明确许可分区；保留原有未知范围，避免将package MIT误套到混合许可payload。",
+        "field_updates": {
+          "license_scope": "Root LICENSE limits MIT to cli/, site/ and scripts/; package.json MIT is metadata for that code, not a blanket grant over every packaged file. LICENSE-DATA dedicates registry/ data (including named JSON registries) to CC0-1.0 and explicitly excludes skill bodies/code/prose. Original docs/ and bundles/ prose is CC-BY-4.0; README additionally labels original rules/ writing CC-BY-4.0. skills/ vendor content retains per-source terms, including the README-listed Trail of Bits CC-BY-SA-4.0 and proprietary Anthropic index-only entries. Root NOTICE and only the opening of generated THIRD_PARTY_NOTICES.md were reviewed; no archive-wide reuse-rights audit is claimed.",
+          "distribution_evidence": "Complete root and bundles/README.md document npx CLI distribution and node scripts/install.js <bundle|exact-skill-id> with per-host/manual copy behavior. Complete reviewed scripts/install.js reads registry/skills.json and bundles/bundles.json, resolves records, skips non-distributable/failed-present-security records and existing destinations, and copies each selected skill directory. package.json declares CLI/MCP bins and mixed-scope payload folders; those implementations and published package contents were not executed.",
+          "limitations": "Static source review only; no candidate installed or executed, no host compatibility/security/performance claims independently certified. README reports 526 indexed/507 installable, while the pinned tree has 524 SKILL.md files; catalog records and file inventory differ. Script copies local packages to legacy .codex/skills and gates only present failing security records; this is not proof of current host discovery or safe content. No full vendor-body or third-party-rights audit. Supplemental QA read the complete root README, bundle README and package manifest. npm manifest MIT does not relicense included third-party or prose payloads; no npm pack/install or complete third-party notice/body audit occurred.",
+          "additional_evidence": [
+            {
+              "path": "bundles/README.md",
+              "blob_sha": "4a8b3095ffef9b7dc5df2e27f06bd6d55d4b2d34",
+              "sha256": "7ca5e129b9840856ec99355a7f09519ab7acb450b055663ba7ead01e11f2d38a",
+              "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/bundles/README.md",
+              "bytes": 1807
+            },
+            {
+              "path": "package.json",
+              "blob_sha": "814fb2655be9bb04e6a623011096d3633ca43236",
+              "sha256": "ebd250be4c0b3047dfd4e3eb225668ad6a289a3b4b8d266962cefbae1e571c41",
+              "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/package.json",
+              "bytes": 1902
+            },
+            {
+              "path": "THIRD_PARTY_NOTICES.md",
+              "blob_sha": "2ff86bba2d35a2d61ea922d76e912139819fecc8",
+              "sha256": "f975c170402e6e6ad8e30dc4b9a95e0506972f565b5513ea1f611a762c938d79",
+              "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/THIRD_PARTY_NOTICES.md",
+              "bytes": 82160
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "marin-ai-tech/skillforge",
+        "reason": "补读实际dispatcher、ECC包许可及NOTICE；将额外权限的30天评价和第三方修改/未eval边界写清。",
+        "field_updates": {
+          "license_scope": "Community code remains PolyForm-Noncommercial-1.0.0 together with SkillForge Additional Permissions 1.0, preserving Required Notice. Additional permissions cover wholly public OSI-licensed software projects (including commercial maintainers), without relicensing SkillForge under that project license. Business evaluation is at most 30 days in total from first use by anyone in the company and expressly cannot be production/deliverable use; other commercial/internal/private/client/hosted-service use needs its own commercial agreement. Root NOTICE and both CodeAlive/ECC pack LICENSE/NOTICE records separately retain MIT source grants, fixed upstream commits and adaptation notes; dependencies and user-published artifacts retain their own rights.",
+          "distribution_evidence": "Complete root README documents public self-hosted Docker/release server and CLI publish/validate/install flows. Full packages/core/src/artifact/skill.ts implements skill metadata/body/reference checks and canonical files; full artifact/index.ts actually dispatches skill input to parseSkill, produces hashes/digest, and returns ok:false on any accumulated errors. This proves implemented artifact infrastructure, not runtime safety/security efficacy. The core workspace package is private; public distribution is the application/CLI releases described in README.",
+          "limitations": "Static source review only; no candidate installed or executed, no host compatibility/security/performance claims independently certified. Not unrestricted open source. Metadata-only index; no copying or commercial use authorized. Node 24+, SQLite and runtime dependencies apply; lifecycle/security/host claims not executed. Supplemental static QA read both starter-pack license/notices and the artifact dispatcher. ECC NOTICE explicitly says pack benefits have not yet been measured with evals. Parser/reference checks are structural and warnings-based in places; security scanner, immutable signing, permission/lifecycle policies and install behavior were not executed or audited end-to-end.",
+          "additional_evidence": [
+            {
+              "path": "packages/server/starter-packs/ecc-essentials/LICENSE",
+              "blob_sha": "b832b6f642312312367c07688dc7426db40a82ed",
+              "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+              "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/ecc-essentials/LICENSE",
+              "bytes": 1071
+            },
+            {
+              "path": "packages/server/starter-packs/ecc-essentials/NOTICE.md",
+              "blob_sha": "3ccbb2289681a80ef2565d6eb2891463a8c19fcf",
+              "sha256": "9e82737f8927abcee3301cbcda1cbe1c8f50c7de0ff8f01e5a6cb8b5ba6c24c2",
+              "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/ecc-essentials/NOTICE.md",
+              "bytes": 2591
+            },
+            {
+              "path": "packages/core/package.json",
+              "blob_sha": "75c1bf82d0c777b5b731a36df253e51b5570f1eb",
+              "sha256": "4fe163fb12dcc69c4c4af2ce02f179870cd265ec0a4bcf4316c1e174b8e422ad",
+              "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/package.json",
+              "bytes": 531
+            },
+            {
+              "path": "packages/core/src/artifact/index.ts",
+              "blob_sha": "48b8a2216ac2cd5f72051b6d05916039a8a5bff2",
+              "sha256": "f3eeac35817810d7c6ae8676eb2851f0ba7e103a02c0f44fc27cd73f3af244a6",
+              "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/src/artifact/index.ts",
+              "bytes": 7087
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "sebastienrousseau/agtmls-core",
+        "reason": "Rust生产实现、公开导出与workspace双授权已确认；补充手写frontmatter解析范围，保留原有非认证限制。",
+        "field_updates": {
+          "limitations": "Static source review only; no candidate installed or executed, no host compatibility/security/performance claims independently certified. Rust1.89+ stated; external agtmls-spec rule data and ssh-keygen needed for specific operations. L5/conformance, signature correctness, static analyzer detection quality and cross-language agreement are not independently certified. Supplemental QA read full skill.rs including its embedded test modules, full lib.rs exports and root workspace Cargo.toml. frontmatter()/frontmatter_tools() are a narrow handwritten parser: opening delimiter expects LF and allowed-tools is read from an unindented single line; this is not a complete YAML/SKILL parser. Rule/prose checks have defined pattern/capability scope; no finding is not a general safety verdict. No compilation, corpus replay or runtime test occurred.",
+          "additional_evidence": [
+            {
+              "path": "crates/agtmls-core/src/lib.rs",
+              "blob_sha": "2c4ec86ba084ab1142b91ad9d2b1973452231d32",
+              "sha256": "4413b19ce1e8cd56b5d055f06a9863e89c0d9204405f8b796df2f00f38e59794",
+              "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/src/lib.rs",
+              "bytes": 2039
+            },
+            {
+              "path": "Cargo.toml",
+              "blob_sha": "1fc329be0ef62f72b84c895ff504eb43bfa6ff85",
+              "sha256": "43f0ca6ad7740eeecf6d789237572ba42734fbaf83c3d6a11ca0912f2222a5c3",
+              "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/Cargo.toml",
+              "bytes": 1024
+            }
+          ]
+        }
+      }
+    ],
+    "objections": [
+      {
+        "full_name": "AkshatNaruka/aidentity",
+        "blocking": false,
+        "reason": "仅基础设施元数据准入；package.json的MIT和README安全营销句不能覆盖混合payload许可或构成内容安全认证。原有524路径与526目录条目的区别继续保留。"
+      },
+      {
+        "full_name": "marin-ai-tech/skillforge",
+        "blocking": false,
+        "reason": "不阻断元数据索引；必须保留PolyForm+Additional Permissions及全公司累计30天非生产评价限制，不能称不受限制的开源软件或已认证安全注册表。"
+      },
+      {
+        "full_name": "sebastienrousseau/agtmls-core",
+        "blocking": false,
+        "reason": "不阻断Rust基础设施准入；结构分析和窄frontmatter工具提取不等于完整YAML解析，README L5/安全保证未在本轮独立复现。"
+      }
+    ],
+    "limits": [
+      "只读静态复核这三项固定快照；不安装、执行候选或调用其服务，不访问真实用户内容/历史。",
+      "共27条去重固定refs已重算原字节长度、Git blob SHA-1、SHA-256、固定URL并绑定已缓存的完整非截断树；三个commit/tree另经GitHub官方Git Commit API独立核对。",
+      "read_refs指固定字节证据；全文与节选范围以read_scope为准。Aidentity大型THIRD_PARTY_NOTICES只有开头5500字符实际阅读，其余不宣称全文许可审计。",
+      "不认证法律条款等效、归档正文复用权、宿主兼容、检测质量、密码学/安全或实际运行效果；corrections均延续已有实际限制。"
+    ],
+    "verification": {
+      "completed_at_utc": "2026-11-18T06:17:17.760108+00:00",
+      "checked_repository_count": 3,
+      "checked_reference_count": 27,
+      "missing": [],
+      "candidate_execution": "none"
+    }
+  },
+  "quality-breadth.json": {
+    "stage": "complete",
+    "date": "2026-11-18",
+    "records": [
+      {
+        "full_name": "HolobiomicsLab/asb-skills-agentic-ai",
+        "repository_id": 1376505297,
+        "snapshot": {
+          "commit": "c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5",
+          "tree": "edd1b20d487da35c22ea735572a2225144461223"
+        },
+        "commit": "c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5",
+        "tree": "edd1b20d487da35c22ea735572a2225144461223",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "2e0a6ebb1ba9a7abd5e391f3f63adc473fa24965",
+            "sha256": "f2da8ac219cdcc65b572dbca13fb14cfe881545c1ed276f65ee80a899831270b",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/README.md",
+            "bytes": 8928,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "29d65063076228179850d1aff9b46d41b3e5bfa1",
+            "sha256": "9d8f93c935f8af81a6e2e365c0d004997eaf06ba5f110e6aec4470ee633fe605",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/LICENSE",
+            "bytes": 11393,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/leaves/abcdef-protocol-concept-categorization/SKILL.md",
+            "blob_sha": "c6dc5bec82647b094e5135b5967ebbbc3e3d9f5a",
+            "sha256": "71601a3b374a85230a08b8b75b7c6b4804039fa4243e4da33cd75917b92b0471",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/leaves/abcdef-protocol-concept-categorization/SKILL.md",
+            "bytes": 9316,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSING.md",
+            "blob_sha": "38f74b4497dd5ec648a82413bb862a4272ae30b0",
+            "sha256": "e1fcfd283c30704a65843a3330494e2693176c200fe703f3ab85fa3d6d19f393",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/LICENSING.md",
+            "bytes": 2363,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "8cd0cf3ffb517bc7273b4d81895ae5faf2fd8519",
+            "sha256": "068bfdca2320deb8a28394bdaa3fc8a97713e560f939d200818329faf87de1fb",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/.claude-plugin/marketplace.json",
+            "bytes": 923,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/.claude-plugin/plugin.json",
+            "blob_sha": "4abd3e00e1d011ee0a58ca0c9be13ea23fe40fba",
+            "sha256": "5c37f673f1a456af21e056b5ec3ba0b3e25fb6c468d4a228c94897c25dc2edbd",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/.claude-plugin/plugin.json",
+            "bytes": 515,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/skills/_router/SKILL.md",
+            "blob_sha": "f556a3645329354456b3f186bd41b7a6410e420a",
+            "sha256": "c6997a731262774c4f505678cf0745988ae34b1ac03cfc37898ac9c30da24e04",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/skills/_router/SKILL.md",
+            "bytes": 4281,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+            "blob_sha": "b4fdc2be22cc48891b00c45e751fe6b28c43e3a1",
+            "sha256": "3f842d299b0989c9c0d949f363f85a38e0ec637c4dea0752932ead1b488c2ddf",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+            "bytes": 4725,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/tool_licenses.json",
+            "blob_sha": "06b293371728aa8147cb99f4268bf26fdc4d2185",
+            "sha256": "6fedab2ed2faf59e4ccd643c11c40403c5d991195947684345c8cde748359862",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/tool_licenses.json",
+            "bytes": 6709,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          }
+        ],
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "2e0a6ebb1ba9a7abd5e391f3f63adc473fa24965",
+            "sha256": "f2da8ac219cdcc65b572dbca13fb14cfe881545c1ed276f65ee80a899831270b",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/README.md",
+            "bytes": 8928,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "29d65063076228179850d1aff9b46d41b3e5bfa1",
+            "sha256": "9d8f93c935f8af81a6e2e365c0d004997eaf06ba5f110e6aec4470ee633fe605",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/LICENSE",
+            "bytes": 11393,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/leaves/abcdef-protocol-concept-categorization/SKILL.md",
+            "blob_sha": "c6dc5bec82647b094e5135b5967ebbbc3e3d9f5a",
+            "sha256": "71601a3b374a85230a08b8b75b7c6b4804039fa4243e4da33cd75917b92b0471",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/leaves/abcdef-protocol-concept-categorization/SKILL.md",
+            "bytes": 9316,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSING.md",
+            "blob_sha": "38f74b4497dd5ec648a82413bb862a4272ae30b0",
+            "sha256": "e1fcfd283c30704a65843a3330494e2693176c200fe703f3ab85fa3d6d19f393",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/LICENSING.md",
+            "bytes": 2363,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "8cd0cf3ffb517bc7273b4d81895ae5faf2fd8519",
+            "sha256": "068bfdca2320deb8a28394bdaa3fc8a97713e560f939d200818329faf87de1fb",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/.claude-plugin/marketplace.json",
+            "bytes": 923,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/.claude-plugin/plugin.json",
+            "blob_sha": "4abd3e00e1d011ee0a58ca0c9be13ea23fe40fba",
+            "sha256": "5c37f673f1a456af21e056b5ec3ba0b3e25fb6c468d4a228c94897c25dc2edbd",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/.claude-plugin/plugin.json",
+            "bytes": 515,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/skills/_router/SKILL.md",
+            "blob_sha": "f556a3645329354456b3f186bd41b7a6410e420a",
+            "sha256": "c6997a731262774c4f505678cf0745988ae34b1ac03cfc37898ac9c30da24e04",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/skills/_router/SKILL.md",
+            "bytes": 4281,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+            "blob_sha": "b4fdc2be22cc48891b00c45e751fe6b28c43e3a1",
+            "sha256": "3f842d299b0989c9c0d949f363f85a38e0ec637c4dea0752932ead1b488c2ddf",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+            "bytes": 4725,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "collections/agentic-ai/v1/tool_licenses.json",
+            "blob_sha": "06b293371728aa8147cb99f4268bf26fdc4d2185",
+            "sha256": "6fedab2ed2faf59e4ccd643c11c40403c5d991195947684345c8cde748359862",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/tool_licenses.json",
+            "bytes": 6709,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          }
+        ],
+        "read_scope": {
+          "read_full": [
+            "README.md",
+            "LICENSE",
+            "collections/agentic-ai/v1/leaves/abcdef-protocol-concept-categorization/SKILL.md",
+            "LICENSING.md",
+            ".claude-plugin/marketplace.json",
+            "collections/agentic-ai/v1/.claude-plugin/plugin.json",
+            "collections/agentic-ai/v1/skills/_router/SKILL.md",
+            "collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+            "collections/agentic-ai/v1/tool_licenses.json"
+          ],
+          "tree": "Fresh official commit->tree binding and nontruncated recursive tree, compared with selected inventory.",
+          "runtime": "No installation, execution or external scientific/API/clinical/publication checks.",
+          "license_read_method": "Full LICENSING.md and representative CC-BY-4.0/tool-noncommercial declarations; full Apache body normalized against already read Atlan Apache text, with sole copyright-name difference inspected."
+        },
+        "conclusion": "Pass with wording corrections. Inventory 668 leaves + 2 composite outlines + 2 routers and 215 tool records confirmed. CC-BY content/Apache code remain separate from paper-quotation rights and underlying-tool tiers. MedPAO representative explicitly requires pre-extracted ontology-filtered MIMIC-CXR concepts and noncommercial tool use. Plugin uses router/search; leaves ship as data. Composite outlines are not released automatic executable DAGs.",
+        "standard_yaml": {
+          "passed": true,
+          "name": "abcdef-protocol-concept-categorization",
+          "description_characters": 229
+        }
+      },
+      {
+        "full_name": "Maryland-State-Innovation-Team/Maryland-Agent-Skills",
+        "repository_id": 1077677299,
+        "snapshot": {
+          "commit": "1f8fa60fdc60c9897fad8ddf97d87740167c67ba",
+          "tree": "c51ed4167d056f44065b53fd22e0c7c18a68b443"
+        },
+        "commit": "1f8fa60fdc60c9897fad8ddf97d87740167c67ba",
+        "tree": "c51ed4167d056f44065b53fd22e0c7c18a68b443",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "3487cb8213bd9a8a80cce8b1c10134cf4b4fc648",
+            "sha256": "73159c23121b8eb4ca0fb8879a6252b376546a526793f88e52202e6a9a14ef35",
+            "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/README.md",
+            "bytes": 6236,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "7ee6dce8904905d8cd4f85d1cf34371408aa0763",
+            "sha256": "1c5da1028ff6b2d99274325d289abbf3914a60988f42f606aa5c6941bb8765e7",
+            "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/LICENSE",
+            "bytes": 1087,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "maryland-imap/SKILL.md",
+            "blob_sha": "18481b21ae4da0221e36a4a8532f2ffcf6ac9949",
+            "sha256": "c688362b12c882a125df569f45889c47eeb7dff11e5765cfc25c48f34430850a",
+            "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/maryland-imap/SKILL.md",
+            "bytes": 4513,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          }
+        ],
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "3487cb8213bd9a8a80cce8b1c10134cf4b4fc648",
+            "sha256": "73159c23121b8eb4ca0fb8879a6252b376546a526793f88e52202e6a9a14ef35",
+            "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/README.md",
+            "bytes": 6236,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "7ee6dce8904905d8cd4f85d1cf34371408aa0763",
+            "sha256": "1c5da1028ff6b2d99274325d289abbf3914a60988f42f606aa5c6941bb8765e7",
+            "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/LICENSE",
+            "bytes": 1087,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "maryland-imap/SKILL.md",
+            "blob_sha": "18481b21ae4da0221e36a4a8532f2ffcf6ac9949",
+            "sha256": "c688362b12c882a125df569f45889c47eeb7dff11e5765cfc25c48f34430850a",
+            "url": "https://github.com/Maryland-State-Innovation-Team/Maryland-Agent-Skills/blob/1f8fa60fdc60c9897fad8ddf97d87740167c67ba/maryland-imap/SKILL.md",
+            "bytes": 4513,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          }
+        ],
+        "read_scope": {
+          "read_full": [
+            "README.md",
+            "LICENSE",
+            "maryland-imap/SKILL.md"
+          ],
+          "tree": "Fresh official commit->tree binding and nontruncated recursive tree, compared with selected inventory.",
+          "runtime": "No installation, execution or external scientific/API/clinical/publication checks.",
+          "not_read": "The other three SKILL bodies, iMap boundaries/geocoding reference bodies, PDF pipeline, design system/assets and API output/data terms."
+        },
+        "conclusion": "Pass, no blocking correction. Four independent top-level entries match README. iMap representative is complete and intentionally routes to boundaries/geocoding references. Live-service latency, EPSG:4326/3857, no-auth, first-try correctness and PDF/UA/tested-reports statements remain source assertions; none was executed or promoted to certification. MIT applies to owned material, not external APIs/data/design systems/PDF tools.",
+        "standard_yaml": {
+          "passed": true,
+          "name": "maryland-imap",
+          "description_characters": 541
+        }
+      },
+      {
+        "full_name": "Rigjite/Scientific-Editor-AI-Protocol",
+        "repository_id": 1422964926,
+        "snapshot": {
+          "commit": "f0aebe86e46b719b5c91f283d96a13ff94617198",
+          "tree": "358a9aeef19895aaf5bda44de30db84affb7664b"
+        },
+        "commit": "f0aebe86e46b719b5c91f283d96a13ff94617198",
+        "tree": "358a9aeef19895aaf5bda44de30db84affb7664b",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "79b6f69e8faaacfa951bcfc35abfb127e32f392f",
+            "sha256": "348dc58f2afc951988186c32820f00b6baecf642852aa6197870506630c5555c",
+            "url": "https://github.com/Rigjite/Scientific-Editor-AI-Protocol/blob/f0aebe86e46b719b5c91f283d96a13ff94617198/README.md",
+            "bytes": 19994,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4ea99c213c5c0c005ae4e80df8e52169d06896ec",
+            "sha256": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94",
+            "url": "https://github.com/Rigjite/Scientific-Editor-AI-Protocol/blob/f0aebe86e46b719b5c91f283d96a13ff94617198/LICENSE",
+            "bytes": 18656,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "f7290fdbabedb4fcd96d7c8972956ad7b740c2b8",
+            "sha256": "f4bf00ea1e1a28c554e98d4801ad56a2da4e293ce5fed757fab5ea0467abf5d8",
+            "url": "https://github.com/Rigjite/Scientific-Editor-AI-Protocol/blob/f0aebe86e46b719b5c91f283d96a13ff94617198/SKILL.md",
+            "bytes": 22047,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          }
+        ],
+        "checked_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "79b6f69e8faaacfa951bcfc35abfb127e32f392f",
+            "sha256": "348dc58f2afc951988186c32820f00b6baecf642852aa6197870506630c5555c",
+            "url": "https://github.com/Rigjite/Scientific-Editor-AI-Protocol/blob/f0aebe86e46b719b5c91f283d96a13ff94617198/README.md",
+            "bytes": 19994,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4ea99c213c5c0c005ae4e80df8e52169d06896ec",
+            "sha256": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94",
+            "url": "https://github.com/Rigjite/Scientific-Editor-AI-Protocol/blob/f0aebe86e46b719b5c91f283d96a13ff94617198/LICENSE",
+            "bytes": 18656,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "f7290fdbabedb4fcd96d7c8972956ad7b740c2b8",
+            "sha256": "f4bf00ea1e1a28c554e98d4801ad56a2da4e293ce5fed757fab5ea0467abf5d8",
+            "url": "https://github.com/Rigjite/Scientific-Editor-AI-Protocol/blob/f0aebe86e46b719b5c91f283d96a13ff94617198/SKILL.md",
+            "bytes": 22047,
+            "checks": {
+              "byte_length": true,
+              "git_blob_sha1": true,
+              "sha256": true,
+              "official_frozen_tree_membership": true,
+              "immutable_url": true
+            }
+          }
+        ],
+        "read_scope": {
+          "read_full": [
+            "README.md",
+            "LICENSE",
+            "SKILL.md"
+          ],
+          "tree": "Fresh official commit->tree binding and nontruncated recursive tree, compared with selected inventory.",
+          "runtime": "No installation, execution or external scientific/API/clinical/publication checks.",
+          "read_segments": {
+            "README.md": [
+              "[0,11000)",
+              "[11000,end)"
+            ],
+            "SKILL.md": [
+              "[0,12000)",
+              "[12000,end)"
+            ],
+            "LICENSE": [
+              "[0,9000)",
+              "[9000,end)"
+            ]
+          },
+          "not_read": "Reference/helper/test bodies, cited standards/papers, author credentials, clinical records and real manuscripts."
+        },
+        "conclusion": "Pass, no blocking correction. One root entry, five modes, four evidence gates, seven rubric dimensions and five helpers are separate types. Full CC-BY-4.0 legal code, install folder-name requirement, default audit-only boundary, explicit n=1 old-rule pilot, heuristic tooling and limitations confirmed. Venue/COI score cutoffs are author-defined guidance; historical clinical prompt and regulatory names are not clinical, compliance, publication or journal-eligibility validation.",
+        "standard_yaml": {
+          "passed": true,
+          "name": "scientific-editor",
+          "description_characters": 1015
+        }
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "HolobiomicsLab/asb-skills-agentic-ai",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "collections/agentic-ai/v1/skills/_router/SKILL.md",
+              "blob_sha": "f556a3645329354456b3f186bd41b7a6410e420a",
+              "sha256": "c6997a731262774c4f505678cf0745988ae34b1ac03cfc37898ac9c30da24e04",
+              "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/skills/_router/SKILL.md",
+              "bytes": 4281
+            },
+            {
+              "path": "collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+              "blob_sha": "b4fdc2be22cc48891b00c45e751fe6b28c43e3a1",
+              "sha256": "3f842d299b0989c9c0d949f363f85a38e0ec637c4dea0752932ead1b488c2ddf",
+              "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+              "bytes": 4725
+            },
+            {
+              "path": "collections/agentic-ai/v1/tool_licenses.json",
+              "blob_sha": "06b293371728aa8147cb99f4268bf26fdc4d2185",
+              "sha256": "6fedab2ed2faf59e4ccd643c11c40403c5d991195947684345c8cde748359862",
+              "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/tool_licenses.json",
+              "bytes": 6709
+            }
+          ],
+          "distribution_evidence": "Full README documents plugin installation and independent manual copying of individual leaf directories. Marketplace source points to collections/agentic-ai/v1; the public skill router explicitly searches bundled leaves as data and returns fixed read paths. The workflow router advertises two composite outlines and manual stage execution; these are separate from two routers and 215 tool records.",
+          "limitations": "Static metadata admission only; no candidate/helper installation, execution, service calls or scientific/regulatory result validation. Other bodies and runtime are not audited. Representative clinical-concept workflow requires pre-extracted reports and external MedPAO/models; tool tier is noncommercial. Clinical metrics, paper quotations, DOI/IRI resolution, gate and scientific results were not independently reproduced or legally certified. Supplementary router review: leaves are bundled data discovered through the plugin router/offline search, not 668 automatically loaded plugin entries. The two composites are published outlines; their stage structure is described as validated but execution is not, and automatic DAG grading/asb solve-workflow is explicitly absent from this release. tool_licenses.json includes a restricted CUDA vendor-product entry, so a leaf tier/open label is not a blanket license grant for all model/data/software dependencies."
+        },
+        "reason": "Full fixed router bodies expressly distinguish data-distributed leaves, manual composite outlines and unreleased automatic execution; preserving that boundary avoids overstating plugin/distribution/runtime scope."
+      }
+    ],
+    "objections": [],
+    "validation": {
+      "assigned": 3,
+      "accounted": 3,
+      "missing": [],
+      "fresh_identity_commit_tree_checks": 3,
+      "checked_reference_count": 15,
+      "standard_yaml_representatives": 3,
+      "candidate_execution": false,
+      "candidate_installation": false
+    },
+    "limits": [
+      "Independent static review of the three explicitly assigned identities only. No whole-collection leaf-body audit, candidate/helper execution, installation, model call, hosted API invocation or clinical/regulatory/publication certification.",
+      "Cached core bytes were independently rehashed; metadata/commit/tree membership were freshly checked through official GitHub API. The three supplementary Holobiomics files were freshly fetched through Git blob API and rehashed.",
+      "Source-reported source-paper quotations, DOI/IRI reachability, license tiers, test counts and scientific effects were not independently reproduced or legally certified."
+    ]
+  },
+  "integration_application": [
+    {
+      "full_name": "WellApp-ai/skills",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "PolyForm-Perimeter-1.0.0 for the distributed local loader files, with Required Notice copyright Well App, Inc.; commercial use is not categorically prohibited, but competing-product purposes are restricted. This is metadata-only indexing, not an unrestricted open-source classification. Well platform terms, live remote instruction rights, customer/bank/accounting data and third-party connections remain separate."
+      }
+    },
+    {
+      "full_name": "SalesforceLabs/lsc-for-claude",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "Actual LICENSE.txt contains the Salesforce Apache-2.0 grant. README and plugin manifest instead declare MIT; preserve this unresolved declaration conflict and do not infer MIT OR Apache, a dual-license election, or a blanket right to copy external knowledge. Directory metadata records the reviewed LICENSE.txt label only. Salesforce platform/org data, live help and third-party source documentation retain separate terms.",
+        "additional_evidence": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "9dcc10c664b7fbf679868cafb0379a8f7ec5c35b",
+            "sha256": "b9588296d446e51aea98aa001ed7e0621680cf91f44aa7e3d390821aaf94c999",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/.claude-plugin/plugin.json",
+            "bytes": 414
+          },
+          {
+            "path": ".claude/skills/roz-ui/SKILL.md",
+            "blob_sha": "0d0e7d032a1a6b39f8735d3e19a9fc18abbdd8d3",
+            "sha256": "20d553be3cfb021984bb9dde80ef272638c9938ee31a7bfa03842a39e116db61",
+            "url": "https://github.com/SalesforceLabs/lsc-for-claude/blob/34815cb489dc4fbca59c22ad317530f46806b408/.claude/skills/roz-ui/SKILL.md",
+            "bytes": 6611
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "feimacode/open-design-agent-kit",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "skill_count": "45 plugin routing entries (18 workflow routes + 27 explicit-only wrappers); mirrored/catalog copies excluded",
+        "count_basis": "Complete tree has 1300 raw SKILL.md paths. Canonical local plugin contains 45 routes (18 workflows+27 explicit-only curated wrappers); hosted plugin repeats the same 45 names, CLI assets have 90 client views and .agents has 45. Content assets contain 197 recipe entries (manifest:163 synced upstream+34 local overlays), 114 templates and 193 examples; all 504 are identical Git-blob copies in VSCode assets. The 34 local recipes+26 local examples also occur in installed assets with identical blobs. Seven OpenSpec contributor entries are excluded. No global distinct task or originality total is asserted.",
+        "license_scope": "Root MIT applies to reviewed integration wrapper/adapter authorship, not the whole imported library. Root/content documentation and exact pinned nexu-io/open-design source declare Apache-2.0 for upstream content/adaptations, with actual pinned LICENSE wording deviations in sections6/9 disclosed in independent QA rather than treated as a legal equivalence determination. Scoped MIT notices and SOURCE.md identify further third-party code/content and an OFL1.1 font. Local overlays, imported recipes/examples, brand assets and fonts need their applicable attribution/rights review; this metadata intake does not relicense them under MIT.",
+        "additional_evidence": [
+          {
+            "path": "packages/content/README.md",
+            "blob_sha": "18d992d07705812b4e7e447f2c3630772ff1d115",
+            "sha256": "b844a5f0a71788bfcaa6b95198d15aa1a652015ffc9e46c014cbbac541f273d4",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/README.md",
+            "bytes": 1787
+          },
+          {
+            "path": "docs/getting-started/claude-code.md",
+            "blob_sha": "442d3c848dbe968228175407f8712e13992db78a",
+            "sha256": "caee2bb33dd078c9182b8a129df0da28a463a07e158177ac309771f6decce9dc",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/docs/getting-started/claude-code.md",
+            "bytes": 5766
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "c91d808f58775a7a4ffa2bbb5d23e5e8d2f7bab0",
+            "sha256": "fab9824f6a1afa391b0f2629f9b78842384cd1dc2974843abb380dae834c5cc3",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/.claude-plugin/marketplace.json",
+            "bytes": 1868
+          },
+          {
+            "path": "packages/core/src/vendored/SOURCE.md",
+            "blob_sha": "7c041e46f5cb533f653a61243f8638c70756e2d3",
+            "sha256": "2de54148e6e47e5d07ecb4f8cce65194acbe0ac73f5c10e96eb6dad6794cc577",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/core/src/vendored/SOURCE.md",
+            "bytes": 22214
+          },
+          {
+            "path": "packages/content/assets/open-design/notices/LICENSE-awesome-ios-design-md.txt",
+            "blob_sha": "49c30f560eca3eec5745b8383745dc84d1091be8",
+            "sha256": "ecdf03526d74525a46df5a4fc7cd9881036113267813a57eadaa1259c453ef53",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/notices/LICENSE-awesome-ios-design-md.txt",
+            "bytes": 1072
+          },
+          {
+            "path": "packages/content/assets/open-design/notices/LICENSE-ux-ui-agent-skills.txt",
+            "blob_sha": "4803b932d79c14a86e3b639e4d59bf1326e57dfc",
+            "sha256": "c8f168486c91894115315055a08e017cedb41189b331196f879c74b985a51f81",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/notices/LICENSE-ux-ui-agent-skills.txt",
+            "bytes": 1073
+          },
+          {
+            "path": "packages/claude-plugin-local/.claude-plugin/plugin.json",
+            "blob_sha": "844ab79273585c553e3b239d523fea25a477620c",
+            "sha256": "ee54138402f86e6c445719ff55860ae65ea97fe501e492827f1a9c268f8660e0",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/claude-plugin-local/.claude-plugin/plugin.json",
+            "bytes": 585
+          },
+          {
+            "path": "packages/content/assets/open-design/MANIFEST.json",
+            "blob_sha": "5692de4365d810ffd53c4e975bf472a39bd3cbe6",
+            "sha256": "2cdd4c30ae4c8f8165691ff7558926a2b42b3aa89a2a3c59ba1462b578848fde",
+            "url": "https://github.com/feimacode/open-design-agent-kit/blob/1b3832c3452720f028a96b1bdab805ecc1aa3213/packages/content/assets/open-design/MANIFEST.json",
+            "bytes": 562
+          }
+        ],
+        "limitations": [
+          "Own integration has independent public multi-host distribution, but reviewed representative routes to a library/MCP tool rather than containing a standalone deck recipe.",
+          "Root/content README vendor counts differ (181 versus 163; actual vendor recipe tree 197), so no global leaf count is asserted.",
+          "Third-party recipe/example/font rights and all vendor bodies were not exhaustively audited; fixed wrapper hashes do not certify hosted service content.",
+          "Hosted designs are stored remotely and have retention/download limits; local Node/browser/FFmpeg dependencies and automatic MCP registration were not executed.",
+          "Metadata-only review; no candidate installation, helper/service execution, host compatibility or business/legal/financial/security outcome certification.",
+          "Representative sampling does not constitute an exhaustive audit of other skill bodies and resources.",
+          "Frozen content MANIFEST pins nexu-io/open-design 89e64d813bb1c7a11519b3f668f011f7017637d7; its 163 synced recipes and 34 local overlays are separate. Native integration/distribution value does not imply 45 original design recipes or new global task identities. Upstream Apache-labelled legal text differs from canonical Apache2 wording in sections6/9; legal effect and whole-library rights were not adjudicated."
+        ]
+      }
+    },
+    {
+      "full_name": "AkshatNaruka/aidentity",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "Root LICENSE limits MIT to cli/, site/ and scripts/; package.json MIT is metadata for that code, not a blanket grant over every packaged file. LICENSE-DATA dedicates registry/ data (including named JSON registries) to CC0-1.0 and explicitly excludes skill bodies/code/prose. Original docs/ and bundles/ prose is CC-BY-4.0; README additionally labels original rules/ writing CC-BY-4.0. skills/ vendor content retains per-source terms, including the README-listed Trail of Bits CC-BY-SA-4.0 and proprietary Anthropic index-only entries. Root NOTICE and only the opening of generated THIRD_PARTY_NOTICES.md were reviewed; no archive-wide reuse-rights audit is claimed.",
+        "distribution_evidence": "Complete root and bundles/README.md document npx CLI distribution and node scripts/install.js <bundle|exact-skill-id> with per-host/manual copy behavior. Complete reviewed scripts/install.js reads registry/skills.json and bundles/bundles.json, resolves records, skips non-distributable/failed-present-security records and existing destinations, and copies each selected skill directory. package.json declares CLI/MCP bins and mixed-scope payload folders; those implementations and published package contents were not executed.",
+        "limitations": "Static source review only; no candidate installed or executed, no host compatibility/security/performance claims independently certified. README reports 526 indexed/507 installable, while the pinned tree has 524 SKILL.md files; catalog records and file inventory differ. Script copies local packages to legacy .codex/skills and gates only present failing security records; this is not proof of current host discovery or safe content. No full vendor-body or third-party-rights audit. Supplemental QA read the complete root README, bundle README and package manifest. npm manifest MIT does not relicense included third-party or prose payloads; no npm pack/install or complete third-party notice/body audit occurred.",
+        "additional_evidence": [
+          {
+            "path": "LICENSE-DATA",
+            "blob_sha": "b59a6fccf9b7b4f9e4eff070fd3a4efee32711ad",
+            "sha256": "46ae47b59267d066b9be2b9743e6639020471f11073982eb11c813ad258028b5",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/LICENSE-DATA",
+            "bytes": 814
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "65cbe51979dfaff2203b5b299a0596feebfc2908",
+            "sha256": "7d448225f0a6d385f56a535714c7b0e499abb85f6300bfb0e2c9a462f6866228",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/NOTICE",
+            "bytes": 672
+          },
+          {
+            "path": "scripts/install.js",
+            "blob_sha": "80a655a4d5eaccdb6676c852a8a9a0c8dcbba78d",
+            "sha256": "40b57b78cb15582366890d4e2a421c6bbe37cf2dc8c0fa6ae5f3a3d524216bf0",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/scripts/install.js",
+            "bytes": 4387
+          },
+          {
+            "path": "bundles/README.md",
+            "blob_sha": "4a8b3095ffef9b7dc5df2e27f06bd6d55d4b2d34",
+            "sha256": "7ca5e129b9840856ec99355a7f09519ab7acb450b055663ba7ead01e11f2d38a",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/bundles/README.md",
+            "bytes": 1807
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "814fb2655be9bb04e6a623011096d3633ca43236",
+            "sha256": "ebd250be4c0b3047dfd4e3eb225668ad6a289a3b4b8d266962cefbae1e571c41",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/package.json",
+            "bytes": 1902
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "2ff86bba2d35a2d61ea922d76e912139819fecc8",
+            "sha256": "f975c170402e6e6ad8e30dc4b9a95e0506972f565b5513ea1f611a762c938d79",
+            "url": "https://github.com/AkshatNaruka/aidentity/blob/edc98a9fd9c1ac3294f2135d81d76f276c5277d7/THIRD_PARTY_NOTICES.md",
+            "bytes": 82160
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "marin-ai-tech/skillforge",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "Community code remains PolyForm-Noncommercial-1.0.0 together with SkillForge Additional Permissions 1.0, preserving Required Notice. Additional permissions cover wholly public OSI-licensed software projects (including commercial maintainers), without relicensing SkillForge under that project license. Business evaluation is at most 30 days in total from first use by anyone in the company and expressly cannot be production/deliverable use; other commercial/internal/private/client/hosted-service use needs its own commercial agreement. Root NOTICE and both CodeAlive/ECC pack LICENSE/NOTICE records separately retain MIT source grants, fixed upstream commits and adaptation notes; dependencies and user-published artifacts retain their own rights.",
+        "distribution_evidence": "Complete root README documents public self-hosted Docker/release server and CLI publish/validate/install flows. Full packages/core/src/artifact/skill.ts implements skill metadata/body/reference checks and canonical files; full artifact/index.ts actually dispatches skill input to parseSkill, produces hashes/digest, and returns ok:false on any accumulated errors. This proves implemented artifact infrastructure, not runtime safety/security efficacy. The core workspace package is private; public distribution is the application/CLI releases described in README.",
+        "limitations": "Static source review only; no candidate installed or executed, no host compatibility/security/performance claims independently certified. Not unrestricted open source. Metadata-only index; no copying or commercial use authorized. Node 24+, SQLite and runtime dependencies apply; lifecycle/security/host claims not executed. Supplemental static QA read both starter-pack license/notices and the artifact dispatcher. ECC NOTICE explicitly says pack benefits have not yet been measured with evals. Parser/reference checks are structural and warnings-based in places; security scanner, immutable signing, permission/lifecycle policies and install behavior were not executed or audited end-to-end.",
+        "additional_evidence": [
+          {
+            "path": "NOTICE.md",
+            "blob_sha": "5e4165e3845d44cf756c2397e290772d1a972285",
+            "sha256": "9e4f744dfee5282aee1dc3f62754eee93f04ea68f536608dcabca5b628db7645",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/NOTICE.md",
+            "bytes": 1329
+          },
+          {
+            "path": "LICENSES/PolyForm-Noncommercial-1.0.0.md",
+            "blob_sha": "5ecc88cfc4b1cff608ed640efe913c9dd97935c3",
+            "sha256": "c0ea4a896d2c8c394b29f9427589996db826cd501c512279ff0ed3ef48fabbe5",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/LICENSES/PolyForm-Noncommercial-1.0.0.md",
+            "bytes": 4563
+          },
+          {
+            "path": "LICENSES/SkillForge-Additional-Permissions.md",
+            "blob_sha": "32f4831dbbf9a6857ece5ebe49518050660010ef",
+            "sha256": "9e16287a50df594d1999726b0896ee2053196e018cd2b8de5a6826be4affcc0e",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/LICENSES/SkillForge-Additional-Permissions.md",
+            "bytes": 2773
+          },
+          {
+            "path": "packages/server/starter-packs/codealive/LICENSE",
+            "blob_sha": "de030a535d33d526d6e8cc85493ff12dd25572d8",
+            "sha256": "713e25e1d4175e464cf9c68b8238ac76a53b31f5cd754dbfcd60474b48b7b8f1",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/codealive/LICENSE",
+            "bytes": 1068
+          },
+          {
+            "path": "packages/server/starter-packs/codealive/NOTICE.md",
+            "blob_sha": "9acc7b0cf20a027b8c6bd19c94686f7dfeda1e90",
+            "sha256": "b1c135d22dea0a1282ade072e8618479a9c784033c7b69b30760ba3f654e8829",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/codealive/NOTICE.md",
+            "bytes": 2885
+          },
+          {
+            "path": "packages/core/src/artifact/skill.ts",
+            "blob_sha": "662d5b868d798d678bc9d70385095c71f55daac2",
+            "sha256": "db3018e960584d2ea8102b002b78ab6cb1eac8fb8d7115b2c9b1c5c9ac0f457e",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/src/artifact/skill.ts",
+            "bytes": 9159
+          },
+          {
+            "path": "packages/server/starter-packs/codealive/LICENSE",
+            "blob_sha": "de030a535d33d526d6e8cc85493ff12dd25572d8",
+            "sha256": "713e25e1d4175e464cf9c68b8238ac76a53b31f5cd754dbfcd60474b48b7b8f1",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/codealive/LICENSE",
+            "bytes": 1068
+          },
+          {
+            "path": "packages/server/starter-packs/codealive/NOTICE.md",
+            "blob_sha": "9acc7b0cf20a027b8c6bd19c94686f7dfeda1e90",
+            "sha256": "b1c135d22dea0a1282ade072e8618479a9c784033c7b69b30760ba3f654e8829",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/codealive/NOTICE.md",
+            "bytes": 2885
+          },
+          {
+            "path": "packages/server/starter-packs/ecc-essentials/LICENSE",
+            "blob_sha": "b832b6f642312312367c07688dc7426db40a82ed",
+            "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/ecc-essentials/LICENSE",
+            "bytes": 1071
+          },
+          {
+            "path": "packages/server/starter-packs/ecc-essentials/NOTICE.md",
+            "blob_sha": "3ccbb2289681a80ef2565d6eb2891463a8c19fcf",
+            "sha256": "9e82737f8927abcee3301cbcda1cbe1c8f50c7de0ff8f01e5a6cb8b5ba6c24c2",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/server/starter-packs/ecc-essentials/NOTICE.md",
+            "bytes": 2591
+          },
+          {
+            "path": "packages/core/package.json",
+            "blob_sha": "75c1bf82d0c777b5b731a36df253e51b5570f1eb",
+            "sha256": "4fe163fb12dcc69c4c4af2ce02f179870cd265ec0a4bcf4316c1e174b8e422ad",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/package.json",
+            "bytes": 531
+          },
+          {
+            "path": "packages/core/src/artifact/index.ts",
+            "blob_sha": "48b8a2216ac2cd5f72051b6d05916039a8a5bff2",
+            "sha256": "f3eeac35817810d7c6ae8676eb2851f0ba7e103a02c0f44fc27cd73f3af244a6",
+            "url": "https://github.com/marin-ai-tech/skillforge/blob/13a85ebfa21b4af61fdf1a3919f28183a2525b15/packages/core/src/artifact/index.ts",
+            "bytes": 7087
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "sebastienrousseau/agtmls-core",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "Static source review only; no candidate installed or executed, no host compatibility/security/performance claims independently certified. Rust1.89+ stated; external agtmls-spec rule data and ssh-keygen needed for specific operations. L5/conformance, signature correctness, static analyzer detection quality and cross-language agreement are not independently certified. Supplemental QA read full skill.rs including its embedded test modules, full lib.rs exports and root workspace Cargo.toml. frontmatter()/frontmatter_tools() are a narrow handwritten parser: opening delimiter expects LF and allowed-tools is read from an unindented single line; this is not a complete YAML/SKILL parser. Rule/prose checks have defined pattern/capability scope; no finding is not a general safety verdict. No compilation, corpus replay or runtime test occurred.",
+        "additional_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "48ccdf0f92b0f65afbf3e81abd5a745cb1238185",
+            "sha256": "b0e7a8985481050ab54222f7fbe77176006104ea3a2aa28c44e12c2a663055ad",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/README.md",
+            "bytes": 6738
+          },
+          {
+            "path": "LICENSE-APACHE",
+            "blob_sha": "3d9a3a61633928402aed87160ac0d7d044a1b8bf",
+            "sha256": "96bd8666cb191d86e4108d674120391148d050afaaed373dbcca29d41af310e4",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/LICENSE-APACHE",
+            "bytes": 10287
+          },
+          {
+            "path": "LICENSE-MIT",
+            "blob_sha": "02ef99a5e5b5665318c31f6f790f701862117461",
+            "sha256": "0bbbd45c3890a3dbdc4614f1dac05de29053165039aedf71ffc7adb85e2ad810",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/LICENSE-MIT",
+            "bytes": 1075
+          },
+          {
+            "path": "crates/agtmls-core/src/skill.rs",
+            "blob_sha": "e6203fa66df86fdc7311c993f859a77a4e5aa909",
+            "sha256": "3cf33a76412a983a5bcceedf57109c661c924db22e6388fa669fe8dcda093aec",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/src/skill.rs",
+            "bytes": 21648
+          },
+          {
+            "path": "crates/agtmls-core/Cargo.toml",
+            "blob_sha": "956f5bbf594bbd78fc1b9e27be0c264032fccc9d",
+            "sha256": "ca5f7a86f6b426c186c432e4d509b4e068ced6acc42206d727576aec073cdb4d",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/Cargo.toml",
+            "bytes": 814
+          },
+          {
+            "path": "crates/agtmls-core/src/lib.rs",
+            "blob_sha": "2c4ec86ba084ab1142b91ad9d2b1973452231d32",
+            "sha256": "4413b19ce1e8cd56b5d055f06a9863e89c0d9204405f8b796df2f00f38e59794",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/crates/agtmls-core/src/lib.rs",
+            "bytes": 2039
+          },
+          {
+            "path": "Cargo.toml",
+            "blob_sha": "1fc329be0ef62f72b84c895ff504eb43bfa6ff85",
+            "sha256": "43f0ca6ad7740eeecf6d789237572ba42734fbaf83c3d6a11ca0912f2222a5c3",
+            "url": "https://github.com/sebastienrousseau/agtmls-core/blob/bfaaea0f9985227a307cedb0a8dab5290c4b5b0a/Cargo.toml",
+            "bytes": 1024
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "HolobiomicsLab/asb-skills-agentic-ai",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "path": "LICENSING.md",
+            "blob_sha": "38f74b4497dd5ec648a82413bb862a4272ae30b0",
+            "sha256": "e1fcfd283c30704a65843a3330494e2693176c200fe703f3ab85fa3d6d19f393",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/LICENSING.md",
+            "bytes": 2363
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "8cd0cf3ffb517bc7273b4d81895ae5faf2fd8519",
+            "sha256": "068bfdca2320deb8a28394bdaa3fc8a97713e560f939d200818329faf87de1fb",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/.claude-plugin/marketplace.json",
+            "bytes": 923
+          },
+          {
+            "path": "collections/agentic-ai/v1/.claude-plugin/plugin.json",
+            "blob_sha": "4abd3e00e1d011ee0a58ca0c9be13ea23fe40fba",
+            "sha256": "5c37f673f1a456af21e056b5ec3ba0b3e25fb6c468d4a228c94897c25dc2edbd",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/.claude-plugin/plugin.json",
+            "bytes": 515
+          },
+          {
+            "path": "collections/agentic-ai/v1/skills/_router/SKILL.md",
+            "blob_sha": "f556a3645329354456b3f186bd41b7a6410e420a",
+            "sha256": "c6997a731262774c4f505678cf0745988ae34b1ac03cfc37898ac9c30da24e04",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/skills/_router/SKILL.md",
+            "bytes": 4281
+          },
+          {
+            "path": "collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+            "blob_sha": "b4fdc2be22cc48891b00c45e751fe6b28c43e3a1",
+            "sha256": "3f842d299b0989c9c0d949f363f85a38e0ec637c4dea0752932ead1b488c2ddf",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/workflows/_workflow_router/SKILL.md",
+            "bytes": 4725
+          },
+          {
+            "path": "collections/agentic-ai/v1/tool_licenses.json",
+            "blob_sha": "06b293371728aa8147cb99f4268bf26fdc4d2185",
+            "sha256": "6fedab2ed2faf59e4ccd643c11c40403c5d991195947684345c8cde748359862",
+            "url": "https://github.com/HolobiomicsLab/asb-skills-agentic-ai/blob/c6453aa6a16c1f1f4dd74b759ed3ad3f6807cca5/collections/agentic-ai/v1/tool_licenses.json",
+            "bytes": 6709
+          }
+        ],
+        "distribution_evidence": "Full README documents plugin installation and independent manual copying of individual leaf directories. Marketplace source points to collections/agentic-ai/v1; the public skill router explicitly searches bundled leaves as data and returns fixed read paths. The workflow router advertises two composite outlines and manual stage execution; these are separate from two routers and 215 tool records.",
+        "limitations": "Static metadata admission only; no candidate/helper installation, execution, service calls or scientific/regulatory result validation. Other bodies and runtime are not audited. Representative clinical-concept workflow requires pre-extracted reports and external MedPAO/models; tool tier is noncommercial. Clinical metrics, paper quotations, DOI/IRI resolution, gate and scientific results were not independently reproduced or legally certified. Supplementary router review: leaves are bundled data discovered through the plugin router/offline search, not 668 automatically loaded plugin entries. The two composites are published outlines; their stage structure is described as validated but execution is not, and automatic DAG grading/asb solve-workflow is explicitly absent from this release. tool_licenses.json includes a restricted CUDA vendor-product entry, so a leaf tier/open label is not a blanket license grant for all model/data/software dependencies."
+      }
+    }
+  ]
+}
