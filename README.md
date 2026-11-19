@@ -17,7 +17,7 @@
 <summary>查看技能库规模</summary>
 
 <p align="center">
-  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1115 skills · 11 volumes · 6797 relation edges · 4778 indexed entries" width="1200" /></picture>
+  <picture><source media="(max-width: 600px)" srcset="assets/brand/stats-mobile.svg" /><img src="assets/brand/stats.svg" alt="1115 skills · 11 volumes · 6797 relation edges · 4848 indexed entries" width="1200" /></picture>
 </p>
 </details>
 <!-- END GENERATED:brand -->
@@ -152,7 +152,7 @@ node bin/everything-skills.mjs show api-design-reviewer --json
 
 按卷插件可安装 **1094 条现行技能**；目录另保留 **21 条归档记录**用于来源追溯和迁移，合计 **1115 个技能目录**。正文保留原始语言。
 
-**4778 条外部仓库记录**用于发现上游项目，其技能正文不包含在按卷插件中。日常仓库收集扩充这份外部目录，仓库内技能的新增与修订另按采编流程处理。
+**4848 条外部仓库记录**用于发现上游项目，其技能正文不包含在按卷插件中。日常仓库收集扩充这份外部目录，仓库内技能的新增与修订另按采编流程处理。
 
 [技能目录](INDEX/catalog.md)、[标签](INDEX/tags.md)、[关系图](INDEX/graph.md)、[search.json](INDEX/search.json)、[quality.json](INDEX/quality.json) 是生成的导航与证据视图。审核状态、新鲜度、许可与运行依赖分别记录；`unknown`、`unreviewed` 表示尚无对应验证结论。运行前请阅读所选技能的前置条件与[来源/许可记录](INDEX/sources.md)。
 
@@ -167,16 +167,16 @@ node bin/everything-skills.mjs show api-design-reviewer --json
 <!-- BEGIN GENERATED:skill-repos -->
 ## 技能仓库目录
 
-浏览 **4778** 条外部 GitHub 技能库、市场和精选列表目录记录；这些上游的技能正文不随本仓库安装。
+浏览 **4848** 条外部 GitHub 技能库、市场和精选列表目录记录；这些上游的技能正文不随本仓库安装。
 
 点击分类查看完整条目、摘要、许可、历史 Stars 与复核状态。[完整仓库总目](INDEX/skill-repos.md)。
 
 | 分类 | 目录记录 |
 | --- | ---: |
-| [官方与权威](INDEX/skill-repos.md#1-官方与权威) | 593 |
-| [精选列表 / 大集合](INDEX/skill-repos.md#2-精选列表--大集合) | 791 |
-| [垂直领域技能包](INDEX/skill-repos.md#3-垂直领域技能包) | 2162 |
-| [安装器 / 注册表 / 基础设施](INDEX/skill-repos.md#4-安装器--注册表--基础设施) | 1008 |
+| [官方与权威](INDEX/skill-repos.md#1-官方与权威) | 612 |
+| [精选列表 / 大集合](INDEX/skill-repos.md#2-精选列表--大集合) | 805 |
+| [垂直领域技能包](INDEX/skill-repos.md#3-垂直领域技能包) | 2184 |
+| [安装器 / 注册表 / 基础设施](INDEX/skill-repos.md#4-安装器--注册表--基础设施) | 1023 |
 | [其他技能库](INDEX/skill-repos.md#5-其他值得索引的技能库) | 25 |
 | [名称不含 skill / agent](INDEX/skill-repos.md#6-名称不含-skill--agent-的技能库本轮追加) | 199 |
 
