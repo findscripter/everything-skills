@@ -1,0 +1,916 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-19",
+    "stage": "complete",
+    "evaluated_at": "2026-11-19T01:26:58.776534+00:00",
+    "records": [
+      {
+        "full_name": "isambard-sc/skills.isambard.ac.uk",
+        "commit": "d4d69708bae8041549552502101dda9ad8661f7c",
+        "tree": "08290d3fa26147dea67402eb19ab12b284fc6406",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "3a63c70cea59b94dfa85127a89e9e1b845a634fa",
+            "sha256": "6f01a3d8b5b023c9b06160cc374376d333d160cc03c8422bffe89ef813ea6e70",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/README.md",
+            "bytes": 14201
+          },
+          {
+            "path": "LICENCE",
+            "blob_sha": "382f02a6f9fd8a58436675327ff0880920d844e1",
+            "sha256": "62b93ea1fa0ef3efce744ba85933259197ab326f81ef6235ec96ff4e7c97ed40",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/LICENCE",
+            "bytes": 1722
+          },
+          {
+            "path": "REUSE.toml",
+            "blob_sha": "cb610649db8ab86793a91c093fc356e4570268eb",
+            "sha256": "a2fb93b6f4ec161e7a4ec320c85618d85e5588f0d44e8ebe2b183444e758559a",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/REUSE.toml",
+            "bytes": 2313
+          },
+          {
+            "path": "LICENSES/CC-BY-SA-4.0.txt",
+            "blob_sha": "835a6836b385fa068fdd625685548845cda60c2f",
+            "sha256": "cde7883b9050a1104f4ac19a1572aafd6e5d7323b68351aaf51fbf4beba54966",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/LICENSES/CC-BY-SA-4.0.txt",
+            "bytes": 18375
+          },
+          {
+            "path": "LICENSES/LicenseRef-ARR.txt",
+            "blob_sha": "7fe7959ba891ca4b3c7bef4124030ce3ddb0fa6a",
+            "sha256": "0332c8bb159126c1c2a4865ee818bd4d2f2383933e7578fa1245260c593eb6a3",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/LICENSES/LicenseRef-ARR.txt",
+            "bytes": 21
+          },
+          {
+            "path": "site/plugins/isambard/skills/slurm/SKILL.md",
+            "blob_sha": "f8aac4f839142673fee850886d36f7aca372400f",
+            "sha256": "919d7c9d37f2ff24cb635f55490d2f33110858d88b85af508d128718bffed03b",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/site/plugins/isambard/skills/slurm/SKILL.md",
+            "bytes": 11768
+          }
+        ],
+        "read_scope": "Parent read complete root README and LICENCE summary, complete REUSE.toml, all-rights-reserved notice, complete CC-BY-SA-4.0 legal text and complete public Slurm SKILL.md. Other ten bodies and their references, MIT/CC0 legal texts and all runtime/client/compute operations were outside this parent sample.",
+        "conclusion": "The source publishes ten CC-BY-SA technical entries plus a specifically overridden proprietary policy entry. The selected representative was changed from the restricted policy to the public Slurm entry. Workflows/site code and configuration have their separate MIT/CC0 declarations; no all-MIT or all-eleven-open inference is supported.",
+        "limits": "Institutional credentials, allocation/billing/AUP, actual SSH/login, Slurm submission/cancellation, client installation/permissions and source test claims were not exercised. Only metadata was admitted; licensed reuse and the proprietary exception remain explicit."
+      },
+      {
+        "full_name": "PodcastAPI/skills",
+        "commit": "5ca1e8df1740ca9f4e54a01d420d579027ebeb7c",
+        "tree": "76bbe60ffb9a30670659c9aa5de39e262df03706",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "73c9c2ea7f14490092d23f27ac676fbec6566e93",
+            "sha256": "fd246cdfc8723f040884b818c90fdee508ef2eabd58b627faf8a9ad6882de6fc",
+            "url": "https://github.com/PodcastAPI/skills/blob/5ca1e8df1740ca9f4e54a01d420d579027ebeb7c/README.md",
+            "bytes": 9391
+          },
+          {
+            "path": "skills/podcast-api/SKILL.md",
+            "blob_sha": "4dd3410296d949a39969189a111a0e16182a81fa",
+            "sha256": "9c32fc87ee11ad4f193badc9628935ed875ab087a49167849f5f52d8dcd19b8f",
+            "url": "https://github.com/PodcastAPI/skills/blob/5ca1e8df1740ca9f4e54a01d420d579027ebeb7c/skills/podcast-api/SKILL.md",
+            "bytes": 6135
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "6b5343339f225673d663b724a76515e271068ab4",
+            "sha256": "a19c9872874bce0fc7530220a3783c9f93f761c0fb296011881f2cd65994fb12",
+            "url": "https://github.com/PodcastAPI/skills/blob/5ca1e8df1740ca9f4e54a01d420d579027ebeb7c/LICENSE",
+            "bytes": 1075
+          }
+        ],
+        "read_scope": "Parent read complete root README, complete podcast-api SKILL.md and MIT license, and compared the five path inventory with the declared two canonical entry points and three plugin views. podcast-mcp body, references, live contracts, plugin build/validation code and external services were not independently reviewed here.",
+        "conclusion": "Two logical entries are published: REST/SDK integration and connected MCP research, with three bundled plugin views. Installation is separate from OAuth/account authorization. MIT covers authored instructions; production API usage/billing and podcast/media/content rights remain separate.",
+        "limits": "No credential was inspected, no OAuth/server/SDK/client was configured and no mock or production request ran. Playlist write/permanent-deletion workflows require application ownership/authorization and UI confirmation, but those real permission boundaries and complete workflows were not verified."
+      }
+    ],
+    "corrections": [],
+    "objections": [],
+    "limits": "Parent representative source review only. Whole-source, host/client, service, safety, data-right and full-workflow certification are outside this run; fixed-byte verification is recorded separately."
+  },
+  "quality-science.json": {
+    "stage": "complete",
+    "date": "2026-11-19",
+    "review_stream": "science-independent-breadth-qa",
+    "records": [
+      {
+        "full_name": "escwxyz/skills-re",
+        "repository_id": 1215265616,
+        "snapshot": {
+          "commit": "182ca101a23f2a9082d7b131376600026762365e",
+          "tree": "45a5dff2ce26bce44f4512ca12457e401eadda4f"
+        },
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "abf85d1632e59ebbe971801533c483d939323cc5",
+            "sha256": "0609f42dfb9d3e4d603dd9b3dbab0285a967fbc6f95166e41d4799bb550543e3",
+            "url": "https://github.com/escwxyz/skills-re/blob/182ca101a23f2a9082d7b131376600026762365e/README.md",
+            "bytes": 2964
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "40a06f1e77a4aaa75af9e35105d3dc7a2cd72b63",
+            "sha256": "817c8118c0752858be6ad4d6f4a092ebb6498ac4c77002cef9b304c47a3fadbf",
+            "url": "https://github.com/escwxyz/skills-re/blob/182ca101a23f2a9082d7b131376600026762365e/LICENSE",
+            "bytes": 11305
+          },
+          {
+            "path": "packages/cli/README.md",
+            "blob_sha": "76cb81d57fe9f24cf1a92bf37ab2fe7b7dc3c2ce",
+            "sha256": "e9270357e9035a365859a554a461661e37144dc56d0ae0fe3eeb010fa0993d07",
+            "url": "https://github.com/escwxyz/skills-re/blob/182ca101a23f2a9082d7b131376600026762365e/packages/cli/README.md",
+            "bytes": 3685
+          },
+          {
+            "path": "packages/cli/LICENSE",
+            "blob_sha": "6a842d836ba091b60475b33df7bd904db3833571",
+            "sha256": "ff33781871b8ba33d76395cd7323471ae6379c9e6e1935e5b7a4e4e8f86f6cd2",
+            "url": "https://github.com/escwxyz/skills-re/blob/182ca101a23f2a9082d7b131376600026762365e/packages/cli/LICENSE",
+            "bytes": 1074
+          },
+          {
+            "path": "apps/server/src/routes/agent-skills-discovery.ts",
+            "blob_sha": "4b0de62867bac0739f42cfa10af301f15d51af69",
+            "sha256": "669f5c1e40c39d6ebbc3fe203c0216fd90908aa776d75ca8db50d60d4e32d18e",
+            "url": "https://github.com/escwxyz/skills-re/blob/182ca101a23f2a9082d7b131376600026762365e/apps/server/src/routes/agent-skills-discovery.ts",
+            "bytes": 3239
+          },
+          {
+            "path": "packages/cli/src/install.ts",
+            "blob_sha": "0bdec465087f3e5ca2b19330d43384e126db5a60",
+            "sha256": "09ef62bacecb3b9968ad5446d1075a1be38f32885b49380a3f18b3f0fc0744de",
+            "url": "https://github.com/escwxyz/skills-re/blob/182ca101a23f2a9082d7b131376600026762365e/packages/cli/src/install.ts",
+            "bytes": 11150
+          },
+          {
+            "path": "packages/cli/src/skill-md.ts",
+            "blob_sha": "856a59572c34c7eee011819c0a7fae1d38b73185",
+            "sha256": "68c86e265cce7f52ddd90cb1b9537d3ced5158b41890d65e7715a24b8696b132",
+            "url": "https://github.com/escwxyz/skills-re/blob/182ca101a23f2a9082d7b131376600026762365e/packages/cli/src/skill-md.ts",
+            "bytes": 1070
+          }
+        ],
+        "fixed_object_validation": "Each cached original UTF-8 body recomputed to its exact bytes, SHA256 and Git blob SHA1 and matched pinned tree; no network HEAD substituted.",
+        "read_scope": {
+          "read_full": [
+            "README.md",
+            "packages/cli/README.md",
+            "packages/cli/LICENSE",
+            "packages/cli/src/install.ts",
+            "packages/cli/src/skill-md.ts",
+            "apps/server/src/routes/agent-skills-discovery.ts"
+          ],
+          "license": "Root Apache body mechanically compared with completely read pinned Apache text; only title whitespace/copyright/footer newline differences, all inspected. CLI MIT full text read.",
+          "not_read": "ApiClient/remote resolution validation, auth/lockfile/target implementations, sandbox and public registry payloads, all26 development/fixture skills and runtime."
+        },
+        "conclusion": "Metadata-only infrastructure admission remains justified by actual installer/discovery code, explicit distribution and split Apache/MIT licensing. This does not establish a safe installer: a server slug joins to skillsDir without a caller-root containment check before recursive rm; archive entry containment only protects paths relative to that already-selected root. Computed SHA256 is not compared to advertised hashes before extraction, while the lock prefers supplied hashes. Existing destinations and same-basename Git installs can be replaced. Do not describe the installation as filesystem-safe or verified; no exploit or end-to-end server validation was executed."
+      },
+      {
+        "full_name": "sdkwork-ai/sdkwork-specs",
+        "repository_id": 1260482917,
+        "snapshot": {
+          "commit": "940be1167229de80e9c3ba796bbb33bb19313d7e",
+          "tree": "fbbe4b8ebc0aa0f4cd39af2178608f0d63a0cf35"
+        },
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "db2cb259bd6f52a4d3632b52da6fc072d75566d7",
+            "sha256": "5b4b99c92f848464aa1d48fabec6abb6a755ed23b7317c16d5cb831d8c06f3d9",
+            "url": "https://github.com/sdkwork-ai/sdkwork-specs/blob/940be1167229de80e9c3ba796bbb33bb19313d7e/README.md",
+            "bytes": 166028
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "3a5cfd293fa1b219114fdc617449324c7fc8b80d",
+            "sha256": "5b7176ee54db7850a02bd304135961708974912309daa9afda2701573057af65",
+            "url": "https://github.com/sdkwork-ai/sdkwork-specs/blob/940be1167229de80e9c3ba796bbb33bb19313d7e/LICENSE",
+            "bytes": 35888
+          },
+          {
+            "path": "skills/README.md",
+            "blob_sha": "70b475e51e50952d9e1669864e7938d19208e53c",
+            "sha256": "2740e2ec1cc7b33df201f2a0c3611bbabbcc2c1bface62c77a70d4309800fab3",
+            "url": "https://github.com/sdkwork-ai/sdkwork-specs/blob/940be1167229de80e9c3ba796bbb33bb19313d7e/skills/README.md",
+            "bytes": 696
+          },
+          {
+            "path": "tools/check-agent-skills.mjs",
+            "blob_sha": "7d4f3201f1001b6a1d3cf57c722a1624866ae109",
+            "sha256": "d96a781692c6f46c087a1ecd7c710363a43d9d4462703cd826d542c10cb7fb91",
+            "url": "https://github.com/sdkwork-ai/sdkwork-specs/blob/940be1167229de80e9c3ba796bbb33bb19313d7e/tools/check-agent-skills.mjs",
+            "bytes": 3543
+          },
+          {
+            "path": "tools/lib/agent-skills.mjs",
+            "blob_sha": "5303585b04b0f762a68c99dfe97cf65b25f06437",
+            "sha256": "3906a902a096a66baf64d6b69818b17d9fdb000ec013cf51cd33fea1b04ddf9d",
+            "url": "https://github.com/sdkwork-ai/sdkwork-specs/blob/940be1167229de80e9c3ba796bbb33bb19313d7e/tools/lib/agent-skills.mjs",
+            "bytes": 18234
+          }
+        ],
+        "fixed_object_validation": "Each cached original UTF-8 body recomputed to its exact bytes, SHA256 and Git blob SHA1 and matched pinned tree; no network HEAD substituted.",
+        "read_scope": {
+          "read_full": [
+            "LICENSE",
+            "skills/README.md",
+            "tools/check-agent-skills.mjs",
+            "tools/lib/agent-skills.mjs"
+          ],
+          "root_readme": "First6500 characters plus exact agent-skills index/task/checker references at source lines76,212,355,466 only; not full166028-byte root README.",
+          "not_read": "Full normative AGENT_SKILLS_SPEC, workspace-layout helper, maintenance skill body, templates, other standards and runtime."
+        },
+        "conclusion": "Real read-only validation infrastructure is present; zero public task leaves is correct. Validator intentionally implements a narrow flat-scalar dialect, structural/size/trigger checks and heuristic absolute-path/secret regexes; host pointer checks require --host-layer, warnings exit0 unless --strict. Read errors can become null/empty discoveries and SKILL.md file symlinks are followed, so it is neither a trust-boundary sandbox nor general YAML/security/client-compatibility certification. Material license correction is required: full root LICENSE contains AGPL-3.0-or-later notice AND an extra commercial-license requirement before the AGPL body. Preserve both source assertions and avoid a plain unqualified AGPL label; no enforceability/legal-compatibility ruling made."
+      },
+      {
+        "full_name": "grimoire-rs/index",
+        "repository_id": 1286582659,
+        "snapshot": {
+          "commit": "19fdc57f661ffa0f39a602de30fcad26a38a053d",
+          "tree": "85a0248ff072b6f2ee336a6bd3d1330080d81fb0"
+        },
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "e0bb725ea2f2119444444f61a553de47ee741838",
+            "sha256": "8e2c22b087bd5a45120849eff29ff88a3c03713a23c0a378c8ee4c3a46cf9416",
+            "url": "https://github.com/grimoire-rs/index/blob/19fdc57f661ffa0f39a602de30fcad26a38a053d/README.md",
+            "bytes": 6967
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "7efd052f60f76e1788fc28378a59cabc95940b8e",
+            "sha256": "6fcdfefa06ae4e80a1ea2c37e92e86f8aa1dd17415b4b108462ed4ca17b30b1b",
+            "url": "https://github.com/grimoire-rs/index/blob/19fdc57f661ffa0f39a602de30fcad26a38a053d/LICENSE",
+            "bytes": 11317
+          },
+          {
+            "path": "scripts/marketplace-gate.sh",
+            "blob_sha": "0e2a711d3a94cc57a3bd4a9eecd86f9e82ae3769",
+            "sha256": "b9fceca93a593a976087daa8eb2fbd8909889ba48495d8f7e739ed45c799ec8b",
+            "url": "https://github.com/grimoire-rs/index/blob/19fdc57f661ffa0f39a602de30fcad26a38a053d/scripts/marketplace-gate.sh",
+            "bytes": 5740
+          },
+          {
+            "path": "marketplace/grim-essentials/README.md",
+            "blob_sha": "93b4717955501c8577633fd64398f71b471cd0c1",
+            "sha256": "4ccefb5308bf3f6f32c83a6299bcd7f99d5791bf5de559499b6a092977445748",
+            "url": "https://github.com/grimoire-rs/index/blob/19fdc57f661ffa0f39a602de30fcad26a38a053d/marketplace/grim-essentials/README.md",
+            "bytes": 1358
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "9f8b7e4d41dd94e0bfed4e28f7a91a38c0a7f0dc",
+            "sha256": "892fbbe7ba4ec0389eae763cd35e7f8f19844c86a739499db5bf7eb168ffdec3",
+            "url": "https://github.com/grimoire-rs/index/blob/19fdc57f661ffa0f39a602de30fcad26a38a053d/package.json",
+            "bytes": 448
+          },
+          {
+            "path": "index.config.json",
+            "blob_sha": "937fd2e65184123eb98223eb4ccc60703ea383e1",
+            "sha256": "76721d7feda4c07e87c9ae4ba2baff9545cf2140aee9b44b1d6b6542d629f072",
+            "url": "https://github.com/grimoire-rs/index/blob/19fdc57f661ffa0f39a602de30fcad26a38a053d/index.config.json",
+            "bytes": 1310
+          }
+        ],
+        "fixed_object_validation": "Each cached original UTF-8 body recomputed to its exact bytes, SHA256 and Git blob SHA1 and matched pinned tree; no network HEAD substituted.",
+        "read_scope": {
+          "read_full": [
+            "README.md",
+            "marketplace/grim-essentials/README.md",
+            "scripts/marketplace-gate.sh",
+            "package.json",
+            "index.config.json"
+          ],
+          "license": "Root Apache text mechanically compared with fully read pinned Apache body; only title whitespace/copyright differences inspected. Metadata CC0 is an explicit README/config dedication; full linked CC0 legal code not fetched.",
+          "not_read": "External @grimoire-rs/indexer implementation, generated CI workflow enforcement, external OCI payloads, namespace/ownership APIs or package releases."
+        },
+        "conclusion": "Admit static index infrastructure with0 local SKILL.md leaves. README/config dedicate pointer metadata to CC0; Apache applies to owned code, and OCI package content retains separate rights. Actual marketplace-gate.sh checks changed working-tree paths, symlinks, sizes and LFS attributes; its formatted-JSON awk parser and client-directory-prefix allow-list are narrower/different from complete JSON/schema/ownership/registry/payload validation. The script does not authenticate namespace ownership or verify exported content hashes; those external-indexer/forge claims remain unaudited."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "escwxyz/skills-re",
+        "reason": "Static trust-boundary/data-loss risks confirmed from complete installer; make metadata admission distinguish entry-path protection from root slug containment and advertised-hash recording.",
+        "field_updates": {
+          "limitations": "Metadata-only infrastructure listing, not a safe-installation recommendation or runtime/client certification. Full installer shows server resolution.skill.slug (or specifier fallback) joined to skillsDir without validating containment against skillsDir before extractSkillArchive recursively removes that resolved directory; archive-entry assertInside only checks within the selected root. Archive SHA256 is computed after extraction and never compared with server hashes; lock metadata preferentially records supplied hashes. Same-name targets and Git basename collisions are removed/replaced nontransactionally. Line-based frontmatter parser is not general YAML. No candidate execution, exploit validation, remote API/auth/snapshot integrity or external payload review."
+        }
+      },
+      {
+        "full_name": "sdkwork-ai/sdkwork-specs",
+        "reason": "Full LICENSE preamble adds commercial-use restriction despite SPDX AGPL-3.0-or-later; original AGPL-only scope omits a material source term. Exact asserted combination is preserved without judging legal enforceability.",
+        "field_updates": {
+          "license_spdx": "LicenseRef-SDKWork-AGPL-Commercial-Restriction",
+          "license_scope": "Root LICENSE declares SPDX AGPL-3.0-or-later and reproduces the full AGPLv3 text, but its own preamble additionally states commercial use requires a separate written SDKWork commercial license, with COMMERCIAL-LICENSE.md governing when present (none in frozen tree). This is recorded as a custom source-available terms label, not unqualified standard AGPL permission; the relationship/enforceability of those assertions is unresolved. The reviewed validator/CLI/instructions share root scope; third-party, generated SDK/data and vendored artifacts retain their notices. Metadata indexing only, no body reuse.",
+          "limitations": "Complete validator and CLI implementation plus skills component README and complete root license read. Parser deliberately targets SDKWork flat scalars, not full YAML. Host pointer checks are opt-in --host-layer; warnings exit0 unless --strict. Secret/path regexes are heuristic; directory/read failures may yield empty discovery and SKILL.md file symlinks are followed. No general security/sandbox, complete filesystem coverage or agent compatibility certification. Workspace-layout helper, other standards, runtime and commercial license enforceability not audited.",
+          "summary_en": "Source-available SDKWork skill standards and validator with a separate commercial-use license requirement.",
+          "summary_zh": "带额外商业使用许可要求的 SDKWork 技能标准与校验工具（仅索引元数据）。"
+        }
+      },
+      {
+        "full_name": "grimoire-rs/index",
+        "reason": "Keep code/metadata/payload license domains separate and identify what the actual gate enforces versus external indexer/forge policy.",
+        "field_updates": {
+          "license_scope": "README and index.config.json explicitly dedicate index pointer metadata to CC0-1.0; root LICENSE is Apache-2.0 for owned code. External OCI skill/rule/package payloads are not relicensed by either. CC0 source declaration is observed; linked full CC0 legal code was not separately fetched.",
+          "limitations": "Metadata-only index infrastructure. Complete root/component README, shell marketplace gate, package scripts and config read. Gate derives exact paths and client-directory prefixes from a narrowly formatted report, then checks changed working-tree paths, symlinks, size and LFS attributes. It does not parse general JSON, compare content hashes, prove namespace ownership, validate OCI package permissions or establish source-body safety. External @grimoire-rs/indexer, generated CI/forge-required-check enforcement and live registry/payload behavior unreviewed; nothing installed or executed."
+        }
+      }
+    ],
+    "objections": [
+      {
+        "full_name": "sdkwork-ai/sdkwork-specs",
+        "blocking": false,
+        "reason": "Metadata-only admission may remain after mandatory custom license/scope correction; unqualified AGPL label must not ship."
+      },
+      {
+        "full_name": "escwxyz/skills-re",
+        "blocking": false,
+        "reason": "Metadata-only listing may remain with explicit known installer risks; this review provides no authorization or recommendation to install or execute it."
+      }
+    ],
+    "limits": [
+      "Exactly three assigned breadth identities reviewed against fixed caches; no expansion or full-collection approval.",
+      "No candidate install/execution, shell-script test, credentials, remote registry, paid AI, external message or writeback operation.",
+      "Static source/risk observations and license declarations are not runtime, security, scientific, host-compatibility or legal certification."
+    ],
+    "owner_correction_application": {
+      "full_name": "sdkwork-ai/sdkwork-specs",
+      "status": "verified_applied",
+      "owner_report": "breadth-results.json",
+      "observed_owner_report_sha256": "a57d811387f5e77cf3c30f5a368aa61f29276b0446bd525b8423e2c623e525be",
+      "verified_fields": [
+        "license_spdx",
+        "license_scope",
+        "limitations",
+        "summary_en",
+        "summary_zh"
+      ],
+      "same_fixed_license_reference": true,
+      "owner_write": "Single owner breadth stream applied fields; science reviewed exact values after write."
+    }
+  },
+  "quality-product.json": {
+    "stage": "complete",
+    "date": "2026-11-19",
+    "reviewer_stream": "product",
+    "reviewed_stream": "science",
+    "source_report_sha256": "09e75bd55b30a58980ac84adfd3b34486aef33c992a3dfb049cbc919803a8e4c",
+    "frozen_targets": [
+      {
+        "full_name": "RosettaCommons/chaperone",
+        "repository_id": 1416169633,
+        "commit": "86f7aca63db6102a16fba673fd0f35922d77296a",
+        "tree": "bc4f73c30bc8b95285d1acc9cb75a1bdb6916642"
+      },
+      {
+        "full_name": "isambard-sc/skills.isambard.ac.uk",
+        "repository_id": 1171576822,
+        "commit": "d4d69708bae8041549552502101dda9ad8661f7c",
+        "tree": "08290d3fa26147dea67402eb19ab12b284fc6406"
+      },
+      {
+        "full_name": "Carlssonlab/MolSanitizer",
+        "repository_id": 802999790,
+        "commit": "70df9a8e4c7613a226ad495ae27c1ff4c1bf1568",
+        "tree": "04486c73fc4e60ba7fec01159524fa5939993ebb"
+      }
+    ],
+    "coverage": {
+      "selected": 3,
+      "reviewed": 3,
+      "missing": []
+    },
+    "checks": [
+      {
+        "full_name": "RosettaCommons/chaperone",
+        "repository_id": 1416169633,
+        "commit": "86f7aca63db6102a16fba673fd0f35922d77296a",
+        "tree": "bc4f73c30bc8b95285d1acc9cb75a1bdb6916642",
+        "review_scope": "Complete auto-research representative, root routing stub, MIT license, THIRD_PARTY_NOTICES.md, docs/site/skills.md and pyproject.toml; README exact previously declared selected lines independently read. Other12 task bodies and referenced scientific assets not re-audited.",
+        "conclusion": "13 actual task-guide paths plus1 root router align with tree and full skills documentation table despite prose claiming14 guides. Chaperone-authored content MIT is separated from BSD illustrations and bundled NC-SA AF3 runner; BindCraft2 hosting restriction, PyRosetta/model terms and source-only guide distribution remain explicit.",
+        "cached_raw_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "0d99c548ec763aab4a122c3badf9b65ca70858f7",
+            "sha256": "1b19e8d76aba88894f1f06e66d5a569893d795bde419f1e9c9c401931a270f1c",
+            "url": "https://github.com/RosettaCommons/chaperone/blob/86f7aca63db6102a16fba673fd0f35922d77296a/README.md",
+            "bytes": 23436,
+            "passed": true
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "1142a66a36a1e6906616fcd4c86a5a286b9b4d93",
+            "sha256": "76ec7f64ca57a660b6f4f53b5fa012133938ad1327582cf5e4bff1b820e2b15c",
+            "url": "https://github.com/RosettaCommons/chaperone/blob/86f7aca63db6102a16fba673fd0f35922d77296a/LICENSE",
+            "bytes": 1078,
+            "passed": true
+          },
+          {
+            "path": ".agents/skills/auto-research/SKILL.md",
+            "blob_sha": "4f4836809f811167ac61dd2dbde8d4cb1407472f",
+            "sha256": "e9c5df091c4e1327255a573ed3309e58ef7542426b700a35c3e3e6c99e3bf35e",
+            "url": "https://github.com/RosettaCommons/chaperone/blob/86f7aca63db6102a16fba673fd0f35922d77296a/.agents/skills/auto-research/SKILL.md",
+            "bytes": 3494,
+            "passed": true
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "94b7bdcd69eedfd89a568303f18f0e2adc062cbd",
+            "sha256": "78f1c0a09093100415643d720284f91ac5970f52a0e4b7aeea35021afd2cc613",
+            "url": "https://github.com/RosettaCommons/chaperone/blob/86f7aca63db6102a16fba673fd0f35922d77296a/SKILL.md",
+            "bytes": 334,
+            "passed": true
+          },
+          {
+            "path": "pyproject.toml",
+            "blob_sha": "77168c0b854cada023153fa23e80aad54658a833",
+            "sha256": "c7c82a96621da7d05ec0d7258f6cdf5f1fd5570e8e68e24900740b224680a4fc",
+            "url": "https://github.com/RosettaCommons/chaperone/blob/86f7aca63db6102a16fba673fd0f35922d77296a/pyproject.toml",
+            "bytes": 5271,
+            "passed": true
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "bf52e2a05673da58f841751c42e93410bb5b0622",
+            "sha256": "87d80d07cccf4d7bc34865311f8212eef672e88b2947fb3c1714de78919a6509",
+            "url": "https://github.com/RosettaCommons/chaperone/blob/86f7aca63db6102a16fba673fd0f35922d77296a/THIRD_PARTY_NOTICES.md",
+            "bytes": 6562,
+            "passed": true
+          },
+          {
+            "path": "docs/site/skills.md",
+            "blob_sha": "75f4fed7c5162fe0cf4db246479729d4c77c3097",
+            "sha256": "a4b07cf8b56853a87c72eebc28fba9cf1e63470df4d2f612d346cd8760ff8081",
+            "url": "https://github.com/RosettaCommons/chaperone/blob/86f7aca63db6102a16fba673fd0f35922d77296a/docs/site/skills.md",
+            "bytes": 8992,
+            "passed": true
+          }
+        ],
+        "passed_for_metadata_admission": true
+      },
+      {
+        "full_name": "isambard-sc/skills.isambard.ac.uk",
+        "repository_id": 1171576822,
+        "commit": "d4d69708bae8041549552502101dda9ad8661f7c",
+        "tree": "08290d3fa26147dea67402eb19ab12b284fc6406",
+        "review_scope": "Complete LICENCE summary, REUSE.toml overrides and ARR notice; public Slurm frontmatter/prerequisites/scheduler safety framing, root skill inventory, install excerpt and licensing footer. Parent already read full README/Slurm/CC-BY-SA legal text; this QA does not claim a second full-body/legal-code reading. All six fixed refs rehashed independently from raw cache.",
+        "conclusion": "Ten openly licensed technical skills are correctly separated from the eleventh proprietary policy. Public skill paths exclude the ARR policy. REUSE configuration/catalog and code licenses do not relicense policy or technical prose. Institutional authorization, allocations and job submission/cancellation remain untested.",
+        "cached_raw_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "3a63c70cea59b94dfa85127a89e9e1b845a634fa",
+            "sha256": "6f01a3d8b5b023c9b06160cc374376d333d160cc03c8422bffe89ef813ea6e70",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/README.md",
+            "bytes": 14201,
+            "passed": true
+          },
+          {
+            "path": "LICENCE",
+            "blob_sha": "382f02a6f9fd8a58436675327ff0880920d844e1",
+            "sha256": "62b93ea1fa0ef3efce744ba85933259197ab326f81ef6235ec96ff4e7c97ed40",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/LICENCE",
+            "bytes": 1722,
+            "passed": true
+          },
+          {
+            "path": "site/plugins/isambard/skills/slurm/SKILL.md",
+            "blob_sha": "f8aac4f839142673fee850886d36f7aca372400f",
+            "sha256": "919d7c9d37f2ff24cb635f55490d2f33110858d88b85af508d128718bffed03b",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/site/plugins/isambard/skills/slurm/SKILL.md",
+            "bytes": 11768,
+            "passed": true
+          },
+          {
+            "path": "REUSE.toml",
+            "blob_sha": "cb610649db8ab86793a91c093fc356e4570268eb",
+            "sha256": "a2fb93b6f4ec161e7a4ec320c85618d85e5588f0d44e8ebe2b183444e758559a",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/REUSE.toml",
+            "bytes": 2313,
+            "passed": true
+          },
+          {
+            "path": "LICENSES/CC-BY-SA-4.0.txt",
+            "blob_sha": "835a6836b385fa068fdd625685548845cda60c2f",
+            "sha256": "cde7883b9050a1104f4ac19a1572aafd6e5d7323b68351aaf51fbf4beba54966",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/LICENSES/CC-BY-SA-4.0.txt",
+            "bytes": 18375,
+            "passed": true
+          },
+          {
+            "path": "LICENSES/LicenseRef-ARR.txt",
+            "blob_sha": "7fe7959ba891ca4b3c7bef4124030ce3ddb0fa6a",
+            "sha256": "0332c8bb159126c1c2a4865ee818bd4d2f2383933e7578fa1245260c593eb6a3",
+            "url": "https://github.com/isambard-sc/skills.isambard.ac.uk/blob/d4d69708bae8041549552502101dda9ad8661f7c/LICENSES/LicenseRef-ARR.txt",
+            "bytes": 21,
+            "passed": true
+          }
+        ],
+        "passed_for_metadata_admission": true
+      },
+      {
+        "full_name": "Carlssonlab/MolSanitizer",
+        "repository_id": 802999790,
+        "commit": "70df9a8e4c7613a226ad495ae27c1ff4c1bf1568",
+        "tree": "04486c73fc4e60ba7fec01159524fa5939993ebb",
+        "review_scope": "Complete root README, complete MolSanitizer representative, third_party/README.md and pyproject.toml; root Apache license compared line by line against already-read Apache terms. AMSOL LICENSE has the exact root-license Git blob in the fixed tree. Other native dependency license files, external docs and scientific behavior not audited.",
+        "conclusion": "One explicit repository-native consumer is documented for manual copy/read-in-place; Python wheel metadata alone does not prove skills inclusion. Package/Chemistry/SLURM outputs, private configuration and external OpenEye rights remain separate; no execution or scientific validation implied.",
+        "cached_raw_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "116db17d581c8baecbf76820ac902ee2ce06d1cd",
+            "sha256": "6c1e22afa65c78167868d421281284a9afa4f14b142cbd998f55c47823ef9cc8",
+            "url": "https://github.com/Carlssonlab/MolSanitizer/blob/70df9a8e4c7613a226ad495ae27c1ff4c1bf1568/README.md",
+            "bytes": 9422,
+            "passed": true
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4018316f68339ec797bfd74b8d4ba5a3b3b54802",
+            "sha256": "044051260e9df93cf76f6ed9f86826035cc684a07ed56b79f555e6d2b17b3974",
+            "url": "https://github.com/Carlssonlab/MolSanitizer/blob/70df9a8e4c7613a226ad495ae27c1ff4c1bf1568/LICENSE",
+            "bytes": 11359,
+            "passed": true
+          },
+          {
+            "path": "skills/molsanitizer/SKILL.md",
+            "blob_sha": "4bdce3f9ad1026107db8e444c88f6ad86891e9f8",
+            "sha256": "40ebd6e83ab1f6d45b7e341afd3c5eacc4f463c9f24fa5cc8f0bedd26b663a25",
+            "url": "https://github.com/Carlssonlab/MolSanitizer/blob/70df9a8e4c7613a226ad495ae27c1ff4c1bf1568/skills/molsanitizer/SKILL.md",
+            "bytes": 8776,
+            "passed": true
+          },
+          {
+            "path": "third_party/README.md",
+            "blob_sha": "a89ca4dd67ef87e337a503ae847d88423d9b6124",
+            "sha256": "1e714489a02e742de66b822d61829fcfaf5b8a7df96b3759a6eee4f918aef9dd",
+            "url": "https://github.com/Carlssonlab/MolSanitizer/blob/70df9a8e4c7613a226ad495ae27c1ff4c1bf1568/third_party/README.md",
+            "bytes": 958,
+            "passed": true
+          },
+          {
+            "path": "pyproject.toml",
+            "blob_sha": "155bfd8bfc563999144bca38171d9f405d413fb3",
+            "sha256": "14862d7fe400ead1e0d21602c0fd9a4d594abc94f4884920568255306e2306db",
+            "url": "https://github.com/Carlssonlab/MolSanitizer/blob/70df9a8e4c7613a226ad495ae27c1ff4c1bf1568/pyproject.toml",
+            "bytes": 3262,
+            "passed": true
+          }
+        ],
+        "passed_for_metadata_admission": true
+      }
+    ],
+    "verified_reference_count": 18,
+    "objections": [],
+    "corrections": [],
+    "limits": [
+      "Three scoped independent samples, not a full re-audit of all science admissions or all repository bodies.",
+      "Cached original UTF-8 bytes independently rehashed and bound to exact fixed-tree paths; no new API calls or independent release/client execution.",
+      "No candidate installation, scripts, build, live services, credential/SSH, GPU allocation, scheduler action, chemical experiment, scientific/clinical/regulatory efficacy or runtime security certification."
+    ]
+  },
+  "quality-breadth.json": {
+    "stage": "complete",
+    "date": "2026-11-19",
+    "reviewer_stream": "breadth",
+    "reviewed_stream": "product",
+    "frozen_targets": [
+      {
+        "full_name": "musicalbee/design-ontology",
+        "repository_id": 1456613165,
+        "commit": "eed057045ab175f7d62a5e232a52394f217da9d4"
+      },
+      {
+        "full_name": "hirobius/hds",
+        "repository_id": 1272748847,
+        "commit": "d1c2333783c5a2212f7f12a4b6adfba1b796df30"
+      },
+      {
+        "full_name": "tomkabel/tiltrank",
+        "repository_id": 1379708076,
+        "commit": "3d50371e0fe80346e45cb5f3a98cd5a1c3952fe5"
+      }
+    ],
+    "coverage": {
+      "selected": 3,
+      "reviewed": 3,
+      "missing": []
+    },
+    "checks": [
+      {
+        "full_name": "musicalbee/design-ontology",
+        "repository_id": 1456613165,
+        "commit": "eed057045ab175f7d62a5e232a52394f217da9d4",
+        "tree": "047d85bed1e559fc471f603d560cfdadc6333163",
+        "review_scope": "Complete abstract-expressionism body; root source/generation/raw-file distribution/license sections; complete LICENSE-DATA and relevant icon license table. Other221 bodies and all style/rights claims not audited.",
+        "conclusion": "222 generated style packages are backed by own data source; generator output is not counted in addition to source styles or described as222 independently authored workflows. LICENSE-DATA expressly covers skills under CC-BY-4.0; root MIT code, icons and copyright museum references stay distinct.",
+        "cached_raw_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "a523ea5165f7cde8b3cce0472af970646564f966",
+            "sha256": "d2567266456420d6b9ab41a6e0a051b0e2c14c3f2987e89b08bbec608ee42775",
+            "url": "https://github.com/musicalbee/design-ontology/blob/eed057045ab175f7d62a5e232a52394f217da9d4/README.md",
+            "bytes": 77779,
+            "passed": true
+          },
+          {
+            "path": "LICENSE-DATA.md",
+            "blob_sha": "7158ba9ded31ece218f64c09441ad1f9055c274f",
+            "sha256": "e136783f0e943a2742ba4cd73266af709ed3f0377f47d5e5023b544f876ed0fa",
+            "url": "https://github.com/musicalbee/design-ontology/blob/eed057045ab175f7d62a5e232a52394f217da9d4/LICENSE-DATA.md",
+            "bytes": 813,
+            "passed": true
+          },
+          {
+            "path": "skills/abstract-expressionism/SKILL.md",
+            "blob_sha": "d4d84335246d6e2195cdf6b7f9097a2c05f17665",
+            "sha256": "a310d3d6ae50e175bdbc892b75bd405e89eb7adff7381fbfacc162c7851130cf",
+            "url": "https://github.com/musicalbee/design-ontology/blob/eed057045ab175f7d62a5e232a52394f217da9d4/skills/abstract-expressionism/SKILL.md",
+            "bytes": 14122,
+            "passed": true
+          },
+          {
+            "path": "icons/README.md",
+            "blob_sha": "0d1745a64559157570faa1deba1156f7d9dc0d33",
+            "sha256": "92cf69ab256c6edede80e3859600e575bf8b177f252943afc92bf22831185e68",
+            "url": "https://github.com/musicalbee/design-ontology/blob/eed057045ab175f7d62a5e232a52394f217da9d4/icons/README.md",
+            "bytes": 4414,
+            "passed": true
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "92bb457512d47e226cec1e078715a656e45b332d",
+            "sha256": "f035bd0d44aa6d977e2c25aa0b8137ee876fbd99a2ad4d0ebfb4ecedb0f0f359",
+            "url": "https://github.com/musicalbee/design-ontology/blob/eed057045ab175f7d62a5e232a52394f217da9d4/LICENSE",
+            "bytes": 1085,
+            "passed": true
+          }
+        ],
+        "passed_for_metadata_admission": true
+      },
+      {
+        "full_name": "hirobius/hds",
+        "repository_id": 1272748847,
+        "commit": "d1c2333783c5a2212f7f12a4b6adfba1b796df30",
+        "tree": "70697366f4a0a13b3e51957860a8247cc9a3b983",
+        "review_scope": "Complete root README and NOTICE; exact package name/version/license/files fields; representative frontmatter, generated source marker and install/upgrade portion. Not an independent full-body re-audit of25KB generated component catalog.",
+        "conclusion": "Exactly1 documented public consumer;71 internal .claude skills and3 fixtures correctly excluded. README install, package0.46.0/files/manifest-generated representative align. MIT instructions/code do not swallow font OFL or Lucide ISC/Feather MIT exceptions.",
+        "cached_raw_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "466d8d4a73237ccca3af6e00de708db217ae7eba",
+            "sha256": "f2eed4aa472448129ba5a6aa270ffde02bf79b90762c02b0152c25061efceaaf",
+            "url": "https://github.com/hirobius/hds/blob/d1c2333783c5a2212f7f12a4b6adfba1b796df30/README.md",
+            "bytes": 3694,
+            "passed": true
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "c9b79e7fe6ee8c539aa50a6b2557ce9f1747092c",
+            "sha256": "5e7252d781460536e364688407150a71c21baa787fd6cb79a56c8744c16bd4b8",
+            "url": "https://github.com/hirobius/hds/blob/d1c2333783c5a2212f7f12a4b6adfba1b796df30/LICENSE",
+            "bytes": 1070,
+            "passed": true
+          },
+          {
+            "path": "skills/hds-consumer/SKILL.md",
+            "blob_sha": "9a5e9846a462a9dcf5b84f171ad4e24f448916eb",
+            "sha256": "716cb3a5946f435166fa20429ca9503891be59e4ab7907f375885db5917e3bbd",
+            "url": "https://github.com/hirobius/hds/blob/d1c2333783c5a2212f7f12a4b6adfba1b796df30/skills/hds-consumer/SKILL.md",
+            "bytes": 25307,
+            "passed": true
+          },
+          {
+            "path": "NOTICE.md",
+            "blob_sha": "146d384f559b358e9459af6ff93025ba463f6186",
+            "sha256": "e3edbfee78513d2b24fc18e0e91d21e05028f6445e67b3ebf2f56d9a1eb686bc",
+            "url": "https://github.com/hirobius/hds/blob/d1c2333783c5a2212f7f12a4b6adfba1b796df30/NOTICE.md",
+            "bytes": 1301,
+            "passed": true
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "7f08091f0db052a4e308855d696d2b87957f5f21",
+            "sha256": "b52be76e92672fee300671f1d374071a5e56459a0b651fc6209dc718a4912944",
+            "url": "https://github.com/hirobius/hds/blob/d1c2333783c5a2212f7f12a4b6adfba1b796df30/package.json",
+            "bytes": 28008,
+            "passed": true
+          }
+        ],
+        "passed_for_metadata_admission": true
+      },
+      {
+        "full_name": "tomkabel/tiltrank",
+        "repository_id": 1379708076,
+        "commit": "3d50371e0fe80346e45cb5f3a98cd5a1c3952fe5",
+        "tree": "d497975502220ef19c80d0458820cfaaf3eea29d",
+        "review_scope": "Root installation/client routing/license sections; root MPL identification and representative frontmatter/protocol framing. Not an independent full-body re-audit of34KB decision procedure or scorer.",
+        "conclusion": "Sole .claude skill is explicitly the public decision product, not a repository-maintenance false positive. Root install and representative MPL-2.0 agree; README preserves earlier MIT grants. Client/pi limitations and live protocol/eval uncertainty retained.",
+        "cached_raw_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "61e525b5a734d30020b1d2fc11331a17bca9b93c",
+            "sha256": "734a340faae9f764f81fefa58fbb198c01afc6a6e726645f99f15ba4f685ee36",
+            "url": "https://github.com/tomkabel/tiltrank/blob/3d50371e0fe80346e45cb5f3a98cd5a1c3952fe5/README.md",
+            "bytes": 16123,
+            "passed": true
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "570135f7c18cc45c5a666d9370e4277c25ab08bc",
+            "sha256": "d8d2562a7cb68ffdfe91fc66af1ed4a8a4e272aa4ab59bea7451ba34b9aba3d4",
+            "url": "https://github.com/tomkabel/tiltrank/blob/3d50371e0fe80346e45cb5f3a98cd5a1c3952fe5/LICENSE",
+            "bytes": 16727,
+            "passed": true
+          },
+          {
+            "path": ".claude/skills/tiltrank/SKILL.md",
+            "blob_sha": "11d11d27a3a89292e4271c7beb1b2e7f1e297f16",
+            "sha256": "15d01b06636639092f5fb9027e53bf14ba6290878bd946bf5ce700cb6f7ec3e8",
+            "url": "https://github.com/tomkabel/tiltrank/blob/3d50371e0fe80346e45cb5f3a98cd5a1c3952fe5/.claude/skills/tiltrank/SKILL.md",
+            "bytes": 34357,
+            "passed": true
+          }
+        ],
+        "passed_for_metadata_admission": true
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "limitations": [
+      "Independent static admission/count/license review of3 named fixed snapshots only; other product records are not covered by this QA.",
+      "Shared original raw-object cache was independently rehashed and compared with fixed tree entries; no new API/identity retrieval by this agent. Parent fresh official-object verification is separate.",
+      "No candidate installation, helper execution, paid model/provider calls, client activation, safety/security or scientific/financial/legal outcome certification."
+    ],
+    "owner_final_snapshot": {
+      "file": "product-results.json",
+      "sha256": "a4ae8839be1e896b57cb00d2323104ca95db601b7f33187f215c39ed59a5a2de",
+      "stage": "complete",
+      "selected_identities": 40,
+      "accepted_count": 25,
+      "accepted_identities": [
+        {
+          "full_name": "PodcastAPI/skills",
+          "repository_id": 1273757876,
+          "commit": "5ca1e8df1740ca9f4e54a01d420d579027ebeb7c"
+        },
+        {
+          "full_name": "redavio/skills",
+          "repository_id": 1463495309,
+          "commit": "fef685b4903ff80472a032e70c02639a7666f080"
+        },
+        {
+          "full_name": "mage-space/skills",
+          "repository_id": 1398484382,
+          "commit": "ad05be805d990ce8db151a7adb30a849c0c98b3d"
+        },
+        {
+          "full_name": "fand/vfx-js",
+          "repository_id": 228015503,
+          "commit": "45983452617b9eebfa3d7896573c0d1ee5578957"
+        },
+        {
+          "full_name": "asifnawaz/skia-motion-agentic-cli",
+          "repository_id": 1455985714,
+          "commit": "6cde172edd50e47c035e088ad774b60c78ee1398"
+        },
+        {
+          "full_name": "Risingtides-dev/ocean-skills",
+          "repository_id": 1299995017,
+          "commit": "abf06d63838232fd6d24ed18e3837de8b4f8ef56"
+        },
+        {
+          "full_name": "Tony11081/etsy-tony-skills-full",
+          "repository_id": 1373891418,
+          "commit": "5392854337c9576ca0c4d43a454c02119e85d2b2"
+        },
+        {
+          "full_name": "getnao/nao",
+          "repository_id": 1125445550,
+          "commit": "527509c85ef9fce6254721a5e7412511f29e8045"
+        },
+        {
+          "full_name": "rodney-hu/skills",
+          "repository_id": 1455296918,
+          "commit": "1f44e143ab007000315b665a05d8b88bc118e051"
+        },
+        {
+          "full_name": "Fully-Powered-AI/design-workflow-templates",
+          "repository_id": 1453615933,
+          "commit": "cdc35f0da59f87c4c6380a130ffe514ce14e9614"
+        },
+        {
+          "full_name": "yuguangtongchen1/valuation-agent",
+          "repository_id": 1450967646,
+          "commit": "ebbf7aca13f7d704f2a4b157686c1852d4d2dea1"
+        },
+        {
+          "full_name": "sociahive/sociahive-mcp",
+          "repository_id": 1334781381,
+          "commit": "9b457c139995c0458f53d98a330be272cdfab544"
+        },
+        {
+          "full_name": "hirobius/hds",
+          "repository_id": 1272748847,
+          "commit": "d1c2333783c5a2212f7f12a4b6adfba1b796df30"
+        },
+        {
+          "full_name": "RevylAI/revyl-cli",
+          "repository_id": 838571616,
+          "commit": "35b06ed8f0aac769d18b4e530eb25c631625c280"
+        },
+        {
+          "full_name": "skovtun/coherent-design-method",
+          "repository_id": 1142785576,
+          "commit": "3a91b886e298c2deee3067385913bdc606258962"
+        },
+        {
+          "full_name": "gabrielaoliveranz/claude-web-skills",
+          "repository_id": 1457297163,
+          "commit": "099c2af730fb8148392d9491adca1a6dc4fd44d3"
+        },
+        {
+          "full_name": "tomkabel/tiltrank",
+          "repository_id": 1379708076,
+          "commit": "3d50371e0fe80346e45cb5f3a98cd5a1c3952fe5"
+        },
+        {
+          "full_name": "musicalbee/design-ontology",
+          "repository_id": 1456613165,
+          "commit": "eed057045ab175f7d62a5e232a52394f217da9d4"
+        },
+        {
+          "full_name": "clockgrove/assetgrove",
+          "repository_id": 1449681913,
+          "commit": "79d6b7c94c4d51daf72fcd6c49b2e5a924ac0c93"
+        },
+        {
+          "full_name": "canonical/lpcli",
+          "repository_id": 1207283369,
+          "commit": "5eaeebcaf180945ecf1f15b9a3baa72809e255cd"
+        },
+        {
+          "full_name": "rancher/rancher-cli",
+          "repository_id": 1300687556,
+          "commit": "01443d5ac6dccc7eff818b4ae7e757691b1c8bb9"
+        },
+        {
+          "full_name": "mariomele/blender-product-video",
+          "repository_id": 1457259418,
+          "commit": "930e88d9547b6d6e0b36113101f9072d74bae3f8"
+        },
+        {
+          "full_name": "wrg32786/aigent-talking-head",
+          "repository_id": 1450897799,
+          "commit": "0cfb3303dc6884a8aab65af9bf5a65775e4d6762"
+        },
+        {
+          "full_name": "LearnPrompt/awesome-seedance",
+          "repository_id": 1347550908,
+          "commit": "5e9f7718ef51c44753a17d88b46baedd6c9def4f"
+        },
+        {
+          "full_name": "FURUYAN1234/nano-banana-pro",
+          "repository_id": 1139522310,
+          "commit": "8ccc7be5037002d565fbc2894f2582125bf6ae78"
+        }
+      ],
+      "scope_note": "Final owner accepted set bound for reproducibility only. Independent substantive QA covers3 frozen_targets, not all25 accepted records."
+    }
+  },
+  "integration_application": [
+    {
+      "full_name": "escwxyz/skills-re",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "Metadata-only infrastructure listing, not a safe-installation recommendation or runtime/client certification. Full installer shows server resolution.skill.slug (or specifier fallback) joined to skillsDir without validating containment against skillsDir before extractSkillArchive recursively removes that resolved directory; archive-entry assertInside only checks within the selected root. Archive SHA256 is computed after extraction and never compared with server hashes; lock metadata preferentially records supplied hashes. Same-name targets and Git basename collisions are removed/replaced nontransactionally. Line-based frontmatter parser is not general YAML. No candidate execution, exploit validation, remote API/auth/snapshot integrity or external payload review."
+      }
+    },
+    {
+      "full_name": "sdkwork-ai/sdkwork-specs",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_spdx": "LicenseRef-SDKWork-AGPL-Commercial-Restriction",
+        "license_scope": "Root LICENSE declares SPDX AGPL-3.0-or-later and reproduces the full AGPLv3 text, but its own preamble additionally states commercial use requires a separate written SDKWork commercial license, with COMMERCIAL-LICENSE.md governing when present (none in frozen tree). This is recorded as a custom source-available terms label, not unqualified standard AGPL permission; the relationship/enforceability of those assertions is unresolved. The reviewed validator/CLI/instructions share root scope; third-party, generated SDK/data and vendored artifacts retain their notices. Metadata indexing only, no body reuse.",
+        "limitations": "Complete validator and CLI implementation plus skills component README and complete root license read. Parser deliberately targets SDKWork flat scalars, not full YAML. Host pointer checks are opt-in --host-layer; warnings exit0 unless --strict. Secret/path regexes are heuristic; directory/read failures may yield empty discovery and SKILL.md file symlinks are followed. No general security/sandbox, complete filesystem coverage or agent compatibility certification. Workspace-layout helper, other standards, runtime and commercial license enforceability not audited.",
+        "summary_en": "Source-available SDKWork skill standards and validator with a separate commercial-use license requirement.",
+        "summary_zh": "带额外商业使用许可要求的 SDKWork 技能标准与校验工具（仅索引元数据）。"
+      }
+    },
+    {
+      "full_name": "grimoire-rs/index",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "README and index.config.json explicitly dedicate index pointer metadata to CC0-1.0; root LICENSE is Apache-2.0 for owned code. External OCI skill/rule/package payloads are not relicensed by either. CC0 source declaration is observed; linked full CC0 legal code was not separately fetched.",
+        "limitations": "Metadata-only index infrastructure. Complete root/component README, shell marketplace gate, package scripts and config read. Gate derives exact paths and client-directory prefixes from a narrowly formatted report, then checks changed working-tree paths, symlinks, size and LFS attributes. It does not parse general JSON, compare content hashes, prove namespace ownership, validate OCI package permissions or establish source-body safety. External @grimoire-rs/indexer, generated CI/forge-required-check enforcement and live registry/payload behavior unreviewed; nothing installed or executed."
+      }
+    }
+  ]
+}
