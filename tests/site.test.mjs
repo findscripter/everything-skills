@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { search, githubPath, commands } from '../site/search.mjs';
+import { search, githubPath, commands, popularRepositories } from '../site/search.mjs';
 import { searchRows } from '../scripts/everything-skills.mjs';
+import { loadSkillRepos } from '../scripts/load-skill-repos.mjs';
 
 const rows = JSON.parse(await readFile(new URL('../INDEX/search.json', import.meta.url), 'utf8'));
 
@@ -73,6 +74,30 @@ test('repository discovery searches both native and translated summaries within 
   assert.equal(search(fixtures, '论文', { mode:'repos', category:'vertical' })[0].full_name, 'example/papers');
   assert.deepEqual(search(fixtures, 'papers', { mode:'repos', category:'infra' }), []);
 });
+test('repository discovery puts a complete owner/repo match first by relevance', () => {
+  const fixtures = [
+    { full_name: 'example/papers-tools', summary: 'Example papers', summary_zh: 'Example papers' },
+    { full_name: 'example/papers' },
+  ];
+  assert.equal(search(fixtures, 'EXAMPLE/papers', { mode: 'repos' })[0].full_name, 'example/papers');
+});
+test('repository Stars sorting keeps query and category filters and puts unknown counts last', () => {
+  const fixtures = [
+    { full_name: 'example/unknown', stars: null },
+    { full_name: 'example/zero', stars: 0 },
+    { full_name: 'example/zeta', stars: 10 },
+    { full_name: 'example/alpha', stars: 10 },
+    { full_name: 'example/archive', stars: 20, upstream_state: 'archived' },
+    { full_name: 'example/missing', stars: 99, upstream_state: 'unavailable' },
+    { full_name: 'example/history', stars: 98, recommendation: 'historical-only' },
+    { full_name: 'example/other-volume', stars: 97, section: 'infra' },
+    { full_name: 'unrelated/repo', stars: 96 },
+  ].map(row => ({ section: 'vertical', upstream_state: 'active', ...row }));
+  assert.deepEqual(search(fixtures, 'example', { mode: 'repos', category: 'vertical', sort: 'stars' }).map(row => row.full_name),
+    ['example/archive', 'example/alpha', 'example/zeta', 'example/zero', 'example/unknown']);
+  assert.deepEqual(popularRepositories(fixtures, { category: 'vertical' }).map(row => row.full_name),
+    ['unrelated/repo', 'example/alpha', 'example/zeta']);
+});
 test('published catalog preserves upstream status and keeps historical/unavailable repos out of default search', async () => {
   const build = spawnSync(process.execPath, ['scripts/build-site.mjs'], { cwd:new URL('..', import.meta.url), encoding:'utf8', windowsHide:true });
   assert.equal(build.status, 0, build.stderr);
@@ -83,6 +108,14 @@ test('published catalog preserves upstream status and keeps historical/unavailab
   assert.deepEqual(search([knownHistorical], 'general-readme', { mode:'repos' }), []);
   assert.deepEqual(search([{ full_name:'example/missing', upstream_state:'unavailable' }], '', { mode:'repos' }), []);
   assert.equal(published.stats.repositories, published.repositories.length);
+  const original = await loadSkillRepos();
+  const dated = original.find(row => row.upstream_snapshot?.stars > 0 && row.upstream_snapshot.stars !== row.stars);
+  assert.ok(dated, 'Fixture needs a measured snapshot different from the recorded batch count');
+  const publishedDated = published.repositories.find(row => row.full_name === dated.full_name);
+  assert.equal(publishedDated.stars, dated.upstream_snapshot.stars);
+  assert.equal(publishedDated.stars_checked_at, dated.upstream_snapshot.checked_at);
+  assert.equal(knownHistorical.stars, null);
+  assert.equal(knownHistorical.stars_checked_at, null);
   assert.equal(published.outcome.after, published.outcome.active + published.outcome.archived + published.outcome.templates);
   const html = await readFile(new URL('../_site/index.html', import.meta.url), 'utf8');
   const app = await readFile(new URL('../_site/app.mjs', import.meta.url), 'utf8');

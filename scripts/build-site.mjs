@@ -21,7 +21,15 @@ const catalog = {
   outcome: checkOutcome(),
   stats: { total: rows.length, active: rows.filter(row => row.status !== 'deprecated').length, archived: rows.filter(row => row.status === 'deprecated').length, volumes: new Set(rows.map(row => row.vol)).size, repositories: repos.length },
   skills,
-  repositories: repos.map(row => ({ full_name: row.full_name, section: row.section || 'unnamed', summary: row.summary, summary_zh: row.summary_zh, recommendation: row.recommendation || 'unreviewed', upstream_state: row.upstream_snapshot?.state || 'unknown' })),
+  repositories: repos.map(row => {
+    const snapshot = row.upstream_snapshot;
+    const hasStars = Number.isSafeInteger(snapshot?.stars) && snapshot.stars >= 0 && /^\d{4}-\d{2}-\d{2}$/.test(snapshot.checked_at);
+    return {
+      full_name: row.full_name, section: row.section || 'unnamed', summary: row.summary, summary_zh: row.summary_zh,
+      recommendation: row.recommendation || 'unreviewed', upstream_state: snapshot?.state || 'unknown',
+      stars: hasStars ? snapshot.stars : null, stars_checked_at: hasStars ? snapshot.checked_at : null,
+    };
+  }),
 };
 const catalogJson = JSON.stringify(catalog) + '\n';
 await fs.writeFile(path.join(OUT, 'catalog.json'), catalogJson);
