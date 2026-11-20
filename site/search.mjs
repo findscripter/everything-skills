@@ -1,5 +1,5 @@
 // Browser-safe search: source metadata is data, never HTML or executable instructions.
-import { rankedResult, compareResults } from '../scripts/skill-ranking.mjs';
+import { rankedResult, compareResults, normalizeTask } from '../scripts/skill-ranking.mjs';
 export const FEATURED = ['codebase-onboarding-doc', 'api-design-reviewer', 'academic-paper-explainer', 'api-test-suite-builder', 'citation-management', 'monorepo-navigator', 'accessibility-wcag-audit', 'spec-driven-workflow', 'agent-skill-security-scanner'];
 
 export function tokens(value) {
@@ -11,16 +11,26 @@ export function tokens(value) {
   return [...new Set(out)];
 }
 
-export function search(rows, query, { category = '', mode = 'skills' } = {}) {
+const searchableRepository = row => row.status !== 'deprecated' && row.recommendation !== 'historical-only' && row.upstream_state !== 'unavailable';
+const compareRepositoryStars = (a, b) => (b.stars ?? -1) - (a.stars ?? -1) || a.full_name.localeCompare(b.full_name, 'en');
+
+export function popularRepositories(rows, { category = '' } = {}) {
+  return rows.filter(row => searchableRepository(row) && row.upstream_state === 'active' && row.stars > 0 && (!category || row.section === category)).sort(compareRepositoryStars);
+}
+
+export function search(rows, query, { category = '', mode = 'skills', sort = '' } = {}) {
   const terms = tokens(query);
-  return rows.filter(row => row.status !== 'deprecated' && (mode !== 'repos' || (row.recommendation !== 'historical-only' && row.upstream_state !== 'unavailable')) && (!category || (mode === 'skills' ? row.vol : row.section) === category)).map(row => {
+  const normalizedQuery = normalizeTask(query);
+  const compare = mode === 'repos' && sort === 'stars' ? (a, b) => compareRepositoryStars(a.row, b.row) : compareResults;
+  return rows.filter(row => (mode === 'repos' ? searchableRepository(row) : row.status !== 'deprecated') && (!category || (mode === 'skills' ? row.vol : row.section) === category)).map(row => {
     let score = 0;
     const weighted = mode === 'skills' ? [[row.name, 10], [row.title, 8], [(row.triggers || []).join(' '), 12], [(row.tags || []).join(' '), 4], [row.description, 2]] : [[row.full_name, 10], [row.summary, 2], [row.summary_zh, 2]];
     for (const [value, weight] of weighted) for (const term of terms) if (String(value || '').toLowerCase().includes(term)) score += weight;
     if ((row.triggers || []).some(t => t.toLowerCase() === String(query).trim().toLowerCase())) score += 24;
     const featured = FEATURED.indexOf(row.name);
-    return rankedResult(row, terms.length ? score : (featured < 0 ? 0 : FEATURED.length - featured), mode === 'skills' ? query : '');
-  }).filter(item => !terms.length || item.score > 0 || item.recommendation).sort(compareResults).map(({row, recommendation}) => recommendation ? {...row, recommendation} : row);
+    if (mode === 'repos') return { row, score, exact: Boolean(normalizedQuery && normalizedQuery === normalizeTask(row.full_name)) };
+    return rankedResult(row, terms.length ? score : (featured < 0 ? 0 : FEATURED.length - featured), query);
+  }).filter(item => !terms.length || item.exact || item.score > 0 || item.recommendation).sort(compare).map(({row, recommendation}) => recommendation ? {...row, recommendation} : row);
 }
 
 export function githubPath(relative) {
