@@ -1,0 +1,779 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-20",
+    "stage": "complete",
+    "evaluated_at": "2026-11-20T01:12:15.067024+00:00",
+    "records": [
+      {
+        "full_name": "faxforagents/cursor-plugin",
+        "repository_id": 1463779544,
+        "commit": "3f59549dae2b2aaa9e73dfdfd8b3ff02728a892d",
+        "tree": "667da07a891c2fc207b371d7999c1cde6fdb5f46",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "50a71bc1c9603bf543ade4e44de30d00edfa49b5",
+            "sha256": "e4bec80f81c4fbb39a9afdc530fcebfa10ab10dde43d39e185b0807aed44ab2a",
+            "url": "https://github.com/faxforagents/cursor-plugin/blob/3f59549dae2b2aaa9e73dfdfd8b3ff02728a892d/README.md",
+            "bytes": 6958
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "60ed83e28f9effce33d12f822de4be0c466b9747",
+            "sha256": "01d12b0ccb43587fc4f67725591a0c2e04b4a6f7043ed41aaf953807761b618b",
+            "url": "https://github.com/faxforagents/cursor-plugin/blob/3f59549dae2b2aaa9e73dfdfd8b3ff02728a892d/LICENSE",
+            "bytes": 1073
+          },
+          {
+            "path": "skills/fax-for-agents/SKILL.md",
+            "blob_sha": "3f55ddf1017404d79166cbf0580825f84a115956",
+            "sha256": "53374eafefa3a6332760183a165ad05bfa9bad36879ff19d59c2eb0e03fa182a",
+            "url": "https://github.com/faxforagents/cursor-plugin/blob/3f59549dae2b2aaa9e73dfdfd8b3ff02728a892d/skills/fax-for-agents/SKILL.md",
+            "bytes": 8338
+          },
+          {
+            "path": "skills/fax-for-agents/LICENSE",
+            "blob_sha": "02f2ebbcba150244bd354e4d7f453a9568b34f5c",
+            "sha256": "91d2de9636dc66bd55261081aad4039ace0cc820ed3f6422f42555a4e760c463",
+            "url": "https://github.com/faxforagents/cursor-plugin/blob/3f59549dae2b2aaa9e73dfdfd8b3ff02728a892d/skills/fax-for-agents/LICENSE",
+            "bytes": 915
+          },
+          {
+            "path": ".cursor-plugin/plugin.json",
+            "blob_sha": "1b61f5e05856baa40684530b31e1131c8f8be79b",
+            "sha256": "a1ebecefcc07a3c8176b99e94ee681eb287b158162fb667109fa5bdac02b5b90",
+            "url": "https://github.com/faxforagents/cursor-plugin/blob/3f59549dae2b2aaa9e73dfdfd8b3ff02728a892d/.cursor-plugin/plugin.json",
+            "bytes": 1227
+          },
+          {
+            "path": "mcp.json",
+            "blob_sha": "2060a9995732991218f435e4db1668d28a9dd3a7",
+            "sha256": "83a37199836ebb7d66482accc54ff883975aab81efda93c9b4d86193a93db550",
+            "url": "https://github.com/faxforagents/cursor-plugin/blob/3f59549dae2b2aaa9e73dfdfd8b3ff02728a892d/mcp.json",
+            "bytes": 211
+          }
+        ],
+        "read_scope": "Complete README, complete fax-for-agents SKILL.md, root MIT, packaged MIT-0, Cursor plugin manifest and mcp.json read. References and remote service implementation not read.",
+        "conclusion": "The repository explicitly vendors the canonical skill unchanged and adds a client configuration wrapper; exclude it from new independent collection. One mirrored skill is not 17 tools or a new authored task. Document preparation/quotes differ from approved sends; sandbox versus live-wallet and human approval scopes remain source assertions, not exercised controls."
+      },
+      {
+        "full_name": "randomgitsrc/vsdx-engine",
+        "repository_id": 1460973942,
+        "commit": "699fa04cf9e87b321c9ba7044fd53c20d8a47842",
+        "tree": "ab0e45937692b25be5578480c41ccc93562e551d",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "e5708dcf552b10bd21cc01c6dc66c6d1a387f271",
+            "sha256": "4a08b2427951fbae80a7e58cfc6fed55e970de7049f6a97bccbe3ba684603db0",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/README.md",
+            "bytes": 16503
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "17cf12ae82f1d7f5c1c9906570b9240b4e5d74b9",
+            "sha256": "1317fc3756b8c7e4d2c622eabb0533d79fac351ee14ad326f2989309b0cbfa23",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/LICENSE",
+            "bytes": 1087
+          },
+          {
+            "path": "skill/SKILL.md",
+            "blob_sha": "198a46df81a573081823befe6027da27b9db9cc1",
+            "sha256": "a31c86d02821a97a6b999f516b2237770a04731860d845944664af4a4ce50214",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/skill/SKILL.md",
+            "bytes": 34705
+          },
+          {
+            "path": "docs/dependencies.md",
+            "blob_sha": "bd06197639c4f0ea51f2d936924a593bb93fd688",
+            "sha256": "dd40a23d8a48d987e3a8fb221872369f1bb404a000b50cc81952e5eed26e85c0",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/docs/dependencies.md",
+            "bytes": 3794
+          },
+          {
+            "path": "docs/installation.md",
+            "blob_sha": "72cb791b0fb5a675ec64f7a29e3ca2a0b50776da",
+            "sha256": "ca3fc29149b211878d1909db7f3e110ee4c67f0935c94aea88650a480b078a74",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/docs/installation.md",
+            "bytes": 5833
+          },
+          {
+            "path": "docs/limitations.md",
+            "blob_sha": "0aff58d40e5612518a18293b2c8e34f7492e6c95",
+            "sha256": "672b15c475b4721c03c968e1b95fbceed0e6332bf94d857bd5373d455faa8f19",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/docs/limitations.md",
+            "bytes": 10468
+          },
+          {
+            "path": "src/Vsdx.Cli/Vsdx.Cli.csproj",
+            "blob_sha": "16da45aa91af59e9ff8ed691adf899effe47a690",
+            "sha256": "3663720b7f4c7c4d15b8138ac11beeca24615b7fa4840cf543bdec19790baf0a",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/src/Vsdx.Cli/Vsdx.Cli.csproj",
+            "bytes": 671
+          },
+          {
+            "path": "Directory.Packages.props",
+            "blob_sha": "ac261f15b496d94aabce4f4fdb5ee583878d4cc6",
+            "sha256": "3b578d6a50217f6c35c8693da44b1571cf908f1eb3226098efd13dfa9c275f34",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/Directory.Packages.props",
+            "bytes": 776
+          },
+          {
+            "path": "global.json",
+            "blob_sha": "4272150044dacb70fa31b181a48111cf2101e8ba",
+            "sha256": "993b0caa7124528fddd05750c841ae4ca1ee9b9466785b9954941e853bae0fa4",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/global.json",
+            "bytes": 80
+          }
+        ],
+        "read_scope": "Complete README, complete 34705-byte SKILL.md in two contiguous chunks, complete root MIT, dependencies/installation/limitations docs and CLI csproj/central versions/global SDK configuration read. Source backend and individual third-party license bodies not audited.",
+        "conclusion": "One public authoring skill accompanies a .NET CLI/API. Root MIT does not relicense system fonts or third-party components. Upstream explicitly has no native Visio open/edit validation, and package/readback/render checks cannot establish it; contradictory Master-reference documentation is not resolved here. No .NET build/install, font access, rendering, native Visio, external-file round trip or upstream benchmark replay performed."
+      },
+      {
+        "full_name": "jtavizon98/scientific-agents",
+        "repository_id": 1437368379,
+        "commit": "0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0",
+        "tree": "6bf5ad31c726bfb840b2df014465d92bd6410573",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "e380656aab3d65ef7688123745622040d541c8d5",
+            "sha256": "bf8d68dff3d8f66f032950aa0cffbefb28568e098102cb82d79b1a69b4b99b9e",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/README.md",
+            "bytes": 6412
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d60d9b641b16135a8c3a1d95a9a3ff38236beb2e",
+            "sha256": "f01ce4ab0be12419748ba301f10cf56a563d4c0d0c1f5ceae721e4dab5c68174",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/LICENSE",
+            "bytes": 1070
+          },
+          {
+            "path": "skills/correct/SKILL.md",
+            "blob_sha": "db3608f3cb4455a46048ff19e75590e079212f5c",
+            "sha256": "07933fcdd8ab8382482da43ecee882e01c11367db7905960a4a065febeaf1fb8",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/skills/correct/SKILL.md",
+            "bytes": 3084
+          },
+          {
+            "path": "skills/correct/LICENSE.txt",
+            "blob_sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25",
+            "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/skills/correct/LICENSE.txt",
+            "bytes": 1067
+          },
+          {
+            "path": "THIRD_PARTY.md",
+            "blob_sha": "fe1a6ededc1cad097ad7147017c5fb415d1a55b9",
+            "sha256": "8931169040bd841a9957937cacf578d50d7a61d75fae46160771e04d0ff8d273",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/THIRD_PARTY.md",
+            "bytes": 2254
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "21ba25f7182bf15d8821f9a06f344287e3945a87",
+            "sha256": "ca1ac5edf0466f1a36ee507aa7805927d54f01b4f85e9dfd44958610f34984de",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/.claude-plugin/plugin.json",
+            "bytes": 1479
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "5ad5f6c831514fd370820b74a94a4b8b2e21faef",
+            "sha256": "772c18dc395a8b8ed1a10ff028d67698cd6fe6412af1c7aea81e15afaabbf024",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/.claude-plugin/marketplace.json",
+            "bytes": 701
+          }
+        ],
+        "read_scope": "Complete README, complete correct representative, complete root MIT and its near MIT license, complete THIRD_PARTY.md and Claude plugin/marketplace manifests read. Other 25 bodies and packaged scripts/references not independently audited.",
+        "conclusion": "26 published entry directories match plugin manifest: a scientific-mode router, six short principles and other research/session/maintenance workflows. They are not 26 independent original scientific methods. Fourteen source adaptations are attributed; source notices stay with adapted instructions. No provider/model calls, signed-in source browsing, job scheduling, report rendering, Python helpers or cross-client installation executed."
+      }
+    ],
+    "corrections": [],
+    "objections": [
+      {
+        "full_name": "faxforagents/cursor-plugin",
+        "blocking": true,
+        "reason": "Unchanged canonical skill vendored into a client-only configuration wrapper; excluded from independent daily additions, not a distinct authored skill collection."
+      }
+    ],
+    "limits": "Exactly three source samples, one exclusion; no claim of full-body or runtime review. Fixed-object independent remote verification is separate."
+  },
+  "quality-science.json": {
+    "stage": "complete",
+    "date": "2026-11-20",
+    "reviewer_stream": "science-independent-breadth-qa",
+    "source_report_sha256": "e69d20c2deaad4f15ffd32e83e4d2f7ce5bb44e6e487b23dbef2a7a729d6cfb3",
+    "replacements": [
+      {
+        "original": "RyanAmundson/warden",
+        "replacement": "Valentain2345/opencode-market",
+        "reason": "Original is held in final owner report, lacks root README/license evidence; replacement is actual accepted infrastructure."
+      },
+      {
+        "original": "lellimecnar/dotagents",
+        "replacement": "cardene777/musubi",
+        "reason": "Original is held in final owner report, lacks root README/license evidence; replacement is actual accepted infrastructure."
+      }
+    ],
+    "records": [
+      {
+        "full_name": "inference-gateway/adl",
+        "repository_id": 1025092026,
+        "commit": "0ab647fc1fd0eee5cc4969ad9611ef169b3406b1",
+        "tree": "3ddb1149da0d4b5b5be3efdcc337c027f2ae7ce5",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "f30131b2121d6f421b8c296f54820be615ae10ee",
+            "sha256": "68a2f52e4668dbff1b8a0ae015a7f0c4a4c1af419d19115f5e4243da34cf02ad",
+            "url": "https://github.com/inference-gateway/adl/blob/0ab647fc1fd0eee5cc4969ad9611ef169b3406b1/README.md",
+            "bytes": 23306
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+            "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "url": "https://github.com/inference-gateway/adl/blob/0ab647fc1fd0eee5cc4969ad9611ef169b3406b1/LICENSE",
+            "bytes": 11357
+          },
+          {
+            "path": ".agents/skills/adl/SKILL.md",
+            "blob_sha": "e4a741c5a41b39b680c0677422f8b8a1ba46c80e",
+            "sha256": "d7813b6449ff308ef62b15613624a4097a3c1866564dae89ed3aefbac1f7560e",
+            "url": "https://github.com/inference-gateway/adl/blob/0ab647fc1fd0eee5cc4969ad9611ef169b3406b1/.agents/skills/adl/SKILL.md",
+            "bytes": 49523
+          },
+          {
+            "path": "schema/v1/schema.json",
+            "blob_sha": "5339ebc4c7919bc212449a9873c51cb4ef4becc9",
+            "sha256": "9ac1d90d187a70277a702f5db1b68aad588cdcb14c43a7d7f8fb554a7632718a",
+            "url": "https://github.com/inference-gateway/adl/blob/0ab647fc1fd0eee5cc4969ad9611ef169b3406b1/schema/v1/schema.json",
+            "bytes": 50720
+          },
+          {
+            "path": "docs/reference/skills.md",
+            "blob_sha": "69cb848d8021c29dd662ca49c1aa412e310313dc",
+            "sha256": "2bfc5460eba208593403e0b92dcc28c2381c1dc341c4b177233396a5877ceba5",
+            "url": "https://github.com/inference-gateway/adl/blob/0ab647fc1fd0eee5cc4969ad9611ef169b3406b1/docs/reference/skills.md",
+            "bytes": 6512
+          },
+          {
+            "path": "docs/examples/skills-registry.md",
+            "blob_sha": "edc297efe27a3d2e2d663e108e88ad49ba6bbf91",
+            "sha256": "2888dd263fd4dc5b463f8db1e91512e82c63d288e148718a12b2951f86566073",
+            "url": "https://github.com/inference-gateway/adl/blob/0ab647fc1fd0eee5cc4969ad9611ef169b3406b1/docs/examples/skills-registry.md",
+            "bytes": 3159
+          },
+          {
+            "path": "docs/guide/tools-vs-skills.md",
+            "blob_sha": "b7e9fc1a6f33587e72f39e202161cdfbe77ed826",
+            "sha256": "c16cfd03f8f31b38f705f9befc8d3f888ce1ffe974a0a3619aa53ec9efad05d6",
+            "url": "https://github.com/inference-gateway/adl/blob/0ab647fc1fd0eee5cc4969ad9611ef169b3406b1/docs/guide/tools-vs-skills.md",
+            "bytes": 6085
+          }
+        ],
+        "cached_byte_verification": true,
+        "read_scope": "README introduction, canonical-schema/tools-vs-skills, example and consumer/version/license sections read; complete docs/reference/skills.md, docs/examples/skills-registry.md and docs/guide/tools-vs-skills.md read. Exact schema Spec.skills, complete Skill and ReadToolConfig definitions inspected; not the entire50KB schema or49KB authoring representative. Root Apache legal body compared with completely read Apache text and inspected placeholder copyright difference.",
+        "conclusion": "Owner correctly identifies a skill-aware schema plus one authoring guide, not a live registry or installed payload library. Skill requires id only; source/version/bare and license optional; no schema oneOf enforces exclusive sources or read-tool availability. Docs require both read declaration and enablement for lazy loading; downstream generator/runtime is outside this source. License enums describe payload declarations, not payload permission. Owner limitations already preserve these constraints.",
+        "limits": "No registry, CLI/ADK/runtime, authz enforcement, paid model, generated hook or client install was exercised. Fixed49KB body byte verification is separate from this narrower independent substantive review."
+      },
+      {
+        "full_name": "Valentain2345/opencode-market",
+        "repository_id": 1460856992,
+        "commit": "1e09f9fba7a389dd9d839cb757510caa6264ab25",
+        "tree": "98705908dd8c72583e0e34091d7a25b3bcee630c",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "15fe6bd70d722b591f114520c6c245a18066f503",
+            "sha256": "8112baf92f5c4ae1af86d2b258d849519a2d0c4fa13bb7296925f7659ffc85f1",
+            "url": "https://github.com/Valentain2345/opencode-market/blob/1e09f9fba7a389dd9d839cb757510caa6264ab25/README.md",
+            "bytes": 10288
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/Valentain2345/opencode-market/blob/1e09f9fba7a389dd9d839cb757510caa6264ab25/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "src/gui/install.ts",
+            "blob_sha": "7e1c68934ecce45ba26a168fa3f68877a695f339",
+            "sha256": "04208afc57c3d6fa4230d677285d999b0c0ea82f22e093b63e8029239ff16acc",
+            "url": "https://github.com/Valentain2345/opencode-market/blob/1e09f9fba7a389dd9d839cb757510caa6264ab25/src/gui/install.ts",
+            "bytes": 7377
+          },
+          {
+            "path": "src/core.ts",
+            "blob_sha": "bda4fb798f8b24457c2b8e757f39ad58685379d6",
+            "sha256": "ba55a3575bb672ac65932a23c01c0bb612734862693942c82f1445b3a1346b79",
+            "url": "https://github.com/Valentain2345/opencode-market/blob/1e09f9fba7a389dd9d839cb757510caa6264ab25/src/core.ts",
+            "bytes": 4334
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "fa05082f5823b9eb61bfddbb02ccda7685b21647",
+            "sha256": "07c73988fb854640de7dbe62342085e3ab67f584ef7d7cb15e214f74bb3ed3e2",
+            "url": "https://github.com/Valentain2345/opencode-market/blob/1e09f9fba7a389dd9d839cb757510caa6264ab25/package.json",
+            "bytes": 1522
+          }
+        ],
+        "cached_byte_verification": true,
+        "read_scope": "Complete root README, src/gui/install.ts, src/core.ts and package.json read; root Apache body mechanically compared against completely read Apache text with inspected leading-LF/copyright placeholder differences. Rust catalog implementation, catalog helper, config editor, CLI wrapper, installer shell and binary artifacts not read.",
+        "conclusion": "Actual public desktop marketplace infrastructure exists and zero local skills is accurate. Installer validates skill name and lexical relative file paths, but relies on advertised sizes, reads full response buffers without comparing actual size/content hash, writes existing targets and lacks staged rollback. Partial file selection can report installed without proving SKILL.md was written; parallel skill mutations are outside serialized plugin/MCP config queue. Process wrapper uses argv spawn but inherits environment and honors explicit MARKET_CORE/configured-root executables. None of these observations establishes a safe installer; owner already records mutable refs, overwrite/integrity and realpath gaps.",
+        "limits": "No live catalog, host IPC, arbitrary executable, install/remove, GUI, credentials, reload or exploit test ran. Metadata listing is not installation recommendation or security certification."
+      },
+      {
+        "full_name": "cardene777/musubi",
+        "repository_id": 1463982620,
+        "commit": "890ea4086f66474bc5f5a583b8f381f3ffb77a7a",
+        "tree": "491822c92e6d210e250b0d3aeb0c14fa8c2bf532",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "8bf42e69adb0594867dfea245e0015a2d412d7a7",
+            "sha256": "673c4f21eb426d6285ce72989d9a73328af35ee11f28415ae3c8c57014902754",
+            "url": "https://github.com/cardene777/musubi/blob/890ea4086f66474bc5f5a583b8f381f3ffb77a7a/README.md",
+            "bytes": 3880
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "462a7a5f46a553a92ba5083bf6d4c6ac5f72aed6",
+            "sha256": "fe6b5646b75fe24acbe800c9f3307e40892aef54abb9daf8ddd80737fbd26cd0",
+            "url": "https://github.com/cardene777/musubi/blob/890ea4086f66474bc5f5a583b8f381f3ffb77a7a/LICENSE",
+            "bytes": 1067
+          },
+          {
+            "path": "src/check.ts",
+            "blob_sha": "5aeba4df703d3e1d699b85b50f8ebf3211b2d287",
+            "sha256": "253ffd316c01e8b11abba77a32feb606263cb4d4dd514227358deac22ddde985",
+            "url": "https://github.com/cardene777/musubi/blob/890ea4086f66474bc5f5a583b8f381f3ffb77a7a/src/check.ts",
+            "bytes": 5598
+          },
+          {
+            "path": "src/skills.ts",
+            "blob_sha": "fa11b40a8911b844e86b9ae6244854293833bdf5",
+            "sha256": "9e49797090051d4b10703b7433d539f767b49d485d69f8b18a45449305821249",
+            "url": "https://github.com/cardene777/musubi/blob/890ea4086f66474bc5f5a583b8f381f3ffb77a7a/src/skills.ts",
+            "bytes": 9264
+          },
+          {
+            "path": "src/definition.ts",
+            "blob_sha": "a65d155cb03a9520ae486c5c0131a45f62694f3f",
+            "sha256": "fc83192577996cd406c06c74b4c7debbf3aededf7c98361318f54b18b3cc50f5",
+            "url": "https://github.com/cardene777/musubi/blob/890ea4086f66474bc5f5a583b8f381f3ffb77a7a/src/definition.ts",
+            "bytes": 718
+          },
+          {
+            "path": "src/rules.ts",
+            "blob_sha": "15196b6bf581d4f333eb5881527d33ddf4b47387",
+            "sha256": "d9a690f4a323c0312d69118073fb15dfadfee1f19d9067f8722b0f642656b226",
+            "url": "https://github.com/cardene777/musubi/blob/890ea4086f66474bc5f5a583b8f381f3ffb77a7a/src/rules.ts",
+            "bytes": 6251
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "8bc6415dc950f201ccb6937d19478151898c7a45",
+            "sha256": "f35d59baea14522d42146d7781abec806acc7f9fb0b0a8b81e7b6a846cfee3fd",
+            "url": "https://github.com/cardene777/musubi/blob/890ea4086f66474bc5f5a583b8f381f3ffb77a7a/package.json",
+            "bytes": 1030
+          },
+          {
+            "path": "examples/skills/api-design/SKILL.md",
+            "blob_sha": "3ad49673a0b5a924c91c6a54fca824a33f7cca77",
+            "sha256": "4d01e24d445cddeb0d36b4156a53de30fbf94e29ab69e5a50ff1e58d36fafbe9",
+            "url": "https://github.com/cardene777/musubi/blob/890ea4086f66474bc5f5a583b8f381f3ffb77a7a/examples/skills/api-design/SKILL.md",
+            "bytes": 908
+          }
+        ],
+        "cached_byte_verification": true,
+        "read_scope": "Complete README and MIT; complete src/check.ts, src/skills.ts, src/rules.ts, src/definition.ts, package.json and api-design example consumer read. fingerprint/semver/JSON parser implementations, CLI/site/registry code, full normative specification and provider body not independently read.",
+        "conclusion": "Real declaration/discovery/version/fingerprint comparison and declarative headings/forbid/table-column checks support infrastructure admission. Two example skill leaves are demonstrations. Discovery uses direct child names and first-root shadowing; path containment is lexical resolve/relative and follows filesystem links. Provider code is not invoked in these read checker paths. --update can write eligible integrity rewrites before a different report problem/cycle makes the final command fail; only per-follow findings gate each rewrite. Checks establish text structure/fingerprint equality, not semantic correctness, origin ownership or source safety. Owner limitations match.",
+        "limits": "No provider, CLI, registry/site, client installation or filesystem negative scenario executed. No general sandbox or symlink-safe guarantee established."
+      }
+    ],
+    "verified_reference_count": 20,
+    "corrections": [],
+    "objections": [],
+    "limits": [
+      "Exactly three final accepted identities reviewed; no whole-stream approval.",
+      "Byte checks recompute original cached UTF8 against frozen trees; parent performs independent remote snapshots.",
+      "Nothing installed/executed, no credentials or paid services accessed, no external messages and no owner/source/Git changes."
+    ]
+  },
+  "quality-product.json": {
+    "stage": "complete",
+    "date": "2026-11-20",
+    "reviewer_stream": "product-independent-science-qa",
+    "reviewed_stream": "science",
+    "source_report_sha256": "c07c8b7ebc7eaefc4e8fc67b66a427e89758f0cacc1d3b81a5126a27be1ba459",
+    "frozen_targets": [
+      "NVIDIA/simready-foundation",
+      "jtavizon98/scientific-agents",
+      "terravic/clinical-trials-workbench-skill"
+    ],
+    "records": [
+      {
+        "full_name": "NVIDIA/simready-foundation",
+        "repository_id": 1171895501,
+        "commit": "1abf3ae2e9a0ae2ccad8c8632065621c9e08f2ef",
+        "tree": "3c9c9d641902105e8fcb0c642c2111ec7c1ddb73",
+        "fixed_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "18cbbe51775de6931c56503dda0fd48c6d9a841b",
+            "sha256": "d9ceccd385bed11943de4136faf05d22682ebe950d807f8c61474ca7fae65e2a",
+            "url": "https://github.com/NVIDIA/simready-foundation/blob/1abf3ae2e9a0ae2ccad8c8632065621c9e08f2ef/README.md",
+            "bytes": 15924
+          },
+          {
+            "path": "LICENSE.txt",
+            "blob_sha": "001a3281169d6ade30cd1a44544029254ba490a8",
+            "sha256": "4f321b887d0350e672e06c8a8bc85cff17ee2d1f3c360617079041ceee324c81",
+            "url": "https://github.com/NVIDIA/simready-foundation/blob/1abf3ae2e9a0ae2ccad8c8632065621c9e08f2ef/LICENSE.txt",
+            "bytes": 11432
+          },
+          {
+            "path": "skills/simready-foundation-conform-fet-000-standard/SKILL.md",
+            "blob_sha": "74c055f23c8a4e85a83822785de736434a5bd4f9",
+            "sha256": "f5d36ae42ae0f9ba7ced2365c20948eeb49518489641a2afe0faaffbaeb7b5d4",
+            "url": "https://github.com/NVIDIA/simready-foundation/blob/1abf3ae2e9a0ae2ccad8c8632065621c9e08f2ef/skills/simready-foundation-conform-fet-000-standard/SKILL.md",
+            "bytes": 14975
+          },
+          {
+            "path": "THIRD-PARTY-NOTICES.md",
+            "blob_sha": "fe086d19c522c4a92dc7c14a19527412a8aed31f",
+            "sha256": "4eec6dbccfe4ce19a7c9199deb41c7065a51d68be015bd83bcbccd91bf1ec943",
+            "url": "https://github.com/NVIDIA/simready-foundation/blob/1abf3ae2e9a0ae2ccad8c8632065621c9e08f2ef/THIRD-PARTY-NOTICES.md",
+            "bytes": 3491
+          }
+        ],
+        "fixed_reference_count": 4,
+        "cached_original_byte_checks": "passed; all cached bodies re-encoded without normalization to exact Git blob/SHA256/bytes and frozen tree entries; not an additional remote fetch",
+        "read_scope": "Complete root README, complete 14975-byte standard conform representative and complete THIRD-PARTY-NOTICES read. Root Apache body compared to previously fully read Apache text; only copyright preamble difference inspected. Other75 bodies, tier helpers/assets and full third-party legal texts not read.",
+        "distribution_check": {
+          "root_canonical_entries": 76,
+          "conformance": 60,
+          "authoring_package_maintenance": 16,
+          "three_client_views": {
+            ".agents/skills/": 76,
+            ".claude/skills/": 76,
+            ".codex/skills/": 76
+          },
+          "excluded_tier_locations": 208,
+          "raw_locations": 512
+        },
+        "conclusion": "Canonical/root views and role distinctions agree. Root Apache applies to owned instructions, not all sample assets or dependencies: Spot product/simulation restriction, MIT/BSD assets, dependency terms and external usd-validation-nvidia CC-BY documentation remain explicit. Staged source preservation/version-aware capability validation is an instruction, not proof of actual repair or whole-profile success. No correction required."
+      },
+      {
+        "full_name": "jtavizon98/scientific-agents",
+        "repository_id": 1437368379,
+        "commit": "0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0",
+        "tree": "6bf5ad31c726bfb840b2df014465d92bd6410573",
+        "fixed_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "e380656aab3d65ef7688123745622040d541c8d5",
+            "sha256": "bf8d68dff3d8f66f032950aa0cffbefb28568e098102cb82d79b1a69b4b99b9e",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/README.md",
+            "bytes": 6412
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d60d9b641b16135a8c3a1d95a9a3ff38236beb2e",
+            "sha256": "f01ce4ab0be12419748ba301f10cf56a563d4c0d0c1f5ceae721e4dab5c68174",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/LICENSE",
+            "bytes": 1070
+          },
+          {
+            "path": "skills/correct/SKILL.md",
+            "blob_sha": "db3608f3cb4455a46048ff19e75590e079212f5c",
+            "sha256": "07933fcdd8ab8382482da43ecee882e01c11367db7905960a4a065febeaf1fb8",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/skills/correct/SKILL.md",
+            "bytes": 3084
+          },
+          {
+            "path": "skills/correct/LICENSE.txt",
+            "blob_sha": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25",
+            "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/skills/correct/LICENSE.txt",
+            "bytes": 1067
+          },
+          {
+            "path": "THIRD_PARTY.md",
+            "blob_sha": "fe1a6ededc1cad097ad7147017c5fb415d1a55b9",
+            "sha256": "8931169040bd841a9957937cacf578d50d7a61d75fae46160771e04d0ff8d273",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/THIRD_PARTY.md",
+            "bytes": 2254
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "21ba25f7182bf15d8821f9a06f344287e3945a87",
+            "sha256": "ca1ac5edf0466f1a36ee507aa7805927d54f01b4f85e9dfd44958610f34984de",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/.claude-plugin/plugin.json",
+            "bytes": 1479
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "5ad5f6c831514fd370820b74a94a4b8b2e21faef",
+            "sha256": "772c18dc395a8b8ed1a10ff028d67698cd6fe6412af1c7aea81e15afaabbf024",
+            "url": "https://github.com/jtavizon98/scientific-agents/blob/0a70d23fb4d11bf3e8951b7eb87cf3244b4e9fb0/.claude-plugin/marketplace.json",
+            "bytes": 701
+          }
+        ],
+        "fixed_reference_count": 7,
+        "cached_original_byte_checks": "passed; all cached bodies re-encoded without normalization to exact Git blob/SHA256/bytes and frozen tree entries; not an additional remote fetch",
+        "read_scope": "Complete root README, complete root MIT, near correct/LICENSE.txt, complete THIRD_PARTY and both plugin manifests read. Did not re-read parent-completed correct body or other25 bodies; all seven refs mechanically checked.",
+        "distribution_check": {
+          "manifest_entries": 26,
+          "root_and_manifest_sets_equal": true,
+          "router": 1,
+          "principles": 6,
+          "other_workflows": 19,
+          "attributed_adaptations": 14
+        },
+        "conclusion": "Twenty-six shipped entries are not26 original scientific methods. Adaptation table and near MIT preserve source authors/cursor plugins; short commit abbreviations are source declarations, not independently proven complete origin chains. Source/citation/render/session maintenance roles and optional billed multi-provider council remain separate. No correction required."
+      },
+      {
+        "full_name": "terravic/clinical-trials-workbench-skill",
+        "repository_id": 1464520762,
+        "commit": "0771e09b057a69ca09c3d207b8e9f235a0b8b12a",
+        "tree": "1b82579aeeec09ba473d6df7c6704f03a816b739",
+        "fixed_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "3b3ad81216e852e7e680b31a8804807c220ca42c",
+            "sha256": "28eb5e53d6223043a70896ed6a900e660261aed269453f71c8f8a5ee7a158063",
+            "url": "https://github.com/terravic/clinical-trials-workbench-skill/blob/0771e09b057a69ca09c3d207b8e9f235a0b8b12a/README.md",
+            "bytes": 10792
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "122d48bddd22f6e2bdea08c9141478e359b9aa95",
+            "sha256": "0f9a1716c9b449a6e858748f74c9dc59fffb4b072135db3a72716286f1e8db8a",
+            "url": "https://github.com/terravic/clinical-trials-workbench-skill/blob/0771e09b057a69ca09c3d207b8e9f235a0b8b12a/LICENSE",
+            "bytes": 11368
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "d57eaa05724b728f41cf68481eaa9062a3331301",
+            "sha256": "3e2268d3be437bf5a883cf40f22214fe91167764ac68c698c1bf3bae1589b0c6",
+            "url": "https://github.com/terravic/clinical-trials-workbench-skill/blob/0771e09b057a69ca09c3d207b8e9f235a0b8b12a/SKILL.md",
+            "bytes": 7652
+          }
+        ],
+        "fixed_reference_count": 3,
+        "cached_original_byte_checks": "passed; all cached bodies re-encoded without normalization to exact Git blob/SHA256/bytes and frozen tree entries; not an additional remote fetch",
+        "read_scope": "Complete README and complete 7652-byte root skill read. Apache body compared to previously fully read canonical text with only inspected attribution/whitespace differences. No rule/SQL/PII helper implementation or source dataset audited.",
+        "distribution_check": {
+          "public_root_skills": 1,
+          "runbooks": 7,
+          "datasets_and_dashboard_are_supporting_outputs": true
+        },
+        "conclusion": "A synthetic clinical-operations demo with claimed compatibility and HIPAA/Safe Harbor/source-read-only safeguards; these are already identified as unverified upstream assertions. Feedback and dashboard commands write local state, while drafts/referrals require human review before clinical/regulatory action. Full Apache owned-code grant does not establish patient/data rights or clinical correctness. No correction required."
+      }
+    ],
+    "verified_reference_count": 14,
+    "corrections": [],
+    "objections": [],
+    "limits": [
+      "Exactly three science identities sampled; this does not certify the other science candidates or every body in these three repositories.",
+      "No candidate/helper installation or execution, model/paid API, credential/private source access, GPU/runtime, clinical test or external message performed.",
+      "Content/manifest/license scope review and cached-byte checks are distinct from parent independent remote fixed-object verification and actual runtime/permission/security/outcome certification."
+    ]
+  },
+  "quality-breadth.json": {
+    "stage": "complete",
+    "date": "2026-11-20",
+    "reviewer_stream": "breadth",
+    "reviewed_stream": "product",
+    "source_report_sha256": "ee317033a90f20d3e1abf9eca7a7088280913b2542d4dd05a8ed0b11c74108f5",
+    "frozen_targets": [
+      {
+        "full_name": "EffortlessAPI/effortless-skills",
+        "repository_id": 1195403187,
+        "commit": "43a2d74d4b915bd6c4525c104d6ff8f57183c39d"
+      },
+      {
+        "full_name": "randomgitsrc/vsdx-engine",
+        "repository_id": 1460973942,
+        "commit": "699fa04cf9e87b321c9ba7044fd53c20d8a47842"
+      },
+      {
+        "full_name": "TillerHQ/ai-skills",
+        "repository_id": 1463124939,
+        "commit": "84755ea5fc6b5e0a6e9fce2892ef71000d8e6442"
+      }
+    ],
+    "coverage": {
+      "selected": 3,
+      "reviewed": 3,
+      "missing": []
+    },
+    "checks": [
+      {
+        "full_name": "EffortlessAPI/effortless-skills",
+        "repository_id": 1195403187,
+        "commit": "43a2d74d4b915bd6c4525c104d6ff8f57183c39d",
+        "tree": "56ddd2fc35aa2d953f67bee3ca6f7893c252c65a",
+        "review_scope": "Complete1827-byte LICENSE; root README introduction, installation and license sections; complete711-byte plugin metadata; fixed tree43entry count and owner boundary fields. Did not reread12KB OMNI body in full; its runtime risk remains owner review.",
+        "conclusion": "Custom Commons Clause appends revenue/commercial-benefit licensing requirement to MIT wording, with explicit personal/academic/nonprofit/internal exceptions. Owner custom label and source scope correctly supersede stale plain-MIT plugin field.43source entries include router and suite-maintenance; not43 independent leaf tasks. Actual browser auto-confirmation/source risk is retained without runtime certification.",
+        "cached_raw_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "7e079e98ccdd76de00474db59893e3d7766c9b59",
+            "sha256": "25dad672c740c66e1d5324085234278a33632737c51cf5acbf229c38b596cafc",
+            "url": "https://github.com/EffortlessAPI/effortless-skills/blob/43a2d74d4b915bd6c4525c104d6ff8f57183c39d/README.md",
+            "bytes": 33654,
+            "passed": true
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "c9d6bc770aaeae9e97beaf708bf50f13ff6f58c3",
+            "sha256": "1a17a769ca43911c058b9a85a2d196ca8c3471514d0693901da9dfaa82529654",
+            "url": "https://github.com/EffortlessAPI/effortless-skills/blob/43a2d74d4b915bd6c4525c104d6ff8f57183c39d/LICENSE",
+            "bytes": 1827,
+            "passed": true
+          },
+          {
+            "path": "skills/effortless-airtable-omni/SKILL.md",
+            "blob_sha": "950ea223faa3b80bc45f7c51753c542930f2150f",
+            "sha256": "fd4c54ab846db22716c5afd196934c8e77b3109e533b0936f9317916c901fecc",
+            "url": "https://github.com/EffortlessAPI/effortless-skills/blob/43a2d74d4b915bd6c4525c104d6ff8f57183c39d/skills/effortless-airtable-omni/SKILL.md",
+            "bytes": 11994,
+            "passed": true
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "55f68e59c1b32517c11da777349d1cfe8916978a",
+            "sha256": "e2213ef723645753c768e03608a5d1222ed2c1366d62dcab9f156494caba0dee",
+            "url": "https://github.com/EffortlessAPI/effortless-skills/blob/43a2d74d4b915bd6c4525c104d6ff8f57183c39d/.claude-plugin/plugin.json",
+            "bytes": 711,
+            "passed": true
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "9e9143d7d03aa3ab20d9775b9832113cbf882d21",
+            "sha256": "bd01711dadb4f7225651ce7399278c1dc3495aad929d64a55c63e61eb843232a",
+            "url": "https://github.com/EffortlessAPI/effortless-skills/blob/43a2d74d4b915bd6c4525c104d6ff8f57183c39d/.claude-plugin/marketplace.json",
+            "bytes": 473,
+            "passed": true
+          },
+          {
+            "path": "DEPRECATED_SKILLS.md",
+            "blob_sha": "b0aff62b215a381efa8793dd3e8a0b82e11f133d",
+            "sha256": "adb8bb88f3797d4617ac52f6b6f30e13836bd5ed4ace16794f9104dc75a27cf3",
+            "url": "https://github.com/EffortlessAPI/effortless-skills/blob/43a2d74d4b915bd6c4525c104d6ff8f57183c39d/DEPRECATED_SKILLS.md",
+            "bytes": 1733,
+            "passed": true
+          }
+        ],
+        "passed_for_metadata_admission": true
+      },
+      {
+        "full_name": "randomgitsrc/vsdx-engine",
+        "repository_id": 1460973942,
+        "commit": "699fa04cf9e87b321c9ba7044fd53c20d8a47842",
+        "tree": "ab0e45937692b25be5578480c41ccc93562e551d",
+        "review_scope": "Complete root MIT, installation and limitations docs, CLI csproj and SDK global.json; README heading/entrypoint/version locations and owner boundary fields. Parent already read complete34KB representative; this is not a second full-body review. Dependency legal texts not independently read.",
+        "conclusion": "One public skill accompanies .NET8 repository CLI/API with source-build/global-tool packaging. Current docs explicitly leave native Visio open/edit and COM acceptance unexecuted; ZIP/readback/third-party render do not prove native compatibility. Master-reference limitations prose contradicts itself and owner retains that unresolved issue. No build/render/native-client test was performed.",
+        "cached_raw_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "e5708dcf552b10bd21cc01c6dc66c6d1a387f271",
+            "sha256": "4a08b2427951fbae80a7e58cfc6fed55e970de7049f6a97bccbe3ba684603db0",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/README.md",
+            "bytes": 16503,
+            "passed": true
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "17cf12ae82f1d7f5c1c9906570b9240b4e5d74b9",
+            "sha256": "1317fc3756b8c7e4d2c622eabb0533d79fac351ee14ad326f2989309b0cbfa23",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/LICENSE",
+            "bytes": 1087,
+            "passed": true
+          },
+          {
+            "path": "skill/SKILL.md",
+            "blob_sha": "198a46df81a573081823befe6027da27b9db9cc1",
+            "sha256": "a31c86d02821a97a6b999f516b2237770a04731860d845944664af4a4ce50214",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/skill/SKILL.md",
+            "bytes": 34705,
+            "passed": true
+          },
+          {
+            "path": "docs/dependencies.md",
+            "blob_sha": "bd06197639c4f0ea51f2d936924a593bb93fd688",
+            "sha256": "dd40a23d8a48d987e3a8fb221872369f1bb404a000b50cc81952e5eed26e85c0",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/docs/dependencies.md",
+            "bytes": 3794,
+            "passed": true
+          },
+          {
+            "path": "docs/installation.md",
+            "blob_sha": "72cb791b0fb5a675ec64f7a29e3ca2a0b50776da",
+            "sha256": "ca3fc29149b211878d1909db7f3e110ee4c67f0935c94aea88650a480b078a74",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/docs/installation.md",
+            "bytes": 5833,
+            "passed": true
+          },
+          {
+            "path": "docs/limitations.md",
+            "blob_sha": "0aff58d40e5612518a18293b2c8e34f7492e6c95",
+            "sha256": "672b15c475b4721c03c968e1b95fbceed0e6332bf94d857bd5373d455faa8f19",
+            "url": "https://github.com/randomgitsrc/vsdx-engine/blob/699fa04cf9e87b321c9ba7044fd53c20d8a47842/docs/limitations.md",
+            "bytes": 10468,
+            "passed": true
+          }
+        ],
+        "passed_for_metadata_admission": true
+      },
+      {
+        "full_name": "TillerHQ/ai-skills",
+        "repository_id": 1463124939,
+        "commit": "84755ea5fc6b5e0a6e9fce2892ef71000d8e6442",
+        "tree": "744a4554f2d9a7dabba5d617af21ffe3f7590cc9",
+        "review_scope": "Complete root README,8692-byte category-health-check representative and complete MIT. Two fixed public source paths checked; good-morning-money body not read independently.",
+        "conclusion": "Two distinct prototype source skills exist despite README table listing only morning brief. Representative prescribes fresh aggregate queries/sample evidence, read-only calls and explicit user-named changes only. Tiller connector access, bank/sheet data rights, optional email and financial output quality remain separate untested boundaries.",
+        "cached_raw_evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "243f8bca6f9634a78cd4a016171bf23a62963858",
+            "sha256": "81ee59f572c0500027709fae22a79685e2a608be2a5f5210a7867388cf1f9b31",
+            "url": "https://github.com/TillerHQ/ai-skills/blob/84755ea5fc6b5e0a6e9fce2892ef71000d8e6442/README.md",
+            "bytes": 2339,
+            "passed": true
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4a914eae33950daaf78d5c78d3c55e4592076fbb",
+            "sha256": "12e21def435e701b4bc5c342b4ab9b2d5c7c32010f906f70388b173c1e27a412",
+            "url": "https://github.com/TillerHQ/ai-skills/blob/84755ea5fc6b5e0a6e9fce2892ef71000d8e6442/LICENSE",
+            "bytes": 1063,
+            "passed": true
+          },
+          {
+            "path": "skills/category-health-check/SKILL.md",
+            "blob_sha": "98a163c9d8c76f045bbc78976c28d6886ab2e219",
+            "sha256": "f705522ec60618a4d15a6e7a1c6104aa410e39b11e60bda5d15d7a99d2be7d63",
+            "url": "https://github.com/TillerHQ/ai-skills/blob/84755ea5fc6b5e0a6e9fce2892ef71000d8e6442/skills/category-health-check/SKILL.md",
+            "bytes": 8692,
+            "passed": true
+          }
+        ],
+        "passed_for_metadata_admission": true
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "limitations": [
+      "Three assigned fixed snapshots only; full product collection is not substantively re-reviewed by this report.",
+      "Cached original bytes were independently recomputed and bound to pinned tree/path/URL; no duplicate remote API fetch by this reviewer. Parent remote verification is separate.",
+      "No candidate installation/helper execution, paid model, credentials, bank data, live client/connector, external message or writeback. Static source/license review is not permission, safety, financial/legal or workflow certification."
+    ]
+  },
+  "integration_application": []
+}
