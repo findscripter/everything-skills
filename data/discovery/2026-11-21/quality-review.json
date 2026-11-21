@@ -1,0 +1,978 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-21",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "Pixerate/editor",
+        "repository_id": 1360030455,
+        "commit": "21e6276362f37f27b9438bf2b532e4bb83515e5f",
+        "tree": "7ec7d4de77217b9c7947417298ca9def419cd2e9",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "c0b664adc20e5ec78b0f848285a7f87ee34d4b2c",
+            "sha256": "e74be086f9391d2e08d01c3450b0c61854caf8509483cf8af26cafdf573e15c4",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/README.md",
+            "bytes": 286067
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "fe4d23f28e4ab107434f20e6f94ef25895b6bed7",
+            "sha256": "902f86b4a3463ff76fbd8ef1d2b13c87bb0e4bbf5e4b393249976e92ebc31e3d",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/LICENSE",
+            "bytes": 1067
+          },
+          {
+            "path": "packages/core/skills/README.md",
+            "blob_sha": "f2279f2630e38f88ca18214bd896ce6929cd168c",
+            "sha256": "bfb4d8bb88dcaeb746bfa3c170f13163b0e9faa55c8d6ef7d968e509f1650589",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/packages/core/skills/README.md",
+            "bytes": 18614
+          },
+          {
+            "path": "packages/core/package.json",
+            "blob_sha": "a58c4df8762d267e2535bcedf32dc50e871f6637",
+            "sha256": "6dd3f6a526c507bd04408ac122b508d7c586c111f7ad40f4bc25cdd62fa5d853",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/packages/core/package.json",
+            "bytes": 18512
+          },
+          {
+            "path": "packages/core/skills/pixerate-accessibility-audit/SKILL.md",
+            "blob_sha": "7dc9cf79166d13ea5593e2a7d4967796075621c8",
+            "sha256": "414f219f78c07ad3bc46d2297a28867a9e9e39557766005a47bc385c47a69429",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/packages/core/skills/pixerate-accessibility-audit/SKILL.md",
+            "bytes": 5564
+          },
+          {
+            "path": "packages/core/THIRD_PARTY_NOTICES.md",
+            "blob_sha": "f6cd0694cba0bafb19ca764906217654c5f53825",
+            "sha256": "33802eb9a0fd67ddce172915ce83c95a481c1732ff27250b2e55de4091968225",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/packages/core/THIRD_PARTY_NOTICES.md",
+            "bytes": 96997
+          }
+        ],
+        "read_scope": "Full component skill catalog and accessibility workflow, full root MIT text, root README package/install section, core manifest distribution keys and third-party notice terms and map-data sections. No complete root README, port-by-port notice or runtime audit.",
+        "conclusion": "The component manifest includes skills and its directory matches all 54 declared paths: 19 domain references and 35 workflows. One development-only brush skill stays outside the count. MIT repository materials, ArtCraft notices, ISC map source and public-domain geographic source are scoped separately. No package install, MCP, browser, editor, assets, or calls to paid generation were exercised."
+      },
+      {
+        "full_name": "datazoompuc/datazoom_viz",
+        "repository_id": 365059393,
+        "commit": "80ea1b7fcc3f36498ae25ca59d8f1de37c2919c1",
+        "tree": "15695327cefd44e2ddccff05d5916c61e08cdc81",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "fb5c641c13e4ad93e6a6bebe35bdce67c977681a",
+            "sha256": "b96f49594135f5ddca104906f276dae00ab48641144548b618baf7d4af8370fe",
+            "url": "https://github.com/datazoompuc/datazoom_viz/blob/80ea1b7fcc3f36498ae25ca59d8f1de37c2919c1/README.md",
+            "bytes": 25474
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f9f2612b2f4ee5ba23fa692a6b3ab079599f0233",
+            "sha256": "6e63eb239e32357cb1532ab0a4632909a209c108e725a546c1874595d62247ad",
+            "url": "https://github.com/datazoompuc/datazoom_viz/blob/80ea1b7fcc3f36498ae25ca59d8f1de37c2919c1/LICENSE",
+            "bytes": 1065
+          },
+          {
+            "path": ".claude/skills/limpeza_bases/SKILL.md",
+            "blob_sha": "d190924b2cd52183aecb17217b20fe8fa60728c9",
+            "sha256": "e71f815800d27f27803713386aec7f4f26ed1b1b5efaeab87ffc2f6d167a0b39",
+            "url": "https://github.com/datazoompuc/datazoom_viz/blob/80ea1b7fcc3f36498ae25ca59d8f1de37c2919c1/.claude/skills/limpeza_bases/SKILL.md",
+            "bytes": 11050
+          }
+        ],
+        "read_scope": "Root README and MIT text plus complete Portuguese data-curation representative.",
+        "conclusion": "The two checked-in entries are a repository knowledge base and a maintenance workflow tied to that project. Shiny/JavaScript app deployment is not an independent distribution channel for either. Ownership/license of external data is separate. Recommend exclusion."
+      },
+      {
+        "full_name": "DeanChensj/jiangshan-map",
+        "repository_id": 1310427454,
+        "commit": "73eea126752b49d65b461db0bb40304fc85a396d",
+        "tree": "30dcd4fd867e1cf7ff42ce718326c02fe9f3325f",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "09f5830803989944473261221e8ecf4c25bfa4d7",
+            "sha256": "3ca253271a7804ddfb5b66df9c10a61fa6331f7bb5f8c37b1e4abda26313589f",
+            "url": "https://github.com/DeanChensj/jiangshan-map/blob/73eea126752b49d65b461db0bb40304fc85a396d/README.md",
+            "bytes": 34097
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "53d1f3d01864c35841739c55aeba9700657627b7",
+            "sha256": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+            "url": "https://github.com/DeanChensj/jiangshan-map/blob/73eea126752b49d65b461db0bb40304fc85a396d/LICENSE",
+            "bytes": 35150
+          },
+          {
+            "path": "skills/jiangshan-atlas/SKILL.md",
+            "blob_sha": "499515c7bccaa8e7813915e9877d159c03cfd71c",
+            "sha256": "de93fc9e63f5e585635f39fbfcb1ef3c79fc370dad829137f7f44183fe0a5b7c",
+            "url": "https://github.com/DeanChensj/jiangshan-map/blob/73eea126752b49d65b461db0bb40304fc85a396d/skills/jiangshan-atlas/SKILL.md",
+            "bytes": 15806
+          }
+        ],
+        "read_scope": "Complete representative and root README agent-distribution, local packaging and data-license sections. Normalized root GPL text compared equal to the official GitHub GPLv3 template.",
+        "conclusion": "One historical-atlas skill has an explicit installation route. CLI, MCP functions and static web views are distinct surfaces. Approximate historical boundaries and noncommercial CHGIS/Hartwell-derived prefecture data retain stated limits; modern DataV layers carry their own terms. No runtime or historical validity checks were performed."
+      },
+      {
+        "full_name": "bmc-marshall/slidewell",
+        "repository_id": 1453141057,
+        "commit": "e3f65668270700ea518522e7b47c733b1a659b34",
+        "tree": "2be5f8edf33cdc59cdcfd616b942a128ce6360a8",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "3070e7987fc5be2a6e4fb78c27f00b7a70564d7a",
+            "sha256": "a4a7e6c8bae13b7742bc068116d4fe20a219d21696c8870e0a22f454124ff228",
+            "url": "https://github.com/bmc-marshall/slidewell/blob/e3f65668270700ea518522e7b47c733b1a659b34/README.md",
+            "bytes": 15809
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "daac807a0fb147824d4e8d34a674ae45c7b86b29",
+            "sha256": "8598a56c370babf6eaa5ac4aa4a05ca4158b1e07492a95f67a6a50d56aa4c0af",
+            "url": "https://github.com/bmc-marshall/slidewell/blob/e3f65668270700ea518522e7b47c733b1a659b34/LICENSE",
+            "bytes": 1069
+          },
+          {
+            "path": "slidewell/SKILL.md",
+            "blob_sha": "c895b28f922637501721211a138eed2d9912cef9",
+            "sha256": "65daa2667114872e5ae33d2dcd7d8ac4d5e3804961d51ff80570f7461fada924",
+            "url": "https://github.com/bmc-marshall/slidewell/blob/e3f65668270700ea518522e7b47c733b1a659b34/slidewell/SKILL.md",
+            "bytes": 33937
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "a38733d8b0e42c228ce8d40d3a676b7c782236de",
+            "sha256": "a9f7b2f9f1293c61cf38dc0908cc71ae939e734db2aa752e77ff9c256d6023bc",
+            "url": "https://github.com/bmc-marshall/slidewell/blob/e3f65668270700ea518522e7b47c733b1a659b34/.claude-plugin/marketplace.json",
+            "bytes": 572
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "ef539d66db1f0253dd46e2286a4d2af574a10722",
+            "sha256": "12155ed41beb5c0e172913990bfaabee79c2ec438c57a2d9e0c4bf62157fe4b3",
+            "url": "https://github.com/bmc-marshall/slidewell/blob/e3f65668270700ea518522e7b47c733b1a659b34/.claude-plugin/plugin.json",
+            "bytes": 590
+          },
+          {
+            "path": "slidewell/LICENSE",
+            "blob_sha": "daac807a0fb147824d4e8d34a674ae45c7b86b29",
+            "sha256": "8598a56c370babf6eaa5ac4aa4a05ca4158b1e07492a95f67a6a50d56aa4c0af",
+            "url": "https://github.com/bmc-marshall/slidewell/blob/e3f65668270700ea518522e7b47c733b1a659b34/slidewell/LICENSE",
+            "bytes": 1069
+          },
+          {
+            "path": "slidewell/assets/LICENSE-lucide.txt",
+            "blob_sha": "325e8ff0aae2dde3134c1ceed780a11d7bd8f544",
+            "sha256": "1e7290b35280a048667bbf0ebabac1c7fd52a75300e8b2946ac165715997f2bc",
+            "url": "https://github.com/bmc-marshall/slidewell/blob/e3f65668270700ea518522e7b47c733b1a659b34/slidewell/assets/LICENSE-lucide.txt",
+            "bytes": 880
+          },
+          {
+            "path": "slidewell/requirements.txt",
+            "blob_sha": "fba1066437085438025431ee109bd1003c89752f",
+            "sha256": "c07a39d521f27c147dd0d7fe6214a35dc4b5701f31ed379c773e06cf91e765d1",
+            "url": "https://github.com/bmc-marshall/slidewell/blob/e3f65668270700ea518522e7b47c733b1a659b34/slidewell/requirements.txt",
+            "bytes": 45
+          }
+        ],
+        "read_scope": "Full root README, full 33,937-byte consumer SKILL.md, full root and package MIT and Lucide ISC notices, plugin and marketplace manifests and Python requirements. Example, comparison and template files were identified in the tree.",
+        "conclusion": "One explicitly distributed, editable PowerPoint skill. Examples, fixtures, modes, template assets, and checker/renderer scripts do not add skills. The maintained skill code and instructions are MIT; packaged Lucide icons carry ISC with a retained Feather MIT attribution. Externally supplied decks, typography and branding have their own rights. The README gives different automated check counts, so the directory does not report a count or claim the package or deck QA was executed."
+      }
+    ],
+    "corrections": [],
+    "objections": [],
+    "limits": "Four named samples. Scope is recorded per file; complete collection/permission/runtime checks were not performed."
+  },
+  "quality-science.json": {
+    "date": "2026-11-21",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "zhenxu138/skillcloud",
+        "repository_id": 1275955336,
+        "commit": "ed060e50b4392e22bba1b29720afe5b8b90b629d",
+        "tree": "f34ae58ef5395d229604eaeddf18d31c1db99f40",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "887019671b5b40bc07eb82802fac596f6a1b5510",
+            "sha256": "184788166e11e78ff2c9d4c2b909c2939447f2b80fbc90be697680339c953f0d",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/README.md",
+            "bytes": 12946
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "33b866a540dbfbbf1cbc5d8032959b95295ded21",
+            "sha256": "aa48ba29fdfe93de431e24e1a277ffc3a531208654f25e5fa5c6a5b451d70a03",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "internal/skill/discover.go",
+            "blob_sha": "6168f181e957bea0be8306d754bc98b0e33ea460",
+            "sha256": "49c9e5e9091a5f12186870103439e56b6856ebe6c6905b24081158e760b81c94",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/skill/discover.go",
+            "bytes": 3079
+          },
+          {
+            "path": "cmd/skillcloud/main.go",
+            "blob_sha": "21912cba461efc3b5e57b9c6588f57a74ab9bde7",
+            "sha256": "3674e84c897e3aaa566fff3fa582679cac6ceda88d4fcd750a962e4b75f00631",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/cmd/skillcloud/main.go",
+            "bytes": 208
+          },
+          {
+            "path": "go.mod",
+            "blob_sha": "a768cf9d6de7abb3ad01ad60c408a7ca9c0e3c4e",
+            "sha256": "e7588dee872469216b3dd2de98c75418d197158fe629403c2fb220eb065e83d5",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/go.mod",
+            "bytes": 1300
+          },
+          {
+            "path": "internal/cli/list.go",
+            "blob_sha": "89e138133652f5b57e0d4eec1abf7d9172f8e01a",
+            "sha256": "d09e1dc46bd7de09e1b4af32b4b3985224d23e411fbeda63184f9addc238d227",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/list.go",
+            "bytes": 1355
+          },
+          {
+            "path": "internal/cli/init.go",
+            "blob_sha": "27fd5a981868f4c5b87c05e56453a032e7967c5c",
+            "sha256": "b65204dd8d6e26b7e2006f5afb39b7b892b96a26cbb22d243b933542cd360757",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/init.go",
+            "bytes": 999
+          },
+          {
+            "path": "internal/cli/sync.go",
+            "blob_sha": "4c972e1dbdc4519da2cc53fabaf4e26971105f19",
+            "sha256": "1070450a460c1798f3947d046821aa66109ab39d1a09c6e2cecda7763f0c20b1",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/sync.go",
+            "bytes": 3877
+          },
+          {
+            "path": "internal/gitstore/gitstore.go",
+            "blob_sha": "639992544de7c594574f5f6b120d95346997fa46",
+            "sha256": "7d399689eaa1d9ce1f1f18aadee2c9564b3b4802c9340593ed9ae3083995073a",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/gitstore/gitstore.go",
+            "bytes": 2673
+          },
+          {
+            "path": "internal/cli/enable.go",
+            "blob_sha": "f7a8a14a1f6c25e2758badd5ea5a5bc63303c802",
+            "sha256": "a4ebf181716b98e82a5c4fe29cc6422b3f801779d552fad4109a94e3571c0859",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/enable.go",
+            "bytes": 8800
+          },
+          {
+            "path": "internal/install/check.go",
+            "blob_sha": "72b053ca3ed74dcc57b66f340e56404d9259ad4e",
+            "sha256": "091943629a32cc719b71768e11a2828cdd623c960c276f688eaf3f58a3a2147c",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/check.go",
+            "bytes": 2972
+          },
+          {
+            "path": "internal/install/plan.go",
+            "blob_sha": "31c6386d70ba28d8d57eda63fae85d7b5777392e",
+            "sha256": "537fe9927a6d8f78a6c0d72c2c4e66ad583bd184fb665b286c896220ee88d60c",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/plan.go",
+            "bytes": 1916
+          },
+          {
+            "path": "internal/install/execute.go",
+            "blob_sha": "904b3857c08380e39f0a9cdda0ee381617e38245",
+            "sha256": "dcf439c9ec0772eddfccf54ead6f03f2b840fadf775cb0baaba133be5243bb39",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/execute.go",
+            "bytes": 1741
+          },
+          {
+            "path": "internal/install/projection.go",
+            "blob_sha": "51a6e0ba86a94067c05fd5415bff61533c4d3b2d",
+            "sha256": "26829b9e471fef7981b5cec1a0f83dac0966316b55961c7f8db6c73ac20e3aa1",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/projection.go",
+            "bytes": 1901
+          }
+        ],
+        "read_scope": "Complete pinned English README, root MIT text, Go entrypoint/dependency declaration, scanner, list/search, connect/update/push routing, Git store, enable/apply, and projection planning, ownership check and filesystem implementation. Reviewed tree metadata for fixture scope.",
+        "conclusion": "Accepted as infrastructure with no bundled public task skill. Build is from source. Connect clones a user-selected Git repository, update uses Git fast-forward-only pull and refreshes the index, and push is a separate command with writeback. The checked CLI path performs a destination conflict check before writing selected skills using symlinks or recursive copies. No downloaded archive installer in this reviewed path. Root MIT covers this CLI and its documentation. Connected content, dependencies and downstream runtimes have separate terms. No runtime, credentials, remote writes, or untrusted-source filesystem containment tested."
+      },
+      {
+        "full_name": "scalixworld/scalix-marketplace",
+        "repository_id": 1424341608,
+        "commit": "212f50e813aeb96ebe84d4dfa60dd4d148692d1b",
+        "tree": "6a0dbbf0d30e720a2f2885bfad730ecb56a34377",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "217228ae723371f59ebfbf73be1eebd7fe4f6ad5",
+            "sha256": "2b4e3619f80457c8682ffb20a3b5f093a188d86a4b0f626b923d262319d45368",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/README.md",
+            "bytes": 5513
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "ec710c5180ed0fb9b43d9ccf8ec92eb16e4b07d9",
+            "sha256": "81de04da17ea81f289a86d5f7d72679604162c41c34cc30010f24b654e9db2e2",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/LICENSE",
+            "bytes": 1083
+          },
+          {
+            "path": "skills/scalix-ai/SKILL.md",
+            "blob_sha": "889595a88f6ce9799d3de2c4b008cfaa32be968e",
+            "sha256": "54a668f28dd19bfe54ef336bb78ebfe5da57b70239d589b0c4939f1fb6809849",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/skills/scalix-ai/SKILL.md",
+            "bytes": 3016
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "88bfb2a3c851e29467b4261d6f63e6b580ad4515",
+            "sha256": "11d7e282d023e676b54c5ae152cbe1b2a1a5375ba23df033836f4f72ce528f90",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/package.json",
+            "bytes": 726
+          },
+          {
+            "path": "dist/listings/index.json",
+            "blob_sha": "a1d126d9ba56e2355042f624005badc5ce6c9a1d",
+            "sha256": "82a65bcaf533e331cb06dd859c45e08274a3d44f2382939211297b8d1865dbe7",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/index.json",
+            "bytes": 10695
+          },
+          {
+            "path": "scripts/sync-skills.mjs",
+            "blob_sha": "e9b70cf6f630f532ce45f044df15c69f26c82675",
+            "sha256": "6f461fd0e1c5f655b9dd57817807830946e2d6a5da04c54e0e07d2b21bfa4532",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/scripts/sync-skills.mjs",
+            "bytes": 4151
+          },
+          {
+            "path": "dist/listings/scalix-ai.json",
+            "blob_sha": "d118e7e66f0a0ae9a7452026de38cad78ddc2b67",
+            "sha256": "3f8592ae6891ec83cd211e545609840001eaf0a920b8c8f52feff44f7cdbb488",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-ai.json",
+            "bytes": 4442
+          },
+          {
+            "path": "dist/listings/scalix-database.json",
+            "blob_sha": "a5781db4c02c8e6a50e12aad82b605259ad14776",
+            "sha256": "97fa5f992143fd280f957a23147aa03902769bd42f07e2a052703b825e825d08",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-database.json",
+            "bytes": 4127
+          },
+          {
+            "path": "dist/listings/scalix-functions.json",
+            "blob_sha": "aab6a42d4db9291e01858fe406925dfdbe67c346",
+            "sha256": "5cfb27b611efcc017b742a5059232ec1f6405a29d9c2d91a3d7a678dad809752",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-functions.json",
+            "bytes": 3268
+          },
+          {
+            "path": "dist/listings/scalix-platform.json",
+            "blob_sha": "b0e647a8137f3391f7825b447e4d7a6b44d4ff1f",
+            "sha256": "5260330f25fb63632f528d839663f40969fbd8e71313867d52998075c867b4c7",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-platform.json",
+            "bytes": 5435
+          }
+        ],
+        "read_scope": "Complete pinned root README, MIT text, scalix-ai representative, package manifest and skill sync script. Examined all structured catalog records and read four complete committed skill detail payloads.",
+        "conclusion": "Accepted as a public static catalog for Scalix clients. The index contains four skill listings, eight MCP listings, two rules and two subagents. Each skill detail ships a single SKILL.md attributed to scalixworld/scalix-cloud-mcp. The sync script adds catalog metadata to upstream skill source. The MIT scope expressly covers catalog definitions and generator tooling. Upstream source material and tools retain applicable upstream terms, while proprietary services and clients have separate terms. Hosting, validation, licensing of upstream products and client acceptance were not runtime-verified."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "zhenxu138/skillcloud",
+        "field_updates": {
+          "distribution_evidence": "README documents source build and a user-supplied Git skill library. Connect clones the selected Git remote, update fast-forward-pulls and refreshes the index, and explicit project enablement uses checked local symlink/copy projection.",
+          "limitations": "Static review of Git and local projection paths. No install, remote write, untrusted-source filesystem containment, client permissions or downstream compatibility tested.",
+          "additional_evidence": [
+            {
+              "path": "internal/skill/discover.go",
+              "blob_sha": "6168f181e957bea0be8306d754bc98b0e33ea460",
+              "sha256": "49c9e5e9091a5f12186870103439e56b6856ebe6c6905b24081158e760b81c94",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/skill/discover.go",
+              "bytes": 3079
+            },
+            {
+              "path": "cmd/skillcloud/main.go",
+              "blob_sha": "21912cba461efc3b5e57b9c6588f57a74ab9bde7",
+              "sha256": "3674e84c897e3aaa566fff3fa582679cac6ceda88d4fcd750a962e4b75f00631",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/cmd/skillcloud/main.go",
+              "bytes": 208
+            },
+            {
+              "path": "go.mod",
+              "blob_sha": "a768cf9d6de7abb3ad01ad60c408a7ca9c0e3c4e",
+              "sha256": "e7588dee872469216b3dd2de98c75418d197158fe629403c2fb220eb065e83d5",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/go.mod",
+              "bytes": 1300
+            },
+            {
+              "path": "internal/cli/list.go",
+              "blob_sha": "89e138133652f5b57e0d4eec1abf7d9172f8e01a",
+              "sha256": "d09e1dc46bd7de09e1b4af32b4b3985224d23e411fbeda63184f9addc238d227",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/list.go",
+              "bytes": 1355
+            },
+            {
+              "path": "internal/cli/init.go",
+              "blob_sha": "27fd5a981868f4c5b87c05e56453a032e7967c5c",
+              "sha256": "b65204dd8d6e26b7e2006f5afb39b7b892b96a26cbb22d243b933542cd360757",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/init.go",
+              "bytes": 999
+            },
+            {
+              "path": "internal/cli/sync.go",
+              "blob_sha": "4c972e1dbdc4519da2cc53fabaf4e26971105f19",
+              "sha256": "1070450a460c1798f3947d046821aa66109ab39d1a09c6e2cecda7763f0c20b1",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/sync.go",
+              "bytes": 3877
+            },
+            {
+              "path": "internal/gitstore/gitstore.go",
+              "blob_sha": "639992544de7c594574f5f6b120d95346997fa46",
+              "sha256": "7d399689eaa1d9ce1f1f18aadee2c9564b3b4802c9340593ed9ae3083995073a",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/gitstore/gitstore.go",
+              "bytes": 2673
+            },
+            {
+              "path": "internal/cli/enable.go",
+              "blob_sha": "f7a8a14a1f6c25e2758badd5ea5a5bc63303c802",
+              "sha256": "a4ebf181716b98e82a5c4fe29cc6422b3f801779d552fad4109a94e3571c0859",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/enable.go",
+              "bytes": 8800
+            },
+            {
+              "path": "internal/install/check.go",
+              "blob_sha": "72b053ca3ed74dcc57b66f340e56404d9259ad4e",
+              "sha256": "091943629a32cc719b71768e11a2828cdd623c960c276f688eaf3f58a3a2147c",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/check.go",
+              "bytes": 2972
+            },
+            {
+              "path": "internal/install/plan.go",
+              "blob_sha": "31c6386d70ba28d8d57eda63fae85d7b5777392e",
+              "sha256": "537fe9927a6d8f78a6c0d72c2c4e66ad583bd184fb665b286c896220ee88d60c",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/plan.go",
+              "bytes": 1916
+            },
+            {
+              "path": "internal/install/execute.go",
+              "blob_sha": "904b3857c08380e39f0a9cdda0ee381617e38245",
+              "sha256": "dcf439c9ec0772eddfccf54ead6f03f2b840fadf775cb0baaba133be5243bb39",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/execute.go",
+              "bytes": 1741
+            },
+            {
+              "path": "internal/install/projection.go",
+              "blob_sha": "51a6e0ba86a94067c05fd5415bff61533c4d3b2d",
+              "sha256": "26829b9e471fef7981b5cec1a0f83dac0966316b55961c7f8db6c73ac20e3aa1",
+              "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/projection.go",
+              "bytes": 1901
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "scalixworld/scalix-marketplace",
+        "field_updates": {
+          "skill_count": "4 skill listings; 12 other listings",
+          "count_basis": "Committed index has four skills, eight MCP listings, two rules and two subagents. Each of the four skill payloads contains one synced SKILL.md from the separate Scalix Cloud MCP source.",
+          "license_scope": "Root MIT applies to catalog definitions and generator tooling, as stated in the README. Synced upstream skill material and referenced third-party MCP runtimes have separate provenance and applicable terms. Scalix clients and hosted services are proprietary.",
+          "additional_evidence": [
+            {
+              "path": "skills/scalix-ai/SKILL.md",
+              "blob_sha": "889595a88f6ce9799d3de2c4b008cfaa32be968e",
+              "sha256": "54a668f28dd19bfe54ef336bb78ebfe5da57b70239d589b0c4939f1fb6809849",
+              "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/skills/scalix-ai/SKILL.md",
+              "bytes": 3016
+            },
+            {
+              "path": "package.json",
+              "blob_sha": "88bfb2a3c851e29467b4261d6f63e6b580ad4515",
+              "sha256": "11d7e282d023e676b54c5ae152cbe1b2a1a5375ba23df033836f4f72ce528f90",
+              "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/package.json",
+              "bytes": 726
+            },
+            {
+              "path": "dist/listings/index.json",
+              "blob_sha": "a1d126d9ba56e2355042f624005badc5ce6c9a1d",
+              "sha256": "82a65bcaf533e331cb06dd859c45e08274a3d44f2382939211297b8d1865dbe7",
+              "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/index.json",
+              "bytes": 10695
+            },
+            {
+              "path": "scripts/sync-skills.mjs",
+              "blob_sha": "e9b70cf6f630f532ce45f044df15c69f26c82675",
+              "sha256": "6f461fd0e1c5f655b9dd57817807830946e2d6a5da04c54e0e07d2b21bfa4532",
+              "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/scripts/sync-skills.mjs",
+              "bytes": 4151
+            },
+            {
+              "path": "dist/listings/scalix-ai.json",
+              "blob_sha": "d118e7e66f0a0ae9a7452026de38cad78ddc2b67",
+              "sha256": "3f8592ae6891ec83cd211e545609840001eaf0a920b8c8f52feff44f7cdbb488",
+              "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-ai.json",
+              "bytes": 4442
+            },
+            {
+              "path": "dist/listings/scalix-database.json",
+              "blob_sha": "a5781db4c02c8e6a50e12aad82b605259ad14776",
+              "sha256": "97fa5f992143fd280f957a23147aa03902769bd42f07e2a052703b825e825d08",
+              "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-database.json",
+              "bytes": 4127
+            },
+            {
+              "path": "dist/listings/scalix-functions.json",
+              "blob_sha": "aab6a42d4db9291e01858fe406925dfdbe67c346",
+              "sha256": "5cfb27b611efcc017b742a5059232ec1f6405a29d9c2d91a3d7a678dad809752",
+              "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-functions.json",
+              "bytes": 3268
+            },
+            {
+              "path": "dist/listings/scalix-platform.json",
+              "blob_sha": "b0e647a8137f3391f7825b447e4d7a6b44d4ff1f",
+              "sha256": "5260330f25fb63632f528d839663f40969fbd8e71313867d52998075c867b4c7",
+              "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-platform.json",
+              "bytes": 5435
+            }
+          ]
+        }
+      }
+    ],
+    "objections": []
+  },
+  "quality-product.json": {
+    "date": "2026-11-21",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "NCC-CNC/erap-map-poc",
+        "repository_id": 1452899857,
+        "commit": "7d602749db890452da95dfe4798789293c7f28bb",
+        "tree": "d1071171c9da8a3d6fc91cc6fb5bde9a722d91cc",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "204d9b8df881a5ec7aa6db3a5a36081a5e99b2f7",
+            "sha256": "d2704b181820ead7888de45633fda604a60eaacb3fc554a24e9e6ade5045d66d",
+            "url": "https://github.com/NCC-CNC/erap-map-poc/blob/7d602749db890452da95dfe4798789293c7f28bb/README.md",
+            "bytes": 6812
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "53d1f3d01864c35841739c55aeba9700657627b7",
+            "sha256": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+            "url": "https://github.com/NCC-CNC/erap-map-poc/blob/7d602749db890452da95dfe4798789293c7f28bb/LICENSE",
+            "bytes": 35150
+          },
+          {
+            "path": ".claude/skills/remove-layer/SKILL.md",
+            "blob_sha": "3019989ab01395f8310f72936d4276b937735aa2",
+            "sha256": "6804330ee991a7147a2bc4ec72040d62419177a7ce980a8e77d72ed50c425f0e",
+            "url": "https://github.com/NCC-CNC/erap-map-poc/blob/7d602749db890452da95dfe4798789293c7f28bb/.claude/skills/remove-layer/SKILL.md",
+            "bytes": 1681
+          }
+        ],
+        "read_scope": "Complete pinned root README, GPLv3 root LICENSE, complete remove-layer SKILL.md, and nine-path metadata inventory. Other skills and guide text were outside this sample.",
+        "conclusion": "The optional Claude Code skills are documented for users working in a project clone. The README and fixed tree agree on eight user workflows plus the contributor run-checks entry. The complete remove-layer representative covers the map configuration/layer workflow and explicitly requires confirmation before removal. Source datasets, derived map data using external inputs and the OpenFreeMap basemap have separate provenance and terms. Root README states GNU GPL v3.0. No Docker, layer deletion, working-tree modification, draft PR, GIS input, basemap, or tile build was exercised."
+      },
+      {
+        "full_name": "munimtechnologies/invasive-arrivals",
+        "repository_id": 1461145233,
+        "commit": "ea19245108a4783d56edc5757421f572fd8a2343",
+        "tree": "6b74107f7a6927ffe94c34e0b60d14009998e205",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "39ced0bb3330515b5a76a0c5f1518a264cd89d11",
+            "sha256": "6fcbbaeee9c4bce605fb8f6922ad3f5b428a394c93a68e0f7f7fbc3163365e29",
+            "url": "https://github.com/munimtechnologies/invasive-arrivals/blob/ea19245108a4783d56edc5757421f572fd8a2343/README.md",
+            "bytes": 7546
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/munimtechnologies/invasive-arrivals/blob/ea19245108a4783d56edc5757421f572fd8a2343/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "a58a0d29b173eb271d863b5fbebd68f03570e36b",
+            "sha256": "15d1f131ecb6f634748805cf53d378d1e930b39bedf8597ae2dd2722b644c0f8",
+            "url": "https://github.com/munimtechnologies/invasive-arrivals/blob/ea19245108a4783d56edc5757421f572fd8a2343/SKILL.md",
+            "bytes": 3153
+          }
+        ],
+        "read_scope": "Complete pinned root README, Apache-2.0 root LICENSE, complete root SKILL.md and pinned tree presence/absence for the public feed and local watcher. Data terms scoped from source attribution.",
+        "conclusion": "One root biodiversity monitoring guide points to the separately runnable watcher and a planned weekly feed. Feed output paths are missing at the reviewed commit and baseline execution is described as queued. The guide describes candidates for expert review. The root LICENSE covers code under Apache-2.0. The README and end of the skill state that text and outputs use CC BY 4.0, but the skill frontmatter says Apache-2.0, so the documentation retains the conflict as mixed scope. GBIF record licenses, the CC BY 4.0 GRIIS checklists, and iNaturalist source credits are separately identified. No API, feed, watcher, or ecology claim was tested."
+      }
+    ],
+    "corrections": [],
+    "objections": [],
+    "integration_notes": {
+      "NCC-CNC/erap-map-poc": {
+        "public_skill_paths": [
+          ".claude/skills/add-layer/SKILL.md",
+          ".claude/skills/build-layers/SKILL.md",
+          ".claude/skills/edit-layer/SKILL.md",
+          ".claude/skills/inspect-data/SKILL.md",
+          ".claude/skills/remove-layer/SKILL.md",
+          ".claude/skills/run-map/SKILL.md",
+          ".claude/skills/setup/SKILL.md",
+          ".claude/skills/update-layer-data/SKILL.md"
+        ],
+        "maintenance_skill_paths": [
+          ".claude/skills/run-checks/SKILL.md"
+        ]
+      }
+    },
+    "limits": "Two named samples at fixed commits. Documentation/tree review and content integrity only."
+  },
+  "quality-breadth.json": {
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "saphion-limited/saphion-plugins",
+        "repository_id": 1442217960,
+        "tree": "88b34f29c0d8b8920b39fd73e097aac526df07d5",
+        "commit": "f03d5b7b0af148450f2662baa814399f611c6c99",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "69493c64b7f159db331a7cf80cc3fa22fd80dcab",
+            "sha256": "bb8721308225c3e74d593aef7d3a3c8d84854c4633e78ded1292d4ff422ef941",
+            "url": "https://github.com/saphion-limited/saphion-plugins/blob/f03d5b7b0af148450f2662baa814399f611c6c99/README.md",
+            "bytes": 2134
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "9779e235c1f73a0615dcb271ca34593decddd456",
+            "sha256": "617a9842def7e93f0e5f30f606d2c558736e79b4f74fb62ece488a3f02c4f6a1",
+            "url": "https://github.com/saphion-limited/saphion-plugins/blob/f03d5b7b0af148450f2662baa814399f611c6c99/LICENSE",
+            "bytes": 11346
+          },
+          {
+            "path": "saphion-documents/skills/write-document/SKILL.md",
+            "blob_sha": "037180829cd5d11cbeb732a1d006c90d887d13d3",
+            "sha256": "34fc586d0bc52e3afa95e35c30072cec4ae57816ce40f01cd70b47e1b82f4a36",
+            "url": "https://github.com/saphion-limited/saphion-plugins/blob/f03d5b7b0af148450f2662baa814399f611c6c99/saphion-documents/skills/write-document/SKILL.md",
+            "bytes": 2102
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "4abb7634c90b9283aca89d2d3e7ddff21191c6e3",
+            "sha256": "5d862f9f3bb9e422344638fee4b4517773938c7d9e550e5dc63880c470768687",
+            "url": "https://github.com/saphion-limited/saphion-plugins/blob/f03d5b7b0af148450f2662baa814399f611c6c99/NOTICE",
+            "bytes": 1483
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "00d2bbd585f1097e260fafaa855dca7d951687c3",
+            "sha256": "47a8c6a5a412ed02ea51e53aca9d87375ee490c084912b2b194ac80c520f74f9",
+            "url": "https://github.com/saphion-limited/saphion-plugins/blob/f03d5b7b0af148450f2662baa814399f611c6c99/.claude-plugin/marketplace.json",
+            "bytes": 2870
+          },
+          {
+            "path": "meeting-recaps/skills/project-team-update/SKILL.md",
+            "blob_sha": "10b18c17a907eaa0bc03af7845e0d42593984a2a",
+            "sha256": "27c3a472f2c17cf97d0b82ac234f75ffebf283483293454f608631ad4677d23c",
+            "url": "https://github.com/saphion-limited/saphion-plugins/blob/f03d5b7b0af148450f2662baa814399f611c6c99/meeting-recaps/skills/project-team-update/SKILL.md",
+            "bytes": 5121
+          },
+          {
+            "path": "meeting-recaps/.claude-plugin/plugin.json",
+            "blob_sha": "175006fa53c289784a6878e3431a7b346c2f64f6",
+            "sha256": "5ee01d5b7a0d2ed5f056aba17d7ddf5a8d8b6a24b2b6fc30526313e7041cc866",
+            "url": "https://github.com/saphion-limited/saphion-plugins/blob/f03d5b7b0af148450f2662baa814399f611c6c99/meeting-recaps/.claude-plugin/plugin.json",
+            "bytes": 468
+          },
+          {
+            "path": "upstream/anthropics-skills@dbd4588/LICENSE",
+            "blob_sha": "4f881c52d1f72f4cfb720e339e2d35c3058d01a9",
+            "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+            "url": "https://github.com/saphion-limited/saphion-plugins/blob/f03d5b7b0af148450f2662baa814399f611c6c99/upstream/anthropics-skills@dbd4588/LICENSE",
+            "bytes": 11345
+          }
+        ],
+        "checks": {
+          "distribution": "Marketplace resolves eight local Beacon plugin folders. Release instructions describe immutable approved deployment tags. This is a Beacon distribution in Claude Code marketplace layout; no independent general Claude Code functionality demonstrated.",
+          "count": "22 distinct top-level per-plugin procedure files in exactly the eight marketplace folders.",
+          "license": "Root Apache-2.0 and complete NOTICE identify adapted Apache-2.0 Anthropic design material and the pinned upstream license. NOTICE attributes restrictive document skills only as references, according to maintainer declaration; no textual independence audit performed."
+        }
+      },
+      {
+        "full_name": "Pixerate/editor",
+        "repository_id": 1360030455,
+        "tree": "7ec7d4de77217b9c7947417298ca9def419cd2e9",
+        "commit": "21e6276362f37f27b9438bf2b532e4bb83515e5f",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "c0b664adc20e5ec78b0f848285a7f87ee34d4b2c",
+            "sha256": "e74be086f9391d2e08d01c3450b0c61854caf8509483cf8af26cafdf573e15c4",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/README.md",
+            "bytes": 286067
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "fe4d23f28e4ab107434f20e6f94ef25895b6bed7",
+            "sha256": "902f86b4a3463ff76fbd8ef1d2b13c87bb0e4bbf5e4b393249976e92ebc31e3d",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/LICENSE",
+            "bytes": 1067
+          },
+          {
+            "path": "packages/core/skills/README.md",
+            "blob_sha": "f2279f2630e38f88ca18214bd896ce6929cd168c",
+            "sha256": "bfb4d8bb88dcaeb746bfa3c170f13163b0e9faa55c8d6ef7d968e509f1650589",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/packages/core/skills/README.md",
+            "bytes": 18614
+          },
+          {
+            "path": "packages/core/package.json",
+            "blob_sha": "a58c4df8762d267e2535bcedf32dc50e871f6637",
+            "sha256": "6dd3f6a526c507bd04408ac122b508d7c586c111f7ad40f4bc25cdd62fa5d853",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/packages/core/package.json",
+            "bytes": 18512
+          },
+          {
+            "path": "packages/core/skills/pixerate-accessibility-audit/SKILL.md",
+            "blob_sha": "7dc9cf79166d13ea5593e2a7d4967796075621c8",
+            "sha256": "414f219f78c07ad3bc46d2297a28867a9e9e39557766005a47bc385c47a69429",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/packages/core/skills/pixerate-accessibility-audit/SKILL.md",
+            "bytes": 5564
+          },
+          {
+            "path": "packages/core/THIRD_PARTY_NOTICES.md",
+            "blob_sha": "f6cd0694cba0bafb19ca764906217654c5f53825",
+            "sha256": "33802eb9a0fd67ddce172915ce83c95a481c1732ff27250b2e55de4091968225",
+            "url": "https://github.com/Pixerate/editor/blob/21e6276362f37f27b9438bf2b532e4bb83515e5f/packages/core/THIRD_PARTY_NOTICES.md",
+            "bytes": 96997
+          }
+        ],
+        "checks": {
+          "distribution": "Root install guidance and fixed @pixerate/editor 0.343.0 manifest agree. files includes the dist, skills and THIRD_PARTY_NOTICES.md; companion README maps agent instructions to SDK/MCP.",
+          "count": "19 references plus 35 workflows, 54 distinct entry paths exactly match skills catalog tables and fixed core tree. Development and non-core material excluded.",
+          "license": "Root MIT applies to authored repository code and instructions. Packaged notice records use of dual-licensed ArtCraft sources under MIT, Natural Earth public-domain data and separate world-atlas ISC terms."
+        }
+      }
+    ],
+    "corrections": [],
+    "objections": [],
+    "limits": [
+      "Independent checks against already-captured fixed commit objects. No install, package tarball, approval tag fetch, client invocation, paid service, or exhaustive transitive license/content audit.",
+      "Beacon is required for Beacon-specific procedures; marketplace layout alone does not establish Claude Code runtime portability.",
+      "Pixerate's 54 is the number of documented packaged references and workflows, with no inference that each was independently tested or can be installed separately."
+    ]
+  },
+  "integration_application": [
+    {
+      "full_name": "zhenxu138/skillcloud",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "distribution_evidence": "README documents source build and a user-supplied Git skill library. Connect clones the selected Git remote, update fast-forward-pulls and refreshes the index, and explicit project enablement uses checked local symlink/copy projection.",
+        "limitations": "Static review of Git and local projection paths. No install, remote write, untrusted-source filesystem containment, client permissions or downstream compatibility tested.",
+        "additional_evidence": [
+          {
+            "path": "internal/skill/discover.go",
+            "blob_sha": "6168f181e957bea0be8306d754bc98b0e33ea460",
+            "sha256": "49c9e5e9091a5f12186870103439e56b6856ebe6c6905b24081158e760b81c94",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/skill/discover.go",
+            "bytes": 3079
+          },
+          {
+            "path": "internal/cli/list.go",
+            "blob_sha": "89e138133652f5b57e0d4eec1abf7d9172f8e01a",
+            "sha256": "d09e1dc46bd7de09e1b4af32b4b3985224d23e411fbeda63184f9addc238d227",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/list.go",
+            "bytes": 1355
+          },
+          {
+            "path": "go.mod",
+            "blob_sha": "a768cf9d6de7abb3ad01ad60c408a7ca9c0e3c4e",
+            "sha256": "e7588dee872469216b3dd2de98c75418d197158fe629403c2fb220eb065e83d5",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/go.mod",
+            "bytes": 1300
+          },
+          {
+            "path": "cmd/skillcloud/main.go",
+            "blob_sha": "21912cba461efc3b5e57b9c6588f57a74ab9bde7",
+            "sha256": "3674e84c897e3aaa566fff3fa582679cac6ceda88d4fcd750a962e4b75f00631",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/cmd/skillcloud/main.go",
+            "bytes": 208
+          },
+          {
+            "path": "internal/skill/discover.go",
+            "blob_sha": "6168f181e957bea0be8306d754bc98b0e33ea460",
+            "sha256": "49c9e5e9091a5f12186870103439e56b6856ebe6c6905b24081158e760b81c94",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/skill/discover.go",
+            "bytes": 3079
+          },
+          {
+            "path": "cmd/skillcloud/main.go",
+            "blob_sha": "21912cba461efc3b5e57b9c6588f57a74ab9bde7",
+            "sha256": "3674e84c897e3aaa566fff3fa582679cac6ceda88d4fcd750a962e4b75f00631",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/cmd/skillcloud/main.go",
+            "bytes": 208
+          },
+          {
+            "path": "go.mod",
+            "blob_sha": "a768cf9d6de7abb3ad01ad60c408a7ca9c0e3c4e",
+            "sha256": "e7588dee872469216b3dd2de98c75418d197158fe629403c2fb220eb065e83d5",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/go.mod",
+            "bytes": 1300
+          },
+          {
+            "path": "internal/cli/list.go",
+            "blob_sha": "89e138133652f5b57e0d4eec1abf7d9172f8e01a",
+            "sha256": "d09e1dc46bd7de09e1b4af32b4b3985224d23e411fbeda63184f9addc238d227",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/list.go",
+            "bytes": 1355
+          },
+          {
+            "path": "internal/cli/init.go",
+            "blob_sha": "27fd5a981868f4c5b87c05e56453a032e7967c5c",
+            "sha256": "b65204dd8d6e26b7e2006f5afb39b7b892b96a26cbb22d243b933542cd360757",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/init.go",
+            "bytes": 999
+          },
+          {
+            "path": "internal/cli/sync.go",
+            "blob_sha": "4c972e1dbdc4519da2cc53fabaf4e26971105f19",
+            "sha256": "1070450a460c1798f3947d046821aa66109ab39d1a09c6e2cecda7763f0c20b1",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/sync.go",
+            "bytes": 3877
+          },
+          {
+            "path": "internal/gitstore/gitstore.go",
+            "blob_sha": "639992544de7c594574f5f6b120d95346997fa46",
+            "sha256": "7d399689eaa1d9ce1f1f18aadee2c9564b3b4802c9340593ed9ae3083995073a",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/gitstore/gitstore.go",
+            "bytes": 2673
+          },
+          {
+            "path": "internal/cli/enable.go",
+            "blob_sha": "f7a8a14a1f6c25e2758badd5ea5a5bc63303c802",
+            "sha256": "a4ebf181716b98e82a5c4fe29cc6422b3f801779d552fad4109a94e3571c0859",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/cli/enable.go",
+            "bytes": 8800
+          },
+          {
+            "path": "internal/install/check.go",
+            "blob_sha": "72b053ca3ed74dcc57b66f340e56404d9259ad4e",
+            "sha256": "091943629a32cc719b71768e11a2828cdd623c960c276f688eaf3f58a3a2147c",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/check.go",
+            "bytes": 2972
+          },
+          {
+            "path": "internal/install/plan.go",
+            "blob_sha": "31c6386d70ba28d8d57eda63fae85d7b5777392e",
+            "sha256": "537fe9927a6d8f78a6c0d72c2c4e66ad583bd184fb665b286c896220ee88d60c",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/plan.go",
+            "bytes": 1916
+          },
+          {
+            "path": "internal/install/execute.go",
+            "blob_sha": "904b3857c08380e39f0a9cdda0ee381617e38245",
+            "sha256": "dcf439c9ec0772eddfccf54ead6f03f2b840fadf775cb0baaba133be5243bb39",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/execute.go",
+            "bytes": 1741
+          },
+          {
+            "path": "internal/install/projection.go",
+            "blob_sha": "51a6e0ba86a94067c05fd5415bff61533c4d3b2d",
+            "sha256": "26829b9e471fef7981b5cec1a0f83dac0966316b55961c7f8db6c73ac20e3aa1",
+            "url": "https://github.com/zhenxu138/skillcloud/blob/ed060e50b4392e22bba1b29720afe5b8b90b629d/internal/install/projection.go",
+            "bytes": 1901
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "scalixworld/scalix-marketplace",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "skill_count": "4 skill listings; 12 other listings",
+        "count_basis": "Committed index has four skills, eight MCP listings, two rules and two subagents. Each of the four skill payloads contains one synced SKILL.md from the separate Scalix Cloud MCP source.",
+        "license_scope": "Root MIT applies to catalog definitions and generator tooling, as stated in the README. Synced upstream skill material and referenced third-party MCP runtimes have separate provenance and applicable terms. Scalix clients and hosted services are proprietary.",
+        "additional_evidence": [
+          {
+            "path": "package.json",
+            "blob_sha": "88bfb2a3c851e29467b4261d6f63e6b580ad4515",
+            "sha256": "11d7e282d023e676b54c5ae152cbe1b2a1a5375ba23df033836f4f72ce528f90",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/package.json",
+            "bytes": 726
+          },
+          {
+            "path": "dist/listings/index.json",
+            "blob_sha": "a1d126d9ba56e2355042f624005badc5ce6c9a1d",
+            "sha256": "82a65bcaf533e331cb06dd859c45e08274a3d44f2382939211297b8d1865dbe7",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/index.json",
+            "bytes": 10695
+          },
+          {
+            "path": "skills/scalix-ai/SKILL.md",
+            "blob_sha": "889595a88f6ce9799d3de2c4b008cfaa32be968e",
+            "sha256": "54a668f28dd19bfe54ef336bb78ebfe5da57b70239d589b0c4939f1fb6809849",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/skills/scalix-ai/SKILL.md",
+            "bytes": 3016
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "88bfb2a3c851e29467b4261d6f63e6b580ad4515",
+            "sha256": "11d7e282d023e676b54c5ae152cbe1b2a1a5375ba23df033836f4f72ce528f90",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/package.json",
+            "bytes": 726
+          },
+          {
+            "path": "dist/listings/index.json",
+            "blob_sha": "a1d126d9ba56e2355042f624005badc5ce6c9a1d",
+            "sha256": "82a65bcaf533e331cb06dd859c45e08274a3d44f2382939211297b8d1865dbe7",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/index.json",
+            "bytes": 10695
+          },
+          {
+            "path": "scripts/sync-skills.mjs",
+            "blob_sha": "e9b70cf6f630f532ce45f044df15c69f26c82675",
+            "sha256": "6f461fd0e1c5f655b9dd57817807830946e2d6a5da04c54e0e07d2b21bfa4532",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/scripts/sync-skills.mjs",
+            "bytes": 4151
+          },
+          {
+            "path": "dist/listings/scalix-ai.json",
+            "blob_sha": "d118e7e66f0a0ae9a7452026de38cad78ddc2b67",
+            "sha256": "3f8592ae6891ec83cd211e545609840001eaf0a920b8c8f52feff44f7cdbb488",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-ai.json",
+            "bytes": 4442
+          },
+          {
+            "path": "dist/listings/scalix-database.json",
+            "blob_sha": "a5781db4c02c8e6a50e12aad82b605259ad14776",
+            "sha256": "97fa5f992143fd280f957a23147aa03902769bd42f07e2a052703b825e825d08",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-database.json",
+            "bytes": 4127
+          },
+          {
+            "path": "dist/listings/scalix-functions.json",
+            "blob_sha": "aab6a42d4db9291e01858fe406925dfdbe67c346",
+            "sha256": "5cfb27b611efcc017b742a5059232ec1f6405a29d9c2d91a3d7a678dad809752",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-functions.json",
+            "bytes": 3268
+          },
+          {
+            "path": "dist/listings/scalix-platform.json",
+            "blob_sha": "b0e647a8137f3391f7825b447e4d7a6b44d4ff1f",
+            "sha256": "5260330f25fb63632f528d839663f40969fbd8e71313867d52998075c867b4c7",
+            "url": "https://github.com/scalixworld/scalix-marketplace/blob/212f50e813aeb96ebe84d4dfa60dd4d148692d1b/dist/listings/scalix-platform.json",
+            "bytes": 5435
+          }
+        ]
+      }
+    }
+  ]
+}
