@@ -15,7 +15,9 @@ The homepage opens with skill and repository search. Visitors can filter by volu
 
 Task shortcuts open [reviewed skill comparisons](../docs/skill-ranking.md) with reasons. The site and CLI share `scripts/skill-ranking.mjs`. Exact task aliases activate a group order, exact skill IDs stay first, and volume filters still apply. Other queries keep lexical ranking.
 
-The GitHub leaderboard shows five active external repositories ordered by cataloged Stars. Each number has its own collection date from the same upstream snapshot. The repository sort applies across the searchable directory and places missing counts last. This popularity signal describes the upstream repositories. Skill recommendations use the existing task comparisons.
+The skill install leaderboard uses a dated [Skills.sh snapshot](https://skills.sh/findscripter/everything-skills) for this repository. It includes current skills with a positive install count returned by the public search feed and displays how much of the catalog that sample covers. Equal counts share a rank. Do not read missing skills as zero installs. To refresh the snapshot for the next publish, run `npm run build:site -- --refresh-installs`, review and commit `site/skill-installs.json`. Routine builds use the committed snapshot without network access.
+
+The GitHub leaderboard shows five active external repositories ordered by cataloged Stars. Each number has its own collection date from the same upstream snapshot. The repository sort applies across the searchable directory and places missing counts last. Task recommendations continue to use the existing comparisons.
 
 `.github/workflows/pages.yml` builds and verifies PRs, then deploys only pushes to `main` through GitHub Pages Actions. Repository Settings → Pages must select **GitHub Actions**. The `zh` branch shares the same site source; the published site switches interface language in the browser.
 

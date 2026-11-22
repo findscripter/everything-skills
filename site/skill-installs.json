@@ -1,0 +1,28 @@
+{
+  "checked_at": "2026-11-22",
+  "installs": {
+    "algorithmic-art": 1,
+    "anti-reversing-techniques": 1,
+    "apify-multi-platform-scraper": 1,
+    "app-store-optimization": 1,
+    "auth-implementation-patterns": 1,
+    "binary-analysis-patterns": 1,
+    "codebase-onboarding-doc": 1,
+    "financial-analysis-toolkit": 1,
+    "flutter-expert": 1,
+    "glassmorphism-ui-design": 1,
+    "high-end-visual-design": 2,
+    "legal-policy-drafter": 1,
+    "octagon-financial-health-scores": 1,
+    "paid-ads-strategist": 1,
+    "pcb-bom-manager": 1,
+    "pe-value-creation-plan": 1,
+    "pytdc-therapeutics-datasets": 1,
+    "python-pptx-deck-generator": 1,
+    "sales-enablement": 1,
+    "spreadsheet-formula-auditor": 1,
+    "string-ppi-database": 1,
+    "three-statement-model": 1,
+    "xiaohongshu-content-strategy": 1
+  }
+}
