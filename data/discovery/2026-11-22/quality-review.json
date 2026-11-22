@@ -1,0 +1,761 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-22",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "fleetregistry/fleet-academy",
+        "repository_id": 1444959090,
+        "commit": "3a14479fcf05d2b9e9ea2c75e13815c4dd9efa46",
+        "tree": "7a121d5036d22a41471493a896c4b53f04bc5fe7",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "f184ad0e791afbd5b6b62ff9ae2bf25a9145e947",
+            "sha256": "402a7cfafccb88e17ce42336fdb93ca54fb054b0becdf72ef87afb581fe7aad4",
+            "url": "https://github.com/fleetregistry/fleet-academy/blob/3a14479fcf05d2b9e9ea2c75e13815c4dd9efa46/README.md",
+            "bytes": 26816
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/fleetregistry/fleet-academy/blob/3a14479fcf05d2b9e9ea2c75e13815c4dd9efa46/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "catalog/core/communication/COM-101-say-what-you-did/SKILL.md",
+            "blob_sha": "cbb38d2b4ab65c2c2a5ef761f0bd9a7598010927",
+            "sha256": "58df0df4d4a2646ddfe339dcdd68499aef8fcb5f59dce5468f71f4e9cdb755de",
+            "url": "https://github.com/fleetregistry/fleet-academy/blob/3a14479fcf05d2b9e9ea2c75e13815c4dd9efa46/catalog/core/communication/COM-101-say-what-you-did/SKILL.md",
+            "bytes": 1228
+          },
+          {
+            "path": "LICENSE-CONTENT",
+            "blob_sha": "27f155ed6373281919445b37b5a8798e980df347",
+            "sha256": "d31e559032afb3f3d909580ffebaf572e434cbdf3a70bd1094789e04d17cd030",
+            "url": "https://github.com/fleetregistry/fleet-academy/blob/3a14479fcf05d2b9e9ea2c75e13815c4dd9efa46/LICENSE-CONTENT",
+            "bytes": 18659
+          },
+          {
+            "path": "catalog/core/communication/COM-101-say-what-you-did/COURSE.md",
+            "blob_sha": "dd35c0be947ebc753bfe3d4348fac9dc37619dbe",
+            "sha256": "e4e964d43039cb8f4e597adc44e8dd1de066e7b4dbe0120e70de947877d09c33",
+            "url": "https://github.com/fleetregistry/fleet-academy/blob/3a14479fcf05d2b9e9ea2c75e13815c4dd9efa46/catalog/core/communication/COM-101-say-what-you-did/COURSE.md",
+            "bytes": 1040
+          },
+          {
+            "path": "FORMAT.md",
+            "blob_sha": "82c49b30ad8514e1a387ba35a782987bd3c58745",
+            "sha256": "848fcb17b1b419168e539a5bc4c1320d094cd6b9787b2d99a3caa7708152592f",
+            "url": "https://github.com/fleetregistry/fleet-academy/blob/3a14479fcf05d2b9e9ea2c75e13815c4dd9efa46/FORMAT.md",
+            "bytes": 9325
+          }
+        ],
+        "read_scope": "README public course installation, catalog and licensing sections; full COM-101 skill and course metadata; normalized complete Apache text matched the GitHub template, and CC BY content-license scope checked. The fixed tree was untruncated.",
+        "conclusion": "All 147 catalog skills have paired COURSE and exam-case files. Exams, degrees and credentials are separate objects. Neither draft nor published status establishes exam passage or external accreditation. Catalog and degrees are CC BY 4.0; tool code is Apache-2.0; registry and marks have separate terms."
+      },
+      {
+        "full_name": "promptprobe/pretend-designer",
+        "repository_id": 1355501975,
+        "commit": "8dfc212922919724e09edf299697853a778ae38e",
+        "tree": "92e1d8e839de2c94266bab5cf32ed37296882775",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "c2e6a4582e28b66101ddafe8a6bcfe969b4d0333",
+            "sha256": "3566772c7ef9abef4d453274f70fd7331f8ce265a163807b99c5b6d4a92566c6",
+            "url": "https://github.com/promptprobe/pretend-designer/blob/8dfc212922919724e09edf299697853a778ae38e/README.md",
+            "bytes": 14417
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "bff330f6849f8da07aa0d6b65c6666a9e019f40e",
+            "sha256": "8fb1258e4e6b75b7eb3439b96810f1043019349625344cdac28ae1a664d02673",
+            "url": "https://github.com/promptprobe/pretend-designer/blob/8dfc212922919724e09edf299697853a778ae38e/LICENSE",
+            "bytes": 1068
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "151988271941787cb6a23bff0ecb908b0f5ee54f",
+            "sha256": "44bbe889553fbbbcedd8bd52482cb31b97683c66152cc81ee5fb9de59e6532be",
+            "url": "https://github.com/promptprobe/pretend-designer/blob/8dfc212922919724e09edf299697853a778ae38e/SKILL.md",
+            "bytes": 18232
+          },
+          {
+            "path": "packs/codex/pretend-designer/SKILL.md",
+            "blob_sha": "9a15c00614e4ce1911e40e5232040652babb4eed",
+            "sha256": "07fc376b1e83a81a4327bb1f66196ed1f9cfede66b0d0b383a307fc3bc9c7f9e",
+            "url": "https://github.com/promptprobe/pretend-designer/blob/8dfc212922919724e09edf299697853a778ae38e/packs/codex/pretend-designer/SKILL.md",
+            "bytes": 17926
+          },
+          {
+            "path": "examples/blockchain-dashboard/assets/OFL.txt",
+            "blob_sha": "5f532cf919fd1102ad37d3bd1c7d87f6cf6a62f8",
+            "sha256": "a8551d221332767f479a339043ca78f6be9be08cb1f7625221f82149f4dab872",
+            "url": "https://github.com/promptprobe/pretend-designer/blob/8dfc212922919724e09edf299697853a778ae38e/examples/blockchain-dashboard/assets/OFL.txt",
+            "bytes": 4817
+          },
+          {
+            "path": ".cursor/skills/pretend-designer/SKILL.md",
+            "blob_sha": "9a15c00614e4ce1911e40e5232040652babb4eed",
+            "sha256": "07fc376b1e83a81a4327bb1f66196ed1f9cfede66b0d0b383a307fc3bc9c7f9e",
+            "url": "https://github.com/promptprobe/pretend-designer/blob/8dfc212922919724e09edf299697853a778ae38e/.cursor/skills/pretend-designer/SKILL.md",
+            "bytes": 17926
+          },
+          {
+            "path": "packs/claude/pretend-designer/SKILL.md",
+            "blob_sha": "9a15c00614e4ce1911e40e5232040652babb4eed",
+            "sha256": "07fc376b1e83a81a4327bb1f66196ed1f9cfede66b0d0b383a307fc3bc9c7f9e",
+            "url": "https://github.com/promptprobe/pretend-designer/blob/8dfc212922919724e09edf299697853a778ae38e/packs/claude/pretend-designer/SKILL.md",
+            "bytes": 17926
+          },
+          {
+            "path": "packs/cursor/pretend-designer/SKILL.md",
+            "blob_sha": "9a15c00614e4ce1911e40e5232040652babb4eed",
+            "sha256": "07fc376b1e83a81a4327bb1f66196ed1f9cfede66b0d0b383a307fc3bc9c7f9e",
+            "url": "https://github.com/promptprobe/pretend-designer/blob/8dfc212922919724e09edf299697853a778ae38e/packs/cursor/pretend-designer/SKILL.md",
+            "bytes": 17926
+          }
+        ],
+        "read_scope": "Full Korean/English README, root skill, MIT and bundled font OFL text. One pack body compared in full against the root and exact blob identity proven across the four package views.",
+        "conclusion": "One Korean-first web design skill. The four identical client views lag the latest root dashboard subsection and accompanying root-only reference. First-party content is MIT; the demonstration font is OFL-1.1; external reference brands remain separate."
+      },
+      {
+        "full_name": "QuinnsCode/RustyBuns",
+        "repository_id": 1370932201,
+        "commit": "0cb39a0fe01ba0aa9366dc6e78ce34e00e877ab6",
+        "tree": "c1539182a0fec276554276e515b3904948a36298",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "17461ca9809016a3c732580b1dc6a6ec9e7a85cb",
+            "sha256": "79ebf8a0514c18828e6e786248a1e0ab301de3dc7f44d6fe03ab295430ad8b35",
+            "url": "https://github.com/QuinnsCode/RustyBuns/blob/0cb39a0fe01ba0aa9366dc6e78ce34e00e877ab6/README.md",
+            "bytes": 137887
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/QuinnsCode/RustyBuns/blob/0cb39a0fe01ba0aa9366dc6e78ce34e00e877ab6/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "packages/cli/skills/rustybuns/SKILL.md",
+            "blob_sha": "0679f73b0860fdf5e476892b6886dcad9945d7ed",
+            "sha256": "64ad0a4f893ea310bcfe45eb5a65b3a014cc726cc16f3ff04e77286e36f25236",
+            "url": "https://github.com/QuinnsCode/RustyBuns/blob/0cb39a0fe01ba0aa9366dc6e78ce34e00e877ab6/packages/cli/skills/rustybuns/SKILL.md",
+            "bytes": 5111
+          },
+          {
+            "path": "NOTICE.md",
+            "blob_sha": "f0b978a22246c934dd9b920143b2e117f382d1d3",
+            "sha256": "55264cb8fbb6a5fa85fab7e8f57db4cd20501c55d75e3254c5f1db9810546c42",
+            "url": "https://github.com/QuinnsCode/RustyBuns/blob/0cb39a0fe01ba0aa9366dc6e78ce34e00e877ab6/NOTICE.md",
+            "bytes": 882
+          },
+          {
+            "path": "packages/cli/README.md",
+            "blob_sha": "27cb8adda7e87158dfe512c640ef99090fa88d5f",
+            "sha256": "bdff6888d7f26729e50a0f03ae46c491d443d412c5cb790ab6b17984f13e6e03",
+            "url": "https://github.com/QuinnsCode/RustyBuns/blob/0cb39a0fe01ba0aa9366dc6e78ce34e00e877ab6/packages/cli/README.md",
+            "bytes": 349
+          },
+          {
+            "path": "packages/cli/package.json",
+            "blob_sha": "3fc6684fe3e4db24cc13b54dab6e65f48b1e3d5e",
+            "sha256": "df86e9fb4ca18c07277984bbee54a2b8d20940aa12af43d9ca537db4b0b2ca0e",
+            "url": "https://github.com/QuinnsCode/RustyBuns/blob/0cb39a0fe01ba0aa9366dc6e78ce34e00e877ab6/packages/cli/package.json",
+            "bytes": 1116
+          },
+          {
+            "path": "packages/cli/src/skill.ts",
+            "blob_sha": "c291263c0aef6ec2013d1ba6c6b5249023c97a69",
+            "sha256": "f4ad396b5b32f95977ab2c5fa80baab17561fc01c8060ed4ae6826ea4cf8a77b",
+            "url": "https://github.com/QuinnsCode/RustyBuns/blob/0cb39a0fe01ba0aa9366dc6e78ce34e00e877ab6/packages/cli/src/skill.ts",
+            "bytes": 1511
+          }
+        ],
+        "read_scope": "Root README distribution sections, full published representative, CLI README/package allowlist, skill-command implementation, complete NOTICE and normalized full Apache license. Contributor skill contents and unrelated apps were excluded.",
+        "conclusion": "One consumer development skill is carried by the public CLI source package. The explicit add command can overwrite that target skill file. The Apache license and separate third-party/font notices are scoped; build, CLI install and cloud deployment remain untested."
+      },
+      {
+        "full_name": "hst368/archaeological-drawing-skill",
+        "repository_id": 1217767853,
+        "commit": "1e2f8bd761c8796a6edd288694f14e0d7604deb2",
+        "tree": "0604a576e583605cc9b6bf97087231f54d14419d",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "94f3c0d70cc4ab4c402d7f3aac91f82e0ba82a1a",
+            "sha256": "f1643f5b759b2170667006285a4fd6de53ec9fb3ac5c3a5cb8eb7bfd4661d01a",
+            "url": "https://github.com/hst368/archaeological-drawing-skill/blob/1e2f8bd761c8796a6edd288694f14e0d7604deb2/README.md",
+            "bytes": 7738
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "adee9736698c9bc7ec2748b260dbf0225315a122",
+            "sha256": "0a360a702c25765a0133f07494943e79f1a6369b66269b54f46f3c6dc77105d7",
+            "url": "https://github.com/hst368/archaeological-drawing-skill/blob/1e2f8bd761c8796a6edd288694f14e0d7604deb2/LICENSE",
+            "bytes": 1063
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "86b636b8d1fb8f3f197709dccb32910cc5de973c",
+            "sha256": "386d91945b10e6bdb8efc8fcf8e304ccb788be9b40cb691a9fab8d2f6a527980",
+            "url": "https://github.com/hst368/archaeological-drawing-skill/blob/1e2f8bd761c8796a6edd288694f14e0d7604deb2/SKILL.md",
+            "bytes": 29228
+          },
+          {
+            "path": "agents/openai.yaml",
+            "blob_sha": "3d03d4ba1a66393b0a7db9bc0f0f6734d4bc0bb4",
+            "sha256": "e813b9e2ca84cbb40609bacbc9a4445803bf4cbf58757bdd6348fb1aa0990499",
+            "url": "https://github.com/hst368/archaeological-drawing-skill/blob/1e2f8bd761c8796a6edd288694f14e0d7604deb2/agents/openai.yaml",
+            "bytes": 339
+          },
+          {
+            "path": "VERSION",
+            "blob_sha": "9084fa2f716a7117829f3f32a5f4cef400e02903",
+            "sha256": "1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8",
+            "url": "https://github.com/hst368/archaeological-drawing-skill/blob/1e2f8bd761c8796a6edd288694f14e0d7604deb2/VERSION",
+            "bytes": 6
+          }
+        ],
+        "read_scope": "Full README, 29,228-byte representative and MIT license; OpenAI agent metadata and version. Fixed untruncated tree with one skill.",
+        "conclusion": "One portable evidence-bounded illustration workflow. Examples and plotting standards are supporting documentation. No built-in LoRA or PSD production runtime. Repository MIT does not cover user-supplied artifact images, held collections or external providers."
+      },
+      {
+        "full_name": "A-Point-Systems-ltd/ms-sql-mcp",
+        "repository_id": 1442842548,
+        "commit": "a42da382c872a57b04b92a2ca55dc9a69ed515e1",
+        "tree": "ccb36622fb6b358b41cfe63aed24c9b838f71c18",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "367e92d61a8be9e99fa3c378bc5a4daa6cff7281",
+            "sha256": "ff1341294ec4cc30955626b13bb8ef129bd6ca1bc18009b8082a56396c3d99d3",
+            "url": "https://github.com/A-Point-Systems-ltd/ms-sql-mcp/blob/a42da382c872a57b04b92a2ca55dc9a69ed515e1/README.md",
+            "bytes": 74206
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "2bf07683e3327e4f7458cee725d925040e6498bb",
+            "sha256": "f292604d10ea4baf458eae8c799af2438b8937395b8f795b00434c0aaf367b3c",
+            "url": "https://github.com/A-Point-Systems-ltd/ms-sql-mcp/blob/a42da382c872a57b04b92a2ca55dc9a69ed515e1/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "plugins/ms-sql-mcp/skills/mssql-insights-ops/SKILL.md",
+            "blob_sha": "bb9f0a51dc5b029b90b86e3fedd29d3ad3470ac0",
+            "sha256": "632d11f554e5ed79e619c0684fce90df4ff8bfa423d0c81aadd13634c5637acd",
+            "url": "https://github.com/A-Point-Systems-ltd/ms-sql-mcp/blob/a42da382c872a57b04b92a2ca55dc9a69ed515e1/plugins/ms-sql-mcp/skills/mssql-insights-ops/SKILL.md",
+            "bytes": 12568
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "013c3faffdb28ec3ea59ef5e5a5794307331178d",
+            "sha256": "930559b35f5362756315c87b95dafa69c95fb17dc4f59ef5f4b0543b64777c25",
+            "url": "https://github.com/A-Point-Systems-ltd/ms-sql-mcp/blob/a42da382c872a57b04b92a2ca55dc9a69ed515e1/.claude-plugin/marketplace.json",
+            "bytes": 315
+          },
+          {
+            "path": "plugins/ms-sql-mcp/.claude-plugin/plugin.json",
+            "blob_sha": "2d133633d8a3a1c61eaa7a7aaaf1daae1873ffaa",
+            "sha256": "181b553e14f22c49caa931c321250334511babd40218a44066ce7f178307085d",
+            "url": "https://github.com/A-Point-Systems-ltd/ms-sql-mcp/blob/a42da382c872a57b04b92a2ca55dc9a69ed515e1/plugins/ms-sql-mcp/.claude-plugin/plugin.json",
+            "bytes": 544
+          },
+          {
+            "path": "THIRD-PARTY-NOTICES.txt",
+            "blob_sha": "0a11d723f4cda1d40a0de139e211689974079e14",
+            "sha256": "ea3fd2edb9dcb64d90ccd94fe10ce9092fcce95f77d65a67dfce90ab29883ec9",
+            "url": "https://github.com/A-Point-Systems-ltd/ms-sql-mcp/blob/a42da382c872a57b04b92a2ca55dc9a69ed515e1/THIRD-PARTY-NOTICES.txt",
+            "bytes": 10713
+          },
+          {
+            "path": ".cursor/skills/mssql-insights-ops/SKILL.md",
+            "blob_sha": "bb9f0a51dc5b029b90b86e3fedd29d3ad3470ac0",
+            "sha256": "632d11f554e5ed79e619c0684fce90df4ff8bfa423d0c81aadd13634c5637acd",
+            "url": "https://github.com/A-Point-Systems-ltd/ms-sql-mcp/blob/a42da382c872a57b04b92a2ca55dc9a69ed515e1/.cursor/skills/mssql-insights-ops/SKILL.md",
+            "bytes": 12568
+          }
+        ],
+        "read_scope": "Complete skill and root MIT text, root installation and licence sections, Claude manifests and selected third-party notice sections. Both client paths identify the same fixed blob.",
+        "conclusion": "One authored MSSQL insights/schema workflow appears in two host views. Some insights operations write database state, and read-only behavior depends on the connection/server. MIT excludes separately licensed runtime components such as SqlParser and ScriptDom. No runtime authorization, safety or distribution test."
+      },
+      {
+        "full_name": "exmergo/dex",
+        "repository_id": 1278285296,
+        "commit": "e60a9c43fec568ffe62abc6f876e731a1bfb00a0",
+        "tree": "9714dbf8bd104e56322d2fd1a089fb52110d174e",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "d6e148c057535e4dd802e0a1881e1c392979daed",
+            "sha256": "44a577ccda666d0b85c759a26aca9259ae8f2c59d3e8acc3948c4a283b585c98",
+            "url": "https://github.com/exmergo/dex/blob/e60a9c43fec568ffe62abc6f876e731a1bfb00a0/README.md",
+            "bytes": 32521
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "fce25b99df1e609bf6a37f51bfa67af53e56d8d8",
+            "sha256": "f91bbd42f7d27b95bb25205c7ce15edef8a8740f32738a42791b233261ced6b5",
+            "url": "https://github.com/exmergo/dex/blob/e60a9c43fec568ffe62abc6f876e731a1bfb00a0/LICENSE",
+            "bytes": 11343
+          },
+          {
+            "path": "skills/explore/SKILL.md",
+            "blob_sha": "70b9f77033189529cc229072ccd2fc6b1a0091f4",
+            "sha256": "f426575d0f779bbc38699fe2353338184d361a11d51234809a92a1fcafee4193",
+            "url": "https://github.com/exmergo/dex/blob/e60a9c43fec568ffe62abc6f876e731a1bfb00a0/skills/explore/SKILL.md",
+            "bytes": 41252
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "9ef952a984926224076973ba9b839c0a7045d0d2",
+            "sha256": "17cb677ff87113a5a6c2005c25a388667411510c672bd2175ea8570611551f22",
+            "url": "https://github.com/exmergo/dex/blob/e60a9c43fec568ffe62abc6f876e731a1bfb00a0/NOTICE",
+            "bytes": 621
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "2577902319da4bc39c92f54a0405a7eed256ebb5",
+            "sha256": "47ca1091fe395772c386e41cbcea727c573dff856f2400f40c66428a43020f7b",
+            "url": "https://github.com/exmergo/dex/blob/e60a9c43fec568ffe62abc6f876e731a1bfb00a0/.claude-plugin/plugin.json",
+            "bytes": 1022
+          },
+          {
+            "path": "claude/.claude-plugin/plugin.json",
+            "blob_sha": "2577902319da4bc39c92f54a0405a7eed256ebb5",
+            "sha256": "47ca1091fe395772c386e41cbcea727c573dff856f2400f40c66428a43020f7b",
+            "url": "https://github.com/exmergo/dex/blob/e60a9c43fec568ffe62abc6f876e731a1bfb00a0/claude/.claude-plugin/plugin.json",
+            "bytes": 1022
+          },
+          {
+            "path": ".codex-plugin/plugin.json",
+            "blob_sha": "e7367880e6d6c310398ae68db1fd15ec4c3be7f2",
+            "sha256": "ea05e35161074cd3a73b244a0d9eb432f46d03a338c4011edda4db005fc8a76f",
+            "url": "https://github.com/exmergo/dex/blob/e60a9c43fec568ffe62abc6f876e731a1bfb00a0/.codex-plugin/plugin.json",
+            "bytes": 2011
+          },
+          {
+            "path": "packages/dex-core/pyproject.toml",
+            "blob_sha": "86a503b4162fa2d4bd897f60a3d47b3caa250bb9",
+            "sha256": "608fccbdbba14d38dff381963de53cad81dcd3f360452a81d095e4655b6b516e",
+            "url": "https://github.com/exmergo/dex/blob/e60a9c43fec568ffe62abc6f876e731a1bfb00a0/packages/dex-core/pyproject.toml",
+            "bytes": 24284
+          }
+        ],
+        "read_scope": "Complete 41,252-byte Explore representative, README distribution/licence sections, Claude/Codex manifests and full NOTICE. Normalized Apache text matched except the appendix author placeholder; original published terms sections 1–3 were checked separately. The other two skills were identified by fixed tree and README roles.",
+        "conclusion": "Three analytics workflow skills, with three same-blob Claude copies. Exploring creates a cache and warehouse operations can cost money. Model transformation changes project or development artifacts. Privacy and cost guards have declared limits; Apache applies to software, not all web materials, vendor services, or marks; no installed or cloud execution."
+      }
+    ],
+    "corrections": [],
+    "objections": [],
+    "limits": "Six named samples. No complete collection audit, candidate execution or assessment of observed runtime outcomes."
+  },
+  "quality-science.json": {
+    "date": "2026-11-22",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "MELSIDI/MindStream",
+        "repository_id": 1464286348,
+        "commit": "671f1d20c3b17c7a8613b3f15984c6a8616a18f2",
+        "tree": "c7e22ed1a43013217bb53611abbc6ad96d215193",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "ed18b47924299f997f631d7f580e0417ffc56114",
+            "sha256": "5f64069a805d35a6c1be687b887837dfe01a7832c0e9c33e8e07bc8bfc6298b0",
+            "url": "https://github.com/MELSIDI/MindStream/blob/671f1d20c3b17c7a8613b3f15984c6a8616a18f2/README.md",
+            "bytes": 5839
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "c76965cb868ad5b4696f687cdf5019407d65233d",
+            "sha256": "24601256a716c67c5c57d3885a614fd24236b0fb3083891ee8f9582bf3f0a592",
+            "url": "https://github.com/MELSIDI/MindStream/blob/671f1d20c3b17c7a8613b3f15984c6a8616a18f2/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "agent-plugin/skills/mindstream/SKILL.md",
+            "blob_sha": "ba5bd9df62aada79fd3c1345b6999560058bde1e",
+            "sha256": "01763ac6d347596981257a086598d7198201dc5314837c65fec4cd3ccb7a2108",
+            "url": "https://github.com/MELSIDI/MindStream/blob/671f1d20c3b17c7a8613b3f15984c6a8616a18f2/agent-plugin/skills/mindstream/SKILL.md",
+            "bytes": 6170
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "077865824702a0ac151ccd522b1528ce30b759a6",
+            "sha256": "d8264afe59ca919df62c1dc6aa05acb32bc1470288d4aa2ca36b9414a8e38313",
+            "url": "https://github.com/MELSIDI/MindStream/blob/671f1d20c3b17c7a8613b3f15984c6a8616a18f2/THIRD_PARTY_NOTICES.md",
+            "bytes": 1241
+          },
+          {
+            "path": "agent-plugin/plugin.json",
+            "blob_sha": "decfa0c901f2d50f83e8d3392c21f724ff69e4b4",
+            "sha256": "eecc430a70d2f6b1c1bfab0a33eb433cea5af5f5c181a6642377c9d008265803",
+            "url": "https://github.com/MELSIDI/MindStream/blob/671f1d20c3b17c7a8613b3f15984c6a8616a18f2/agent-plugin/plugin.json",
+            "bytes": 707
+          }
+        ],
+        "read_scope": "Full fixed README, canonical agent-plugin SKILL, MIT license, plugin manifest and THIRD_PARTY_NOTICES; tree inventory and hashes rechecked for the five files.",
+        "conclusion": "One Antigravity plugin skill, with a separately installed IDE extension for synchronized editor use and an MCP disk fallback. Optional neural voice downloads are separate from the MIT project. Workspace writes, IDE routing and audio were not exercised."
+      },
+      {
+        "full_name": "CoffeeCat3912/image-to-3d-model",
+        "repository_id": 1466615187,
+        "commit": "e0904a93c8cb098542a2bc50b4529293f1ab6128",
+        "tree": "cfc3221da4dac9fdb3bef9bf1062f80e56ee792e",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "9871fb27b69e94931bab0472da542e6c2e966458",
+            "sha256": "fb9e019d2eab32adb225e53c0b02dfec4026951cc6a0ff1be3625d6f2492206e",
+            "url": "https://github.com/CoffeeCat3912/image-to-3d-model/blob/e0904a93c8cb098542a2bc50b4529293f1ab6128/README.md",
+            "bytes": 5079
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "c059f97368865136f0e51d49bea646c725adc736",
+            "sha256": "49fb7183dc28f360701aa6768d1f1e29ca8789b3affaa2ff03533aeef57f16ad",
+            "url": "https://github.com/CoffeeCat3912/image-to-3d-model/blob/e0904a93c8cb098542a2bc50b4529293f1ab6128/LICENSE",
+            "bytes": 1080
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "2442d2459d431d0d08e59737958d47a65200283e",
+            "sha256": "3e311aeb74483a0ff619644550ed843b8908020e58343baecfe5c89d65e92de5",
+            "url": "https://github.com/CoffeeCat3912/image-to-3d-model/blob/e0904a93c8cb098542a2bc50b4529293f1ab6128/SKILL.md",
+            "bytes": 19326
+          }
+        ],
+        "read_scope": "Full fixed README and MIT text, plus representative route selection, owner gates, environment needs, search-license and output sections; tree inventory and hashes rechecked for those three files.",
+        "conclusion": "One public root skill has CAD, relief and AI branches. Cloud input, local model acquisition and final printing fall outside the review. The representative distinguishes these gates and does not independently establish third-party resale permission."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "MELSIDI/MindStream",
+        "field_updates": {
+          "distribution_evidence": "README gives an Antigravity plugin installation path and a separate VS Code IDE extension path. The fixed agent-plugin manifest identifies the plugin. IDE synchronization is optional for the MCP disk fallback; the VS Code integration uses the extension.",
+          "license_scope": "Root MIT covers first-party MindStream. THIRD_PARTY_NOTICES lists optional Kokoro weights and G2P dependencies downloaded separately into a local environment; they retain separate terms.",
+          "review_scope": "Fixed README, canonical skill, agent plugin manifest, root MIT and third-party notices; one public package skill. No client or fallback runtime was exercised."
+        }
+      },
+      {
+        "full_name": "CoffeeCat3912/image-to-3d-model",
+        "field_updates": {
+          "distribution_evidence": "README explicitly documents copying the complete root skill folder and its model-preparation helpers to an agent skill library.",
+          "license_scope": "Root MIT covers the authored skill and code. Third-party models and dependencies listed in the README and the separate rights of downloaded meshes or owner-supplied media remain outside the repository permission.",
+          "limitations": "Static scope only. No CAD/AI generation, cloud upload, slicing, printing, structural capacity or dimensional accuracy was tested. Third-party reference meshes require verifying their individual terms for reuse.",
+          "review_scope": "Fixed README distribution, license and output limits, representative route, permission and approval sections, and root MIT."
+        }
+      }
+    ],
+    "objections": [],
+    "limits": "Two named breadth samples. No installation, execution, or collection-wide quality claim."
+  },
+  "quality-product.json": {
+    "date": "2026-11-22",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "carlosFTP999/qgis-sdk",
+        "repository_id": 1452082434,
+        "commit": "bd19928614fdb236eea9d9723a254f145a59703d",
+        "tree": "6cbbf58628f4f6ad1127b96ac02e78b6bb734982",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "b4e071499c4300900b23e1f09ee176497525cf1e",
+            "sha256": "3ba3c8056ca3e0e20e2b47ce73277e517b7e7bf807d413b0bf01a168af59e7bc",
+            "url": "https://github.com/carlosFTP999/qgis-sdk/blob/bd19928614fdb236eea9d9723a254f145a59703d/README.md",
+            "bytes": 3126
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "4384c8666d17a884d99443a94054e0eb82161054",
+            "sha256": "c7353a7bf71b63c882cb3da00fd0d512051066368e313d1c010e7f935f1810ae",
+            "url": "https://github.com/carlosFTP999/qgis-sdk/blob/bd19928614fdb236eea9d9723a254f145a59703d/SKILL.md",
+            "bytes": 3746
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/carlosFTP999/qgis-sdk/blob/bd19928614fdb236eea9d9723a254f145a59703d/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "skills.sh.json",
+            "blob_sha": "3666d8dbad8c74f11010315055590dd31efc9db2",
+            "sha256": "1c77b83487a1b0bc07c492e3a7345b5da1e9034aba3183239e000580cfe076a0",
+            "url": "https://github.com/carlosFTP999/qgis-sdk/blob/bd19928614fdb236eea9d9723a254f145a59703d/skills.sh.json",
+            "bytes": 296
+          }
+        ],
+        "read_scope": "Full pinned README, root SKILL and skills.sh grouping manifest. Full Apache-2.0 text matched to a separately reviewed canonical byte-equivalent license. Name/version-specific tree paths and fixed blobs independently checked.",
+        "conclusion": "One QGIS 3/4 plugin development and migration workflow with split helpers and static validators. Neither a second skill nor installed validation is implied. QGIS, Qt and external templates or dependencies remain subject to applicable terms."
+      },
+      {
+        "full_name": "siberius/learning-methodologies",
+        "repository_id": 1383673302,
+        "commit": "91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c",
+        "tree": "d1b4042c79a810aba732f23b11bdd13c6722d0eb",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "6ed15a37c46cba0c4fed3f15a8ea2200ffc3d150",
+            "sha256": "d2f5a460420ca049eb2175a8d67a5a526108117a8be96c09fb344bee4cee4b10",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/README.md",
+            "bytes": 8251
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "c759014fd8f2e8e708e7f1472f54e9006f5690f5",
+            "sha256": "f6762eda3b6fc31bc54ecba7fe332d50824b80f5443df26ee0de2d81e8b32f48",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/SKILL.md",
+            "bytes": 15229
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f5312a89e849a2cfcdea04bfc3173be0cea094c5",
+            "sha256": "55b44f528c81b3b13f64d32e0d6760979275625bcde371f4ef4f21e2bb130fe5",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "cs/LICENSE",
+            "blob_sha": "f5312a89e849a2cfcdea04bfc3173be0cea094c5",
+            "sha256": "55b44f528c81b3b13f64d32e0d6760979275625bcde371f4ef4f21e2bb130fe5",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/cs/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "de/LICENSE",
+            "blob_sha": "f5312a89e849a2cfcdea04bfc3173be0cea094c5",
+            "sha256": "55b44f528c81b3b13f64d32e0d6760979275625bcde371f4ef4f21e2bb130fe5",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/de/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "es/LICENSE",
+            "blob_sha": "f5312a89e849a2cfcdea04bfc3173be0cea094c5",
+            "sha256": "55b44f528c81b3b13f64d32e0d6760979275625bcde371f4ef4f21e2bb130fe5",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/es/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "fr/LICENSE",
+            "blob_sha": "f5312a89e849a2cfcdea04bfc3173be0cea094c5",
+            "sha256": "55b44f528c81b3b13f64d32e0d6760979275625bcde371f4ef4f21e2bb130fe5",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/fr/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "pl/LICENSE",
+            "blob_sha": "f5312a89e849a2cfcdea04bfc3173be0cea094c5",
+            "sha256": "55b44f528c81b3b13f64d32e0d6760979275625bcde371f4ef4f21e2bb130fe5",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/pl/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "ru/LICENSE",
+            "blob_sha": "f5312a89e849a2cfcdea04bfc3173be0cea094c5",
+            "sha256": "55b44f528c81b3b13f64d32e0d6760979275625bcde371f4ef4f21e2bb130fe5",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/ru/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "uk/LICENSE",
+            "blob_sha": "f5312a89e849a2cfcdea04bfc3173be0cea094c5",
+            "sha256": "55b44f528c81b3b13f64d32e0d6760979275625bcde371f4ef4f21e2bb130fe5",
+            "url": "https://github.com/siberius/learning-methodologies/blob/91279fd875b8c9c3d5fe7bb90cb7bb30d925b91c/uk/LICENSE",
+            "bytes": 1072
+          }
+        ],
+        "read_scope": "Full pinned README, root SKILL and MIT terms. Independently checked the tree paths and verified all seven localized LICENSE blobs are byte-identical to the root license.",
+        "conclusion": "One portable educational-design workflow with eight language editions and a generated standalone representation. The published README calls the named tag a different channel from default-branch source and distinguishes pedagogical guidance from validated learner outcomes."
+      }
+    ],
+    "corrections": [],
+    "objections": [],
+    "limits": "Two named scientific/education samples. Static fixed-source review; no installation, execution or collection-wide quality claim."
+  },
+  "quality-breadth.json": {
+    "date": "2026-11-22",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "gsomich22/Wayback-Machine-CRM-Stages",
+        "repository_id": 1467018978,
+        "commit": "428b5de1a7b9e6a47876702e5c59b42229b2f115",
+        "tree": "0af6146c5a8b90594d94b5a3ee9d87c78053b50f",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "7bb4e365d1a9badebf3793c7cff8a29e4a377b4d",
+            "sha256": "8472c20a8841d6636c98e95fee024df32aed99120e53980130548c075df65b89",
+            "url": "https://github.com/gsomich22/Wayback-Machine-CRM-Stages/blob/428b5de1a7b9e6a47876702e5c59b42229b2f115/README.md",
+            "bytes": 9646
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "30b981bf6b121a5d51d8015569471560c245ace0",
+            "sha256": "24fc4d29d8de255af86835e811deae102a240de6022a0df6aaa0b3934da080dd",
+            "url": "https://github.com/gsomich22/Wayback-Machine-CRM-Stages/blob/428b5de1a7b9e6a47876702e5c59b42229b2f115/LICENSE",
+            "bytes": 1069
+          },
+          {
+            "path": "skills/website-history/SKILL.md",
+            "blob_sha": "92b5359fa35caca43a94dc64e77c0c08dfd346d6",
+            "sha256": "b984bbec6d82ab2f7d73134884cfdf59cd587286e907967f55eb06da892611d0",
+            "url": "https://github.com/gsomich22/Wayback-Machine-CRM-Stages/blob/428b5de1a7b9e6a47876702e5c59b42229b2f115/skills/website-history/SKILL.md",
+            "bytes": 8906
+          },
+          {
+            "path": "agent/START-HERE.md",
+            "blob_sha": "d4d01160c96d89e83d590e95016ec827820e2aaf",
+            "sha256": "8bb8b2e22a07c6e78050df2aad015923f8e5f4be2ac4d30c4c80c4d8a8e1d646",
+            "url": "https://github.com/gsomich22/Wayback-Machine-CRM-Stages/blob/428b5de1a7b9e6a47876702e5c59b42229b2f115/agent/START-HERE.md",
+            "bytes": 2584
+          },
+          {
+            "path": "skills/website-history/assets/report/REACT-BITS-LICENSE.txt",
+            "blob_sha": "6425315416e94469f28d0223a09f7285b2f785ab",
+            "sha256": "f4c33af6739191537738662d223b68d77bc226f4b57ea883e16481d8cc5c73c9",
+            "url": "https://github.com/gsomich22/Wayback-Machine-CRM-Stages/blob/428b5de1a7b9e6a47876702e5c59b42229b2f115/skills/website-history/assets/report/REACT-BITS-LICENSE.txt",
+            "bytes": 1303
+          },
+          {
+            "path": "skills/website-history/assets/report/THIRD-PARTY-NOTICES.txt",
+            "blob_sha": "d60e4d01c9f831616230bc37489e0abc9f1386ba",
+            "sha256": "111cf8ecee47e17748a90d1d005b6b28e447687fe52a17c3f3c4fa528201de7c",
+            "url": "https://github.com/gsomich22/Wayback-Machine-CRM-Stages/blob/428b5de1a7b9e6a47876702e5c59b42229b2f115/skills/website-history/assets/report/THIRD-PARTY-NOTICES.txt",
+            "bytes": 8012
+          },
+          {
+            "path": "downloads/website-history-skill.zip",
+            "blob_sha": "b46310d9afdede06ef797b8dc1506853e17b7867",
+            "sha256": "fe97af21ab20cc59e4ac46b82bb4b0d71247eab58138e57a9b5d1293e91ed9ad",
+            "url": "https://github.com/gsomich22/Wayback-Machine-CRM-Stages/blob/428b5de1a7b9e6a47876702e5c59b42229b2f115/downloads/website-history-skill.zip",
+            "bytes": 293973
+          }
+        ],
+        "read_scope": "Complete root README, website-history representative and MIT, desktop start guide, full React Bits terms and applicable notices. Recomputed archive Git blob and SHA-256; inspected ZIP directory and checked the enclosed representative byte-for-byte using SHA-256. No filesystem extraction or code execution.",
+        "conclusion": "One free Website History skill; the ZIP contains exactly one identical skill entry. Pinned source limits archive input to domain and date and delivers HTML plus CSV for manual import. The README and desktop guide discuss separately authorized writeback; direct writer kits are separate. Optional shared hubs require user approval; a report may still contain business domains and analysis dates. MIT applies to original instructions; report asset terms are separate."
+      },
+      {
+        "full_name": "suitedash/suitedash-mcp",
+        "repository_id": 1465758779,
+        "commit": "b2de13d3ebaddfcd7ffad94c8990e51e2d6e4e58",
+        "tree": "17481f892de4c1bc76ef62d77b7f644a176404dc",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "36b271297f99b662dde2993ef9109bf4d29af7a9",
+            "sha256": "28e96b780ac56a990a18cca33a147df11750cea3813c431a9343779976392be2",
+            "url": "https://github.com/suitedash/suitedash-mcp/blob/b2de13d3ebaddfcd7ffad94c8990e51e2d6e4e58/README.md",
+            "bytes": 11095
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "466471afeedee8a1b6526003ef6bb35ecd5fc3f8",
+            "sha256": "fce92fcbff4a3470830addbbc822e9ee7a076c1d1e90c306ed3de079a6c05991",
+            "url": "https://github.com/suitedash/suitedash-mcp/blob/b2de13d3ebaddfcd7ffad94c8990e51e2d6e4e58/LICENSE",
+            "bytes": 1080
+          },
+          {
+            "path": "skills/suitedash-setup/SKILL.md",
+            "blob_sha": "390e7f615155be2742922adbf4ea791d7c90acdf",
+            "sha256": "1eba3b4eb95495a552ffcba3ee2ad212e5545fc33d84b0fe3ac7b3790a4b6ed5",
+            "url": "https://github.com/suitedash/suitedash-mcp/blob/b2de13d3ebaddfcd7ffad94c8990e51e2d6e4e58/skills/suitedash-setup/SKILL.md",
+            "bytes": 2642
+          },
+          {
+            "path": "server.json",
+            "blob_sha": "98996ac6739b9f6eace230cc01775bcf9084fe68",
+            "sha256": "eb099ccecefe830ac3c3d89665ec8c136639db0bc6440b66ab3fe189579bf30e",
+            "url": "https://github.com/suitedash/suitedash-mcp/blob/b2de13d3ebaddfcd7ffad94c8990e51e2d6e4e58/server.json",
+            "bytes": 964
+          },
+          {
+            "path": ".cursor-plugin/plugin.json",
+            "blob_sha": "5e80bb2f63d98fe5ba7d7793e241d5162b71daa3",
+            "sha256": "f564c46fb6c2703447946113b045b34af61e292682709c75e614bf1e04ea6d0f",
+            "url": "https://github.com/suitedash/suitedash-mcp/blob/b2de13d3ebaddfcd7ffad94c8990e51e2d6e4e58/.cursor-plugin/plugin.json",
+            "bytes": 601
+          },
+          {
+            "path": "gemini-extension.json",
+            "blob_sha": "49db4bf9bc5c99e123b2992e8445b86562f53cd8",
+            "sha256": "d92a4b8bace3373d80109853ebe1bf9f0efbd425f46866434abba7101790562e",
+            "url": "https://github.com/suitedash/suitedash-mcp/blob/b2de13d3ebaddfcd7ffad94c8990e51e2d6e4e58/gemini-extension.json",
+            "bytes": 265
+          }
+        ],
+        "read_scope": "Complete README, official setup skill, MIT license and fixed server, Cursor and Gemini manifests. Cross-checked the documented tool access, account roles, changes, billing and privacy clauses. No OAuth or account calls.",
+        "conclusion": "One published setup guide with separate remote connector and account-managed tools. Staff-only OAuth is documented, with all tools enabled initially when a role is switched on and five staff-visible creates not requiring prompts. Tool results go to the assistant provider and a remote Skill run consumes SuiteDash AI usage. Root MIT covers published config and guide; hosted runtime permissions, operations and terms remain untested."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "gsomich22/Wayback-Machine-CRM-Stages",
+        "field_updates": {
+          "distribution_evidence": "Pinned root README and desktop start guide describe the packaged ZIP and source fallback. Independently inspected fixed ZIP contents and matched its sole SKILL.md to the source representative by SHA-256.",
+          "limitations": "The free source only exports HTML and CSV; paid/direct CRM writers are separate. The skill documents sending only the domain and analysis date to the public Internet Archive; optional re-check schedules and artifact hubs require approval. No live archive access, helper execution, CRM read/write or artifact publication was verified."
+        }
+      },
+      {
+        "full_name": "suitedash/suitedash-mcp",
+        "field_updates": {
+          "limitations": "Repository evidence covers the published setup guide and manifests. Account plan, staff roles and activated tools determine access; all tools start enabled when a role is switched on and five staff-visible creates are documented as not prompting. Remote Skill runs consume SuiteDash AI usage and tool results are received by the assistant provider. OAuth, permissions, billing and hosted behavior were not tested."
+        }
+      }
+    ],
+    "objections": []
+  },
+  "integration_application": [
+    {
+      "full_name": "MELSIDI/MindStream",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "distribution_evidence": "README gives an Antigravity plugin installation path and a separate VS Code IDE extension path. The fixed agent-plugin manifest identifies the plugin. IDE synchronization is optional for the MCP disk fallback; the VS Code integration uses the extension.",
+        "license_scope": "Root MIT covers first-party MindStream. THIRD_PARTY_NOTICES lists optional Kokoro weights and G2P dependencies downloaded separately into a local environment; they retain separate terms.",
+        "review_scope": "Fixed README, canonical skill, agent plugin manifest, root MIT and third-party notices; one public package skill. No client or fallback runtime was exercised."
+      }
+    },
+    {
+      "full_name": "CoffeeCat3912/image-to-3d-model",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "distribution_evidence": "README explicitly documents copying the complete root skill folder and its model-preparation helpers to an agent skill library.",
+        "license_scope": "Root MIT covers the authored skill and code. Third-party models and dependencies listed in the README and the separate rights of downloaded meshes or owner-supplied media remain outside the repository permission.",
+        "limitations": "Static scope only. No CAD/AI generation, cloud upload, slicing, printing, structural capacity or dimensional accuracy was tested. Third-party reference meshes require verifying their individual terms for reuse.",
+        "review_scope": "Fixed README distribution, license and output limits, representative route, permission and approval sections, and root MIT."
+      }
+    },
+    {
+      "full_name": "gsomich22/Wayback-Machine-CRM-Stages",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "distribution_evidence": "Pinned root README and desktop start guide describe the packaged ZIP and source fallback. Independently inspected fixed ZIP contents and matched its sole SKILL.md to the source representative by SHA-256.",
+        "limitations": "The free source only exports HTML and CSV; paid/direct CRM writers are separate. The skill documents sending only the domain and analysis date to the public Internet Archive; optional re-check schedules and artifact hubs require approval. No live archive access, helper execution, CRM read/write or artifact publication was verified."
+      }
+    },
+    {
+      "full_name": "suitedash/suitedash-mcp",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "Repository evidence covers the published setup guide and manifests. Account plan, staff roles and activated tools determine access; all tools start enabled when a role is switched on and five staff-visible creates are documented as not prompting. Remote Skill runs consume SuiteDash AI usage and tool results are received by the assistant provider. OAuth, permissions, billing and hosted behavior were not tested."
+      }
+    }
+  ]
+}
