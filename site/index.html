@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Search agent skills by task, compare recommendations, and discover popular GitHub skill repositories.">
+  <meta name="description" content="Search agent skills by task, compare recommendations, and explore Skills.sh installs and GitHub Stars.">
   <meta name="theme-color" content="#123b32">
   <meta property="og:title" content="Everything Skills — Find agent skills">
-  <meta property="og:description" content="Find skills by task, compare recommendations, and browse the GitHub repository leaderboard.">
+  <meta property="og:description" content="Find skills by task, compare recommendations, and discover skills and repositories through two leaderboards.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://findscripter.github.io/everything-skills/">
   <meta property="og:image" content="https://findscripter.github.io/everything-skills/social-card.png">
@@ -37,7 +37,7 @@
         <p class="catalog-stats"><span><strong id="active-count">—</strong> <span data-i18n="activeSkills">current skills</span></span><span><strong id="repo-count">—</strong> <span data-i18n="repositories">indexed repositories</span></span></p>
         <form id="search-form" role="search">
           <div class="mode-buttons" id="catalog-modes" role="group" aria-label="Catalog type">
-            <button id="skills-mode" class="mode-button selected" type="button" aria-pressed="true" data-i18n="skills">Skills</button>
+            <button id="skills-mode" class="mode-button" type="button" aria-pressed="true" data-i18n="skills">Skills</button>
             <button id="repos-mode" class="mode-button" type="button" aria-pressed="false" data-i18n="repos">Repositories</button>
           </div>
           <label class="visually-hidden" for="query" id="query-label">Search by task or skill ID</label>
@@ -48,7 +48,7 @@
           </div>
           <div class="filter-bar">
             <label class="filter-label"><span id="filter-label">Volume</span><select id="volume"><option value="">All volumes</option></select></label>
-            <label class="filter-label" id="sort-control" hidden><span data-i18n="sortLabel">Sort</span><select id="sort"><option value="relevance" data-i18n="sortRelevance">Best match</option><option value="stars" data-i18n="sortStars">GitHub stars</option></select></label>
+            <label class="filter-label"><span data-i18n="sortLabel">Sort</span><select id="sort"><option value="relevance">Best match</option><option value="installs">Skills.sh installs</option></select></label>
             <button id="share" class="text-button" type="button" data-i18n="share">Copy search link</button>
             <span id="copy-status" class="visually-hidden" role="status"></span>
           </div>
@@ -66,11 +66,15 @@
         <noscript><p>JavaScript is needed for interactive search. <a href="https://github.com/findscripter/everything-skills/blob/main/INDEX/catalog.md">Browse the full Markdown catalog.</a></p></noscript>
       </div>
       <aside class="leaderboard" id="rankings" aria-labelledby="leaderboard-title">
-        <h2 id="leaderboard-title" data-i18n="leaderboard">Popular repositories</h2>
-        <p class="leaderboard-note" data-i18n="leaderboardNote">Ranked by GitHub stars recorded in the catalog. Snapshot dates vary by repository.</p>
-        <ol class="leaderboard-list" id="leaderboard-list"></ol>
+        <h2 id="leaderboard-title" data-i18n="leaderboard">Leaderboards</h2>
+        <div class="mode-buttons rank-modes" role="group" aria-labelledby="leaderboard-title">
+          <button id="rank-skills" class="mode-button" type="button" aria-pressed="true" data-i18n="rankSkills">Skill installs</button>
+          <button id="rank-repos" class="mode-button" type="button" aria-pressed="false" data-i18n="rankRepos">Repository Stars</button>
+        </div>
+        <p class="leaderboard-note" id="leaderboard-note"></p>
+        <ol class="leaderboard-list" id="leaderboard-list" role="list"></ol>
         <p id="leaderboard-status" class="leaderboard-note" data-i18n="loading">Loading…</p>
-        <a id="full-ranking" class="text-link" href="?kind=repos&amp;sort=stars#catalog-results" data-i18n="fullRanking">Browse the full ranking →</a>
+        <a id="full-ranking" class="text-link" href="?sort=installs#catalog-results" hidden>See all measured skills →</a>
       </aside>
     </section>
     <section class="case-evidence wrap" id="case-evidence" aria-labelledby="case-title">

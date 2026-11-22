@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { search, githubPath, commands, popularRepositories } from '../site/search.mjs';
+import { search, githubPath, commands, popularRepositories, popularSkills } from '../site/search.mjs';
 import { searchRows } from '../scripts/everything-skills.mjs';
 import { loadSkillRepos } from '../scripts/load-skill-repos.mjs';
 
@@ -36,6 +36,7 @@ test('PPT search preserves file recommendations and the independent Python-scrip
   const html = search(published, 'HTML幻灯片')[0];
   assert.equal(html.name, 'html-animated-slides');
   assert.ok(!html.recommendation);
+  assert.equal(search(published, '做 PPT')[0].recommendation?.rank, 1);
   assert.equal(searchRows(rows, 'pitch-deck-refresh', 1)[0].row.name, 'pitch-deck-refresh');
 });
 
@@ -98,6 +99,22 @@ test('repository Stars sorting keeps query and category filters and puts unknown
   assert.deepEqual(popularRepositories(fixtures, { category: 'vertical' }).map(row => row.full_name),
     ['unrelated/repo', 'example/alpha', 'example/zeta']);
 });
+
+test('skill install rankings show only measured current skills and respect search and volume filters', () => {
+  const fixtures = [
+    { name: 'archive', installs: 50, status: 'deprecated' },
+    { name: 'unknown', installs: null },
+    { name: 'zeta', installs: 2 },
+    { name: 'alpha', installs: 2 },
+    { name: 'beta', installs: 3 },
+    { name: 'other', installs: 6, vol: '02-engineering' },
+  ].map(row => ({ vol: '01-documents', description: 'example', ...row }));
+  const options = { category: '01-documents', sort: 'installs' };
+  assert.deepEqual(search(fixtures, 'example', options).map(row => row.name), ['beta', 'alpha', 'zeta']);
+  assert.deepEqual(search(fixtures, 'zeta', options).map(row => row.name), ['zeta']);
+  assert.ok(search(fixtures, '').some(row => row.name === 'unknown'));
+  assert.deepEqual(popularSkills(fixtures).map(row => row.name), ['other', 'beta', 'alpha', 'zeta']);
+});
 test('published catalog preserves upstream status and keeps historical/unavailable repos out of default search', async () => {
   const build = spawnSync(process.execPath, ['scripts/build-site.mjs'], { cwd:new URL('..', import.meta.url), encoding:'utf8', windowsHide:true });
   assert.equal(build.status, 0, build.stderr);
@@ -108,6 +125,13 @@ test('published catalog preserves upstream status and keeps historical/unavailab
   assert.deepEqual(search([knownHistorical], 'general-readme', { mode:'repos' }), []);
   assert.deepEqual(search([{ full_name:'example/missing', upstream_state:'unavailable' }], '', { mode:'repos' }), []);
   assert.equal(published.stats.repositories, published.repositories.length);
+  const installSnapshot = JSON.parse(await readFile(new URL('../site/skill-installs.json', import.meta.url), 'utf8'));
+  assert.equal(published.installs_checked_at, installSnapshot.checked_at);
+  assert.match(published.installs_checked_at, /^\d{4}-\d{2}-\d{2}$/);
+  const publishedInstalls = popularSkills(published.skills);
+  const currentIds = new Set(published.skills.filter(row => row.status !== 'deprecated').map(row => row.name));
+  const matchedSnapshot = Object.fromEntries(Object.entries(installSnapshot.installs).filter(([name]) => currentIds.has(name)));
+  assert.deepEqual(Object.fromEntries(publishedInstalls.map(row => [row.name, row.installs])), matchedSnapshot);
   const original = await loadSkillRepos();
   const dated = original.find(row => row.upstream_snapshot?.stars > 0 && row.upstream_snapshot.stars !== row.stars);
   assert.ok(dated, 'Fixture needs a measured snapshot different from the recorded batch count');
