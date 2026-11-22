@@ -165,3 +165,8 @@ test('page links to the real outcome and teaching cases without HTML injection',
   assert.ok(html.includes('aria-live="polite"'));
   assert.ok(!app.includes('.innerHTML'));
 });
+
+test('the homepage links to a shareable on-site comparison catalog', async () => {
+  const html = await readFile(new URL('../site/index.html', import.meta.url), 'utf8');
+  assert.match(html, /id="all-comparisons"[^>]+href="\?kind=tasks#catalog-results"/);
+});
