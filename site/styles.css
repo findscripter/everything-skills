@@ -86,6 +86,7 @@ p { margin-block: 0 1em; }
 .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; padding-top: 12px; }
 .filter-label { display: flex; align-items: center; min-width: 0; gap: 7px; color: var(--muted-dark); font-size: 12px; }
 .filter-label select { max-width: 100%; min-height: 36px; padding: 4px 6px; border: 1px solid #a4b8a1; border-radius: 6px; color: var(--ink); background: var(--white); font-size: 13px; }
+#catalog-filter[hidden] ~ .text-button { margin-left: 0; }
 .text-button { margin-left: auto; padding: 6px 0; border: 0; background: transparent; color: var(--on-dark); min-height: 36px; }
 .text-link, .text-button { font-size: 13px; font-weight: 610; text-decoration: underline; text-underline-offset: 4px; }
 .text-link:hover, .text-button:hover { color: #376c49; }
@@ -122,16 +123,27 @@ p { margin-block: 0 1em; }
 .results-heading p, .catalog-note { margin: 0; font-size: 13px; color: var(--muted); }
 .catalog-note { margin-bottom: 14px; }
 .results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.comparison-results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .skill-card { display: flex; flex-direction: column; min-height: 208px; padding: 19px; border: 1px solid var(--line); border-radius: 11px; background: var(--white); }
 .skill-card:hover { border-color: #8aab89; }
 .card-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
 .volume-pill { padding: 2px 6px; border-radius: 4px; color: var(--ink); background: var(--soft); font-size: 11px; font-weight: 620; }
 .review-label, .skill-name, .repo-snapshot { color: var(--muted); font-size: 12px; }
 .skill-card h3 { margin: 10px 0 3px; font-size: 16px; line-height: 1.4; overflow-wrap: anywhere; }
+.comparison-card h3 { margin-top: 0; font-size: 18px; }
+.comparison-card a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.comparison-card .review-label { margin-bottom: 8px; }
+.comparison-entries { padding: 0; margin: 0; list-style: none; }
+.comparison-entries li { padding: 10px 0; border-top: 1px solid var(--line); }
+.comparison-entry-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+.comparison-entry-heading a { font-size: 13px; font-weight: 650; overflow-wrap: anywhere; }
+.comparison-entry-heading .first-choice { background: var(--lime); }
+.comparison-entries p { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
 .skill-name { font-family: ui-monospace, Consolas, monospace; overflow-wrap: anywhere; }
 .card-description { margin: 10px 0 14px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
 .task-recommendation { margin-bottom: 14px; padding: 8px 10px; border-left: 3px solid #789776; background: #f2f6ee; color: var(--ink); font-size: 12px; overflow-wrap: anywhere; }
 .task-recommendation strong { display: block; }
+.task-recommendation a { text-decoration: underline; text-underline-offset: 3px; }
 .card-actions { display: flex; justify-content: space-between; align-items: center; gap: 8px 14px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); font-size: 13px; }
 .card-actions a { font-weight: 650; }
 .card-actions a:hover { text-decoration: underline; }
@@ -186,6 +198,7 @@ dialog textarea { width: 100%; resize: vertical; padding: 10px; margin-bottom: 1
 @media (max-width: 690px) {
   .explorer { grid-template-columns: minmax(0, 1fr); grid-template-areas: "search" "results" "ranking"; padding-block: 8px 34px; }
   .search-panel, .leaderboard { min-height: 0; }
+  .comparison-results { grid-template-columns: minmax(0, 1fr); }
   .site-header nav { gap: 10px; font-size: 12px; }
   .site-header nav a[href="#explore"] { display: none; }
   .example-cards, .install-section { grid-template-columns: minmax(0, 1fr); }

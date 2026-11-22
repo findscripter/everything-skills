@@ -38,6 +38,7 @@
         <form id="search-form" role="search">
           <div class="mode-buttons" id="catalog-modes" role="group" aria-label="Catalog type">
             <button id="skills-mode" class="mode-button" type="button" aria-pressed="true" data-i18n="skills">Skills</button>
+            <button id="tasks-mode" class="mode-button" type="button" aria-pressed="false" data-i18n="comparisons">Compare skills</button>
             <button id="repos-mode" class="mode-button" type="button" aria-pressed="false" data-i18n="repos">Repositories</button>
           </div>
           <label class="visually-hidden" for="query" id="query-label">Search by task or skill ID</label>
@@ -47,14 +48,14 @@
             <button class="button primary" type="submit" data-i18n="searchAction">Search</button>
           </div>
           <div class="filter-bar">
-            <label class="filter-label"><span id="filter-label">Volume</span><select id="volume"><option value="">All volumes</option></select></label>
-            <label class="filter-label"><span data-i18n="sortLabel">Sort</span><select id="sort"><option value="relevance">Best match</option><option value="installs">Skills.sh installs</option></select></label>
+            <label class="filter-label" id="catalog-filter"><span id="filter-label">Volume</span><select id="volume"><option value="">All volumes</option></select></label>
+            <label class="filter-label" id="catalog-sort"><span data-i18n="sortLabel">Sort</span><select id="sort"><option value="relevance">Best match</option><option value="installs">Skills.sh installs</option></select></label>
             <button id="share" class="text-button" type="button" data-i18n="share">Copy search link</button>
             <span id="copy-status" class="visually-hidden" role="status"></span>
           </div>
         </form>
         <div class="task-start" id="task-start" hidden>
-          <div class="task-start-heading"><h2 data-i18n="taskPicks">Task recommendations</h2><a class="text-link" href="https://github.com/findscripter/everything-skills/blob/main/INDEX/task-rankings.md" data-i18n="rankingsLink">All comparisons ↗</a></div>
+          <div class="task-start-heading"><h2 data-i18n="taskPicks">Task recommendations</h2><a id="all-comparisons" class="text-link" href="?kind=tasks#catalog-results" data-i18n="rankingsLink">All comparisons →</a></div>
           <ul id="task-shortcuts" class="task-shortcuts"></ul>
         </div>
       </div>
