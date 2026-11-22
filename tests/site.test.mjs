@@ -36,6 +36,7 @@ test('PPT search preserves file recommendations and the independent Python-scrip
   const html = search(published, 'HTML幻灯片')[0];
   assert.equal(html.name, 'html-animated-slides');
   assert.ok(!html.recommendation);
+  assert.equal(search(published, '做 PPT')[0].recommendation?.rank, 1);
   assert.equal(searchRows(rows, 'pitch-deck-refresh', 1)[0].row.name, 'pitch-deck-refresh');
 });
 
@@ -97,6 +98,21 @@ test('repository Stars sorting keeps query and category filters and puts unknown
     ['example/archive', 'example/alpha', 'example/zeta', 'example/zero', 'example/unknown']);
   assert.deepEqual(popularRepositories(fixtures, { category: 'vertical' }).map(row => row.full_name),
     ['unrelated/repo', 'example/alpha', 'example/zeta']);
+});
+
+test('skill install rankings show only measured current skills and respect search and volume filters', () => {
+  const fixtures = [
+    { name: 'archive', installs: 50, status: 'deprecated' },
+    { name: 'unknown', installs: null },
+    { name: 'zeta', installs: 2 },
+    { name: 'alpha', installs: 2 },
+    { name: 'beta', installs: 3 },
+    { name: 'other', installs: 6, vol: '02-engineering' },
+  ].map(row => ({ vol: '01-documents', description: 'example', ...row }));
+  const options = { category: '01-documents', sort: 'installs' };
+  assert.deepEqual(search(fixtures, 'example', options).map(row => row.name), ['beta', 'alpha', 'zeta']);
+  assert.deepEqual(search(fixtures, 'zeta', options).map(row => row.name), ['zeta']);
+  assert.ok(search(fixtures, '').some(row => row.name === 'unknown'));
 });
 test('published catalog preserves upstream status and keeps historical/unavailable repos out of default search', async () => {
   const build = spawnSync(process.execPath, ['scripts/build-site.mjs'], { cwd:new URL('..', import.meta.url), encoding:'utf8', windowsHide:true });
