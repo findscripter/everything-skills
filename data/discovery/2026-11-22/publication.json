@@ -1,0 +1,442 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-22",
+  "timezone": "Asia/Shanghai",
+  "recorded_at": "2026-11-22T16:24:59.640416+00:00",
+  "status": "published",
+  "published_on": "2026-11-23",
+  "target_minimum": 50,
+  "acceptance_cap": null,
+  "added_new_repository_ids": 77,
+  "baseline_catalog_rows": 4987,
+  "final_catalog_rows": 5064,
+  "formal_skill_files": 1115,
+  "selected_review_items": 139,
+  "held": 57,
+  "rejected": 5,
+  "unreviewed_reserve": 1308,
+  "new_identities": [
+    {
+      "full_name": "A-Point-Systems-ltd/ms-sql-mcp",
+      "repository_id": 1442842548
+    },
+    {
+      "full_name": "a2uicatalog/a2ui",
+      "repository_id": 1275935321
+    },
+    {
+      "full_name": "AkmalRamadhan04/scholarflow-mcp",
+      "repository_id": 1465663327
+    },
+    {
+      "full_name": "AlveeeRahman/research-hound",
+      "repository_id": 1337629149
+    },
+    {
+      "full_name": "AndreuVM/MarQit",
+      "repository_id": 1463203610
+    },
+    {
+      "full_name": "anilcancakir/ai",
+      "repository_id": 1171139558
+    },
+    {
+      "full_name": "aqkprogrammer/dowel-ui",
+      "repository_id": 1354788495
+    },
+    {
+      "full_name": "arthurcyf/coding-plugin",
+      "repository_id": 1461326908
+    },
+    {
+      "full_name": "baratadiego/ecological-agent-skills",
+      "repository_id": 1170320278
+    },
+    {
+      "full_name": "Bestdoom20/worldwide-transit",
+      "repository_id": 1464707502
+    },
+    {
+      "full_name": "bobbyZhong10/empirical-workflow-kit",
+      "repository_id": 1335334019
+    },
+    {
+      "full_name": "brandonroberts/graft",
+      "repository_id": 1444931153
+    },
+    {
+      "full_name": "bsmagalhaes/rendra-ui-web",
+      "repository_id": 1384394721
+    },
+    {
+      "full_name": "ByunghoChae/reviewer-team",
+      "repository_id": 1373977809
+    },
+    {
+      "full_name": "caoliao/dsh-caoliao-qrcode",
+      "repository_id": 1456075667
+    },
+    {
+      "full_name": "carlosFTP999/qgis-sdk",
+      "repository_id": 1452082434
+    },
+    {
+      "full_name": "cctvgh/qgis-ledger-layers",
+      "repository_id": 1447605653
+    },
+    {
+      "full_name": "chuonglife/lesson-assessment-designer-skill",
+      "repository_id": 1455548867
+    },
+    {
+      "full_name": "cnkang/skills",
+      "repository_id": 1191262255
+    },
+    {
+      "full_name": "coastdigitalgroup/coastai-skills",
+      "repository_id": 1187844011
+    },
+    {
+      "full_name": "CoffeeCat3912/image-to-3d-model",
+      "repository_id": 1466615187
+    },
+    {
+      "full_name": "CYoJkoY/AzSkills",
+      "repository_id": 1320977068
+    },
+    {
+      "full_name": "dennisonbertram/developer-skill-pack",
+      "repository_id": 1247828860
+    },
+    {
+      "full_name": "ericgandrade/claude-superskills",
+      "repository_id": 1147483836
+    },
+    {
+      "full_name": "exmergo/dex",
+      "repository_id": 1278285296
+    },
+    {
+      "full_name": "ExpandTalk-Corporation/Cortiq",
+      "repository_id": 1153207903
+    },
+    {
+      "full_name": "fleetregistry/fleet-academy",
+      "repository_id": 1444959090
+    },
+    {
+      "full_name": "GispoCoding/pyqgis-skills",
+      "repository_id": 1363567879
+    },
+    {
+      "full_name": "goiltpatpat/patpat",
+      "repository_id": 1347829857
+    },
+    {
+      "full_name": "gsomich22/Wayback-Machine-CRM-Stages",
+      "repository_id": 1467018978
+    },
+    {
+      "full_name": "guilherme-iaparaagronomos/claude-plugin-agronomo10x",
+      "repository_id": 1412182969
+    },
+    {
+      "full_name": "Harishik/clipstudio",
+      "repository_id": 1465661475
+    },
+    {
+      "full_name": "herraiz-org/ui1-latex-template",
+      "repository_id": 1227958007
+    },
+    {
+      "full_name": "Hooie/TH-agents-skills",
+      "repository_id": 1444149158
+    },
+    {
+      "full_name": "hst368/archaeological-drawing-skill",
+      "repository_id": 1217767853
+    },
+    {
+      "full_name": "Impertio-Studio/QGIS-Claude-Skill-Package",
+      "repository_id": 1187306894
+    },
+    {
+      "full_name": "IncarnaMind/IncarnaMind",
+      "repository_id": 683066449
+    },
+    {
+      "full_name": "irtazahashmi/ironpet",
+      "repository_id": 1452736428
+    },
+    {
+      "full_name": "johnzastrow/qgis-plugin-skill",
+      "repository_id": 1309064652
+    },
+    {
+      "full_name": "kikoycf666-coder/math-exam-review-skills",
+      "repository_id": 1467001494
+    },
+    {
+      "full_name": "ktr218/civil-engineer-tone",
+      "repository_id": 1463731033
+    },
+    {
+      "full_name": "laulauraluo/looks-good-to-ai",
+      "repository_id": 1430413312
+    },
+    {
+      "full_name": "liftaven/agent-skill",
+      "repository_id": 1377364460
+    },
+    {
+      "full_name": "linjiejim/jim-uiux",
+      "repository_id": 1446699114
+    },
+    {
+      "full_name": "lordnukem/photo-to-3d",
+      "repository_id": 1466616889
+    },
+    {
+      "full_name": "ltf0109/urban-planning-ai-kit",
+      "repository_id": 1340704650
+    },
+    {
+      "full_name": "madhvantyagi/Gnos",
+      "repository_id": 1366954458
+    },
+    {
+      "full_name": "maiani/research-project-template",
+      "repository_id": 1294895018
+    },
+    {
+      "full_name": "manchan4869/tianditu-skills",
+      "repository_id": 1331630693
+    },
+    {
+      "full_name": "manutej/o-cart",
+      "repository_id": 1378198158
+    },
+    {
+      "full_name": "MELSIDI/MindStream",
+      "repository_id": 1464286348
+    },
+    {
+      "full_name": "mightytonylun/heritage-copilot-skill",
+      "repository_id": 1240322753
+    },
+    {
+      "full_name": "mojomanyana/principal-pi-skills",
+      "repository_id": 1236582636
+    },
+    {
+      "full_name": "nattiini45/caotang",
+      "repository_id": 1418886691
+    },
+    {
+      "full_name": "Olivia-wr-research/human-geography-agent",
+      "repository_id": 1449446134
+    },
+    {
+      "full_name": "ponder-dev/just-jpeg",
+      "repository_id": 1457265278
+    },
+    {
+      "full_name": "promptprobe/pretend-designer",
+      "repository_id": 1355501975
+    },
+    {
+      "full_name": "qasimrazamalik-coder/executive-insight-compressor",
+      "repository_id": 1467056523
+    },
+    {
+      "full_name": "QuinnsCode/RustyBuns",
+      "repository_id": 1370932201
+    },
+    {
+      "full_name": "rzhang569/study-guide",
+      "repository_id": 1429200621
+    },
+    {
+      "full_name": "s1vh/sdd-bootstrap-skill",
+      "repository_id": 1460414426
+    },
+    {
+      "full_name": "shlomorsh/claude-code-skills-for-architects",
+      "repository_id": 1336101168
+    },
+    {
+      "full_name": "siberius/learning-methodologies",
+      "repository_id": 1383673302
+    },
+    {
+      "full_name": "Sinfony8838/QGIS-OpenClaw-Bridge",
+      "repository_id": 1185282621
+    },
+    {
+      "full_name": "sixwei2025/everyone-can-build-skills",
+      "repository_id": 1462185903
+    },
+    {
+      "full_name": "skatkov/posh-mcp",
+      "repository_id": 1436350837
+    },
+    {
+      "full_name": "stealth-factory/skills",
+      "repository_id": 1272973349
+    },
+    {
+      "full_name": "suitedash/suitedash-mcp",
+      "repository_id": 1465758779
+    },
+    {
+      "full_name": "suprun/audit-qgis-plugin-ai-agent-skill",
+      "repository_id": 1340053218
+    },
+    {
+      "full_name": "Tacuchi/agent-skills",
+      "repository_id": 1391959898
+    },
+    {
+      "full_name": "taylee9809/qgis-water-sewer-kit",
+      "repository_id": 1454973488
+    },
+    {
+      "full_name": "the-factory-forge/forge-registry",
+      "repository_id": 1268532593
+    },
+    {
+      "full_name": "thecgaigroup/reelsmith",
+      "repository_id": 1431515001
+    },
+    {
+      "full_name": "xungirl/jd-resume-tailor",
+      "repository_id": 1458512575
+    },
+    {
+      "full_name": "Yeshwanthyk/agent-skills",
+      "repository_id": 1233144176
+    },
+    {
+      "full_name": "zeta92/atrezzo",
+      "repository_id": 1458099864
+    },
+    {
+      "full_name": "Zleap-AI/SAG-Wiki",
+      "repository_id": 1424484225
+    }
+  ],
+  "verification": {
+    "fixed_object_references": 349,
+    "baseline_directory_data_blobs_preserved": 111,
+    "windows_tests_each_language": {
+      "passed": 131,
+      "failed": 0,
+      "skipped": 1
+    },
+    "linux_pr_tests_each_language": {
+      "passed": 132,
+      "failed": 0,
+      "skipped": 0
+    },
+    "offline_example_checks": 4,
+    "english_and_chinese_build_site_generated_checks": "passed",
+    "archive_skill_members_verified": 0
+  },
+  "publication": {
+    "main": {
+      "pr": 125,
+      "url": "https://github.com/findscripter/everything-skills/pull/125",
+      "data_commit": "c34d7fc99761d4f7a3d0281afafd5bf21c80fafe",
+      "merge_commit": "6b39b11bdfee3e1b89931ff0f3c2eea1f726a676"
+    },
+    "zh": {
+      "pr": 126,
+      "url": "https://github.com/findscripter/everything-skills/pull/126",
+      "data_commit": "3d2efc79d1b3343b40b4931f01991a163da07fff",
+      "merge_commit": "464940d217fbc405c1323a3fa91a063df604c141"
+    }
+  },
+  "successful_ci": [
+    {
+      "surface": "main_pr",
+      "workflow": "generated-index",
+      "run_id": 45043545495,
+      "head_sha": "c34d7fc99761d4f7a3d0281afafd5bf21c80fafe",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45043545495"
+    },
+    {
+      "surface": "main_pr",
+      "workflow": "publish-site",
+      "run_id": 45043545502,
+      "head_sha": "c34d7fc99761d4f7a3d0281afafd5bf21c80fafe",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45043545502"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "generated-index",
+      "run_id": 45043637056,
+      "head_sha": "6b39b11bdfee3e1b89931ff0f3c2eea1f726a676",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45043637056"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "publish-site",
+      "run_id": 45043637123,
+      "head_sha": "6b39b11bdfee3e1b89931ff0f3c2eea1f726a676",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45043637123"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "publish-site",
+      "run_id": 45043547132,
+      "head_sha": "3d2efc79d1b3343b40b4931f01991a163da07fff",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45043547132"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "generated-index",
+      "run_id": 45043547066,
+      "head_sha": "3d2efc79d1b3343b40b4931f01991a163da07fff",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45043547066"
+    },
+    {
+      "surface": "zh_merge",
+      "workflow": "generated-index",
+      "run_id": 45043636964,
+      "head_sha": "464940d217fbc405c1323a3fa91a063df604c141",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45043636964"
+    }
+  ],
+  "language_only_differences": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "INDEX/skill-repos.md",
+    "README.md"
+  ],
+  "automation": {
+    "existing_daily_automation_configuration_verified": true,
+    "schedule": "Every day at 09:00 Asia/Shanghai",
+    "scheduled_heartbeat_received_at": "2026-11-22T01:02:48.015Z",
+    "configuration_changed_this_run": false
+  },
+  "evidence": {
+    "audit": "../../skill-repos.part116.audit.md",
+    "coverage": "coverage.json",
+    "fixed_objects": "fixed-object-verification.json",
+    "quality": "quality-review.json"
+  },
+  "limits": [
+    "Only admitted and published independent repository IDs count as daily additions; this does not add 1115 new local skill bodies.",
+    "Metadata-only representative/static infrastructure review; no candidate installed or executed.",
+    "Finite search windows and unreviewed retrieval reserves remain separate; no exhaustive all-body, runtime, safety, scientific/financial or reuse-right certification.",
+    "CI references bind the data and merge commits. Receipt-commit checks are observed separately and are not self-referenced."
+  ]
+}
