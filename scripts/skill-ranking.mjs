@@ -1,5 +1,6 @@
 // Task recommendations are editorial scope choices, separate from lexical scores.
-export const normalizeTask = value => String(value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+export const normalizeTask = value => String(value || '').trim().toLowerCase()
+  .replace(/\s+/g, ' ').replace(/(?<=\p{Script=Han}) | (?=\p{Script=Han})/gu, '');
 
 export function rankedResult(row, score, query) {
   const normalized = normalizeTask(query);

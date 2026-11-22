@@ -16,9 +16,38 @@ await fs.copyFile(path.join(ROOT, 'scripts/skill-ranking.mjs'), path.join(OUT, '
 const rankingSource = await fs.readFile(path.join(OUT, 'skill-ranking.mjs'), 'utf8');
 const rows = JSON.parse(await fs.readFile(path.join(ROOT, 'INDEX/search.json'), 'utf8'));
 const repos = await loadSkillRepos();
-const skills = rows.map(row => ({ name: row.name, title: row.title, description: row.description, tags: row.tags, triggers: row.triggers, task_rankings:row.task_rankings, path: row.path, vol: row.vol, status: row.status, review_status: row.quality?.review_status || 'unreviewed' }));
+const installSource = 'findscripter/everything-skills';
+const activeIds = new Set(rows.filter(row => row.status !== 'deprecated').map(row => row.name));
+const measuredCount = count => Number.isSafeInteger(count) && count > 0;
+const installFile = path.join(ROOT, 'site/skill-installs.json');
+let installSnapshot = JSON.parse(await fs.readFile(installFile, 'utf8'));
+if (process.argv.includes('--refresh-installs')) {
+  // shortcut: the public search feed returns a bounded sample, use a complete source feed if one becomes available.
+  const url = new URL('https://skills.sh/api/search');
+  url.search = new URLSearchParams({ q: installSource, limit: '100' });
+  const response = await fetch(url, { signal: AbortSignal.timeout(8000) });
+  if (!response.ok) throw new Error(`Skills.sh HTTP ${response.status}`);
+  const data = await response.json();
+  const entries = data.skills.filter(row => row.source === installSource && row.id === `${installSource}/${row.skillId}`
+    && activeIds.has(row.skillId) && measuredCount(row.installs));
+  if (!entries.length) throw new Error('No matching Skills.sh install records');
+  entries.sort((a, b) => a.skillId.localeCompare(b.skillId, 'en'));
+  installSnapshot = {
+    checked_at: new Date().toISOString().slice(0, 10),
+    installs: Object.fromEntries(entries.map(row => [row.skillId, row.installs])),
+  };
+  await fs.writeFile(installFile, JSON.stringify(installSnapshot, null, 2) + '\n');
+}
+if (!/^\d{4}-\d{2}-\d{2}$/.test(installSnapshot.checked_at)) throw new Error('Invalid Skills.sh snapshot date');
+const skills = rows.map(row => ({
+  name: row.name, title: row.title, description: row.description, tags: row.tags, triggers: row.triggers,
+  task_rankings: row.task_rankings, path: row.path, vol: row.vol, status: row.status,
+  review_status: row.quality?.review_status || 'unreviewed',
+  installs: activeIds.has(row.name) && measuredCount(installSnapshot.installs[row.name]) ? installSnapshot.installs[row.name] : null,
+}));
 const catalog = {
   outcome: checkOutcome(),
+  installs_checked_at: installSnapshot.checked_at,
   stats: { total: rows.length, active: rows.filter(row => row.status !== 'deprecated').length, archived: rows.filter(row => row.status === 'deprecated').length, volumes: new Set(rows.map(row => row.vol)).size, repositories: repos.length },
   skills,
   repositories: repos.map(row => {

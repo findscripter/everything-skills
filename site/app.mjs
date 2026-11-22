@@ -1,11 +1,13 @@
-import { search, popularRepositories, githubPath, commands } from './search.mjs';
+import { search, popularSkills, popularRepositories, githubPath, commands } from './search.mjs';
 
 const $ = selector => document.querySelector(selector);
 const state = new URLSearchParams(location.search);
 let lang = state.get('lang') === 'zh' ? 'zh' : 'en';
 let mode = state.get('kind') === 'repos' ? 'repos' : 'skills';
 let category = state.get('filter') || '';
-let sort = mode === 'repos' && state.get('sort') === 'stars' ? 'stars' : 'relevance';
+const metricSort = kind => kind === 'repos' ? 'stars' : 'installs';
+let sort = state.get('sort') === metricSort(mode) ? metricSort(mode) : 'relevance';
+let boardMode = mode === 'repos' && sort === 'stars' ? 'repos' : 'skills';
 let catalog = null;
 let loadFailed = false;
 const pageSize = 9;
@@ -19,14 +21,17 @@ const words = {
     navSearch: 'Search', navRankings: 'Rankings', navExamples: 'Examples',
     navLabel: 'Main navigation', homeLabel: 'Everything Skills home', skipSearch: 'Skip to skill search', modeLabel: 'Catalog type',
     skillSearch: 'Search by task or skill ID', repoSearch: 'Search repositories by name or description',
-    skillPlaceholder: 'Try PowerPoint, code review, or a skill ID',
+    skillPlaceholder: 'Try create PowerPoint, review code diff, or a skill ID',
     repoPlaceholder: 'Try a product, topic, or owner/repo',
     searchAction: 'Search', volumeLabel: 'Volume', categoryLabel: 'Category', sortLabel: 'Sort',
-    sortRelevance: 'Best match', sortStars: 'GitHub Stars',
+    sortRelevance: 'Best match', sortStars: 'GitHub Stars', sortInstalls: 'Skills.sh installs',
     taskPicks: 'Task recommendations', rankingsLink: 'All comparisons ↗', firstChoice: 'First choice',
     browseSkills: 'Browse skills', browseRepos: 'Browse repositories', searchResults: 'Search results',
-    leaderboard: 'Repository leaderboard', leaderboardNote: 'Ranked by recorded GitHub Stars. Dates show when each count was collected.',
-    fullRanking: 'Browse all repositories by Stars →', noRanking: 'No repository snapshots are available.',
+    leaderboard: 'Leaderboards', leaderboardNote: 'Ranked by recorded GitHub Stars. Dates show when each count was collected.',
+    rankSkills: 'Skill installs', rankRepos: 'Repository Stars',
+    fullInstallRanking: 'See all measured skills →', fullRanking: 'Browse all repositories by Stars →',
+    noInstallRanking: 'No measured installs are available.', noRanking: 'No repository snapshots are available.',
+    searchExternal: 'Search external repositories →', searchAllSkills: 'Search all skills →',
     starsUnknown: 'Stars unavailable', copyFailed: 'Copy the link from the address bar',
     close: 'Close', installLabelAria: 'Claude Code install commands',
     previewTask:"An empty Nix skill package.",allVolumes:'All volumes',allCategories:'All categories',skills:'Skills',repos:'Repositories',share:'Copy search link',loading:'Loading…',nativeLanguage:'Skill instructions keep their original language.',showMore:'Show more',examplesLabel:"BOUNDED TEACHING CASES",examplesTitle:"Explore three smaller teaching examples.",allExamples:'All example files ↗',exampleOneTitle:'Get oriented in a codebase',exampleOneBody:'A small repository, a map of its boundaries, and an onboarding report you can inspect.',exampleTwoTitle:'Read a paper with its sources',exampleTwoBody:'Follow the paper’s claims and bibliography, with explicit limits on what was checked.',exampleThreeTitle:'Review an API before delivery',exampleThreeBody:'Inspect a compact API fixture, trace concrete findings, and compare a revised design.',tryExample:'Explore the example →',installLabel:'TAKE WHAT YOU NEED',installTitle:"Start with two focused skills.",installBody:"Install the debugging and static-review pair for Codex, then supply your own repository and failure. Claude Code volume installation and other paths remain in the full guide.",installGuide:'Read the installation guide ↗',copyCommands:'Copy commands',footer:'A connected library, maintained in the open.',contribute:'Contribute',sources:'Sources & licenses',volumeInstall:'Install this volume',volumeInstallBody:'Run these commands inside Claude Code. For other agents, open the linked SKILL.md and check its runtime requirements.',copied:'Copied',empty:'No matches. Try a shorter task phrase or another filter.',openSkill:'Open skill ↗',openRepo:'Open repository ↗',installVolume:'Install volume',unreviewed:'Not reviewed',reviewed:'Reviewed metadata',indexedOnly:'External record',archivedUpstream:'Archived upstream',repoNote:'Historical-only and unavailable records remain in the full repository index.',loadError:'The catalog could not load. Reload this page or browse the Markdown catalog on GitHub.',retry:'Retry',volumeLabels:{'00-meta':'Reasoning & workflows','01-documents':'Documents & writing','02-engineering':'Engineering','03-data':'Data','04-ai':'AI','05-business':'Business','06-creative':'Creative','07-productivity':'Productivity','08-security':'Security','09-verticals':'Research & industries','10-platform':'Platforms'},categoryLabels:{official:'Official teams',collections:'Collections',vertical:'Domain collections',infra:'Infrastructure',other:'Other',unnamed:'Other repository layouts'},
@@ -35,20 +40,23 @@ const words = {
   },
   zh: {
     pageTitle: 'Everything Skills · 技能检索',
-    heroTitle: '找到适合任务的技能',
+    heroTitle: '按任务找技能',
     heroDescription: '按任务或技能名搜索，比较同类技能，再选择如何安装。',
     activeSkills: '现行技能', repositories: '外部仓库记录',
     navSearch: '检索', navRankings: '热榜', navExamples: '案例',
     navLabel: '主导航', homeLabel: 'Everything Skills 首页', skipSearch: '跳到技能检索', modeLabel: '目录类型',
     skillSearch: '按任务或技能 ID 搜索', repoSearch: '按仓库名或描述搜索',
-    skillPlaceholder: '试试做 PPT、代码评审，或输入技能 ID',
+    skillPlaceholder: '试试做 PPT、静态代码评审，或输入技能 ID',
     repoPlaceholder: '输入产品、主题或 owner/repo',
     searchAction: '搜索', volumeLabel: '分卷', categoryLabel: '分类', sortLabel: '排序',
-    sortRelevance: '相关度', sortStars: 'GitHub Stars',
+    sortRelevance: '相关度', sortStars: 'GitHub Stars', sortInstalls: 'Skills.sh 安装量',
     taskPicks: '按任务推荐', rankingsLink: '查看全部对比 ↗', firstChoice: '首选',
     browseSkills: '浏览技能', browseRepos: '浏览外部仓库', searchResults: '搜索结果',
-    leaderboard: 'GitHub 仓库热榜', leaderboardNote: '按目录记录的 GitHub Stars 排序，日期为各仓库的采集时间。',
-    fullRanking: '按 Stars 浏览全部仓库 →', noRanking: '暂无可展示的仓库快照。',
+    leaderboard: '发现榜单', leaderboardNote: '按 GitHub Stars 快照排序，日期为各仓库的采集时间。',
+    rankSkills: '技能安装榜', rankRepos: '仓库 Stars 榜',
+    fullInstallRanking: '查看全部有记录的技能 →', fullRanking: '按 Stars 浏览全部仓库 →',
+    noInstallRanking: '暂无可展示的安装记录。', noRanking: '暂无可展示的仓库快照。',
+    searchExternal: '试搜外部仓库 →', searchAllSkills: '在全部技能中搜索 →',
     starsUnknown: '暂无 Stars 数据', copyFailed: '请从地址栏复制链接',
     close: '关闭', installLabelAria: 'Claude Code 安装命令',
     previewTask:"Nix 为什么收录了一个空技能包？",allVolumes:'全部分卷',allCategories:'全部分类',skills:'技能',repos:'外部仓库',share:'复制搜索链接',loading:'正在加载…',nativeLanguage:'技能正文保留原始语言。',showMore:'加载更多',examplesLabel:"有边界的教学案例",examplesTitle:"再看三个更小的教学样例。",allExamples:'查看全部案例文件 ↗',exampleOneTitle:'接手一个陌生代码库',exampleOneBody:'从小型代码库出发，检查结构与边界，再对照具体的接手报告。',exampleTwoTitle:'带着来源读一篇论文',exampleTwoBody:'沿原文核对结论与书目，明确版本差异和已经检查的范围。',exampleThreeTitle:'在交付之前评审 API',exampleThreeBody:'检查一份精简接口样例，对照具体问题和修订后的设计。',tryExample:'打开这个案例 →',installLabel:'按需取用',installTitle:"先安装这两个技能。",installBody:"为 Codex 安装调试与静态审查组合，再提供自己的仓库和故障。Claude Code 分卷安装等其他路径保留在完整指南中。",installGuide:'查看安装步骤 ↗',copyCommands:'复制命令',footer:'用关系连接技能，开放维护。',contribute:'参与贡献',sources:'来源与许可',volumeInstall:'安装这个分卷',volumeInstallBody:'在 Claude Code 中运行以下命令。其他 Agent 请读取对应 SKILL.md，并核对其运行前提。',copied:'已复制',empty:'没有找到匹配项。试试更短的任务词，或更换筛选条件。',openSkill:'查看技能 ↗',openRepo:'打开仓库 ↗',installVolume:'安装此卷',unreviewed:'尚未审阅',reviewed:'元数据已审阅',indexedOnly:'外部目录',archivedUpstream:'上游已归档',repoNote:'历史停荐和不可访问记录保留在完整仓库索引中。',loadError:'目录加载失败。可刷新重试，或打开 GitHub 上的完整 Markdown 目录。',retry:'重试',volumeLabels:{'00-meta':'思考与工作流','01-documents':'文档与写作','02-engineering':'研发工程','03-data':'数据','04-ai':'人工智能','05-business':'商业','06-creative':'创意','07-productivity':'生产力','08-security':'安全','09-verticals':'科研与行业','10-platform':'平台集成'},categoryLabels:{official:'官方团队',collections:'精选合集',vertical:'垂直领域',infra:'基础设施',other:'其他',unnamed:'其他仓库布局'},
@@ -83,7 +91,7 @@ function catalogUrl({ query = '', kind = 'skills', filter = '', order = 'relevan
   if (query.trim()) params.set('q', query.trim());
   if (kind === 'repos') params.set('kind', kind);
   if (filter) params.set('filter', filter);
-  if (kind === 'repos' && order === 'stars') params.set('sort', order);
+  if (order === metricSort(kind)) params.set('sort', order);
   if (lang === 'zh') params.set('lang', 'zh');
   return location.pathname + (params.size ? '?' + params.toString() : '') + hash;
 }
@@ -105,15 +113,15 @@ function filters() {
   $('#filter-label').textContent = isSkill ? w().volumeLabel : w().categoryLabel;
   $('#query-label').textContent = isSkill ? w().skillSearch : w().repoSearch;
   $('#query').placeholder = isSkill ? w().skillPlaceholder : w().repoPlaceholder;
-  $('#sort-control').hidden = isSkill;
-  $('#sort').value = sort;
+  const sorting = $('#sort');
+  sorting.replaceChildren(new Option(w().sortRelevance, 'relevance'),
+    new Option(isSkill ? w().sortInstalls : w().sortStars, metricSort(mode)));
+  sorting.value = sort;
 }
 
-function renderDiscovery() {
+function renderTaskShortcuts() {
   const choices = $('#task-shortcuts');
-  const board = $('#leaderboard-list');
   choices.replaceChildren();
-  board.replaceChildren();
   if (catalog) {
     for (const shortcut of taskShortcuts) {
       const query = shortcut[lang];
@@ -126,23 +134,63 @@ function renderDiscovery() {
       item.append(task);
       choices.append(item);
     }
-    for (const [index, row] of popularRepositories(catalog.repositories).slice(0, 5).entries()) {
-      const item = element('li');
-      const position = element('span', 'rank-position', String(index + 1).padStart(2, '0'));
-      position.setAttribute('aria-hidden', 'true');
-      const repo = link(row.full_name, catalogUrl({ kind: 'repos', query: row.full_name, hash: '#catalog-results' }));
-      const detail = element('span', 'leaderboard-detail');
-      const date = element('time', 'snapshot-date', row.stars_checked_at);
-      date.dateTime = row.stars_checked_at;
-      detail.append(element('strong', '', `★ ${number(row.stars)}`), date);
-      item.append(position, repo, detail);
-      board.append(item);
-    }
   }
   $('#task-start').hidden = !choices.childElementCount;
+}
+
+function installCoverage(count) {
+  const date = catalog.installs_checked_at;
+  return lang === 'zh'
+    ? `覆盖 ${number(count)} / ${number(catalog.stats.active)} 个技能 · ${date}`
+    : `${number(count)} of ${number(catalog.stats.active)} skills · ${date}`;
+}
+
+function renderLeaderboard() {
+  const isSkill = boardMode === 'skills';
+  for (const [id, active] of [['rank-skills', isSkill], ['rank-repos', !isSkill]]) {
+    $('#' + id).setAttribute('aria-pressed', String(active));
+  }
+  const board = $('#leaderboard-list');
+  const note = $('#leaderboard-note');
+  board.replaceChildren();
+  const items = catalog ? isSkill ? popularSkills(catalog.skills) : popularRepositories(catalog.repositories) : [];
+  if (isSkill) {
+    note.replaceChildren(link('Skills.sh', 'https://skills.sh/findscripter/everything-skills'),
+      document.createTextNode(lang === 'zh' ? ' 安装记录' : ' install records'));
+    if (catalog) note.append(element('span', '', installCoverage(items.length)));
+  } else {
+    note.textContent = w().leaderboardNote;
+  }
+  let previousCount;
+  let rank;
+  for (const [index, row] of items.slice(0, 5).entries()) {
+    const count = isSkill ? row.installs : row.stars;
+    if (count !== previousCount) rank = index + 1;
+    previousCount = count;
+    const item = element('li');
+    item.value = rank;
+    const position = element('span', 'rank-position', String(rank));
+    const query = isSkill ? row.name : row.full_name;
+    const entry = link(isSkill && lang === 'zh' ? row.title || row.name : query,
+      catalogUrl({ kind: boardMode, query, hash: '#catalog-results' }));
+    if (isSkill) entry.append(element('span', 'snapshot-date', w().volumeLabels[row.vol] || row.vol));
+    const detail = element('span', 'leaderboard-detail');
+    detail.append(element('strong', '', isSkill ? number(count) : `★ ${number(count)}`));
+    if (!isSkill) {
+      const date = element('time', 'snapshot-date', row.stars_checked_at);
+      date.dateTime = row.stars_checked_at;
+      detail.append(date);
+    }
+    item.append(position, entry, detail);
+    board.append(item);
+  }
   $('#leaderboard-status').hidden = board.childElementCount > 0;
-  $('#leaderboard-status').textContent = loadFailed ? w().loadError : catalog ? w().noRanking : w().loading;
-  $('#full-ranking').href = catalogUrl({ kind: 'repos', order: 'stars', hash: '#catalog-results' });
+  $('#leaderboard-status').textContent = loadFailed ? w().loadError
+    : catalog ? isSkill ? w().noInstallRanking : w().noRanking : w().loading;
+  const fullRanking = $('#full-ranking');
+  fullRanking.textContent = isSkill ? w().fullInstallRanking : w().fullRanking;
+  fullRanking.href = catalogUrl({ kind: boardMode, order: metricSort(boardMode), hash: '#catalog-results' });
+  fullRanking.hidden = !items.length;
 }
 
 function translate() {
@@ -171,7 +219,8 @@ function translate() {
       ? `（${number(active)} 现行、${archived} 归档、${templates} 模板 · 固定源 ${source.slice(0, 7)}）`
       : ` (${number(active)} active, ${archived} archived, ${templates} template · source ${source.slice(0, 7)})`;
   }
-  renderDiscovery();
+  renderTaskShortcuts();
+  renderLeaderboard();
   render();
 }
 
@@ -202,6 +251,8 @@ function card(row) {
   article.append(top, element('h3', '', isSkill ? row.title || row.name : row.full_name));
   if (isSkill) {
     article.append(element('div', 'skill-name', row.name));
+    if (sort === 'installs' && row.installs) article.append(element('div', 'repo-snapshot', lang === 'zh'
+      ? `Skills.sh 记录 ${number(row.installs)} 次安装` : `Skills.sh installs: ${number(row.installs)}`));
   } else {
     const detail = row.stars == null ? w().starsUnknown : `★ ${number(row.stars)} GitHub Stars`;
     article.append(element('div', 'repo-snapshot', row.stars_checked_at ? `${detail} · ${row.stars_checked_at}` : detail));
@@ -235,7 +286,6 @@ function card(row) {
 function render() {
   for (const [id, active] of [['skills-mode', mode === 'skills'], ['repos-mode', mode === 'repos']]) {
     const button = $('#' + id);
-    button.classList.toggle('selected', active);
     button.setAttribute('aria-pressed', String(active));
   }
   const query = $('#query').value.trim();
@@ -261,7 +311,20 @@ function render() {
   }
   const rows = mode === 'skills' ? catalog.skills : catalog.repositories;
   const found = search(rows, query, { category, mode, sort });
-  results.replaceChildren(...(found.length ? found.slice(0, shown).map(card) : [element('p', 'empty-state', w().empty)]));
+  if (sort === 'installs') $('#catalog-note').textContent = `${w().sortInstalls} · ${installCoverage(popularSkills(rows).length)}`;
+  if (found.length) {
+    results.replaceChildren(...found.slice(0, shown).map(card));
+  } else {
+    const empty = element('p', 'empty-state', w().empty);
+    if (mode === 'skills' && (query || sort === 'installs')) {
+      const fromInstalls = sort === 'installs';
+      const action = link(fromInstalls ? w().searchAllSkills : w().searchExternal,
+        catalogUrl({ query, kind: fromInstalls ? 'skills' : 'repos', filter: fromInstalls ? category : '', hash: '#catalog-results' }));
+      action.className = 'text-link';
+      empty.append(action);
+    }
+    results.replaceChildren(empty);
+  }
   const visible = number(Math.min(shown, found.length));
   const total = number(found.length);
   $('#result-count').textContent = lang === 'zh' ? `${total} 个匹配 · 已显示 ${visible} 个` : `${total} matches · ${visible} shown`;
@@ -270,13 +333,14 @@ function render() {
 
 async function load() {
   loadFailed = false;
-  renderDiscovery();
+  renderLeaderboard();
   render();
   try {
     const response = await fetch('./catalog.json');
     if (!response.ok) throw new Error(`Catalog response ${response.status}`);
     const data = await response.json();
-    if (!Array.isArray(data.skills) || !Array.isArray(data.repositories) || !data.stats || !data.outcome) throw new Error('Invalid catalog');
+    if (!Array.isArray(data.skills) || !Array.isArray(data.repositories) || !data.stats || !data.outcome
+      || !/^\d{4}-\d{2}-\d{2}$/.test(data.installs_checked_at)) throw new Error('Invalid catalog');
     catalog = data;
   } catch (error) {
     loadFailed = true;
@@ -301,6 +365,9 @@ $('#query').addEventListener('compositionend', refreshResults);
 $('#volume').addEventListener('change', () => { category = $('#volume').value; refreshResults(); });
 $('#sort').addEventListener('change', () => { sort = $('#sort').value; refreshResults(); });
 $('#language').addEventListener('click', () => { lang = lang === 'zh' ? 'en' : 'zh'; translate(); updateUrl(); });
+for (const [id, value] of [['rank-skills', 'skills'], ['rank-repos', 'repos']]) {
+  $('#' + id).addEventListener('click', () => { boardMode = value; renderLeaderboard(); });
+}
 for (const [id, value] of [['skills-mode', 'skills'], ['repos-mode', 'repos']]) {
   $('#' + id).addEventListener('click', () => {
     if (mode === value) return;

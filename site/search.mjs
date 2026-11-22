@@ -13,15 +13,23 @@ export function tokens(value) {
 
 const searchableRepository = row => row.status !== 'deprecated' && row.recommendation !== 'historical-only' && row.upstream_state !== 'unavailable';
 const compareRepositoryStars = (a, b) => (b.stars ?? -1) - (a.stars ?? -1) || a.full_name.localeCompare(b.full_name, 'en');
+const hasInstalls = row => row.status !== 'deprecated' && Number.isSafeInteger(row.installs) && row.installs > 0;
+const compareSkillInstalls = (a, b) => b.installs - a.installs || a.name.localeCompare(b.name, 'en');
 
 export function popularRepositories(rows, { category = '' } = {}) {
   return rows.filter(row => searchableRepository(row) && row.upstream_state === 'active' && row.stars > 0 && (!category || row.section === category)).sort(compareRepositoryStars);
 }
 
+export function popularSkills(rows) {
+  return rows.filter(hasInstalls).sort(compareSkillInstalls);
+}
+
 export function search(rows, query, { category = '', mode = 'skills', sort = '' } = {}) {
   const terms = tokens(query);
   const normalizedQuery = normalizeTask(query);
-  const compare = mode === 'repos' && sort === 'stars' ? (a, b) => compareRepositoryStars(a.row, b.row) : compareResults;
+  const byInstalls = mode === 'skills' && sort === 'installs';
+  const compare = mode === 'repos' && sort === 'stars' ? (a, b) => compareRepositoryStars(a.row, b.row)
+    : byInstalls ? (a, b) => compareSkillInstalls(a.row, b.row) : compareResults;
   return rows.filter(row => (mode === 'repos' ? searchableRepository(row) : row.status !== 'deprecated') && (!category || (mode === 'skills' ? row.vol : row.section) === category)).map(row => {
     let score = 0;
     const weighted = mode === 'skills' ? [[row.name, 10], [row.title, 8], [(row.triggers || []).join(' '), 12], [(row.tags || []).join(' '), 4], [row.description, 2]] : [[row.full_name, 10], [row.summary, 2], [row.summary_zh, 2]];
@@ -30,7 +38,8 @@ export function search(rows, query, { category = '', mode = 'skills', sort = '' 
     const featured = FEATURED.indexOf(row.name);
     if (mode === 'repos') return { row, score, exact: Boolean(normalizedQuery && normalizedQuery === normalizeTask(row.full_name)) };
     return rankedResult(row, terms.length ? score : (featured < 0 ? 0 : FEATURED.length - featured), query);
-  }).filter(item => !terms.length || item.exact || item.score > 0 || item.recommendation).sort(compare).map(({row, recommendation}) => recommendation ? {...row, recommendation} : row);
+  }).filter(item => (!byInstalls || hasInstalls(item.row)) && (!terms.length || item.exact || item.score > 0 || item.recommendation))
+    .sort(compare).map(({row, recommendation}) => recommendation ? {...row, recommendation} : row);
 }
 
 export function githubPath(relative) {
