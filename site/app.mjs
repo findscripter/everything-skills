@@ -1,14 +1,16 @@
-import { search, popularSkills, popularRepositories, githubPath, commands } from './search.mjs';
+import { search, taskComparisons, searchComparisons, popularSkills, popularRepositories, githubPath, commands } from './search.mjs';
 
 const $ = selector => document.querySelector(selector);
 const state = new URLSearchParams(location.search);
 let lang = state.get('lang') === 'zh' ? 'zh' : 'en';
-let mode = state.get('kind') === 'repos' ? 'repos' : 'skills';
-let category = state.get('filter') || '';
-const metricSort = kind => kind === 'repos' ? 'stars' : 'installs';
-let sort = state.get('sort') === metricSort(mode) ? metricSort(mode) : 'relevance';
+const modes = ['skills', 'tasks', 'repos'];
+let mode = modes.includes(state.get('kind')) ? state.get('kind') : 'skills';
+let category = mode === 'tasks' ? '' : state.get('filter') || '';
+const metricSort = { skills: 'installs', repos: 'stars' };
+let sort = state.get('sort') === metricSort[mode] ? metricSort[mode] : 'relevance';
 let boardMode = mode === 'repos' && sort === 'stars' ? 'repos' : 'skills';
 let catalog = null;
+let comparisons = [];
 let loadFailed = false;
 const pageSize = 9;
 let shown = pageSize;
@@ -25,7 +27,11 @@ const words = {
     repoPlaceholder: 'Try a product, topic, or owner/repo',
     searchAction: 'Search', volumeLabel: 'Volume', categoryLabel: 'Category', sortLabel: 'Sort',
     sortRelevance: 'Best match', sortStars: 'GitHub Stars', sortInstalls: 'Skills.sh installs',
-    taskPicks: 'Task recommendations', rankingsLink: 'All comparisons ↗', firstChoice: 'First choice',
+    taskPicks: 'Task recommendations', rankingsLink: 'All comparisons →', firstChoice: 'First choice', alternative: 'Alternative',
+    comparisons: 'Compare skills', comparisonSearch: 'Search task comparisons',
+    comparisonPlaceholder: 'Try PowerPoint, API review, or a skill ID',
+    comparisonNote: 'Compare reviewed skills for the same deliverable.',
+    reviewedOn: 'Reviewed',
     browseSkills: 'Browse skills', browseRepos: 'Browse repositories', searchResults: 'Search results',
     leaderboard: 'Leaderboards', leaderboardNote: 'Ranked by recorded GitHub Stars. Dates show when each count was collected.',
     rankSkills: 'Skill installs', rankRepos: 'Repository Stars',
@@ -50,7 +56,11 @@ const words = {
     repoPlaceholder: '输入产品、主题或 owner/repo',
     searchAction: '搜索', volumeLabel: '分卷', categoryLabel: '分类', sortLabel: '排序',
     sortRelevance: '相关度', sortStars: 'GitHub Stars', sortInstalls: 'Skills.sh 安装量',
-    taskPicks: '按任务推荐', rankingsLink: '查看全部对比 ↗', firstChoice: '首选',
+    taskPicks: '按任务推荐', rankingsLink: '查看全部对比 →', firstChoice: '首选', alternative: '备选',
+    comparisons: '同类对比', comparisonSearch: '搜索同类技能任务',
+    comparisonPlaceholder: '试试做 PPT、接口评审，或输入技能 ID',
+    comparisonNote: '按交付物比较已审阅的同类技能。',
+    reviewedOn: '审阅于',
     browseSkills: '浏览技能', browseRepos: '浏览外部仓库', searchResults: '搜索结果',
     leaderboard: '发现榜单', leaderboardNote: '按 GitHub Stars 快照排序，日期为各仓库的采集时间。',
     rankSkills: '技能安装榜', rankRepos: '仓库 Stars 榜',
@@ -89,9 +99,9 @@ const link = (text, url) => {
 function catalogUrl({ query = '', kind = 'skills', filter = '', order = 'relevance', hash = '' } = {}) {
   const params = new URLSearchParams();
   if (query.trim()) params.set('q', query.trim());
-  if (kind === 'repos') params.set('kind', kind);
-  if (filter) params.set('filter', filter);
-  if (order === metricSort(kind)) params.set('sort', order);
+  if (kind !== 'skills') params.set('kind', kind);
+  if (kind !== 'tasks' && filter) params.set('filter', filter);
+  if (order === metricSort[kind]) params.set('sort', order);
   if (lang === 'zh') params.set('lang', 'zh');
   return location.pathname + (params.size ? '?' + params.toString() : '') + hash;
 }
@@ -103,6 +113,14 @@ function updateUrl() {
 }
 
 function filters() {
+  const isComparison = mode === 'tasks';
+  $('#catalog-filter').hidden = isComparison;
+  $('#catalog-sort').hidden = isComparison;
+  if (isComparison) {
+    $('#query-label').textContent = w().comparisonSearch;
+    $('#query').placeholder = w().comparisonPlaceholder;
+    return;
+  }
   const select = $('#volume');
   const isSkill = mode === 'skills';
   const groups = isSkill ? w().volumeLabels : w().categoryLabels;
@@ -115,11 +133,12 @@ function filters() {
   $('#query').placeholder = isSkill ? w().skillPlaceholder : w().repoPlaceholder;
   const sorting = $('#sort');
   sorting.replaceChildren(new Option(w().sortRelevance, 'relevance'),
-    new Option(isSkill ? w().sortInstalls : w().sortStars, metricSort(mode)));
+    new Option(isSkill ? w().sortInstalls : w().sortStars, metricSort[mode]));
   sorting.value = sort;
 }
 
 function renderTaskShortcuts() {
+  $('#all-comparisons').href = catalogUrl({ kind: 'tasks', hash: '#catalog-results' });
   const choices = $('#task-shortcuts');
   choices.replaceChildren();
   if (catalog) {
@@ -129,7 +148,7 @@ function renderTaskShortcuts() {
       if (!pick) continue;
       const item = element('li');
       const task = link(lang === 'zh' ? pick.recommendation.title : pick.recommendation.title_en,
-        catalogUrl({ query, hash: '#catalog-results' }));
+        catalogUrl({ kind: 'tasks', query: pick.recommendation.task, hash: '#catalog-results' }));
       task.append(element('span', 'task-choice', `${w().firstChoice} · ${pick.name}`));
       item.append(task);
       choices.append(item);
@@ -189,7 +208,7 @@ function renderLeaderboard() {
     : catalog ? isSkill ? w().noInstallRanking : w().noRanking : w().loading;
   const fullRanking = $('#full-ranking');
   fullRanking.textContent = isSkill ? w().fullInstallRanking : w().fullRanking;
-  fullRanking.href = catalogUrl({ kind: boardMode, order: metricSort(boardMode), hash: '#catalog-results' });
+  fullRanking.href = catalogUrl({ kind: boardMode, order: metricSort[boardMode], hash: '#catalog-results' });
   fullRanking.hidden = !items.length;
 }
 
@@ -262,9 +281,10 @@ function card(row) {
   if (isSkill && row.recommendation) {
     const pick = row.recommendation;
     const recommendation = element('p', 'task-recommendation');
-    recommendation.append(element('strong', '', lang === 'zh'
-      ? `${pick.title} · 推荐 #${pick.rank}`
-      : `${pick.title_en} · Pick #${pick.rank}`), document.createTextNode(lang === 'zh' ? pick.reason : pick.reason_en));
+    const heading = element('strong');
+    heading.append(link(lang === 'zh' ? `${pick.title} · 推荐 #${pick.rank} →` : `${pick.title_en} · Pick #${pick.rank} →`,
+      catalogUrl({ kind: 'tasks', query: pick.task, hash: '#catalog-results' })));
+    recommendation.append(heading, document.createTextNode(lang === 'zh' ? pick.reason : pick.reason_en));
     article.append(recommendation);
   }
   const actions = element('div', 'card-actions');
@@ -283,15 +303,38 @@ function card(row) {
   return article;
 }
 
-function render() {
-  for (const [id, active] of [['skills-mode', mode === 'skills'], ['repos-mode', mode === 'repos']]) {
-    const button = $('#' + id);
-    button.setAttribute('aria-pressed', String(active));
+function comparisonCard(group) {
+  const article = element('article', 'skill-card comparison-card');
+  const date = element('time', '', group.reviewed_at);
+  date.dateTime = group.reviewed_at;
+  const reviewed = element('p', 'review-label', `${w().reviewedOn} `);
+  reviewed.append(date);
+  const entries = element('ol', 'comparison-entries');
+  entries.setAttribute('role', 'list');
+  for (const entry of group.entries) {
+    const item = element('li');
+    const heading = element('div', 'comparison-entry-heading');
+    heading.append(element('span', entry.rank === 1 ? 'volume-pill first-choice' : 'volume-pill',
+      entry.rank === 1 ? w().firstChoice : w().alternative), link(entry.name, githubPath(entry.path)));
+    item.append(heading, element('p', '', lang === 'zh' ? entry.reason : entry.reason_en));
+    entries.append(item);
   }
+  const title = element('h3');
+  title.append(link(lang === 'zh' ? group.title : group.title_en,
+    catalogUrl({ kind: 'tasks', query: group.task, hash: '#catalog-results' })));
+  article.append(title, reviewed, entries);
+  return article;
+}
+
+function render() {
+  for (const value of modes) $(`#${value}-mode`).setAttribute('aria-pressed', String(mode === value));
+  const isComparison = mode === 'tasks';
   const query = $('#query').value.trim();
-  $('#results-title').textContent = query ? w().searchResults : mode === 'skills' ? w().browseSkills : w().browseRepos;
-  $('#catalog-note').textContent = mode === 'skills' ? w().nativeLanguage : w().leaderboardNote;
+  $('#results-title').textContent = isComparison ? w().comparisons
+    : query ? w().searchResults : mode === 'skills' ? w().browseSkills : w().browseRepos;
+  $('#catalog-note').textContent = isComparison ? w().comparisonNote : mode === 'skills' ? w().nativeLanguage : w().leaderboardNote;
   const results = $('#results');
+  results.classList.toggle('comparison-results', isComparison);
   if (!catalog) {
     $('#result-count').textContent = loadFailed ? w().loadError : w().loading;
     if (loadFailed) {
@@ -299,7 +342,7 @@ function render() {
       const retry = element('button', 'button secondary', w().retry);
       retry.type = 'button';
       retry.addEventListener('click', load);
-      const markdown = mode === 'skills' ? 'catalog.md' : 'skill-repos.md';
+      const markdown = isComparison ? 'task-rankings.md' : mode === 'skills' ? 'catalog.md' : 'skill-repos.md';
       fallback.append(link(lang === 'zh' ? '打开 Markdown 目录 ↗' : 'Open the Markdown catalog ↗',
         `https://github.com/findscripter/everything-skills/blob/main/INDEX/${markdown}`), retry);
       results.replaceChildren(fallback);
@@ -310,16 +353,16 @@ function render() {
     return;
   }
   const rows = mode === 'skills' ? catalog.skills : catalog.repositories;
-  const found = search(rows, query, { category, mode, sort });
+  const found = isComparison ? searchComparisons(comparisons, query, lang) : search(rows, query, { category, mode, sort });
   if (sort === 'installs') $('#catalog-note').textContent = `${w().sortInstalls} · ${installCoverage(popularSkills(rows).length)}`;
   if (found.length) {
-    results.replaceChildren(...found.slice(0, shown).map(card));
+    results.replaceChildren(...found.slice(0, shown).map(isComparison ? comparisonCard : card));
   } else {
     const empty = element('p', 'empty-state', w().empty);
-    if (mode === 'skills' && (query || sort === 'installs')) {
-      const fromInstalls = sort === 'installs';
-      const action = link(fromInstalls ? w().searchAllSkills : w().searchExternal,
-        catalogUrl({ query, kind: fromInstalls ? 'skills' : 'repos', filter: fromInstalls ? category : '', hash: '#catalog-results' }));
+    if (isComparison || (mode === 'skills' && (query || sort === 'installs'))) {
+      const allSkills = isComparison || sort === 'installs';
+      const action = link(allSkills ? w().searchAllSkills : w().searchExternal,
+        catalogUrl({ query, kind: allSkills ? 'skills' : 'repos', filter: allSkills ? category : '', hash: '#catalog-results' }));
       action.className = 'text-link';
       empty.append(action);
     }
@@ -327,7 +370,10 @@ function render() {
   }
   const visible = number(Math.min(shown, found.length));
   const total = number(found.length);
-  $('#result-count').textContent = lang === 'zh' ? `${total} 个匹配 · 已显示 ${visible} 个` : `${total} matches · ${visible} shown`;
+  const noun = isComparison ? 'task' : 'match';
+  $('#result-count').textContent = lang === 'zh'
+    ? `${total} 个${isComparison ? '任务' : '匹配'} · 已显示 ${visible} 个`
+    : `${total} ${noun}${found.length === 1 ? '' : isComparison ? 's' : 'es'} · ${visible} shown`;
   $('#show-more').hidden = found.length <= shown;
 }
 
@@ -341,6 +387,7 @@ async function load() {
     const data = await response.json();
     if (!Array.isArray(data.skills) || !Array.isArray(data.repositories) || !data.stats || !data.outcome
       || !/^\d{4}-\d{2}-\d{2}$/.test(data.installs_checked_at)) throw new Error('Invalid catalog');
+    comparisons = taskComparisons(data.skills);
     catalog = data;
   } catch (error) {
     loadFailed = true;
@@ -368,8 +415,8 @@ $('#language').addEventListener('click', () => { lang = lang === 'zh' ? 'en' : '
 for (const [id, value] of [['rank-skills', 'skills'], ['rank-repos', 'repos']]) {
   $('#' + id).addEventListener('click', () => { boardMode = value; renderLeaderboard(); });
 }
-for (const [id, value] of [['skills-mode', 'skills'], ['repos-mode', 'repos']]) {
-  $('#' + id).addEventListener('click', () => {
+for (const value of modes) {
+  $(`#${value}-mode`).addEventListener('click', () => {
     if (mode === value) return;
     mode = value;
     category = '';

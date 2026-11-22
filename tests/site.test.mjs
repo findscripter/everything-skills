@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { search, githubPath, commands, popularRepositories, popularSkills } from '../site/search.mjs';
+import { search, githubPath, commands, popularRepositories, popularSkills, taskComparisons, searchComparisons } from '../site/search.mjs';
 import { searchRows } from '../scripts/everything-skills.mjs';
 import { loadSkillRepos } from '../scripts/load-skill-repos.mjs';
 
@@ -57,6 +57,29 @@ test('every registered task group reaches its declared first choice in both sear
     assert.equal(site.recommendation.task, group.id);
     for (const entry of group.entries) assert.ok(review.skills.some(row => row.name === entry.skill && row.decision === 'ranked' && row.review_scope === 'full-body-comparison'));
   }
+});
+
+test('on-site comparisons preserve every reviewed choice and resolve task aliases or skill IDs', async () => {
+  const source = JSON.parse(await readFile(new URL('../data/skill-rankings.json', import.meta.url), 'utf8'));
+  const groups = taskComparisons(rows);
+  assert.equal(groups.length, source.length);
+  for (const expected of source) {
+    const group = searchComparisons(groups, expected.id)[0];
+    assert.equal(group.task, expected.id);
+    assert.equal(group.reviewed_at, expected.reviewed_at);
+    assert.deepEqual(group.entries.map(({ name, rank, reason, reason_en }) => ({ name, rank, reason, reason_en })),
+      expected.entries.map((entry, index) => ({ name: entry.skill, rank: index + 1, reason: entry.reason, reason_en: entry.reason_en })));
+    assert.ok(group.entries.every(entry => entry.path.endsWith('/SKILL.md')));
+  }
+  for (const query of ['做 PPT', 'create powerpoint', 'pptx-document-processing']) {
+    assert.equal(searchComparisons(groups, query, 'zh')[0].task, 'create-pptx');
+  }
+  const experiments = searchComparisons(groups, 'A/B');
+  assert.equal(experiments[0].task, 'ab-experiment-plan');
+  assert.ok(experiments.length < groups.length);
+  assert.deepEqual(searchComparisons(groups, 'company-culture-system')[0].entries.map(entry => entry.path.slice(0, 2)), ['07', '05', '07']);
+  assert.deepEqual(searchComparisons(groups, 'zzzx-unmatched'), []);
+  assert.deepEqual(taskComparisons([{ ...rows.find(row => row.task_rankings?.length), status: 'deprecated' }]), []);
 });
 test('site search finds the actual API review skill from English and Chinese tasks', () => {
   for (const query of ['api review', 'API 设计评审']) assert.equal(search(rows, query)[0].name, 'api-design-reviewer');
