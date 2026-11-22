@@ -24,6 +24,38 @@ export function popularSkills(rows) {
   return rows.filter(hasInstalls).sort(compareSkillInstalls);
 }
 
+export function taskComparisons(skills) {
+  const groups = new Map();
+  for (const { name, title: skillTitle, path, status, task_rankings = [] } of skills) {
+    if (status === 'deprecated') continue;
+    for (const { task, title, title_en, triggers, reviewed_at, rank, reason, reason_en } of task_rankings) {
+      if (!groups.has(task)) groups.set(task, { task, title, title_en, triggers, reviewed_at, entries: [] });
+      groups.get(task).entries.push({ name, title: skillTitle, path, rank, reason, reason_en });
+    }
+  }
+  for (const group of groups.values()) group.entries.sort((a, b) => a.rank - b.rank);
+  return [...groups.values()];
+}
+
+export function searchComparisons(groups, query, lang = 'en') {
+  const terms = tokens(query).filter(term => !/^[a-z]$/.test(term));
+  const phrase = normalizeTask(query);
+  return groups.map(group => {
+    const taskNames = [group.title, group.title_en, ...group.triggers].map(normalizeTask);
+    const skills = group.entries.map(entry => entry.name);
+    let exact = 0;
+    if (phrase === group.task) exact = 3;
+    else if (taskNames.includes(phrase)) exact = 2;
+    else if (skills.includes(phrase)) exact = 1;
+    const details = [group.task, ...taskNames, ...skills, ...group.entries.map(entry => normalizeTask(entry.title))].join(' ');
+    return { group, exact, phraseMatch: Number(Boolean(phrase && details.includes(phrase))),
+      score: terms.filter(term => details.includes(term)).length };
+  }).filter(({ exact, phraseMatch, score }) => exact || phraseMatch || score || !phrase)
+    .sort((a, b) => b.exact - a.exact || b.phraseMatch - a.phraseMatch || b.score - a.score
+      || (lang === 'zh' ? a.group.title.localeCompare(b.group.title, 'zh-CN') : a.group.title_en.localeCompare(b.group.title_en, 'en')))
+    .map(({ group }) => group);
+}
+
 export function search(rows, query, { category = '', mode = 'skills', sort = '' } = {}) {
   const terms = tokens(query);
   const normalizedQuery = normalizeTask(query);
