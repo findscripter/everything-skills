@@ -1,0 +1,852 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-23",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "ghchinoy/agent-skills",
+        "repository_id": 1213124227,
+        "commit": "26582ec375fe90f89808263e15da49aa4cc72953",
+        "tree": "0f8255b0c8139bfeb76dfb104776351d17625d8a",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "956a62a4069761b9c568cc8622b1379a90070bcf",
+            "sha256": "583b6e9b5cc8f1223d4fe83baa39326a0b498e1c238368247c23cc9fc3c52eed",
+            "url": "https://github.com/ghchinoy/agent-skills/blob/26582ec375fe90f89808263e15da49aa4cc72953/README.md",
+            "bytes": 18211
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "237bad73f73ce867c5a7fd28ac4f56ce6615ff7d",
+            "sha256": "484133cfdc8569119b83121cf49d459bf538c3ab87773362a0ace5913e710729",
+            "url": "https://github.com/ghchinoy/agent-skills/blob/26582ec375fe90f89808263e15da49aa4cc72953/LICENSE",
+            "bytes": 10156
+          },
+          {
+            "path": "plugins/macos-hig/skills/macos-hig-layout/SKILL.md",
+            "blob_sha": "70a6c9e42450540afcbbddcfe85ac7caf447f56c",
+            "sha256": "905c8baf7ab3274e1a3cb9753d05e7b0c057698ed391665b755ad2a316edaa1a",
+            "url": "https://github.com/ghchinoy/agent-skills/blob/26582ec375fe90f89808263e15da49aa4cc72953/plugins/macos-hig/skills/macos-hig-layout/SKILL.md",
+            "bytes": 1634
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "ccbb43f080f0760c9fff746f12106c1dc7dcd705",
+            "sha256": "fd161fe025b62f4fc05c632a31c1ce8242281db2be6ba1faed678013a43d5772",
+            "url": "https://github.com/ghchinoy/agent-skills/blob/26582ec375fe90f89808263e15da49aa4cc72953/.claude-plugin/marketplace.json",
+            "bytes": 7258
+          },
+          {
+            "path": "plugins/macos-hig/plugin.json",
+            "blob_sha": "130493a14001281e06555d0101761a90ac3de8b2",
+            "sha256": "14765b46378bfc350763e705d70dbab9b6e77fde3c3cc0af8601b16e3f4c3404",
+            "url": "https://github.com/ghchinoy/agent-skills/blob/26582ec375fe90f89808263e15da49aa4cc72953/plugins/macos-hig/plugin.json",
+            "bytes": 487
+          },
+          {
+            "path": "plugins/c2pa-inspector/LICENSE",
+            "blob_sha": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835",
+            "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+            "url": "https://github.com/ghchinoy/agent-skills/blob/26582ec375fe90f89808263e15da49aa4cc72953/plugins/c2pa-inspector/LICENSE",
+            "bytes": 11357
+          }
+        ],
+        "finding": "The sixteen package declarations enumerate all 42 displayed paths at this commit. The sampled macOS skill is advisory; other packages, externally sourced assets and setup commands carry their own permissions and terms.",
+        "disposition": "qualified_with_scope_correction"
+      },
+      {
+        "full_name": "karero/croftweaver",
+        "repository_id": 1273745742,
+        "commit": "ad5cc15f7f0cde55ec2051d608f898452e59a643",
+        "tree": "9857fa488286ffe62e3ac0ca8af172407263dd24",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "ee171731000b6b689877f63513913d65de3d5c2c",
+            "sha256": "c85fd9497965919255ecdb7e3b84832462882d0b69df45e56366b4576ee6982b",
+            "url": "https://github.com/karero/croftweaver/blob/ad5cc15f7f0cde55ec2051d608f898452e59a643/README.md",
+            "bytes": 51927
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d71889e540c0870dec7c81160932dffc3f9f0c2d",
+            "sha256": "092e341027b9bab9e8505a0df23f48db1754a41a8cb923f72b019e43b6d90f24",
+            "url": "https://github.com/karero/croftweaver/blob/ad5cc15f7f0cde55ec2051d608f898452e59a643/LICENSE",
+            "bytes": 1070
+          },
+          {
+            "path": "skills/outgoing-link-audit/SKILL.md",
+            "blob_sha": "06f601dc2c31f37e300dbce05108157e487f20dc",
+            "sha256": "f09d8f43037bdf0e5888590d09a227f90f8bff3a15eb52f492960f1b647a2880",
+            "url": "https://github.com/karero/croftweaver/blob/ad5cc15f7f0cde55ec2051d608f898452e59a643/skills/outgoing-link-audit/SKILL.md",
+            "bytes": 4892
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "1babef73a0886a82b79955d3afa2f156dce152e0",
+            "sha256": "9aacf0419aa1d0038e1d5a92d5fedd74f80e0783c256bd82e17c20e007db3749",
+            "url": "https://github.com/karero/croftweaver/blob/ad5cc15f7f0cde55ec2051d608f898452e59a643/.claude-plugin/marketplace.json",
+            "bytes": 503
+          },
+          {
+            "path": "THIRD-PARTY-LICENSES.md",
+            "blob_sha": "99f5b7f15040a6cd415ac9ba3c975a9bae92195c",
+            "sha256": "c8e16f06f172a5b074879909044921a933a7c697d373a8800f0b5dd46cb23344",
+            "url": "https://github.com/karero/croftweaver/blob/ad5cc15f7f0cde55ec2051d608f898452e59a643/THIRD-PARTY-LICENSES.md",
+            "bytes": 1813
+          }
+        ],
+        "finding": "The separate seven named upstream derivations match fixed direct directories. The marketplace points at the stable branch while these hashes count the reviewed default-branch snapshot. The representative reads public outgoing URLs and asks before source edits.",
+        "disposition": "qualified_with_scope_correction"
+      },
+      {
+        "full_name": "yojahny55/claude-wp-builder",
+        "repository_id": 1182152336,
+        "commit": "9d6d01b3abfbee145f72229d3484f9130c5017cf",
+        "tree": "1e767ad4ae4e0236cf6dc5a04422c3ae4e5e1752",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "9d31aacb58332d0e02dd48b0eccc3ca340bcacb9",
+            "sha256": "8996a5b0d595c97eaf57df9702ae167ea4f64bc3c201c22435b7b8dda7b1fae1",
+            "url": "https://github.com/yojahny55/claude-wp-builder/blob/9d6d01b3abfbee145f72229d3484f9130c5017cf/README.md",
+            "bytes": 55535
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "ae70738894532411a06dfae18702b489899e773b",
+            "sha256": "78f51c9fc61bb6dab79254a31a3b25fba5d4fbd7bd21eaf47653fd0329fc4ada",
+            "url": "https://github.com/yojahny55/claude-wp-builder/blob/9d6d01b3abfbee145f72229d3484f9130c5017cf/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "skills/wp-page-run/SKILL.md",
+            "blob_sha": "961f2faaa80b0d8e111f2c170b3e8cd333fd62be",
+            "sha256": "03648e998379c8743f7056f8f9ce5c7b60bd0b18d77c18b289db4c5718917e3c",
+            "url": "https://github.com/yojahny55/claude-wp-builder/blob/9d6d01b3abfbee145f72229d3484f9130c5017cf/skills/wp-page-run/SKILL.md",
+            "bytes": 1881
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "57263133042093bfafc8cfc3c2925b2676f0ad82",
+            "sha256": "c451cdeeb5a806f06710a893218d293c8db8a4367c19e341f55bf8dce4645b18",
+            "url": "https://github.com/yojahny55/claude-wp-builder/blob/9d6d01b3abfbee145f72229d3484f9130c5017cf/.claude-plugin/marketplace.json",
+            "bytes": 1135
+          },
+          {
+            "path": "commands/wp-page.md",
+            "blob_sha": "0877c40db1b57f0588d0d9248174df70ee40c013",
+            "sha256": "6ab5651a1a5e6eb6cd8ba33da505bc60408c05f321061f6873b3c4be6b72616c",
+            "url": "https://github.com/yojahny55/claude-wp-builder/blob/9d6d01b3abfbee145f72229d3484f9130c5017cf/commands/wp-page.md",
+            "bytes": 11616
+          },
+          {
+            "path": "skills/wp-demo-craft/references/design-md/LICENSE",
+            "blob_sha": "5cea5d78a41df83eafe1fb9fc0710675a5b7acf6",
+            "sha256": "6d4bdc9a9cf30e7beb593475fdcdbf29f981ea6bd7923f202866145409f87b44",
+            "url": "https://github.com/yojahny55/claude-wp-builder/blob/9d6d01b3abfbee145f72229d3484f9130c5017cf/skills/wp-demo-craft/references/design-md/LICENSE",
+            "bytes": 1066
+          },
+          {
+            "path": "skills/wp-demo-craft/references/domains/LICENSE",
+            "blob_sha": "1e71cbf26660f31903807d099fe902c098fc7e4c",
+            "sha256": "738f69dfa83db5c347c678fb9d90e560877059f0de93a327c39001bff92dc014",
+            "url": "https://github.com/yojahny55/claude-wp-builder/blob/9d6d01b3abfbee145f72229d3484f9130c5017cf/skills/wp-demo-craft/references/domains/LICENSE",
+            "bytes": 1075
+          }
+        ],
+        "finding": "Marketplace entry names one plugin, while the 36 physical paths include the non-user-invocable representative. The command consumes a scoped reference and writes into the target project. Vendor notices are separate.",
+        "disposition": "qualified_with_scope_correction"
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "ghchinoy/agent-skills",
+        "field_updates": {
+          "count_basis": "42 regular SKILL paths listed explicitly in the marketplace across 16 plugin packages; verified source count, excluding plugins as separate skill entries."
+        }
+      },
+      {
+        "full_name": "karero/croftweaver",
+        "field_updates": {
+          "distribution_evidence": "The README describes plugin and Skills CLI distribution. The marketplace targets the stable branch; the count and representative here bind only the pinned default-branch snapshot."
+        }
+      },
+      {
+        "full_name": "yojahny55/claude-wp-builder",
+        "field_updates": {
+          "limitations": "Static source and distribution review only. Theme generation writes to the selected project, and other WP-CLI commands may change the WordPress instance. Neither these actions nor client setup were run."
+        }
+      }
+    ],
+    "objections": []
+  },
+  "quality-science.json": {
+    "date": "2026-11-23",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "shentufoundation/openmath-skills",
+        "repository_id": 1185412667,
+        "commit": "31a96f63dd61db35c2887b087901436dcf1f4f50",
+        "tree": "874c448750f70d3d85af910d810f719f9cad504b",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "3228df9db05ba1eade3bd0fe192952fabdd9ebb3",
+            "sha256": "421244b143c755314482d600e03d1f0019fde5fb5396a0410c7c378a4da6e117",
+            "url": "https://github.com/shentufoundation/openmath-skills/blob/31a96f63dd61db35c2887b087901436dcf1f4f50/README.md",
+            "bytes": 6381
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "2cc2af546b4235175afc7a82ea89c74eda848f59",
+            "sha256": "de51fd534b7e21a2b65566a7a555382737457de2e712ee3a6c74ae1e02ffa1d7",
+            "url": "https://github.com/shentufoundation/openmath-skills/blob/31a96f63dd61db35c2887b087901436dcf1f4f50/LICENSE",
+            "bytes": 10772
+          },
+          {
+            "path": "skills/rocq-mwe/SKILL.md",
+            "blob_sha": "a229096cf9eec4a5cead9a593fac6c498669b29f",
+            "sha256": "e04311a65bb8df50e8f6cac3067826e5da1177c575da1b098ed986454c93a181",
+            "url": "https://github.com/shentufoundation/openmath-skills/blob/31a96f63dd61db35c2887b087901436dcf1f4f50/skills/rocq-mwe/SKILL.md",
+            "bytes": 1996
+          },
+          {
+            "path": "skills/openmath-submit-theorem/SKILL.md",
+            "blob_sha": "e363ad67310280eeacafc4afe14a5eea95ce1cbb",
+            "sha256": "a8510240d24f2f077f3e9c844c0879b227830664cfad301136e3c471230d9845",
+            "url": "https://github.com/shentufoundation/openmath-skills/blob/31a96f63dd61db35c2887b087901436dcf1f4f50/skills/openmath-submit-theorem/SKILL.md",
+            "bytes": 10085
+          },
+          {
+            "path": "skills/openmath-claim-reward/SKILL.md",
+            "blob_sha": "b5a180031804962bdbe4a8ff3a9aa7b2117c636d",
+            "sha256": "0b95d1bf6bc274dc8ee9bf0036ca825322675ef8cbfaab17ac8aad0daa973b47",
+            "url": "https://github.com/shentufoundation/openmath-skills/blob/31a96f63dd61db35c2887b087901436dcf1f4f50/skills/openmath-claim-reward/SKILL.md",
+            "bytes": 5780
+          }
+        ],
+        "read_scope": "Recomputed fixed README, root Apache-2.0 license, Rocq MWE entry and the submit and reward entries. Checked all fourteen raw skill paths and documented application/benchmark separation.",
+        "conclusion": "Thirteen public tasks are supportable, the benchmark is separate, and Lean companion skills are separately distributed. The repository has independently invoked networked signing, broadcast and reward paths. One benchmark option invokes a paid model provider."
+      },
+      {
+        "full_name": "xqyww123/Isabelle-MCP",
+        "repository_id": 1251377972,
+        "commit": "a9694b4c464b1f35a18188dfd0e9cfd45c091983",
+        "tree": "be6218bc030e5ed42c8afe219f93ba5ce96d2cff",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "a8602eff5c47822abd5788caa60c6fa3d96c062c",
+            "sha256": "9fbbcc3bab88e8305a4bafc743725a6fa928510c4787a9a147f454c5859d45dc",
+            "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/README.md",
+            "bytes": 7167
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f6683e74e0f0130f246dbf7054f4cacc88ca84b0",
+            "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95",
+            "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/LICENSE",
+            "bytes": 26419
+          },
+          {
+            "path": "src/isabelle_mcp/skills/isabelle-command-line/SKILL.md",
+            "blob_sha": "51627cade05faa5fff527624c7ce2d4f9434fd52",
+            "sha256": "0659cbcbef3577e76656234c8f993e4814700e1c9254a42504cffb1a75cb50b6",
+            "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/src/isabelle_mcp/skills/isabelle-command-line/SKILL.md",
+            "bytes": 2270
+          },
+          {
+            "path": "pyproject.toml",
+            "blob_sha": "7043f1ea3c814f9f43e352041d057de83d3890d1",
+            "sha256": "34a2608efbbaf98dd03582193151f49effdf766aa2ba504a594e74adea0a50e5",
+            "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/pyproject.toml",
+            "bytes": 3783
+          },
+          {
+            "path": "src/isabelle_mcp/install.py",
+            "blob_sha": "cdfdc58088ef738da2ac03dfbc699f33deace867",
+            "sha256": "ca43632e1c45bf6caa42db33cc9a8a2595b78397c231feead5dc543e1b3cd884",
+            "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/src/isabelle_mcp/install.py",
+            "bytes": 12026
+          },
+          {
+            "path": "src/isabelle_mcp/component.py",
+            "blob_sha": "200d5e87e7121d464004a3408a9a160e98694171",
+            "sha256": "7dcef82062a12dca1591d30ab6b799c7583ebb28b9f75c0a4ecff9b4dcf9df1a",
+            "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/src/isabelle_mcp/component.py",
+            "bytes": 10251
+          }
+        ],
+        "read_scope": "Independently recomputed fixed README, LGPL file, packaged command-line skill, packaging metadata and installer and component code. Checked tree and package-data binding.",
+        "conclusion": "The one bundled skill is installed separately from the MCP and Scala component. The public installer registers the client at user scope, copies the skill, and edits the per-user Isabelle component registry through Isabelle; the server assumes a single session."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "shentufoundation/openmath-skills",
+        "reason": "Bind the stated installation and optional writeback boundaries to the fixed source.",
+        "field_updates": {
+          "limitations": "Metadata-only static review. Optional benchmark may call a metered model. Proof commitment and reveal can use local wallet authorization and broadcast to Shentu, and reward withdrawal can sign and broadcast after confirmation. No package install, signed transaction, external writeback or client/runtime verification.",
+          "distribution_evidence": "README documents source and Skills CLI distribution, separate benchmark and separately maintained Lean proving companions. Rocq MWE is a local reproduction workflow. The independently reviewed submit and claim skills document externally visible signing/broadcast actions.",
+          "additional_evidence": [
+            {
+              "path": "skills/openmath-submit-theorem/SKILL.md",
+              "blob_sha": "e363ad67310280eeacafc4afe14a5eea95ce1cbb",
+              "sha256": "a8510240d24f2f077f3e9c844c0879b227830664cfad301136e3c471230d9845",
+              "url": "https://github.com/shentufoundation/openmath-skills/blob/31a96f63dd61db35c2887b087901436dcf1f4f50/skills/openmath-submit-theorem/SKILL.md",
+              "bytes": 10085
+            },
+            {
+              "path": "skills/openmath-claim-reward/SKILL.md",
+              "blob_sha": "b5a180031804962bdbe4a8ff3a9aa7b2117c636d",
+              "sha256": "0b95d1bf6bc274dc8ee9bf0036ca825322675ef8cbfaab17ac8aad0daa973b47",
+              "url": "https://github.com/shentufoundation/openmath-skills/blob/31a96f63dd61db35c2887b087901436dcf1f4f50/skills/openmath-claim-reward/SKILL.md",
+              "bytes": 5780
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "xqyww123/Isabelle-MCP",
+        "reason": "Bind the stated installation and optional writeback boundaries to the fixed source.",
+        "field_updates": {
+          "limitations": "Installer can mutate user-level agent MCP/skill configuration and the Isabelle component registry. The prover evaluates local theory/ML files, and each process assumes a single agent and evaluation. Package installation, prover operation and permissions were not tested.",
+          "distribution_evidence": "README documents PyPI install and client registration; pyproject packages skills and Scala assets. The fixed installer copies the one managed skill into selected client directories and separately registers the prover component.",
+          "additional_evidence": [
+            {
+              "path": "pyproject.toml",
+              "blob_sha": "7043f1ea3c814f9f43e352041d057de83d3890d1",
+              "sha256": "34a2608efbbaf98dd03582193151f49effdf766aa2ba504a594e74adea0a50e5",
+              "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/pyproject.toml",
+              "bytes": 3783
+            },
+            {
+              "path": "src/isabelle_mcp/install.py",
+              "blob_sha": "cdfdc58088ef738da2ac03dfbc699f33deace867",
+              "sha256": "ca43632e1c45bf6caa42db33cc9a8a2595b78397c231feead5dc543e1b3cd884",
+              "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/src/isabelle_mcp/install.py",
+              "bytes": 12026
+            },
+            {
+              "path": "src/isabelle_mcp/component.py",
+              "blob_sha": "200d5e87e7121d464004a3408a9a160e98694171",
+              "sha256": "7dcef82062a12dca1591d30ab6b799c7583ebb28b9f75c0a4ecff9b4dcf9df1a",
+              "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/src/isabelle_mcp/component.py",
+              "bytes": 10251
+            }
+          ]
+        }
+      }
+    ],
+    "objections": []
+  },
+  "quality-product.json": {
+    "date": "2026-11-23",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "InSites-Lab/insites",
+        "repository_id": 1317593768,
+        "commit": "efb813e1cf2e3fc8096019a057b8cc6a057869a6",
+        "tree": "b283d7551cbf2d354ee1dc8a34b89d1bcda3f2ff",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "17eba4622ca735d50bf050573aa143a068a8d0fa",
+            "sha256": "b2288b58939509932e354b0a3cc964f427de039b44517fdb8aeac6070d65ba78",
+            "url": "https://github.com/InSites-Lab/insites/blob/efb813e1cf2e3fc8096019a057b8cc6a057869a6/README.md",
+            "bytes": 14867
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/InSites-Lab/insites/blob/efb813e1cf2e3fc8096019a057b8cc6a057869a6/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "system/claude/plugin/skills/stage-spec/SKILL.md",
+            "blob_sha": "8f0b279ed54ac79a99636096daeddaa87e5ede49",
+            "sha256": "2d3cf0a7e98e5c3f05893bc71fe922349150f81bb5bdc97aa18b84e2505f188c",
+            "url": "https://github.com/InSites-Lab/insites/blob/efb813e1cf2e3fc8096019a057b8cc6a057869a6/system/claude/plugin/skills/stage-spec/SKILL.md",
+            "bytes": 2132
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "04d4b2328a1bc2ad8b2addb9c5d966ba493e00a5",
+            "sha256": "cb57b2a74e3ba9d68d7eec29f96ce81b0972924f43efd11e52d813fa2c6142f3",
+            "url": "https://github.com/InSites-Lab/insites/blob/efb813e1cf2e3fc8096019a057b8cc6a057869a6/.claude-plugin/marketplace.json",
+            "bytes": 572
+          },
+          {
+            "path": "system/build/claude-plugin/.claude-plugin/plugin.json",
+            "blob_sha": "2fc3eee73f843804c045258f017d4045f6309887",
+            "sha256": "3c255422cc3f3515f2340e2fc95918297847ef2cdccc96137fe134033f4d863f",
+            "url": "https://github.com/InSites-Lab/insites/blob/efb813e1cf2e3fc8096019a057b8cc6a057869a6/system/build/claude-plugin/.claude-plugin/plugin.json",
+            "bytes": 679
+          },
+          {
+            "path": "system/claude/plugin/.claude-plugin/plugin.json",
+            "blob_sha": "2fc3eee73f843804c045258f017d4045f6309887",
+            "sha256": "3c255422cc3f3515f2340e2fc95918297847ef2cdccc96137fe134033f4d863f",
+            "url": "https://github.com/InSites-Lab/insites/blob/efb813e1cf2e3fc8096019a057b8cc6a057869a6/system/claude/plugin/.claude-plugin/plugin.json",
+            "bytes": 679
+          },
+          {
+            "path": "LICENSING.md",
+            "blob_sha": "a8f13a95d853e6c9b74690efae338075edeff849",
+            "sha256": "374dd4b451b60613bd26072ee735e6698d5f1c3e5a18f47e36957a2cbded6dec",
+            "url": "https://github.com/InSites-Lab/insites/blob/efb813e1cf2e3fc8096019a057b8cc6a057869a6/LICENSING.md",
+            "bytes": 2269
+          }
+        ],
+        "read_scope": "Pinned README overview, distribution and licence sections. Complete stage-spec and LICENSING.md, root and package manifests, pinned tree mapping and opening claim-extractor front matter. Root Apache-2.0 matched canonical independently reviewed bytes.",
+        "conclusion": "Seven public task files under the installed plugin, with a duplicate development-source extractor outside it. The seven internal assessment stages are reference steps rather than seven more SKILL files. Reviewed specification produces an editable derivation without running an assessment. Apache-2.0 system/tools, MIT renderer, CC BY 4.0 docs/studies and excluded third-party materials remain separate. No live assessment or artifact creation verified."
+      },
+      {
+        "full_name": "maikell/dutch-cultural-heritage-collections",
+        "repository_id": 1458760787,
+        "commit": "a94a774a1551068127537eb6c798a08c421a7bff",
+        "tree": "e84f9b8a080f5bc1f6e1cdb665a02e9ad4f52ef8",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "55524f49832f5f55a085a272852adbf5a323fcae",
+            "sha256": "a10cafa2a43d6aacfb8cc7bc63cfda089102920abcedaf4bd2a25e39eaf29c12",
+            "url": "https://github.com/maikell/dutch-cultural-heritage-collections/blob/a94a774a1551068127537eb6c798a08c421a7bff/README.md",
+            "bytes": 8708
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "c35f88ff1c544f1eeb17c3b9306d3126a6637602",
+            "sha256": "ec48ee2d18263f04a9d8a85f390cdf3f0444584d355d4344fe361f93b29b3b5a",
+            "url": "https://github.com/maikell/dutch-cultural-heritage-collections/blob/a94a774a1551068127537eb6c798a08c421a7bff/LICENSE",
+            "bytes": 1500
+          },
+          {
+            "path": "skills/niod/SKILL.md",
+            "blob_sha": "9cd24e16f7229a76c42f0ce98ea74ae686e389c0",
+            "sha256": "f7699381f0e492d1302a7632d02e1e880f462cf46053357de957a0d0dabab30c",
+            "url": "https://github.com/maikell/dutch-cultural-heritage-collections/blob/a94a774a1551068127537eb6c798a08c421a7bff/skills/niod/SKILL.md",
+            "bytes": 2757
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "ecc6b8f91aa17f1fefa82ce0ecf16fc866518c75",
+            "sha256": "ae4a4ccc6a27b9fb7296c70f9c3553f69e34c011a27222e027d60688f46b71f1",
+            "url": "https://github.com/maikell/dutch-cultural-heritage-collections/blob/a94a774a1551068127537eb6c798a08c421a7bff/.claude-plugin/marketplace.json",
+            "bytes": 994
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "37b9d3ae2bfaad2c35beed46e167de8b0e9d5a0a",
+            "sha256": "dff0fd71e5226755994b61a450063087a020b7b3151eef99f973a64ab13e5a87",
+            "url": "https://github.com/maikell/dutch-cultural-heritage-collections/blob/a94a774a1551068127537eb6c798a08c421a7bff/.claude-plugin/plugin.json",
+            "bytes": 1202
+          }
+        ],
+        "read_scope": "Pinned README overview, installation, services and terms plus full NIOD representative, repository license notice, both Claude manifests and tree mapping.",
+        "conclusion": "Five published service-specific skill folders, each mediated by its corresponding MCP server. The representative searches catalogue descriptions with source identifiers and respects the restricted access boundary. CC BY 4.0 attribution covers authored plugin code, skills and documentation. Retrieved material remains subject to the institutions and rights holders. No archive service or MCP session exercised."
+      }
+    ],
+    "corrections": [],
+    "objections": []
+  },
+  "quality-breadth.json": {
+    "date": "2026-11-23",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "navikt/copilot",
+        "repository_id": 914844797,
+        "commit": "c9a073f63ddcf5a7378f856223f64bf92285176a",
+        "tree": "249266371b1039edd41851ed6549bfe0f55b460d",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "d0805039f3634000f6374efe3db9f742d65e0d41",
+            "sha256": "a00a43c775ee1b767fa7f973f9911cdfead9ab7685c8dfd003ae35733ddb7337",
+            "url": "https://github.com/navikt/copilot/blob/c9a073f63ddcf5a7378f856223f64bf92285176a/README.md",
+            "bytes": 2463
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "ab7093f3d508a049e15ad4591b36bb6351a9272b",
+            "sha256": "417feec2e4a1b1f4d092b047506660f8d833ddb89ae765c0d6d4f1fc44fae4ce",
+            "url": "https://github.com/navikt/copilot/blob/c9a073f63ddcf5a7378f856223f64bf92285176a/LICENSE",
+            "bytes": 1060
+          },
+          {
+            "path": "skills/conventional-commit/SKILL.md",
+            "blob_sha": "200926a342cf51d3c2e42c4fd5921d64ba53127d",
+            "sha256": "3ee8419b48ef77fbe0954d6884d2a442ff082345a126c85c3cab760f5b97ac17",
+            "url": "https://github.com/navikt/copilot/blob/c9a073f63ddcf5a7378f856223f64bf92285176a/skills/conventional-commit/SKILL.md",
+            "bytes": 2809
+          },
+          {
+            "path": "docs/README.skills.md",
+            "blob_sha": "f5c69dd774c9cb0a974af68a75d50687a13feb6c",
+            "sha256": "bd01fc4371278ae5eb70f431ec1336ea183c3c3890cf0f5c3b7fc43afaf41c34",
+            "url": "https://github.com/navikt/copilot/blob/c9a073f63ddcf5a7378f856223f64bf92285176a/docs/README.skills.md",
+            "bytes": 11415
+          }
+        ],
+        "read_scope": "Recomputed official Git blob SHA-1 and SHA-256 for public README, complete conventional-commit card, root MIT, and public listing. Parsed non-comment Markdown skill links against the complete fixed tree, and counted actual regular paths. The CLI, package contents and Nav-internal service access were not exercised.",
+        "conclusion": "Public installation guide presents 38 skill links for the Nav Pilot distribution, including Jackson 3 migration. Of 39 regular sources, only the AI news workflow is commented out. The audit did not determine whether the unlisted name resolves in a live CLI. MIT root and representative match."
+      },
+      {
+        "full_name": "openwizdev/WizSkills",
+        "repository_id": 1457073381,
+        "commit": "2e0a73456ec0c4371f1517540f201617508b001b",
+        "tree": "b50dfb56a65aa73983e87f3bbc9bfba698a046e8",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "46637c05dd77a433e0602438b853994159d009da",
+            "sha256": "bc1fd13faed8eb4751c15676de56aae009a687ddd4563accac14ceba92865aaf",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/README.md",
+            "bytes": 2631
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "skills/grill/SKILL.md",
+            "blob_sha": "a51b4700fc8cdff3399d8ced704d796a46448291",
+            "sha256": "931c3271446641e106a5705c97f942731777ecebec96aaca8a459bafde2d6506",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/grill/SKILL.md",
+            "bytes": 4878
+          },
+          {
+            "path": "skills/ask-wiz/NOTICE.md",
+            "blob_sha": "62950392c39bd05f981289ed7930d9875452794e",
+            "sha256": "960ca859d22e6173bff3d55b76e07f9e698b517b5227478c33cadeb59617c016",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/ask-wiz/NOTICE.md",
+            "bytes": 1220
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "08862d6b77d7bb5745d3a7ca2b26eab32c6a4ff9",
+            "sha256": "bbfe88e079bbe400ec45a8992dbdcd99227ab674e203fdcc4751204879e708cf",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/.claude-plugin/marketplace.json",
+            "bytes": 186
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "e2dc2704e38523deaea487384bbf98877d4f1f72",
+            "sha256": "20aa7603d1c4fc2ea96c8e59252b429be6e9de303a9f9f740d2ad497679a060e",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/NOTICE",
+            "bytes": 3519
+          },
+          {
+            "path": "skills/grill/NOTICE.md",
+            "blob_sha": "d8a92ba49c8e4c4d92bd1f9a094055091bfdd84f",
+            "sha256": "4c62bf2da9d5806f4cfc3e40b00eeed561bca1c218171fa9def3b2ccb5d93c0e",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/grill/NOTICE.md",
+            "bytes": 1211
+          },
+          {
+            "path": "skills/ask-wiz/SKILL.md",
+            "blob_sha": "da6691e6fa54a1a85a0223707251555b93c864ea",
+            "sha256": "8a725b40439914adcdcca60a52eb533f52e5e6e3ffb3890c7f88f6c56aa47703",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/ask-wiz/SKILL.md",
+            "bytes": 4709
+          },
+          {
+            "path": "skills/wayfind/SKILL.md",
+            "blob_sha": "8695810d2535996677e24109df1de9b0dee48e1b",
+            "sha256": "c5a40b79fa044dcff24ed5b67aaebfd69daae8533ee5748b11321bfcec5bc714",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/wayfind/SKILL.md",
+            "bytes": 7016
+          },
+          {
+            "path": "skills/README.md",
+            "blob_sha": "9f63aecbabd10b35c8c7867a80c5ef0a552ff8ed",
+            "sha256": "efb7b13d266ba1ad6ff8294330470fc1dd30b98b0db8f9855830c2f52d82a22d",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/README.md",
+            "bytes": 2247
+          }
+        ],
+        "read_scope": "Recomputed official Git blob SHA-1 and SHA-256 for public README, complete grill card and notices, root license and aggregate notices, marketplace, both navigation/advice cards and the package skill index. Compared the published tree. No private repository accessed and no installation or writes exercised.",
+        "conclusion": "One declared OpenWiz Claude plugin. Twenty regular skills are present, including the ask-wiz maintainer workflow adviser and wayfind route guide, separated from 18 remaining task paths. Apache-2.0 project grant coexists with original MIT notices on adapted entries such as grill. The private interview flow can make authorized branch, pull request and milestone writes."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "navikt/copilot",
+        "field_updates": {
+          "skill_count": "38",
+          "count_basis": "Thirty-eight regular skill entries are linked as active rows in the pinned public skills guide, including Jackson 3 migration. Only the commented-out AI news entry is excluded among 39 regular source paths. Agents, instructions and prompts are separate.",
+          "public_skill_paths": [
+            "skills/aksel-builder/SKILL.md",
+            "skills/api-design/SKILL.md",
+            "skills/appsec-advisory/SKILL.md",
+            "skills/conventional-commit/SKILL.md",
+            "skills/deliberate-ai-use/SKILL.md",
+            "skills/dependency-upgrade/SKILL.md",
+            "skills/flyway-migration/SKILL.md",
+            "skills/innblikk/SKILL.md",
+            "skills/jackson-3-migration/SKILL.md",
+            "skills/java-to-kotlin/SKILL.md",
+            "skills/kafka/SKILL.md",
+            "skills/klarsprak/SKILL.md",
+            "skills/kotlin-app-config/SKILL.md",
+            "skills/ktor-scaffold/SKILL.md",
+            "skills/mcp-server-authoring/SKILL.md",
+            "skills/nais/SKILL.md",
+            "skills/nav-architecture-review/SKILL.md",
+            "skills/nav-auth/SKILL.md",
+            "skills/nav-deep-interview/SKILL.md",
+            "skills/nav-dekoratoren/SKILL.md",
+            "skills/nav-plan/SKILL.md",
+            "skills/nav-troubleshoot/SKILL.md",
+            "skills/observability-debugging/SKILL.md",
+            "skills/observability-setup/SKILL.md",
+            "skills/playwright-testing/SKILL.md",
+            "skills/postgresql-review/SKILL.md",
+            "skills/readme-review/SKILL.md",
+            "skills/repo-baseline-audit/SKILL.md",
+            "skills/repo-pii-audit/SKILL.md",
+            "skills/rust-development/SKILL.md",
+            "skills/security-owasp/SKILL.md",
+            "skills/security-review/SKILL.md",
+            "skills/spring-boot-scaffold/SKILL.md",
+            "skills/terse-mode/SKILL.md",
+            "skills/threat-model/SKILL.md",
+            "skills/tokenx-auth/SKILL.md",
+            "skills/web-design-reviewer/SKILL.md",
+            "skills/workstation-security/SKILL.md"
+          ]
+        }
+      },
+      {
+        "full_name": "openwizdev/WizSkills",
+        "field_updates": {
+          "distribution_evidence": "Root README documents a release-pinned OpenWiz marketplace plugin and the marketplace resolves to the repo root. The public index lists 20 skill paths, including two advisory/navigation cards. The selected grill path writes to a separately authorized private GitHub project after checking visibility and configured checkout. Package, client and runtime untested.",
+          "additional_evidence": [
+            {
+              "path": "skills/ask-wiz/SKILL.md",
+              "blob_sha": "da6691e6fa54a1a85a0223707251555b93c864ea",
+              "sha256": "8a725b40439914adcdcca60a52eb533f52e5e6e3ffb3890c7f88f6c56aa47703",
+              "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/ask-wiz/SKILL.md",
+              "bytes": 4709
+            },
+            {
+              "path": "skills/wayfind/SKILL.md",
+              "blob_sha": "8695810d2535996677e24109df1de9b0dee48e1b",
+              "sha256": "c5a40b79fa044dcff24ed5b67aaebfd69daae8533ee5748b11321bfcec5bc714",
+              "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/wayfind/SKILL.md",
+              "bytes": 7016
+            },
+            {
+              "path": "skills/README.md",
+              "blob_sha": "9f63aecbabd10b35c8c7867a80c5ef0a552ff8ed",
+              "sha256": "efb7b13d266ba1ad6ff8294330470fc1dd30b98b0db8f9855830c2f52d82a22d",
+              "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/README.md",
+              "bytes": 2247
+            }
+          ]
+        }
+      }
+    ],
+    "objections": []
+  },
+  "integration_application": [
+    {
+      "full_name": "ghchinoy/agent-skills",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "count_basis": "42 regular SKILL paths listed explicitly in the marketplace across 16 plugin packages; verified source count, excluding plugins as separate skill entries."
+      }
+    },
+    {
+      "full_name": "karero/croftweaver",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "distribution_evidence": "The README describes plugin and Skills CLI distribution. The marketplace targets the stable branch; the count and representative here bind only the pinned default-branch snapshot."
+      }
+    },
+    {
+      "full_name": "yojahny55/claude-wp-builder",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "Static source and distribution review only. Theme generation writes to the selected project, and other WP-CLI commands may change the WordPress instance. Neither these actions nor client setup were run."
+      }
+    },
+    {
+      "full_name": "shentufoundation/openmath-skills",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "Metadata-only static review. Optional benchmark may call a metered model. Proof commitment and reveal can use local wallet authorization and broadcast to Shentu, and reward withdrawal can sign and broadcast after confirmation. No package install, signed transaction, external writeback or client/runtime verification.",
+        "distribution_evidence": "README documents source and Skills CLI distribution, separate benchmark and separately maintained Lean proving companions. Rocq MWE is a local reproduction workflow. The independently reviewed submit and claim skills document externally visible signing/broadcast actions.",
+        "additional_evidence": [
+          {
+            "path": "skills/openmath-submit-theorem/SKILL.md",
+            "blob_sha": "e363ad67310280eeacafc4afe14a5eea95ce1cbb",
+            "sha256": "a8510240d24f2f077f3e9c844c0879b227830664cfad301136e3c471230d9845",
+            "url": "https://github.com/shentufoundation/openmath-skills/blob/31a96f63dd61db35c2887b087901436dcf1f4f50/skills/openmath-submit-theorem/SKILL.md",
+            "bytes": 10085
+          },
+          {
+            "path": "skills/openmath-claim-reward/SKILL.md",
+            "blob_sha": "b5a180031804962bdbe4a8ff3a9aa7b2117c636d",
+            "sha256": "0b95d1bf6bc274dc8ee9bf0036ca825322675ef8cbfaab17ac8aad0daa973b47",
+            "url": "https://github.com/shentufoundation/openmath-skills/blob/31a96f63dd61db35c2887b087901436dcf1f4f50/skills/openmath-claim-reward/SKILL.md",
+            "bytes": 5780
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "xqyww123/Isabelle-MCP",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "Installer can mutate user-level agent MCP/skill configuration and the Isabelle component registry. The prover evaluates local theory/ML files, and each process assumes a single agent and evaluation. Package installation, prover operation and permissions were not tested.",
+        "distribution_evidence": "README documents PyPI install and client registration; pyproject packages skills and Scala assets. The fixed installer copies the one managed skill into selected client directories and separately registers the prover component.",
+        "additional_evidence": [
+          {
+            "path": "pyproject.toml",
+            "blob_sha": "7043f1ea3c814f9f43e352041d057de83d3890d1",
+            "sha256": "34a2608efbbaf98dd03582193151f49effdf766aa2ba504a594e74adea0a50e5",
+            "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/pyproject.toml",
+            "bytes": 3783
+          },
+          {
+            "path": "src/isabelle_mcp/install.py",
+            "blob_sha": "cdfdc58088ef738da2ac03dfbc699f33deace867",
+            "sha256": "ca43632e1c45bf6caa42db33cc9a8a2595b78397c231feead5dc543e1b3cd884",
+            "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/src/isabelle_mcp/install.py",
+            "bytes": 12026
+          },
+          {
+            "path": "src/isabelle_mcp/component.py",
+            "blob_sha": "200d5e87e7121d464004a3408a9a160e98694171",
+            "sha256": "7dcef82062a12dca1591d30ab6b799c7583ebb28b9f75c0a4ecff9b4dcf9df1a",
+            "url": "https://github.com/xqyww123/Isabelle-MCP/blob/a9694b4c464b1f35a18188dfd0e9cfd45c091983/src/isabelle_mcp/component.py",
+            "bytes": 10251
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "navikt/copilot",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "skill_count": "38",
+        "count_basis": "Thirty-eight regular skill entries are linked as active rows in the pinned public skills guide, including Jackson 3 migration. Only the commented-out AI news entry is excluded among 39 regular source paths. Agents, instructions and prompts are separate.",
+        "public_skill_paths": [
+          "skills/aksel-builder/SKILL.md",
+          "skills/api-design/SKILL.md",
+          "skills/appsec-advisory/SKILL.md",
+          "skills/conventional-commit/SKILL.md",
+          "skills/deliberate-ai-use/SKILL.md",
+          "skills/dependency-upgrade/SKILL.md",
+          "skills/flyway-migration/SKILL.md",
+          "skills/innblikk/SKILL.md",
+          "skills/jackson-3-migration/SKILL.md",
+          "skills/java-to-kotlin/SKILL.md",
+          "skills/kafka/SKILL.md",
+          "skills/klarsprak/SKILL.md",
+          "skills/kotlin-app-config/SKILL.md",
+          "skills/ktor-scaffold/SKILL.md",
+          "skills/mcp-server-authoring/SKILL.md",
+          "skills/nais/SKILL.md",
+          "skills/nav-architecture-review/SKILL.md",
+          "skills/nav-auth/SKILL.md",
+          "skills/nav-deep-interview/SKILL.md",
+          "skills/nav-dekoratoren/SKILL.md",
+          "skills/nav-plan/SKILL.md",
+          "skills/nav-troubleshoot/SKILL.md",
+          "skills/observability-debugging/SKILL.md",
+          "skills/observability-setup/SKILL.md",
+          "skills/playwright-testing/SKILL.md",
+          "skills/postgresql-review/SKILL.md",
+          "skills/readme-review/SKILL.md",
+          "skills/repo-baseline-audit/SKILL.md",
+          "skills/repo-pii-audit/SKILL.md",
+          "skills/rust-development/SKILL.md",
+          "skills/security-owasp/SKILL.md",
+          "skills/security-review/SKILL.md",
+          "skills/spring-boot-scaffold/SKILL.md",
+          "skills/terse-mode/SKILL.md",
+          "skills/threat-model/SKILL.md",
+          "skills/tokenx-auth/SKILL.md",
+          "skills/web-design-reviewer/SKILL.md",
+          "skills/workstation-security/SKILL.md"
+        ]
+      }
+    },
+    {
+      "full_name": "openwizdev/WizSkills",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "distribution_evidence": "Root README documents a release-pinned OpenWiz marketplace plugin and the marketplace resolves to the repo root. The public index lists 20 skill paths, including two advisory/navigation cards. The selected grill path writes to a separately authorized private GitHub project after checking visibility and configured checkout. Package, client and runtime untested.",
+        "additional_evidence": [
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "08862d6b77d7bb5745d3a7ca2b26eab32c6a4ff9",
+            "sha256": "bbfe88e079bbe400ec45a8992dbdcd99227ab674e203fdcc4751204879e708cf",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/.claude-plugin/marketplace.json",
+            "bytes": 186
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "e2dc2704e38523deaea487384bbf98877d4f1f72",
+            "sha256": "20aa7603d1c4fc2ea96c8e59252b429be6e9de303a9f9f740d2ad497679a060e",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/NOTICE",
+            "bytes": 3519
+          },
+          {
+            "path": "skills/grill/SKILL.md",
+            "blob_sha": "a51b4700fc8cdff3399d8ced704d796a46448291",
+            "sha256": "931c3271446641e106a5705c97f942731777ecebec96aaca8a459bafde2d6506",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/grill/SKILL.md",
+            "bytes": 4878
+          },
+          {
+            "path": "skills/grill/NOTICE.md",
+            "blob_sha": "d8a92ba49c8e4c4d92bd1f9a094055091bfdd84f",
+            "sha256": "4c62bf2da9d5806f4cfc3e40b00eeed561bca1c218171fa9def3b2ccb5d93c0e",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/grill/NOTICE.md",
+            "bytes": 1211
+          },
+          {
+            "path": "skills/ask-wiz/SKILL.md",
+            "blob_sha": "da6691e6fa54a1a85a0223707251555b93c864ea",
+            "sha256": "8a725b40439914adcdcca60a52eb533f52e5e6e3ffb3890c7f88f6c56aa47703",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/ask-wiz/SKILL.md",
+            "bytes": 4709
+          },
+          {
+            "path": "skills/wayfind/SKILL.md",
+            "blob_sha": "8695810d2535996677e24109df1de9b0dee48e1b",
+            "sha256": "c5a40b79fa044dcff24ed5b67aaebfd69daae8533ee5748b11321bfcec5bc714",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/wayfind/SKILL.md",
+            "bytes": 7016
+          },
+          {
+            "path": "skills/README.md",
+            "blob_sha": "9f63aecbabd10b35c8c7867a80c5ef0a552ff8ed",
+            "sha256": "efb7b13d266ba1ad6ff8294330470fc1dd30b98b0db8f9855830c2f52d82a22d",
+            "url": "https://github.com/openwizdev/WizSkills/blob/2e0a73456ec0c4371f1517540f201617508b001b/skills/README.md",
+            "bytes": 2247
+          }
+        ]
+      }
+    }
+  ]
+}
