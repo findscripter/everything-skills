@@ -1,0 +1,550 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-23",
+  "timezone": "Asia/Shanghai",
+  "recorded_at": "2026-11-23T01:21:30.656785+00:00",
+  "status": "published",
+  "published_on": "2026-11-23",
+  "target_minimum": 50,
+  "acceptance_cap": null,
+  "added_new_repository_ids": 104,
+  "baseline_catalog_rows": 5064,
+  "final_catalog_rows": 5168,
+  "formal_skill_files": 1115,
+  "selected_review_items": 178,
+  "held": 72,
+  "rejected": 2,
+  "unreviewed_reserve": 1223,
+  "new_identities": [
+    {
+      "full_name": "AayushPandey2/Notes-skill",
+      "repository_id": 1461745149
+    },
+    {
+      "full_name": "Aitherium/awskills",
+      "repository_id": 1257422557
+    },
+    {
+      "full_name": "andredezzy/maccing",
+      "repository_id": 1125585036
+    },
+    {
+      "full_name": "ArLeyar/skills",
+      "repository_id": 1331184963
+    },
+    {
+      "full_name": "AyeJK/phase-runner",
+      "repository_id": 1286815260
+    },
+    {
+      "full_name": "bboinzg-dev/partsplan-plugin",
+      "repository_id": 1431435443
+    },
+    {
+      "full_name": "bbusenius/charlotte",
+      "repository_id": 1247543915
+    },
+    {
+      "full_name": "BeakrHub/beakr-python",
+      "repository_id": 1419039483
+    },
+    {
+      "full_name": "BeakrHub/beakr-typescript",
+      "repository_id": 1419039747
+    },
+    {
+      "full_name": "bertwinshine/shapebert-mcp",
+      "repository_id": 1464223473
+    },
+    {
+      "full_name": "bext1998/maze-skills",
+      "repository_id": 1245475708
+    },
+    {
+      "full_name": "brajendrak00068/agentic-ai-video-production",
+      "repository_id": 1241246510
+    },
+    {
+      "full_name": "bryanus1/agent-skills",
+      "repository_id": 1345455909
+    },
+    {
+      "full_name": "ChanMeng666/chanmeng-typst",
+      "repository_id": 1182859857
+    },
+    {
+      "full_name": "christopherkenny/skills",
+      "repository_id": 1168018799
+    },
+    {
+      "full_name": "Cj-lwh/ResearchPapers2RAG-SKILL",
+      "repository_id": 1219518811
+    },
+    {
+      "full_name": "constructive-io/blocks",
+      "repository_id": 1291751472
+    },
+    {
+      "full_name": "ContextUnity/contextunity-acdd",
+      "repository_id": 1391353701
+    },
+    {
+      "full_name": "CowDogMoo/squad-skills",
+      "repository_id": 1247667999
+    },
+    {
+      "full_name": "crissmoldovan/agent-skills",
+      "repository_id": 1345190683
+    },
+    {
+      "full_name": "cyanheads/unesco-heritage-mcp-server",
+      "repository_id": 1396824730
+    },
+    {
+      "full_name": "cyphercodes/location-picker",
+      "repository_id": 122998812
+    },
+    {
+      "full_name": "darkrei08/pi-herdr-orchestration",
+      "repository_id": 1389843552
+    },
+    {
+      "full_name": "deepslit/holo-card-3d",
+      "repository_id": 1467052356
+    },
+    {
+      "full_name": "devenjarvis/lathe",
+      "repository_id": 1228403229
+    },
+    {
+      "full_name": "dichovsky/atlassian-api-client",
+      "repository_id": 1210338187
+    },
+    {
+      "full_name": "dissolve-ui/dissolve",
+      "repository_id": 1459076003
+    },
+    {
+      "full_name": "doc-detective/agent-tools",
+      "repository_id": 1139407968
+    },
+    {
+      "full_name": "dogusyuksel/firmware-agent-kit",
+      "repository_id": 1467045486
+    },
+    {
+      "full_name": "DreamSoul-AI/knowledge",
+      "repository_id": 815789702
+    },
+    {
+      "full_name": "dungnotnull/Historical-Cartography-Antique-Map-Research-Advisor-agent-skill",
+      "repository_id": 1332768129
+    },
+    {
+      "full_name": "ejgallego/rocq-beam",
+      "repository_id": 1421274275
+    },
+    {
+      "full_name": "envoy1084/skills",
+      "repository_id": 1465895106
+    },
+    {
+      "full_name": "FEI-2006/Geo-skills",
+      "repository_id": 1467296262
+    },
+    {
+      "full_name": "flipbook-labs/agent-skills",
+      "repository_id": 1290244661
+    },
+    {
+      "full_name": "gabrielfrasantos/hardware-design-skills",
+      "repository_id": 1445484197
+    },
+    {
+      "full_name": "ghchinoy/agent-skills",
+      "repository_id": 1213124227
+    },
+    {
+      "full_name": "gmmueller/agent-knowledge-core",
+      "repository_id": 1466106981
+    },
+    {
+      "full_name": "Huaqiu-Electronics/dsh-pcb-eda",
+      "repository_id": 1349146465
+    },
+    {
+      "full_name": "huige-opc/huige-video-style",
+      "repository_id": 1468000151
+    },
+    {
+      "full_name": "InSites-Lab/insites",
+      "repository_id": 1317593768
+    },
+    {
+      "full_name": "IsraelWebDev/funkbox",
+      "repository_id": 1427136446
+    },
+    {
+      "full_name": "itsfenk/arabic-animation-studio",
+      "repository_id": 1454836029
+    },
+    {
+      "full_name": "jeancodeeer/JeanCode",
+      "repository_id": 1450806938
+    },
+    {
+      "full_name": "JimGHTB12/video-decompiler",
+      "repository_id": 1456792616
+    },
+    {
+      "full_name": "JQ-WCoding/devkit",
+      "repository_id": 1454725034
+    },
+    {
+      "full_name": "jysf/crustyimg",
+      "repository_id": 1268732070
+    },
+    {
+      "full_name": "karero/croftweaver",
+      "repository_id": 1273745742
+    },
+    {
+      "full_name": "KarlHeinrich-jpg/paper-figure-repro",
+      "repository_id": 1452668144
+    },
+    {
+      "full_name": "kendrick/skills",
+      "repository_id": 1295614771
+    },
+    {
+      "full_name": "kitze/benji-sdk",
+      "repository_id": 1140531208
+    },
+    {
+      "full_name": "kristianbonnici/agent-skills",
+      "repository_id": 1412459892
+    },
+    {
+      "full_name": "LE-VAI/designesy-org",
+      "repository_id": 1228228718
+    },
+    {
+      "full_name": "leanprover/skills",
+      "repository_id": 1162489323
+    },
+    {
+      "full_name": "LevyBytes/AI-skill-drafting",
+      "repository_id": 1276554254
+    },
+    {
+      "full_name": "lizhuoq/atmospheric-science-research-skills",
+      "repository_id": 1373999880
+    },
+    {
+      "full_name": "lossless-group/lossless-agent-skills",
+      "repository_id": 1228484639
+    },
+    {
+      "full_name": "lsmeng/claude-science-geoscience",
+      "repository_id": 1429027093
+    },
+    {
+      "full_name": "maikell/dutch-cultural-heritage-collections",
+      "repository_id": 1458760787
+    },
+    {
+      "full_name": "meninbom/skills",
+      "repository_id": 1433564603
+    },
+    {
+      "full_name": "mohannadshaddy-businesskhana/video-production-skill",
+      "repository_id": 1387518534
+    },
+    {
+      "full_name": "Monster-Orange/den",
+      "repository_id": 1445016022
+    },
+    {
+      "full_name": "Mr-Hodler/Exec-OS",
+      "repository_id": 1254421487
+    },
+    {
+      "full_name": "Mudi12138/env-journal-review",
+      "repository_id": 1425643731
+    },
+    {
+      "full_name": "nabin2004/hg-skillll",
+      "repository_id": 1432077124
+    },
+    {
+      "full_name": "navikt/copilot",
+      "repository_id": 914844797
+    },
+    {
+      "full_name": "nod/skill-xlights",
+      "repository_id": 1442293138
+    },
+    {
+      "full_name": "openasocket/NeckBeard",
+      "repository_id": 1466352073
+    },
+    {
+      "full_name": "openwizdev/WizSkills",
+      "repository_id": 1457073381
+    },
+    {
+      "full_name": "orchnesai/orchnes-360",
+      "repository_id": 1467167282
+    },
+    {
+      "full_name": "Oskarhn/ui-craft",
+      "repository_id": 1468132881
+    },
+    {
+      "full_name": "pikadexofc/html-to-illustrator",
+      "repository_id": 1444920179
+    },
+    {
+      "full_name": "ppTeyven/pi-function",
+      "repository_id": 1462100758
+    },
+    {
+      "full_name": "PRochotte/content-studio",
+      "repository_id": 1463262808
+    },
+    {
+      "full_name": "riehlies/kisi",
+      "repository_id": 1424175640
+    },
+    {
+      "full_name": "robbydf/photocraft-skills",
+      "repository_id": 1467592350
+    },
+    {
+      "full_name": "Rocketmanwookie/FreeCAD-MCP-Workbench",
+      "repository_id": 1466658495
+    },
+    {
+      "full_name": "sepi2p/research-explainer-skill",
+      "repository_id": 1443224579
+    },
+    {
+      "full_name": "shentufoundation/openmath-skills",
+      "repository_id": 1185412667
+    },
+    {
+      "full_name": "sinisterace/sfdc-demo-assets",
+      "repository_id": 1216685487
+    },
+    {
+      "full_name": "slt-631/great-teacher-skill",
+      "repository_id": 1467966127
+    },
+    {
+      "full_name": "somebox/pcb-kit",
+      "repository_id": 1413203964
+    },
+    {
+      "full_name": "somesh-ks/skills",
+      "repository_id": 1467404076
+    },
+    {
+      "full_name": "spurvik/skills",
+      "repository_id": 1455747645
+    },
+    {
+      "full_name": "ssubbotin/kaggle-research-skills",
+      "repository_id": 1459357602
+    },
+    {
+      "full_name": "subgentic/coral",
+      "repository_id": 1160696364
+    },
+    {
+      "full_name": "Sukun/geoscience-research-workflow-skills",
+      "repository_id": 1467936763
+    },
+    {
+      "full_name": "syxscott/Paleontology-Research-Skills",
+      "repository_id": 1257990312
+    },
+    {
+      "full_name": "TerraLabAI/mcp",
+      "repository_id": 1413992863
+    },
+    {
+      "full_name": "tompet64/scb-statistik",
+      "repository_id": 1429750818
+    },
+    {
+      "full_name": "trevorschoeny/operbe",
+      "repository_id": 1468121583
+    },
+    {
+      "full_name": "ultrafastmov/ultrafast",
+      "repository_id": 1466833909
+    },
+    {
+      "full_name": "ultramcp/ultra-plugins",
+      "repository_id": 1460641842
+    },
+    {
+      "full_name": "valthon/zigapagos",
+      "repository_id": 1313097295
+    },
+    {
+      "full_name": "vasfio/eluan",
+      "repository_id": 1318343441
+    },
+    {
+      "full_name": "victor1mor/aurea-uds",
+      "repository_id": 1386263200
+    },
+    {
+      "full_name": "wherefore-build/wherefore",
+      "repository_id": 1444760020
+    },
+    {
+      "full_name": "Whisk-Hosting/cli",
+      "repository_id": 1411129603
+    },
+    {
+      "full_name": "wnods/GPhys-Academic-Skill",
+      "repository_id": 1313166401
+    },
+    {
+      "full_name": "xqyww123/Isabelle-MCP",
+      "repository_id": 1251377972
+    },
+    {
+      "full_name": "yeston463/map-aesthetic",
+      "repository_id": 1442516797
+    },
+    {
+      "full_name": "yojahny55/claude-wp-builder",
+      "repository_id": 1182152336
+    },
+    {
+      "full_name": "z0lw/codex-skills",
+      "repository_id": 1466512390
+    },
+    {
+      "full_name": "zzhonglei/GeoCode-Release",
+      "repository_id": 1227736568
+    }
+  ],
+  "verification": {
+    "fixed_object_references": 474,
+    "baseline_directory_data_blobs_preserved": 112,
+    "windows_tests_each_language": {
+      "passed": 131,
+      "failed": 0,
+      "skipped": 1
+    },
+    "linux_pr_tests_each_language": {
+      "passed": 132,
+      "failed": 0,
+      "skipped": 0
+    },
+    "offline_example_checks": 4,
+    "english_and_chinese_build_site_generated_checks": "passed",
+    "archive_skill_members_verified": 0
+  },
+  "publication": {
+    "main": {
+      "pr": 127,
+      "url": "https://github.com/findscripter/everything-skills/pull/127",
+      "data_commit": "2d5e68ea02091c016b1fac9027d4534ac8703f42",
+      "merge_commit": "22677ec0e016de5fd72b838355de3e3889803b4f"
+    },
+    "zh": {
+      "pr": 128,
+      "url": "https://github.com/findscripter/everything-skills/pull/128",
+      "data_commit": "29b410521f8425e7d8ecdcd91ad341c226273af4",
+      "merge_commit": "a6316ca1ddb619657f3f67ab81724cbcc68cb4a7"
+    }
+  },
+  "successful_ci": [
+    {
+      "surface": "main_pr",
+      "workflow": "publish-site",
+      "run_id": 45093936497,
+      "head_sha": "2d5e68ea02091c016b1fac9027d4534ac8703f42",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45093936497"
+    },
+    {
+      "surface": "main_pr",
+      "workflow": "generated-index",
+      "run_id": 45093936653,
+      "head_sha": "2d5e68ea02091c016b1fac9027d4534ac8703f42",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45093936653"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "publish-site",
+      "run_id": 45094015956,
+      "head_sha": "22677ec0e016de5fd72b838355de3e3889803b4f",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45094015956"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "generated-index",
+      "run_id": 45094015998,
+      "head_sha": "22677ec0e016de5fd72b838355de3e3889803b4f",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45094015998"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "generated-index",
+      "run_id": 45093936845,
+      "head_sha": "29b410521f8425e7d8ecdcd91ad341c226273af4",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45093936845"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "publish-site",
+      "run_id": 45093936908,
+      "head_sha": "29b410521f8425e7d8ecdcd91ad341c226273af4",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45093936908"
+    },
+    {
+      "surface": "zh_merge",
+      "workflow": "generated-index",
+      "run_id": 45094018575,
+      "head_sha": "a6316ca1ddb619657f3f67ab81724cbcc68cb4a7",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45094018575"
+    }
+  ],
+  "language_only_differences": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "INDEX/skill-repos.md",
+    "README.md"
+  ],
+  "automation": {
+    "existing_daily_automation_configuration_verified": true,
+    "schedule": "Every day at 09:00 Asia/Shanghai",
+    "scheduled_heartbeat_received_at": "2026-11-23T01:02:11.525Z",
+    "configuration_changed_this_run": false
+  },
+  "evidence": {
+    "audit": "../../skill-repos.part117.audit.md",
+    "coverage": "coverage.json",
+    "fixed_objects": "fixed-object-verification.json",
+    "quality": "quality-review.json"
+  },
+  "limits": [
+    "Only admitted and published independent repository IDs count as daily additions; this does not add 1115 new local skill bodies.",
+    "Metadata-only representative/static infrastructure review; no candidate installed or executed.",
+    "Finite search windows and unreviewed retrieval reserves remain separate; no exhaustive all-body, runtime, safety, scientific/financial or reuse-right certification.",
+    "CI references bind the data and merge commits. Receipt-commit checks are observed separately and are not self-referenced."
+  ]
+}
