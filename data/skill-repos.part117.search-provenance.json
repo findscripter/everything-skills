@@ -1,0 +1,347 @@
+{
+  "date": "2026-11-23",
+  "backend": "GitHub official API via gh; parallel read-only discovery streams",
+  "search_windows": {
+    "science": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" geodata in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 103,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "cartography agent in:name,description fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 29,
+          "retrieved": 29,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" geoscience in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 70,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" robotics engineering in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 1801,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" kiCad in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 564,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" FreeCAD in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 357,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" embedded firmware in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 1520,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" pedagogy in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 1263,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" research data management in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 15358,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" cultural heritage in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 50,
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "total": 160,
+          "retrieved": 50,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 357,
+      "baseline_duplicate_hits": 54
+    },
+    "product": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" \"notion\" \"setup\" in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "observed_at": "2026-11-23T01:03:34.719912+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 50,
+          "total": 5991,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"shopify\" in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "observed_at": "2026-11-23T01:03:42.704547+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 50,
+          "total": 3150,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"changelog\" \"install\" in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "observed_at": "2026-11-23T01:03:49.866798+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 50,
+          "total": 40894,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"slack\" \"CLI\" in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "observed_at": "2026-11-23T01:03:57.263075+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 50,
+          "total": 15364,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"npx skills add\" \"product\" \"MCP\" in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "observed_at": "2026-11-23T01:04:04.847313+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 50,
+          "total": 6804,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"documentation\" \"SDK\" in:readme fork:false archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "observed_at": "2026-11-23T01:04:12.194100+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 50,
+          "total": 16379,
+          "retrieved": 50,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 194,
+      "baseline_duplicate_hits": 37
+    },
+    "breadth": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" \"accessibility\" in:readme pushed:>2026-10-15 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 12144,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"Figma\" in:readme pushed:>2026-11-08 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 2000,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"localization\" in:readme pushed:>2026-11-10 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 1726,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"typography\" in:readme pushed:>2026-11-01 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 3751,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"Obsidian\" in:readme pushed:>2026-11-09 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 3115,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"skill registry\" in:readme pushed:>2026-11-07 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 1067,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"design system\" in:readme pushed:>2026-11-10 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 3886,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"document\" \"accessibility\" in:readme pushed:>2026-10-17 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 6319,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"shader\" in:readme pushed:>2026-11-01 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-23",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 1899,
+          "retrieved": 40,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 196,
+      "baseline_duplicate_hits": 63
+    },
+    "math": {
+      "queries": [
+        {
+          "query": "filename:SKILL.md \"Lean 4\"",
+          "observed_date": "2026-11-23",
+          "page": 1,
+          "per_page": 50,
+          "total": 2668,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "filename:SKILL.md \"Rocq\"",
+          "observed_date": "2026-11-23",
+          "page": 1,
+          "per_page": 50,
+          "total": 285,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "filename:SKILL.md \"Isabelle\"",
+          "observed_date": "2026-11-23",
+          "page": 1,
+          "per_page": 50,
+          "total": 513,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "filename:SKILL.md \"Typst\"",
+          "observed_date": "2026-11-23",
+          "page": 1,
+          "per_page": 50,
+          "total": 3240,
+          "retrieved": 50,
+          "incomplete_results": false
+        },
+        {
+          "query": "filename:SKILL.md \"SageMath\"",
+          "observed_date": "2026-11-23",
+          "page": 1,
+          "per_page": 50,
+          "total": 577,
+          "retrieved": 50,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 103,
+      "baseline_duplicate_hits": 11
+    }
+  },
+  "policy": "No success-count early stop or numeric acceptance cap. Selected review sets and unreviewed query results are separate."
+}
