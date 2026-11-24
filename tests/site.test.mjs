@@ -183,7 +183,7 @@ test('links and install commands reject traversal and command injection', () => 
 test('page links to the real outcome and teaching cases without HTML injection', async () => {
   const html = await readFile(new URL('../site/index.html', import.meta.url), 'utf8');
   const app = await readFile(new URL('../site/app.mjs', import.meta.url), 'utf8');
-  for (const name of ['nix-discovery', 'repository-onboarding', 'paper-reading', 'api-review']) assert.ok(html.includes(`/examples/${name}`));
+  for (const name of ['nix-discovery', 'repository-onboarding', 'paper-reading']) assert.ok(html.includes(`/examples/${name}`));
   assert.ok(html.includes('role="search"'));
   assert.ok(html.includes('aria-live="polite"'));
   assert.ok(!app.includes('.innerHTML'));
@@ -212,7 +212,7 @@ test('REST API review guides and Search Console ownership file are published und
     for (const [language, alternate] of Object.entries(routes)) {
       assert.ok(html.includes(`rel="alternate" hreflang="${language}" href="${root + alternate}"`));
     }
-    for (const value of ['api-design-principles', 'api-design-reviewer', 'node examples/api-review/reproduce.mjs', `styles.css?v=${cssVersion}`]) {
+    for (const value of ['api-design-principles', 'api-design-reviewer', '/examples/api-review/', 'node examples/api-review/reproduce.mjs', `styles.css?v=${cssVersion}`]) {
       assert.ok(html.includes(value), `${route} is missing ${value}`);
     }
     assert.ok(sitemap.includes(`<loc>${root + route}</loc>`));
