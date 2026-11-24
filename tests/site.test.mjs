@@ -193,3 +193,30 @@ test('the homepage links to a shareable on-site comparison catalog', async () =>
   const html = await readFile(new URL('../site/index.html', import.meta.url), 'utf8');
   assert.match(html, /id="all-comparisons"[^>]+href="\?kind=tasks#catalog-results"/);
 });
+
+test('REST API review guides and Search Console ownership file are published under the project path', async () => {
+  const build = spawnSync(process.execPath, ['scripts/build-site.mjs'], { cwd: new URL('..', import.meta.url), encoding: 'utf8', windowsHide: true });
+  assert.equal(build.status, 0, build.stderr);
+  const root = 'https://findscripter.github.io/everything-skills/';
+  const routes = { en: 'guides/rest-api-review/', 'zh-CN': 'zh/guides/rest-api-review/' };
+  const published = file => readFile(new URL(`../_site/${file}`, import.meta.url), 'utf8');
+  const [home, sitemap, stylesheet] = await Promise.all(['index.html', 'sitemap.xml', 'styles.css'].map(published));
+  assert.ok(home.includes(`href="${routes.en}"`));
+  const cssVersion = createHash('sha256').update(stylesheet).digest('hex').slice(0, 12);
+  for (const [locale, route] of Object.entries(routes)) {
+    const html = await published(route + 'index.html');
+    assert.ok(html.includes(`<html lang="${locale}">`));
+    assert.ok(html.includes(`rel="canonical" href="${root + route}"`));
+    assert.ok((html.match(/<h1\b/g) || []).length === 1);
+    assert.ok(!html.includes('<script'));
+    for (const [language, alternate] of Object.entries(routes)) {
+      assert.ok(html.includes(`rel="alternate" hreflang="${language}" href="${root + alternate}"`));
+    }
+    for (const value of ['api-design-principles', 'api-design-reviewer', 'node examples/api-review/reproduce.mjs', `styles.css?v=${cssVersion}`]) {
+      assert.ok(html.includes(value), `${route} is missing ${value}`);
+    }
+    assert.ok(sitemap.includes(`<loc>${root + route}</loc>`));
+  }
+  const proof = 'googlee4f871bd0d1a3014.html';
+  assert.equal(await published(proof), await readFile(new URL(`../site/${proof}`, import.meta.url), 'utf8'));
+});
