@@ -1,0 +1,542 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-24",
+  "timezone": "Asia/Shanghai",
+  "recorded_at": "2026-11-24T01:22:15.904387+00:00",
+  "status": "published",
+  "published_on": "2026-11-24",
+  "target_minimum": 50,
+  "acceptance_cap": null,
+  "added_new_repository_ids": 102,
+  "baseline_catalog_rows": 5168,
+  "final_catalog_rows": 5270,
+  "formal_skill_files": 1115,
+  "selected_review_items": 205,
+  "held": 101,
+  "rejected": 2,
+  "unreviewed_reserve": 1596,
+  "new_identities": [
+    {
+      "full_name": "adityamparikh/maven-to-gradle",
+      "repository_id": 1147657634
+    },
+    {
+      "full_name": "Agentled/mcp-server",
+      "repository_id": 1183770813
+    },
+    {
+      "full_name": "AKzar1el/mcp-geo",
+      "repository_id": 1248149433
+    },
+    {
+      "full_name": "albanc80/enterprise-business-plugin",
+      "repository_id": 1465543170
+    },
+    {
+      "full_name": "AlbinOdelstav/maker-inventory",
+      "repository_id": 1466483283
+    },
+    {
+      "full_name": "alexsoloman173-lgtm/antigravity-openscad-plugin",
+      "repository_id": 1462236033
+    },
+    {
+      "full_name": "alos-source/stl2scad-agent",
+      "repository_id": 1467413656
+    },
+    {
+      "full_name": "Altern92/openscad-cad-skills",
+      "repository_id": 1338300895
+    },
+    {
+      "full_name": "amdahlco/amdahl-cli",
+      "repository_id": 1403925765
+    },
+    {
+      "full_name": "andrewbartels1/SolidworksMCP-python",
+      "repository_id": 1183819227
+    },
+    {
+      "full_name": "BigWai1312/leezy-skills",
+      "repository_id": 1439183234
+    },
+    {
+      "full_name": "bjcoombs/ai-native-toolkit",
+      "repository_id": 1133585517
+    },
+    {
+      "full_name": "bonetrees/obsidian-multivault-mcp",
+      "repository_id": 1248863793
+    },
+    {
+      "full_name": "brenbuilds1/skills",
+      "repository_id": 1227334759
+    },
+    {
+      "full_name": "bugubugu123/solidworks-abaqus-bridge",
+      "repository_id": 1469005866
+    },
+    {
+      "full_name": "byoverseas/knacco-free-skills",
+      "repository_id": 1462407263
+    },
+    {
+      "full_name": "cardene777/agent-shared",
+      "repository_id": 1468237126
+    },
+    {
+      "full_name": "CarGuo/GSYVideoPlayer",
+      "repository_id": 73614722
+    },
+    {
+      "full_name": "CarlosLopez-Ciber/socratic-mentor",
+      "repository_id": 1469390039
+    },
+    {
+      "full_name": "CartoDB/agent-skills",
+      "repository_id": 1138355614
+    },
+    {
+      "full_name": "cheetah-trade/orla-cli",
+      "repository_id": 1349850206
+    },
+    {
+      "full_name": "chrismessina/raycast-extensions-skills",
+      "repository_id": 1382481923
+    },
+    {
+      "full_name": "cyanheads/elevation-mcp-server",
+      "repository_id": 1396824343
+    },
+    {
+      "full_name": "cyanheads/nasa-power-mcp-server",
+      "repository_id": 1426328653
+    },
+    {
+      "full_name": "dahoai/anaella-agent-plugin",
+      "repository_id": 1434611615
+    },
+    {
+      "full_name": "datopian/portaljs",
+      "repository_id": 2579069
+    },
+    {
+      "full_name": "deutero-ai/agent-skill",
+      "repository_id": 1388547517
+    },
+    {
+      "full_name": "duckdb/duckdb-claude-plugin",
+      "repository_id": 1436769231
+    },
+    {
+      "full_name": "duckdb/duckdb-skills",
+      "repository_id": 1177695121
+    },
+    {
+      "full_name": "dungnotnull/urban-noise-tree-barrier-planning-agent-skill",
+      "repository_id": 1316906202
+    },
+    {
+      "full_name": "dylantarre/design-system-skills",
+      "repository_id": 1124955488
+    },
+    {
+      "full_name": "email-love/claude-skills",
+      "repository_id": 1314560756
+    },
+    {
+      "full_name": "erp-mafia/accounted",
+      "repository_id": 1157187922
+    },
+    {
+      "full_name": "Esri/arcgis-experience-builder-sdk-resources",
+      "repository_id": 241726386
+    },
+    {
+      "full_name": "Esri/esri-developer-agent-skills",
+      "repository_id": 1422466175
+    },
+    {
+      "full_name": "Fireblossom/s2-duckdb-server",
+      "repository_id": 1433381845
+    },
+    {
+      "full_name": "flight505/storybook-assistant",
+      "repository_id": 1131377507
+    },
+    {
+      "full_name": "FreeSaaSProject/freesaas",
+      "repository_id": 1400589042
+    },
+    {
+      "full_name": "fullo/sustainable-manager",
+      "repository_id": 1200010845
+    },
+    {
+      "full_name": "GetStream/Agents",
+      "repository_id": 1036205124
+    },
+    {
+      "full_name": "hardkoded/vercel-ai-sdk-dotnet",
+      "repository_id": 1384301755
+    },
+    {
+      "full_name": "hookdeck/webhook-skills",
+      "repository_id": 1146166995
+    },
+    {
+      "full_name": "human-avatar/skills-for-agriculture",
+      "repository_id": 1256128899
+    },
+    {
+      "full_name": "i-net-software/webapi-cli",
+      "repository_id": 1252151404
+    },
+    {
+      "full_name": "idfkit/idfkit",
+      "repository_id": 1149606527
+    },
+    {
+      "full_name": "Iris-Cocreative/trellis",
+      "repository_id": 1454549309
+    },
+    {
+      "full_name": "jara-r-k/claude-code-skills",
+      "repository_id": 1188476288
+    },
+    {
+      "full_name": "JMC-Go-to-market/claude-operator-pass",
+      "repository_id": 1247922764
+    },
+    {
+      "full_name": "JovianOps/cortex",
+      "repository_id": 1441669893
+    },
+    {
+      "full_name": "juancopi81/video-moment-finder",
+      "repository_id": 1137783845
+    },
+    {
+      "full_name": "julianoczkowski/designer-skills",
+      "repository_id": 1194491470
+    },
+    {
+      "full_name": "kairo-labs-ai/vintage-documentary",
+      "repository_id": 1461432929
+    },
+    {
+      "full_name": "kanopi/cms-cultivator",
+      "repository_id": 1075438101
+    },
+    {
+      "full_name": "karkarl/colophon",
+      "repository_id": 1296843547
+    },
+    {
+      "full_name": "KiaroSama/Numera-Video-Sub-Finder",
+      "repository_id": 1416419148
+    },
+    {
+      "full_name": "kugamon/salesforce-core-skills",
+      "repository_id": 1288612405
+    },
+    {
+      "full_name": "KyaniteLabs/DialectOS",
+      "repository_id": 1188483104
+    },
+    {
+      "full_name": "LBNL-ETA/EnergyPlus-MCP",
+      "repository_id": 999945089
+    },
+    {
+      "full_name": "liduchuan/kiri-ui-skill",
+      "repository_id": 1469469615
+    },
+    {
+      "full_name": "LobzyJay/motion-design-with-claude-and-codex",
+      "repository_id": 1250237069
+    },
+    {
+      "full_name": "marklkasdorf-del/mold3d",
+      "repository_id": 1454527068
+    },
+    {
+      "full_name": "MichaelYcJo/AgenticSeal",
+      "repository_id": 1382461758
+    },
+    {
+      "full_name": "mraad/arcpi",
+      "repository_id": 1410760373
+    },
+    {
+      "full_name": "neilotoole/sq",
+      "repository_id": 51800292
+    },
+    {
+      "full_name": "nikodembernat/creator_studio_document",
+      "repository_id": 1464307030
+    },
+    {
+      "full_name": "piomin/claude-ai-spring-boot",
+      "repository_id": 1159334324
+    },
+    {
+      "full_name": "piyush-gambhir/freshdesk-cli",
+      "repository_id": 1437715697
+    },
+    {
+      "full_name": "podo/design-agent-skills",
+      "repository_id": 1246408086
+    },
+    {
+      "full_name": "Privasys/cli",
+      "repository_id": 1269591317
+    },
+    {
+      "full_name": "qawolf/agent-plugins",
+      "repository_id": 1357612588
+    },
+    {
+      "full_name": "qianqiucn/Chiakis-video-skill",
+      "repository_id": 1469160134
+    },
+    {
+      "full_name": "Ranbaixin/openSCAD-skill",
+      "repository_id": 1295589291
+    },
+    {
+      "full_name": "raulromero-dev/phygital-studio",
+      "repository_id": 1458314602
+    },
+    {
+      "full_name": "razorjetinz/TeacherFlow",
+      "repository_id": 1469061257
+    },
+    {
+      "full_name": "relayrunner/relayrunner",
+      "repository_id": 1444585253
+    },
+    {
+      "full_name": "reopenly/skills",
+      "repository_id": 1424426791
+    },
+    {
+      "full_name": "ruiduobao/geoskill-precision-forestry-monitoring",
+      "repository_id": 1322969195
+    },
+    {
+      "full_name": "ryanduguid/Ozzit",
+      "repository_id": 1337504242
+    },
+    {
+      "full_name": "ScaleDockHQ/scaledock-skills",
+      "repository_id": 1401400306
+    },
+    {
+      "full_name": "shuut-ai/shuut-mcp",
+      "repository_id": 1463458744
+    },
+    {
+      "full_name": "sinemacula/laravel-api-toolkit",
+      "repository_id": 787362267
+    },
+    {
+      "full_name": "sivaprasadreddy/sivalabs-agent-skills",
+      "repository_id": 1148789379
+    },
+    {
+      "full_name": "skywallkee/freecad-mcp",
+      "repository_id": 1457632242
+    },
+    {
+      "full_name": "spiritphilip/project-video-studio",
+      "repository_id": 1464198329
+    },
+    {
+      "full_name": "spurvik/spurvik",
+      "repository_id": 1436374276
+    },
+    {
+      "full_name": "srimon12/duckdb-2-skills",
+      "repository_id": 1428864492
+    },
+    {
+      "full_name": "stephenrogan/augmented-csm",
+      "repository_id": 1189471714
+    },
+    {
+      "full_name": "stephenrogan/csm-skills",
+      "repository_id": 1189471712
+    },
+    {
+      "full_name": "Stukongeluk/the-human-c-suite",
+      "repository_id": 1465150671
+    },
+    {
+      "full_name": "svt-gtm-dev/deepline-icp-signals-workflow",
+      "repository_id": 1469004440
+    },
+    {
+      "full_name": "thedaviddias/Front-End-Checklist",
+      "repository_id": 107111421
+    },
+    {
+      "full_name": "tobi/bb-plugin-duckdb-charts",
+      "repository_id": 1423524183
+    },
+    {
+      "full_name": "tosun-si/duckless",
+      "repository_id": 1401527450
+    },
+    {
+      "full_name": "usejog/joggernaut",
+      "repository_id": 1467962025
+    },
+    {
+      "full_name": "usetheokit/theokit-sdk",
+      "repository_id": 1238724790
+    },
+    {
+      "full_name": "veralvx/ffsuite",
+      "repository_id": 1406798282
+    },
+    {
+      "full_name": "VoxTechnologies/transmute-framework",
+      "repository_id": 1181956243
+    },
+    {
+      "full_name": "WizzHire/wizzhire-agents",
+      "repository_id": 1461277400
+    },
+    {
+      "full_name": "Yomudogly/oh-my-agy",
+      "repository_id": 1431626904
+    },
+    {
+      "full_name": "yuson95/trio-workflow",
+      "repository_id": 1460630462
+    },
+    {
+      "full_name": "ZackLoken/tcip-agent",
+      "repository_id": 1205981138
+    },
+    {
+      "full_name": "zxnhkdm/hyperspectral-analysis",
+      "repository_id": 1349368673
+    }
+  ],
+  "verification": {
+    "fixed_object_references": 528,
+    "baseline_directory_data_blobs_preserved": 113,
+    "windows_tests_each_language": {
+      "passed": 131,
+      "failed": 0,
+      "skipped": 1
+    },
+    "linux_pr_tests_each_language": {
+      "passed": 132,
+      "failed": 0,
+      "skipped": 0
+    },
+    "offline_example_checks": 4,
+    "english_and_chinese_build_site_generated_checks": "passed",
+    "archive_skill_members_verified": 0
+  },
+  "publication": {
+    "main": {
+      "pr": 129,
+      "url": "https://github.com/findscripter/everything-skills/pull/129",
+      "data_commit": "78525285af246be7da43abf24876d66275cc1078",
+      "merge_commit": "467fc47b81bb0b6c025745739b63ea5f8d1a8d54"
+    },
+    "zh": {
+      "pr": 130,
+      "url": "https://github.com/findscripter/everything-skills/pull/130",
+      "data_commit": "85b48a698719c598564e976a6309114290c73878",
+      "merge_commit": "61d5639021ba25d385f59ff561f6b621dce4599b"
+    }
+  },
+  "successful_ci": [
+    {
+      "surface": "main_pr",
+      "workflow": "generated-index",
+      "run_id": 45304313141,
+      "head_sha": "78525285af246be7da43abf24876d66275cc1078",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45304313141"
+    },
+    {
+      "surface": "main_pr",
+      "workflow": "publish-site",
+      "run_id": 45304313126,
+      "head_sha": "78525285af246be7da43abf24876d66275cc1078",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45304313126"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "generated-index",
+      "run_id": 45304431616,
+      "head_sha": "467fc47b81bb0b6c025745739b63ea5f8d1a8d54",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45304431616"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "publish-site",
+      "run_id": 45304431584,
+      "head_sha": "467fc47b81bb0b6c025745739b63ea5f8d1a8d54",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45304431584"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "publish-site",
+      "run_id": 45304315038,
+      "head_sha": "85b48a698719c598564e976a6309114290c73878",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45304315038"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "generated-index",
+      "run_id": 45304315183,
+      "head_sha": "85b48a698719c598564e976a6309114290c73878",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45304315183"
+    },
+    {
+      "surface": "zh_merge",
+      "workflow": "generated-index",
+      "run_id": 45304430650,
+      "head_sha": "61d5639021ba25d385f59ff561f6b621dce4599b",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45304430650"
+    }
+  ],
+  "language_only_differences": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "INDEX/skill-repos.md",
+    "README.md"
+  ],
+  "automation": {
+    "existing_daily_automation_configuration_verified": true,
+    "schedule": "Every day at 09:00 Asia/Shanghai",
+    "scheduled_heartbeat_received_at": "2026-11-24T01:01:33.588Z",
+    "configuration_changed_this_run": false
+  },
+  "evidence": {
+    "audit": "../../skill-repos.part118.audit.md",
+    "coverage": "coverage.json",
+    "fixed_objects": "fixed-object-verification.json",
+    "quality": "quality-review.json"
+  },
+  "limits": [
+    "Only admitted and published independent repository IDs count as daily additions; this does not add 1115 new local skill bodies.",
+    "Metadata-only representative/static infrastructure review; no candidate installed or executed.",
+    "Finite search windows and unreviewed retrieval reserves remain separate; no exhaustive all-body, runtime, safety, scientific/financial or reuse-right certification.",
+    "CI references bind the data and merge commits. Receipt-commit checks are observed separately and are not self-referenced."
+  ]
+}
