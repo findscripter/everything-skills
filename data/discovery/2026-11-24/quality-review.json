@@ -1,0 +1,960 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-24",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "juancopi81/video-moment-finder",
+        "repository_id": 1137783845,
+        "commit": "e51c628604bb5781cbb656b8586e400528c18d74",
+        "tree": "17014f34eff2fa40fcb5c63cbc1e86c52b14991a",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "daacbfeb717a6df7242945a33f59c5aadf39a630",
+            "sha256": "c301567e2ac89c1d3860eb73bf6bf9b29ea3c5c8d34c43953e4bef575b2b73ef",
+            "url": "https://github.com/juancopi81/video-moment-finder/blob/e51c628604bb5781cbb656b8586e400528c18d74/README.md",
+            "bytes": 11485
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "ca9b05510c243996cedb25e35b8ae9ddf0ac7188",
+            "sha256": "ce3fb82d9ee80a1cb0e548f9b0560ead52378ee2b4e826fd9459b4acf7075d89",
+            "url": "https://github.com/juancopi81/video-moment-finder/blob/e51c628604bb5781cbb656b8586e400528c18d74/LICENSE",
+            "bytes": 32387
+          },
+          {
+            "path": "plugins/video-moment-finder/skills/setup/SKILL.md",
+            "blob_sha": "1046d8cb39c2f588d1f182f37d6afb367e6131bc",
+            "sha256": "b50c81787d7f49e7d01bb73b972a64c7850a6cdb20aff276fa1e95c1200310b4",
+            "url": "https://github.com/juancopi81/video-moment-finder/blob/e51c628604bb5781cbb656b8586e400528c18d74/plugins/video-moment-finder/skills/setup/SKILL.md",
+            "bytes": 3559
+          },
+          {
+            "path": "plugins/video-moment-finder/plugin.json",
+            "blob_sha": "3596052d7d0c5f013f31770531f67e82e0b620d6",
+            "sha256": "a41ca864cf3be964050b22a180fb127ca55d4cba4ecf1197f2f93bc9771641c2",
+            "url": "https://github.com/juancopi81/video-moment-finder/blob/e51c628604bb5781cbb656b8586e400528c18d74/plugins/video-moment-finder/plugin.json",
+            "bytes": 15535
+          },
+          {
+            "path": "plugins/video-moment-finder/README.md",
+            "blob_sha": "9c80708399cd725e74d9fbcc258b79603fc479e2",
+            "sha256": "5bce9afdd96e607ec1c127df6dc3e3769877bf922f63630491ec04b3e71b52ff",
+            "url": "https://github.com/juancopi81/video-moment-finder/blob/e51c628604bb5781cbb656b8586e400528c18d74/plugins/video-moment-finder/README.md",
+            "bytes": 9485
+          },
+          {
+            "path": "frontend/public/skill.md",
+            "blob_sha": "cb4b7d0fa88d813749502016d05a36dcc2201c07",
+            "sha256": "23046655315f5f71c2250d6b8ede4caba4d7aca3535f901a0fd191e1f8e961c4",
+            "url": "https://github.com/juancopi81/video-moment-finder/blob/e51c628604bb5781cbb656b8586e400528c18d74/frontend/public/skill.md",
+            "bytes": 9576
+          }
+        ],
+        "finding": "Fixed plugin package declares AGPL-3.0-only and six packaged skill files. The independent web integration guide describes authenticated uploads, remote OAuth, rights confirmation and separate account units.",
+        "disposition": "qualified_with_scope_correction"
+      },
+      {
+        "full_name": "KiaroSama/Numera-Video-Sub-Finder",
+        "repository_id": 1416419148,
+        "commit": "9bcf733cd11b2fdf3c12daa04932d89fc6177a67",
+        "tree": "8d3ab98fcdaf679c5b3613352d2271a89facb86f",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "9a32e7d132895af671153944861d8936f143cd7a",
+            "sha256": "53cf9f6bfb01e02156f2aee7fc1f5206a6995c47db92af94afc3c2bfa621c3ab",
+            "url": "https://github.com/KiaroSama/Numera-Video-Sub-Finder/blob/9bcf733cd11b2fdf3c12daa04932d89fc6177a67/README.md",
+            "bytes": 13255
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+            "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+            "url": "https://github.com/KiaroSama/Numera-Video-Sub-Finder/blob/9bcf733cd11b2fdf3c12daa04932d89fc6177a67/LICENSE",
+            "bytes": 35149
+          },
+          {
+            "path": "skills/numera-video-sub-finder/SKILL.md",
+            "blob_sha": "8d89b5a7653bbb19458d96cdee56cf9e9bc5dd16",
+            "sha256": "3b3b064590ab82ac30b639719fb799b0491750c997d7ae1aaf97f2b69393e879",
+            "url": "https://github.com/KiaroSama/Numera-Video-Sub-Finder/blob/9bcf733cd11b2fdf3c12daa04932d89fc6177a67/skills/numera-video-sub-finder/SKILL.md",
+            "bytes": 7831
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "d84d09a70d5304ce147013832fcaa3ba1f7b4ba5",
+            "sha256": "ee85b9672b60c0b42167f98b590bc286d7dfc62cf9baf248f3a35432bdfcaa4c",
+            "url": "https://github.com/KiaroSama/Numera-Video-Sub-Finder/blob/9bcf733cd11b2fdf3c12daa04932d89fc6177a67/THIRD_PARTY_NOTICES.md",
+            "bytes": 4719
+          },
+          {
+            "path": "docs/installation.md",
+            "blob_sha": "81073fad0ee58441564e3d74cd0616a43f58d897",
+            "sha256": "77c727bb0f11e427a89bc192de4a963c54f0863bdb14431c30fee5e3000de7df",
+            "url": "https://github.com/KiaroSama/Numera-Video-Sub-Finder/blob/9bcf733cd11b2fdf3c12daa04932d89fc6177a67/docs/installation.md",
+            "bytes": 15524
+          }
+        ],
+        "finding": "One regular consumer source file. Fixed installation docs and third-party notice describe platform verification and separately sourced runtime components. The project edit flow can write in place by default.",
+        "disposition": "qualified_with_scope_correction"
+      },
+      {
+        "full_name": "KyaniteLabs/DialectOS",
+        "repository_id": 1188483104,
+        "commit": "3cc19fbbb4847cb67181ea3e1c7a2a3b2218a76b",
+        "tree": "c04c77af25c9cfa7b743fb0d96c656908a9a9202",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "13f7646ed5ed6e3f6b55a46fd731fb85b8f9603b",
+            "sha256": "40a302aafe4a719a90dbb2f13dcfbe56520f5a8771a06afca1ddb1c44b09f0f0",
+            "url": "https://github.com/KyaniteLabs/DialectOS/blob/3cc19fbbb4847cb67181ea3e1c7a2a3b2218a76b/README.md",
+            "bytes": 27263
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "57bc88a15a0ee8266c259b2667e64608d3f7e292",
+            "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+            "url": "https://github.com/KyaniteLabs/DialectOS/blob/3cc19fbbb4847cb67181ea3e1c7a2a3b2218a76b/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "skills/dialectos/SKILL.md",
+            "blob_sha": "bb68b8df06c4f0c8f5515ebbcff6d3e0418ad19f",
+            "sha256": "857fdc455915179f13a9b4afd74b6f3732d34d20565341541f9ee9c64dc79631",
+            "url": "https://github.com/KyaniteLabs/DialectOS/blob/3cc19fbbb4847cb67181ea3e1c7a2a3b2218a76b/skills/dialectos/SKILL.md",
+            "bytes": 4522
+          },
+          {
+            "path": "plugins/dialectos-hermes/skills/dialectos/SKILL.md",
+            "blob_sha": "252e4a6deecf2f7e11bffd27f0cb1f67bbc4c230",
+            "sha256": "7f83a2fe15de25b941bda031374f002df0c4878f331ee8f6a7929f8766b19214",
+            "url": "https://github.com/KyaniteLabs/DialectOS/blob/3cc19fbbb4847cb67181ea3e1c7a2a3b2218a76b/plugins/dialectos-hermes/skills/dialectos/SKILL.md",
+            "bytes": 4390
+          },
+          {
+            "path": "plugins/dialectos-hermes/plugin.yaml",
+            "blob_sha": "3677e28fbcb38b3432faa7e8bc87d98aa36a8ef2",
+            "sha256": "ef8281e3c55836d62a441967713a083cb8635b6d17497a1793fd18981bb980ac",
+            "url": "https://github.com/KyaniteLabs/DialectOS/blob/3cc19fbbb4847cb67181ea3e1c7a2a3b2218a76b/plugins/dialectos-hermes/plugin.yaml",
+            "bytes": 3264
+          },
+          {
+            "path": "plugins/dialectos-hermes/LICENSE",
+            "blob_sha": "57bc88a15a0ee8266c259b2667e64608d3f7e292",
+            "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+            "url": "https://github.com/KyaniteLabs/DialectOS/blob/3cc19fbbb4847cb67181ea3e1c7a2a3b2218a76b/plugins/dialectos-hermes/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "LICENSING.md",
+            "blob_sha": "0b914606bc7cd11247542f2983656b34e4cff41a",
+            "sha256": "35c520c550344f2cbeb41e3d8162bbebad80e16acf9f70f8a5edcd36fcd955a2",
+            "url": "https://github.com/KyaniteLabs/DialectOS/blob/3cc19fbbb4847cb67181ea3e1c7a2a3b2218a76b/LICENSING.md",
+            "bytes": 2365
+          },
+          {
+            "path": "audits/adversarial-2026-04-01/corpus/LICENSE-CATALOG.md",
+            "blob_sha": "dea2a224cc09e32b29a13a8e899cbd69bd84079f",
+            "sha256": "daac249ca60a1b97458614b19156b986fdd798731159a4d44c410881c0aead80",
+            "url": "https://github.com/KyaniteLabs/DialectOS/blob/3cc19fbbb4847cb67181ea3e1c7a2a3b2218a76b/audits/adversarial-2026-04-01/corpus/LICENSE-CATALOG.md",
+            "bytes": 1349
+          }
+        ],
+        "finding": "Current root/package license and historical grant are separately documented. Generic and Hermes folders carry the same task identity. The Hermes layer declares optional prompt injection and wraps a runtime, not a second leaf workflow.",
+        "disposition": "qualified_with_scope_correction"
+      },
+      {
+        "full_name": "hookdeck/webhook-skills",
+        "repository_id": 1146166995,
+        "commit": "aa208ad52eec35891187350b523ef8a93e2a4474",
+        "tree": "9abffe864abc7edbd5f5eacb837ab97b77d44ae8",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "8b2aafaae9a94804f95564cd2f52b238d774fb4a",
+            "sha256": "5bb6692007cdbcd48144c669e65d9fd35dd26461ea2d23120dbb10d58c74a7f6",
+            "url": "https://github.com/hookdeck/webhook-skills/blob/aa208ad52eec35891187350b523ef8a93e2a4474/README.md",
+            "bytes": 277156
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "0a08ad03904aa654a41e825b5be11e507d1ad204",
+            "sha256": "d6cb78f3eddd65a7a7c0d0154f0442897aabdbaac283bf513ed65ebb667dcd5c",
+            "url": "https://github.com/hookdeck/webhook-skills/blob/aa208ad52eec35891187350b523ef8a93e2a4474/LICENSE",
+            "bytes": 1065
+          },
+          {
+            "path": "skills/stripe-webhooks/SKILL.md",
+            "blob_sha": "f49f9cd24c07f88137161b53147a60fde1007a3c",
+            "sha256": "a7d9abe4cba8e32e253b90bd2171e185323770679076a690542e8c3fcf761371",
+            "url": "https://github.com/hookdeck/webhook-skills/blob/aa208ad52eec35891187350b523ef8a93e2a4474/skills/stripe-webhooks/SKILL.md",
+            "bytes": 5638
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "f66d6bc536245d95de6d0fe99282fb5632eec547",
+            "sha256": "36c4ac845dfaa73989b0787793de7d68afc3737842a53f809f4b16ac9ad42c49",
+            "url": "https://github.com/hookdeck/webhook-skills/blob/aa208ad52eec35891187350b523ef8a93e2a4474/.claude-plugin/marketplace.json",
+            "bytes": 777817
+          }
+        ],
+        "disposition": "qualified",
+        "finding": "All 854 regular leaf paths matched individual entries in the fixed 855-entry marketplace. The remaining declaration is a bundle of the same paths. Only the sample Stripe representative was checked for workflow boundaries and no request or tunnel was run."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "juancopi81/video-moment-finder",
+        "field_updates": {
+          "license_spdx": "AGPL-3.0-only",
+          "license_scope": "Root provides AGPL version 3, and the fixed plugin manifest explicitly declares AGPL-3.0-only. Uploaded videos, hosted service terms, and output rights are separate."
+        }
+      },
+      {
+        "full_name": "KiaroSama/Numera-Video-Sub-Finder",
+        "field_updates": {
+          "distribution_evidence": "Fixed source contains one documented CLI-facing skill. Upstream installation documentation describes release signatures and platform paths. Release signing and native installation were not tested in this metadata admission."
+        }
+      },
+      {
+        "full_name": "KyaniteLabs/DialectOS",
+        "field_updates": {
+          "count_basis": "One translation workflow with generic and Hermes variants using the same name. The host-specific hook, optional practice layer, CLI/MCP tooling, and evaluation corpus are separate."
+        }
+      }
+    ],
+    "objections": []
+  },
+  "quality-science.json": {
+    "date": "2026-11-24",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "duckdb/duckdb-claude-plugin",
+        "repository_id": 1436769231,
+        "commit": "a76214b2115ca9d614bf3aebf4ebef0965648689",
+        "tree": "588da176eec78c8cfd87b3f90e54b034f28e0242",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "2db1ff59320b393383dfb944999d5fa3a2337f8e",
+            "sha256": "78846798025f861265850171158bd9ea40ffe936bc7a6fac1960b157bd383ef6",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/README.md",
+            "bytes": 3864
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "50183d7112d2ea1c4972f3f68100b8bee2653e25",
+            "sha256": "86f8fe3abf3263dea448381054d4ca94f3b66f2776975e2677d6a3bbc54d9f5a",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/LICENSE",
+            "bytes": 1074
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "95d265439113b44f9b8b724fb867e93a5baba156",
+            "sha256": "0b6941b96872eb7a84b210f1514969a9b7165acef0ec390f95755d1f342b149a",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/.claude-plugin/marketplace.json",
+            "bytes": 976
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "15b6308d18c9b38cdff254635e90b07136f03446",
+            "sha256": "14ceaa1870f26a8ec55ad3158ffa62b2f69b77db562a11f8ee9d7178287d9666",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/.claude-plugin/plugin.json",
+            "bytes": 533
+          },
+          {
+            "path": "duckdb-results/.claude-plugin/plugin.json",
+            "blob_sha": "6c78308a26fa355deb87551630668bf70232c1a2",
+            "sha256": "4e4b1c8af2e96d7f271d106198b45e07fdc94f4425b700251eda6a045d15d6b2",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/duckdb-results/.claude-plugin/plugin.json",
+            "bytes": 962
+          },
+          {
+            "path": "skills/duckdb-python/SKILL.md",
+            "blob_sha": "71162aedcc45dda0333d445f4c989c5f5d7e2273",
+            "sha256": "d75fa5268e03c94115dca28087a734e05116d69a65ee15980229dcfd3300d718",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/skills/duckdb-python/SKILL.md",
+            "bytes": 5840
+          },
+          {
+            "path": "skills/duckdb-sql/SKILL.md",
+            "blob_sha": "024a904e1085a839f5ff4cb3525804bf1ca4c23e",
+            "sha256": "c70c24ca69c60625d9cfb763d5e8393b8c6421521e58e5f0b345732f3f0cc833",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/skills/duckdb-sql/SKILL.md",
+            "bytes": 8865
+          },
+          {
+            "path": "skills/duckdb-upgrade/SKILL.md",
+            "blob_sha": "30e1f7a992b55941018b24d3e8d28f06f9bf8d5e",
+            "sha256": "6638102b326cf0d728c4ecb2d1997ad93199ab57bc529c42fc6ceb6e51572a3b",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/skills/duckdb-upgrade/SKILL.md",
+            "bytes": 5281
+          },
+          {
+            "path": "duckdb-results/README.md",
+            "blob_sha": "60e32db18d2638f0b2d53387963ffe3d53f638a5",
+            "sha256": "034595e5919063234b5ac59c2467bedfcc860a1ea97630e11ef72af9b93137be",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/duckdb-results/README.md",
+            "bytes": 2935
+          }
+        ],
+        "finding": "Three shipped dialect skill files. SQL and Python are enabled for model invocation but hidden from the user slash menu; upgrade is user-invocable. The separate results mod is a plugin with no additional SKILL.md. Read-only source review only. The optional results mod can run real SQL directly from its command, including against a configured database; permission, tool runtime, mutation behavior and 2.0 examples were not executed.",
+        "disposition": "qualified_with_scope_correction"
+      },
+      {
+        "full_name": "datopian/portaljs",
+        "repository_id": 2579069,
+        "commit": "fc7ccd651459549a962c8b7aa08f60f8849fd9a5",
+        "tree": "93ca4705dbdb0dab5df886363433a44e4db44f4e",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "09103bf713f7808eb447e8832d00b2f5177a0465",
+            "sha256": "94488b0ac00e8846cff39056f73c1f4da3ff1239d0cdde50838bfd176aaa21b2",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/README.md",
+            "bytes": 15480
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "0c1692f629d53932d5e383b7c9339f8010e82d99",
+            "sha256": "b127713fd127952ace48e03a0aba1db9726bc36d625694be8a116d537f94579a",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/.claude-plugin/marketplace.json",
+            "bytes": 484
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "cda493f738256d3b841f7aa43a2ebbb3538ca99c",
+            "sha256": "f7ef1a82125af45fb2b3f394410b7970c941146628d1971ff40c7fe2035dac05",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/.claude-plugin/plugin.json",
+            "bytes": 1767
+          },
+          {
+            "path": "skills/arcgis-to-portaljs/SKILL.md",
+            "blob_sha": "4790983ec70530148398c5aa00639ec938ccc8fc",
+            "sha256": "3034dc54ee0abc7bb0815651f97ed047f40b4dd710bf7a62bc83bb5844588067",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/skills/arcgis-to-portaljs/SKILL.md",
+            "bytes": 8007
+          },
+          {
+            "path": ".claude/commands/arcgis-to-portaljs.md",
+            "blob_sha": "e77ee65c284d27c1b27f526904fec59855aba425",
+            "sha256": "7e6f7af67c0dae1741c8c9ebe208a9b313a5875c21ea700139691730155420fd",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/.claude/commands/arcgis-to-portaljs.md",
+            "bytes": 44474
+          },
+          {
+            "path": "license",
+            "blob_sha": "d38b18c6c5e2b5dcc37d10c1a2a6b3741bbdd7eb",
+            "sha256": "f2c4a3d4b6a9be1a1b02130d3ff568fc3a119e046159583c017c9edc09d7a54e",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/license",
+            "bytes": 1064
+          },
+          {
+            "path": ".claude/commands/portaljs-add-dcat.md",
+            "blob_sha": "386cbeb9f4454857a880ded093452157a5ab00b2",
+            "sha256": "c52c7135b6212e5eb78984b20cc3bb009b9df7c69d02482c3a93f75dabe69ed3",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/.claude/commands/portaljs-add-dcat.md",
+            "bytes": 18001
+          },
+          {
+            "path": "skills/portaljs-add-dcat/SKILL.md",
+            "blob_sha": "f88035a9f8c0de314e6f2b3b4433f18073e8f7ff",
+            "sha256": "162867a9759142aa1a45c7207cc26bb79690d3ec2428a2cfe6552f2bf85c064b",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/skills/portaljs-add-dcat/SKILL.md",
+            "bytes": 7360
+          },
+          {
+            "path": "scripts/skills-manifest.mjs",
+            "blob_sha": "01ef03701f197fd9545d49f14b8aa4e05cf9ea95",
+            "sha256": "6d06fc414f5929d04d4d433852df847e5266999ef6858f93190951e3e4df44cb",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/scripts/skills-manifest.mjs",
+            "bytes": 3880
+          }
+        ],
+        "finding": "Fourteen regular SKILL.md paths matched exactly to the top-level plugin manifest. Fourteen parallel registered command files, including authoritative expanded workflow versions, are alternate entry surfaces. Unregistered short aliases are excluded. Static source verification only. Migration and deployment workflows can publish data to external storage and alter project catalogs; no credentials, external writes, command execution or dataset rights validation were exercised.",
+        "disposition": "qualified_with_scope_correction"
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "duckdb/duckdb-claude-plugin",
+        "field_updates": {
+          "count_basis": "Three shipped dialect skill files. SQL and Python are enabled for model invocation but hidden from the user slash menu; upgrade is user-invocable. The separate results mod is a plugin with no additional SKILL.md.",
+          "limitations": "Read-only source review only. The optional results mod can run real SQL directly from its command, including against a configured database; permission, tool runtime, mutation behavior and 2.0 examples were not executed.",
+          "additional_evidence": [
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "15b6308d18c9b38cdff254635e90b07136f03446",
+              "sha256": "14ceaa1870f26a8ec55ad3158ffa62b2f69b77db562a11f8ee9d7178287d9666",
+              "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/.claude-plugin/plugin.json",
+              "bytes": 533
+            },
+            {
+              "path": "duckdb-results/README.md",
+              "blob_sha": "60e32db18d2638f0b2d53387963ffe3d53f638a5",
+              "sha256": "034595e5919063234b5ac59c2467bedfcc860a1ea97630e11ef72af9b93137be",
+              "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/duckdb-results/README.md",
+              "bytes": 2935
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "datopian/portaljs",
+        "field_updates": {
+          "count_basis": "Fourteen regular SKILL.md paths matched exactly to the top-level plugin manifest. Fourteen parallel registered command files, including authoritative expanded workflow versions, are alternate entry surfaces. Unregistered short aliases are excluded.",
+          "limitations": "Static source verification only. Migration and deployment workflows can publish data to external storage and alter project catalogs; no credentials, external writes, command execution or dataset rights validation were exercised.",
+          "additional_evidence": [
+            {
+              "path": "skills/arcgis-to-portaljs/SKILL.md",
+              "blob_sha": "4790983ec70530148398c5aa00639ec938ccc8fc",
+              "sha256": "3034dc54ee0abc7bb0815651f97ed047f40b4dd710bf7a62bc83bb5844588067",
+              "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/skills/arcgis-to-portaljs/SKILL.md",
+              "bytes": 8007
+            },
+            {
+              "path": ".claude/commands/arcgis-to-portaljs.md",
+              "blob_sha": "e77ee65c284d27c1b27f526904fec59855aba425",
+              "sha256": "7e6f7af67c0dae1741c8c9ebe208a9b313a5875c21ea700139691730155420fd",
+              "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/.claude/commands/arcgis-to-portaljs.md",
+              "bytes": 44474
+            },
+            {
+              "path": ".claude/commands/portaljs-add-dcat.md",
+              "blob_sha": "386cbeb9f4454857a880ded093452157a5ab00b2",
+              "sha256": "c52c7135b6212e5eb78984b20cc3bb009b9df7c69d02482c3a93f75dabe69ed3",
+              "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/.claude/commands/portaljs-add-dcat.md",
+              "bytes": 18001
+            },
+            {
+              "path": "skills/portaljs-add-dcat/SKILL.md",
+              "blob_sha": "f88035a9f8c0de314e6f2b3b4433f18073e8f7ff",
+              "sha256": "162867a9759142aa1a45c7207cc26bb79690d3ec2428a2cfe6552f2bf85c064b",
+              "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/skills/portaljs-add-dcat/SKILL.md",
+              "bytes": 7360
+            },
+            {
+              "path": "scripts/skills-manifest.mjs",
+              "blob_sha": "01ef03701f197fd9545d49f14b8aa4e05cf9ea95",
+              "sha256": "6d06fc414f5929d04d4d433852df847e5266999ef6858f93190951e3e4df44cb",
+              "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/scripts/skills-manifest.mjs",
+              "bytes": 3880
+            }
+          ]
+        }
+      }
+    ],
+    "objections": []
+  },
+  "quality-product.json": {
+    "date": "2026-11-24",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "human-avatar/skills-for-agriculture",
+        "repository_id": 1256128899,
+        "commit": "bba17b65093c5751a1dfe43b8e6e0eb3a0347315",
+        "tree": "c17e6ef9006827bf0c28ba3dc1a0973ab7ed4298",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "7fc81597aa4712f664ec3ea0698bbadb9559df43",
+            "sha256": "5b17061c9d8a6cacb72a2435475633639f4b4a4c2d9a82236747ede0dd1b8da9",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/README.md",
+            "bytes": 14765
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "08a0a98d6469cf30e0e83b2bdebb15714ff5d1af",
+            "sha256": "76c0b6aae31f07dcd851c07c046040583d4fd73f5677e655fa1ea58aa809a431",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/LICENSE",
+            "bytes": 1072
+          },
+          {
+            "path": "skills/s4ag-seasons/SKILL.md",
+            "blob_sha": "b434fbe39ce5196096b8579c8e7af0cc3d30eab6",
+            "sha256": "54095c325a8da31c121d8728719c36f62b2ed30dcb94c9f4c8ed65dd584015c5",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/skills/s4ag-seasons/SKILL.md",
+            "bytes": 24336
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "bc1c4b4eb105d62e7598a7e8e67663f293636bdf",
+            "sha256": "a5c30de2bc7b8dbf691d6ffb992ea3caba99de7b88c03c810ec3cef2236388ef",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/.claude-plugin/plugin.json",
+            "bytes": 691
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "4ae16d28932f3bf2fa922c6fa1cd9b3b83113b4a",
+            "sha256": "8cd4112d16890637e929651b7a5afda927f9d1c004aed61494c57c59fdf4415f",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/package.json",
+            "bytes": 1096
+          },
+          {
+            "path": "skills/s4ag/SKILL.md",
+            "blob_sha": "e4b419a0df747e55ec5061d826ae918653ff3ab8",
+            "sha256": "d1322b07be9a57a524c5cdf4a38d8fde0f80323456f60639a0e370c1d856557d",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/skills/s4ag/SKILL.md",
+            "bytes": 5750
+          },
+          {
+            "path": "skills/s4ag-transitioning/SKILL.md",
+            "blob_sha": "48ca9180919d725f6b0e3974dee3dd56c1bf7d68",
+            "sha256": "0e7103a75dd4d01ea4dd714318830869371ad712896856317c14cacde25d2be9",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/skills/s4ag-transitioning/SKILL.md",
+            "bytes": 1341
+          }
+        ],
+        "read_scope": "Fixed README overview and distribution; full seasons representative, router and transitioning alias; root MIT license and both package/Claude manifests.",
+        "conclusion": "48 regular skill paths are packaged via the manifest. s4ag is a routing entry and transitioning explicitly redirects into the regenerative skill; no independently reviewed leaf total is asserted. The seasons representative is a seasonal decision worksheet with local climate and production checkpoints. The first-party license does not extend to external books, data, or sites; no agriculture outcomes tested."
+      },
+      {
+        "full_name": "LBNL-ETA/EnergyPlus-MCP",
+        "repository_id": 999945089,
+        "commit": "e73e2d6f61e1f6dabb1c180cd368c25bf1191e52",
+        "tree": "d81347c785e3602e41a7c7fec8cf8486c5c147a3",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "ea98268338ff3ed3e00ffe9b774d1de77fb61f5a",
+            "sha256": "c3f5412b4835e8280c2bb56fa64cb1144939922b1570a4a334d1092eb16b2b57",
+            "url": "https://github.com/LBNL-ETA/EnergyPlus-MCP/blob/e73e2d6f61e1f6dabb1c180cd368c25bf1191e52/README.md",
+            "bytes": 54679
+          },
+          {
+            "path": "License.txt",
+            "blob_sha": "3a01f20924d8dc1163dab9d35297cf9bcd687f21",
+            "sha256": "107827bf9e23e3d5f25a285759d841f277b2c43000c16b0be2704372272cc29c",
+            "url": "https://github.com/LBNL-ETA/EnergyPlus-MCP/blob/e73e2d6f61e1f6dabb1c180cd368c25bf1191e52/License.txt",
+            "bytes": 2474
+          },
+          {
+            "path": "energyplus-mcp-server/energyplus_mcp_server/skills/learn-from-examples/SKILL.md",
+            "blob_sha": "cd12b8a490b4302de58029588abc2f01f6e7313e",
+            "sha256": "32f1024762180505cbda177a2a9b31f714549b015893db63a5b10d5a33a493d5",
+            "url": "https://github.com/LBNL-ETA/EnergyPlus-MCP/blob/e73e2d6f61e1f6dabb1c180cd368c25bf1191e52/energyplus-mcp-server/energyplus_mcp_server/skills/learn-from-examples/SKILL.md",
+            "bytes": 6115
+          },
+          {
+            "path": "energyplus-mcp-server/pyproject.toml",
+            "blob_sha": "2b36b6f77720faf6fadb00e5c34217ffae9cf30f",
+            "sha256": "4f8e80ba41bc1324781cbbae35829b0cfec5b35f23fbb7f8effc9ed9d1740938",
+            "url": "https://github.com/LBNL-ETA/EnergyPlus-MCP/blob/e73e2d6f61e1f6dabb1c180cd368c25bf1191e52/energyplus-mcp-server/pyproject.toml",
+            "bytes": 1627
+          }
+        ],
+        "read_scope": "Fixed README portal and distribution description; full learn-from-examples representative; complete License.txt, package manifest and both package paths.",
+        "conclusion": "Both fixed SKILL entries are inside the shipped Python package and matched by its Markdown package-data glob. The representative changes a working model copy and requires separate authorization to simulate. The pinned BSD-3-Clause-LBNL text retains source and binary notices, non-endorsement and specific terms for publicly released enhancements. Separate EnergyPlus software/data inherit their own obligations. No client, simulation or model output was tested."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "human-avatar/skills-for-agriculture",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "package.json",
+              "blob_sha": "4ae16d28932f3bf2fa922c6fa1cd9b3b83113b4a",
+              "sha256": "8cd4112d16890637e929651b7a5afda927f9d1c004aed61494c57c59fdf4415f",
+              "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/package.json",
+              "bytes": 1096
+            }
+          ],
+          "distribution_evidence": "README documents public plugin installation. The pinned npm manifest ships skills/ and the installer, with matching MIT and plugin metadata. The representative supplies a concrete seasonal planning procedure."
+        },
+        "reason": "Independent package-data manifest confirms delivery scope."
+      }
+    ],
+    "objections": []
+  },
+  "quality-breadth.json": {
+    "date": "2026-11-24",
+    "stage": "complete",
+    "records": [
+      {
+        "full_name": "hookdeck/webhook-skills",
+        "repository_id": 1146166995,
+        "commit": "aa208ad52eec35891187350b523ef8a93e2a4474",
+        "tree": "9abffe864abc7edbd5f5eacb837ab97b77d44ae8",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "8b2aafaae9a94804f95564cd2f52b238d774fb4a",
+            "sha256": "5bb6692007cdbcd48144c669e65d9fd35dd26461ea2d23120dbb10d58c74a7f6",
+            "url": "https://github.com/hookdeck/webhook-skills/blob/aa208ad52eec35891187350b523ef8a93e2a4474/README.md",
+            "bytes": 277156
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "0a08ad03904aa654a41e825b5be11e507d1ad204",
+            "sha256": "d6cb78f3eddd65a7a7c0d0154f0442897aabdbaac283bf513ed65ebb667dcd5c",
+            "url": "https://github.com/hookdeck/webhook-skills/blob/aa208ad52eec35891187350b523ef8a93e2a4474/LICENSE",
+            "bytes": 1065
+          },
+          {
+            "path": "skills/stripe-webhooks/SKILL.md",
+            "blob_sha": "f49f9cd24c07f88137161b53147a60fde1007a3c",
+            "sha256": "a7d9abe4cba8e32e253b90bd2171e185323770679076a690542e8c3fcf761371",
+            "url": "https://github.com/hookdeck/webhook-skills/blob/aa208ad52eec35891187350b523ef8a93e2a4474/skills/stripe-webhooks/SKILL.md",
+            "bytes": 5638
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "f66d6bc536245d95de6d0fe99282fb5632eec547",
+            "sha256": "36c4ac845dfaa73989b0787793de7d68afc3737842a53f809f4b16ac9ad42c49",
+            "url": "https://github.com/hookdeck/webhook-skills/blob/aa208ad52eec35891187350b523ef8a93e2a4474/.claude-plugin/marketplace.json",
+            "bytes": 777817
+          }
+        ],
+        "finding": "The set of 854 regular skills paths equals both 854 individual marketplace declarations and the aggregate 854-directory manifest. The aggregate is a package view, not an extra workflow. The Stripe card describes built-in SDK validation and an optional development tunnel.",
+        "disposition": "qualified_with_scope_correction"
+      },
+      {
+        "full_name": "erp-mafia/accounted",
+        "repository_id": 1157187922,
+        "commit": "a58eff5cd16b04a57482d65a26328c4956cc911f",
+        "tree": "3bd0f12e2f83dc3f490be284a5cba3ee6d6d44dd",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "0271a5bb3e54ff3662380005ab08088ff8a82dfb",
+            "sha256": "1380599e45d65a7da635f9a0f3a9d999202668f007a75553fb20e3ce6ef5d1aa",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/README.md",
+            "bytes": 14710
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+            "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/LICENSE",
+            "bytes": 34523
+          },
+          {
+            "path": "packages/claude-plugin/skills/start-company/SKILL.md",
+            "blob_sha": "1c2cd1cc883b2bc2e56ca0d2d26e269b190afdf5",
+            "sha256": "ae1cd01c694c8d263b810e54d0b3a6d31ac970bf60c70b976e85496768a4d51d",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/skills/start-company/SKILL.md",
+            "bytes": 1743
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "4db994a4ed45a59a90ddc353e92b5592d4ea46ea",
+            "sha256": "bdbb63147c3df2e816e0c091ad56d11354fda5bb47253c179b72d9469e8eabba",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/.claude-plugin/marketplace.json",
+            "bytes": 981
+          },
+          {
+            "path": ".agents/plugins/marketplace.json",
+            "blob_sha": "76387e28b3a4b043ccf5d860920caee902d5cfb5",
+            "sha256": "c332b6d2c351f9b2ffa7926e1c6b35daf8d8fad2c4dec5cdd6f7fca10aae5dec",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/.agents/plugins/marketplace.json",
+            "bytes": 371
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "3ab5e5ee2457a5c1cae02d4899551e22a60ed091",
+            "sha256": "24648370773ea5555283c1cd8290d36d4f9045b52ddbb1146ad42fee64a611c3",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/package.json",
+            "bytes": 5029
+          },
+          {
+            "path": "packages/claude-plugin/plugin.json",
+            "blob_sha": "162f9d4c3976cfaa6a9b0b15fc98f4b410d5e346",
+            "sha256": "65f88d707af94d7843409c5f84d20e9a40d28a90bdb92211f4d6374a9bd0b66f",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/plugin.json",
+            "bytes": 1401
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "cc52286e2532b7213b4e0b7600544b465da34e6e",
+            "sha256": "a88542de0af8f24f7b0b0ce2dba4e276d51ab206f8d1ad1d5eaf995af770c805",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/NOTICE",
+            "bytes": 21081
+          },
+          {
+            "path": ".claude/skills/industry/restaurang-cafe/SKILL.md",
+            "blob_sha": "f20d642442f24b12bfd6aa53063e7bccb1593791",
+            "sha256": "832cea5ac54d9afbfec6b807a30a919d1a32f5c58ab1eaf058296d7c131e30dc",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/.claude/skills/industry/restaurang-cafe/SKILL.md",
+            "bytes": 4470
+          },
+          {
+            "path": "packages/claude-plugin/LICENSE",
+            "blob_sha": "b1dee5a4f2e88d36d57d865871812e7311fa2cb1",
+            "sha256": "e29c2595bb5e273deb5f13f2531b1c46b751cc8bf0edf66549915b1a1dd66368",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/LICENSE",
+            "bytes": 1076
+          },
+          {
+            "path": "packages/claude-plugin/README.md",
+            "blob_sha": "4367096a28a9e83257258a26da8be56b1082f8fe",
+            "sha256": "9a466c5f7bdac4904826528e212de20cf43dcc2f7ad203965e5f0df1ffcc8ae7",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/README.md",
+            "bytes": 7212
+          }
+        ],
+        "finding": "The fixed tree contains 9 named plugin paths and 5 named integration paths. The short plugin README introduction says eight but its actual table and skill list include nine. The other 29 paths are excluded from public distribution count. The separately documented nested MIT grant applies to the plugin; the platform and root source declare AGPL-3.0-or-later. Staged bookkeeping approval differs from non-ledger uploads, saving memory and confirmed company creation.",
+        "disposition": "qualified_with_scope_correction"
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "hookdeck/webhook-skills",
+        "field_updates": {
+          "limitations": "The sampled Stripe card describes vendor SDK signature validation and also offers a development tunnel to relay request data to a local handler. Endpoint ownership, credentials, payment/service behavior and provider integrations were not tested. Static sample review only."
+        }
+      },
+      {
+        "full_name": "erp-mafia/accounted",
+        "field_updates": {
+          "license_spdx": "AGPL-3.0-or-later",
+          "license_scope": "Root package and NOTICE identify AGPL-3.0-or-later for the platform. The packaged plugin has its own MIT license and manifest. The independently published MIT Swedish accounting reference package, fonts, hosted service and user records have separate scopes.",
+          "count_basis": "Nine named plugin paths and five named integration paths. The scoped count describes distribution entries and includes wrapper variants; it is not the number of distinct business actions. Excludes 29 repository-internal source paths and the external reference collection.",
+          "limitations": "Hosted or self-hosted account access is required for writes. Bookkeeping writes are staged for approval, while some non-ledger operations can execute immediately; the sampled company creation has its own preview and founder confirmation. No account access, filing, payment, tax or ledger behavior was tested.",
+          "additional_evidence": [
+            {
+              "path": "packages/claude-plugin/LICENSE",
+              "blob_sha": "b1dee5a4f2e88d36d57d865871812e7311fa2cb1",
+              "sha256": "e29c2595bb5e273deb5f13f2531b1c46b751cc8bf0edf66549915b1a1dd66368",
+              "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/LICENSE",
+              "bytes": 1076
+            },
+            {
+              "path": "packages/claude-plugin/README.md",
+              "blob_sha": "4367096a28a9e83257258a26da8be56b1082f8fe",
+              "sha256": "9a466c5f7bdac4904826528e212de20cf43dcc2f7ad203965e5f0df1ffcc8ae7",
+              "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/README.md",
+              "bytes": 7212
+            }
+          ]
+        }
+      }
+    ],
+    "objections": []
+  },
+  "integration_application": [
+    {
+      "full_name": "juancopi81/video-moment-finder",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_spdx": "AGPL-3.0-only",
+        "license_scope": "Root provides AGPL version 3, and the fixed plugin manifest explicitly declares AGPL-3.0-only. Uploaded videos, hosted service terms, and output rights are separate."
+      }
+    },
+    {
+      "full_name": "KiaroSama/Numera-Video-Sub-Finder",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "distribution_evidence": "Fixed source contains one documented CLI-facing skill. Upstream installation documentation describes release signatures and platform paths. Release signing and native installation were not tested in this metadata admission."
+      }
+    },
+    {
+      "full_name": "KyaniteLabs/DialectOS",
+      "source_review": "quality-parent.json",
+      "status": "applied",
+      "integrated_fields": {
+        "count_basis": "One translation workflow with generic and Hermes variants using the same name. The host-specific hook, optional practice layer, CLI/MCP tooling, and evaluation corpus are separate."
+      }
+    },
+    {
+      "full_name": "duckdb/duckdb-claude-plugin",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "count_basis": "Three shipped dialect skill files. SQL and Python are enabled for model invocation but hidden from the user slash menu; upgrade is user-invocable. The separate results mod is a plugin with no additional SKILL.md.",
+        "limitations": "Read-only source review only. The optional results mod can run real SQL directly from its command, including against a configured database; permission, tool runtime, mutation behavior and 2.0 examples were not executed.",
+        "additional_evidence": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "15b6308d18c9b38cdff254635e90b07136f03446",
+            "sha256": "14ceaa1870f26a8ec55ad3158ffa62b2f69b77db562a11f8ee9d7178287d9666",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/.claude-plugin/plugin.json",
+            "bytes": 533
+          },
+          {
+            "path": "duckdb-results/README.md",
+            "blob_sha": "60e32db18d2638f0b2d53387963ffe3d53f638a5",
+            "sha256": "034595e5919063234b5ac59c2467bedfcc860a1ea97630e11ef72af9b93137be",
+            "url": "https://github.com/duckdb/duckdb-claude-plugin/blob/a76214b2115ca9d614bf3aebf4ebef0965648689/duckdb-results/README.md",
+            "bytes": 2935
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "datopian/portaljs",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "count_basis": "Fourteen regular SKILL.md paths matched exactly to the top-level plugin manifest. Fourteen parallel registered command files, including authoritative expanded workflow versions, are alternate entry surfaces. Unregistered short aliases are excluded.",
+        "limitations": "Static source verification only. Migration and deployment workflows can publish data to external storage and alter project catalogs; no credentials, external writes, command execution or dataset rights validation were exercised.",
+        "additional_evidence": [
+          {
+            "path": "skills/arcgis-to-portaljs/SKILL.md",
+            "blob_sha": "4790983ec70530148398c5aa00639ec938ccc8fc",
+            "sha256": "3034dc54ee0abc7bb0815651f97ed047f40b4dd710bf7a62bc83bb5844588067",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/skills/arcgis-to-portaljs/SKILL.md",
+            "bytes": 8007
+          },
+          {
+            "path": ".claude/commands/arcgis-to-portaljs.md",
+            "blob_sha": "e77ee65c284d27c1b27f526904fec59855aba425",
+            "sha256": "7e6f7af67c0dae1741c8c9ebe208a9b313a5875c21ea700139691730155420fd",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/.claude/commands/arcgis-to-portaljs.md",
+            "bytes": 44474
+          },
+          {
+            "path": ".claude/commands/portaljs-add-dcat.md",
+            "blob_sha": "386cbeb9f4454857a880ded093452157a5ab00b2",
+            "sha256": "c52c7135b6212e5eb78984b20cc3bb009b9df7c69d02482c3a93f75dabe69ed3",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/.claude/commands/portaljs-add-dcat.md",
+            "bytes": 18001
+          },
+          {
+            "path": "skills/portaljs-add-dcat/SKILL.md",
+            "blob_sha": "f88035a9f8c0de314e6f2b3b4433f18073e8f7ff",
+            "sha256": "162867a9759142aa1a45c7207cc26bb79690d3ec2428a2cfe6552f2bf85c064b",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/skills/portaljs-add-dcat/SKILL.md",
+            "bytes": 7360
+          },
+          {
+            "path": "scripts/skills-manifest.mjs",
+            "blob_sha": "01ef03701f197fd9545d49f14b8aa4e05cf9ea95",
+            "sha256": "6d06fc414f5929d04d4d433852df847e5266999ef6858f93190951e3e4df44cb",
+            "url": "https://github.com/datopian/portaljs/blob/fc7ccd651459549a962c8b7aa08f60f8849fd9a5/scripts/skills-manifest.mjs",
+            "bytes": 3880
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "human-avatar/skills-for-agriculture",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "path": "skills/s4ag-transitioning/SKILL.md",
+            "blob_sha": "48ca9180919d725f6b0e3974dee3dd56c1bf7d68",
+            "sha256": "0e7103a75dd4d01ea4dd714318830869371ad712896856317c14cacde25d2be9",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/skills/s4ag-transitioning/SKILL.md",
+            "bytes": 1341
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "bc1c4b4eb105d62e7598a7e8e67663f293636bdf",
+            "sha256": "a5c30de2bc7b8dbf691d6ffb992ea3caba99de7b88c03c810ec3cef2236388ef",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/.claude-plugin/plugin.json",
+            "bytes": 691
+          },
+          {
+            "path": "skills/s4ag/SKILL.md",
+            "blob_sha": "e4b419a0df747e55ec5061d826ae918653ff3ab8",
+            "sha256": "d1322b07be9a57a524c5cdf4a38d8fde0f80323456f60639a0e370c1d856557d",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/skills/s4ag/SKILL.md",
+            "bytes": 5750
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "4ae16d28932f3bf2fa922c6fa1cd9b3b83113b4a",
+            "sha256": "8cd4112d16890637e929651b7a5afda927f9d1c004aed61494c57c59fdf4415f",
+            "url": "https://github.com/human-avatar/skills-for-agriculture/blob/bba17b65093c5751a1dfe43b8e6e0eb3a0347315/package.json",
+            "bytes": 1096
+          }
+        ],
+        "distribution_evidence": "README documents public plugin installation. The pinned npm manifest ships skills/ and the installer, with matching MIT and plugin metadata. The representative supplies a concrete seasonal planning procedure."
+      }
+    },
+    {
+      "full_name": "hookdeck/webhook-skills",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "The sampled Stripe card describes vendor SDK signature validation and also offers a development tunnel to relay request data to a local handler. Endpoint ownership, credentials, payment/service behavior and provider integrations were not tested. Static sample review only."
+      }
+    },
+    {
+      "full_name": "erp-mafia/accounted",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_spdx": "AGPL-3.0-or-later",
+        "license_scope": "Root package and NOTICE identify AGPL-3.0-or-later for the platform. The packaged plugin has its own MIT license and manifest. The independently published MIT Swedish accounting reference package, fonts, hosted service and user records have separate scopes.",
+        "count_basis": "Nine named plugin paths and five named integration paths. The scoped count describes distribution entries and includes wrapper variants; it is not the number of distinct business actions. Excludes 29 repository-internal source paths and the external reference collection.",
+        "limitations": "Hosted or self-hosted account access is required for writes. Bookkeeping writes are staged for approval, while some non-ledger operations can execute immediately; the sampled company creation has its own preview and founder confirmation. No account access, filing, payment, tax or ledger behavior was tested.",
+        "additional_evidence": [
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "4db994a4ed45a59a90ddc353e92b5592d4ea46ea",
+            "sha256": "bdbb63147c3df2e816e0c091ad56d11354fda5bb47253c179b72d9469e8eabba",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/.claude-plugin/marketplace.json",
+            "bytes": 981
+          },
+          {
+            "path": ".agents/plugins/marketplace.json",
+            "blob_sha": "76387e28b3a4b043ccf5d860920caee902d5cfb5",
+            "sha256": "c332b6d2c351f9b2ffa7926e1c6b35daf8d8fad2c4dec5cdd6f7fca10aae5dec",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/.agents/plugins/marketplace.json",
+            "bytes": 371
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "3ab5e5ee2457a5c1cae02d4899551e22a60ed091",
+            "sha256": "24648370773ea5555283c1cd8290d36d4f9045b52ddbb1146ad42fee64a611c3",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/package.json",
+            "bytes": 5029
+          },
+          {
+            "path": "packages/claude-plugin/plugin.json",
+            "blob_sha": "162f9d4c3976cfaa6a9b0b15fc98f4b410d5e346",
+            "sha256": "65f88d707af94d7843409c5f84d20e9a40d28a90bdb92211f4d6374a9bd0b66f",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/plugin.json",
+            "bytes": 1401
+          },
+          {
+            "path": "NOTICE",
+            "blob_sha": "cc52286e2532b7213b4e0b7600544b465da34e6e",
+            "sha256": "a88542de0af8f24f7b0b0ce2dba4e276d51ab206f8d1ad1d5eaf995af770c805",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/NOTICE",
+            "bytes": 21081
+          },
+          {
+            "path": ".claude/skills/industry/restaurang-cafe/SKILL.md",
+            "blob_sha": "f20d642442f24b12bfd6aa53063e7bccb1593791",
+            "sha256": "832cea5ac54d9afbfec6b807a30a919d1a32f5c58ab1eaf058296d7c131e30dc",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/.claude/skills/industry/restaurang-cafe/SKILL.md",
+            "bytes": 4470
+          },
+          {
+            "path": "packages/claude-plugin/skills/start-company/SKILL.md",
+            "blob_sha": "1c2cd1cc883b2bc2e56ca0d2d26e269b190afdf5",
+            "sha256": "ae1cd01c694c8d263b810e54d0b3a6d31ac970bf60c70b976e85496768a4d51d",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/skills/start-company/SKILL.md",
+            "bytes": 1743
+          },
+          {
+            "path": "packages/claude-plugin/LICENSE",
+            "blob_sha": "b1dee5a4f2e88d36d57d865871812e7311fa2cb1",
+            "sha256": "e29c2595bb5e273deb5f13f2531b1c46b751cc8bf0edf66549915b1a1dd66368",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/LICENSE",
+            "bytes": 1076
+          },
+          {
+            "path": "packages/claude-plugin/README.md",
+            "blob_sha": "4367096a28a9e83257258a26da8be56b1082f8fe",
+            "sha256": "9a466c5f7bdac4904826528e212de20cf43dcc2f7ad203965e5f0df1ffcc8ae7",
+            "url": "https://github.com/erp-mafia/accounted/blob/a58eff5cd16b04a57482d65a26328c4956cc911f/packages/claude-plugin/README.md",
+            "bytes": 7212
+          }
+        ]
+      }
+    }
+  ]
+}
