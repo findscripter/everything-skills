@@ -165,6 +165,17 @@ p { margin-block: 0 1em; }
 .case-evidence summary { cursor: pointer; font-weight: 650; color: var(--ink); }
 .case-evidence pre, .install-code pre { white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.85 ui-monospace, Consolas, monospace; }
 .case-feedback { display: inline-block; margin-top: 15px; }
+.task-guide { max-width: 850px; padding-block: 18px 48px; }
+.guide-intro { padding: clamp(20px, 4vw, 34px); border-radius: var(--radius); background: var(--soft); }
+.guide-intro h1 { margin: 0 0 12px; font-size: clamp(31px, 5vw, 50px); line-height: 1.15; letter-spacing: -.035em; }
+.guide-intro p { color: var(--muted); }
+.task-guide section { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); }
+.task-guide h2 { margin-bottom: 12px; }
+.task-guide h3 { margin-block: 14px 5px; }
+.task-guide code { overflow-wrap: anywhere; }
+.task-guide pre { padding: 12px 14px; color: var(--white); background: var(--ink); border-radius: 8px; white-space: pre-wrap; }
+.task-guide ol { padding-inline-start: 24px; }
+.task-guide li + li { margin-top: 10px; }
 .examples-section { padding-block: 38px; background: var(--soft); border-block: 1px solid var(--line); }
 .example-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
 .example-card { display: flex; flex-direction: column; padding-top: 12px; border-top: 2px solid #a5bda0; }

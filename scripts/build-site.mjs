@@ -8,9 +8,11 @@ import { check as checkOutcome } from '../examples/nix-discovery/check.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, '_site');
+const siteUrl = 'https://findscripter.github.io/everything-skills/';
+const guideRoutes = ['guides/rest-api-review/', 'zh/guides/rest-api-review/'];
 // Output stays inside this checkout. Rebuilds overwrite known files; they never delete a tree.
 await fs.mkdir(OUT, { recursive: true });
-for (const filename of ['index.html', 'styles.css', 'app.mjs', 'search.mjs']) await fs.copyFile(path.join(ROOT, 'site', filename), path.join(OUT, filename));
+for (const filename of ['index.html', 'styles.css', 'app.mjs', 'search.mjs', 'googlee4f871bd0d1a3014.html']) await fs.copyFile(path.join(ROOT, 'site', filename), path.join(OUT, filename));
 await fs.copyFile(path.join(ROOT, 'assets/brand/logo-static.svg'), path.join(OUT, 'logo.svg'));
 await fs.copyFile(path.join(ROOT, 'scripts/skill-ranking.mjs'), path.join(OUT, 'skill-ranking.mjs'));
 const rankingSource = await fs.readFile(path.join(OUT, 'skill-ranking.mjs'), 'utf8');
@@ -72,9 +74,15 @@ await fs.writeFile(path.join(OUT, 'app.mjs'), appSource);
 const cssSource = await fs.readFile(path.join(OUT, 'styles.css'), 'utf8');
 const html = (await fs.readFile(path.join(OUT, 'index.html'), 'utf8')).replace('href="styles.css"', `href="styles.css?v=${version(cssSource)}"`).replace('src="app.mjs"', `src="app.mjs?v=${version(appSource)}"`);
 await fs.writeFile(path.join(OUT, 'index.html'), html);
+for (const route of guideRoutes) {
+  const guide = await fs.readFile(path.join(ROOT, 'site', route, 'index.html'), 'utf8');
+  await fs.mkdir(path.join(OUT, route), { recursive: true });
+  await fs.writeFile(path.join(OUT, route, 'index.html'), guide.replace('styles.css"', `styles.css?v=${version(cssSource)}"`));
+}
 await fs.writeFile(path.join(OUT, '.nojekyll'), '');
-await fs.writeFile(path.join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://findscripter.github.io/everything-skills/sitemap.xml\n');
-await fs.writeFile(path.join(OUT, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://findscripter.github.io/everything-skills/</loc></url></urlset>\n');
+await fs.writeFile(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}sitemap.xml\n`);
+const sitemap = ['', ...guideRoutes].map(route => `  <url><loc>${siteUrl + route}</loc></url>`).join('\n');
+await fs.writeFile(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap}\n</urlset>\n`);
 try { await fs.copyFile(path.join(ROOT, 'site/social-card.png'), path.join(OUT, 'social-card.png')); }
 catch (error) { if (error.code !== 'ENOENT') throw error; }
 console.log(`Built _site: ${catalog.stats.active} current skills, ${catalog.stats.archived} archived, ${catalog.stats.repositories} external records.`);

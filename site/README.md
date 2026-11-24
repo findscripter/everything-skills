@@ -21,6 +21,8 @@ The GitHub leaderboard shows five active external repositories ordered by catalo
 
 `.github/workflows/pages.yml` builds and verifies PRs, then deploys only pushes to `main` through GitHub Pages Actions. Repository Settings → Pages must select **GitHub Actions**. The `zh` branch shares the same site source; the published site switches interface language in the browser.
 
+The REST API review guide is served as static HTML at `guides/rest-api-review/` and `zh/guides/rest-api-review/`. The build lists both URLs in the sitemap. The Google verification file must remain at the root of the published project path to maintain Search Console ownership.
+
 `social-card.svg` is the editable, original source of `social-card.png` (1200×630). It intentionally contains no changing catalog counts. When updating it, render the SVG in a browser and export a PNG at its native size, then inspect the result. The page's Open Graph and Twitter metadata use the PNG.
 
 The page links to a real Nix distribution repair with fixed inputs, measured results, a patch, static review and reproduction steps. Three smaller teaching cases remain under [`examples/`](../examples/README.md). The [recordings](../assets/demos/README.md) capture an earlier interface and its evidence links. Build output fingerprints the scripts, styles and catalog URLs to prevent stale cached dependencies from mixing across deployments.

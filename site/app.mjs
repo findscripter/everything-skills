@@ -224,6 +224,7 @@ function translate() {
   $('#main-nav').setAttribute('aria-label', w().navLabel);
   $('.wordmark').setAttribute('aria-label', w().homeLabel);
   $('.wordmark').href = catalogUrl();
+  $('#api-review-guide').href = lang === 'zh' ? 'zh/guides/rest-api-review/' : 'guides/rest-api-review/';
   $('#catalog-modes').setAttribute('aria-label', w().modeLabel);
   $('.dialog-close').setAttribute('aria-label', w().close);
   $('#volume-command').setAttribute('aria-label', w().installLabelAria);
