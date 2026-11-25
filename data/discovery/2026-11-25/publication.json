@@ -1,0 +1,579 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-25",
+  "timezone": "Asia/Shanghai",
+  "recorded_at": "2026-11-25T08:08:26.378273+00:00",
+  "status": "published",
+  "published_on": "2026-11-25",
+  "target_minimum": 50,
+  "acceptance_cap": null,
+  "added_new_repository_ids": 103,
+  "baseline_catalog_rows": 5270,
+  "final_catalog_rows": 5373,
+  "formal_skill_files": 1115,
+  "selected_review_items": 163,
+  "selected_distinct_repositories": 161,
+  "held": 47,
+  "rejected": 11,
+  "unreviewed_reserve": 835,
+  "new_identities": [
+    {
+      "full_name": "11vinaypathak-sys/travel-reel-editor-skill",
+      "repository_id": 1467775987
+    },
+    {
+      "full_name": "16pedri/graduate-math-modeling-contest-skill",
+      "repository_id": 1250392923
+    },
+    {
+      "full_name": "a2172668729-netizen/research-paper-skills",
+      "repository_id": 1471166873
+    },
+    {
+      "full_name": "afurm/ai-practitioner-toolkit",
+      "repository_id": 1468619845
+    },
+    {
+      "full_name": "Agile-V/agile_v_skills",
+      "repository_id": 1150661897
+    },
+    {
+      "full_name": "AirsupHQ/factory-skill",
+      "repository_id": 1416220328
+    },
+    {
+      "full_name": "ameyachopade/gitlytics-plugin",
+      "repository_id": 1468861593
+    },
+    {
+      "full_name": "AndreZAraujo/channel-identity-skill",
+      "repository_id": 1469450913
+    },
+    {
+      "full_name": "arktypeio/arktype",
+      "repository_id": 193156479
+    },
+    {
+      "full_name": "arras-energy/claude",
+      "repository_id": 1456891140
+    },
+    {
+      "full_name": "Artree021/kicad-easyeda-pcb",
+      "repository_id": 1453647955
+    },
+    {
+      "full_name": "atillaertas1/tamga-pcb",
+      "repository_id": 1467803625
+    },
+    {
+      "full_name": "Atmosphere/atmosphere",
+      "repository_id": 749137
+    },
+    {
+      "full_name": "avalonreset/cto-legends",
+      "repository_id": 1383426294
+    },
+    {
+      "full_name": "AvatarSD/KiSkill",
+      "repository_id": 1266530880
+    },
+    {
+      "full_name": "AzukiYamada/a11y-ja-mcp",
+      "repository_id": 1471402784
+    },
+    {
+      "full_name": "BESSER-PEARL/research-agent-skills",
+      "repository_id": 1177985179
+    },
+    {
+      "full_name": "btsouth/toolport",
+      "repository_id": 1274695288
+    },
+    {
+      "full_name": "CatoPaus/open-knowledge-studio",
+      "repository_id": 1247487015
+    },
+    {
+      "full_name": "cemde/Scientific-Coding-Skill",
+      "repository_id": 1172487103
+    },
+    {
+      "full_name": "chicogong/aimake-creator",
+      "repository_id": 1463052293
+    },
+    {
+      "full_name": "cordova-strategy/workflow-gates",
+      "repository_id": 1179241899
+    },
+    {
+      "full_name": "cvs-health/ios-swiftui-accessibility-techniques",
+      "repository_id": 726240487
+    },
+    {
+      "full_name": "Davincc77/moovicut",
+      "repository_id": 1456408137
+    },
+    {
+      "full_name": "depuschm/christian-guidelines",
+      "repository_id": 1469138779
+    },
+    {
+      "full_name": "dimitriskl/mydevfactory",
+      "repository_id": 1445283621
+    },
+    {
+      "full_name": "donghuixin/low-power-iot-hardware-design",
+      "repository_id": 1459610547
+    },
+    {
+      "full_name": "Elecash/skillunit",
+      "repository_id": 1462648371
+    },
+    {
+      "full_name": "entrancestone/visual-fix",
+      "repository_id": 1471409207
+    },
+    {
+      "full_name": "equinor/neqsim-community-skills",
+      "repository_id": 1254905413
+    },
+    {
+      "full_name": "et7admin/ai-agents-for-business",
+      "repository_id": 1471357747
+    },
+    {
+      "full_name": "Felo-Inc/agent-video-skills",
+      "repository_id": 1471145387
+    },
+    {
+      "full_name": "finitecomputer/fragment",
+      "repository_id": 1342169466
+    },
+    {
+      "full_name": "fmatar/archlens",
+      "repository_id": 1377783670
+    },
+    {
+      "full_name": "FuFicFac/youtube-video-builder",
+      "repository_id": 1471303032
+    },
+    {
+      "full_name": "gamemun01/ai-design-engineer",
+      "repository_id": 1244818920
+    },
+    {
+      "full_name": "GauravAlbal/desmo",
+      "repository_id": 1457518313
+    },
+    {
+      "full_name": "gjbex/scientific-computing-skills",
+      "repository_id": 1271558166
+    },
+    {
+      "full_name": "grow1023/lean-kb",
+      "repository_id": 1471406799
+    },
+    {
+      "full_name": "heyu-233/engineering-figure-agent",
+      "repository_id": 1206615049
+    },
+    {
+      "full_name": "humbleteam/design-handoff",
+      "repository_id": 1305554864
+    },
+    {
+      "full_name": "Hybirdss/kicad-cli-extended",
+      "repository_id": 1439137557
+    },
+    {
+      "full_name": "icecokel/designsnitch",
+      "repository_id": 1460641271
+    },
+    {
+      "full_name": "iksnerd/blazon",
+      "repository_id": 1458661416
+    },
+    {
+      "full_name": "jackwang988/kicad-pcb-ai-workflow",
+      "repository_id": 1422879313
+    },
+    {
+      "full_name": "jcode-works/ragmir",
+      "repository_id": 1282935660
+    },
+    {
+      "full_name": "JessieSun-vibe/vlog-studio",
+      "repository_id": 1471377737
+    },
+    {
+      "full_name": "John-owo/pcb-agent-workflow",
+      "repository_id": 1401912685
+    },
+    {
+      "full_name": "JoonHoSeong/tasklog-skills",
+      "repository_id": 1399671771
+    },
+    {
+      "full_name": "jrgilbertson/the-rookery",
+      "repository_id": 1296841500
+    },
+    {
+      "full_name": "JStuBran/promptcov",
+      "repository_id": 1307969536
+    },
+    {
+      "full_name": "Juliano1111-ai/geo-data-discovery",
+      "repository_id": 1280484700
+    },
+    {
+      "full_name": "kaori-seasons/causal-memory",
+      "repository_id": 1454783730
+    },
+    {
+      "full_name": "kdy1/kdy1-scripts",
+      "repository_id": 1344492011
+    },
+    {
+      "full_name": "leomrocha/3d-cad-modeling",
+      "repository_id": 1456351047
+    },
+    {
+      "full_name": "liseman/pcbclaw",
+      "repository_id": 1376483067
+    },
+    {
+      "full_name": "magic3389/hermes-live2d",
+      "repository_id": 1471142640
+    },
+    {
+      "full_name": "make-pictures/make-pictures-studio",
+      "repository_id": 1449837530
+    },
+    {
+      "full_name": "maple52046/rag-init",
+      "repository_id": 1471049798
+    },
+    {
+      "full_name": "mattpainter701/circuit-weaver",
+      "repository_id": 1193701352
+    },
+    {
+      "full_name": "MEMOS0/viral-shorts-studio",
+      "repository_id": 1470839336
+    },
+    {
+      "full_name": "mguhlin/vcc",
+      "repository_id": 1452937006
+    },
+    {
+      "full_name": "Milind220/Ki-Stack",
+      "repository_id": 1196435123
+    },
+    {
+      "full_name": "mkaremm80/My-Skills-on-Claude",
+      "repository_id": 1445496566
+    },
+    {
+      "full_name": "moriyoshi/winterbaume",
+      "repository_id": 1165674437
+    },
+    {
+      "full_name": "nanobpm/nano-coder",
+      "repository_id": 1384352902
+    },
+    {
+      "full_name": "NDCCCCCC/skillforge",
+      "repository_id": 1401195287
+    },
+    {
+      "full_name": "ngoviet/design-kit",
+      "repository_id": 1451652765
+    },
+    {
+      "full_name": "nguyenquanicd/VLSIT_ASIC_SOC_AI_SKILLS",
+      "repository_id": 1403661244
+    },
+    {
+      "full_name": "nmfs-opensci/agent-skills",
+      "repository_id": 1356114245
+    },
+    {
+      "full_name": "noppu-labs/ai-toolkit",
+      "repository_id": 1286668720
+    },
+    {
+      "full_name": "Novin3dp/claude-KiCad-pcb-designer-skill",
+      "repository_id": 1402566826
+    },
+    {
+      "full_name": "NutanMilind/reel-storyboard-kit",
+      "repository_id": 1465484252
+    },
+    {
+      "full_name": "phazurlabs/sumi",
+      "repository_id": 1158017928
+    },
+    {
+      "full_name": "plainrouter/sdk",
+      "repository_id": 1337876089
+    },
+    {
+      "full_name": "POWR-DATA/mtx-skills",
+      "repository_id": 1224340918
+    },
+    {
+      "full_name": "promovaweb/termfy",
+      "repository_id": 1452143270
+    },
+    {
+      "full_name": "raimondasl/isitdone",
+      "repository_id": 1360369007
+    },
+    {
+      "full_name": "Remicht0/graphic-design-skills",
+      "repository_id": 1470262756
+    },
+    {
+      "full_name": "RLealz/ai-design-playbook",
+      "repository_id": 1437727841
+    },
+    {
+      "full_name": "robertoDon/studio",
+      "repository_id": 1462810860
+    },
+    {
+      "full_name": "rpamis/comet",
+      "repository_id": 1238606716
+    },
+    {
+      "full_name": "Rupesh4604/rs-dl-architect",
+      "repository_id": 1233795653
+    },
+    {
+      "full_name": "RyzeAngler/passage-illustrator",
+      "repository_id": 1471249644
+    },
+    {
+      "full_name": "settchan2003-design/kicad-schematic-review-skill",
+      "repository_id": 1252212072
+    },
+    {
+      "full_name": "Shinei-Nouzen-Arch/FPGA-Agent",
+      "repository_id": 1193310042
+    },
+    {
+      "full_name": "SiliconCoderJames/MiderHive",
+      "repository_id": 1360265133
+    },
+    {
+      "full_name": "Smirnov-Labs/claude-skills",
+      "repository_id": 1081421189
+    },
+    {
+      "full_name": "SPREsxm/claude-pcb-designer",
+      "repository_id": 1274033775
+    },
+    {
+      "full_name": "stdevMac/maintainer-skills",
+      "repository_id": 1471139696
+    },
+    {
+      "full_name": "studio-edul/pcb-layout-skill",
+      "repository_id": 1411209536
+    },
+    {
+      "full_name": "suraajsamanta/fieldwork",
+      "repository_id": 1471354679
+    },
+    {
+      "full_name": "timoncool/YuE2-Studio",
+      "repository_id": 1382450432
+    },
+    {
+      "full_name": "VaynerAkaWalo/agent-knowledge",
+      "repository_id": 1452581311
+    },
+    {
+      "full_name": "visualfizzagency/visualfizz-agent-skills",
+      "repository_id": 1469726182
+    },
+    {
+      "full_name": "xberg-io/liter-llm",
+      "repository_id": 1191384809
+    },
+    {
+      "full_name": "xnyzer/coding-kit",
+      "repository_id": 1292759082
+    },
+    {
+      "full_name": "xutianq999/pcb-design-skill",
+      "repository_id": 1361501250
+    },
+    {
+      "full_name": "xxy757/backend-spec-flow",
+      "repository_id": 1471084161
+    },
+    {
+      "full_name": "yoonhwan/aifp",
+      "repository_id": 1471347323
+    },
+    {
+      "full_name": "Zane456/PCB-Agent-Teams",
+      "repository_id": 1281913298
+    },
+    {
+      "full_name": "Zehebi29/engineering-skill-hub",
+      "repository_id": 1237409374
+    },
+    {
+      "full_name": "zeklat/scenesin",
+      "repository_id": 1469437813
+    }
+  ],
+  "verification": {
+    "fixed_object_references": 437,
+    "baseline_directory_data_blobs_preserved": 114,
+    "windows_tests_by_branch": {
+      "main": {
+        "tests": 133,
+        "pass": 132,
+        "fail": 0,
+        "skipped": 1
+      },
+      "zh": {
+        "tests": 133,
+        "pass": 132,
+        "fail": 0,
+        "skipped": 1
+      }
+    },
+    "linux_pr_tests_by_branch": {
+      "main": {
+        "tests": 133,
+        "pass": 133,
+        "fail": 0,
+        "skipped": 0
+      },
+      "zh": {
+        "tests": 133,
+        "pass": 133,
+        "fail": 0,
+        "skipped": 0
+      }
+    },
+    "offline_example_checks": 4,
+    "english_and_chinese_build_site_generated_checks": "passed",
+    "archive_skill_members_verified": 0,
+    "live_pages_catalog": {
+      "url": "https://findscripter.github.io/everything-skills/catalog.json",
+      "published_repository_count": 5373,
+      "published_repository_rows": 5373,
+      "published_bundled_skill_count": 1115,
+      "verified_sample": [
+        "arktypeio/arktype",
+        "humbleteam/design-handoff",
+        "equinor/neqsim-community-skills",
+        "timoncool/YuE2-Studio"
+      ],
+      "method": "Read the deployed catalog response in a browser after the main merge deployment."
+    }
+  },
+  "publication": {
+    "main": {
+      "pr": 134,
+      "url": "https://github.com/findscripter/everything-skills/pull/134",
+      "data_commit": "f83295d4196e1b85e5eff5e8e5759341ddaacf6e",
+      "merge_commit": "0e1c60317f800b0c17f714d7b8794c435e3bf7db"
+    },
+    "zh": {
+      "pr": 135,
+      "url": "https://github.com/findscripter/everything-skills/pull/135",
+      "data_commit": "734a3fda3ab0aa9d10d86eca29245df980591b94",
+      "merge_commit": "b054177b6fa3009c5d98191df3b4f238976c7882"
+    }
+  },
+  "successful_ci": [
+    {
+      "surface": "main_pr",
+      "workflow": "publish-site",
+      "run_id": 45573146025,
+      "head_sha": "f83295d4196e1b85e5eff5e8e5759341ddaacf6e",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45573146025"
+    },
+    {
+      "surface": "main_pr",
+      "workflow": "generated-index",
+      "run_id": 45573146136,
+      "head_sha": "f83295d4196e1b85e5eff5e8e5759341ddaacf6e",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45573146136"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "publish-site",
+      "run_id": 45573337498,
+      "head_sha": "0e1c60317f800b0c17f714d7b8794c435e3bf7db",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45573337498"
+    },
+    {
+      "surface": "main_merge",
+      "workflow": "generated-index",
+      "run_id": 45573337479,
+      "head_sha": "0e1c60317f800b0c17f714d7b8794c435e3bf7db",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45573337479"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "publish-site",
+      "run_id": 45573146739,
+      "head_sha": "734a3fda3ab0aa9d10d86eca29245df980591b94",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45573146739"
+    },
+    {
+      "surface": "zh_pr",
+      "workflow": "generated-index",
+      "run_id": 45573146895,
+      "head_sha": "734a3fda3ab0aa9d10d86eca29245df980591b94",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45573146895"
+    },
+    {
+      "surface": "zh_merge",
+      "workflow": "generated-index",
+      "run_id": 45573336290,
+      "head_sha": "b054177b6fa3009c5d98191df3b4f238976c7882",
+      "conclusion": "success",
+      "url": "https://github.com/findscripter/everything-skills/actions/runs/45573336290"
+    }
+  ],
+  "known_cross_branch_differences": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "INDEX/skill-repos.md",
+    "README.md",
+    "site/index.html"
+  ],
+  "automation": {
+    "existing_daily_automation_configuration_verified": true,
+    "schedule": "Every day at 09:00 Asia/Shanghai",
+    "run_resumed_after_manual_status_check": true,
+    "configuration_changed_this_run": false
+  },
+  "evidence": {
+    "audit": "../../skill-repos.part119.audit.md",
+    "coverage": "coverage.json",
+    "fixed_objects": "fixed-object-verification.json",
+    "quality": "quality-review.json"
+  },
+  "limits": [
+    "Only admitted and published independent repository IDs count as daily additions.",
+    "Metadata-only representative/static infrastructure review; no candidate installed or executed.",
+    "Finite search windows and unreviewed retrieval reserves remain separate; no exhaustive all-body, runtime, safety, scientific/financial or reuse-right certification.",
+    "CI references bind the data and merge commits. Receipt-commit checks are observed separately and are not self-referenced."
+  ]
+}
