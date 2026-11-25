@@ -1,0 +1,669 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-25",
+    "stage": "complete",
+    "verified": [
+      {
+        "full_name": "arras-energy/claude",
+        "repository_id": 1456891140,
+        "commit": "5970e85c4e419d87649945b545d30155bbf10a7c",
+        "tree": "53cfecbd45ac7dadcab56dc7b2629b1f1c76067c",
+        "evidence": [
+          {
+            "path": "MANIFEST.md",
+            "blob_sha": "8b3d1fa4c680db1ba52584acfabc1ce9453a54bc",
+            "sha256": "99086c8a62ae85d9b55fd057cff8bcc5801a4ad9813b2243296e8b3e10b7ff28",
+            "url": "https://github.com/arras-energy/claude/blob/5970e85c4e419d87649945b545d30155bbf10a7c/MANIFEST.md",
+            "bytes": 4048
+          },
+          {
+            "path": "skills/arras-energy/SKILL.md",
+            "blob_sha": "307aae3399efbcfd8a2944e7b39cf2daf78abd65",
+            "sha256": "cfc6856723af1f8fcc271db4b483decdf65ecf0eea17f26e789c5f0d3e9149b4",
+            "url": "https://github.com/arras-energy/claude/blob/5970e85c4e419d87649945b545d30155bbf10a7c/skills/arras-energy/SKILL.md",
+            "bytes": 5552
+          }
+        ],
+        "finding": "The README and MANIFEST expose four installable entrypoints. The arras-energy entry is orientation and routing. Three entries provide model, data, and development workflows. Root MIT and separate upstream documentation licenses are documented."
+      },
+      {
+        "full_name": "gjbex/scientific-computing-skills",
+        "repository_id": 1271558166,
+        "commit": "564acdbfa52e3f6256b84754c27ca483974524fc",
+        "tree": "804aab893096e4a549248c16e836503442d7db6c",
+        "evidence": [
+          {
+            "path": ".codex-plugin/plugin.json",
+            "blob_sha": "3b04b7bce50dc41bbbf5f5d2ea93196f4abf2a9c",
+            "sha256": "d700286e0e6ef4edf917e90ad19a3354918974d78d8eb136f02f3e009bdbad4c",
+            "url": "https://github.com/gjbex/scientific-computing-skills/blob/564acdbfa52e3f6256b84754c27ca483974524fc/.codex-plugin/plugin.json",
+            "bytes": 1391
+          },
+          {
+            "path": "ROUTING.md",
+            "blob_sha": "5632e9f69e6892128e36f8c48d7395eb6a988814",
+            "sha256": "fc04f9e80fed1087c0f533467a2e4d557b402ecf0c3b1affeed495e0c6439fab",
+            "url": "https://github.com/gjbex/scientific-computing-skills/blob/564acdbfa52e3f6256b84754c27ca483974524fc/ROUTING.md",
+            "bytes": 6644
+          }
+        ],
+        "finding": "The fixed Codex manifest points at the skills tree. There are 25 canonical files, including three support workflows explicitly documented in README."
+      }
+    ],
+    "objections": [],
+    "corrections": []
+  },
+  "quality-science.json": {
+    "stage": "complete",
+    "date": "2026-11-25",
+    "reviewer_stream": "science",
+    "objections": [],
+    "verified": [
+      {
+        "full_name": "btsouth/toolport",
+        "repository_id": 1274695288,
+        "commit": "5d0ea86d12948af02a6c527e6f83590c2939081f",
+        "tree": "35c006d544cc2f4ec55ad31a5f1f359165be88ed",
+        "verified_files": [
+          {
+            "path": "README.md",
+            "blob_sha": "a57b21f711d2b966892b809847ffa2548d087c2e",
+            "sha256": "bfc14ead68c6ed9062044ec1b39f8dc0e4102709ad3668f7e27185c2d1859b83",
+            "url": "https://github.com/btsouth/toolport/blob/5d0ea86d12948af02a6c527e6f83590c2939081f/README.md",
+            "bytes": 9789
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "3ee8f70e323be3da5ed82f21b4f0404d71b484b9",
+            "sha256": "a424a85aab5e66eb713cefb6933e9b7a50e9d001f23b49491f492c6d16eb5720",
+            "url": "https://github.com/btsouth/toolport/blob/5d0ea86d12948af02a6c527e6f83590c2939081f/LICENSE",
+            "bytes": 1071
+          },
+          {
+            "path": "skills/toolport/SKILL.md",
+            "blob_sha": "bc84407bccd31e9268bc882198c6901eea086ba3",
+            "sha256": "5e67309ed8cb5cffaa88eb80be2e77e80fa9dbaa460bfbcb1f173ad12340b907",
+            "url": "https://github.com/btsouth/toolport/blob/5d0ea86d12948af02a6c527e6f83590c2939081f/skills/toolport/SKILL.md",
+            "bytes": 2237
+          },
+          {
+            "path": "packaging/agent-plugin/toolport/plugin.json",
+            "blob_sha": "3de46312a5009f3d9d52ab6d9aafb5d67745382a",
+            "sha256": "6e76db7c4988a56023633c848db239340eeb5cead3bb427a9382ec8065b7ce04",
+            "url": "https://github.com/btsouth/toolport/blob/5d0ea86d12948af02a6c527e6f83590c2939081f/packaging/agent-plugin/toolport/plugin.json",
+            "bytes": 609
+          },
+          {
+            "path": "packaging/agent-plugin/toolport/skills/toolport/SKILL.md",
+            "blob_sha": "d6c5d6d80a41848a4e53bb6b7febe2f6d8cfe0e0",
+            "sha256": "a71307045f1ce8777764ddd5b73c14b6466d6cd7c4662d71577e78ce69ab6897",
+            "url": "https://github.com/btsouth/toolport/blob/5d0ea86d12948af02a6c527e6f83590c2939081f/packaging/agent-plugin/toolport/skills/toolport/SKILL.md",
+            "bytes": 3133
+          },
+          {
+            "path": ".agents/skills/verify/SKILL.md",
+            "blob_sha": "24cd2c6a90985db42bba034ca07490b8666bf177",
+            "sha256": "274fcc22eb7a3925f4756fc399c05199c4847b43687d9c4a5db4fccf41409a3a",
+            "url": "https://github.com/btsouth/toolport/blob/5d0ea86d12948af02a6c527e6f83590c2939081f/.agents/skills/verify/SKILL.md",
+            "bytes": 10231
+          }
+        ],
+        "result": "admission confirmed",
+        "verification": "Independently fetched matching public repository and fixed commit/tree, then read the full representative and root license and relevant distribution/variant evidence. Recomputed Git blob object ID and SHA-256 on each downloaded file. No runtime, configuration writes or external service actions."
+      },
+      {
+        "full_name": "Elecash/skillunit",
+        "repository_id": 1462648371,
+        "commit": "2e4c50824fd76133eac3442e015eaee7c770085e",
+        "tree": "c662c39d6c2c0653fa0e65ab1af16f63072b60db",
+        "verified_files": [
+          {
+            "path": "README.md",
+            "blob_sha": "943f01ca376266a2cdafdd2216a353b09f896e62",
+            "sha256": "8ba60cd574b8d23b932dc29f0971214ce0c82abb4428f6104ae506730a42118a",
+            "url": "https://github.com/Elecash/skillunit/blob/2e4c50824fd76133eac3442e015eaee7c770085e/README.md",
+            "bytes": 18319
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d2e8783d9ff74401552079a20844b87f3786c853",
+            "sha256": "5471795df3f105f5bf8c38413aab593d12f7d3f6b829dcea36055ebf7103cba6",
+            "url": "https://github.com/Elecash/skillunit/blob/2e4c50824fd76133eac3442e015eaee7c770085e/LICENSE",
+            "bytes": 1071
+          },
+          {
+            "path": "skills/skillunit/SKILL.md",
+            "blob_sha": "ee636f3ce02422c55765fceab30848623b03d47b",
+            "sha256": "af4e106ef956ef1a46a5d91e09d9a03a1508f4bdfca8098449c11853e79694fc",
+            "url": "https://github.com/Elecash/skillunit/blob/2e4c50824fd76133eac3442e015eaee7c770085e/skills/skillunit/SKILL.md",
+            "bytes": 4332
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "52c053d581fce36975cb27ff2f08fdb4f8165d08",
+            "sha256": "71df67a5efbb70d1243cfb4588abb707c1993e3c5e50aef45839889ff0e7c7fc",
+            "url": "https://github.com/Elecash/skillunit/blob/2e4c50824fd76133eac3442e015eaee7c770085e/package.json",
+            "bytes": 588
+          },
+          {
+            "path": "skills-src/skillunit/SKILL.md",
+            "blob_sha": "46c66efb030105496f8f87a1e32fa3a26c614056",
+            "sha256": "8f700c3da6e78e12c1fe7168859e1e7bf66fcf699082e55540ead3d64541db87",
+            "url": "https://github.com/Elecash/skillunit/blob/2e4c50824fd76133eac3442e015eaee7c770085e/skills-src/skillunit/SKILL.md",
+            "bytes": 3609
+          },
+          {
+            "path": "apps/tinyfetch/skill/SKILL.md",
+            "blob_sha": "ccac395f4deab640fac8b2e34abe0114cdbecf36",
+            "sha256": "e4f111ac90c56fb8bbb4704378092b569f5e56db2f305a1d89ff5f40f1dfaa19",
+            "url": "https://github.com/Elecash/skillunit/blob/2e4c50824fd76133eac3442e015eaee7c770085e/apps/tinyfetch/skill/SKILL.md",
+            "bytes": 1717
+          },
+          {
+            "path": "apps/tinyfetch/skill-src/SKILL.md",
+            "blob_sha": "e57a3022b2ba3ac7674861a9124ccf5419a0edf1",
+            "sha256": "405d587d5a17e42b8dbeb58f0b0ec9483e4b2e3f8c25685516e30364c672bae9",
+            "url": "https://github.com/Elecash/skillunit/blob/2e4c50824fd76133eac3442e015eaee7c770085e/apps/tinyfetch/skill-src/SKILL.md",
+            "bytes": 1454
+          }
+        ],
+        "result": "admission confirmed",
+        "verification": "Independently fetched matching public repository and fixed commit/tree, then read the full representative and root license and relevant distribution/variant evidence. Recomputed Git blob object ID and SHA-256 on each downloaded file. No runtime, configuration writes or external service actions."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "btsouth/toolport",
+        "reason": "The portable skill may fetch a package and proposes scoped local repairs. The gateway variant can orchestrate external actions, and the upstream text limits its approval statement to Ask or Strict settings.",
+        "field_updates": {
+          "limitations": "The portable skill may fetch the CLI via npx. Preview and approval precede local edits or keychain changes. The same-name gateway variant can reach configured external services and its destructive-action gate is documented for Ask or Strict settings. No installs, secrets, config writes, gateway actions or repairs were exercised."
+        }
+      },
+      {
+        "full_name": "Elecash/skillunit",
+        "reason": "The dry-run flag disables model submissions, while the proof layer of the combined check still runs the repository-configured command.",
+        "field_updates": {
+          "limitations": "The optional decision layer can submit spec material using a provider key. Dry run suppresses model calls only and the combined check still executes the configured project proof command. No project tests, package installs or model calls were exercised."
+        }
+      }
+    ]
+  },
+  "quality-product.json": {
+    "stage": "complete",
+    "verified": [
+      {
+        "full_name": "NutanMilind/reel-storyboard-kit",
+        "repository_id": 1465484252,
+        "commit": "3e9c6e19f27c6d43f1fefa5ab5872ebbf665f907",
+        "tree": "15848f1bfc4c3d289e6179073642b14205d4bff5",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "4c1c97e9cf8f177113c2b70e0225513bc8912267",
+            "sha256": "5f94b5edccc220da386129e8140e8c5407d6d3296ea8f630cd80c09b0227f684",
+            "url": "https://github.com/NutanMilind/reel-storyboard-kit/blob/3e9c6e19f27c6d43f1fefa5ab5872ebbf665f907/README.md",
+            "bytes": 3295
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "765aab792f662366148837abe8c5ded34a69f3ec",
+            "sha256": "bbf99184d4af61085bc93e41ecbb7710901326f11af1c64a9e554e7cf1a277d5",
+            "url": "https://github.com/NutanMilind/reel-storyboard-kit/blob/3e9c6e19f27c6d43f1fefa5ab5872ebbf665f907/LICENSE",
+            "bytes": 1062
+          },
+          {
+            "path": ".claude/skills/reel-storyboard/SKILL.md",
+            "blob_sha": "4f06cb07f3d009ed4436638f85ef31c441f683c8",
+            "sha256": "ce273aefa463dd4cd4993cab8af4a06d7be6794784f8e6a80bbbef8fd8325713",
+            "url": "https://github.com/NutanMilind/reel-storyboard-kit/blob/3e9c6e19f27c6d43f1fefa5ab5872ebbf665f907/.claude/skills/reel-storyboard/SKILL.md",
+            "bytes": 3503
+          }
+        ],
+        "findings": "Fixed tree has one documented Claude skill. Root MIT covers the authored kit and sample. The complete body yields short-video planning artifacts. Frontmatter uses a spaced title, so generic spec compliance was not established."
+      },
+      {
+        "full_name": "Remicht0/graphic-design-skills",
+        "repository_id": 1470262756,
+        "commit": "e266fb850b0ce77e801b1fd4ed53c4bcd32d130e",
+        "tree": "727ae35ece792b13d79f5a8469972a268c1f8a85",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "8026df722d32500aeb90556958d6066734556c2b",
+            "sha256": "943ec34b9c29f9c955a0ce8035685bf97c98a687daceeaf0d5e27e612d8d0364",
+            "url": "https://github.com/Remicht0/graphic-design-skills/blob/e266fb850b0ce77e801b1fd4ed53c4bcd32d130e/README.md",
+            "bytes": 5517
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "43eadd09ad25619ee900fe445766b6485e9b7a3e",
+            "sha256": "36f62f830d27a40c2049e0d1e5970bc3e837ed514ab534e531c7246fd9fa02ee",
+            "url": "https://github.com/Remicht0/graphic-design-skills/blob/e266fb850b0ce77e801b1fd4ed53c4bcd32d130e/LICENSE",
+            "bytes": 1082
+          },
+          {
+            "path": "skills/palette/SKILL.md",
+            "blob_sha": "55cee4fbd12d3312fb9648a451c5cd5c9f2e1b8f",
+            "sha256": "b91dfbd76bf4c195d66fdbc795b2d0c76167c77ca714b20442f65e74768dcd4f",
+            "url": "https://github.com/Remicht0/graphic-design-skills/blob/e266fb850b0ce77e801b1fd4ed53c4bcd32d130e/skills/palette/SKILL.md",
+            "bytes": 4332
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "79c61e584124d0cfbab64573be367b0913e364bb",
+            "sha256": "a99836492d806145f00e55c4506922b593ae49d5529a14577d48cbb74055a897",
+            "url": "https://github.com/Remicht0/graphic-design-skills/blob/e266fb850b0ce77e801b1fd4ed53c4bcd32d130e/.claude-plugin/marketplace.json",
+            "bytes": 1093
+          }
+        ],
+        "findings": "Five skills under skills/ match the README install and exclude the template. Full sampled palette card and fixed MIT scope agree. README explicitly separates CC0 sample photos and SIL OFL fonts."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "NutanMilind/reel-storyboard-kit",
+        "field_updates": {
+          "limitations": "Outputs plans and visual instructions. Web application and video tools were not run. The fixed Claude skill uses a spaced frontmatter name rather than the Agent Skills kebab-case name. Generic loader or installer compatibility was not validated."
+        }
+      }
+    ],
+    "objections": []
+  },
+  "quality-breadth.json": {
+    "date": "2026-11-25",
+    "stage": "complete",
+    "verified": [
+      {
+        "full_name": "maple52046/rag-init",
+        "repository_id": 1471049798,
+        "commit": "545b704faa7beaaf3027ecb6080bf12356ade4bd",
+        "tree": "04a5813e045a0cfb81fac9c41b96da5c52dac9c5",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "d82e5ba3339d32a70c7d3d0f23bb81dace4d3a07",
+            "sha256": "408b53961d3693385f474cf5fcbb2959abab14e9c4fa6d56164cbdf3765bddb1",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/README.md",
+            "bytes": 9737
+          },
+          {
+            "path": ".agents/skills/create-knowledge-rules/SKILL.md",
+            "blob_sha": "fa899666af9ec27b07b53ebfbece5bd7a73842cd",
+            "sha256": "8b945aa0a6342b8ae8009c646c8d85928e91005e420add9670544b9bc88f4aff",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/create-knowledge-rules/SKILL.md",
+            "bytes": 9258
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "6d761af45251c3aab3718bd6c803b953c607916f",
+            "sha256": "88141060dbdfc41268625dabd4897eb36c9792be0b3e644e41bca0a1aebf9506",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "c82bd5dd337d993ff2c3383bd51443e1b43086ae",
+            "sha256": "484f835a0783582035da7e0e3cf7f0d033663aa3708be1ac423cee9ae861bdd3",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/THIRD_PARTY_NOTICES.md",
+            "bytes": 4866
+          },
+          {
+            "path": ".agents/skills/git-commit/SKILL.md",
+            "blob_sha": "6f4cb9d4fd80acea8f96a10f54373d445ee37136",
+            "sha256": "519649848ee0860060acd6c8fd4e48b5486505b45e191f489f23667afe069002",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/git-commit/SKILL.md",
+            "bytes": 9883
+          },
+          {
+            "path": ".claude/skills/create-knowledge-rules/SKILL.md",
+            "blob_sha": "a70649fe1caec70e4a621eca1150b6ae77fa8271",
+            "sha256": "6696d802530d6c8bba05d0504127b79b9481373759e87e301ce79ed3ca4ce134",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.claude/skills/create-knowledge-rules/SKILL.md",
+            "bytes": 1103
+          },
+          {
+            "path": ".claude/skills/git-commit/SKILL.md",
+            "blob_sha": "3e38c14c2840fb5fd9ecb3d9be1275c195a38e17",
+            "sha256": "4971afa13709a6e6602508bf861a055379e439b66a9f62a7db32bb25c9143984",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.claude/skills/git-commit/SKILL.md",
+            "bytes": 917
+          },
+          {
+            "path": ".agents/skills/create-knowledge-rules/LICENSE",
+            "blob_sha": "6d761af45251c3aab3718bd6c803b953c607916f",
+            "sha256": "88141060dbdfc41268625dabd4897eb36c9792be0b3e644e41bca0a1aebf9506",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/create-knowledge-rules/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": ".agents/skills/git-commit/LICENSE",
+            "blob_sha": "6d761af45251c3aab3718bd6c803b953c607916f",
+            "sha256": "88141060dbdfc41268625dabd4897eb36c9792be0b3e644e41bca0a1aebf9506",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/git-commit/LICENSE",
+            "bytes": 1064
+          }
+        ],
+        "finding": "Two canonical agent skills are separately copyable. The two Claude cards are thin adapters, not additional implementations. The governance card requires confirmation before writing, and git-commit defaults to staged files with push only by opt-in. The git-commit directory contains its own MIT grant and identifies the bundled conventional-commits excerpt separately.",
+        "disposition": "qualified_with_scope_correction"
+      },
+      {
+        "full_name": "et7admin/ai-agents-for-business",
+        "repository_id": 1471357747,
+        "commit": "dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee",
+        "tree": "e34774b2e22ff7234cf8fc29a82998ff8d9c4a07",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "448e862d56236ca506b561ddf8f3687bbcdfb66f",
+            "sha256": "f49e22392115f158616452f6ab3b4c02f4373865ae1a4644633d6caff9679f08",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/README.md",
+            "bytes": 7342
+          },
+          {
+            "path": "departments/sales/skills/analyze-win-loss/SKILL.md",
+            "blob_sha": "3ccc9e33d88618b398488610f18bb984689c7949",
+            "sha256": "b1d6e842829f574fe41557abae63cb20db06d55959e89658a812fcc320e213be",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/analyze-win-loss/SKILL.md",
+            "bytes": 3890
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "463cf627ce802f6b25fc24e3780a2335a0ab3a02",
+            "sha256": "d37894bec7ebd31574010f0f9eb17b3295e5ac1fca755fb346847a62b511ba47",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/LICENSE",
+            "bytes": 1092
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "8282b31f21fd32ee5820db6521d23ab4d5493b75",
+            "sha256": "c08eb65a8181d12078ad79456c5c7961ce74208164efdc8e987e2cd2ebbb75cc",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/.claude-plugin/marketplace.json",
+            "bytes": 652
+          },
+          {
+            "path": "departments/sales/.claude-plugin/plugin.json",
+            "blob_sha": "15cd2e021cb598502199365d967efc63e5440c4f",
+            "sha256": "960bbe434bfd23ec90410647836466d9841a9ec54a035592c3ca91291fe8da5a",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/.claude-plugin/plugin.json",
+            "bytes": 812
+          },
+          {
+            "path": "departments/sales/plugin.json",
+            "blob_sha": "8e70ab937b9dad09806b0cb196b2836dd618d17c",
+            "sha256": "35addadf6b1eee5acc44feea66a2c4b2088233530091bdb52275c9c0cc9ca7c1",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/plugin.json",
+            "bytes": 851
+          },
+          {
+            "path": "departments/sales/skills/handoff-closed-deal/SKILL.md",
+            "blob_sha": "8cb688743b593b3156bb1422347d20c14a55e30e",
+            "sha256": "93c641b5519f1672b10e6a345dd9f79f2ebf428c396a5d0f03774dbc55567983",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/handoff-closed-deal/SKILL.md",
+            "bytes": 3629
+          },
+          {
+            "path": "departments/sales/skills/draft-outreach/SKILL.md",
+            "blob_sha": "d06dc9de7f8be6b0948ce03791feb2b71e049abd",
+            "sha256": "0775eee3f89261977017478a77cd97321727fc2bcb0022a5fd864f0f70418440",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/draft-outreach/SKILL.md",
+            "bytes": 4097
+          }
+        ],
+        "finding": "The fixed marketplace and two plugin manifests expose Sales, with ten leaf folders. The unshipped department plans and template are outside this count. The reviewed interview flow stages drafts, and two other read cards condition sends and stage changes on approval while permitting some CRM writeback if configured.",
+        "disposition": "qualified_with_scope_correction"
+      }
+    ],
+    "records": [
+      {
+        "full_name": "maple52046/rag-init",
+        "repository_id": 1471049798,
+        "commit": "545b704faa7beaaf3027ecb6080bf12356ade4bd",
+        "tree": "04a5813e045a0cfb81fac9c41b96da5c52dac9c5",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "d82e5ba3339d32a70c7d3d0f23bb81dace4d3a07",
+            "sha256": "408b53961d3693385f474cf5fcbb2959abab14e9c4fa6d56164cbdf3765bddb1",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/README.md",
+            "bytes": 9737
+          },
+          {
+            "path": ".agents/skills/create-knowledge-rules/SKILL.md",
+            "blob_sha": "fa899666af9ec27b07b53ebfbece5bd7a73842cd",
+            "sha256": "8b945aa0a6342b8ae8009c646c8d85928e91005e420add9670544b9bc88f4aff",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/create-knowledge-rules/SKILL.md",
+            "bytes": 9258
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "6d761af45251c3aab3718bd6c803b953c607916f",
+            "sha256": "88141060dbdfc41268625dabd4897eb36c9792be0b3e644e41bca0a1aebf9506",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "c82bd5dd337d993ff2c3383bd51443e1b43086ae",
+            "sha256": "484f835a0783582035da7e0e3cf7f0d033663aa3708be1ac423cee9ae861bdd3",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/THIRD_PARTY_NOTICES.md",
+            "bytes": 4866
+          },
+          {
+            "path": ".agents/skills/git-commit/SKILL.md",
+            "blob_sha": "6f4cb9d4fd80acea8f96a10f54373d445ee37136",
+            "sha256": "519649848ee0860060acd6c8fd4e48b5486505b45e191f489f23667afe069002",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/git-commit/SKILL.md",
+            "bytes": 9883
+          },
+          {
+            "path": ".claude/skills/create-knowledge-rules/SKILL.md",
+            "blob_sha": "a70649fe1caec70e4a621eca1150b6ae77fa8271",
+            "sha256": "6696d802530d6c8bba05d0504127b79b9481373759e87e301ce79ed3ca4ce134",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.claude/skills/create-knowledge-rules/SKILL.md",
+            "bytes": 1103
+          },
+          {
+            "path": ".claude/skills/git-commit/SKILL.md",
+            "blob_sha": "3e38c14c2840fb5fd9ecb3d9be1275c195a38e17",
+            "sha256": "4971afa13709a6e6602508bf861a055379e439b66a9f62a7db32bb25c9143984",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.claude/skills/git-commit/SKILL.md",
+            "bytes": 917
+          },
+          {
+            "path": ".agents/skills/create-knowledge-rules/LICENSE",
+            "blob_sha": "6d761af45251c3aab3718bd6c803b953c607916f",
+            "sha256": "88141060dbdfc41268625dabd4897eb36c9792be0b3e644e41bca0a1aebf9506",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/create-knowledge-rules/LICENSE",
+            "bytes": 1064
+          },
+          {
+            "path": ".agents/skills/git-commit/LICENSE",
+            "blob_sha": "6d761af45251c3aab3718bd6c803b953c607916f",
+            "sha256": "88141060dbdfc41268625dabd4897eb36c9792be0b3e644e41bca0a1aebf9506",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/git-commit/LICENSE",
+            "bytes": 1064
+          }
+        ],
+        "finding": "Two canonical agent skills are separately copyable. The two Claude cards are thin adapters, not additional implementations. The governance card requires confirmation before writing, and git-commit defaults to staged files with push only by opt-in. The git-commit directory contains its own MIT grant and identifies the bundled conventional-commits excerpt separately.",
+        "disposition": "qualified_with_scope_correction"
+      },
+      {
+        "full_name": "et7admin/ai-agents-for-business",
+        "repository_id": 1471357747,
+        "commit": "dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee",
+        "tree": "e34774b2e22ff7234cf8fc29a82998ff8d9c4a07",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "448e862d56236ca506b561ddf8f3687bbcdfb66f",
+            "sha256": "f49e22392115f158616452f6ab3b4c02f4373865ae1a4644633d6caff9679f08",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/README.md",
+            "bytes": 7342
+          },
+          {
+            "path": "departments/sales/skills/analyze-win-loss/SKILL.md",
+            "blob_sha": "3ccc9e33d88618b398488610f18bb984689c7949",
+            "sha256": "b1d6e842829f574fe41557abae63cb20db06d55959e89658a812fcc320e213be",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/analyze-win-loss/SKILL.md",
+            "bytes": 3890
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "463cf627ce802f6b25fc24e3780a2335a0ab3a02",
+            "sha256": "d37894bec7ebd31574010f0f9eb17b3295e5ac1fca755fb346847a62b511ba47",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/LICENSE",
+            "bytes": 1092
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "8282b31f21fd32ee5820db6521d23ab4d5493b75",
+            "sha256": "c08eb65a8181d12078ad79456c5c7961ce74208164efdc8e987e2cd2ebbb75cc",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/.claude-plugin/marketplace.json",
+            "bytes": 652
+          },
+          {
+            "path": "departments/sales/.claude-plugin/plugin.json",
+            "blob_sha": "15cd2e021cb598502199365d967efc63e5440c4f",
+            "sha256": "960bbe434bfd23ec90410647836466d9841a9ec54a035592c3ca91291fe8da5a",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/.claude-plugin/plugin.json",
+            "bytes": 812
+          },
+          {
+            "path": "departments/sales/plugin.json",
+            "blob_sha": "8e70ab937b9dad09806b0cb196b2836dd618d17c",
+            "sha256": "35addadf6b1eee5acc44feea66a2c4b2088233530091bdb52275c9c0cc9ca7c1",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/plugin.json",
+            "bytes": 851
+          },
+          {
+            "path": "departments/sales/skills/handoff-closed-deal/SKILL.md",
+            "blob_sha": "8cb688743b593b3156bb1422347d20c14a55e30e",
+            "sha256": "93c641b5519f1672b10e6a345dd9f79f2ebf428c396a5d0f03774dbc55567983",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/handoff-closed-deal/SKILL.md",
+            "bytes": 3629
+          },
+          {
+            "path": "departments/sales/skills/draft-outreach/SKILL.md",
+            "blob_sha": "d06dc9de7f8be6b0948ce03791feb2b71e049abd",
+            "sha256": "0775eee3f89261977017478a77cd97321727fc2bcb0022a5fd864f0f70418440",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/draft-outreach/SKILL.md",
+            "bytes": 4097
+          }
+        ],
+        "finding": "The fixed marketplace and two plugin manifests expose Sales, with ten leaf folders. The unshipped department plans and template are outside this count. The reviewed interview flow stages drafts, and two other read cards condition sends and stage changes on approval while permitting some CRM writeback if configured.",
+        "disposition": "qualified_with_scope_correction"
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "maple52046/rag-init",
+        "reason": "Two canonical agent skills are separately copyable. The two Claude cards are thin adapters, not additional implementations. The governance card requires confirmation before writing, and git-commit defaults to staged files with push only by opt-in. The git-commit directory contains its own MIT grant and identifies the bundled conventional-commits excerpt separately.",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": ".agents/skills/git-commit/LICENSE",
+              "blob_sha": "6d761af45251c3aab3718bd6c803b953c607916f",
+              "sha256": "88141060dbdfc41268625dabd4897eb36c9792be0b3e644e41bca0a1aebf9506",
+              "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/git-commit/LICENSE",
+              "bytes": 1064
+            }
+          ],
+          "license_scope": "Root and both skill directories provide MIT for original material. The third-party notice separately identifies methodology source terms and a bundled CC BY 3.0 Conventional Commits excerpt.",
+          "limitations": "The governance card writes two scoped documents after confirmation. The commit card defaults to already staged changes and supports opt-in pushing. External bootstrap CLI and third-party contents were not executed or independently validated."
+        }
+      },
+      {
+        "full_name": "et7admin/ai-agents-for-business",
+        "reason": "The fixed marketplace and two plugin manifests expose Sales, with ten leaf folders. The unshipped department plans and template are outside this count. The reviewed interview flow stages drafts, and two other read cards condition sends and stage changes on approval while permitting some CRM writeback if configured.",
+        "field_updates": {
+          "additional_evidence": [
+            {
+              "path": "departments/sales/skills/handoff-closed-deal/SKILL.md",
+              "blob_sha": "8cb688743b593b3156bb1422347d20c14a55e30e",
+              "sha256": "93c641b5519f1672b10e6a345dd9f79f2ebf428c396a5d0f03774dbc55567983",
+              "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/handoff-closed-deal/SKILL.md",
+              "bytes": 3629
+            },
+            {
+              "path": "departments/sales/skills/draft-outreach/SKILL.md",
+              "blob_sha": "d06dc9de7f8be6b0948ce03791feb2b71e049abd",
+              "sha256": "0775eee3f89261977017478a77cd97321727fc2bcb0022a5fd864f0f70418440",
+              "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/draft-outreach/SKILL.md",
+              "bytes": 4097
+            }
+          ],
+          "limitations": "Configured connectors can access CRM, email and signed business records. Interview requests are drafts; reviewed outbound sends and closed-won stage updates need approval. Some logging and opt-out suppression can write when configured. No business data or live connectors were used."
+        }
+      }
+    ],
+    "objections": []
+  },
+  "integration_application": [
+    {
+      "full_name": "btsouth/toolport",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "The portable skill may fetch the CLI via npx. Preview and approval precede local edits or keychain changes. The same-name gateway variant can reach configured external services and its destructive-action gate is documented for Ask or Strict settings. No installs, secrets, config writes, gateway actions or repairs were exercised."
+      }
+    },
+    {
+      "full_name": "Elecash/skillunit",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "The optional decision layer can submit spec material using a provider key. Dry run suppresses model calls only and the combined check still executes the configured project proof command. No project tests, package installs or model calls were exercised."
+      }
+    },
+    {
+      "full_name": "NutanMilind/reel-storyboard-kit",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "Outputs plans and visual instructions. Web application and video tools were not run. The fixed Claude skill uses a spaced frontmatter name rather than the Agent Skills kebab-case name. Generic loader or installer compatibility was not validated."
+      }
+    },
+    {
+      "full_name": "maple52046/rag-init",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "path": ".agents/skills/git-commit/LICENSE",
+            "blob_sha": "6d761af45251c3aab3718bd6c803b953c607916f",
+            "sha256": "88141060dbdfc41268625dabd4897eb36c9792be0b3e644e41bca0a1aebf9506",
+            "url": "https://github.com/maple52046/rag-init/blob/545b704faa7beaaf3027ecb6080bf12356ade4bd/.agents/skills/git-commit/LICENSE",
+            "bytes": 1064
+          }
+        ],
+        "license_scope": "Root and both skill directories provide MIT for original material. The third-party notice separately identifies methodology source terms and a bundled CC BY 3.0 Conventional Commits excerpt.",
+        "limitations": "The governance card writes two scoped documents after confirmation. The commit card defaults to already staged changes and supports opt-in pushing. External bootstrap CLI and third-party contents were not executed or independently validated."
+      }
+    },
+    {
+      "full_name": "et7admin/ai-agents-for-business",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "additional_evidence": [
+          {
+            "path": "departments/sales/skills/handoff-closed-deal/SKILL.md",
+            "blob_sha": "8cb688743b593b3156bb1422347d20c14a55e30e",
+            "sha256": "93c641b5519f1672b10e6a345dd9f79f2ebf428c396a5d0f03774dbc55567983",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/handoff-closed-deal/SKILL.md",
+            "bytes": 3629
+          },
+          {
+            "path": "departments/sales/skills/draft-outreach/SKILL.md",
+            "blob_sha": "d06dc9de7f8be6b0948ce03791feb2b71e049abd",
+            "sha256": "0775eee3f89261977017478a77cd97321727fc2bcb0022a5fd864f0f70418440",
+            "url": "https://github.com/et7admin/ai-agents-for-business/blob/dffcd6d11cd2c03a656a1ba270fe3caf1e1adfee/departments/sales/skills/draft-outreach/SKILL.md",
+            "bytes": 4097
+          }
+        ],
+        "limitations": "Configured connectors can access CRM, email and signed business records. Interview requests are drafts; reviewed outbound sends and closed-won stage updates need approval. Some logging and opt-out suppression can write when configured. No business data or live connectors were used."
+      }
+    }
+  ]
+}
