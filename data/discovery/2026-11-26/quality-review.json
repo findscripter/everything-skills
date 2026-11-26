@@ -1,0 +1,509 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-26",
+    "stage": "complete",
+    "verified": [
+      {
+        "full_name": "agent-engineering-studio/ispra-idrogeo",
+        "repository_id": 1444505380,
+        "commit": "d44f9f6cfc88f00b4a0ee2fe1bdd260833093650",
+        "tree": "b0975f6756cf9526d6d462b80966106d2056d2d2",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "c37d39b54bae1598b238542f14ef3860b789f5bd",
+            "sha256": "ea7846faafe2103505eb25147d5fbeca8a317238e8b9d91901196748993681bc",
+            "url": "https://github.com/agent-engineering-studio/ispra-idrogeo/blob/d44f9f6cfc88f00b4a0ee2fe1bdd260833093650/README.md",
+            "bytes": 90880
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "57bc88a15a0ee8266c259b2667e64608d3f7e292",
+            "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+            "url": "https://github.com/agent-engineering-studio/ispra-idrogeo/blob/d44f9f6cfc88f00b4a0ee2fe1bdd260833093650/LICENSE",
+            "bytes": 11358
+          },
+          {
+            "path": "skills/ispra-idrogeo/SKILL.md",
+            "blob_sha": "f9853bdd1f2f52c2fe4020c04fc032faf5c3668b",
+            "sha256": "ffaaff3e982a352240f093b1efab8da9bcf586f80d7cddaa05b1b6fe5ca51f9c",
+            "url": "https://github.com/agent-engineering-studio/ispra-idrogeo/blob/d44f9f6cfc88f00b4a0ee2fe1bdd260833093650/skills/ispra-idrogeo/SKILL.md",
+            "bytes": 3543
+          },
+          {
+            "path": "pyproject.toml",
+            "blob_sha": "8752a4b3b8d537c00da6ec400afbcb28e0cad8cb",
+            "sha256": "1025eb17c4b6889c6e1267e6c1fb7309ef11be3df3d0147cb7ac929f39a312c4",
+            "url": "https://github.com/agent-engineering-studio/ispra-idrogeo/blob/d44f9f6cfc88f00b4a0ee2fe1bdd260833093650/pyproject.toml",
+            "bytes": 3896
+          }
+        ],
+        "finding": "The frozen tree contains one leaf skill. README, pyproject and representative distinguish the Apache-2.0 package, Data CC BY or CC BY-SA terms, and optional CLI, data and MCP helpers. Hazard lookup carries coverage and freshness limits."
+      },
+      {
+        "full_name": "remotesensinginfo/rsgispy",
+        "repository_id": 1455065404,
+        "commit": "c8a4ec5bef3ea527e38553aae4f0cb724518cd32",
+        "tree": "c070cb2e83934470808e37405bcb39820e491cc2",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "e41bf7d15e01e765e3cc326e2e6975519618d6e5",
+            "sha256": "6dbadc75b4a2470ca16efc35861e78ef74bd54199eb0d649b6cd695f537fc4a3",
+            "url": "https://github.com/remotesensinginfo/rsgispy/blob/c8a4ec5bef3ea527e38553aae4f0cb724518cd32/README.md",
+            "bytes": 13930
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+            "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+            "url": "https://github.com/remotesensinginfo/rsgispy/blob/c8a4ec5bef3ea527e38553aae4f0cb724518cd32/LICENSE",
+            "bytes": 11357
+          },
+          {
+            "path": "skills/rsgispy/SKILL.md",
+            "blob_sha": "0c29a7fa491051ea8a4ae1fa9892b9aa7253d839",
+            "sha256": "a87838de65850c39cdffbb2cb27cfc85af6fb2aab00a146bc29f86475ee7fdb6",
+            "url": "https://github.com/remotesensinginfo/rsgispy/blob/c8a4ec5bef3ea527e38553aae4f0cb724518cd32/skills/rsgispy/SKILL.md",
+            "bytes": 22185
+          },
+          {
+            "path": "docs/gemini_skill.rst",
+            "blob_sha": "ed67279222cb3b8acd643a7ed14ba341cba39517",
+            "sha256": "5b0e404dd762450e9b1c4587d46998f7d7014b61ead476c6359e53ed10a839ed",
+            "url": "https://github.com/remotesensinginfo/rsgispy/blob/c8a4ec5bef3ea527e38553aae4f0cb724518cd32/docs/gemini_skill.rst",
+            "bytes": 8428
+          }
+        ],
+        "finding": "The tree has one canonical leaf. README and the fixed maintainer documentation agree on direct folder installation and the alternate Gemini archive. Method references and ZIP packaging support the same workflow."
+      }
+    ],
+    "corrections": [],
+    "objections": []
+  },
+  "quality-science.json": {
+    "stage": "complete",
+    "date": "2026-11-26",
+    "reviewer_stream": "science",
+    "objections": [],
+    "verified": [
+      {
+        "full_name": "michaeljauk/timr-client",
+        "repository_id": 1217311283,
+        "commit": "c869c62c522b49190853e9bf10e90bec3cd52c16",
+        "tree": "6d1b87d3fb6959c82c40b36be58317b67c6470c4",
+        "verified_files": [
+          {
+            "path": "README.md",
+            "blob_sha": "50741b89e6f450bff1ec5a5c16c9bd8b3f5b06b3",
+            "sha256": "b59a64e34ab3940fcb5233f966eccb5c36bec3e714e57adcf61188f9be2f09b1",
+            "url": "https://github.com/michaeljauk/timr-client/blob/c869c62c522b49190853e9bf10e90bec3cd52c16/README.md",
+            "bytes": 11996
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "fca91535ebd096fc5e07a76dacc30c3abde3ad61",
+            "sha256": "c6c0bbc181b5938c680855a11486953e73fde8b84d0b2e4d56dad09235a6b33f",
+            "url": "https://github.com/michaeljauk/timr-client/blob/c869c62c522b49190853e9bf10e90bec3cd52c16/LICENSE",
+            "bytes": 1069
+          },
+          {
+            "path": "packages/cli/skills/timr/SKILL.md",
+            "blob_sha": "762337a3d373f3c61ea8ea97424bec8df43ef2d8",
+            "sha256": "424409f539f6c3218f15bda86e7715d7c79be8f8bd73c0541dd3821f09a239ff",
+            "url": "https://github.com/michaeljauk/timr-client/blob/c869c62c522b49190853e9bf10e90bec3cd52c16/packages/cli/skills/timr/SKILL.md",
+            "bytes": 5949
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "a64b8080b9e7e51f5f76391519e274d427ad5dc3",
+            "sha256": "638487e6b28b68a89f267f57c0fe36023408559a908839a709cd7adb3373abc0",
+            "url": "https://github.com/michaeljauk/timr-client/blob/c869c62c522b49190853e9bf10e90bec3cd52c16/package.json",
+            "bytes": 799
+          },
+          {
+            "path": "packages/cli/package.json",
+            "blob_sha": "b7628d79bc0a30f9035dd9ccaaafb48a488b7700",
+            "sha256": "0870d934a759be3a417a6721a2f85dd9a9832fc1684205f868851877d2dc9648",
+            "url": "https://github.com/michaeljauk/timr-client/blob/c869c62c522b49190853e9bf10e90bec3cd52c16/packages/cli/package.json",
+            "bytes": 1277
+          }
+        ],
+        "result": "admission confirmed",
+        "verification": "Independently confirmed the public repository identity and pinned commit/tree. Recomputed Git blob ID, SHA-256 and byte length on the README, representative, license and relevant distribution files, and read the complete representative. No tooling or service actions ran."
+      },
+      {
+        "full_name": "yonivav/app-map",
+        "repository_id": 1470359609,
+        "commit": "d39f8e72d6757780f651ae86dc045de39efd5c57",
+        "tree": "7d5611caa3342d8bcd3ed427de23554649e83d61",
+        "verified_files": [
+          {
+            "path": "README.md",
+            "blob_sha": "6f8b1b767da02f6cf95298826f92d26d52eef037",
+            "sha256": "3ba7acf2c2311c96e8bddf1bde74e67edefbe0a64fb82d346eb18f890c85567c",
+            "url": "https://github.com/yonivav/app-map/blob/d39f8e72d6757780f651ae86dc045de39efd5c57/README.md",
+            "bytes": 17649
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "1f8e8d9783872966c77423e455f34c9567aea45c",
+            "sha256": "0ae3d2972a957fd8358aa549373b54ab973d909cddf77471e95077f377d49a1d",
+            "url": "https://github.com/yonivav/app-map/blob/d39f8e72d6757780f651ae86dc045de39efd5c57/LICENSE",
+            "bytes": 1067
+          },
+          {
+            "path": "skills/app-map/SKILL.md",
+            "blob_sha": "9086bcb23ac205f8ca3a159c858d08f688bbfd6e",
+            "sha256": "635d6f201363544c0fe84fa7ad1cfb5ff6f501e25a8731b521e49e6d0d53a8c4",
+            "url": "https://github.com/yonivav/app-map/blob/d39f8e72d6757780f651ae86dc045de39efd5c57/skills/app-map/SKILL.md",
+            "bytes": 7060
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "4b00d6792047773716f98a937fdd14323838f39c",
+            "sha256": "73f3e59038947e7339dcaaa8ce74df077320de757a420bc49aeec40ba8567ce6",
+            "url": "https://github.com/yonivav/app-map/blob/d39f8e72d6757780f651ae86dc045de39efd5c57/.claude-plugin/plugin.json",
+            "bytes": 525
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "7c9db96aee4892700b5f7e38328c70b9d02d31ea",
+            "sha256": "7a0820d9e47b28ef541db1d4366d70358fdd209d09335914ee36902b61c4e9e6",
+            "url": "https://github.com/yonivav/app-map/blob/d39f8e72d6757780f651ae86dc045de39efd5c57/.claude-plugin/marketplace.json",
+            "bytes": 448
+          }
+        ],
+        "result": "admission confirmed",
+        "verification": "Independently confirmed the public repository identity and pinned commit/tree. Recomputed Git blob ID, SHA-256 and byte length on the README, representative, license and relevant distribution files, and read the complete representative. No tooling or service actions ran."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "michaeljauk/timr-client",
+        "repository_id": 1217311283,
+        "field_updates": {
+          "limitations": "Unofficial client. Live calls can use OAuth client credentials or a static bearer token. Mutating verbs can affect time records relevant to payroll or invoices. The approval-listing command uses an upstream endpoint absent from the pinned API specification. No live calls, credentials or writes were tested."
+        },
+        "reason": "The pinned representative distinguishes two authentication modes and documents the unlisted working-time request endpoint."
+      },
+      {
+        "full_name": "yonivav/app-map",
+        "repository_id": 1470359609,
+        "field_updates": {
+          "limitations": "Generated maps and screenshots can expose project details. The optional PR-update workflow can commit map changes to a PR branch. No simulator, browser, workflow or built output was tested."
+        },
+        "reason": "The pinned README documents optional automated writes to the pull request branch separately from the local skill."
+      }
+    ]
+  },
+  "quality-product.json": {
+    "stage": "complete",
+    "verified": [
+      {
+        "full_name": "matthewbrutonall/digital-preservation-skill",
+        "repository_id": 1266445967,
+        "commit": "5a23f040056d717b2c8a28cc9b4d93521aab84f5",
+        "tree": "0c17f2e7ceecf9ba6ac586466db480f4616e6de4",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "7cb7e8e093dae58bff29de09b0e33bb0ccf88bff",
+            "sha256": "0badc2610a8a5bf96b3fc615f8614c5d69ecf2bd8e576b81786108ec7cae4c29",
+            "url": "https://github.com/matthewbrutonall/digital-preservation-skill/blob/5a23f040056d717b2c8a28cc9b4d93521aab84f5/README.md",
+            "bytes": 5999
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "4d928bb28eb9ec8e7b4ff58c26f6f6c4c5b14319",
+            "sha256": "11f982b397056b031d4e9dc9046e38af57e36abb41dbf7eb30f3c192b3c4f5a8",
+            "url": "https://github.com/matthewbrutonall/digital-preservation-skill/blob/5a23f040056d717b2c8a28cc9b4d93521aab84f5/LICENSE",
+            "bytes": 1071
+          },
+          {
+            "path": "digital-preservation/SKILL.md",
+            "blob_sha": "decb7f955543a85c13ed434d64ea7b92fed439c5",
+            "sha256": "2daa2449bf077ee0894cb8a7e684df02e5deaa083af27bef3ddd16d6338ab3c0",
+            "url": "https://github.com/matthewbrutonall/digital-preservation-skill/blob/5a23f040056d717b2c8a28cc9b4d93521aab84f5/digital-preservation/SKILL.md",
+            "bytes": 19003
+          },
+          {
+            "path": "digital-preservation/references/workflows.md",
+            "blob_sha": "2b63965381f0a8fcc5750e1933790b21330a4469",
+            "sha256": "a3607ab86a9f48ef0a92d9b60d168364e3d4b7a93c9e8146fc6ab2baee05b35b",
+            "url": "https://github.com/matthewbrutonall/digital-preservation-skill/blob/5a23f040056d717b2c8a28cc9b4d93521aab84f5/digital-preservation/references/workflows.md",
+            "bytes": 8270
+          },
+          {
+            "path": "digital-preservation.skill",
+            "blob_sha": "ca802d1fd2a5d8a2b2f93afc224a815a033ed8dd",
+            "sha256": "bdbd38a40da3ba5b5f5c1020f23cb25da76f689b3c6e901b535e06fdf83c321f",
+            "url": "https://github.com/matthewbrutonall/digital-preservation-skill/blob/5a23f040056d717b2c8a28cc9b4d93521aab84f5/digital-preservation.skill",
+            "bytes": 36307
+          }
+        ],
+        "findings": "Confirmed one source skill, a complete README distribution recipe, MIT scope and the companion package. Independently verified that the archived SKILL.md member and its fixed portable source have the same SHA-256. The archive was read in memory only.",
+        "archive_member_check": {
+          "archive": {
+            "path": "digital-preservation.skill",
+            "blob_sha": "ca802d1fd2a5d8a2b2f93afc224a815a033ed8dd",
+            "sha256": "bdbd38a40da3ba5b5f5c1020f23cb25da76f689b3c6e901b535e06fdf83c321f",
+            "url": "https://github.com/matthewbrutonall/digital-preservation-skill/blob/5a23f040056d717b2c8a28cc9b4d93521aab84f5/digital-preservation.skill",
+            "bytes": 36307
+          },
+          "member": "digital-preservation/SKILL.md",
+          "member_sha256": "2daa2449bf077ee0894cb8a7e684df02e5deaa083af27bef3ddd16d6338ab3c0",
+          "matched": true
+        }
+      },
+      {
+        "full_name": "kal-eficia/ai-teaching-skills",
+        "repository_id": 1472018233,
+        "commit": "34cd877ed13658f4710a72c56b2ae4c7247ef808",
+        "tree": "741a29df52aaa1ce6938f47d18ef38ded5e0bbba",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "fafeb66d08899e791f95faa0049dd63e470ab183",
+            "sha256": "cf8259ebfc6d0579dcd42a08d42066388ae2c7ae2a563eb61e734344a24a349d",
+            "url": "https://github.com/kal-eficia/ai-teaching-skills/blob/34cd877ed13658f4710a72c56b2ae4c7247ef808/README.md",
+            "bytes": 17831
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "be5d789495b0ecf45a071b24976111a852046a54",
+            "sha256": "6c292f06c9a1715d494de39d530b6dabf8663cdf31972c4ca5073b7417f62b57",
+            "url": "https://github.com/kal-eficia/ai-teaching-skills/blob/34cd877ed13658f4710a72c56b2ae4c7247ef808/LICENSE",
+            "bytes": 1066
+          },
+          {
+            "path": "skills/ai-literacy-lesson/SKILL.md",
+            "blob_sha": "483a3ec44ae5e91c5b0094a38b8fc59d1bedb062",
+            "sha256": "52d49ee6d3aabf687b84001d48182ee9f3c79268506220ab42d668e0e3002ca2",
+            "url": "https://github.com/kal-eficia/ai-teaching-skills/blob/34cd877ed13658f4710a72c56b2ae4c7247ef808/skills/ai-literacy-lesson/SKILL.md",
+            "bytes": 2283
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "aeef5f9a46eb6d9c7fbf56f0fa4aab4aca9d321b",
+            "sha256": "a9d3dcc80322e83429ccf87e12bf30892c55f072be3b68d16993cbb7dcb1eb7e",
+            "url": "https://github.com/kal-eficia/ai-teaching-skills/blob/34cd877ed13658f4710a72c56b2ae4c7247ef808/.claude-plugin/marketplace.json",
+            "bytes": 601
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "c53a1ee99de435c8e212266eeb9284f05dc50073",
+            "sha256": "92d81cb86b3362892585e9a814f7eea1a7337f1457a248b1837885d40d188096",
+            "url": "https://github.com/kal-eficia/ai-teaching-skills/blob/34cd877ed13658f4710a72c56b2ae4c7247ef808/.claude-plugin/plugin.json",
+            "bytes": 581
+          },
+          {
+            "path": "site/fonts/LICENSE.txt",
+            "blob_sha": "3b1cae147933405935b65b638e3163cb589ec142",
+            "sha256": "37a2cfc2b69adc3ef321aeaf469f3de6990bb823c27d55551f0e91dc7772deb9",
+            "url": "https://github.com/kal-eficia/ai-teaching-skills/blob/34cd877ed13658f4710a72c56b2ae4c7247ef808/site/fonts/LICENSE.txt",
+            "bytes": 73
+          }
+        ],
+        "findings": "The Marketplace and plugin descriptions both match the 56 named source skill directories in the complete tree. Reviewed the full AI-literacy lesson card and root MIT license. The font notice scopes Cinzel and Inter Tight to SIL OFL 1.1."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "matthewbrutonall/digital-preservation-skill",
+        "field_updates": {
+          "count_basis": "One canonical fixed folder plus a documented companion .skill archive. The archive member digital-preservation/SKILL.md matches the canonical source SHA-256 byte-for-byte, so it does not add a skill identity.",
+          "additional_evidence": [
+            {
+              "path": "digital-preservation.skill",
+              "blob_sha": "ca802d1fd2a5d8a2b2f93afc224a815a033ed8dd",
+              "sha256": "bdbd38a40da3ba5b5f5c1020f23cb25da76f689b3c6e901b535e06fdf83c321f",
+              "url": "https://github.com/matthewbrutonall/digital-preservation-skill/blob/5a23f040056d717b2c8a28cc9b4d93521aab84f5/digital-preservation.skill",
+              "bytes": 36307
+            }
+          ]
+        }
+      },
+      {
+        "full_name": "kal-eficia/ai-teaching-skills",
+        "field_updates": {
+          "license_scope": "Root MIT covers authored repository instructions and plugin code. The fixed site/fonts/LICENSE.txt separately places Cinzel and Inter Tight under SIL Open Font License 1.1."
+        }
+      }
+    ],
+    "objections": []
+  },
+  "quality-breadth.json": {
+    "date": "2026-11-26",
+    "stage": "complete",
+    "verified": [
+      {
+        "full_name": "chaeller/trilium-symbiont",
+        "repository_id": 1454270526,
+        "commit": "2d3d63c6b751820487f49255d162714d03661285",
+        "tree": "b54a771f0b47a65190f7819c11f69f4c2a75269f",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "3b3df9b84e5b8427b299c8de3b85cf1b65297476",
+            "sha256": "4a32c65a4d608a5505591156151ff4ac12e406f401f0ec0a017d4a1ec470aa3e",
+            "url": "https://github.com/chaeller/trilium-symbiont/blob/2d3d63c6b751820487f49255d162714d03661285/README.md",
+            "bytes": 14886
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "50fd7e8bba3a41d092db03216ea04af8c73d4ad9",
+            "sha256": "c7289b39a800f9ad7ef0868ecef77aad551318a36e2d0e1e1e5e5a5b0f0a9ff6",
+            "url": "https://github.com/chaeller/trilium-symbiont/blob/2d3d63c6b751820487f49255d162714d03661285/LICENSE",
+            "bytes": 1070
+          },
+          {
+            "path": "skills/sb-capture/SKILL.md",
+            "blob_sha": "3ae2202b2ae2d2765eb55708510ef7e44c22c2f7",
+            "sha256": "4336936bfc3ccdbab67b54f5af7c9c945674b23f49085b3111dffea6ae8b426a",
+            "url": "https://github.com/chaeller/trilium-symbiont/blob/2d3d63c6b751820487f49255d162714d03661285/skills/sb-capture/SKILL.md",
+            "bytes": 2805
+          },
+          {
+            "path": "scripts/build_dist.py",
+            "blob_sha": "73b6c763fd8ab2c5032a156fcb7796eb7d50e213",
+            "sha256": "d0113cf4ff92c3db2675985c505b2631d83534e86367dd897344887ba8b64da9",
+            "url": "https://github.com/chaeller/trilium-symbiont/blob/2d3d63c6b751820487f49255d162714d03661285/scripts/build_dist.py",
+            "bytes": 3314
+          },
+          {
+            "path": "docs/install.md",
+            "blob_sha": "087e5fcc7223fe2d4404363ed83f467bc7c04f31",
+            "sha256": "feb242725325b94a9c7ef69ae9d5393e4987695044b5fe6e44bb0f51727e8eec",
+            "url": "https://github.com/chaeller/trilium-symbiont/blob/2d3d63c6b751820487f49255d162714d03661285/docs/install.md",
+            "bytes": 15050
+          }
+        ],
+        "confirmed_count": 12,
+        "finding": "Twelve canonical sb-* directories match the published Desktop ZIP map and the path enumeration in the fixed Python packaging script. The linked client installs and both ZIP builders package the same leaf tasks. Root MIT applies to project-authored content. The representative creates notes and can mark sensitive input for the configured connector to hide.",
+        "disposition": "qualified"
+      },
+      {
+        "full_name": "kat-minh/enterprise-admin-architect",
+        "repository_id": 1465628921,
+        "commit": "d53c3b19d20469902018d5b095650f7bda0d4062",
+        "tree": "925782a009c68045d957b834311c9fba49129928",
+        "read_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "db527efc318ddde301c0de9c307ceef2cf744ad1",
+            "sha256": "a0fd1c06b43d7daaa1ff5a11aa3d8c0190aa829c376a934de6e453aafbed5cbd",
+            "url": "https://github.com/kat-minh/enterprise-admin-architect/blob/d53c3b19d20469902018d5b095650f7bda0d4062/README.md",
+            "bytes": 20620
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "98244df9eb55bd08f2893ed367aefd4b854a321d",
+            "sha256": "6c318c3a236d3957687a0684e1cad9b9a945155d79e51fe765fd802821869c67",
+            "url": "https://github.com/kat-minh/enterprise-admin-architect/blob/d53c3b19d20469902018d5b095650f7bda0d4062/LICENSE",
+            "bytes": 1065
+          },
+          {
+            "path": "skills/admin-design-system/SKILL.md",
+            "blob_sha": "4ac15336f1bdb6423751712890b574d28d63838f",
+            "sha256": "04d397f4f9c901cec871c2602dbb76e3f8561108948aa0217bedaeb9ef39c636",
+            "url": "https://github.com/kat-minh/enterprise-admin-architect/blob/d53c3b19d20469902018d5b095650f7bda0d4062/skills/admin-design-system/SKILL.md",
+            "bytes": 6858
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "97313d603383cb95e9bb2d3a8389ff3166ec15db",
+            "sha256": "8015c394d8815cb07dbe9fd0d408bb70ee7b6c0b11daffff9d3b4cfde87c5af3",
+            "url": "https://github.com/kat-minh/enterprise-admin-architect/blob/d53c3b19d20469902018d5b095650f7bda0d4062/.claude-plugin/marketplace.json",
+            "bytes": 573
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "a1144896154e4b3f10bb242956ce47919facab34",
+            "sha256": "483e78c4264a9c49fad3ae67b6abdb39462e20a00b31b07b4b7e8d5ae5656cca",
+            "url": "https://github.com/kat-minh/enterprise-admin-architect/blob/d53c3b19d20469902018d5b095650f7bda0d4062/.claude-plugin/plugin.json",
+            "bytes": 467
+          },
+          {
+            "path": "skills/enterprise-admin-architect/SKILL.md",
+            "blob_sha": "c2e8ef936c8c30785b0c7d4de90413a21413c816",
+            "sha256": "f1193446d5edb645f3fc20468aaeaef4ce527af9e33e34c84552903a85b3c635",
+            "url": "https://github.com/kat-minh/enterprise-admin-architect/blob/d53c3b19d20469902018d5b095650f7bda0d4062/skills/enterprise-admin-architect/SKILL.md",
+            "bytes": 9846
+          }
+        ],
+        "confirmed_count": 6,
+        "finding": "The fixed README and marketplace and plugin manifests describe one bundle. Seven source cards split into one dispatcher and six tasks, including the standalone UI audit. The fixed repo license and plugin manifest identify MIT. The representative requires a design approval before scaling from its reference module.",
+        "disposition": "qualified"
+      }
+    ],
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "chaeller/trilium-symbiont",
+        "reason": "The capture card treats a final sensitive-note label as a visibility change. The effect depends on the connector and was not verified by static review.",
+        "field_updates": {
+          "limitations": "A configured Trilium instance and an authorized connector are required. Capture creates or appends a note, and setup or sync can alter the instance. Handling of the sensitive-note visibility label depends on the connector and was not tested."
+        }
+      }
+    ]
+  },
+  "integration_application": [
+    {
+      "full_name": "michaeljauk/timr-client",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "Unofficial client. Live calls can use OAuth client credentials or a static bearer token. Mutating verbs can affect time records relevant to payroll or invoices. The approval-listing command uses an upstream endpoint absent from the pinned API specification. No live calls, credentials or writes were tested."
+      }
+    },
+    {
+      "full_name": "yonivav/app-map",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "Generated maps and screenshots can expose project details. The optional PR-update workflow can commit map changes to a PR branch. No simulator, browser, workflow or built output was tested."
+      }
+    },
+    {
+      "full_name": "matthewbrutonall/digital-preservation-skill",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "count_basis": "One canonical fixed folder plus a documented companion .skill archive. The archive member digital-preservation/SKILL.md matches the canonical source SHA-256 byte-for-byte, so it does not add a skill identity.",
+        "additional_evidence": [
+          {
+            "path": "digital-preservation/references/workflows.md",
+            "blob_sha": "2b63965381f0a8fcc5750e1933790b21330a4469",
+            "sha256": "a3607ab86a9f48ef0a92d9b60d168364e3d4b7a93c9e8146fc6ab2baee05b35b",
+            "url": "https://github.com/matthewbrutonall/digital-preservation-skill/blob/5a23f040056d717b2c8a28cc9b4d93521aab84f5/digital-preservation/references/workflows.md",
+            "bytes": 8270
+          },
+          {
+            "path": "digital-preservation.skill",
+            "blob_sha": "ca802d1fd2a5d8a2b2f93afc224a815a033ed8dd",
+            "sha256": "bdbd38a40da3ba5b5f5c1020f23cb25da76f689b3c6e901b535e06fdf83c321f",
+            "url": "https://github.com/matthewbrutonall/digital-preservation-skill/blob/5a23f040056d717b2c8a28cc9b4d93521aab84f5/digital-preservation.skill",
+            "bytes": 36307
+          }
+        ]
+      }
+    },
+    {
+      "full_name": "kal-eficia/ai-teaching-skills",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "license_scope": "Root MIT covers authored repository instructions and plugin code. The fixed site/fonts/LICENSE.txt separately places Cinzel and Inter Tight under SIL Open Font License 1.1."
+      }
+    },
+    {
+      "full_name": "chaeller/trilium-symbiont",
+      "source_review": "quality-breadth.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "A configured Trilium instance and an authorized connector are required. Capture creates or appends a note, and setup or sync can alter the instance. Handling of the sensitive-note visibility label depends on the connector and was not tested."
+      }
+    }
+  ]
+}
