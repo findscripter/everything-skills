@@ -1,0 +1,442 @@
+{
+  "date": "2026-11-26",
+  "backend": "GitHub official API via gh; parallel read-only discovery streams",
+  "search_windows": {
+    "science": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" FreeCAD OR OpenSCAD in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 75,
+          "backend": "GitHub official repositories search API",
+          "observed_date": "2026-11-26",
+          "total": 534186,
+          "retrieved": 75,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" KiCad in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 75,
+          "backend": "GitHub official repositories search API",
+          "observed_date": "2026-11-26",
+          "total": 592,
+          "retrieved": 75,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"scientific\" in:readme pushed:>=2026-11-19 fork:false archived:false",
+          "page": 1,
+          "per_page": 75,
+          "backend": "GitHub official repositories search API",
+          "observed_date": "2026-11-26",
+          "total": 1262,
+          "retrieved": 75,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" geospatial OR qgis in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 75,
+          "backend": "GitHub official repositories search API",
+          "observed_date": "2026-11-26",
+          "total": 534186,
+          "retrieved": 75,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"robotics\" in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 75,
+          "backend": "GitHub official repositories search API",
+          "observed_date": "2026-11-26",
+          "total": 8055,
+          "retrieved": 75,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" \"hardware\" in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 75,
+          "backend": "GitHub official repositories search API",
+          "observed_date": "2026-11-26",
+          "total": 16436,
+          "retrieved": 75,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"sustainability\" in:readme fork:false archived:false",
+          "page": 1,
+          "per_page": 75,
+          "backend": "GitHub official repositories search API",
+          "observed_date": "2026-11-26",
+          "total": 4697,
+          "retrieved": 75,
+          "incomplete_results": false
+        },
+        {
+          "query": "skill in:name KiCad OR PCB OR FreeCAD OR OpenSCAD fork:false archived:false",
+          "page": 1,
+          "per_page": 95,
+          "observed_date": "2026-11-26",
+          "result": "rate_limit",
+          "http_status": 403
+        },
+        {
+          "query": "skill in:name GIS OR QGIS OR geospatial OR satellite fork:false archived:false",
+          "page": 1,
+          "per_page": 95,
+          "observed_date": "2026-11-26",
+          "result": "rate_limit",
+          "http_status": 403
+        },
+        {
+          "query": "skill in:name math OR physics OR scientific fork:false archived:false",
+          "page": 1,
+          "per_page": 95,
+          "observed_date": "2026-11-26",
+          "result": "rate_limit",
+          "http_status": 403
+        },
+        {
+          "query": "skill in:name ROS OR robotics OR sustainability OR embedded fork:false archived:false",
+          "page": 1,
+          "per_page": 95,
+          "observed_date": "2026-11-26",
+          "result": "rate_limit",
+          "http_status": 403
+        }
+      ],
+      "retrieved_new_unique_candidates": 268,
+      "baseline_duplicate_hits": 158
+    },
+    "product": {
+      "queries": [
+        {
+          "query": "\"npx skills add\" \"package\" \"SDK\" in:readme fork:false archived:false",
+          "backend": "GitHub official repos search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:57:45.791589+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 60,
+          "total": 5357,
+          "retrieved": 60,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"TypeScript SDK\" in:readme fork:false archived:false",
+          "backend": "GitHub official repos search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:57:51.812296+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 60,
+          "total": 2173,
+          "retrieved": 60,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"developer tools\" \"CLI\" in:readme fork:false archived:false",
+          "backend": "GitHub official repos search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:57:57.223447+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 60,
+          "total": 3484,
+          "retrieved": 60,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"Agent Skills\" \"CI\" \"repository\" in:readme topic:agent-skills fork:false archived:false",
+          "backend": "GitHub official repos search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:58:03.205644+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 60,
+          "total": 5505,
+          "retrieved": 60,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"skills\" \"npm install\" \"MCP\" in:readme fork:false archived:false",
+          "backend": "GitHub official repos search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:58:09.017972+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 60,
+          "total": 26418,
+          "retrieved": 60,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"npx skills add\" \"cloud\" in:readme fork:false archived:false",
+          "backend": "GitHub official repos search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:58:14.095035+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 60,
+          "total": 9292,
+          "retrieved": 60,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"database\" \"migration\" \"CLI\" in:readme fork:false archived:false",
+          "backend": "GitHub official repos search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:58:19.362969+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 60,
+          "total": 14444,
+          "retrieved": 60,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"install\" \"registry\" topic:agent-skills fork:false archived:false",
+          "backend": "GitHub official repos search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:58:24.277944+00:00",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 60,
+          "result": "rate_limit"
+        },
+        {
+          "query": "filename:SKILL.md path:skills \"SDK\" \"compatibility\"",
+          "backend": "GitHub official code search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:58:26.845889+00:00",
+          "sort": "best match",
+          "page": 1,
+          "per_page": 60,
+          "total": 16384,
+          "retrieved": 60,
+          "incomplete_results": false
+        },
+        {
+          "query": "filename:SKILL.md \"npx\" \"official CLI\"",
+          "backend": "GitHub official code search API via gh",
+          "observed_date": "2026-11-26",
+          "observed_at": "2026-11-26T00:58:32.599823+00:00",
+          "sort": "best match",
+          "page": 1,
+          "per_page": 60,
+          "total": 611,
+          "retrieved": 60,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 345,
+      "baseline_duplicate_hits": 91
+    },
+    "breadth": {
+      "queries": [
+        {
+          "query": "\"SKILL.md\" teacher curriculum in:readme pushed:>2026-10-25 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 169,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" wcag accessibility in:readme pushed:>2026-10-25 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 2071,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" museum heritage in:readme pushed:>2026-10-01 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 37,
+          "retrieved": 37,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" subtitle caption in:readme pushed:>2026-11-16 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 466,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" publication typesetting in:readme pushed:>2026-11-16 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 28,
+          "retrieved": 28,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"design handoff\" in:readme pushed:>2026-11-23 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 59,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" fiction narrative in:readme pushed:>2026-11-21 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 64,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"public service\" in:readme pushed:>2026-11-23 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 40,
+          "total": 64,
+          "retrieved": 40,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"language learning\" in:readme is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 298,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"lesson plan\" in:readme is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 490,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" typography in:readme pushed:>2026-11-22 is:public archived:false",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 30,
+          "total": 1268,
+          "retrieved": 30,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"SKILL.md\" \"video editing\" in:readme pushed:>2026-11-22 is:public archived:false",
+          "page": 1,
+          "result": "rate_limit"
+        },
+        {
+          "query": "\"SKILL.md\" \"creative writing\" in:readme pushed:>2026-11-22 is:public archived:false",
+          "page": 1,
+          "result": "rate_limit"
+        },
+        {
+          "query": "\"SKILL.md\" \"digital preservation\" in:readme is:public archived:false",
+          "page": 1,
+          "result": "rate_limit"
+        }
+      ],
+      "retrieved_new_unique_candidates": 308,
+      "baseline_duplicate_hits": 55
+    },
+    "parent": {
+      "queries": [
+        {
+          "query": "\"agent skills\" \"sales\" in:name,description,readme fork:false created:>=2026-10-28",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 55,
+          "total": 2148,
+          "retrieved": 55,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"skill.md\" \"technical writing\" in:readme fork:false created:>=2026-10-28",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 55,
+          "total": 230,
+          "retrieved": 55,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"skill.md\" \"knowledge management\" in:readme fork:false created:>=2026-10-28",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 55,
+          "total": 73,
+          "retrieved": 55,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"agent skills\" \"project management\" in:description,readme fork:false created:>=2026-10-29",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 55,
+          "total": 451,
+          "retrieved": 55,
+          "incomplete_results": false
+        },
+        {
+          "query": "\"skills\" \"content strategy\" in:name,description,readme fork:false created:>=2026-10-30",
+          "backend": "GitHub official repository search API",
+          "observed_date": "2026-11-26",
+          "sort": "updated",
+          "page": 1,
+          "per_page": 55,
+          "total": 422,
+          "retrieved": 55,
+          "incomplete_results": false
+        }
+      ],
+      "retrieved_new_unique_candidates": 262,
+      "baseline_duplicate_hits": 3
+    }
+  },
+  "policy": "No success-count early stop or numeric acceptance cap. Selected review sets and unreviewed query results are separate."
+}
