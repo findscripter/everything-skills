@@ -1,0 +1,447 @@
+{
+  "quality-parent.json": {
+    "date": "2026-11-27",
+    "stage": "complete",
+    "verified": [
+      {
+        "full_name": "glotoff/freecad-skills",
+        "repository_id": 1378153315,
+        "commit": "9fe36d37dfb1a0684b277a9d143876d45d1f6b15",
+        "tree": "e5e12410cfcb3a4c89d850955fa1f4d70a5ec550",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "d2fc0b1606e9d94e9e47e5f318e8154cb81e3bfe",
+            "sha256": "af4b14e620edd2c7bf613c3ce30900bffd67ec03b0e6ff30e6fbd37541cb1df5",
+            "url": "https://github.com/glotoff/freecad-skills/blob/9fe36d37dfb1a0684b277a9d143876d45d1f6b15/README.md",
+            "bytes": 12354
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "b870facfc36c05e7e720cfcffd31ed07d2c56087",
+            "sha256": "15ea8d6e69315e3082ec3a7fe7ea9acb5eed06dd01f87980a8933d9248d1548f",
+            "url": "https://github.com/glotoff/freecad-skills/blob/9fe36d37dfb1a0684b277a9d143876d45d1f6b15/LICENSE",
+            "bytes": 1081
+          },
+          {
+            "path": "skills/freecad-developer/SKILL.md",
+            "blob_sha": "425509fe4134a7b0cfbf5e0eb0f165c67b0359de",
+            "sha256": "5c7a2ef4984dd6967997529cabf32897c9af2ba2c8d17a94be96254b7988e73f",
+            "url": "https://github.com/glotoff/freecad-skills/blob/9fe36d37dfb1a0684b277a9d143876d45d1f6b15/skills/freecad-developer/SKILL.md",
+            "bytes": 4775
+          },
+          {
+            "path": "install.py",
+            "blob_sha": "721afe91b2f402b8d9ac00d69d01c663664c79d4",
+            "sha256": "d53877805d29f1955d314b71ca214585367f8f3d672403addce03ab1d9bbf86f",
+            "url": "https://github.com/glotoff/freecad-skills/blob/9fe36d37dfb1a0684b277a9d143876d45d1f6b15/install.py",
+            "bytes": 5488
+          }
+        ],
+        "finding": "Fixed README and installer select three canonical folders. The three .agents copies have matching blob IDs. README distinguishes the original MIT files from the cited FreeCAD documentation adaptations."
+      },
+      {
+        "full_name": "opengeos/cli-anything-qgis",
+        "repository_id": 1208793842,
+        "commit": "c7123e23ad60f359000f9bad6f6f5e06f53076c3",
+        "tree": "b31ba8b98ceda5270a0a217368f0c0d3f86a2504",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "48b2fb65636a5037f7c7d4c21753edf8f1976ae2",
+            "sha256": "58757624d5365af72ae63ce0c38d131b0f0abeac63351f64c0ca22529feb405d",
+            "url": "https://github.com/opengeos/cli-anything-qgis/blob/c7123e23ad60f359000f9bad6f6f5e06f53076c3/README.md",
+            "bytes": 7570
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "a0705f07e8b1d2ed592697e9c0749876c4a94c07",
+            "sha256": "e79a50c62f1c137d93a4fb5e982b5d915d49bf88f7dc3997d77775678bffab77",
+            "url": "https://github.com/opengeos/cli-anything-qgis/blob/c7123e23ad60f359000f9bad6f6f5e06f53076c3/LICENSE",
+            "bytes": 1082
+          },
+          {
+            "path": "cli_anything/qgis/skills/SKILL.md",
+            "blob_sha": "ec846bbce6c053e8da3c259b19a44677e740b342",
+            "sha256": "b2301efe7703ec87cffedcb981fd0345d1fc863cece370797898b5c645494dd0",
+            "url": "https://github.com/opengeos/cli-anything-qgis/blob/c7123e23ad60f359000f9bad6f6f5e06f53076c3/cli_anything/qgis/skills/SKILL.md",
+            "bytes": 6712
+          },
+          {
+            "path": "setup.py",
+            "blob_sha": "bf436233a0bee220c7797a29fe415a74ae45fcbf",
+            "sha256": "21eefc4a92e01390b9ae6bbe51eab78db72675b54dd88e09600055b03942397e",
+            "url": "https://github.com/opengeos/cli-anything-qgis/blob/c7123e23ad60f359000f9bad6f6f5e06f53076c3/setup.py",
+            "bytes": 587
+          }
+        ],
+        "finding": "The fixed README documents discovery from the CLI package. The tree and setup metadata identify one packaged QGIS skill. Providers and host bindings are runtime dependencies."
+      }
+    ],
+    "corrections": [],
+    "objections": []
+  },
+  "quality-science.json": {
+    "stage": "complete",
+    "date": "2026-11-27",
+    "reviewer_stream": "science",
+    "objections": [],
+    "verified": [
+      {
+        "full_name": "platformatic/skills",
+        "repository_id": 1144703729,
+        "commit": "ab0b78d07d0597807c275155f78410b4a59efce8",
+        "tree": "440b6d6f29dc61aa6f9b64545572b87322d79188",
+        "verified_files": [
+          {
+            "path": "README.md",
+            "blob_sha": "66545d7ababfc6a36b53dd5444592e6d479eee77",
+            "sha256": "cd2661af7516b9a857703fc5c47939cd4e8961827ccff1065aae89881ae72a1d",
+            "url": "https://github.com/platformatic/skills/blob/ab0b78d07d0597807c275155f78410b4a59efce8/README.md",
+            "bytes": 10875
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d165b2717dc4d77ad6f407141f4a8f454588c509",
+            "sha256": "a5e45465a556b66456edeea9a86aa0b0432d194e20f5c64339f58bcb28a1a6bf",
+            "url": "https://github.com/platformatic/skills/blob/ab0b78d07d0597807c275155f78410b4a59efce8/LICENSE",
+            "bytes": 10761
+          },
+          {
+            "path": "skills/watt/SKILL.md",
+            "blob_sha": "47100fb3f5c4d16ff325813f36e013aefec253bb",
+            "sha256": "a7d3adfc8af9a5bb301511b36f2214125268ccb7c9b8b03d01af598813659286",
+            "url": "https://github.com/platformatic/skills/blob/ab0b78d07d0597807c275155f78410b4a59efce8/skills/watt/SKILL.md",
+            "bytes": 5707
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "4f93db7fcef43a4df1bcaf22f5541e03f4fb0744",
+            "sha256": "7238de62c5ecaa0c2e401bfffa88fd055f93f747126a9bda5e262e995064d7b4",
+            "url": "https://github.com/platformatic/skills/blob/ab0b78d07d0597807c275155f78410b4a59efce8/.claude-plugin/plugin.json",
+            "bytes": 638
+          }
+        ],
+        "result": "admission confirmed",
+        "verification": "Independently fetched repository identity, commit and full tree and recomputed the reviewed source blobs. Read the complete representative and checked the documented public install and license. No code ran."
+      },
+      {
+        "full_name": "scikit-plots/skills",
+        "repository_id": 1434751974,
+        "commit": "fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd",
+        "tree": "72b6dc5612d3107324e8fb5961321dd392d8f481",
+        "verified_files": [
+          {
+            "path": "README.md",
+            "blob_sha": "c0554561ddb719a3eea01e0dcad40614d50a9c7d",
+            "sha256": "cc21039e172c90e600476feaccf270ba12cac2244593cad889c692a2fe238fca",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/README.md",
+            "bytes": 10672
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "212ac881390fa16869b87964ea1246fc8a5eb016",
+            "sha256": "1f0fc1143624944869a815bd45981bf0ca8676321b2078b35114240f08a1855f",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/LICENSE",
+            "bytes": 1544
+          },
+          {
+            "path": "skills/scikitplot-api/SKILL.md",
+            "blob_sha": "38196c0ab4e101d4c49d415d519c74066b9f4f6d",
+            "sha256": "a8e9f97824a33d79cc25b92b4522411a8de9897e5f9847692d304b3d7c32265c",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/skills/scikitplot-api/SKILL.md",
+            "bytes": 6202
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "63adcc3a44c9d817fbdb8c33ab16d14fc0e8aa38",
+            "sha256": "3131382ba0103739d14b8cccfa1898a25db75251c94201795e8f909e462ee21f",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/.claude-plugin/marketplace.json",
+            "bytes": 631
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "blob_sha": "308cd212f8dbc82be6291f6ffccf91f0d70fc75d",
+            "sha256": "2359a5b5fc8d471178a4976123e36003d1ee3cf808ac2ad63e5c1f87baab4c1f",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/.claude-plugin/plugin.json",
+            "bytes": 642
+          },
+          {
+            "path": "LICENSES/LICENSE_NumCpp.txt",
+            "blob_sha": "811736c06a758914fb1d7b8a7ae0e40b93c7c6b4",
+            "sha256": "c9e8b9447ad22e1121b7e78766f5e32045aab0392920d9cc6768eb281fa3c026",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/LICENSES/LICENSE_NumCpp.txt",
+            "bytes": 1074
+          },
+          {
+            "path": "LICENSES/LICENSE_annoy.txt",
+            "blob_sha": "f3f26d5190b698aa9efb9e5853f355cb1f0f4892",
+            "sha256": "57d48dc5d1db768bf5606301138a9d5d6216afff57c51f9e672b4750106804b2",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/LICENSES/LICENSE_annoy.txt",
+            "bytes": 11362
+          },
+          {
+            "path": "LICENSES/LICENSE_appdirs.txt",
+            "blob_sha": "a1dd88e7c6eab2af7dcca6f73ee56da4fa22c116",
+            "sha256": "82663369410cf3c5099fce03b172af030baa169aef45a5e660d83817772af564",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/LICENSES/LICENSE_appdirs.txt",
+            "bytes": 1375
+          },
+          {
+            "path": "LICENSES/LICENSE_array-api-compat.txt",
+            "blob_sha": "ca9f2fee821caf1a99a27ea17e3467cccd8c73b8",
+            "sha256": "4ffd978e3fa18d058d98c66771cfea7ed634aaf7023cf9612b8b55eee9a8f0fe",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/LICENSES/LICENSE_array-api-compat.txt",
+            "bytes": 1097
+          },
+          {
+            "path": "LICENSES/LICENSE_array-api-extra.txt",
+            "blob_sha": "45bbb9450877122a8de63039fe1bcd84397bb4db",
+            "sha256": "58494398fe147fdce76a68b2decd4c08ce3a1ea237b6d6785001c15f822c6ed6",
+            "url": "https://github.com/scikit-plots/skills/blob/fcc65f0de715fb0c3a8fb8e03b17a61fc2ed75bd/LICENSES/LICENSE_array-api-extra.txt",
+            "bytes": 1097
+          }
+        ],
+        "result": "admission confirmed",
+        "verification": "Independently fetched repository identity, commit and full tree and recomputed the reviewed source blobs. Read the complete representative and checked the documented public install and license. No code ran."
+      }
+    ],
+    "corrections": [
+      {
+        "full_name": "platformatic/skills",
+        "repository_id": 1144703729,
+        "field_updates": {
+          "limitations": "The Watt entry requires a project-local Watt 3.74.0 or newer with its skill command. Internals are delegated to that exact release and not counted in this source. No dependencies, integration or deployment tested."
+        },
+        "reason": "The public source has three published entries. The representative requires a project-local Watt 3.74.0-or-newer distribution, delegates to its release-matched documents, and stops on unsupported versions."
+      },
+      {
+        "full_name": "scikit-plots/skills",
+        "repository_id": 1434751974,
+        "field_updates": {
+          "limitations": "The pinned scope is a development plugin build. A released or locally installed scikit-plots version may lack APIs shown by its generated recipes. No Python package, example or runtime result was verified."
+        },
+        "reason": "The fixed marketplace and plugin version identify a development build. The representative states explicitly that the PyPI build can lag that skill and may lack its functional API module."
+      }
+    ]
+  },
+  "quality-product.json": {
+    "stage": "complete",
+    "verified": [
+      {
+        "full_name": "enis027/charity-sites",
+        "repository_id": 1473797003,
+        "commit": "79c7527a3d45cfff4d56a20f3c03e1574c0e64f0",
+        "tree": "dbb0a270c214be832987613bcbc5023cc6aacb4b",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "29f52a9ba5d52c8dd1570f89eed7acaaaa6fb191",
+            "sha256": "038a52bd079a839ea5519547c44262ab856debc75bddb51a22fee3f56240bcd5",
+            "url": "https://github.com/enis027/charity-sites/blob/79c7527a3d45cfff4d56a20f3c03e1574c0e64f0/README.md",
+            "bytes": 6386
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d7b706fb62a2f20bf874aa93d1045031b3864a51",
+            "sha256": "069061a555dda6db0bb9a4fa7e235415b858a22474cb8197a05a87077d738d1b",
+            "url": "https://github.com/enis027/charity-sites/blob/79c7527a3d45cfff4d56a20f3c03e1574c0e64f0/LICENSE",
+            "bytes": 1083
+          },
+          {
+            "path": "skills/charity-site-audit/SKILL.md",
+            "blob_sha": "d425f14fb13f46fef734f7272847da7cec9cbd47",
+            "sha256": "86705b9b968c7ef94b0898c3bddf34d7c9b3f540a6b6dc11ce60cf3c7605a70b",
+            "url": "https://github.com/enis027/charity-sites/blob/79c7527a3d45cfff4d56a20f3c03e1574c0e64f0/skills/charity-site-audit/SKILL.md",
+            "bytes": 6004
+          },
+          {
+            "path": ".claude-plugin/marketplace.json",
+            "blob_sha": "2a78bd76a542b77de6f7269cdaac69d739141c21",
+            "sha256": "7594e6dbe61e57f5bc852756d02e7d54fdb0809984765c4b24b28a7e8a1cc10c",
+            "url": "https://github.com/enis027/charity-sites/blob/79c7527a3d45cfff4d56a20f3c03e1574c0e64f0/.claude-plugin/marketplace.json",
+            "bytes": 732
+          },
+          {
+            "path": "skills/charity-site-audit/scripts/crawl.py",
+            "blob_sha": "d74f7e2e23380682d27198c0a7257f998a962908",
+            "sha256": "b18b445195a1fcc399cfb60632452dadaf5f36de401bf55c67a31ec05c7c63f6",
+            "url": "https://github.com/enis027/charity-sites/blob/79c7527a3d45cfff4d56a20f3c03e1574c0e64f0/skills/charity-site-audit/scripts/crawl.py",
+            "bytes": 31045
+          }
+        ],
+        "findings": "Three fixed leaves match public plugin and direct-copy distribution. README and marketplace confirm MIT for code and documentation. Content, images, payment data and provider authorization retain separate boundaries."
+      },
+      {
+        "full_name": "malachi-user/accessibility-il-wcag",
+        "repository_id": 1473767517,
+        "commit": "cfa9ef209fc550e7a95b5ba51361a908082a9464",
+        "tree": "8cfd274c8e62c0bd47789831703897a5fe474175",
+        "verified_refs": [
+          {
+            "path": "README.md",
+            "blob_sha": "fcf27cc19b4b71eb11cbe4ab4d7c9d09dad32865",
+            "sha256": "256b7be62d2da0bd7fb367691ab84d4cb99d668e60db4d09dc3dba07692c8cee",
+            "url": "https://github.com/malachi-user/accessibility-il-wcag/blob/cfa9ef209fc550e7a95b5ba51361a908082a9464/README.md",
+            "bytes": 1004
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "ac002363741fbb393dfed578eb651fe36f8698b6",
+            "sha256": "abcf26e84d3675f6a223c568525ce7d5f2ee8f537a4544b4a36fadd776e82376",
+            "url": "https://github.com/malachi-user/accessibility-il-wcag/blob/cfa9ef209fc550e7a95b5ba51361a908082a9464/LICENSE",
+            "bytes": 1071
+          },
+          {
+            "path": "SKILL.md",
+            "blob_sha": "651a82af0f7196691159102625b0d4599c01b353",
+            "sha256": "aa507920943ae9a9bcf7f66916ed6458a5a30a5a0df68b825cabcd65da76c1ae",
+            "url": "https://github.com/malachi-user/accessibility-il-wcag/blob/cfa9ef209fc550e7a95b5ba51361a908082a9464/SKILL.md",
+            "bytes": 7177
+          }
+        ],
+        "findings": "Fixed root has one leaf matching both README install paths. Root license supplies MIT. The representative relies on code inspection and checks including keyboard and screen reader behavior; it does not certify standards compliance by itself."
+      }
+    ],
+    "objections": [],
+    "corrections": [
+      {
+        "full_name": "malachi-user/accessibility-il-wcag",
+        "reason": "Clarify the published claim boundary between authored audit guidance and demonstrated compliance.",
+        "field_updates": {
+          "limitations": "The card targets WCAG 2.1 AA and Israeli Standard 5568. No compliance, assistive-technology behavior, or real-site result was verified. The representative targets stated accessibility standards and includes a widget. Its suggested automated checks supplement genuine keyboard and screen-reader checks. No legal compliance, accessibility certification, or live behavior was assessed."
+        }
+      }
+    ],
+    "independent_reviewer": "product"
+  },
+  "quality-breadth.json": {
+    "date": "2026-11-27",
+    "stage": "complete",
+    "verified": [
+      {
+        "full_name": "Yornik/adf-converter",
+        "repository_id": 1425487642,
+        "commit": "ce161e9e3992c804f2a32fc1827d9f002c362983",
+        "tree": "0c74305648de6cd855783567406f3e455c8aa143",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "386260bd256883938dec1a0479b2f6bb3224968d",
+            "sha256": "4046cd1311f1f1f6251e9a4f3e84c6948ec56a823882c7b02cec092c73a840c5",
+            "url": "https://github.com/Yornik/adf-converter/blob/ce161e9e3992c804f2a32fc1827d9f002c362983/README.md",
+            "bytes": 20161
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "f6fa4c82f7c0606fca9fb454cf4423668fa48bbb",
+            "sha256": "8d54e6edd294929656c21cd5b8dbcbe3631a6d220c2dec82136a15510e342b31",
+            "url": "https://github.com/Yornik/adf-converter/blob/ce161e9e3992c804f2a32fc1827d9f002c362983/LICENSE",
+            "bytes": 1068
+          },
+          {
+            "path": "skills/markdown-to-adf/SKILL.md",
+            "blob_sha": "7e96af17d2851b941e264047d6e9f89630dc38b5",
+            "sha256": "350ddb1186ee3bbfb70b1a08eeebe522564faa2736cda7825eee5100b030909e",
+            "url": "https://github.com/Yornik/adf-converter/blob/ce161e9e3992c804f2a32fc1827d9f002c362983/skills/markdown-to-adf/SKILL.md",
+            "bytes": 13688
+          },
+          {
+            "path": "scripts/package.sh",
+            "blob_sha": "dd624a0f54420d23507028bab19f8c090ea43a4f",
+            "sha256": "ee1723546090735a49ed28fdbad39557f9774d2dda1a9014247bd0be65119e45",
+            "url": "https://github.com/Yornik/adf-converter/blob/ce161e9e3992c804f2a32fc1827d9f002c362983/scripts/package.sh",
+            "bytes": 6057
+          },
+          {
+            "path": "schemas/adf/LICENSE",
+            "blob_sha": "81e938323077d411b6cb4c64cd161df73e154a3b",
+            "sha256": "35e6334545396a248fcf7509aa77c083a9fe9b20bcaf38908c59df269c4f4177",
+            "url": "https://github.com/Yornik/adf-converter/blob/ce161e9e3992c804f2a32fc1827d9f002c362983/schemas/adf/LICENSE",
+            "bytes": 12107
+          },
+          {
+            "path": "THIRD_PARTY_NOTICES.md",
+            "blob_sha": "142a30f434c24c3f5c33ff1bc75e0b26a93ef585",
+            "sha256": "eff2fa03558ae6ec404418a48a36813292d7aa309ad5967ee8c43b85ed4c5cfe",
+            "url": "https://github.com/Yornik/adf-converter/blob/ce161e9e3992c804f2a32fc1827d9f002c362983/THIRD_PARTY_NOTICES.md",
+            "bytes": 26528
+          }
+        ],
+        "finding": "The fixed archive builder includes exactly one skill folder plus its helper files. The same entry is documented for direct installation. Root MIT covers the authored card, and schemas/adf/LICENSE gives the vendored Atlassian schema Apache-2.0 terms. Jira and Confluence posting need independently authorized credentials."
+      },
+      {
+        "full_name": "JingMox/hReader",
+        "repository_id": 1466114140,
+        "commit": "00886ea9be3e7e0c0c195e06aaf771d6a30addcf",
+        "tree": "5a8b651b16bd82b22b191cffd23201ce563c1e35",
+        "evidence": [
+          {
+            "path": "README.md",
+            "blob_sha": "260b184f9b6b106f2d43575d764ecd499ca1573c",
+            "sha256": "13b4a1a2e5b54f3ad053dc6bc39aa4cd65319500e3b2590b54f516314a4a1f0a",
+            "url": "https://github.com/JingMox/hReader/blob/00886ea9be3e7e0c0c195e06aaf771d6a30addcf/README.md",
+            "bytes": 18017
+          },
+          {
+            "path": "LICENSE",
+            "blob_sha": "d3899dbe9546a2a0c2094543e93b264890b6812a",
+            "sha256": "55b69960b4e2ed4fc1991ffa7e4644572462daba81c60bbab632833a33c2984e",
+            "url": "https://github.com/JingMox/hReader/blob/00886ea9be3e7e0c0c195e06aaf771d6a30addcf/LICENSE",
+            "bytes": 1077
+          },
+          {
+            "path": "skills/hreader/SKILL.md",
+            "blob_sha": "6abe54507660f4c5e2a84e98eccbd287b23d1c00",
+            "sha256": "9ea7767d0cbf285e0811d8f5d063e48674ed56c5a5c12ce28c694cc9a08dea8f",
+            "url": "https://github.com/JingMox/hReader/blob/00886ea9be3e7e0c0c195e06aaf771d6a30addcf/skills/hreader/SKILL.md",
+            "bytes": 11939
+          },
+          {
+            "path": "scripts/pack-skill.mjs",
+            "blob_sha": "43762ed27199ece173427db816ae57e120a4c7ef",
+            "sha256": "5362827b08ca1e4e2629fb80d40e7587038316ba2b5d525106441b4b0eea00a0",
+            "url": "https://github.com/JingMox/hReader/blob/00886ea9be3e7e0c0c195e06aaf771d6a30addcf/scripts/pack-skill.mjs",
+            "bytes": 1107
+          },
+          {
+            "path": "package.json",
+            "blob_sha": "1ea59bd97d44223335ba80289ae55a4a3e2d870d",
+            "sha256": "56b1df7d3645d65ebf094fa213def150347227783efa0011be9fd32f4a400776",
+            "url": "https://github.com/JingMox/hReader/blob/00886ea9be3e7e0c0c195e06aaf771d6a30addcf/package.json",
+            "bytes": 2859
+          }
+        ],
+        "finding": "The fixed packaging script copies one skill directory, the CLI bundle and style resources to one standalone distribution. MCP, desktop and Pi adapters do not change the skill count. MIT covers the reviewed authored sources. Optional model-assisted extraction can send supplied text to a configured service."
+      }
+    ],
+    "objections": [],
+    "corrections": []
+  },
+  "integration_application": [
+    {
+      "full_name": "platformatic/skills",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "The Watt entry requires a project-local Watt 3.74.0 or newer with its skill command. Internals are delegated to that exact release and not counted in this source. No dependencies, integration or deployment tested."
+      }
+    },
+    {
+      "full_name": "scikit-plots/skills",
+      "source_review": "quality-science.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "The pinned scope is a development plugin build. A released or locally installed scikit-plots version may lack APIs shown by its generated recipes. No Python package, example or runtime result was verified."
+      }
+    },
+    {
+      "full_name": "malachi-user/accessibility-il-wcag",
+      "source_review": "quality-product.json",
+      "status": "applied",
+      "integrated_fields": {
+        "limitations": "The card targets WCAG 2.1 AA and Israeli Standard 5568. No compliance, assistive-technology behavior, or real-site result was verified. The representative targets stated accessibility standards and includes a widget. Its suggested automated checks supplement genuine keyboard and screen-reader checks. No legal compliance, accessibility certification, or live behavior was assessed."
+      }
+    }
+  ]
+}
