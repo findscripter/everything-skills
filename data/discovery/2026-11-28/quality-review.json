@@ -1,0 +1,431 @@
+{
+  "quality-parent.json": {
+    "stage": "complete",
+    "date": "2026-11-28",
+    "reviewer": "breadth_20261128",
+    "scope": "Independent sampled admission review of two selected repositories; not a full stream or complete upstream-body audit. Third-party content treated only as data.",
+    "reviewed": [
+      {
+        "full_name": "andrew-tao-li/ai-audit-skills",
+        "repository_id": 1379401686,
+        "commit": "484dbc18e47ad7f8609a1891fc81523d12003094",
+        "tree": "446b9b8cd22e2d62e3ab4810260c820e24f1c040",
+        "review_scope": "Read full fixed README and audit-sql-builder SKILL.md plus manifest. Compared root Apache text with previously fully read Apache license; only copyright placeholder differs. Checked source/dist skill path inventory and representative blob identity.",
+        "conclusion": "Five source skills are distinct from five mirrored distribution files. README explicitly grants MIT-0 to skill packages and Apache-2.0 to scaffolding; the text-only SQL workflow requires schema confirmation and authorized DBA execution. No metadata objection.",
+        "decision": "pass_for_metadata_admission",
+        "fixed_object_verification": {
+          "passed": true,
+          "full_name": "andrew-tao-li/ai-audit-skills",
+          "repository_id": 1379401686,
+          "commit": "484dbc18e47ad7f8609a1891fc81523d12003094",
+          "tree": "446b9b8cd22e2d62e3ab4810260c820e24f1c040",
+          "public_source_verified": true,
+          "fork": false,
+          "refs_sha256": "086b29ab05ccf673fae76220d058d0bd5898393a04b030e383348b3c0a63b8e4",
+          "verified_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "490f5353ef2df572ebef5a815fb26611370de2d6",
+              "sha256": "e15cc70f45bc84d7341446c49e36b3579d852a3bc1e92f6fb5c8df918d1b14bb",
+              "url": "https://github.com/andrew-tao-li/ai-audit-skills/blob/484dbc18e47ad7f8609a1891fc81523d12003094/README.md",
+              "bytes": 7851
+            },
+            {
+              "path": "skills-v2/audit-sql-builder/SKILL.md",
+              "blob_sha": "ce02c98f34989271f34955345b0b80f6eccbc069",
+              "sha256": "21f40c874503e6be836af8c82798bc3bf51c1d6bdc42b73f12016f7311477d66",
+              "url": "https://github.com/andrew-tao-li/ai-audit-skills/blob/484dbc18e47ad7f8609a1891fc81523d12003094/skills-v2/audit-sql-builder/SKILL.md",
+              "bytes": 4687
+            },
+            {
+              "path": "skills-v2/audit-sql-builder/manifest.json",
+              "blob_sha": "83ec11ac6d9518f3f997697fc671f2e57e433b1b",
+              "sha256": "3fc7be498f2c64ad17536d5be6c66d25741607eb83cfcd55fb5cb82d293914d2",
+              "url": "https://github.com/andrew-tao-li/ai-audit-skills/blob/484dbc18e47ad7f8609a1891fc81523d12003094/skills-v2/audit-sql-builder/manifest.json",
+              "bytes": 746
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+              "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+              "url": "https://github.com/andrew-tao-li/ai-audit-skills/blob/484dbc18e47ad7f8609a1891fc81523d12003094/LICENSE",
+              "bytes": 11357
+            }
+          ],
+          "reference_count": 4,
+          "distinct_blob_fetches": 4,
+          "supporting_symlink_paths": [],
+          "tree_reference_method": "complete recursive tree"
+        }
+      },
+      {
+        "full_name": "Digilac/simap-mcp",
+        "repository_id": 1166486667,
+        "commit": "dc752dcb1cd8572629b16d7141c9dba5c046f7d6",
+        "tree": "6af47fef6ef2a1175b0d7036a070fb88a83bc874",
+        "review_scope": "Read full README, generated skill source, all interpolated analysis constants, skills registration, server entry, package manifest and MIT license.",
+        "conclusion": "One generated MCP Skill is registered through server.skills and packaged with built dist, despite no physical SKILL.md. Fourteen tools and the separate prompt are not counted as skills. Client extension support and live procurement API behavior remain untested.",
+        "decision": "pass_for_metadata_admission",
+        "fixed_object_verification": {
+          "passed": true,
+          "full_name": "Digilac/simap-mcp",
+          "repository_id": 1166486667,
+          "commit": "dc752dcb1cd8572629b16d7141c9dba5c046f7d6",
+          "tree": "6af47fef6ef2a1175b0d7036a070fb88a83bc874",
+          "public_source_verified": true,
+          "fork": false,
+          "refs_sha256": "70b979bf8da20d3cf092e3ef9a7d97478cd362645fb7bb99f7e558a58dd190d0",
+          "verified_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "87429ee811e969232ef5b0051ef2e8aaa7a77b65",
+              "sha256": "083d1f1c5d2f8e70b94e2002b44399a7548da38c25022ebfa0a65a2f1ff7af74",
+              "url": "https://github.com/Digilac/simap-mcp/blob/dc752dcb1cd8572629b16d7141c9dba5c046f7d6/README.md",
+              "bytes": 10572
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "b80366ddd0dc280092ed492be57930f65aa998d8",
+              "sha256": "3bff07adfdda3c2f2543fd5bff12c8410f7a757e739ae3b303f5eb3e0eda0e91",
+              "url": "https://github.com/Digilac/simap-mcp/blob/dc752dcb1cd8572629b16d7141c9dba5c046f7d6/LICENSE",
+              "bytes": 1070
+            },
+            {
+              "path": "src/skills/simap-workflow.ts",
+              "blob_sha": "d3b5d546d85dc8fd45d982914d2b5ea142e700ba",
+              "sha256": "90c5ee0f6c53a601c0f18216b0499290a6ec4049f357fc78e36b3e077b67d2df",
+              "url": "https://github.com/Digilac/simap-mcp/blob/dc752dcb1cd8572629b16d7141c9dba5c046f7d6/src/skills/simap-workflow.ts",
+              "bytes": 5181
+            },
+            {
+              "path": "src/skills/index.ts",
+              "blob_sha": "b710cdb297a55be2651572a95f6157d812c9c32d",
+              "sha256": "bdb7d9f41168755240a8e54db9f5e072bcfff84f3ab02c35bb2acf767a09af9e",
+              "url": "https://github.com/Digilac/simap-mcp/blob/dc752dcb1cd8572629b16d7141c9dba5c046f7d6/src/skills/index.ts",
+              "bytes": 565
+            },
+            {
+              "path": "src/server.ts",
+              "blob_sha": "ac96331a816173e764273cd54bd5e4ed3cacda89",
+              "sha256": "1edb3d4be58e64f57f127a519a604d2f9fa28fdb2644bcbe641b4ead705a5639",
+              "url": "https://github.com/Digilac/simap-mcp/blob/dc752dcb1cd8572629b16d7141c9dba5c046f7d6/src/server.ts",
+              "bytes": 1639
+            },
+            {
+              "path": "package.json",
+              "blob_sha": "b2e6fff8d3735831f0381defef512449d77dc521",
+              "sha256": "6159b2d6c8b2e143b53ac92a6c9775dff2749bf371f2d1fa60d763d9aba8da9b",
+              "url": "https://github.com/Digilac/simap-mcp/blob/dc752dcb1cd8572629b16d7141c9dba5c046f7d6/package.json",
+              "bytes": 2221
+            },
+            {
+              "path": "src/prompts/analyze-tender.ts",
+              "blob_sha": "8c12418e3a2a00b2f19b9050a8f710de2f161754",
+              "sha256": "2f2f80cf0c5ec34d573cd48c23d49139ff655fc1ecef477d095f337a90719f7f",
+              "url": "https://github.com/Digilac/simap-mcp/blob/dc752dcb1cd8572629b16d7141c9dba5c046f7d6/src/prompts/analyze-tender.ts",
+              "bytes": 6696
+            },
+            {
+              "path": "SECURITY.md",
+              "blob_sha": "8e6bd4b3fe9a86d013967598744bee4bb3ac7902",
+              "sha256": "e10704e163cdca48a6de0b729e7c89daa5ca271a90067386372e54afbb63dd2f",
+              "url": "https://github.com/Digilac/simap-mcp/blob/dc752dcb1cd8572629b16d7141c9dba5c046f7d6/SECURITY.md",
+              "bytes": 6513
+            }
+          ],
+          "reference_count": 8,
+          "distinct_blob_fetches": 8,
+          "supporting_symlink_paths": [],
+          "tree_reference_method": "complete recursive tree"
+        }
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "limitations": [
+      "Candidate code, installation, client workflows, hardware, external services and billed model operations were not executed.",
+      "Fresh official API identity/commit/tree and byte/hash checks certify the recorded objects, not runtime behavior or legal suitability of downstream reuse."
+    ]
+  },
+  "quality-science.json": {
+    "date": "2026-11-28",
+    "stage": "complete",
+    "reviewer": "parent-independent-review",
+    "subject_stream": "science",
+    "samples": [
+      {
+        "full_name": "RoboDK/RoboDK-Agent-Skills",
+        "repository_id": 1397546193,
+        "commit": "f5f7ee072f0e164d558f81a1855671258df918c4",
+        "tree": "79a62f04e8de9c23cf8442ed690559a13d5041af",
+        "verdict": "pass",
+        "scope": "Independent full README, applicable license-scope declarations and selected representative frontmatter/requirements; fixed supporting licensing/distribution files refetched. This is a scoped cross-check, not a second full-body audit.",
+        "findings": "MIT applies except the entire robodk-shape-builder subtree, whose own LICENSE forbids separate redistribution without permission. Bundled robodk SDK files are Apache-2.0 according to LICENSES.md. The add-in representative is MIT. RoboDK installation and Python are external dependencies. One separate skill can move physical robots; this review did not execute it, assess safety controls, validate motion or use the licensed application.",
+        "evidence_paths": [
+          "README.md",
+          "skills/robodk-addin/SKILL.md",
+          "LICENSE",
+          "LICENSES.md",
+          "skills/robodk-shape-builder/LICENSE.md",
+          "skills/robodk-shape-builder/assets/shapetools/LICENSE.md"
+        ]
+      },
+      {
+        "full_name": "eumetsat/skills",
+        "repository_id": 1428464547,
+        "commit": "3617ce1eca35aba48cd22a392d9e78682bb1350a",
+        "tree": "c1374ea894a463d06e6e8aef2716a7eb01cf2141",
+        "verdict": "pass",
+        "scope": "Independent full README, applicable license-scope declarations and selected representative frontmatter/requirements; fixed supporting licensing/distribution files refetched. This is a scoped cross-check, not a second full-body audit.",
+        "findings": "Root CC-BY-4.0 covers skills, references, examples, evaluation cases and documentation with attribution/change indication. LICENSE-MIT covers helper code and configuration/metadata as scoped by README; external data and service terms remain separate. The esf-satellite-data representative requires an internal authorized MCP endpoint with no public route; feature-db-client also needs service authorization. Other tools require respective runtime/account access. No cloud transfer, installation, query or scientific validation was performed.",
+        "evidence_paths": [
+          "README.md",
+          "skills/esf-satellite-data/SKILL.md",
+          "LICENSE",
+          "LICENSE-MIT",
+          ".claude-plugin/marketplace.json",
+          ".claude-plugin/plugin.json"
+        ]
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "limitations": "Two targeted samples, no third-party installation, network workflow, hardware motion or scientific validation; byte checks recorded separately."
+  },
+  "quality-product.json": {
+    "stage": "complete",
+    "date": "2026-11-28",
+    "reviewer": "breadth_20261128",
+    "scope": "Independent sampled admission review of two selected repositories; not a full stream or complete upstream-body audit. Third-party content treated only as data.",
+    "reviewed": [
+      {
+        "full_name": "vladbutacu/agentkit",
+        "repository_id": 1452820202,
+        "commit": "3f21c844821469ee35a639ccf093e8fdb95e2ac1",
+        "tree": "c0362ee52eeba9e499df298532a8c8721ab6871e",
+        "review_scope": "Read full README, capabilities router, its complete reuse reference, root MIT, full third-party notices and OSNL-0.2 license, plugin and marketplace manifests. Checked eight physical router paths.",
+        "conclusion": "Seven core routers plus the opt-in vault router match distribution scope. OSNL applies to a bundled Desloppify reference and distinguishes internal use from redistribution with business conditions; it is correctly preserved as a scoped LicenseRef, not flattened to MIT. Installation/schedules/model-credit use were not run.",
+        "decision": "pass_for_metadata_admission",
+        "fixed_object_verification": {
+          "passed": true,
+          "full_name": "vladbutacu/agentkit",
+          "repository_id": 1452820202,
+          "commit": "3f21c844821469ee35a639ccf093e8fdb95e2ac1",
+          "tree": "c0362ee52eeba9e499df298532a8c8721ab6871e",
+          "public_source_verified": true,
+          "fork": false,
+          "refs_sha256": "b4257aea30c6fda4d073c463efc7f643d4c906be30bd0b245d33d73114f9bb41",
+          "verified_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "778b928bffc272421e6a63a47aa71b4f04e122c0",
+              "sha256": "da8cb1d002c446f3a9b3bbd63c17630cbee38650b4dea780bc923416bb3e6e21",
+              "url": "https://github.com/vladbutacu/agentkit/blob/3f21c844821469ee35a639ccf093e8fdb95e2ac1/README.md",
+              "bytes": 17953
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "498bbac1cbd58d4bf40893e4e7e59e6a5d3d1135",
+              "sha256": "96efd9c1108dc9eb02a061a3e81b3d539929b0df0eda4b422a5a9eda7629bb38",
+              "url": "https://github.com/vladbutacu/agentkit/blob/3f21c844821469ee35a639ccf093e8fdb95e2ac1/LICENSE",
+              "bytes": 1068
+            },
+            {
+              "path": "skills/capabilities/SKILL.md",
+              "blob_sha": "d7dbfc52c55a7aa192ab38620246ac2776a75937",
+              "sha256": "0651ff38f3dd21557d76bff191ce7ff9e83fbf0392c703549f66f6b4717e52fe",
+              "url": "https://github.com/vladbutacu/agentkit/blob/3f21c844821469ee35a639ccf093e8fdb95e2ac1/skills/capabilities/SKILL.md",
+              "bytes": 1433
+            },
+            {
+              "path": "THIRD-PARTY-NOTICES.md",
+              "blob_sha": "e9dc5e8da7363126aaee533a1c2e5df20b27cbfe",
+              "sha256": "12a2d0f271b3222f839c260d0bf082bd5f9f2180e7e90363338735ca34c5a0da",
+              "url": "https://github.com/vladbutacu/agentkit/blob/3f21c844821469ee35a639ccf093e8fdb95e2ac1/THIRD-PARTY-NOTICES.md",
+              "bytes": 5829
+            },
+            {
+              "path": "skills/capabilities/references/reuse.md",
+              "blob_sha": "6c48287278e820f8562e18b41c634c678a9326b2",
+              "sha256": "85bcc5dddd87bb9f84f26f89eb4bf1ccaeb3796622d8154d404b20990951176d",
+              "url": "https://github.com/vladbutacu/agentkit/blob/3f21c844821469ee35a639ccf093e8fdb95e2ac1/skills/capabilities/references/reuse.md",
+              "bytes": 2471
+            },
+            {
+              "path": "skills/repo-ops/references/desloppify/LICENSE",
+              "blob_sha": "987b565c592e400322a3f6f240563476b019f338",
+              "sha256": "8e8bf71ab5b13b941ba1dc9ce903e02f06b50ddd181bfe780089d1893a0a1604",
+              "url": "https://github.com/vladbutacu/agentkit/blob/3f21c844821469ee35a639ccf093e8fdb95e2ac1/skills/repo-ops/references/desloppify/LICENSE",
+              "bytes": 7637
+            },
+            {
+              "path": ".claude-plugin/plugin.json",
+              "blob_sha": "47a77f5702e0bb531c75a766302755472387930a",
+              "sha256": "a00b2566a1994cbadeac5b9b6c106d8b637590404deec2df625b4c26229265b3",
+              "url": "https://github.com/vladbutacu/agentkit/blob/3f21c844821469ee35a639ccf093e8fdb95e2ac1/.claude-plugin/plugin.json",
+              "bytes": 345
+            },
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "fd45896b1e90a7bfa624965bb95c3c6df3b12c35",
+              "sha256": "8208b6df6423a25a9de36ebbbd872a9666b4e0e5a5c4a3c98789829e88ce8f3d",
+              "url": "https://github.com/vladbutacu/agentkit/blob/3f21c844821469ee35a639ccf093e8fdb95e2ac1/.claude-plugin/marketplace.json",
+              "bytes": 383
+            }
+          ],
+          "reference_count": 8,
+          "distinct_blob_fetches": 8,
+          "supporting_symlink_paths": [],
+          "tree_reference_method": "complete recursive tree"
+        }
+      },
+      {
+        "full_name": "outcomeeng/plugins",
+        "repository_id": 1218884676,
+        "commit": "e33f02b421edc33e9b4a624547e82b42ccd52ac6",
+        "tree": "73e99cc4d2665bc72379f07b17324b89bf8a4217",
+        "review_scope": "Read README overview, installation/update/distribution, HDL, credits and licensing sections; full generated review-vhdl entry and full workflow; both marketplace catalogs, HDL manifests, root MIT and vendored Apache text by exact normalized comparison to a fully read standard. Independently reconciled path sets.",
+        "conclusion": "385 physical SKILL.md files reconcile as 119 src entries plus 131 Claude and 131 Codex runtime entries, 3 fixtures and 1 template. Runtime path sets agree and add exactly twelve plugin routers. Count and root/vendor licensing claims are supported; no client install, generated refresh or synthesis executed.",
+        "decision": "pass_for_metadata_admission",
+        "fixed_object_verification": {
+          "passed": true,
+          "full_name": "outcomeeng/plugins",
+          "repository_id": 1218884676,
+          "commit": "e33f02b421edc33e9b4a624547e82b42ccd52ac6",
+          "tree": "73e99cc4d2665bc72379f07b17324b89bf8a4217",
+          "public_source_verified": true,
+          "fork": false,
+          "refs_sha256": "1fce28179ee80f6364940da610b8e3e098ebc491cca2f9b2a889586c73f3b9ed",
+          "verified_refs": [
+            {
+              "path": "README.md",
+              "blob_sha": "ac99b368bdd0b7697ecbc6ee2cd24c111b09daa9",
+              "sha256": "44da0ed99a1b73339bf3a87a4eb4824cbf80823d2103895c21f5aa8dbc22c5e1",
+              "url": "https://github.com/outcomeeng/plugins/blob/e33f02b421edc33e9b4a624547e82b42ccd52ac6/README.md",
+              "bytes": 58712
+            },
+            {
+              "path": "LICENSE",
+              "blob_sha": "76fabeff50ff058b775a291885c3aa75c5ab4887",
+              "sha256": "3cd4783ef37e81b1df4a70477d43151728b8179d275b380129bdfa95cb216629",
+              "url": "https://github.com/outcomeeng/plugins/blob/e33f02b421edc33e9b4a624547e82b42ccd52ac6/LICENSE",
+              "bytes": 1073
+            },
+            {
+              "path": "dist/claude/hdl/skills/review-vhdl/SKILL.md",
+              "blob_sha": "78a7c7ff9acb72f9f5a6125a97fd4fff2af2657b",
+              "sha256": "ab587ce4e52e2d398aa15284fa0f29450b2fcdb74e1916255811d079bd5537e1",
+              "url": "https://github.com/outcomeeng/plugins/blob/e33f02b421edc33e9b4a624547e82b42ccd52ac6/dist/claude/hdl/skills/review-vhdl/SKILL.md",
+              "bytes": 4311
+            },
+            {
+              "path": ".claude-plugin/marketplace.json",
+              "blob_sha": "742062195a6bc6088c507b1020d2294aa07c2336",
+              "sha256": "4343a09d243b480999c43b8e2344026856100bf15a8588bb3ec7c86c8300a834",
+              "url": "https://github.com/outcomeeng/plugins/blob/e33f02b421edc33e9b4a624547e82b42ccd52ac6/.claude-plugin/marketplace.json",
+              "bytes": 3323
+            },
+            {
+              "path": ".agents/plugins/marketplace.json",
+              "blob_sha": "9df351f32c9e7faeaac617ddfd3ab797695ebf3a",
+              "sha256": "ea908077526ea09e20170b7c2233883c25c5f90cde63065648980692e4edd067",
+              "url": "https://github.com/outcomeeng/plugins/blob/e33f02b421edc33e9b4a624547e82b42ccd52ac6/.agents/plugins/marketplace.json",
+              "bytes": 3333
+            },
+            {
+              "path": "dist/claude/hdl/.claude-plugin/plugin.json",
+              "blob_sha": "deb36eb8965434c926531a08415ebd6505333672",
+              "sha256": "d678967a652ed73b6d9db64d9c59f4635417c9bcd72027466738d24270745504",
+              "url": "https://github.com/outcomeeng/plugins/blob/e33f02b421edc33e9b4a624547e82b42ccd52ac6/dist/claude/hdl/.claude-plugin/plugin.json",
+              "bytes": 422
+            },
+            {
+              "path": "dist/codex/hdl/.codex-plugin/plugin.json",
+              "blob_sha": "796be0038a259c4af465a32a077fccba4378124d",
+              "sha256": "6a1d11bcdf1a4e93cb82d21b6aba05d792e079e1bccea67ba19075224d50d19f",
+              "url": "https://github.com/outcomeeng/plugins/blob/e33f02b421edc33e9b4a624547e82b42ccd52ac6/dist/codex/hdl/.codex-plugin/plugin.json",
+              "bytes": 976
+            },
+            {
+              "path": "dist/claude/hdl/skills/review-vhdl/workflows/vhdl-review.md",
+              "blob_sha": "2387c5cb752baa1060c777d0ad447f32df4b41f0",
+              "sha256": "1e30b3245bc23a570a9fed5f3fa7f8cb64c077eeb0ea6891aeafb9961c253a9b",
+              "url": "https://github.com/outcomeeng/plugins/blob/e33f02b421edc33e9b4a624547e82b42ccd52ac6/dist/claude/hdl/skills/review-vhdl/workflows/vhdl-review.md",
+              "bytes": 6113
+            },
+            {
+              "path": "outcomeeng/vendor/anthropics_skills/LICENSE.txt",
+              "blob_sha": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835",
+              "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+              "url": "https://github.com/outcomeeng/plugins/blob/e33f02b421edc33e9b4a624547e82b42ccd52ac6/outcomeeng/vendor/anthropics_skills/LICENSE.txt",
+              "bytes": 11357
+            }
+          ],
+          "reference_count": 9,
+          "distinct_blob_fetches": 9,
+          "supporting_symlink_paths": [],
+          "tree_reference_method": "complete recursive tree"
+        }
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "limitations": [
+      "Candidate code, installation, client workflows, hardware, external services and billed model operations were not executed.",
+      "Fresh official API identity/commit/tree and byte/hash checks certify the recorded objects, not runtime behavior or legal suitability of downstream reuse."
+    ]
+  },
+  "quality-breadth.json": {
+    "date": "2026-11-28",
+    "stage": "complete",
+    "reviewer": "parent-independent-review",
+    "subject_stream": "breadth",
+    "samples": [
+      {
+        "full_name": "wildcat430524/Steps2Great-skill",
+        "repository_id": 1381234764,
+        "commit": "1bb570b8044fd454d649f165f389a7eaa5456853",
+        "tree": "260f0f6ca782171803e74f7889f7736289a9fc81",
+        "verdict": "pass",
+        "scope": "Full representative; Steps2Great README and scoped documentation license; Story index intro/distribution/license narrative and independently parsed fixed catalog (not all external listed project bodies).",
+        "finding": "One root SKILL.md; bundled teaching protocols, templates and exported workspace assets are support resources, not extra skills. Root MIT covers code; LICENSE-DOCS and skill frontmatter assign teaching protocols, documentation and templates to CC BY 4.0. User-provided textbooks are outside these grants.",
+        "evidence_paths": [
+          "README.md",
+          "SKILL.md",
+          "LICENSE"
+        ]
+      },
+      {
+        "full_name": "UnderleveledBuilder/awesome-story-skills",
+        "repository_id": 1421198035,
+        "commit": "16236511d420c20add3b4fff409fbff386d5afce",
+        "tree": "51467eba8dc4cbf09150d096c08286825f72d086",
+        "verdict": "pass",
+        "scope": "Full representative; Steps2Great README and scoped documentation license; Story index intro/distribution/license narrative and independently parsed fixed catalog (not all external listed project bodies).",
+        "finding": "One storytelling-methods/SKILL.md. catalog.json has 849 external project records, not 849 bundled skills; its method/group labels are retrieval metadata. Root CC0-1.0 applies to this index and authored skill; linked projects and the separately promoted paid writing service retain their own licenses and terms.",
+        "evidence_paths": [
+          "README.md",
+          "skills/storytelling-methods/SKILL.md",
+          "LICENSE"
+        ]
+      }
+    ],
+    "objections": [],
+    "corrections": [],
+    "catalog_count_check": {
+      "reference": {
+        "path": "catalog.json",
+        "blob_sha": "32deaa3b31efa2c20f3857e113341126ebca7df6",
+        "sha256": "132f04ad871182c80652fe5381fe3cb21da87a6fed87db36287259a1293388cc",
+        "url": "https://github.com/UnderleveledBuilder/awesome-story-skills/blob/16236511d420c20add3b4fff409fbff386d5afce/catalog.json",
+        "bytes": 775148
+      },
+      "entries": 849,
+      "bundled_skill_paths": [
+        "skills/storytelling-methods/SKILL.md"
+      ]
+    },
+    "limitations": "Two targeted independent samples; no downstream source re-review, teaching effectiveness test or client installation."
+  },
+  "integration_application": []
+}
