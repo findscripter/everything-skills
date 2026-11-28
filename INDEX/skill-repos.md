@@ -8,7 +8,7 @@
 
 - 编制日期：2026-10-25（Asia/Shanghai）；分支整合至 part74，范围扩展增量至 part90
 - Stars：GitHub API / 仓库公开页面采集快照，非估算；各批次采集日期不同
-- 收录条数：5589 条目录记录（按已核实的仓库 ID 去重；不可访问条目保留历史）
+- 收录条数：5689 条目录记录（按已核实的仓库 ID 去重；不可访问条目保留历史）
 - 读取方式：GitHub API / 原始文件读取 README；part75 补充公开页面元数据及固定提交归档的内存读取，未 clone 任何第三方仓库
 
 范围扩展与本轮候选核验见 [2026-10-25 审核记录](../data/discovery/2026-10-25/audit.md)、[逐项审核台账](../data/discovery/2026-10-25/audit.json)、[今日新增清单](../data/discovery/2026-10-25/additions.json)、[当日回执](../data/discovery/2026-10-25/publication.json)、[part90 审核记录](../data/skill-repos.part90.audit.md)、[part90 检索来源](../data/skill-repos.part90.search-provenance.json)、[2026-10-24 审核记录](../data/discovery/2026-10-24/audit.md)、[逐项审核台账](../data/discovery/2026-10-24/audit.json)、[今日新增清单](../data/discovery/2026-10-24/additions.json)、[当日回执](../data/discovery/2026-10-24/publication.json)、[part89 审核记录](../data/skill-repos.part89.audit.md)、[part89 检索来源](../data/skill-repos.part89.search-provenance.json)、[part88 审核记录](../data/skill-repos.part88.audit.md)、[2026-10-23 当日回执](../data/discovery/2026-10-23/publication.json)、[part87 审核记录](../data/skill-repos.part87.audit.md)、[2026-10-22 当日回执](../data/discovery/2026-10-22/publication.json)、[part86 审核记录](../data/skill-repos.part86.audit.md)、[2026-10-21 当日回执](../data/discovery/2026-10-21/publication.json)、[part85 审核记录](../data/skill-repos.part85.audit.md)、[2026-10-20 当日回执](../data/discovery/2026-10-20/publication.json)、[part84 审核记录](../data/skill-repos.part84.audit.md)、[part83 审核记录](../data/skill-repos.part83.audit.md)、[当日新增清单](../data/discovery/2026-10-18/additions.json)、[追加收录回执](../data/discovery/2026-10-18/follow-up.json)、[part82 审核记录](../data/skill-repos.part82.audit.md)、[part81 审核记录](../data/skill-repos.part81.audit.md)、[part80 审核记录](../data/skill-repos.part80.audit.md)、[part79 审核记录](../data/skill-repos.part79.audit.md)、[part78 审核记录](../data/skill-repos.part78.audit.md)、[part77 审核记录](../data/skill-repos.part77.audit.md)、[part76 审核记录](../data/skill-repos.part76.audit.md)、[part75 审核记录](../data/skill-repos.part75.audit.md)及[后续检索范围](../data/skill-repos.discovery-scope.json)；此前增量核验见 [part66 审核记录](../data/skill-repos.part66.audit.md)，分支历史增量整合见 [整合记录](../data/branch-integration-2026-10-08.audit.json)。Stars 保留各批次原始采集快照；合入历史索引不等于重新核验其全部许可。
@@ -107,6 +107,8 @@ part119（2026-11-25）新增 103 个独立仓库身份；覆盖科研行业、�
 part120（2026-11-26）新增 100 个独立仓库身份；覆盖科研行业、产品内嵌技能与技能基础设施，按固定对象、公开分发、许可范围和稳定ID去重准入，不设收录上限。
 
 part121（2026-11-27）新增 116 个独立仓库身份；覆盖科研行业、产品内嵌技能与技能基础设施，按固定对象、公开分发、许可范围和稳定ID去重准入，不设收录上限。
+
+part122（2026-11-28）新增 100 个独立仓库身份；覆盖科研行业、产品内嵌技能与技能基础设施，按固定对象、公开分发、许可范围和稳定ID去重准入，不设收录上限。
 
 ## 1. 官方与权威
 
@@ -872,6 +874,21 @@ part121（2026-11-27）新增 116 个独立仓库身份；覆盖科研行业、�
 | [Truelist-Labs/truelist-skills](https://github.com/Truelist-Labs/truelist-skills) | 0 | Truelist 集成技能涵盖邮箱验证 API、SDK 接入和客户端连接配置。 | MIT | 4 | 仅索引 · 上游可访问 |
 | [zindexai/zindex](https://github.com/zindexai/zindex) | 0 | 通过 Zindex 工作空间创建、修订、渲染及分享可持续保存的图表。 | Apache-2.0 | 1 | 仅索引 · 上游可访问 |
 | [zoom/zoom-plugin-claude](https://github.com/zoom/zoom-plugin-claude) | 9 | Zoom 官方插件支持规划、实现和排查 SDK、Webhook、聊天与联络中心集成。 | MIT | 15 | 仅索引 · 上游可访问 |
+| [Crawlora-org/crawlora-skills](https://github.com/Crawlora-org/crawlora-skills) | 1 | 基于 Crawlora REST 接口的研究技能，面向公开网页数据集和平台 API 并保留来源限制。 | MIT | 177 source entries; 139 Claude bundle entries | 仅索引 · 上游可访问 |
+| [cueframe-ai/cueframe-mcp](https://github.com/cueframe-ai/cueframe-mcp) | 2 | CueFrame 托管视频工作流及公开 CLI/SDK 分发，用于项目编排、编辑、预览和渲染。 | Apache-2.0 | 19 | 仅索引 · 上游可访问 |
+| [D-Robotics/device-knowledge](https://github.com/D-Robotics/device-knowledge) | 3 | D-Robotics 设备技能，涵盖 RDK 开发板、主机工具、部署、外设和相关边缘计算平台。 | MIT; Apache-2.0 vendored helpers | 21 domain/tooling entries | 仅索引 · 上游可访问 |
+| [easyeda/easyeda-api-skill](https://github.com/easyeda/easyeda-api-skill) | 1,220 | EasyEDA API 技能，附 API 参考和 JavaScript 桥接器，用于 PCB、原理图及扩展开发。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [easyeda/easyeda-cli-skill](https://github.com/easyeda/easyeda-cli-skill) | 3 | EasyEDA 桌面 CLI 技能，覆盖客户端检测、运行时命令发现、编辑器会话与产物导出。 | Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [eumetsat/skills](https://github.com/eumetsat/skills) | 33 | EUMETSAT 官方技能，覆盖卫星数据、欧洲天气云、Firecube 入库与地球系统特征流程。 | CC-BY-4.0 AND MIT | 7 | 仅索引 · 上游可访问 |
+| [IndoERP/erpforall-agent-kit](https://github.com/IndoERP/erpforall-agent-kit) | 0 | ERPForAll 附加模块开发技能覆盖模型、视图、附件、权限、迁移和框架测试。 | MIT OR Apache-2.0 | 22 | 仅索引 · 上游可访问 |
+| [mathworks/polyspace-agentic-toolkit](https://github.com/mathworks/polyspace-agentic-toolkit) | 30 | MathWorks 智能体工具包，将 Polyspace C/C++ 分析、测试技能与按产品配置的 MCP 集成结合。 | LicenseRef-MathWorks-Restricted-BSD; BSD-3-Clause component | 18 installable guides + 1 setup entry | 仅索引 · 上游可访问 |
+| [Moonbasecloud/moonbase-skill](https://github.com/Moonbasecloud/moonbase-skill) | 0 | Moonbase 部署与项目管理技能，覆盖连接配置、发布检查、域名、变量和恢复。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [msg2ai/bizplug-plugins](https://github.com/msg2ai/bizplug-plugins) | 1 | 公开 BizPlug 配置技能把企业网站资料整理为经确认的数据文件，供其托管行业插件使用。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [RoboDK/RoboDK-Agent-Skills](https://github.com/RoboDK/RoboDK-Agent-Skills) | 11 | RoboDK 官方技能集，覆盖机器人工作站仿真、API、插件、检查及需确认的实体机器人操作。 | MIT; Apache-2.0; proprietary shape-builder | 7 public skills (1 proprietary) | 仅索引 · 上游可访问 |
+| [spree/agent-skills](https://github.com/spree/agent-skills) | 10 | Spree Commerce 扩展开发技能覆盖 API、结账、目录、履约、后台开发及版本升级。 | MIT | 39 | 仅索引 · 上游可访问 |
+| [tilebox/skills](https://github.com/tilebox/skills) | 0 | Tilebox 智能体技能，涵盖 CLI、地球观测数据流程、版本发布、作业和自动化。 | MIT | 7 task entries + 1 router | 仅索引 · 上游可访问 |
+| [venomlabs-dev/plugin](https://github.com/venomlabs-dev/plugin) | 0 | 为多种代理客户端分发的团队工作空间协调技能，通过认证远程 MCP 连接工作。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [zoom/zoom-plugin-codex](https://github.com/zoom/zoom-plugin-codex) | 2 | Zoom Codex 插件把会议上下文与集成规划、OAuth 配置、机器人构建和排障工作流连接起来。 | MIT | 10 workflow/routing entries | 仅索引 · 上游可访问 |
 
 ## 2. 精选列表 / 大集合
 
@@ -1842,6 +1859,32 @@ part121（2026-11-27）新增 116 个独立仓库身份；覆盖科研行业、�
 | [uncovertechtalent/cto-powersuit](https://github.com/uncovertechtalent/cto-powersuit) | 8 | CTO Powersuit 市场中可独立安装的 Vault 模块，用于初始化和维护 Markdown 知识库。 | MIT | 4 | 仅索引 · 上游可访问 |
 | [winmetta/agent-skills](https://github.com/winmetta/agent-skills) | 0 | 跨客户端技能涵盖 PR 描述、变更评审、依赖维护和开发工具使用。 | MIT | 11 | 仅索引 · 上游可访问 |
 | [zyadhajaji/forge-skills](https://github.com/zyadhajaji/forge-skills) | 0 | 五项前端工作流，涵盖美术方向、设计系统、动效、视觉检查与交付截图。 | MIT | 5 | 仅索引 · 上游可访问 |
+| [AbdulDevHub/Agent-Skills-Factory](https://github.com/AbdulDevHub/Agent-Skills-Factory) | 1 | 面向项目上下文、提交、文案、界面指导和 Markdown 维护的开发技能集合。 | MIT AND Apache-2.0 | 12 | 仅索引 · 上游可访问 |
+| [AI-ModCon/genesis-skills](https://github.com/AI-ModCon/genesis-skills) | 41 | 面向 HPC、科研数据、模型评测和等离子体仿真的可移植技能集合，附目录检索技能。 | BSD-2-Clause; Apache-2.0; scoped upstream exceptions | 36 catalog entries + 1 discovery helper | 仅索引 · 上游可访问 |
+| [BaranziniLab/biorouter-skills](https://github.com/BaranziniLab/biorouter-skills) | 1 | BAAM/Biorouter 科研技能目录，将实验室原创流程与附来源声明的生物医学、开发技能包结合。 | Apache-2.0; MIT; BSD-3-Clause; CC-BY-4.0; CC0-1.0 | 689 active entries in 133 packages | 仅索引 · 上游可访问 |
+| [bezmoradi/knackpack](https://github.com/bezmoradi/knackpack) | 0 | Claude Code 工程插件，涵盖需求、计划、事故分析、文档和协同专长评审。 | MIT | 18 | 仅索引 · 上游可访问 |
+| [BytePioneer-AI/agent-skills](https://github.com/BytePioneer-AI/agent-skills) | 0 | 三项工程技能用于有证据地简化代码、清理实现叙述及委派多代理工作。 | MIT | 3 | 仅索引 · 上游可访问 |
+| [ghuron/skills](https://github.com/ghuron/skills) | 1 | 面向荷兰家庭服务、银行导出、企业卡与家居设备的 Agent 技能及 Node.js CLI。 | MIT-0 | 14 | 仅索引 · 上游可访问 |
+| [ianzepp/shipyard](https://github.com/ianzepp/shipyard) | 0 | 围绕 GitHub 的工程工作流，用于规划问题、实现有界变更及评审交付证据。 | MIT | 15 | 仅索引 · 上游可访问 |
+| [ITZSHOAIB/dev-skills](https://github.com/ITZSHOAIB/dev-skills) | 0 | 开发工作流涵盖问题梳理、变更实现、PR 评审及陌生读者文档核查。 | MIT | 7 | 仅索引 · 上游可访问 |
+| [Kasakir-AI/agent-sync-skills](https://github.com/Kasakir-AI/agent-sync-skills) | 0 | 通过 agent-sync 和 skills CLI 分发的二十五项开发技能，涵盖语言、测试、容器和文档。 | MIT | 25 | 仅索引 · 上游可访问 |
+| [kpatryk/skills](https://github.com/kpatryk/skills) | 1 | 用于原子提交、历史整理、macOS 排障及共享工具配置的开发技能。 | MIT | 6 | 仅索引 · 上游可访问 |
+| [nc9/skills](https://github.com/nc9/skills) | 4 | 具备明确 CLI 和外部服务前提的工程、检索、图像及内容技能集合。 | MIT | 20 | 仅索引 · 上游可访问 |
+| [outcomeeng/plugins](https://github.com/outcomeeng/plugins) | 1 | 面向 Claude Code 与 Codex 的 Outcome Engineering 插件市场，覆盖产品规格、语言工程、Agent 工作流与办公交付。 | MIT AND Apache-2.0 | 119 instructions + 12 plugin routers | 仅索引 · 上游可访问 |
+| [PapiScholz/SDLC-Assist](https://github.com/PapiScholz/SDLC-Assist) | 0 | 识别仓库开发阶段的 SDLC 路由器，附带规格、规划、排障、测试和发布工作流。 | MIT | 7 task skills + 1 router | 仅索引 · 上游可访问 |
+| [product-on-purpose/critique-skills](https://github.com/product-on-purpose/critique-skills) | 2 | 七项基于评审量规的技能，输出包含证据、严重度及人工处置要求的结构化发现。 | Apache-2.0 AND CC-BY-4.0 | 7 | 仅索引 · 上游可访问 |
+| [QiNuoTu/pixel-creative-taste-suite](https://github.com/QiNuoTu/pixel-creative-taste-suite) | 4 | DeepSeek Harness 插件包，含六项可配置的游戏美术、像素素材、动画及程序音频技能。 | MIT | 6 | 仅索引 · 上游可访问 |
+| [ratava/videoexpress-scripting-skill](https://github.com/ratava/videoexpress-scripting-skill) | 14 | 面向 VideoExpress 单镜头与多片段流程的提示规划技能，提供各平台分发包。 | CC-BY-NC-4.0 | 2 | 仅索引 · 上游可访问 |
+| [saizul/accessibility-a11y-skills](https://github.com/saizul/accessibility-a11y-skills) | 0 | 八项无障碍技能，结合离线 HTML/CSS 检查、人工测试指导和基于证据的声明草拟。 | MIT | 8 | 仅索引 · 上游可访问 |
+| [tarek-zy/anti-slopware](https://github.com/tarek-zy/anti-slopware) | 1 | 用于有界重构、文档、测试质量、依赖检查和 PR 范围整理的代码清理与评审技能。 | MIT | 10 | 仅索引 · 上游可访问 |
+| [tonyghiani/ai-essentials](https://github.com/tonyghiani/ai-essentials) | 7 | 可移植的交付和评审技能配有可选委派工具，并单独说明个人配置。 | MIT | 26 plugin skills; 30 source entries | 仅索引 · 上游可访问 |
+| [truonggiang0111/b2b-ai-mcp-skills](https://github.com/truonggiang0111/b2b-ai-mcp-skills) | 0 | 通过 MCP 服务开展招聘信号、产品评论、公共采购、广告研究与新闻检索的 B2B 调研技能集合。 | MIT | 15 | 仅索引 · 上游可访问 |
+| [Venkateshvenki404224/shipcraft-skills](https://github.com/Venkateshvenki404224/shipcraft-skills) | 2 | 带阶段规划、实现、评审、截图和本地进度控制台的工程团队工作流。 | MIT | 11 source skills; 10 plugin entries | 仅索引 · 上游可访问 |
+| [vijayphd/ai-for-educators](https://github.com/vijayphd/ai-for-educators) | 0 | 面向高校教学案例、课程目标映射、试卷、评分量规及审稿回复草稿的技能集。 | CC-BY-4.0 | 6 | 仅索引 · 上游可访问 |
+| [webkubor/ui-craft](https://github.com/webkubor/ui-craft) | 1 | 结合统一设计入口、专项工作流、浏览器复核和可选证据检查 CLI 的 UI 技能包。 | MIT | 10 documented entries | 仅索引 · 上游可访问 |
+| [wilbeibi/wilbeibi-skills](https://github.com/wilbeibi/wilbeibi-skills) | 2 | 可按需选择的开发与研究技能，配有校验和路由、项目评审及证据驱动的设计工作流。 | MIT | 33 task skills + 1 router | 仅索引 · 上游可访问 |
+| [zivtech/accessibility-skills](https://github.com/zivtech/accessibility-skills) | 16 | 无障碍规划、测试与评审套件，提供职责归属、合规报告草稿及人工测试缺口说明。 | GPL-3.0-or-later AND Apache-2.0 AND MIT | 8 task skills + 1 workflow router | 仅索引 · 上游可访问 |
+| [zstvns/design-skills](https://github.com/zstvns/design-skills) | 61 | 十一项协同设计技能，覆盖品牌诊断、策略、视觉方向、设计体系基础及多媒介应用。 | MIT | 11 | 仅索引 · 上游可访问 |
 
 ## 3. 垂直领域技能包
 
@@ -4395,6 +4438,58 @@ part121（2026-11-27）新增 116 个独立仓库身份；覆盖科研行业、�
 | [yzsp-studio/book-writer](https://github.com/yzsp-studio/book-writer) | 0 | 带分阶段需求确认、修订及 Makefile 质检的非虚构长文档写作交付流程。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [zc1-cl/ros2-academic-skills](https://github.com/zc1-cl/ros2-academic-skills) | 0 | 两项技能，分别覆盖 ROS 2 开发以及机械与机器人方向的可追溯学术写作。 | MIT | 2 | 仅索引 · 上游可访问 |
 | [zhaojj662/QGIS-Agent](https://github.com/zhaojj662/QGIS-Agent) | 1 | QGIS 技能和本地 HTTP 桥接，支持查找空间算法、执行处理及渲染。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [aidatatools-dev/astro-agents-mcp](https://github.com/aidatatools-dev/astro-agents-mcp) | 1 | 天文数据技能，说明 Astro Agents MCP/REST 请求、结果哈希及坐标与时间约定。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [alicanrowe/eta-estimating](https://github.com/alicanrowe/eta-estimating) | 0 | 利用实测类别基线、不确定性区间和预测校准台账估算创意制作耗时的技能。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [amoseCC/creative-grill](https://github.com/amoseCC/creative-grill) | 0 | 通过访谈澄清广告概念与活动需求，输出经确认的创意简报或评审意见。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [andrew-tao-li/ai-audit-skills](https://github.com/andrew-tao-li/ai-audit-skills) | 0 | 五个审计技能，覆盖费用、采购红旗、调查证据、主体关系及依据数据字典生成 SQL。 | MIT-0 AND Apache-2.0 | 5 | 仅索引 · 上游可访问 |
+| [arcbaslow/creative-analyst](https://github.com/arcbaslow/creative-analyst) | 0 | 结合 Meta 广告版位指标、素材安全区检查及 Figma 证据板的创意审计技能。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [capwitf/mechanical-cad-skills](https://github.com/capwitf/mechanical-cad-skills) | 7 | 机械 CAD 工作流条目，覆盖设计、参考复刻、产物检查与 SolidWorks 交付证据。 | MIT | 18 public entries (includes routing and cluster validation) | 仅索引 · 上游可访问 |
+| [Chris-Keene/sheets-to-playbook](https://github.com/Chris-Keene/sheets-to-playbook) | 0 | 将工作坊照片转为可追溯手册草稿，并衔接人工转录复核及静态输出的技能。 | MIT AND CC-BY-4.0 | 1 | 仅索引 · 上游可访问 |
+| [cyanheads/astronomy-mcp-server](https://github.com/cyanheads/astronomy-mcp-server) | 5 | 随 MCP 服务分发的观测天文学指南，涵盖本地夜晚规划、食现象及可选卫星和星历工具。 | Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [Digilac/simap-mcp](https://github.com/Digilac/simap-mcp) | 10 | 瑞士公共采购 MCP 服务，发布动态生成的技能，指导分类检索、公告阅读与发布历史核查。 | MIT | 1 generated MCP skill | 仅索引 · 上游可访问 |
+| [dralfiegordon/campaign-production-kit](https://github.com/dralfiegordon/campaign-production-kit) | 0 | 活动策划技能，将受众旅程、素材负责人和发布检查汇总为离线可视化评审画布。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [drdavidliao/rehearsal-tracks](https://github.com/drdavidliao/rehearsal-tracks) | 0 | 合唱排练技能，涵盖乐谱转录、声部改编、音轨检查、练习混音、跟随视频及学唱教案。 | Unlicense AND MIT | 1 | 仅索引 · 上游可访问 |
+| [elsd443-beep/scientific-paper-reader](https://github.com/elsd443-beep/scientific-paper-reader) | 0 | 三阶段科研论文阅读技能，包含选择性 PDF 初筛、批判性评议与科普提纲。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [engabdulrahmanpkheet/gemini-design-skill](https://github.com/engabdulrahmanpkheet/gemini-design-skill) | 0 | 结合品牌参考分析、Gemini 网页生图及多语言排版收尾的营销视觉技能。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [fan-xu-meng/scientific-skills-framework](https://github.com/fan-xu-meng/scientific-skills-framework) | 0 | 14 个科研数据分析技能，覆盖电化学、色谱、光谱、显微与材料表征。 | Apache-2.0 | 14 | 仅索引 · 上游可访问 |
+| [Graphrt/graphrt-plugins](https://github.com/Graphrt/graphrt-plugins) | 2 | Graphrt 插件生态附带五项印尼语商务写作技能，涵盖客户回复、退款、会议纪要、报价与账款提醒。 | Apache-2.0 | 5 | 仅索引 · 上游可访问 |
+| [guilherme-iaparaagronomos/skills-agro](https://github.com/guilherme-iaparaagronomos/skills-agro) | 2 | 葡萄牙语农学技能，覆盖土壤与施肥流程、GIS、作物监测和田间报告，附技能创作辅助。 | MIT | 23 agronomy task entries + 1 authoring helper | 仅索引 · 上游可访问 |
+| [hablamusic/camelot-wheel](https://github.com/hablamusic/camelot-wheel) | 0 | 基于本地 CLI 的和声混音技能，用于调号转换、混搭比较和播放列表排序。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [heix0x/learnharness-coach](https://github.com/heix0x/learnharness-coach) | 0 | 需显式调用的学习教练，以测量、规划、教学、练习四阶段维护理解账本和离线图谱。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [HPPPK/learner-first-paper-reading](https://github.com/HPPPK/learner-first-paper-reading) | 0 | 论文阅读教学技能，区分学习者复述、证据评审与不同层级的复现状态。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [imaan/review-sheet](https://github.com/imaan/review-sheet) | 0 | 通过本地浏览器语音卡片逐项收集反馈、备注和附件的评审技能。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [Impertio-Studio/CesiumJS-Claude-Skill-Package](https://github.com/Impertio-Studio/CesiumJS-Claude-Skill-Package) | 2 | CesiumJS 开发技能包，涵盖场景架构、地理空间数据、渲染、AEC 集成与验证。 | MIT | 28 task guides + 2 orchestration/validation entries | 仅索引 · 上游可访问 |
+| [jpsantospm/a11y](https://github.com/jpsantospm/a11y) | 0 | 项目无障碍工具包，提供配置、审计、浏览器流程检查、CI 门禁和辅助技术发布复核。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [kim-m-lee/grill-me](https://github.com/kim-m-lee/grill-me) | 0 | 面向创意简报的逐题访谈技能，以视觉参考和有限轮次澄清方向并形成结论。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [Koalalive/neurodaily-scholar-profile](https://github.com/Koalalive/neurodaily-scholar-profile) | 0 | 基于 ORCID、OpenAlex 与 PubMed 公开证据生成 NeuroDaily 研究者画像草稿，包含身份消歧与 JSON 校验。 | Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [LaBiOmicS/cep-umc-tutor](https://github.com/LaBiOmicS/cep-umc-tutor) | 0 | 葡萄牙语研究方案提交前辅导技能，将 CEP-UMC 文档与伦理检查同学术建议分开。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [Le-Space/belege](https://github.com/Le-Space/belege) | 3 | Belege 的本地财务桥接配置、钱包记录读取与 DATEV、加密资产账本导出技能。 | CC-BY-4.0 AND AGPL-3.0-or-later | 3 | 仅索引 · 上游可访问 |
+| [LikC1606/lab-meeting-report-skill](https://github.com/LikC1606/lab-meeting-report-skill) | 2 | 基于证据的组会报告技能，保留负面结果和原始事实，可选幻灯片与云端发布适配。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [madebysourasith-sudo/creative-components-skill](https://github.com/madebysourasith-sudo/creative-components-skill) | 0 | 把现实物件及手势转为可交互网页组件的创意技能，包含概念板与逐轮评审。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [maxgfr/ultraprospect](https://github.com/maxgfr/ultraprospect) | 0 | 地域企业与公共招标检索技能，提供注册信息核对、引用检查及 CSV、JSON、HTML 导出。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [miladinovst/mindlayer](https://github.com/miladinovst/mindlayer) | 6 | 面向 Azure 的可移植评审技能，覆盖跨层契约、身份、隔离、AI 回归及发布证据。 | MIT | 11 specialist workflows + 1 orchestrator | 仅索引 · 上游可访问 |
+| [mjmirza/app-store-compliance](https://github.com/mjmirza/app-store-compliance) | 8,241 | 移动应用提交审阅技能与本地检查器，覆盖拒审风险、商店元数据及人工就绪核查。 | LicenseRef-OpenRoots-ORA-2.3 | 1 | 仅索引 · 上游可访问 |
+| [moluyao/bio-viz-film](https://github.com/moluyao/bio-viz-film) | 0 | 使用 three.js 程序化场景、带来源的事实表及分阶段科学审查制作生物讲解视频的技能。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [mqqq333/cortex-visualization-skill](https://github.com/mqqq333/cortex-visualization-skill) | 1 | 用于可复现使用共享 ggseg 几何的皮层 ROI 图的 Python/R 智能体工作流，包含标签校验与带来源的矢量导出。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [mqqq333/subcortex-visualization-skill](https://github.com/mqqq333/subcortex-visualization-skill) | 6 | 用于可复现皮层下、丘脑、脑干和小脑 ROI 图的 Python/R 智能体工作流，包含标签校验与带来源的矢量导出。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [NurMohammadDuari/ricksclips-animation-skill](https://github.com/NurMohammadDuari/ricksclips-animation-skill) | 9 | 以词级时序影片计划串联 2.5D/3D 制作及分镜、渲染复核门槛的动画制作技能。 | CC-BY-4.0 AND MIT AND Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [october-dev/measure-art](https://github.com/october-dev/measure-art) | 0 | 本地创作素材盘点技能，统计源文件与导出、格式版本和重复信号，并明确标注摘要性质。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [peterbamuhigire/chwezi-accounting-doctrine](https://github.com/peterbamuhigire/chwezi-accounting-doctrine) | 1 | 财务原则与路由式指令目录，覆盖账簿设计、会计审查、结账、控制及东非法定来源管理。 | MIT | 108 public entries (includes routing/governance) | 仅索引 · 上游可访问 |
+| [QuasiModalLabs/tender-vault](https://github.com/QuasiModalLabs/tender-vault) | 0 | 加拿大采购研究工作区，在本地来源可追踪资料库上提供招标简报与事前风险复盘技能。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [qwe4559999/scifig-chemistry-charts](https://github.com/qwe4559999/scifig-chemistry-charts) | 22 | 由 SciFig CLI 与交互工作台支持的化学绘图技能，可按参考图或原始数据生成图表。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [rachokthebot-dev/interactive-study-guide](https://github.com/rachokthebot-dev/interactive-study-guide) | 0 | 用于编写离线 HTML 学习章节的技能，结合交互计算、间隔检索练习和验证样例。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [rikilamadrid/film-editor](https://github.com/rikilamadrid/film-editor) | 0 | 用于剪辑策划、本地素材分析、受控 Premiere 时间线操作及导出质量检查的影视技能。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [Rooneyxu/bioinformatics-plotting-standards](https://github.com/Rooneyxu/bioinformatics-plotting-standards) | 7 | 生信单图和小型组合图绘制规范，包含 Python/R 样式、导出质检及可选 SVG 图标流程。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [shrek-abaper/sap-watt](https://github.com/shrek-abaper/sap-watt) | 51 | 社区 SAP 工程 CLI 附带四项技能，用于 ABAP 评审、传输评估、集成指导和已授权 ADT 工作。 | MIT AND CC-BY-4.0 | 4 | 仅索引 · 上游可访问 |
+| [SienaChow/academic-conference-debrief](https://github.com/SienaChow/academic-conference-debrief) | 0 | 候选发布版科研会议复盘技能，重建研究证据、评议研究设计并整理知识更新。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [teamtinvio/jaz-ai](https://github.com/teamtinvio/jaz-ai) | 9 | Jaz 会计平台技能，涵盖 API 与 CLI、数据迁移、报表、结账流程和多组织工作区。 | MIT | 8 | 仅索引 · 上游可访问 |
+| [tillheidrich/genealogy-historian](https://github.com/tillheidrich/genealogy-historian) | 0 | 利用档案引证、身份匹配和明确不确定性开展家族史研究，并衔接家族年谱交付的技能。 | CC-BY-4.0 | 1 | 仅索引 · 上游可访问 |
+| [tusherwood/biophys_plotting_agent](https://github.com/tusherwood/biophys_plotting_agent) | 0 | 针对已汇编 FXM、SMR、Coulter 实验的生物物理绘图技能，生成图表、质检演示稿与重复样本统计摘要。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [tweu/anti-slop-design-director](https://github.com/tweu/anti-slop-design-director) | 0 | 将产品上下文转为设计规范、实现及真实渲染评审的前端设计指导技能。 | MIT AND Apache-2.0 | 1 | 仅索引 · 上游可访问 |
+| [TypischSinan/app-design-skill](https://github.com/TypischSinan/app-design-skill) | 0 | 聚焦用户决策、界面构图和中断恢复的移动端与响应式应用设计技能。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [whosdrix/glowup](https://github.com/whosdrix/glowup) | 1 | 网站改版技能，串联原站抓取、无障碍相关测量、美术方向和前后对比证据。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [wildcat430524/Steps2Great-skill](https://github.com/wildcat430524/Steps2Great-skill) | 2 | 可安装的一对一导师技能，保留原答、续学记录，并支持导出独立学习工作区。 | MIT AND CC-BY-4.0 | 1 | 仅索引 · 上游可访问 |
+| [zoebischuribe-cloud/postgwas-skills](https://github.com/zoebischuribe-cloud/postgwas-skills) | 5 | 两个测试版 Post-GWAS 指令技能，覆盖孟德尔随机化与共定位分析。 | MIT | 2 | 仅索引 · 上游可访问 |
 
 ## 4. 安装器 / 注册表 / 基础设施
 
@@ -5492,6 +5587,13 @@ part121（2026-11-27）新增 116 个独立仓库身份；覆盖科研行业、�
 | [wolvever/skill-cli](https://github.com/wolvever/skill-cli) | 0 | 与 Go 命令行工具配套，发现并检查已配置的 MCP 和 OpenAPI 操作后调用已授权的工具。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [xvirobotics/metaskill](https://github.com/xvirobotics/metaskill) | 74 | 用于 Claude Code 的单项元技能，可按项目需求生成代理团队、独立角色或自定义技能。 | MIT | 1 | 仅索引 · 上游可访问 |
 | [zocomputer/skills](https://github.com/zocomputer/skills) | 46 | Zo Computer 技能注册表，可按项选装官方文件、文档和图像工作流。 | MIT | 8 | 仅索引 · 上游可访问 |
+| [jianantian/orchest](https://github.com/jianantian/orchest) | 0 | 以技能为中心的 Rust 代理运行时，提供 Python 与 TypeScript SDK、技能包加载及包内工具执行。 | MIT OR Apache-2.0 | skill infrastructure; 0 bundled SKILL.md leaves | 仅索引 · 上游可访问 |
+| [neosoda/agent-commons](https://github.com/neosoda/agent-commons) | 1 | 本地技能与 MCP 配置中心，附带有界产品改进和 UX 评审两项原创技能。 | MIT | 2 | 仅索引 · 上游可访问 |
+| [RidTheWann/RCoder-Skills](https://github.com/RidTheWann/RCoder-Skills) | 1 | 跨模型工程技能，提供有界仓库勘察、专长路由、本地上下文辅助与证据交接。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [shino369/kyoten](https://github.com/shino369/kyoten) | 13 | 跨智能体工作区基础设施，提供技能安装、链接与检查，并结合任务延续和本地记忆。 | ISC | infrastructure; 3 workspace skills | 仅索引 · 上游可访问 |
+| [TheBlueHouse75/hermes-action-bridge](https://github.com/TheBlueHouse75/hermes-action-bridge) | 7 | 可移植委派技能与本地 MCP/CLI 桥接，用于已配置的 Hermes 技能、服务和异步操作。 | MIT | 1 | 仅索引 · 上游可访问 |
+| [UnderleveledBuilder/awesome-story-skills](https://github.com/UnderleveledBuilder/awesome-story-skills) | 19 | 按叙事类型和工作流问题筛选双语项目目录的故事创作方法检索技能。 | CC0-1.0 | 1 retrieval skill | 仅索引 · 上游可访问 |
+| [vladbutacu/agentkit](https://github.com/vladbutacu/agentkit) | 0 | 跨代理分发套件，包含领域路由、共享工程参考以及可选知识库工作流。 | MIT AND LicenseRef-OSNL-0.2 | 7 core routers + 1 optional vault router | 仅索引 · 上游可访问 |
 
 ## 5. 其他值得索引的技能库
 
